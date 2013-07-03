@@ -1,0 +1,24 @@
+{
+	"description": "Displays server news to the users. Acts as front page",
+
+	"author": {
+		"name": "FusionCMS",
+		"website": "http://raxezdev.com/fusioncms"
+	},
+
+	"admin": {
+		"group": {
+			"text": "Website",
+			"icon": "cursor",
+			"links": [
+				{
+					"text": "News articles",
+					"icon": "file",
+					"controller": "admin"
+				}
+			]
+		}
+	},
+	
+	"enabled": true
+}

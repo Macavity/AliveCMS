@@ -1,0 +1,1 @@
+{"name":"Donate panel","description":"PayPal and PayGol donation system","author":{"name":"FusionCMS","website":"http:\/\/raxezdev.com\/fusioncms"},"admin":{"group":{"text":"Store","icon":"share","links":[{"text":"Donation log","icon":"list","controller":"admin"}]}},"enabled":true}

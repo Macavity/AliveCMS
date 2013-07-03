@@ -1,0 +1,11 @@
+{
+    "name": "Server Pages",
+    "description": "Controller for some specific server pages",
+
+    "author": {
+        "name": "Macavity",
+        "website": "http://www.wow-alive.de/"
+    },
+    
+    "enabled": true
+}

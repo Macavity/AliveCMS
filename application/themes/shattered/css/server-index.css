@@ -1,0 +1,93 @@
+@charset "utf-8";
+/* CSS Document */
+
+#content .content-top { background: url("http://forum.wow-alive.de/static-wow/images/game/landing/bg-top.jpg") 0 0 no-repeat; }
+#content .content-bot {background: url("http://forum.wow-alive.de/static-wow/images/game/landing/bg-bottom.jpg") 0 100% no-repeat; min-height: 900px; }
+
+#content .left-col { width: 647px; float: left; }
+#content .right-col { width: 345px; float: left; }
+
+.section-title {
+height: 253px;
+padding-left: 28px;
+}
+.section-title span {
+color: #EFE3D2;
+font-size: 26px;
+line-height: 32px;
+display: block;
+padding-top: 40px;
+}
+.section-title p {
+color: #D3AC6B;
+font-size: 12px;
+line-height: 18px;
+margin: 10px 0 0 0;
+width: 330px;
+}
+.main-game-contents {width:647px;}
+.main-content-banner {width:277px; height:170px; display:block; border:1px solid #372511; margin-bottom:28px; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px; box-shadow: 0 0 6px #000; -moz-box-shadow: 0 0 6px #000; -webkit-box-shadow: 0 0 6px #000;}
+a.main-content-banner{position:relative;}
+.main-content-banner.left-bnr {float:left; margin-left:27px;}
+.main-content-banner.right-bnr {float:right; margin-right:27px;}
+.main-content-banner:hover {border:1px solid #cd9000; background-position:0 -170px;}
+.main-content-banner .banner-title {font-size:18px; display:block; margin:85px 0 0 14px;}
+.main-content-banner .banner-desc {color:#b79855; font-size:11px; line-height:12px; display:block; width:177px; margin:3px 0 0 14px;}
+.main-content-banner:hover .banner-title,
+.main-content-banner:hover .banner-desc,
+.main-content-banner:hover .view-all {color:#fff;}
+.main-content-banner .panel {width: 277px; height: 64px; background: url("http://forum.wow-alive.de/static-wow/images/layout/bg-panel-layout.png") repeat scroll 0% 0% transparent; position: absolute; bottom: 0px; -moz-border-radius: 0pt 0pt 3px 3px; padding: 8px 0pt 14px;}
+.main-content-banner .panel .banner-title{margin-top: 0px;}
+.main-content-banner .panel .wrapper {margin: 0px;}
+.main-content-banner .panel .view-all {
+	margin-left: 14px;
+	display: block;
+	float: left;
+	background: url("http://forum.wow-alive.de/static-wow/images/community/community-index-sprite.png") 100% -866px no-repeat;
+	padding-right: 13px;
+	max-width: 180px;
+}
+
+.sub-game-contents {
+    width: 307px;
+    margin: 0 0 44px 21px;
+}
+.game-services {
+    margin-top: 40px;
+}
+
+.sidebar-module {width:307px; margin:0 0 32px 21px;}
+.sidebar-module .sidebar-title {border-bottom:2px solid #552B12; padding-bottom:6px;}
+.sidebar-module .sidebar-title span {color:#f0e29a; text-transform:uppercase; letter-spacing:-0.5px; font-size:14px;}
+.sidebar-module ul  {margin-top:10px;}
+.sidebar-module ul li {padding: 1px 0;}
+.sidebar-module ul a {line-height:24px; background: url("http://portal.wow-alive.de/templates/Shattered-World/images/services-sprite.gif") no-repeat; display:block; width:100%;}
+.sidebar-module ul a:hover {border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px; background-color:#3f1806;}
+.sidebar-module ul a span {margin-left:46px;}
+
+.sidebar-module .account-security {background-position:7px 2px;}
+.sidebar-module .account-recovery {background-position:7px -49px;}
+.sidebar-module .account-authenticator {background-position:7px -931px;}
+.sidebar-module .account-authenticator-faq {background-position:7px -983px;}
+.sidebar-module .account-free-matrix-card {background-position:7px -196px;}
+.sidebar-module .account-mobile-security-token {background-position:7px -1222px;}
+.sidebar-module .account-customer-service-window {background-position:7px -582px;}
+.sidebar-module .get-wow-buy {background-position:7px -1039px;}
+.sidebar-module .get-wow-gift {background-position:7px -1099px;}
+.sidebar-module .get-wow-free-trial {background-position:7px -243px;}
+.sidebar-module .get-wow-online-digital {background-position:7px -293px;}
+.sidebar-module .get-wow-language-pack {background-position:7px -341px;}
+.sidebar-module .character-transfer {background-position:7px -385px;}
+.sidebar-module .character-name-change {background-position:7px -430px;}
+.sidebar-module .character-race-change {background-position:7px -480px;}
+.sidebar-module .character-faction-change {background-position:7px -532px;}
+.sidebar-module .character-customization {background-position:7px -583px;}
+.sidebar-module .character-free-move {background-position:7px -632px;}
+.sidebar-module .character-ptr {background-position:7px -682px;}
+.sidebar-module .etc-raf {background-position:7px -733px;}
+.sidebar-module .etc-wow-magazine {background-position:7px -783px;}
+.sidebar-module .etc-sor {background-position:7px -835px;}
+.sidebar-module .etc-wow-remote {background-position:7px -1163px;}
+.sidebar-module .etc-mobile-armory {background-position:7px -1221px;}
+.sidebar-module .etc-rewards-visa {background-position:7px -885px;}
+.sidebar-module .etc-anti-gold {background-position:7px -1280px;}

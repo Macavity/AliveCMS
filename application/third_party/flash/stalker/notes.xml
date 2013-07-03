@@ -1,0 +1,7 @@
+<notes>
+	<!--note map="<MAPID>" xset="<INGAME X>" yset="<INGAME Y>" icon="<ICON ID>" desc="<LONG DESCRIPTION>" title="<SHORT TITLE>" align="<ALIGN ID 1,2,3,4>" /-->
+	<!--
+	<note map="530" xset="-2863" yset="4430" icon="30" desc="Victims of the admin are restin here in pieces o_o" title="Graveyard of admin" align="1"/>
+	<note map="0" xset="-3735" yset="-1324" icon="12" desc="Lots of fun. You have to believe me!<BR>Not joking dude!!! Why don't you believe me? Burn in hell!" title="Funny spot" align="3"/> 
+	-->
+</notes>

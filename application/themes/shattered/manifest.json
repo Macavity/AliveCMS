@@ -1,0 +1,19 @@
+{
+	"name": "Shattered Alive",
+	"author": "Macavity",
+	"website": "http://www.wow-alive.de",
+	
+	"favicon": "favicon.ico",
+
+	"normal_avatar": "avatars/0_normal.jpg",
+	"small_avatar": "avatars/0_small.jpg",
+
+	"slider_text": {
+		"next": "Vor",
+		"previous": "Zurück"
+	},
+
+	"slider_id": "slider_bg",
+	"screenshot": "images/screenshot.jpg",
+	"blank_header": ""
+}

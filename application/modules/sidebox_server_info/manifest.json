@@ -1,0 +1,9 @@
+{
+    "name": "Sidebox: Server Info",
+    "description": "Shows some general information about the server",
+    "author": {
+        "name": "Macavity",
+        "website": "http://www.wow-alive.de"
+    },
+    "enabled": "false"
+}

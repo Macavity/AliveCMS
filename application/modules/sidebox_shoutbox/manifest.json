@@ -1,0 +1,11 @@
+{
+	"name": "Sidebox: shoutbox",
+	"description": "Lets users express themselves in the public shoutbox",
+
+	"author": {
+		"name": "FusionCMS",
+		"website": "http://raxezdev.com/fusioncms"
+	},
+	
+	"enabled": true
+}

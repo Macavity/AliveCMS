@@ -1,0 +1,1 @@
+{"name":"Item store","description":"Lets your users purchase ingame items from a web store","author":{"name":"FusionCMS","website":"http:\/\/raxezdev.com\/fusioncms"},"admin":{"group":{"text":"Store","icon":"share","links":[{"text":"Items","icon":"tag","controller":"admin_items"},{"text":"Orders","icon":"users","controller":"admin_orders"}]}},"enabled":true}

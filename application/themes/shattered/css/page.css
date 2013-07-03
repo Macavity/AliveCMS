@@ -1,0 +1,123 @@
+/* Account Service Portal */
+#content .left-col {width:617px; float:left; margin-left: 30px;}
+#content .right-col {width:345px; float:left;}
+
+
+#content .section-title {
+    width:610px; padding:0 0 0 28px; padding-bottom:30px; float:left; }
+#content .section-title span {color:#efe3d2; font-size:26px; line-height:32px; letter-spacing:-0.5px; margin-top:20px; display:inline-block;}
+#content .section-title p {color:#d3ac6b; font-size:12px; line-height:18px; margin:6px 0 0 0;}
+
+#content .services-content,
+#content #content_ajax{ margin-top: 30px; margin-right: 10px; } 
+
+#content .services-content .sub-title{ margin: 10px 0px; }
+#content .services-content .sub-title span{
+    color:#f0e29a; text-transform:uppercase; letter-spacing:-0.5px; font-size:14px;
+}
+
+#account-index .content-top { background: url("../images/layout/bg-services-top.jpg") 0 0 no-repeat; }
+
+#account-index #content .content-top {background: url("../images/layout/bg-services-top.jpg") 0 0 no-repeat; }
+#account-index #content .bg-body {background: url("../images/layout/bg-content-body.jpg") 0 0 repeat-y; height:100%;}
+#account-index #content .bg-bottom {background: url("../images/layout/bg-content-bottom.jpg") 0 100% no-repeat; height:100%;}
+#account-index #content .contents-wrapper {background: url("../images/layout/bg-services-top.jpg") 0 -40px no-repeat; padding-bottom:60px;  height:100%;}
+
+#account-index #content .section-title {width:330px; padding:0 0 0 28px; padding-bottom:70px; float:left; min-height:183px;}
+#account-index #content .section-title span {color:#efe3d2; font-size:26px; line-height:32px; letter-spacing:-0.5px; margin-top:40px; display:inline-block;}
+#account-index #content .section-title p {color:#d3ac6b; font-size:12px; line-height:18px; margin:6px 0 0 0;}
+#account-index #content .left-col {width:647px; float:left; margin-left: 0px;}
+
+/* Account Service Portal Misc */
+.main-services {width:647px;}
+.main-services-banner {width:277px; height:170px; display:block; position:relative; border:1px solid #372511; margin-bottom:28px; border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px; box-shadow: 0 0 6px #000; -moz-box-shadow: 0 0 6px #000; -webkit-box-shadow: 0 0 6px #000;}
+.main-services-banner.left-bnr {float:left; margin-left:27px;}
+.main-services-banner.right-bnr {float:right; margin-right:27px;}
+.main-services-banner:hover {border:1px solid #cd9000; background-position:0 -170px;}
+.main-services-banner .banner-title {font-size:18px; display:block; margin:85px 0 0 14px;}
+.main-services-banner .banner-desc {color:#b79855; font-size:11px; line-height:12px; display:block; width:177px; margin:3px 0 0 14px;}
+.main-services-banner:hover .banner-desc {color:#fff;}
+
+.main-services-banner .panel {
+    background: url("../images/layout/bg-panel-layout.png") repeat scroll 0 0 transparent;
+    border-radius: 0 0 3px 3px;
+    bottom: 0;
+    height: 64px;
+    padding: 8px 0 14px;
+    position: absolute;
+    width: 277px;
+}
+.main-services-banner .panel .wrapper { margin: 0; }
+.main-services-banner .panel .banner-title { margin-top: 0; }
+
+.sidebar-module {width:307px; margin:0 0 32px 21px;}
+.sidebar-module .sub-title {border-bottom:2px solid #552B12; padding-bottom:6px;}
+.sidebar-module .sub-title span {color:#f0e29a; text-transform:uppercase; letter-spacing:-0.5px; font-size:14px;}
+.sidebar-module ul  {margin-top:10px;}
+.sidebar-module ul li {padding: 1px 0;}
+.sidebar-module ul a {line-height:24px; background: url("../images/icons/services-sprite.gif") no-repeat; display:block; width:100%;}
+.sidebar-module ul a:hover {border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px; background-color:#3f1806;}
+.sidebar-module ul a span {margin-left:46px;}
+
+.sidebar-module .account-security {background-position:7px 2px;}
+.sidebar-module .account-recovery {background-position:7px -49px;}
+.sidebar-module .account-authenticator {background-position:7px -931px;}
+.sidebar-module .account-authenticator-faq {background-position:7px -983px;}
+.sidebar-module .account-free-matrix-card {background-position:7px -196px;}
+.sidebar-module .account-mobile-security-token {background-position:7px -1222px;}
+.sidebar-module .account-customer-service-window {background-position:7px -582px;}
+.sidebar-module .get-wow-buy {background-position:7px -1039px;}
+.sidebar-module .get-wow-gift {background-position:7px -1099px;}
+.sidebar-module .get-wow-free-trial {background-position:7px -243px;}
+.sidebar-module .get-wow-online-digital {background-position:7px -293px;}
+.sidebar-module .get-wow-language-pack {background-position:7px -341px;}
+.sidebar-module .character-transfer {background-position:7px -385px;}
+.sidebar-module .character-name-change {background-position:7px -430px;}
+.sidebar-module .character-race-change {background-position:7px -480px;}
+.sidebar-module .character-faction-change {background-position:7px -532px;}
+.sidebar-module .character-customization {background-position:7px -583px;}
+.sidebar-module .character-free-move {background-position:7px -632px;}
+.sidebar-module .character-ptr {background-position:7px -682px;}
+.sidebar-module .etc-raf {background-position:7px -733px;}
+.sidebar-module .etc-wow-magazine {background-position:7px -783px;}
+.sidebar-module .etc-sor {background-position:7px -835px;}
+.sidebar-module .etc-wow-remote {background-position:7px -1163px;}
+.sidebar-module .etc-mobile-armory {background-position:7px -1221px;}
+.sidebar-module .etc-rewards-visa {background-position:7px -885px;}
+.sidebar-module .etc-anti-gold {background-position:7px -1280px;}
+
+/* Account Manage */
+
+/*#content .content-top{
+    background: url("http://eu.battle.net/wow/static/images/community/bg-community-top.jpg") 0 0 no-repeat;
+}*/
+#content .content-bot {
+    background: url("../images/layout/content-topbot.jpg") -992px bottom no-repeat;
+    min-height: 600px;
+}
+
+#content .bg-body {
+    width: 100%;
+    background: url("../images/layout/bg-community-body2.jpg") 0 0 repeat-y;
+}
+#content .body-wrapper {
+    width: 100%;
+    background: url("../images/layout/bg-community-body3.jpg") 0 100% no-repeat;
+    padding-bottom: 30px;
+    margin-left: 0px;
+    margin-top: 0px;
+    margin-right: 0px;
+}
+
+#content .contents-wrapper {
+    width: 100%;
+    background: url("../images/layout/bg-community-body1.jpg") 0 0 no-repeat;
+    min-height: 900px;
+}
+
+#content .section-title p {
+    color: #D3AC6B;
+    font-size: 12px;
+    line-height: 18px;
+    margin: 6px 0 0 0;
+}

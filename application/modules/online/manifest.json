@@ -1,0 +1,11 @@
+{
+	"name": "Online players",
+	"description": "Displays all online characters",
+
+	"author": {
+		"name": "FusionCMS",
+		"website": "http://raxezdev.com/fusioncms"
+	},
+	
+	"enabled": true
+}

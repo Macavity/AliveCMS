@@ -1,0 +1,25 @@
+{
+	"name": "Sidebox: poll",
+	"description": "Allows your users to vote on certain questions",
+
+	"author": {
+		"name": "FusionCMS",
+		"website": "http://raxezdev.com/fusioncms"
+	},
+
+	"admin": {
+		"group": {
+			"text": "Website",
+			"icon": "cursor",
+			"links": [
+				{
+					"text": "Manage polls",
+					"icon": "heart",
+					"controller": "admin"
+				}
+			]
+		}
+	},
+	
+	"enabled": true
+}

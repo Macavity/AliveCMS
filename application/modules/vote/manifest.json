@@ -1,0 +1,28 @@
+{
+	"name":"Vote panel",
+	"description":"Obtain vote points by voting",
+	"author":
+	{
+		"name":"FusionCMS",
+		"website":"http:\/\/raxezdev.com\/fusioncms"
+	},
+	"admin":
+	{
+		"group":
+		{
+			"text":"Store",
+			"icon":"share",
+			"links":
+			[
+				
+				{
+					"text":"Topsites",
+					"icon":"link",
+					"controller":"admin"
+				}
+			]
+			
+		}
+	},
+	"enabled":true
+}

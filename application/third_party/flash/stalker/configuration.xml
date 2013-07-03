@@ -1,0 +1,17 @@
+<options>
+	<option name="Realmname" value="WoW Alive - Norganon" />
+	<option name="WOTLK" value="true" />
+	<option name="Filter" value="true" />
+	<option name="DotSize" value="100" />
+	<option name="Library" value="http://cms.wow-alive.de/application/third_party/flash/stalker/" />
+	<option name="XMLPath" value="/application/third_party/flash/stalker/stats.xml" />
+	<option name="OnPlayerClickURL" value="http://cms.wow-alive.de/character/Norganon/%playername%" />
+	<option name="Timer" value="300" />
+	<!--
+	<option name="MyNotes" value="true" file="notes.xml" />
+	-->
+	<option name="Instances" value="true" file="instances.xml" />
+	<option name="Zones" value="true" file="zones.xml" />
+	<option name="Camouflage" value="true" file="circles.xml" />
+	<option name="MaxLevel" value="80" />
+</options>

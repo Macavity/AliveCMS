@@ -1,0 +1,34 @@
+@charset "utf-8";
+/* CSS Document */
+
+.sidebar-module .content-block {width:100%; }
+.sidebar-module .content-block a,
+.sidebar-module .content-block .block {border-bottom:1px solid #2e2218; padding:11px 0 11px 90px; display: block;}
+.sidebar-module .content-block a:hover {background-color:#2b1507;}
+.sidebar-module .content-block a,
+.sidebar-module .content-block .block {display:block; background:url("http://forum.wow-alive.de/static-wow/images/game/landing/sub-contents-sprite.gif") 0 0 no-repeat; padding-left:90px;}
+.sidebar-module .content-block .block a { padding: 0; display: inline; background: none; border: 0; }
+.sidebar-module .content-block .content-title {font-size:13px; line-height:22px;margin-left: 0px;}
+.sidebar-module .content-block .content-desc {font-size:11px; line-height:14px; color:#a4704e; display:block; padding-bottom:5px;margin-left: 0px;}
+.sidebar-module .content-block .content-desc em {font-size:11px; color:#80461f; display:block; margin-bottom:2px;}
+.sidebar-module .content-block a:hover .content-desc {color:#fff;}
+.sidebar-module .content-block ul li a.sub-list {background:url("http://forum.wow-alive.de/static-wow/images/icons/bullet2.gif") 0 4px no-repeat; padding-left:15px; line-height:15px; font-size:11px; margin-top:1px;}
+
+.sidebar-module .content-block .content-1 {background-position:3px -3px;}
+/*.sidebar-module .content-block .content-1:hover {background-position:3px -312px;}*/
+.sidebar-module .content-block .content-2 {background-position:4px -623px;}
+.sidebar-module .content-block .content-3 {background-position:3px -840px;}
+
+
+.achievements a {
+font-size: 16px;
+font-family: 'Arial Black', Arial, sans-serif;
+font-weight: bold;
+color: white;
+padding-left: 11px;
+background: url("/images/icons/achievements.gif") left 7px no-repeat;
+line-height: 23px;
+}
+
+/* average item level */
+.best{ font-size: 16px; font-family: 'Arial Black', Verdana, Arial, sans-serif; font-weight: bold; line-height: 32px; margin-right: 5px; letter-spacing: -0.025em; border-bottom: 0; }

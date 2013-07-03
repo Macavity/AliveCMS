@@ -1,0 +1,367 @@
+<?php
+/**
+ * @package FusionCMS
+ * @version 6.0
+ * @author Jesper Lindström
+ * @author Xavier Geerinck
+ * @link http://raxezdev.com/fusioncms
+ */
+class Administrator
+{
+	protected $CI;
+	private $theme_path;
+	private $modules;
+	private $menu;
+	private $title;
+	private $currentPage;
+	private $version;
+
+	/**
+	 * Define our paths and objects
+	 */
+	public function __construct()
+	{
+		$this->CI = &get_instance();
+		$this->theme_path = "application/themes/admin/";
+		$this->modules = array();
+		$this->menu = array();
+		$this->version = $this->CI->config->item('v');
+
+		$this->requireRank();
+
+		if(!$this->CI->input->is_ajax_request() && !isset($_GET['is_json_ajax']))
+		{
+			$this->loadModules();
+			$this->getMenuLinks();
+		}
+	}
+
+	/**
+	 * Make sure only admins and owners can access
+	 */
+	private function requireRank()
+	{
+		if((!$this->CI->user->isAdmin() && !$this->CI->user->isOwner()) || !$this->CI->session->userdata('admin_access'))
+		{
+			if($this->CI->input->post('send'))
+			{
+				$this->logIn();
+			}
+			else
+			{
+				$data = array(
+					"url" => $this->CI->template->page_url,
+					"isOnline" => $this->CI->user->isOnline(),
+					"username" => $this->CI->user->getUsername()
+				);
+
+				$output = $this->CI->smarty->view($this->theme_path."login.tpl", $data, true);
+
+				die($output);
+			}
+		}
+	}
+
+	/**
+	 * Make sure only owners can access
+	 */
+	public function requireOwner()
+	{
+		if(!$this->CI->user->isOwner())
+		{
+			$content = $this->box('No access', '<div style="padding:10px;">Owner rank is required to access this page</div>');
+
+			$this->view($content);
+		}
+	}
+
+	/**
+	 * Handle admin log ins
+	 */
+	private function logIn()
+	{
+		$username = $this->CI->input->post('username');
+		$password = $this->CI->input->post('password');
+		$security_code = $this->CI->input->post('security_code');
+
+		if(!$this->CI->user->isOnline())
+		{
+			$sha_pass_hash = $this->CI->user->createHash($username, $password);
+			$check = $this->CI->user->setUserDetails($username, $sha_pass_hash);
+
+			if($check == 1)
+			{
+				die("username");
+			}
+			elseif($check == 2)
+			{
+				die("password");
+			}
+		}
+
+		if($security_code == $this->CI->config->item('security_code'))
+		{
+			$this->CI->session->set_userdata(array('admin_access' => true));
+
+			die("welcome");
+		}
+		else
+		{
+			die("key");
+		}
+	}
+
+	/**
+	 * Add an extra page title
+	 * @param String $title
+	 */
+	public function setTitle($title)
+	{
+		$this->title = $title . " - ";
+	}
+
+	/**
+	 * Load and read all module manifests
+	 */
+	public function loadModules()
+	{
+		if(empty($this->modules))
+		{
+			foreach(glob("application/modules/*") as $file)
+			{
+				if(is_dir($file))
+				{
+					$name = $this->getModuleName($file);
+
+					$this->modules[$name] = @file_get_contents($file . "/manifest.json");
+				
+					if(!$this->modules[$name])
+					{
+						die("The module <b>".$name."</b> is missing manifest.json");
+					}
+					else
+					{
+						$this->modules[$name] = json_decode($this->modules[$name], true);
+
+						// Add the module folder name as name if none was specified
+						if(!array_key_exists("name", $this->modules[$name]))
+						{
+							$this->modules[$name]['name'] = $name;
+						}
+						
+						// Add the enabled disabled setting, DEFAULT: disabled
+						if(!array_key_exists("enabled", $this->modules[$name]))
+						{
+							$this->modules[$name]["enabled"] = false;
+						}
+
+						// Add default description if none was specified
+						if(!array_key_exists("description", $this->modules[$name]))
+						{
+							$this->modules[$name]['description'] = "This module has no description";
+						}
+
+						// Check if the module has any configs
+						if($this->hasConfigs($name))
+						{
+							$this->modules[$name]['has_configs'] = true;
+						}
+						else
+						{
+							$this->modules[$name]['has_configs'] = false;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Check if the module has any configs
+	 * @param String $moduleName
+	 * @return Boolean
+	 */
+	public function hasConfigs($moduleName)
+	{
+		if(file_exists("application/modules/".$moduleName."/config"))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * Get the module name out of the path
+	 * @param String $path
+	 * @return String
+	 */
+	private function getModuleName($path = "")
+	{
+		return preg_replace("/application\/modules\//", "", $path);
+	}
+
+	/**
+	 * Get the menu of tools
+	 * @return Array
+	 */
+	private function getMenuLinks()
+	{
+		// Loop through all modules that have manifests
+		foreach($this->modules as $module => $manifest)
+		{
+			// Check if the admin and group keys exist
+			if(array_key_exists("enabled", $manifest)
+			&& $manifest['enabled'] == true
+			&& array_key_exists("admin", $manifest)
+			&& array_key_exists("group", $manifest['admin']))
+			{
+				// Check if the group name doesn't exist
+				if(!array_key_exists($manifest['admin']['group']['text'], $this->menu))
+				{
+					// Create a new entry and populate it with the icon and an empty array for the links
+					$this->menu[$manifest['admin']['group']['text']] = array(
+						'links' => array(),
+						'icon' => $manifest['admin']['group']['icon']
+					);
+				}
+
+				// Loop through all links
+				foreach($manifest['admin']['group']['links'] as $key => $link)
+				{
+					$manifest['admin']['group']['links'][$key]['module'] = $module;
+
+					// Find out if this is the current link
+					if($module == $this->CI->router->fetch_module())
+					{
+						$url = $this->CI->router->fetch_class();
+
+						if($this->CI->router->fetch_method() != "index")
+						{
+							$url .= "/".$this->CI->router->fetch_method();
+						}
+
+						if($url == $manifest['admin']['group']['links'][$key]['controller'])
+						{
+							$manifest['admin']['group']['links'][$key]['active'] = true;
+							$this->currentPage = $module."/".$manifest['admin']['group']['links'][$key]['controller'];
+						}
+					}
+
+					// Add them to the array
+					array_push($this->menu[$manifest['admin']['group']['text']]['links'], $manifest['admin']['group']['links'][$key]);
+				}
+
+				// Work-around to highlight dashboard - since it is not in the manifest
+				if(empty($this->currentPage) && $this->CI->router->fetch_module() == "admin")
+				{
+					switch($this->CI->router->fetch_class())
+					{
+						case "admin": $this->currentPage = "admin/"; break;
+						case "settings": $this->currentPage = "admin/settings"; break;
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Get the modules and their manifests as an array
+	 * @return Array
+	 */
+	public function getModules()
+	{
+		return $this->modules;
+	}
+
+	/**
+	 * Loads the template
+	 * @param String $content The page content
+	 * @param String $css Full path to your css file
+	 * @param String $js Full path to your js file
+	 */
+	public function view($content, $css = false, $js = false)
+	{
+		if($this->CI->input->is_ajax_request() && isset($_GET['is_json_ajax']) && $_GET['is_json_ajax'] == 1)
+		{
+			$array = array(
+				"title" => ($this->title) ? $this->title : "",
+				"content" => $content,
+				"js" => $js,
+				"css" => $css
+			);
+
+			die(json_encode($array));
+		}
+	
+		// Gather the theme data
+		$data = array(
+			"page" => '<div id="content_ajax">'.$content.'</div>',
+			"url" => $this->CI->template->page_url,
+			"menu" => $this->menu,
+			"title" => $this->title,
+			"extra_js" => $js,
+			"extra_css" => $css,
+			"nickname" => $this->CI->user->getNickname(),
+			"current_page" => $this->currentPage
+		);
+
+		// Load the main template
+		$output = $this->CI->smarty->view($this->theme_path."template.tpl", $data, true);
+
+		die($output);
+	}
+
+	/**
+	 * Shorthand for loading a content box
+	 * @param String $title
+	 * @param String $body
+	 * @param Boolean $full
+	 * @return String
+	 */
+	public function box($title, $body, $full = false, $css = false, $js = false)
+	{
+		$data = array(
+			"headline" => $title, 
+			"content" => $body
+		);
+
+		$page = $this->CI->smarty->view($this->theme_path."box.tpl", $data, true);
+
+		if($full)
+		{
+			$this->view($page, $css, $js);
+		}
+		else
+		{
+			return $page;
+		}
+	}
+
+	/**
+	 * Get the FusionCMS version
+	 * @return Float
+	 */
+	public function getVersion()
+	{
+		if($this->version === 6.0)
+		{
+			return '6.0';
+		}
+		else
+		{
+			return $this->version;
+		}
+	}
+	
+	/**
+	 * Get if the module is enabled or not
+	 * @return Boolean
+	 */
+	public function isEnabled($moduleName)
+	{
+		return $this->modules[$moduleName]["enabled"];
+	}
+}

@@ -1,0 +1,25 @@
+{
+	"name": "Custom pages",
+	"description": "Allows you to create custom pages",
+
+	"author": {
+		"name": "FusionCMS",
+		"website": "http://raxezdev.com/fusioncms"
+	},
+
+	"admin": {
+		"group": {
+			"text": "Website",
+			"icon": "cursor",
+			"links": [
+				{
+					"text": "Custom pages",
+					"icon": "windows",
+					"controller": "admin"
+				}
+			]
+		}
+	},
+	
+	"enabled": true
+}

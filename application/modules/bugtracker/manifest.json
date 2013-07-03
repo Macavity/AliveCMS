@@ -1,0 +1,11 @@
+{
+    "name": "Bugtracker",
+    "description": "Simple Bugtracker with basic functionality",
+
+    "author": {
+        "name": "Macavity",
+        "website": "http://www.wow-alive.de"
+    },
+    
+    "enabled": true
+}

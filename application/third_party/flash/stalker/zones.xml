@@ -1,0 +1,88 @@
+<!--
+# Do NOT add more records!
+# Do NOT remove any record without creating a new one with the same ID!
+# Do NOT delete any option inside a record without adding it back later!
+# pos1 and pos2 on the map is the position of the dot when you are standing at x and y in the game
+# Walking T (on x or y) in game means the dot will move T*scl pixels on the map
+# Structure: <zone id="ID" map="MAPID" pos1="POSITION IN FLASH X" pos2="POSITION IN FLASH Y" x="INGAME X" y="INGAME Y" scl="SCALE RATE" file="IMAGE FILE"  name="ZONE NAME" />
+-->
+<zones version="1.0" author="Syrius Amis">
+	<zone id="1" map="0" pos1="360" pos2="408" x="-12000" y="-2500" scl="0.285" file="blasted_lands.jpg" name="The Blasted Lands" />
+	<zone id="2" map="0" pos1="333" pos2="423" x="-14000" y="0" scl="0.15" file="stranglethorn_vale.jpg" name="Stranglethoen Vale" />
+	<zone id="3" map="0" pos1="114" pos2="159" x="-10000" y="-2500" scl="0.416" file="swamp_of_sorrows.jpg" name="Swamp of Sorrows" />
+	<zone id="4" map="0" pos1="368" pos2="509" x="-11200" y="-1800" scl="0.383" file="deadwind_pass.jpg" name="Deadwind Pass" />
+	<zone id="5" map="0" pos1="754" pos2="454" x="-11000" y="-1300" scl="0.354" file="duskwood.jpg" name="Duskwood" />
+	<zone id="6" map="0" pos1="549" pos2="436" x="-11000" y="1000" scl="0.274" file="westfall.jpg" name="Westfall" />
+	<zone id="7" map="0" pos1="187" pos2="449" x="-9600" y="-2000" scl="0.44" file="redridge_mountains.jpg" name="Redridge Mountains" />
+	<zone id="8" map="0" pos1="285" pos2="569" x="-10000" y="500" scl="0.275" file="elwynn_forest.jpg" name="Elwynn Forest" />
+	<zone id="9" map="0" pos1="403" pos2="153" x="-7500" y="-1500" scl="0.327" file="burning_steppes.jpg" name="Burning Steppes" />
+	<zone id="10" map="0" pos1="289" pos2="170" x="-6500" y="-1000" scl="0.428" file="searing_gorge.jpg" name="Searing Gorge" />
+	<zone id="11" map="0" pos1="85" pos2="427" x="-7000" y="-2300" scl="0.384" file="badlands.jpg" name="Badlands" />
+	<zone id="12" map="0" pos1="247" pos2="279" x="-5300" y="-2700" scl="0.346" file="loch_modan.jpg" name="Loch Modan" />
+	<zone id="13" map="0" pos1="349" pos2="313" x="-5500" y="0" scl="0.193" file="dun_morogh.jpg" name="Dun Morogh" />
+	<zone id="14" map="0" pos1="187" pos2="427" x="-4000" y="-1200" scl="0.23" file="wetlands.jpg" name="Wetlands" />
+	<zone id="15" map="0" pos1="245" pos2="311" x="-1300" y="-1800" scl="0.265" file="arathi_highlands.jpg" name="Arathi Highlands" />
+	<zone id="16" map="0" pos1="105" pos2="363" x="0" y="-2000" scl="0.247" file="hinterlands.jpg" name="The Hinterlands" />
+	<zone id="17" map="0" pos1="224" pos2="343" x="-750" y="310" scl="0.298" file="hillsbrad_foothills.jpg" name="Hillsbrad Foothills" />
+	<zone id="18" map="0" pos1="265" pos2="508" x="0" y="0" scl="0.34" file="alterac_mountains.jpg" name="Alterac Mountains" />
+	<zone id="19" map="0" pos1="557" pos2="490" x="-500" y="1000" scl="0.227" file="silverpine_forest.jpg" name="Silverpine Forest" />
+	<zone id="20" map="0" pos1="770" pos2="434" x="1800" y="-600" scl="0.213" file="tirisfal_glades.jpg" name="Tirisfal Glades" />
+	<zone id="21" map="0" pos1="649" pos2="301" x="2000" y="-2500" scl="0.222" file="western_plaguelands.jpg" name="Western Plaguelands" />
+	<zone id="22" map="0" pos1="201" pos2="445" x="2000" y="-3000" scl="0.245" file="eastern_plaguelands.jpg" name="Eastern Plaguelands" />
+	<zone id="23" map="1" pos1="420" pos2="283" x="-7000" y="1000" scl="0.275" file="silithus.jpg" name="Silithus" />
+	<zone id="24" map="1" pos1="526" pos2="266" x="-7000" y="-1500" scl="0.258" file="un_goro_crater.jpg" name="Un'goro Crater" />
+	<zone id="25" map="1" pos1="524" pos2="223" x="-7500" y="-4000" scl="0.138" file="tanaris.jpg" name="Tanaris" />
+	<zone id="26" map="1" pos1="558" pos2="329" x="-5500" y="-3000" scl="0.218" file="thousand_needles.jpg" name="Thousand Needles" />
+	<zone id="27" map="1" pos1="612" pos2="365" x="-5000" y="1000" scl="0.138" file="feralas.jpg" name="Feralas" />
+	<zone id="28" map="1" pos1="550" pos2="267" x="-3500" y="-4000" scl="0.182" file="dustwallow_marsh.jpg" name="Dustwallow Marsh" />
+	<zone id="29" map="1" pos1="473" pos2="225" x="-1500" y="-500" scl="0.187" file="mulgore.jpg" name="Mulgore" />
+	<zone id="30" map="1" pos1="474.5" pos2="308.5" x="-1000" y="2000" scl="0.212" file="desolace.jpg" name="Desolace" />
+	<zone id="31" map="1" pos1="457.5" pos2="325.5" x="0" y="-4500" scl="0.181" file="durotar.jpg" name="Durotar" />
+	<zone id="32" map="1" pos1="511" pos2="227.5" x="-800" y="-2800" scl="0.095" file="barrens.jpg" name="The Barrens" />
+	<zone id="33" map="1" pos1="535.5" pos2="274.5" x="1500" y="500" scl="0.197" file="stonetalon_mountains.jpg" name="Stonetalon Mountains" />
+	<zone id="34" map="1" pos1="321.5" pos2="442.5" x="3000" y="-5000" scl="0.19" file="azshara.jpg" name="Azshara" />
+	<zone id="35" map="1" pos1="445.5" pos2="359.5" x="2500" y="-1000" scl="0.166" file="ashenvale.jpg" name="Ashenvale" />
+	<zone id="36" map="1" pos1="496.6" pos2="272.5" x="6500" y="-4000" scl="0.136" file="winterspring.jpg" name="Winterspring" />
+	<zone id="37" map="1" pos1="437" pos2="353" x="5000" y="-1000" scl="0.166" file="felwood.jpg" name="Felwood" />
+	<zone id="38" map="1" pos1="429" pos2="339" x="6000" y="0" scl="0.147" file="darkshore.jpg" name="Darkshore" />
+	<zone id="39" map="1" pos1="671" pos2="286" x="7800" y="-3000" scl="0.415" file="moonglade.jpg" name="Moonglade" />
+	<zone id="40" map="1" pos1="340" pos2="344" x="10000" y="2000" scl="0.186" file="teldrassil.jpg" name="Teldrassil" />
+	<zone id="41" map="530" pos1="353" pos2="509" x="6500" y="-6500" scl="0.29" file="ghostlands.jpg" name="Ghostlands" />
+	<zone id="42" map="530" pos1="293" pos2="492" x="8500" y="-6000" scl="0.195" file="eversong_woods.jpg" name="Eversong Woods" />
+	<zone id="43" map="530" pos1="344" pos2="450" x="12000" y="-6500" scl="0.288" file="sunwell.jpg" name="Isle of Quel'Danas" />
+	<zone id="44" map="530" pos1="823" pos2="280" x="-4000" y="-14000" scl="0.236" file="azuremyst_isle.jpg" name="Azuremyst Isle" />
+	<zone id="45" map="530" pos1="273" pos2="364" x="-2000" y="-11000" scl="0.290" file="bloodmyst_isle.jpg" name="Bloodmyst Isle" />
+	<zone id="46" map="530" pos1="470" pos2="268" x="0" y="3000" scl="0.186" file="hellfire_peninsula.jpg" name="Hellfire Peninsula" />
+	<zone id="47" map="530" pos1="645" pos2="269" x="-3500" y="500" scl="0.175" file="shadowmoon_valley.jpg" name="Shadowmoon Valley" />
+	<zone id="48" map="530" pos1="470" pos2="366" x="0" y="7000" scl="0.191" file="zangarmarsh.jpg" name="Zangarmarsh" />
+	<zone id="49" map="530" pos1="502" pos2="424" x="2000" y="6000" scl="0.177" file="blades_edge_mountains.jpg" name="Blade's Edge Mountains" />
+	<zone id="50" map="530" pos1="423" pos2="424" x="3000" y="3000" scl="0.172" file="netherstorm.jpg" name="Netherstorm" />
+	<zone id="51" map="530" pos1="549" pos2="175" x="-2000" y="4000" scl="0.179" file="terokkar_forest.jpg" name="Terokkar Forest" />
+	<zone id="52" map="530" pos1="569" pos2="263" x="-1500" y="7000" scl="0.173" file="nagrand.jpg" name="Nagrand" />
+	<zone id="53" map="571" pos1="422" pos2="497" x="5000" y="5000" scl="0.22" file="sholazar_basin.jpg" name="Sholazar Basin" />
+	<zone id="54" map="571" pos1="451" pos2="447" x="6500" y="2500" scl="0.155" file="icecrown.jpg" name="Icecrown" />
+	<zone id="55" map="571" pos1="650" pos2="415" x="5500" y="-4000" scl="0.19" file="zul_drak.jpg" name="Zul'Drak" />
+	<zone id="56" map="571" pos1="448" pos2="362" x="7500" y="-1500" scl="0.135" file="storm_peaks.jpg" name="Storm Peaks" />
+	<zone id="57" map="571" pos1="154" pos2="350" x="5500" y="1000" scl="0.35" file="crystalsong.jpg" name="Crystalsong Forest" />
+	<zone id="58" map="571" pos1="426" pos2="229" x="5000" y="3000" scl="0.322" file="wintergasp.jpg" name="Wintergrasp" />
+	<zone id="59" map="571" pos1="424" pos2="146" x="4000" y="6000" scl="0.165" file="borean_tundra.jpg" name="Borean Tundra" />
+	<zone id="60" map="571" pos1="363" pos2="267" x="4000" y="1500" scl="0.17" file="dragonblight.jpg" name="Dragonblight" />
+	<zone id="61" map="571" pos1="342" pos2="366" x="3500" y="-3000" scl="0.183" file="grizzly_hills.jpg" name="Grizzly Hills" />
+	<zone id="62" map="571" pos1="488" pos2="415" x="500" y="-4500" scl="0.16" file="howling_fjord.jpg" name="Howling Fjord" />
+	<zone id="63" map="571" pos1="332" pos2="347" x="5770" y="720" scl="1.68" file="dalaran.jpg" name="Dalaran" />
+	<zone id="64" map="571" pos1="569" pos2="263" x="-1500" y="7000" scl="0.173" file="underbelly.jpg" name="The Underbelly" />
+	<zone id="65" map="530" pos1="538" pos2="242" x="-1800" y="5400" scl="0.72" file="shattrath.jpg" name="Shattrath City" />
+	<zone id="66" map="0" pos1="275" pos2="156" x="-8500" y="1000" scl="0.7" file="stormwind.jpg" name="Stormwind" />
+	<zone id="67" map="0" pos1="347" pos2="522" x="-5000" y="-1000" scl="1.2" file="ironforge.jpg" name="Ironforge" />
+	<zone id="68" map="0" pos1="70" pos2="174" x="1700" y="800" scl="1" file="undercity.jpg" name="Undercity" />
+	<zone id="69" map="530" pos1="80" pos2="123" x="10000" y="-6500" scl="0.79" file="silvermoon.jpg" name="Silvermoon City" />
+	<zone id="70" map="1" pos1="111" pos2="139" x="-1000" y="400" scl="0.9" file="thunder_bluff.jpg" name="Thunder Bluff" />
+	<zone id="71" map="1" pos1="11" pos2="52" x="2200" y="-3700" scl="0.68" file="orgrimmar.jpg" name="Orgrimmar" />
+	<zone id="72" map="530" pos1="123" pos2="85" x="-3700" y="-11200" scl="0.9" file="exodar.jpg" name="The Exodar" />
+	<zone id="73" map="1" pos1="36" pos2="37" x="10200" y="2900" scl="0.9" file="darnassus.jpg" name="Darnassus" />
+	<zone id="74" map="0" pos1="265.5" pos2="386.5" x="-8700" y="1240" scl="0.55" file="stormwind_wotlk.jpg" name="Stormwind" />
+	<zone id="75" map="0" pos1="770" pos2="434" x="1800" y="-600" scl="0.213" file="tirisfal_glades_wotlk.jpg" name="Tirisfal Glades" />
+	<zone id="76" map="1" pos1="457.5" pos2="325.5" x="0" y="-4500" scl="0.181" file="durotar_wotlk.jpg" name="Durotar" />
+	<zone id="77" map="0" pos1="192" pos2="450" x="1800" y="-3100" scl="0.237" file="eastern_plaguelands_wotlk.jpg" name="Eastern Plaguelands" />
+	<zone id="78" map="0" pos1="265" pos2="508" x="0" y="0" scl="0.34" file="alterac_mountains_wotlk.jpg" name="Alterac Mountains" />
+</zones>

@@ -1,0 +1,10 @@
+<camouflage>
+	<circle map="0" xset="-8735" yset="699" radius="25" faction="1" name="Sturmwind" />
+	<circle map="0" xset="1596" yset="240" radius="15" faction="2" name="Unterstadt" />
+	<circle map="0" xset="-4801" yset="-1102" radius="25" faction="1" name="Eisenschmiede" />
+	<circle map="1" xset="9945" yset="2526" radius="25" faction="1" name="Darnassus" />
+	<circle map="530" xset="-3907" yset="-11680" radius="20" faction="1" name="Exodar" />
+	<circle map="1" xset="1801" yset="-4343" radius="25" faction="1" name="Orgrimmar" />
+	<circle map="1" xset="-1197" yset="32" radius="25" faction="2" name="Donnerfels" />
+	<circle map="530" xset="9700" yset="-6968" radius="25" faction="2" name="Silbermond" />
+</camouflage>

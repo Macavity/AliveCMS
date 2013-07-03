@@ -1,0 +1,1 @@
+{"name":"Telepot hub","description":"Lets your users teleport - either for free or for the cost of vp\/dp\/gold","author":{"name":"FusionCMS","website":"http:\/\/raxezdev.com\/fusioncms"},"admin":{"group":{"text":"Store","icon":"share","links":[{"text":"Teleport locations","icon":"pointer","controller":"admin"}]}},"enabled":true}

@@ -1,0 +1,33 @@
+<instances version="1.0">
+	<!--map id="<MAP ID>" world="<WORLD MAP ID>" xoff="<X OFFSET>" yoff="<Y OFFSET>" /-->
+	<map id="43" world="1" xoff="560" yoff="2371" />
+	<map id="47" world="1" xoff="6400" yoff="3200" />
+	<map id="48" world="1" xoff="-4738" yoff="-632" />
+	<map id="129" world="1" xoff="7252" yoff="3634" />
+	<map id="349" world="1" xoff="2426" yoff="-3136" />
+	<map id="249" world="1" xoff="4812" yoff="3516" />
+	<map id="429" world="1" xoff="3766" yoff="-1088" />
+	<map id="508" world="1" xoff="0" yoff="0" />
+	<map id="531" world="1" xoff="0" yoff="0" />
+	<map id="209" world="1" xoff="8000" yoff="3733" />
+	<map id="389" world="1" xoff="-1774" yoff="4447" />
+	<map id="309" world="0" xoff="0" yoff="0" />
+	<map id="36" world="0" xoff="11235" yoff="-2548" />
+	<map id="532" world="0" xoff="0" yoff="0" />
+	<map id="109" world="0" xoff="9774" yoff="3908" />
+	<map id="229" world="0" xoff="7603" yoff="1008" />
+	<map id="469" world="0" xoff="25" yoff="158" />
+	<map id="230" world="0" xoff="7631" yoff="968" />
+	<map id="409" world="0" xoff="7631" yoff="968" />
+	<map id="70" world="0" xoff="5786" yoff="3008" />
+	<map id="90" world="0" xoff="4791" yoff="-965" />
+	<map id="33" world="0" xoff="0" yoff="533" />
+	<map id="289" world="0" xoff="-1089" yoff="2671" />
+	<map id="533" world="0" xoff="0" yoff="0" />
+	<map id="533" world="571" xoff="-1663" yoff="-2165" />
+	<map id="34" world="1" xoff="8893" yoff="-836" />
+	<map id="329" world="0" xoff="356" yoff="417" />
+	<map id="580" world="530" xoff="-10733" yoff="7700" />
+	<map id="585" world="530" xoff="-12680" yoff="7180" />
+	<map id="568" world="530" xoff="-6730" yoff="9784" />
+</instances>

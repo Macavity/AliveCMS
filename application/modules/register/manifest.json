@@ -1,0 +1,11 @@
+{
+	"name": "Register",
+	"description": "Allows users to sign up",
+
+	"author": {
+		"name": "FusionCMS",
+		"website": "http://raxezdev.com/fusioncms"
+	},
+	
+	"enabled": true
+}

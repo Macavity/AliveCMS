@@ -1,0 +1,60 @@
+<div style="max-width:350px;">
+{if $item.specialColor}
+<span class='q{$item.quality}' style='color:{$item.specialColor}; font-size: 16px; '>{$item.name}</span><br />
+{else}
+<span class='q{$item.quality}' style='font-size: 16px'>{$item.name}</span><br />
+{/if}
+
+{if $item.bind}{$item.bind}<br />{/if}
+{if $item.unique}{$item.unique}<br />{/if}
+{if $item.slot}<div style='float:left;'>{$item.slot}</div>{/if}
+<div style='float:right;'>{$item.type}</div>
+<div style="clear:both;"></div>
+{if $item.armor}{$item.armor} Armor<br />{/if}
+
+{if $item.damage_min}
+	<div style='float:left;'>{$item.damage_min} - {$item.damage_max} {$item.damage_type} Damage</div>
+	<div style='float:right;margin-left:15px;'>Speed {$item.speed}</div><br />
+	({$item.dps} damage per second)<br />
+{/if}
+
+{if count($item.attributes.regular) > 0}
+	{foreach from=$item.attributes.regular item=attribute}
+		{$attribute.text}
+	{/foreach}
+{/if}
+
+{if $item.holy_res}+ {$item.holy_res} Holy Resistance<br />{/if}
+{if $item.nature_res}+ {$item.nature_res} Nature Resistance<br />{/if}
+{if $item.fire_res}+ {$item.fire_res} Fire Resistance<br />{/if}
+{if $item.frost_res}+ {$item.frost_res} Frost Resistance<br />{/if}
+{if $item.shadow_res}+ {$item.shadow_res} Shadow Resistance<br />{/if}
+{if $item.arcane_res}+ {$item.arcane_res} Arcane Resistance<br />{/if}
+
+{if $item.sockets}{$item.sockets}{/if}
+
+{if $item.durability}Durability {$item.durability} / {$item.durability}<br />{/if}
+{if $item.required}Requires Level {$item.required}<br />{/if}
+{if $item.level}Item Level {$item.level}<br />{/if}
+
+{if count($item.attributes.spells) > 0}
+	{foreach from=$item.attributes.spells item=attribute}
+		{$attribute.text}
+	{/foreach}
+{/if}
+
+{if count($item.spells) > 0}
+	{foreach from=$item.spells item=spell}
+		<a class="q2" href="https://wowhead.com/?spell={$spell.id}" target="_blank">
+			{$spell.trigger}
+		
+			{if !strlen($spell.text)}
+				Unknown effect
+			{else}
+				{$spell.text}
+			{/if}
+		</a>
+		<br />
+	{/foreach}
+{/if}
+</div>

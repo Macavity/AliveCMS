@@ -1,0 +1,10 @@
+{
+	"name":"GM panel",
+	"description":"Provides web tools for game masters",
+	"author":
+	{
+		"name":"FusionCMS",
+		"website":"http:\/\/raxezdev.com\/fusioncms"
+	},
+	"enabled":true
+}

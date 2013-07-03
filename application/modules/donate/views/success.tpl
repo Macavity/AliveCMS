@@ -1,0 +1,1 @@
+<center style="padding:10px;">Thanks for supporting our server! If you don't receive your points with in 5 minutes, please contact a game master.</center>
