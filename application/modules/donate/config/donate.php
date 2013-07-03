@@ -20,7 +20,7 @@ $config['donate_paypal'] = array(
 	'postback_url' => "http://YOURSERVER.COM/donate/postback_paypal",
 	'return_url' => "http://YOURSERVER.COM/donate/success",
 	'email' => "CHANGEME@example.com",
-	'sandbox' => false, // true: live servers | false: testing/dev servers
+	'sandbox' => false, // false: live servers | true: testing/dev servers
 	
 	'values' => array(
 

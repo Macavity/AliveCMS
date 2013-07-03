@@ -4,12 +4,16 @@ class Sidebox_model extends CI_Model
 {
 	public function add($data)
 	{
+		$data['rank_needed'] = $this->cms_model->getAnyOldRank();
+
 		$this->db->insert("sideboxes", $data);
 
 		$query = $this->db->query("SELECT id FROM sideboxes ORDER BY id DESC LIMIT 1");
 		$row = $query->result_array();
 
 		$this->db->query("UPDATE sideboxes SET `order`=? WHERE id=?", array($row[0]['id'], $row[0]['id']));
+
+		return $row[0]['id'];
 	}
 
 	public function edit($id, $data)
@@ -20,7 +24,38 @@ class Sidebox_model extends CI_Model
 
 	public function delete($id)
 	{
+		$this->deletePermission($id);
+
 		$this->db->query("DELETE FROM sideboxes WHERE id=?", array($id));
+	}
+
+	public function setPermission($id)
+	{
+		$this->db->query("UPDATE sideboxes SET `permission`=? WHERE id=?", array($id, $id));
+		$this->db->query("INSERT INTO acl_roles(`name`, `module`) VALUES(?, '--SIDEBOX--')", array($id));
+		$this->db->query("INSERT INTO acl_roles_permissions(`role_name`, `permission_name`, `module`, `value`) VALUES(?, ?, '--SIDEBOX--', 1)", array($id, $id));
+	}
+
+	public function deletePermission($id)
+	{
+		$this->db->query("UPDATE sideboxes SET `permission`='' WHERE id=?", array($id));
+		$this->db->query("DELETE FROM acl_roles WHERE module='--SIDEBOX--' AND name=?", array($id));
+	}
+
+	public function hasPermission($id)
+	{
+		$query = $this->db->query("SELECT `permission` FROM sideboxes WHERE id=?", array($id));
+		
+		if($query->num_rows() > 0)
+		{
+			$result = $query->result_array();
+			
+			return $result[0]['permission'];
+		}
+		else 
+		{
+			return false;
+		}
 	}
 
 	public function addCustom($text)

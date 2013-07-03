@@ -34,7 +34,7 @@ var Search = {
 		}
 		else
 		{
-			UI.alert("Search field can't be empty!");
+			UI.alert(lang("cant_be_empty", "armory"));
 		}
 	},
 

@@ -9,6 +9,8 @@ class Admin extends MX_Controller
 		$this->load->model('teleport_model');
 
 		parent::__construct();
+
+		requirePermission("canViewAdmin");
 	}
 
 	public function index()
@@ -50,6 +52,9 @@ class Admin extends MX_Controller
 
 	public function create()
 	{
+		// Check for the permission
+		requirePermission("canAdd");
+
 		$data["name"] = $this->input->post("name");
 		$data["description"] = $this->input->post("description");
 		$data["x"] = $this->input->post("x");
@@ -65,11 +70,19 @@ class Admin extends MX_Controller
 
 		$this->teleport_model->add($data);
 
+		// Add log
+		$this->logger->createLog('Added teleport location', $data['name']);
+
+		$this->plugins->onAddTeleport($data);
+
 		die('window.location.reload(true)');
 	}
 
 	public function edit($id = false)
 	{
+		// Check for the permission
+		requirePermission("canEdit");
+
 		if(!is_numeric($id) || !$id)
 		{
 			die();
@@ -106,6 +119,9 @@ class Admin extends MX_Controller
 
 	public function save($id = false)
 	{
+		// Check for the permission
+		requirePermission("canEdit");
+
 		if(!$id || !is_numeric($id))
 		{
 			die();
@@ -126,16 +142,29 @@ class Admin extends MX_Controller
 
 		$this->teleport_model->edit($id, $data);
 
+		// Add log
+		$this->logger->createLog('Edited teleport location', $data['name']);
+
+		$this->plugins->onEditTeleport($id, $data);
+
 		die('window.location="'.$this->template->page_url.'teleport/admin"');
 	}
 
 	public function delete($id = false)
 	{
+		// Check for the permission
+		requirePermission("canRemove");
+		
 		if(!$id || !is_numeric($id))
 		{
 			die();
 		}
 
 		$this->teleport_model->delete($id);
+
+		// Add log
+		$this->logger->createLog('Deleted teleport location', $id);
+
+		$this->plugins->onDeleteTeleport($id);
 	}
 }

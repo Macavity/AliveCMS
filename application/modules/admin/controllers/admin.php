@@ -8,6 +8,8 @@ class Admin extends MX_Controller
 	{
 		parent::__construct();
 
+		$this->load->config('performance');
+
 		$this->coreModules = array('admin', 'login', 'logout', 'error', 'news');
 
 		// Make sure to load the administrator library!
@@ -17,6 +19,8 @@ class Admin extends MX_Controller
 		require_once('application/libraries/prettyjson.php');
 
 		$this->load->model('dashboard_model');
+
+		requirePermission("view");
 	}
 
 	public function index()
@@ -29,8 +33,8 @@ class Admin extends MX_Controller
 		// Prepare my data
 		$data = array(
 			'url' => $this->template->page_url,
-			'enabled_modules' => $this->getEnabledModules(),
-			'disabled_modules' => $this->getDisabledModules(),
+			'enabled_modules' => $this->administrator->getEnabledModules(),
+			'disabled_modules' => $this->administrator->getDisabledModules(),
 			'theme' => $this->template->theme_data,
 			'version' => $this->administrator->getVersion(),
 			'php_version' => phpversion(),
@@ -41,7 +45,8 @@ class Admin extends MX_Controller
 			'income' => $this->getIncome(),
 			'votes' => $this->getVotes(),
 			'signups' => $this->getSignups(),
-			'graph' => $this->getGraph()
+			'graph' => $this->getGraph(),
+			'pendingUpdate' => $this->getPendingUpdate()
 		);
 
 		// Load my view
@@ -52,6 +57,39 @@ class Admin extends MX_Controller
 
 		// Output my content. The method accepts the same arguments as template->view
 		$this->administrator->view($content, false, "modules/admin/js/admin.js");
+	}
+
+	private function getPendingUpdate()
+	{
+		if(!is_dir("update") || !is_dir("update/updates"))
+		{
+			return false;
+		}
+
+		$updates = array(0 => "");
+
+		$updatePackages = glob("update/updates/*/");
+
+		if($updatePackages)
+		{
+			foreach($updatePackages as $path)
+			{
+				if(is_dir($path))
+				{
+					$version = preg_replace("/[a-z\/]*/i", "", $path);
+					$version = preg_replace("/_/", ".", $version);
+
+					array_push($updates, $version);
+				}
+			}
+
+			$updates = array_reverse($updates);
+		}
+
+		if($this->template->compareVersions($updates[0], $this->config->item('FusionCMSVersion'), true))
+		{
+			return $updates[0];
+		}
 	}
 
 	private function getUnique()
@@ -110,6 +148,11 @@ class Admin extends MX_Controller
 
 	private function getGraph()
 	{
+		if($this->config->item('disable_visitor_graph'))
+		{
+			return false;
+		}
+
 		$cache = $this->cache->get("dashboard");
 
 		if($cache !== false)
@@ -210,40 +253,11 @@ class Admin extends MX_Controller
 			return false;
 		}
 	}
-
-
-	private function getEnabledModules()
-	{
-		$enabled = array();
-
-		foreach($this->administrator->getModules() as $name => $manifest)
-		{
-			if($manifest['enabled'])
-			{
-				$enabled[$name] = $manifest;
-			}
-		}
-
-		return $enabled;
-	}
-
-	private function getDisabledModules()
-	{
-		$disabled = array();
-
-		foreach($this->administrator->getModules() as $name => $manifest)
-		{
-			if(!array_key_exists("enabled", $manifest) || !$manifest['enabled'])
-			{
-				$disabled[$name] = $manifest;
-			}
-		}
-
-		return $disabled;
-	}
 	
 	public function enable($moduleName)
 	{
+		requirePermission("toggleModules");
+
 		$this->changeManifest($moduleName, "enabled", true);
 
 		die('SUCCESS');
@@ -251,6 +265,8 @@ class Admin extends MX_Controller
 	
 	public function disable($moduleName)
 	{
+		requirePermission("toggleModules");
+
 		if(!in_array($moduleName, $this->coreModules))
 		{
 			$this->changeManifest($moduleName, "enabled", false);
@@ -265,6 +281,8 @@ class Admin extends MX_Controller
 	
 	public function changeManifest($moduleName, $setting, $newValue)
 	{
+		requirePermission("editModuleConfigs");
+
 		$filePath = "application/modules/".$moduleName."/manifest.json";
 		$manifest = json_decode(file_get_contents($filePath), true);
 
@@ -281,6 +299,8 @@ class Admin extends MX_Controller
 
 	public function saveHeader()
 	{
+		requirePermission("changeThemeHeader");
+		
 		$header_url = $this->input->post('header_url');
 
 		require_once('application/libraries/configeditor.php');
@@ -296,11 +316,14 @@ class Admin extends MX_Controller
 	{
 		$license = $this->config->item('licenseKey');
 
+		$version = $this->administrator->getVersion();
+		$version = preg_replace("/\.([0-9]+)$/", "$1", $version);
+
 		$c = curl_init();
 
-		curl_setopt($c, CURLOPT_URL, 'http://fusion.raxezdev.com/remote/');
+		curl_setopt($c, CURLOPT_URL, 'http://fusion-hub.com/remote/');
 		curl_setopt($c, CURLOPT_POST, true);
-		curl_setopt($c, CURLOPT_POSTFIELDS, 'version='.$this->administrator->getVersion().'&license='.$license);
+		curl_setopt($c, CURLOPT_POSTFIELDS, 'version='.$version.'&license='.$license);
 		curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($c, CURLOPT_HEADER, 0);
 		
@@ -348,7 +371,7 @@ $config["message_headline_size"] = 56;
 | Message text
 |--------------------------------------------------------------------------
 */
-$config["message_text"] = "This copy of FusionCMS has been terminated due to illegal usage. If you actually own a legit copy, please contact us at <a href=\"http://fusion.raxezdev.com/\" style=\"text-decoration:none;color:white;\">fusion.raxezdev.com</a>";';
+$config["message_text"] = "This copy of FusionCMS has been terminated due to illegal usage. If you actually own a legit copy, please contact us at <a href=\"http://fusion-hub.com/\" style=\"text-decoration:none;color:white;\">fusion.raxezdev.com</a>";';
 
 			$message_file = fopen("application/config/message.php", "w");
 			fwrite($message_file, $message_content);

@@ -83,6 +83,9 @@ class Poll extends MX_Controller
 	
 	public function vote($questionid = false, $answerid = false)
 	{
+		// Check for the permission
+	   requirePermission("vote", "sidebox_poll");
+
 		if(!$questionid || !$answerid || !$this->user->isOnline())
 		{
 			die('undefined data');

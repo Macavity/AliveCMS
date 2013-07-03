@@ -6,15 +6,17 @@ class Item extends MX_Controller
 
 	public function Index($realm = false, $id = false)
 	{
+		clientLang("loading", "item");
+
 		// Make sure item and realm are set
 		if(!$id || !$realm)
 		{
-			die("No item or realm specified!");
+			die(lang("no_item", "item"));
 		}
 
 		$this->realm = $realm;
 
-		$cache = $this->cache->get("items/tooltip_".$realm."_".$id);
+		$cache = $this->cache->get("items/tooltip_".$realm."_".$id."_".getLang());
 		$cache2 = $this->cache->get("items/item_".$realm."_".$id);
 
 		if($cache2 !== false)
@@ -23,7 +25,7 @@ class Item extends MX_Controller
 		}
 		else
 		{
-			$itemName = "View item";
+			$itemName = lang("view_item", "item");
 		}
 
 		$this->template->setTitle($itemName);
@@ -43,7 +45,7 @@ class Item extends MX_Controller
 
 		$data3 = array(
 				"module" => "default",
-				"headline" => "<span style='cursor:pointer;' onClick='window.location=\"".$this->template->page_url."armory\"'>Armory</span> &rarr; ".$itemName,
+				"headline" => "<span style='cursor:pointer;' onClick='window.location=\"".$this->template->page_url."armory\"'>".lang("armory", "item")."</span> &rarr; ".$itemName,
 				"content" => $content
 			);
 

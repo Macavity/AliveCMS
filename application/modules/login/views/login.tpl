@@ -1,33 +1,31 @@
-<div id="embedded-login">
-    {form_open('login', $class)}
-        <a id="embedded-close" href="javascript:;"><!--  --></a>
-        <h1>ALive Login</h1>
-        <div>
-            <p>
-                <label for="accountName" class="label">Username</label>
-                <input id="login_username" value="{$username}" name="login_username" maxlength="320" type="text" tabindex="1" class="input"/>
-            </p>
-            <p>
-                <label for="password" class="label">Passwort</label>
-                <input id="login_password" name="login_password" maxlength="16" type="password" tabindex="2" autocomplete="off" class="input"/>
-            </p>
-            <p>
-                <span id="remember-me">
-                    <label for="login_remember">
-                        <input type="checkbox" checked="checked" name="login_remember" id="login_remember"/>
-                        Eingeloggt bleiben
-                    </label>
-                </span>
-                <button class="ui-button button1 " type="submit" data-text="In Bearbeitung…">
-                    <span class="button-left"><span class="button-right">Einloggen</span></span>
-                </button>
-            </p>
-        </div>
-        <ul id="help-links">
-            {if $has_smtp}
-            <li class="icon-pass"><a href="{$url}password_recovery">Sie können sich nicht mehr einloggen?</a></li>
-            {/if}
-            <li class="icon-signup">Haben Sie noch keinen Account? <a href="/register/">Jetzt anmelden</a>! </li>
-        </ul>
-    </form>
-</div>
+{form_open('login', $class)}
+	<table>
+		<tr>
+			<td><label for="login_username">{lang("username", "login")}</label></td>
+			<td>
+				<input type="text" name="login_username" id="login_username" value="{$username}"/>
+				<span id="username_error">{$username_error}</span>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="login_password">{lang("password", "login")}</label></td>
+			<td>
+				<input type="password" name="login_password" id="login_password" value=""/>
+				<span id="password_error">{$password_error}</span>
+			</td>
+		</tr>
+	</table>
+
+	<center>
+		<div id="remember_me">
+			<label for="login_remember" data-tip="{lang("remember_me", "login")}">{lang("remember_me_short", "login")}</label>
+			<input type="checkbox" name="login_remember" id="login_remember"/>
+		</div>
+
+		<input type="submit" name="login_submit" value="{lang("log_in", "login")}!" />
+
+		{if $has_smtp}
+			<section id="forgot"><a href="{$url}password_recovery">{lang("lost_your_password", "login")}</a></section>
+		{/if}
+	</center>
+</form>

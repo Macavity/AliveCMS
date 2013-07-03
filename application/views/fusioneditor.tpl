@@ -1,7 +1,7 @@
 <div id="wrap_{$id}" class="fusioneditor">
 	<div class="fusioneditor_tools">
 		<div style="float:right;display:none" id="fusioneditor_{$id}_close">
-			<a class="fusioneditor_close" href="javascript:void(0)" onClick="FusionEditor.close('{$id}')" data-tip="Close tool">
+			<a class="fusioneditor_close" href="javascript:void(0)" onClick="FusionEditor.close('{$id}')" data-tip="{lang("close_tool")}">
 				<img src="{$url}application/images/icons/bullet_arrow_up.png" />
 			</a>
 		</div>

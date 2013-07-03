@@ -7,13 +7,17 @@ class Pay extends MX_Controller
 
 	public function __construct()
 	{
+		parent::__construct();
+		
 		$this->vp = 0;
 		$this->dp = 0;
 
-		$this->user->is_logged_in();
+		$this->user->userArea();
 
 		$this->load->model("store_model");
 		$this->load->config("store");
+
+		requirePermission("view");
 	}
 
 	/**
@@ -42,7 +46,7 @@ class Pay extends MX_Controller
 		// Make sure they don't submit an empty array
 		if(count($cart) == 0)
 		{
-			die("Your cart can't be empty");
+			die(lang("empty_cart", "store"));
 		}
 
 		$items = array();
@@ -67,7 +71,7 @@ class Pay extends MX_Controller
 				}
 				else
 				{
-					die("You can't buy items that cost 0 VP or DP.");
+					die(lang("free_items", "store"));
 				}
 			}
 			else
@@ -110,8 +114,8 @@ class Pay extends MX_Controller
 		// Send all items
 		foreach($cart as $item)
 		{
-			// Is it a query?
-			if(empty($items[$item['id']]['query']))
+			// Is it a query or command?
+			if(empty($items[$item['id']]['query']) && empty($items[$item['id']]['command']))
 			{
 				// Make sure they enter a character
 				if(!isset($item['character']))
@@ -161,6 +165,24 @@ class Pay extends MX_Controller
 					array_push($realmItems[$items[$item['id']]['realm']][$item['character']], array('id' => $items[$item['id']]['itemid']));
 				}
 			}
+			else if(!empty($items[$item['id']]['command']))
+			{
+				// Make sure the realm actually supports console commands
+				if(!$this->realms->getRealm($items[$item['id']]['realm'])->getEmulator()->hasConsole())
+				{
+					$output = $this->template->loadPage("failure.tpl", array('type' => 'no_console', 'url' => $this->template->page_url));
+
+					die($output);
+				}
+			}
+
+			// Make sure the character is offline, if this item requires it
+			if($items[$item['id']]['require_character_offline'] && $this->realms->getRealm($items[$item['id']]['realm'])->getCharacters()->isOnline($item['character']))
+			{
+				$output = $this->template->loadPage("failure.tpl", array('type' => 'character_not_offline', 'url' => $this->template->page_url));
+
+				die($output);
+			}
 		}
 
 		// Let the user pay before we start sending any items!
@@ -174,6 +196,19 @@ class Pay extends MX_Controller
 			if(!empty($items[$item['id']]['query']))
 			{
 				$this->handleQuery($items[$item['id']]['query'], $items[$item['id']]['query_database'], (isset($item['character']) ? $item['character'] : false), $items[$item['id']]['realm']);
+			}
+			// Or a command?
+			else if(!empty($items[$item['id']]['command']))
+			{
+				$commands = preg_split('/\r\n|\r|\n/', $items[$item['id']]['command']);
+
+				foreach($commands as $command)
+				{
+					$command = preg_replace("/\{ACCOUNT\}/", $this->external_account_model->getUsername(), $command);
+					$command = preg_replace("/\{CHARACTER\}/", (isset($item['character']) ? $this->realms->getRealm($items[$item['id']]['realm'])-> getCharacters()->getNameByGuid($item['character']) : false), $command);
+
+					$this->realms->getRealm($items[$item['id']]['realm'])->getEmulator()->sendCommand($command);
+				}
 			}
 		}
 
@@ -194,6 +229,8 @@ class Pay extends MX_Controller
 		$output = $this->template->loadPage("success.tpl", array('url' => $this->template->page_url, 'message' => $this->config->item('success_message')));
 
 		$this->store_model->completeOrder();
+
+		$this->plugins->onCompleteOrder($cart);
 
 		// Output the content
 		die($output);

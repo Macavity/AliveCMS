@@ -1,6 +1,6 @@
 <?php
 
-class Toppvp extends MX_Controller implements Sidebox
+class Toppvp extends MX_Controller
 {
 	private $realm;
 	private $min_realm;
@@ -9,7 +9,7 @@ class Toppvp extends MX_Controller implements Sidebox
 	public function __construct()
 	{
 		parent::__construct();
-		
+
 		// Load our assets
 		$this->load->config('sidebox_toppvp/toppvp_config');
 		$this->load->model('sidebox_toppvp/toppvp_model');
@@ -67,7 +67,7 @@ class Toppvp extends MX_Controller implements Sidebox
 		}
 		else
 		{			
-			$cache = $this->cache->get("sidebox_toppvp");
+			$cache = $this->cache->get("sidebox_toppvp_".getLang());
 			
 			if($cache !== false)
 			{
@@ -102,7 +102,7 @@ class Toppvp extends MX_Controller implements Sidebox
 				$out = $this->template->loadPage("pvp.tpl", array("module" => "sidebox_toppvp", "min_realm" => $this->min_realm, "max_realm" => $this->max_realm, "realm_html" => $realm_html, "realms" => $this->realm));
 
 				// Cache for 12 hours
-				$this->cache->save("sidebox_toppvp", $out, 60*60*12);
+				$this->cache->save("sidebox_toppvp_".getLang(), $out, 60*60*12);
 			}
 			
 			return $out;

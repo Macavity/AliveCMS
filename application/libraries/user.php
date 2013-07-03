@@ -1,34 +1,30 @@
 <?php
+
 /**
  * @package FusionCMS
- * @version 6.0
  * @author Jesper Lindström
  * @author Xavier Geerinck
+ * @author Elliott Robbins
  * @link http://raxezdev.com/fusioncms
  */
+
 class User
 {
 	private $CI;
+
+	// User details
 	private $id;
 	private $username;
 	private $password;
 	private $email;
 	private $expansion;
 	private $online;
-	private $rank;
-	private $cms_rank;
 	private $vp;
 	private $dp;
 	private $register_date;
 	private $last_ip;
 	private $nickname;
-	private $isGm;
-	private $isDev;
-	private $isAdmin;
-	private $isOwner;
-	private $activeChar = 0;
-    private $activeRealm = 0;
-    
+	
 	public function __construct()
 	{
 		//Get the instance of the CI
@@ -58,32 +54,22 @@ class User
 			$this->CI->internal_user_model->initialize($this->CI->external_account_model->getId());
 
 			$userdata = array(
-	            'id' => $this->CI->external_account_model->getId(),
-	            'username' => $this->CI->external_account_model->getUsername(),
-	            'password' => $this->CI->external_account_model->getShaPassHash(),
-	            'email' => $this->CI->external_account_model->getEmail(),
-	            'expansion' => $this->CI->external_account_model->getExpansion(),
-	            'rank' => $this->CI->external_account_model->getRank($username, true),
-	            'cms_rank' => $this->getRank($this->CI->external_account_model->getId()),
-	            'online' => true,
-	            'register_date' => preg_replace("/\s.*/", "", $this->CI->external_account_model->getJoinDate()),
-	            'last_ip' => $this->CI->external_account_model->getLastIp(),
-	            'nickname' => $this->CI->internal_user_model->getNickname(),
-	            'activeChar' => $this->CI->internal_user_model->getActiveChar(),
-                'activeRealm' => $this->CI->internal_user_model->getActiveRealm(),
-	        );
+				'id' => $this->CI->external_account_model->getId(),
+				'username' => $this->CI->external_account_model->getUsername(),
+				'password' => $this->CI->external_account_model->getShaPassHash(),
+				'email' => $this->CI->external_account_model->getEmail(),
+				'expansion' => $this->CI->external_account_model->getExpansion(),
+				'online' => true,
+				'register_date' => preg_replace("/\s.*/", "", $this->CI->external_account_model->getJoinDate()),
+				'last_ip' => $this->CI->external_account_model->getLastIp(),
+				'nickname' => $this->CI->internal_user_model->getNickname(),
+				'language' => $this->CI->internal_user_model->getLanguage(),
+			);
 
-	        $permissions = $this->CI->internal_user_model->getRankPermissions($userdata['cms_rank']);
-
-			$userdata['isGm'] = $permissions['is_gm'];
-			$userdata['isDev'] = $permissions['is_dev'];
-			$userdata['isAdmin'] = $permissions['is_admin'];
-			$userdata['isOwner'] = $permissions['is_owner'];
-
-			//Set the session with the above data
+			// Set the session with the above data
 			$this->CI->session->set_userdata($userdata);
 
-			//Reload this object.
+			// Reload this object.
 			$this->getUserData();
 
 			return 0;
@@ -105,7 +91,61 @@ class User
 	{
 		return $this->CI->realms->getEmulator()->encrypt($username, $password);
 	}
-	
+
+	/**
+	 * Check if the user rank has any staff permissions
+	 * @deprecated 6.1
+	 * @return Boolean
+	 */
+	public function isStaff()
+	{
+		return ($this->isGm() || $this->isDev() || $this->isAdmin() || $this->isOwner());
+	}
+
+	/**
+	 * Check if the user has the GM permission
+	 * Uses [view, gm] ACL permission as of 6.1, for backwards compatibility
+	 * @deprecated 6.1
+	 * @return Boolean
+	 */
+	public function isGm()
+	{
+		return hasPermission("view", "gm");
+	}
+
+	/**
+	 * Check if the user has the developer permission
+	 * Uses [view, gm] ACL permission as of 6.1, for backwards compatibility
+	 * @deprecated 6.1
+	 * @return Boolean
+	 */
+	public function isDev()
+	{
+		return hasPermission("view", "gm");
+	}
+
+	/**
+	 * Check if the user has the admin permission
+	 * Uses [view, admin] ACL permission as of 6.1, for backwards compatibility
+	 * @deprecated 6.1
+	 * @return Boolean
+	 */
+	public function isAdmin()
+	{
+		return hasPermission("view", "admin");
+	}
+
+	/**
+	 * Check if the user has the owner permission
+	 * Uses [view, admin] ACL permission as of 6.1, for backwards compatibility
+	 * @deprecated 6.1
+	 * @return Boolean
+	 */
+	public function isOwner()
+	{
+		return hasPermission("view", "admin");
+	}
+
 	/**
 	 * Require the user to be signed in to proceed
 	 */
@@ -116,14 +156,14 @@ class User
 		{
 			$this->CI->template->view($this->CI->template->loadPage("page.tpl", array(
 				"module" => "default", 
-				"headline" => "Permission denied", 
-				"content" => "<center style='margin:10px;font-weight:bold;'>You must be signed in to view this page!</center>"
+				"headline" => lang("denied"), 
+				"content" => "<center style='margin:10px;font-weight:bold;'>".lang("must_be_signed_in")."</center>"
 			)));
 		}
 		
 		return;
 	}
-	
+
 	/**
 	 * Require the user to be signed out to proceed
 	 */
@@ -134,14 +174,14 @@ class User
 		{
 			$this->CI->template->view($this->CI->template->loadPage("page.tpl", array(
 				"module" => "default", 
-				"headline" => "Permission denied", 
-				"content" => "<center style='margin:10px;font-weight:bold;'>You are already signed in!</center>"
+				"headline" => lang("denied"), 
+				"content" => "<center style='margin:10px;font-weight:bold;'>".lang("already_signed_in")."</center>"
 			)));
 		}
 		
 		return;
 	}
-
+	
 	/**
 	 * Please see userArea() instead
 	 * @deprecated 6.05
@@ -167,57 +207,6 @@ class User
 	public function isOnline()
 	{
 		return $this->online;
-	}
-
-	/**
-	 * Check if the user has permission to do a certain task
-	 * @param Int $requiredRank rank ID column
-	 * @param Boolean $die
-	 * @return Boolean
-	 */
-	public function requireRank($requiredRank, $die = true)
-	{
-		$requiredRank = $this->CI->internal_user_model->getAccessId($requiredRank);
-
-		if($this->online)
-		{
-			$rank = $this->CI->external_account_model->getRank();
-		}
-		else 
-		{
-			$rank = $this->CI->config->item('default_guest_rank');
-		}
-
-		if($this->rankBiggerThan($rank, $requiredRank))
-		{
-			if($die)
-			{
-				if($this->isOnline())
-				{
-					$this->CI->template->view($this->CI->template->loadPage("page.tpl", array(
-						"module" => "default", 
-						"headline" => "Permission denied", 
-						"content" => "<center style='margin:10px;font-weight:bold;'>You do not have permission to view this page.</center>"
-					)));
-			}
-			else
-			{
-					$this->CI->template->view($this->CI->template->loadPage("page.tpl", array(
-						"module" => "default", 
-						"headline" => "Member area", 
-						"content" => "<center style='margin:10px;font-weight:bold;'><a href='".pageURL."login'>Please click here to sign in.</a></center>"
-					)));
-				}
-			}
-			else
-			{
-				return false;
-			}
-		}
-		elseif(!$die)
-		{
-			return true;
-		}
 	}
 
 	/**
@@ -289,90 +278,6 @@ class User
 	|  Getters
 	| -------------------------------------------------------------------
 	*/
-
-	/**
-	 * Check if the user rank has any staff permissions
-	 * @return Boolean
-	 */
-	public function isStaff($id = false)
-	{
-		if(!$id)
-		{
-			if($this->isGm || $this->isDev || $this->isAdmin || $this->isOwner)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-		else
-		{
-			$rankId = $this->getRank($id);
-
-			$permissions = $this->CI->internal_user_model->getRankPermissions($rankId);
-
-			if($permissions['is_gm'] || $permissions['is_dev'] || $permissions['is_admin'] || $permissions['is_owner'])
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-	}
-
-	public function isGm()
-	{
-		return $this->isGm;
-	}
-
-	public function isDev()
-	{
-		return $this->isDev;
-	}
-
-	public function isAdmin()
-	{
-		return $this->isAdmin;
-	}
-
-	public function isOwner()
-	{
-		return $this->isOwner;
-	}
-
-	/**
-	 * Get the CMS user rank (ranks table)
-	 * @param Int $userId
-	 * @return Int
-	 */
-	public function getRank($userId = false)
-	{
-		// Default is the current user
-		if(!$userId)
-		{
-			$accessId = $this->rank;
-		}
-		else
-		{
-			$accessId = $this->CI->external_account_model->getRank($userId);
-		}
-
-		// If the CMS rank for the current user has already been loaded
-		if($userId && $userId == $this->id && !empty($this->cms_rank))
-		{
-			$rank = $this->cms_rank;
-		}
-		else
-		{
-			$rank = $this->CI->internal_user_model->getRank($accessId);
-		}
-
-		return $rank;
-	}
 	
 	public function getUserData()
 	{
@@ -380,66 +285,42 @@ class User
 		if($this->CI->session->userdata('online') == true)
 		{
 			$this->id = $this->CI->session->userdata('id');
-			$this->nickname = $this->CI->session->userdata('nickname');
-            $this->username = $this->CI->session->userdata('username');
+			$this->username = $this->CI->session->userdata('username');
 			$this->password = $this->CI->session->userdata('password');
 			$this->email = $this->CI->session->userdata('email');
-			
 			$this->expansion = $this->CI->session->userdata('expansion');
 			$this->online = true;
-			$this->rank = $this->CI->session->userdata('rank');
 			$this->register_date = $this->CI->session->userdata('register_date');
 			$this->last_ip = $this->CI->session->userdata('last_ip');
-			
-			$this->cms_rank = $this->CI->session->userdata('cms_rank');
-            $this->isGm = $this->CI->session->userdata('isGm');
-			$this->isDev = $this->CI->session->userdata('isDev');
-			$this->isAdmin = $this->CI->session->userdata('isAdmin');
-			$this->isOwner = $this->CI->session->userdata('isOwner');
-            
-            $this->activeChar = $this->CI->session->userdata('activeChar');
-            $this->activeRealm = $this->CI->session->userdata('activeRealm');
-			
+			$this->nickname = $this->CI->session->userdata('nickname');
 			$this->vp = false;
 			$this->dp = false;
+
+			$language = ($this->CI->session->userdata('language')) ? $this->CI->session->userdata('language') : $this->CI->config->item('language');
+
+			$this->CI->language->setLanguage($language);
 		}
 		else
 		{
 			$this->id = 0;
-			$this->nickname = null;
-            $this->username =  0;
+			$this->username =  0;
 			$this->password = 0;
 			$this->email = null;
-			
 			$this->expansion = 0;
 			$this->online = false;
-			$this->rank = -1;  //Guest rank
+			$this->vp = 0;
+			$this->dp = 0;
 			$this->register_date = null;
 			$this->last_ip = null;
-			
-			$this->cms_rank = $this->CI->config->item("default_guest_rank");
-			$this->isGm = false;
-			$this->isDev = false;
-			$this->isAdmin = false;
-			$this->isOwner = false;
-            
-            $this->activeChar = 0;
-            $this->activeRealm = 0;
-            
-            $this->vp = 0;
-            $this->dp = 0;
+			$this->nickname = null;
+			$this->language = ($this->CI->session->userdata('language')) ? $this->CI->session->userdata('language') : $this->CI->config->item('language');
+	
+			$this->CI->language->setLanguage($this->language);
 		}
-	}
 
-	/**
-	 * Get the user group name
-	 * @return String
-	 */
-	public function getUserGroup()
-	{
-		$rank = $this->CI->external_account_model->getRank();
-
-		return $this->CI->internal_user_model->getRankName($rank);
+		// Load acl
+		//$this->CI->load->library('acl');
+		//$this->CI->acl->initialize($this->id);
 	}
 
 	/**
@@ -463,11 +344,11 @@ class User
 		{
 			if(array_key_exists("banreason", $result))
 			{
-				return '<span style="color:red;cursor:pointer;" data-tip="<b>Reason:</b> '.$result['banreason'].'">Banned (?)</span>';
+				return '<span style="color:red;cursor:pointer;" data-tip="<b>'.lang("reason").'</b> '.$result['banreason'].'">'.lang("banned").' (?)</span>';
 			}
 			else
 			{
-				return '<span style="color:red;">Banned</span>';
+				return '<span style="color:red;">'.ucfirst(lang("banned")).'</span>';
 			}
 		}
 	}
@@ -566,6 +447,11 @@ class User
 		}
 	}
 
+	/**
+	 * Get the userId from the current User or the given Username
+	 * @param bool $username
+	 * @return int
+	 */
 	public function getId($username = false)
 	{
 		if(!$username)
@@ -577,39 +463,68 @@ class User
 			return $this->CI->external_account_model->getId($username);
 		}
 	}
-	
+
+	/**
+	 * Get the username of the current user or the given id.
+	 * @param bool $id
+	 * @return String
+	 */
 	public function getUsername($id = false)
 	{
 		return $this->CI->external_account_model->getUsername($id);
 	}
-	
+
+	/**
+	 * Get the password of the user
+	 * @return String
+	 */
 	public function getPassword()
 	{
 		$this->getUserData();
 		return $this->password;
 	}
-	
+
+	/**
+	 * Get the email of the user
+	 * @return mixed
+	 */
 	public function getEmail()
 	{
 		return $this->email;
 	}
-	
+
+	/**
+	 * Get the expansion of the user
+	 * @return int
+	 */
 	public function getExpansion()
 	{
 		$this->getUserData();
 		return $this->expansion;
 	}
-	
+
+	/**
+	 * Get if the user is online
+	 * @return boolean
+	 */
 	public function getOnline()
 	{
 		return $this->online;
 	}
-	
+
+	/**
+	 * Get the register date
+	 * @return timestamp
+	 */
 	public function getRegisterDate()
 	{
 		return $this->register_date;
 	}
-	
+
+	/**
+	 * Get the number of vp
+	 * @return int
+	 */
 	public function getVp()
 	{
 		if($this->vp === false)
@@ -619,7 +534,11 @@ class User
 	
 		return $this->vp;
 	}
-	
+
+	/**
+	 * Get the number of dp
+	 * @return int
+	 */
 	public function getDp()
 	{
 		if($this->dp === false)
@@ -629,17 +548,11 @@ class User
 
 		return $this->dp;
 	}
-    
-    public function getActiveRealm()
-    {
-        return $this->activeRealm;
-    }
-    
-    public function getActiveChar()
-    {
-        return $this->activeChar;
-    }
 
+	/**
+	 * Get the last ip
+	 * @return string
+	 */
 	public function getLastIP()
 	{
 		return $this->last_ip;
@@ -650,57 +563,88 @@ class User
 	|  Setters
 	| -------------------------------------------------------------------
 	*/
+
+	/**
+	 * Set the username of the user.
+	 * @param $newUsername
+	 */
 	public function setUsername($newUsername)
 	{
 		if(!$newUsername) return;
 		$this->CI->external_account_model->setUsername($this->username, $newUsername);
 		$this->CI->session->set_userdata('username', $newUsername);
 	}
-	
+
+	/**
+	 * Set the language of the user
+	 * @param $newLanguage
+	 */
+	public function setLanguage($newLanguage)
+	{
+		if(!$newLanguage) return;
+		$this->CI->internal_user_model->setLanguage($this->id, $newLanguage);
+		$this->CI->session->set_userdata('language', $newLanguage);
+	}
+
+	/**
+	 * Set the password of the user
+	 * @param $newPassword
+	 */
 	public function setPassword($newPassword)
 	{
 		if(!$newPassword) return;
 		$this->CI->external_account_model->setPassword($this->username, $newPassword);
 		$this->CI->session->set_userdata('password', $newPassword);
 	}
-	
+
+	/**
+	 * Set the email of the user
+	 * @param $newEmail
+	 */
 	public function setEmail($newEmail)
 	{
 		if(!$newEmail) return;
 		$this->CI->external_account_model->setEmail($this->username, $newEmail);
 		$this->CI->session->set_userdata('email', $newEmail);
 	}
-	
+
+	/**
+	 * Set the expansion of the user
+	 * @param $newExpansion
+	 */
 	public function setExpansion($newExpansion)
 	{
 		$this->CI->external_account_model->setExpansion($this->username, $newExpansion);
 		$this->CI->session->set_userdata('expansion', $newExpansion);
 	}
-	
-	public function setRank($newRank)
-	{
-		if(!$newRank) return;
-		$this->CI->external_account_model->setRank($this->id, $newRank);
-		$this->CI->session->set_userdata('rank', $newRank);
-	}
-	
+
+	/**
+	 * Set the amount of vp for the user
+	 * @param $newVp
+	 */
 	public function setVp($newVp)
 	{
 		$this->vp = $newVp;
 		$this->CI->internal_user_model->setVp($this->id, $newVp);
 	}
-	
+
+	/**
+	 * Set the amount of dp for the user
+	 * @param $newDp
+	 */
 	public function setDp($newDp)
 	{
 		$this->dp = $newDp;
 		$this->CI->internal_user_model->setDp($this->id, $newDp);
 	}
-    
-    public function setActiveChar($charGUID, $charRealm){
-        $this->activeChar = $charGUID;
-        $this->activeRealm = $charRealm;
-        $this->CI->internal_user_model->setActiveChar($this->id, $charGUID, $charRealm);
-        $this->CI->session->set_userdata('activeChar', $charGUID);
-        $this->CI->session->set_userdata('activeRealm', $charRealm);
-    }
+
+	/**
+	 * Set the role id of the user
+	 * @param $newRoleId
+	 */
+	public function setRoleId($newRoleId)
+	{
+		$this->role = $newRoleId;
+		$this->CI->internal_user_model->setRoleId($this->id, $newRoleId);
+	}
 }

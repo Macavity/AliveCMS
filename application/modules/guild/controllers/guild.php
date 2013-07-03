@@ -17,10 +17,10 @@ class Guild extends MX_Controller
 		// Make sure item and realm are set
 		if(!$id || !$realm)
 		{
-			die("No guild or realm specified!");
+			die(lang("invalid", "guild"));
 		}
 
-		$cache = $this->cache->get('guild_'.$realm.'_'.$id);
+		$cache = $this->cache->get('guild_'.$realm.'_'.$id."_".getLang());
 
 		if($cache !== false)
 		{
@@ -33,7 +33,7 @@ class Guild extends MX_Controller
 
 			if(!$this->guild)
 			{
-				$this->template->setTitle("Invalid guild");
+				$this->template->setTitle(lang("invalid_guild", "guild"));
 			}
 			else
 			{
@@ -54,13 +54,13 @@ class Guild extends MX_Controller
 
 			$data = array(
 				"module" => "default",
-				"headline" => "<span style='cursor:pointer;' onClick='window.location=\"".$this->template->page_url."armory\"'>Armory</span> &rarr; ".((!$this->guild) ? "Invalid guild" : $this->guild['guildName']),
+				"headline" => "<span style='cursor:pointer;' onClick='window.location=\"".$this->template->page_url."armory\"'>".lang("armory", "guild")."</span> &rarr; ".((!$this->guild) ? lang("invalid_guild", "guild") : $this->guild['guildName']),
 				"content" => $content
 			);
 
 			$page = $this->template->loadPage("page.tpl", $data);
 
-			$this->cache->save('guild_'.$realm.'_'.$id, $page, 60*60);
+			$this->cache->save('guild_'.$realm.'_'.$id."_".getLang(), $page, 60*60);
 		}
 
 		$this->template->view($page, "modules/guild/css/guild.css");

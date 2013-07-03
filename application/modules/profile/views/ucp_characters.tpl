@@ -5,7 +5,7 @@
 		{if $realm->getCharacterCount($id) > 0}
 			<h1>{$realm->getName()}</h1>
 			{foreach from=$realm->getCharacters()->getCharactersByAccount($id) item=character}
-				<a href="{$url}character/{$realm->getId()}/{$character.guid}" data-tip="<img src='{$url}application/images/stats/{$character.class}.gif' align='absbottom'/>&nbsp;&nbsp;{$character.name}">
+				<a href="{$url}character/{$realm->getId()}/{$character.name}" data-tip="<img src='{$url}application/images/stats/{$character.class}.gif' align='absbottom'/>&nbsp;&nbsp;{$character.name}">
 					<img src="{$url}application/images/avatars/{$realmsObj->formatAvatarPath($character)}.gif" />
 				</a>
 			{/foreach}

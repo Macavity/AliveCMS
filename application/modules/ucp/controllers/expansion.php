@@ -6,11 +6,9 @@ class Expansion extends MX_Controller
 	
 	function __construct()
 	{
-		//Call the constructor of MX_Controller
 		parent::__construct();
 		
-		//Make sure that we are logged in
-		Modules::run('login/is_logged_in');
+		$this->user->userArea();
 		
 		$this->load->helper('form');
 
@@ -22,14 +20,19 @@ class Expansion extends MX_Controller
 	
 	public function index()
 	{
-		$this->template->setTitle("Change expansion");
+		requirePermission("canChangeExpansion");
+
+		$this->template->setTitle(lang("change_expansion", "ucp"));
 
 		if(isset($this->out))
 		{
 			//We submitted our form already, show the output.
 			$this->template->view($this->template->loadPage("page.tpl", array(
 				"module" => "default", 
-				"headline" => "<span style='cursor:pointer;' onClick='window.location=\"".$this->template->page_url."ucp\"'>UCP</span> &rarr; Change Expansion",
+				"headline" => breadcumb(array(
+										"ucp" => lang("ucp"),
+										"ucp/expansion" => lang("change_expansion", "ucp")
+									)), 
 				"content" => $this->out
 			)));
 		}
@@ -38,29 +41,40 @@ class Expansion extends MX_Controller
 			$data = array("expansions" => $this->realms->getExpansions(), "my_expansion" => $this->user->getExpansion());
 
 			$page_data = array(
-						"module" => "default", 
-						"headline" => "<span style='cursor:pointer;' onClick='window.location=\"".$this->template->page_url."ucp\"'>UCP</span> &rarr; Change Expansion", 
-						"content" => $this->template->loadPage("change_expansion.tpl", $data),
-					);
+				"module" => "default", 
+				"headline" => breadcumb(array(
+								"ucp" => lang("ucp"),
+								"ucp/expansion" => lang("change_expansion", "ucp")
+							)), 
+				"content" => $this->template->loadPage("change_expansion.tpl", $data),
+			);
 
 			//Load the template form
 			$this->template->view($this->template->loadPage("page.tpl", $page_data));
 		}
 		
 	}
-	
+
+	/**
+	 * Change the expansion to the given one.
+	 * @param string $expansion
+	 * @return string
+	 */
 	public function changeExpansion($expansion = "")
 	{
+		// Check for the permission
+		requirePermission("canChangeExpansion");
+
 		if(array_key_exists($expansion, $this->realms->getExpansions()))
 		{
 			//Change the expansion.
 			$this->user->setExpansion($expansion);
+
+			$this->plugins->onSetExpansion($this->user->getId(), $expansion);
 			
-			return "<center style='margin:10px;font-weight:bold;'>Your expansion has been changed. <a href='".$this->template->page_url."ucp'>Click here to go back to the User panel!</a></center>";
+			return "<center style='margin:10px;font-weight:bold;'>".lang("expansion_changed", "ucp")." <a href='".$this->template->page_url."ucp'>".lang("back_to_ucp", "ucp")."</a></center>";
 		}
-		else
-		{
-			return "The expansion you selected does not exists!";
-		}
+
+		return "".lang("invalid_expansion", "ucp")."";
 	}
 }

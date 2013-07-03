@@ -19,13 +19,15 @@ var Router = {
 			$("a[href*='" + Config.URL + "']").each(function()
 			{
 				// Make sure it has not been assigned already
-				if(typeof $(this).data('events') == "undefined" && $(this).attr("target") != "_blank")
+				if(!$(this).attr('data-hasEvent') && $(this).attr("target") != "_blank")
 				{
+					$(this).attr('data-hasEvent', '1');
+
 					// Add the event listener
 					$(this).click(function(event)
 					{
 						// Indicate the loading
-						$("body").css("cursor", "wait");
+						$("html").css("cursor", "wait");
 
 						// Get the link
 						var href = $(this).attr("href");
@@ -51,7 +53,6 @@ var Router = {
 	 */
 	load: function(link, direct)
 	{
-	    
 		if(Router.first)
 		{
 			Router.first = false;
@@ -82,8 +83,16 @@ var Router = {
 		else
 		{
 			// Load the page
-			$.post(link, { is_json_ajax: "1", csrf_token_name: Config.CSRF }, function(data)
+			$.get(link, { is_json_ajax: "1" }, function(data, textStatus, response)
 			{
+				// Full page response? Redirect instead
+				if(/^\<!DOCTYPE html\>/.test(data))
+				{
+					window.location.reload(true);
+
+					return;
+				}
+
 				if(Router.page == link)
 				{
 					window.scrollTo(0, 0);
@@ -99,12 +108,13 @@ var Router = {
 							content: "Something went wrong!<br /><br /><b>Technical data:</b> " + data,
 							js: null,
 							css: null,
-							slider: false
+							slider: false,
+							language: false
 						};
 					}
 
 					// Change the cursor back to normal
-					$("body").css("cursor", "default");
+					$("html").css("cursor", "default");
 
 					// Change the content
 					$("#content_ajax").html(data.content);
@@ -116,14 +126,14 @@ var Router = {
 
 					// Make sure to assign the router to all new internal links
 					Router.initialize();
-					
-					// Initialize Slider elements
-					if(typeof Slider != "undefined"){
-					    Slider.initialize();
+
+					if(data.language)
+					{
+						Language.set(data.language);
 					}
 
 					// Add the CSS if it exists and hasn't been loaded already
-					if(data.css.length > 0 && $.inArray(data.css, Router.loadedCSS) == -1)
+					if($.inArray(data.css, Router.loadedCSS) == -1 && data.css.length > 0)
 					{
 						Router.loadedCSS.push(data.css);
 
@@ -131,7 +141,7 @@ var Router = {
 					}
 
 					// Add the JS if it exists and hasn't been loaded already
-					if(data.js.length > 0 && $.inArray(data.js, Router.loadedJS) == -1)
+					if($.inArray(data.js, Router.loadedJS) == -1 && data.js.length > 0)
 					{
 						Router.loadedJS.push(data.js);
 
@@ -147,19 +157,22 @@ var Router = {
 						$("#" + Config.Slider.id).hide();
 					}
 				}
-			}).error(function()
+			}).fail(function()
 			{
 				if(Router.page == link)
 				{
 					$("body").css("cursor", "default");
 					$("title").html("FusionCMS");
-					UI.alert("The page could not be loaded");
+					UI.alert("Something went wrong! Attempting to load the page directly... <center style='margin-top:20px;'><img src='" + Config.URL + "application/images/modal-ajax.gif' /></center>", 3000);
+
+					setTimeout(function()
+					{
+						window.location = link;
+					}, 3000);
 				}
 			});
 		}
 	}
 }
 
-$(document).ready(function() {
-    /*Router.initialize();*/
-});
+$(document).ready(Router.initialize);

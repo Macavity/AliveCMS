@@ -73,17 +73,17 @@ if($c1)
 			mysql_select_db($row['world_database'], $r_char[$row['id']]) or die("<div class='error'>".$row['realmName']." database error: ".mysql_error()."</div>");
 
 			try {
-			$connect = fsockopen($row['hostname'], $row['realm_port'], $errno, $errstr, 1.5);
+				$connect = fsockopen($row['hostname'], $row['realm_port'], $errno, $errstr, 1.5);
 
-			if($connect)
-			{
+				if($connect)
+				{
 					echo "<div>".$row['realmName'] . " is online</div>";
-			}
-			else
-			{
+				}
+				else
+				{
 					echo "<div class='error'>".$row['realmName'] . " is offline</div>";
+				}
 			}
-		}
 			catch(Exception $error)
 			{
 				echo "<div class='error'>".$error->getMessage()."</div>";

@@ -7,11 +7,11 @@ class Message extends MX_Controller
 		// Make sure to load the administrator library!
 		$this->load->library('administrator');
 
-		$this->administrator->requireOwner();
-
 		require_once('application/libraries/configeditor.php');
 
 		parent::__construct();
+
+		requirePermission("viewMessage");
 	}
 
 	public function index()
@@ -26,7 +26,6 @@ class Message extends MX_Controller
 			'message_headline' => $this->config->item('message_headline'),
 			'message_headline_size' => $this->config->item('message_headline_size'),
 			'message_text' => $this->config->item('message_text')
-			
 		);
 
 		// Load my view
@@ -41,6 +40,8 @@ class Message extends MX_Controller
 
 	public function save()
 	{
+		requirePermission("toggleMessage");
+
 		$fusionConfig = new ConfigEditor("application/config/message.php");
 
 		$fusionConfig->set('message_enabled', $this->input->post('message_enabled'));

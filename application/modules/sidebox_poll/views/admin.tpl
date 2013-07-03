@@ -38,6 +38,10 @@
 			{/foreach}
 		{/if}
 	</ul>
+
+	<span>
+		<center>To display the poll, please <b><a href="{$url}admin/sidebox">create the poll sidebox</a></b></center>
+	</span>
 </section>
 
 <section class="box big" id="add_polls" style="display:none;">

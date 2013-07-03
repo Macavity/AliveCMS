@@ -14,7 +14,9 @@ class Messages extends MX_Controller
 		$this->load->model('inbox_model');
 		$this->load->config('pm');
 		
-		$this->user->is_logged_in();
+		$this->user->userArea();
+
+		requirePermission("view");
 	}
 	
 	/**
@@ -24,10 +26,13 @@ class Messages extends MX_Controller
 	 */
 	public function index($startIndex = 0, $sentIndex = false)
 	{
+		clientLang("deleting", "messages");
+		clientLang("no_messages", "messages");
+
 		// Auto-delete messages that are marked as deleted by both sender and receiver
 		$this->inbox_model->clearDeleted($this->user->getId());
 
-		$this->template->setTitle("Messages");
+		$this->template->setTitle(lang("messages", "messages"));
 
 		// Used to automatically show the sent page on load
 		if($sentIndex !== false)
@@ -41,7 +46,7 @@ class Messages extends MX_Controller
 		}
 
 		// Is there cache available?
-		$cache = $this->cache->get("messages/".$this->user->getId()."_".$startIndex."_".$sentIndex);
+		$cache = $this->cache->get("messages/".$this->user->getId()."_".$startIndex."_".$sentIndex."_".getLang());
 		
 		// Can we use it?
 		if($cache !== false)
@@ -95,14 +100,14 @@ class Messages extends MX_Controller
 
 			$page_data = array(
 					"module" => "default", 
-					"headline" => "Private messages", 
+					"headline" => lang("pm", "messages"), 
 					"content" => $content
 				);
 
 			$page = $this->template->loadPage("page.tpl", $page_data);
 
 			// Cache it forever
-			$this->cache->save("messages/".$this->user->getId()."_".$startIndex."_".$sentIndex, $page);
+			$this->cache->save("messages/".$this->user->getId()."_".$startIndex."_".$sentIndex."_".getLang(), $page);
 		}
 
 		// Build template
@@ -116,6 +121,8 @@ class Messages extends MX_Controller
 	{
 		$this->inbox_model->clear($this->user->getId());
 
+		$this->plugins->onClear($this->user->getId());
+
 		die();
 	}
 
@@ -125,6 +132,8 @@ class Messages extends MX_Controller
 	public function clearSent()
 	{
 		$this->inbox_model->clear($this->user->getId(), true);
+
+		$this->plugins->onClearSent($this->user->getId());
 
 		die();
 	}
@@ -145,16 +154,16 @@ class Messages extends MX_Controller
 			if($inbox + $this->config->item('pm_per_page') <= $count
 			&& $inbox - $this->config->item('pm_per_page') >= 0)
 			{
-				$link = '<a href="'.base_url().'messages/page/'.($inbox-$this->config->item('pm_per_page')).'">&larr; Newer messages</a>';
-				$link .= '<a href="'.base_url().'messages/page/'.($inbox+$this->config->item('pm_per_page')).'">Older messages &rarr;</a>';
+				$link = '<a href="'.base_url().'messages/page/'.($inbox-$this->config->item('pm_per_page')).'">&larr; '.lang("newer", "messages").'</a>';
+				$link .= '<a href="'.base_url().'messages/page/'.($inbox+$this->config->item('pm_per_page')).'">'.lang("older", "messages").' &rarr;</a>';
 			}
 			elseif($inbox + $this->config->item('pm_per_page') <= $count)
 			{
-				$link = '<a href="'.base_url().'messages/page/'.($inbox+$this->config->item('pm_per_page')).'">Older messages &rarr;</a>';
+				$link = '<a href="'.base_url().'messages/page/'.($inbox+$this->config->item('pm_per_page')).'">'.lang("older", "messages").' &rarr;</a>';
 			}
 			elseif($inbox + $this->config->item('pm_per_page') > $count && $inbox != 0)
 			{
-				$link = '<a href="'.base_url().'messages/page/'.($inbox-$this->config->item('pm_per_page')).'">&larr; Newer messages</a>';
+				$link = '<a href="'.base_url().'messages/page/'.($inbox-$this->config->item('pm_per_page')).'">&larr; '.lang("newer", "messages").'</a>';
 			}
 			else
 			{
@@ -168,16 +177,16 @@ class Messages extends MX_Controller
 			if($sent + $this->config->item('pm_per_page') <= $count
 			&& $sent - $this->config->item('pm_per_page') >= 0)
 			{
-				$link = '<a href="'.base_url().'messages/page/'.$inbox.'/'.($sent-$this->config->item('pm_per_page')).'">&larr; Newer messages</a>';
-				$link .= '<a href="'.base_url().'messages/page/'.$inbox.'/'.($sent+$this->config->item('pm_per_page')).'">Older messages &rarr;</a>';
+				$link = '<a href="'.base_url().'messages/page/'.$inbox.'/'.($sent-$this->config->item('pm_per_page')).'">&larr; '.lang("newer", "messages").'</a>';
+				$link .= '<a href="'.base_url().'messages/page/'.$inbox.'/'.($sent+$this->config->item('pm_per_page')).'">'.lang("older", "messages").' &rarr;</a>';
 			}
 			elseif($sent + $this->config->item('pm_per_page') <= $count)
 			{
-				$link = '<a href="'.base_url().'messages/page/'.$inbox.'/'.($sent+$this->config->item('pm_per_page')).'">Older messages &rarr;</a>';
+				$link = '<a href="'.base_url().'messages/page/'.$inbox.'/'.($sent+$this->config->item('pm_per_page')).'">'.lang("older", "messages").' &rarr;</a>';
 			}
 			elseif($sent + $this->config->item('pm_per_page') > $count && $sent != 0)
 			{
-				$link = '<a href="'.base_url().'messages/page/'.$inbox.'/'.($sent-$this->config->item('pm_per_page')).'">&larr; Newer messages</a>';
+				$link = '<a href="'.base_url().'messages/page/'.$inbox.'/'.($sent-$this->config->item('pm_per_page')).'">&larr; '.lang("newer", "messages").'</a>';
 			}
 			else
 			{

@@ -1,11 +1,13 @@
 <div id="pm_controls">
 	<div id="pm_controls_right">
-		<a href="{$url}messages/create" class="nice_button">Compose a message</a>
-		<a href="javascript:void(0)" onClick="Messages.clearInbox()" class="nice_button" id="pm_empty">Empty inbox</a>
+		{if hasPermission("compose")}
+			<a href="{$url}messages/create" class="nice_button">{lang("compose_message", "messages")}</a>
+		{/if}
+		<a href="javascript:void(0)" onClick="Messages.clearInbox()" class="nice_button" id="pm_empty">{lang("empty_inbox", "messages")}</a>
 	</div>
 	
-	<a href="javascript:void(0)" onClick="Messages.showTab('inbox', this)" class="nice_button {if !$is_sent}nice_active{/if}">Inbox ({$inbox_count})</a>
-	<a href="javascript:void(0)" onClick="Messages.showTab('sent', this)" class="nice_button {if $is_sent}nice_active{/if}">Sent ({$sent_count})</a>
+	<a href="javascript:void(0)" onClick="Messages.showTab('inbox', this)" class="nice_button {if !$is_sent}nice_active{/if}">{lang("inbox", "messages")} ({$inbox_count})</a>
+	<a href="javascript:void(0)" onClick="Messages.showTab('sent', this)" class="nice_button {if $is_sent}nice_active{/if}">{lang("sent_messages", "messages")} ({$sent_count})</a>
 </div>
 <div class="ucp_divider"></div>
 
@@ -13,9 +15,9 @@
 	{if $messages}
 		<table class="nice_table" width="100%">
 			<tr>
-				<td width="18%">Sender</td>
-				<td>Message title</td>
-				<td width="18%" align="center">Date</td>
+				<td width="18%">{lang("sender", "messages")}</td>
+				<td>{lang("message_title", "messages")}</td>
+				<td width="18%" align="center">{lang("date", "messages")}</td>
 			</tr>
 			{foreach from=$messages item=message}
 				<tr>
@@ -28,7 +30,7 @@
 		<div style="height:10px;"></div>
 		{$pagination}
 	{else}
-		<div style="text-align:center;padding:10px;">You have no messages.</div>
+		<div style="text-align:center;padding:10px;">{lang("no_messages", "messages")}.</div>
 	{/if}
 </div>
 
@@ -36,8 +38,8 @@
 	{if $sent}
 		<table class="nice_table" width="100%">
 			<tr>
-				<td width="18%">Receiver</td>
-				<td>Message title</td>
+				<td width="18%">{lang("receiver", "messages")}</td>
+				<td>{lang("message_title", "messages")}</td>
 				<td width="18%" align="center">Date</td>
 			</tr>
 			{foreach from=$sent item=message}
@@ -51,6 +53,6 @@
 		<div style="height:10px;"></div>
 		{$sent_pagination}
 	{else}
-		<div style="text-align:center;padding:10px;">You have no messages.</div>
+		<div style="text-align:center;padding:10px;">{lang("no_messages", "messages")}.</div>
 	{/if}
 </div>

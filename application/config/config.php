@@ -61,18 +61,6 @@ $config['url_suffix'] = '';
 
 /*
 |--------------------------------------------------------------------------
-| Default Language
-|--------------------------------------------------------------------------
-|
-| This determines which set of language files should be used. Make sure
-| there is an available translation if you intend to use something other
-| than english.
-|
-*/
-$config['language']	= 'english';
-
-/*
-|--------------------------------------------------------------------------
 | Default Character Set
 |--------------------------------------------------------------------------
 |
@@ -224,7 +212,27 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = '!?ZX=!19=Z01:z#dg1=#';
+
+if(file_exists("application/config/encryption_key.php"))
+{
+	require_once("application/config/encryption_key.php");
+}
+else
+{
+	if(!is_writable("application/config/"))
+	{
+		die('The application/config/ folder is not writable. Please see <a href="https://raxezdev.zendesk.com/entries/22839206-File-permissions-Installation-problems-fopen-permission-denied-" target="_blank">the FAQ</a> for more information.');
+	}
+
+	$file = fopen("application/config/encryption_key.php", "w");
+
+	$encryptionKey = uniqid().uniqid().uniqid().uniqid();
+
+	fwrite($file, '<?php $encryptionKey = "'.$encryptionKey.'";');
+	fclose($file);
+}
+
+$config['encryption_key'] = $encryptionKey;
 
 /*
 |--------------------------------------------------------------------------
@@ -244,7 +252,7 @@ $config['encryption_key'] = '!?ZX=!19=Z01:z#dg1=#';
 | 'sess_time_to_update'		= how many seconds between CI refreshing Session Information
 |
 */
-$config['sess_cookie_name']		= 'ci_session';
+$config['sess_cookie_name']		= 'cisession';
 $config['sess_expiration']		= 18000;
 $config['sess_expire_on_close']	= FALSE;
 $config['sess_encrypt_cookie']	= TRUE;

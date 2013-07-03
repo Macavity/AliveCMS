@@ -12,7 +12,7 @@ var Read = {
 		{	
 			$("#pm_form").fadeOut(300, function()
 			{
-				$(this).html('<a class="nice_button" href="' + Config.URL + 'messages">&larr; Back to inbox</a>').fadeIn(300);
+				$(this).html('<a class="nice_button" href="' + Config.URL + 'messages">&larr; ' + lang("inbox", "messages") + '</a>').fadeIn(300);
 			});
 
 			$("#pm_spot_ajax").html('<div style="text-align:right;margin-bottom:10px;"><img src="' + Config.image_path + 'ajax.gif" /></div>');

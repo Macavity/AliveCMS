@@ -42,7 +42,7 @@ function column($table, $name, $as = false, $realm = false)
 	if(!$column)
 	{
 		return false;
-}
+	}
 
 	return $column . (($as) ? " AS " . $name : "");
 }

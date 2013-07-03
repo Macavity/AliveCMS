@@ -1,7 +1,7 @@
 <section class="sidebox_info">
 	<table width="100%">
 		<tr>
-			<td width="50%"><img src="{$url}application/images/icons/plugin.png" align="absmiddle" /> Expansion</td>
+			<td width="50%"><img src="{$url}application/images/icons/plugin.png" align="absmiddle" /> {lang("expansion", "sidebox_info")}</td>
 			<td>
 				<a href="{$url}ucp/expansion" data-tip="Change expansion" style="float:right;margin-right:10px;">
 					<img src="{$url}application/images/icons/cog.png" align="absbottom" />
@@ -10,47 +10,24 @@
 			</td>
 		</tr>
 		<tr>
-			<td><img src="{$url}application/images/icons/computer_error.png" align="absmiddle" /> Last IP</td>
+			<td><img src="{$url}application/images/icons/computer_error.png" align="absmiddle" /> {lang("last_ip", "sidebox_info")}</td>
 			<td>{$lastIp}</td>
 		</tr>
 		<tr>
-			<td><img src="{$url}application/images/icons/computer.png" align="absmiddle" /> Current IP</td>
+			<td><img src="{$url}application/images/icons/computer.png" align="absmiddle" /> {lang("current_ip", "sidebox_info")}</td>
 			<td>{$currentIp}</td>
 		</tr>
 		<tr>
-			<td><img src="{$url}application/images/icons/lightning.png" align="absmiddle" /> VP</td>
+			<td><img src="{$url}application/images/icons/lightning.png" align="absmiddle" /> {lang("vp", "sidebox_info")}</td>
 			<td id="info_vp">{$vp}</td>
 		</tr>
 		<tr>
-			<td><img src="{$url}application/images/icons/coins.png" align="absmiddle" /> DP</td>
+			<td><img src="{$url}application/images/icons/coins.png" align="absmiddle" /> {lang("dp", "sidebox_info")}</td>
 			<td id="info_dp">{$dp}</td>
 		</tr>
-
-		{if $forum}
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
-				<td><b>Forum rank:</b></td>
-				<td>To do</td>
-			</tr>
-			<tr>
-				<td><b>Reputation:</b></td>
-				<td>To do</td>
-			</tr>
-			<tr>
-				<td><b>Threads:</b></td>
-				<td>To do</td>
-			</tr>
-			<tr>
-				<td><b>Posts:</b></td>
-				<td>To do</td>
-			</tr>
-		{/if}
 	</table>
 	<center>
-		<a href="{$url}ucp" class="nice_button">User panel</a>
-		<a href="{$url}logout" class="nice_button">Log out</a>
+		<a href="{$url}ucp" class="nice_button">{lang("user_panel", "sidebox_info")}</a>
+		<a href="{$url}logout" class="nice_button">{lang("log_out", "sidebox_info")}</a>
 	</center>
 </section>

@@ -10,3 +10,4 @@
 */
 
 $config['vote_ip_lock'] = true;
+$config['delete_old_votes'] = true;

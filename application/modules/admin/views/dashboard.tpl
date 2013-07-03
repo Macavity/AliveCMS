@@ -1,9 +1,23 @@
+{if $graph}
 <div class="statistics">
 	<span>Unique views</span>
 	<div class="image">
 		<img src="https://chart.googleapis.com/chart?chf=bg,s,FFFFFF&chxl=0:|{$graph.first_date}|{$graph.last_date}&chxp=0,12,87&chxr=1,0,{$graph.top+20}&chxs=1,676767,11.5,0,lt,676767&chxt=x,y&chs=667x190&cht=lc&chco=095a9d&chds=0,{$graph.top+20}&chd=t:{$graph.stack}&chdlp=l&chls=2&chma=5,5,5,5" />
 	</div>
 </div>
+{/if}
+
+{if $pendingUpdate}
+	<section id="content" style="border-top:none;">
+		<section class="box big shouldHaveAlert">
+		<h1>Pending update</h1>
+		<span style="text-align:center;padding:15px;">
+			There is a pending update to <b>{$pendingUpdate}</b> available.
+			<a class="nice_button" href="{$url}update" data-hasevent="1">Go to the update installer</a>
+		</span>
+		</section>
+	</section>
+{/if}
 
 <div class="info_box">
 	<aside>
@@ -78,8 +92,10 @@
 		<ul id="enabled_modules">
 			{foreach from=$enabled_modules item=module key=key}
 				<li>
-					{if $module.enabled}<a href="javascript:void(0)" onClick="Admin.disableModule('{$key}', this);" class="button">Disable</a>{else}<a href="javascript:void(0)" onClick="Admin.enableModule('{$key}', this);" class="button">Enable</a>{/if}
-					{if $module.has_configs}<a href="{$url}admin/edit/{$key}" class="button">Edit configs</a>{/if}
+					{if hasPermission("toggleModules")}
+						{if $module.enabled}<a href="javascript:void(0)" onClick="Admin.disableModule('{$key}', this);" class="button">Disable</a>{else}<a href="javascript:void(0)" onClick="Admin.enableModule('{$key}', this);" class="button">Enable</a>{/if}
+					{/if}
+					{if $module.has_configs && hasPermission("editModuleConfigs")}<a href="{$url}admin/edit/{$key}" class="button">Edit configs</a>{/if}
 					<span style="display:inline !important;padding:0px !important;" data-tip="{$module.description}"><b>{ucfirst($module.name)}</b> by <a href="{$module.author.website}" target="_blank">{$module.author.name}</a></span>
 				</li>
 			{/foreach}
@@ -91,8 +107,10 @@
 		<ul id="disabled_modules">
 			{foreach from=$disabled_modules item=module key=key}
 				<li>
-					{if $module.enabled}<a href="javascript:void(0)" onClick="Admin.disableModule('{$key}', this);" class="button">Disable</a>{else}<a href="javascript:void(0)" onClick="Admin.enableModule('{$key}', this);" class="button">Enable</a>{/if}
-					{if $module.has_configs}<a href="{$url}admin/edit/{$key}" class="button">Edit configs</a>{/if}
+					{if hasPermission("toggleModules")}
+						{if $module.enabled}<a href="javascript:void(0)" onClick="Admin.disableModule('{$key}', this);" class="button">Disable</a>{else}<a href="javascript:void(0)" onClick="Admin.enableModule('{$key}', this);" class="button">Enable</a>{/if}
+					{/if}
+					{if $module.has_configs && hasPermission("editModuleConfigs")}<a href="{$url}admin/edit/{$key}" class="button">Edit configs</a>{/if}
 					<span style="display:inline !important;padding:0px !important;" data-tip="{$module.description}"><b>{ucfirst($module.name)}</b> by <a href="{$module.author.website}" target="_blank">{$module.author.name}</a></span>
 				</li>
 			{/foreach}
@@ -132,13 +150,17 @@
 				<td>Author</td>
 				<td><a href="{$theme.website}" target="_blank">{$theme.author}</a></td>
 			</tr>
-			<tr>
-				<td>Header</td>
-				<td><b style="font-weight:normal;" id="header_field">{if !$header_url}Default{else}Custom{/if} {if $theme.blank_header}</b> (<a href="javascript:void(0)" onClick="Admin.changeHeader('{$header_url}', '{$theme.blank_header}', '{$theme_value}')">change</a>){/if}</td>
-			</tr>
+			{if hasPermission("changeThemeHeader")}
+				<tr>
+					<td>Header</td>
+					<td><b style="font-weight:normal;" id="header_field">{if !$header_url}Default{else}Custom{/if} {if $theme.blank_header}</b> (<a href="javascript:void(0)" onClick="Admin.changeHeader('{$header_url}', '{$theme.blank_header}', '{$theme_value}')">change</a>){/if}</td>
+				</tr>
+			{/if}
 		</table>
-		<div class="divider"></div>
-		<a href="{$url}admin/theme" class="button">Change theme</a>
+		{if hasPermission("changeTheme")}
+			<div class="divider"></div>
+			<a href="{$url}admin/theme" class="button">Change theme</a>
+		{/if}
 	</section>
 </aside>
 

@@ -19,7 +19,9 @@ class Comments extends MX_Controller
 	 */
 	public function get($id)
 	{
-		$cache = $this->cache->get("comments_".$id);
+		requirePermission("canViewComments");
+
+		$cache = $this->cache->get("comments_".$id."_".getLang());
 		
 		if($cache !== false)
 		{
@@ -37,19 +39,17 @@ class Comments extends MX_Controller
 					$comments[$key]['profile'] = $this->template->page_url."profile/".$comment['author_id'];
 					$comments[$key]['avatar'] = $this->user->getAvatar($comment['author_id'], "small");
 					$comments[$key]['author'] = $this->user->getNickname($comment['author_id']);
-					$comments[$key]['rank'] = $this->external_account_model->getRank($comment['author_id']);
-					$comments[$key]['is_gm'] = $this->user->isStaff($comment['author_id']);
 				}
 			}
 
-			$this->cache->save("comments_".$id, $comments);
+			$this->cache->save("comments_".$id."_".getLang(), $comments);
 		}
 
 		$comments_html = '';
 
 		if(is_array($comments))
 		{
-			$comments_html = $this->template->loadPage("comments.tpl", array('url' => $this->template->page_url, 'comments' => $comments, 'user_is_gm' => $this->user->isStaff()));
+			$comments_html = $this->template->loadPage("comments.tpl", array('url' => $this->template->page_url, 'comments' => $comments, 'user_is_gm' => hasPermission('canRemoveComment')));
 		}
 
 		$values = array(
@@ -72,6 +72,8 @@ class Comments extends MX_Controller
 	 */
 	public function add($id = false)
 	{
+		requirePermission("canAddComment");
+
 		if(!$id)
 		{
 			die();
@@ -89,10 +91,16 @@ class Comments extends MX_Controller
 					"timestamp" => time(),
 					"article_id" => $id,
 					"author_id" => $this->user->getId(),
-					"content" => $message
+					"content" => $message,
+					"is_gm" => (hasPermission('postCommentAsStaff')) ? 1 : 0
 				);
 
 				$this->comments_model->addComment($comment);
+
+				// Add log
+				$this->logger->createLog('Added comment', $id);
+
+				$this->plugins->onAddComment($id, $message);
 
 				// Get last comment
 				$comment_arr = $this->comments_model->getLastComment($id);
@@ -103,24 +111,16 @@ class Comments extends MX_Controller
 				$comment_arr['author'] = $this->user->getNickname($comment_arr['author_id']);
 				$comment_arr['content'] = $this->template->format($message, true, true, true, 45);
 				$comment_arr['url'] = $this->template->page_url;
+				$comment_arr['is_gm'] = $comment['is_gm'];
 
-				if($this->external_account_model->getRank($comment['author_id']) >= $this->config->item('comments_gm_rank'))
-				{
-					$comment_arr['is_gm'] = true;
-				}
-				else 
-				{
-					$comment_arr['is_gm'] = false;
-				}
-				
 				// Clear cache
 				$this->cache->delete('news_*.cache');
-				$this->cache->delete('comments_'.$id.'.cache');
+				$this->cache->delete('comments_'.$id.'_*.cache');
 
-				// Load the comment template
+				// Load the comment template, also check if we are a staff member
 				$data = array(
 					'comments' => array($comment_arr),
-					'user_is_gm' => $this->user->isStaff(),
+					'user_is_gm' => hasPermission('postCommentAsStaff'),
 					'url' => $this->template->page_url
 				);
 
@@ -129,23 +129,28 @@ class Comments extends MX_Controller
 		}
 	}
 
+	/**
+	 * Delete the comment with the given id.
+	 * @param bool $id
+	 */
 	public function delete($id = false)
 	{
+		requirePermission("canRemoveComment");
+
 		if(!$id)
 		{
 			die();
 		}
-		else
-		{
-			if($this->user->isStaff())
-			{
-				$articleId = $this->comments_model->deleteComment($id);
 
-				$this->cache->delete('news_*.cache');
-				$this->cache->delete('comments_'.$articleId.'.cache');
+		$articleId = $this->comments_model->deleteComment($id);
+		$this->cache->delete('news_*.cache');
+		$this->cache->delete('comments_'.$articleId.'_*.cache');
 
-				die('Success');
-			}
-		}
+		// Add log
+		$this->logger->createLog('Deleted comment', $id);
+
+		$this->plugins->onDeleteComment($id, $articleId);
+
+		die('Success');
 	}
 }

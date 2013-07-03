@@ -8,6 +8,8 @@ class Menu extends MX_Controller
 
 		$this->load->library("administrator");
 		$this->load->model("menu_model");
+
+		requirePermission("viewMenuLinks");
 	}
 
 	/**
@@ -24,15 +26,6 @@ class Menu extends MX_Controller
 		{
 			foreach($links as $key => $value)
 			{
-				// Get the rank name
-				$links[$key]['rank_name'] = $this->internal_user_model->getRankName($value['rank'], true);
-
-				// Get the rank name
-				if($value['specific_rank'] != 0)
-				{
-					$links[$key]['specific_rank_name'] = $this->internal_user_model->getRankName($value['specific_rank'], true);
-				}
-
 				// Shorten the link if necessary
 				if(strlen($value['link']) > 12)
 				{
@@ -49,24 +42,32 @@ class Menu extends MX_Controller
 					$links[$key]['link'] = $this->template->page_url . $value['link'];
 				}
 
+				$links[$key]['name'] = langColumn($links[$key]['name']);
+
 				// Shorten the name if necessary
-				if(strlen($value['name']) > 15)
+				if(strlen($links[$key]['name']) > 15)
 				{
-					$links[$key]['name'] = mb_substr($value['name'], 0, 15) . '...';
+					$links[$key]['name'] = mb_substr($links[$key]['name'], 0, 15) . '...';
 				}
 			}
+		}
+
+		$pages = $this->menu_model->getPages();
+
+		foreach($pages as $k => $v)
+		{
+			$pages[$k]['name'] = langColumn($v['name']);
 		}
 
 		// Prepare my data
 		$data = array(
 			'url' => $this->template->page_url,
 			'links' => $links,
-			'ranks' => $this->cms_model->getRanks(),
-			'pages' => $this->menu_model->getPages()
+			'pages' => $pages
 		);
 
 		// Load my view
-		$output = $this->template->loadPage("menu.tpl", $data);
+		$output = $this->template->loadPage("menu/menu.tpl", $data);
 
 		// Put my view in the main box with a headline
 		$content = $this->administrator->box('Menu links', $output);
@@ -77,26 +78,27 @@ class Menu extends MX_Controller
 	
 	public function create()
 	{
+		requirePermission("addMenuLinks");
+
 		$name = $this->input->post('name');
 		$link = $this->input->post('link');
 		$side = $this->input->post('side');
-		$rank = $this->input->post('rank');
 		$direct_link = $this->input->post('direct_link');
-		
-		$specific_rank = $this->input->post('specific_rank');
-		
-		if($specific_rank != 0)
-		{
-			$rank = $specific_rank;
-		}
 
-		$this->menu_model->add($name, $link, $side, $rank, $specific_rank, $direct_link);
+		$id = $this->menu_model->add($name, $link, $side, $direct_link);
+
+		if($this->input->post('visibility') == "group")
+		{
+			$this->menu_model->setPermission($id);
+		}
 
 		die('window.location.reload(true)');
 	}
 	
 	public function delete($id)
 	{
+		requirePermission("deleteMenuLinks");
+
 		if($this->menu_model->delete($id))
 		{
 			die("success");
@@ -110,6 +112,8 @@ class Menu extends MX_Controller
 
 	public function edit($id = false)
 	{
+		requirePermission("editMenuLinks");
+
 		if(!is_numeric($id) || !$id)
 		{
 			die();
@@ -125,20 +129,19 @@ class Menu extends MX_Controller
 		}
 
 		// Change the title
-		$this->administrator->setTitle($link['name']);
+		$this->administrator->setTitle(langColumn($link['name']));
 
 		// Prepare my data
 		$data = array(
 			'url' => $this->template->page_url,
-			'link' => $link,
-			'ranks' => $this->cms_model->getRanks()
+			'link' => $link
 		);
 
 		// Load my view
-		$output = $this->template->loadPage("edit_menu.tpl", $data);
+		$output = $this->template->loadPage("menu/edit_menu.tpl", $data);
 
 		// Put my view in the main box with a headline
-		$content = $this->administrator->box('<a href="'.$this->template->page_url.'admin/menu">Menu links</a> &rarr; '.$link['name'], $output);
+		$content = $this->administrator->box('<a href="'.$this->template->page_url.'admin/menu">Menu links</a> &rarr; '.langColumn($link['name']), $output);
 
 		// Output my content. The method accepts the same arguments as template->view
 		$this->administrator->view($content, false, "modules/admin/js/menu.js");
@@ -146,6 +149,8 @@ class Menu extends MX_Controller
 
 	public function move($id = false, $direction = false)
 	{
+		requirePermission("editMenuLinks");
+
 		if(!$id || !$direction)
 		{
 			die();
@@ -184,6 +189,8 @@ class Menu extends MX_Controller
 
 	public function save($id = false)
 	{
+		requirePermission("editMenuLinks");
+
 		if(!$id || !is_numeric($id))
 		{
 			die();
@@ -192,16 +199,20 @@ class Menu extends MX_Controller
 		$data['name'] = $this->input->post('name');
 		$data['link'] = $this->input->post('link');
 		$data['side'] = $this->input->post('side');
-		$data['rank'] = $this->input->post('rank');
 		$data['direct_link'] = $this->input->post('direct_link');
-		$data['specific_rank'] = $this->input->post('specific_rank');
-
-		if($data['specific_rank'] != 0)
-		{
-			$data['rank'] = $data['specific_rank'];
-		}
 
 		$this->menu_model->edit($id, $data);
+
+		$hasPermission = $this->menu_model->hasPermission($id);
+
+		if($this->input->post('visibility') == "group" && !$hasPermission)
+		{
+			$this->menu_model->setPermission($id);
+		}
+		elseif($this->input->post('visibility') != "group" && $hasPermission)
+		{
+			$this->menu_model->deletePermission($id);
+		}
 
 		die('window.location="'.$this->template->page_url.'admin/menu"');
 	}

@@ -13,7 +13,10 @@ class Avatar extends MX_Controller
 		// Load the avatar page
 		$content = $this->template->loadPage("avatar.tpl", $data);
 
-		$title = "<span style='cursor:pointer;' onClick='window.location=\"".$this->template->page_url."ucp\"'>UCP</span> &rarr; Change avatar";
+		$title = breadcumb(array(
+							"ucp" => lang("ucp"),
+							"ucp/avatar" => lang("change_avatar", "ucp")
+						));
 
 		// Put it in a content box
 		$this->template->box($title, $content, true, "modules/ucp/css/avatar.css");

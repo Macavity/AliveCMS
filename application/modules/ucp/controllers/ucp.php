@@ -5,16 +5,17 @@ class Ucp extends MX_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		
-		//Make sure that we are logged in
+
 		$this->user->userArea();
 
 		$this->load->config('links');
 	}
-	
+
 	public function index()
 	{
-		$this->template->setTitle("User panel");
+		requirePermission("view");
+
+		$this->template->setTitle(lang("user_panel", "ucp"));
 
 		$cache = $this->cache->get("profile_characters_".$this->user->getId());
 
@@ -25,11 +26,11 @@ class Ucp extends MX_Controller
 		else
 		{
 			$characters_data = array(
-							"characters" => $this->realms->getTotalCharacters(),
-							"realms" => $this->realms->getRealms(),
-							"url" => $this->template->page_url,
-							"realmObj" => $this->realms
-						);
+				"characters" => $this->realms->getTotalCharacters(),
+				"realms" => $this->realms->getRealms(),
+				"url" => $this->template->page_url,
+				"realmObj" => $this->realms
+			);
 
 			$characters = $this->template->loadPage("ucp_characters.tpl", $characters_data);
 
@@ -43,15 +44,13 @@ class Ucp extends MX_Controller
 			"dp" => $this->internal_user_model->getDp(),
 			"url" => $this->template->page_url,
 			"location" => $this->internal_user_model->getLocation(),
-			"rank" => $this->user->getUserGroup($this->external_account_model->getId()),
+			"groups" => $this->acl_model->getGroupsByUser($this->user->getId()),
 			"register_date" => $this->user->getRegisterDate(),
 			"status" => $this->user->getAccountStatus(),
 			"characters" => $characters,
 			"avatar" => $this->user->getAvatar($this->user->getId()),
 			"id" => $this->user->getId(),
-			"is_gm" => $this->user->isGm(),
-			"is_owner" => $this->user->isOwner(),
-			"is_admin" => $this->user->isAdmin(),
+
 			"config" => array(
 				"vote" => $this->config->item('ucp_vote'),
 				"donate" => $this->config->item('ucp_donate'),
@@ -59,54 +58,15 @@ class Ucp extends MX_Controller
 				"settings" => $this->config->item('ucp_settings'),
 				"expansion" => $this->config->item('ucp_expansion'),
 				"teleport" => $this->config->item('ucp_teleport'),
-				"gm" => $this->config->item('ucp_gm'),
-				"admin" => $this->config->item('ucp_admin')
+				"admin" => $this->config->item('ucp_admin'),
+				"gm" => $this->config->item('ucp_gm')
 			)
 		);
 
 		$this->template->view($this->template->loadPage("page.tpl", array(
 			"module" => "default", 
-			"headline" => "User panel", 
+			"headline" => lang("user_panel", "ucp"), 
 			"content" => $this->template->loadPage("ucp.tpl", $data)
 		)), "modules/ucp/css/ucp.css");
 	}
-    
-    /**
-     * Ajax: Changes the active character
-     */
-    public function changeCharacter(){
-        // Login required and ajax request
-        if(!$this->input->is_ajax_request() || !$this->user->isOnline()){
-            redirect("ucp");
-        }
-        
-        $newGUID = $this->input->post("index");
-        $newRealm = $this->input->post("realm");
-        $xsToken = $this->input->post("xstoken");
-        $error = "";
-        
-        if($this->realms->realmExists($newRealm)){
-            $realmCharDb = $this->realms->getRealm($newRealm)->getCharacters();
-            
-            if($realmCharDb->characterBelongsToAccount($newGUID, $this->user->getId())){
-                $this->user->setActiveChar($newGUID, $newRealm);
-            }
-        }
-        else{
-            $error = "Realm nicht gefunden";
-        }
-
-        $content = $this->template->getUserplate();       
-        
-        // Damit wir später .find benutzen können muss der Content in einem Oberelement liegen.
-        $content = "<div>".$content."</div>";
-        
-        $array = array(
-            "content" => $content,
-            "guid" => $newGUID,
-            "error" => $error,
-        );
-
-        $this->outputJSON($array);    
-    }
 }

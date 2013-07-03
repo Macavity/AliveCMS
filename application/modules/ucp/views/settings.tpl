@@ -8,6 +8,18 @@
 			<td style="width:25% !important"><label for="location_field">Location</label></td>
 			<td><input type="text" name="location_field" id="location_field" value="{$location}"/></td>
 		</tr>
+		{if $show_language_chooser}
+			<tr>
+				<td style="width:25% !important"><label for="language_field">Website language</label></td>
+				<td>
+					<select name="language_field" id="language_field">
+						{foreach from=$languages item=language}
+							<option value="{$language}" {if $userLanguage == $language}selected="selected"{/if}>{ucfirst($language)}</option>
+						{/foreach}
+					</select>
+				</td>
+			</tr>
+		{/if}
 	</table>
 
 	<center style="margin-bottom:10px;">

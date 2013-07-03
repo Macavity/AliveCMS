@@ -1,6 +1,6 @@
 <?php
 
-require_once('application/emulators/mangosr2_soap.php');
+require_once(dirname(__FILE__).'/mangosr2_soap.php');
 
 /**
  * Abstraction layer for supporting different emulators

@@ -9,11 +9,8 @@
 		<link rel="stylesheet" href="{$url}application/themes/admin/css/main.css" type="text/css" />
 		{if $extra_css}<link rel="stylesheet" href="{$url}application/{$extra_css}" type="text/css" />{/if}
 
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-        
-        <script type="text/javascript" src="{$url}application/js/function_debug.js"></script>
-        <script type="text/javascript" src="{$url}application/js/function_console.js"></script>
-        <script type="text/javascript" src="{$url}application/js/_debug.js"></script>
+		<script src="{if $cdn}//html5shiv.googlecode.com/svn/trunk/html5.js{else}{$url}application/js/html5shiv.js{/if}"></script>
+		<script type="text/javascript" src="{if $cdn}https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js{else}{$url}application/js/jquery.min.js{/if}"></script>
 
 		<script type="text/javascript">
 		
@@ -38,7 +35,7 @@
 					y = ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
 					x = x.replace(/^\s+|\s+$/g,"");
 					
-					if(x==c_name)
+					if(x == c_name)
 					{
 						return unescape(y);
 					}
@@ -48,14 +45,15 @@
 			var Config = {
 				URL: "{$url}",
 				CSRF: getCookie('csrf_cookie_name'),
-				isACP: true
+				isACP: true,
+				defaultLanguage: "{$defaultLanguage}",
+				languages: [ {foreach from=$languages item=language}"{$language}",{/foreach} ]
 			};
 		</script>
 
-		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
 		<script src="{$url}application/themes/admin/js/router.js" type="text/javascript"></script>
 		<script src="{$url}application/js/require.js" type="text/javascript" ></script>
-        
+		
 		<script type="text/javascript">
 
 			var scripts = [
@@ -135,15 +133,17 @@
 				<!-- Top menu -->
 				<aside class="right">
 					<nav>
-						<a href="{$url}ucp">
+						<a href="{$url}ucp" data-hasevent="1">
 							<div class="icon logout"></div>
 							Go back
 						</a>
 
-						<a href="{$url}admin/settings" {if $current_page == "admin/settings"}class="active"{/if}>
-							<div class="icon settings"></div>
-							Settings
-						</a>
+						{if hasPermission("editSystemSettings", "admin")}
+							<a href="{$url}admin/settings" {if $current_page == "admin/settings"}class="active"{/if}>
+								<div class="icon settings"></div>
+								Settings
+							</a>
+						{/if}
 
 						<a href="{$url}admin/" {if $current_page == "admin/"}class="active"{/if}>
 							<div class="icon dashboard"></div>
@@ -167,18 +167,20 @@
 				<aside class="left">
 					<nav>
 						{foreach from=$menu item=group key=text}
-							<a><div class="icon {$group.icon}"></div> {$text}</a>
+							{if count($group.links)}
+								<a><div class="icon {$group.icon}"></div> {$text}</a>
 
-							<section class="sub">
-								{foreach from=$group.links item=link}
-									<a href="{$url}{$link.module}/{$link.controller}" {if isset($link.active)}class="active"{/if}><div class="icon {$link.icon}"></div> {$link.text}</a>
-								{/foreach}
-							</section>
+								<section class="sub">
+									{foreach from=$group.links item=link}
+										<a href="{$url}{$link.module}/{$link.controller}" {if isset($link.active)}class="active"{/if}><div class="icon {$link.icon}"></div> {$link.text}</a>
+									{/foreach}
+								</section>
+							{/if}
 						{/foreach}
 					</nav>
 
 					<article>
-						<h1>Welcome to FusionCMS V6</h1>
+						<h1>Welcome to FusionCMS</h1>
 						<b>Dear customer</b>, We are happy to introduce you to the next major version of our very own FusionCMS. Years have passed since the initial release and the system has grown better and stronger for every version. The core of this beast is powered by clean, object oriented PHP code, kept in shape by the incredibly powerful CodeIgniter framework. On the front we also make sure to amaze your visitors with more Javascript-powered live interactions than ever before.
 						<div class="clear"></div>
 					</article>
@@ -210,7 +212,7 @@
 				<aside id="twitter">
 					<h1>Follow us on Twitter!</h1>
 					<div id="twitter_icon"></div>
-					<a href="http://twitter.com/FCMS6" target="_blank">@FCMS6</a>
+					<a href="http://twitter.com/FusionHub" target="_blank">@FusionHub</a>
 				</aside>
 				<div class="divider"></div>
 				<aside id="html5">

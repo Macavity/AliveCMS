@@ -10,6 +10,8 @@ class Admin extends MX_Controller
 		$this->load->model('changelog_model');
 		
 		parent::__construct();
+
+		requirePermission("canViewAdmin");
 	}
 
 	public function index()
@@ -50,29 +52,43 @@ class Admin extends MX_Controller
 	
 	public function create()
 	{
+		requirePermission("canAddChange");
+
 		$name = $this->input->post("typeName");
 
-		$this->changelog_model->addCategory($name);
+		$id = $this->changelog_model->addCategory($name);
 
-		die('window.location.reload(true)');
+		// Add log
+		$this->logger->createLog('Created category', $name);
+
+		$this->plugins->onAddCategory($id, $name);
 	}
 
 	public function addChange($id)
 	{
+		requirePermission("canAddChange");
+
 		$data['changelog'] = $this->input->post("change_message");
 		$data['author'] = $this->user->getNickname();
 		$data['type'] = $id;
 		$data['time'] = time();
 
- 		$data['id'] = $this->changelog_model->add($data);
+		$data['id'] = $this->changelog_model->add($data);
 
- 		$data['date'] = date("Y/m/d");
+		$data['date'] = date("Y/m/d");
+
+		// Add log
+		$this->logger->createLog('Created change', $data['changelog'].' ('.$id.')');
+		
+		$this->plugins->onAddChange($data['id'], $data['changelog'], $data['type']);
 
 		die(json_encode($data));
 	}
 	
 	public function edit($id = false)
 	{
+		requirePermission("canEditChange");
+
 		if(!is_numeric($id) || !$id)
 		{
 			die();
@@ -89,7 +105,7 @@ class Admin extends MX_Controller
 
 		// Change the title
 		$this->administrator->setTitle("Change #".$id);
-		
+
 		$fusionEditor = $this->fusioneditor->create("text", false, 250, $change['changelog']);
 
 		// Prepare my data
@@ -111,26 +127,43 @@ class Admin extends MX_Controller
 	
 	public function delete($id = false)
 	{
+		requirePermission("canRemoveChange");
+
 		if(!$id || !is_numeric($id))
 		{
 			die();
 		}
 
 		$this->changelog_model->deleteChange($id);
+
+		// Add log
+		$this->logger->createLog('Deleted change', $id);
+
+		$this->plugins->onDeleteChange($id);
 	}
 
 	public function deleteCategory($id = false)
 	{
+		// Check for the permission
+		requirePermission("canRemoveCategory");
+
 		if(!$id || !is_numeric($id))
 		{
 			die();
 		}
 
 		$this->changelog_model->deleteCategory($id);
+
+		// Add log
+		$this->logger->createLog('Deleted category', $id);
+
+		$this->plugins->onDeleteCategory($id);
 	}
 	
 	public function save($id = false)
 	{
+		requirePermission("canEditChange");
+
 		if(!$id || !is_numeric($id))
 		{
 			die();
@@ -140,11 +173,16 @@ class Admin extends MX_Controller
 
 		$this->changelog_model->edit($id, $data);
 
-		die('window.location="'.$this->template->page_url.'changelog/admin"');
+		// Add log
+		$this->logger->createLog('Edited change', $id);
+
+		$this->plugins->onEditChange($id, $data['changelog']);
 	}
 
 	public function saveCategory($id = false)
 	{
+		requirePermission("canEditCategory");
+
 		if(!$id || !is_numeric($id))
 		{
 			die();
@@ -153,5 +191,10 @@ class Admin extends MX_Controller
 		$data['typeName'] = $this->input->post('typeName');
 
 		$this->changelog_model->saveCategory($id, $data);
+
+		// Add log
+		$this->logger->createLog('Edited category', $id);
+
+		$this->plugins->onSaveCategory($id, $data['typeName']);
 	}
 }

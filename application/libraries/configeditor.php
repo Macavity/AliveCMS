@@ -1,11 +1,13 @@
 <?php
+
 /**
  * @package FusionCMS
- * @version 6.0
  * @author Jesper Lindström
  * @author Xavier Geerinck
+ * @author Elliott Robbins
  * @link http://raxezdev.com/fusioncms
  */
+
 class ConfigEditor
 {
 	private $file;
@@ -17,10 +19,16 @@ class ConfigEditor
 	 */
 	public function __construct($file)
 	{
+		$this->data = "";
 		$this->file = $file;
 
 		$handle = fopen($this->file, "r");
-		$this->data = fread($handle, filesize($this->file));
+
+		while(!feof($handle))
+		{
+			$this->data .= fgets($handle);
+		}
+
 		fclose($handle);
 	}
 
@@ -69,7 +77,7 @@ class ConfigEditor
 		// Create a string
 		else
 		{
-			$value = "\"".addslashes($value)."\"";
+			$value = "\"".str_replace('"', '\"', $value)."\"";
 		}
 		
 		// Check for sub array replacement

@@ -411,7 +411,7 @@ class Skyfire_soap implements Emulator
 		$client = new SoapClient(NULL,
 	  		array(
 	   			"location" => "http://".$this->config['hostname'].":".$this->config['console_port'],
-	   			"uri" => "urn:TC",
+	   			"uri" => "urn:SF",
 	   			'login' => $this->config['console_username'],
 	   			'password' => $this->config['console_password']
 	  		)

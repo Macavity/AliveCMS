@@ -165,7 +165,7 @@ var Menu = {
 
 		for(i in customPages)
 		{
-			rows.append("<input type='radio' id='page_" + i + "' value='" + i + "'/> <label for='page_" + i + "' style='display:inline;border:none;font-size:14px;'>" + customPages[i].name + "</label>");
+			rows.append("<input type='radio' id='page_" + i + "' value='" + i + "'/> <label for='page_" + i + "' style='display:inline;border:none;font-size:14px;'>" + customPages[i].name + "</label><br />");
 		}
 
 		UI.confirm(rows, "Select", function()

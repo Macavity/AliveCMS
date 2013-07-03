@@ -2,6 +2,8 @@
 
 class Install
 {
+	private $db;
+
 	public function __construct()
 	{
 		if(!isset($_GET['step']))
@@ -17,8 +19,17 @@ class Install
 				case "realms": $this->realms(); break;
 				case "ranks": $this->ranks(); break;
 				case "folder": $this->check(); break;
+				case "final": $this->finalStep(); break;
+				case "getEmulators": $this->getEmulators(); break;
 			}
 		}
+	}
+
+	private function getEmulators()
+	{
+		require_once("../application/config/emulator_names.php");
+
+		die(json_encode($emulators));
 	}
 
 	private function check()
@@ -37,9 +48,18 @@ class Install
 
 	private function config()
 	{
+		$owner = fopen("../application/config/owner.php", "w");
+		fwrite($owner, '<?php $config["owner"] = "'.$_POST['superadmin'].'";');
+		fclose($owner);
+
 		require_once('../application/libraries/configeditor.php');
 
-		$config = new ConfigEditor("../application/config/fusion.php");
+		$distConfig = '../application/config/fusion.php.dist';
+		$config = '../application/config/fusion.php';
+		if(file_exists($distConfig))
+			copy($distConfig, $config); // preserve the original in-case they mess up the new one
+
+		$config = new ConfigEditor($config);
 
 		$data['title'] = $_POST['title'];
 		$data['server_name'] = $_POST['server_name'];
@@ -146,8 +166,11 @@ $db["account"]["stricton"] = FALSE;';
 	{
 		require('../application/config/database.php');
 
-		mysql_connect($db['cms']['hostname'], $db['cms']['username'], $db['cms']['password']) or die("MySQL connection could not be established: ".mysql_error());
-		mysql_select_db($db['cms']['database']) or die("MySQL connection could not be established: ".mysql_error());
+		$this->db = new mysqli($db['cms']['hostname'], $db['cms']['username'], $db['cms']['password'], $db['cms']['database']);
+		if(mysqli_connect_error())
+		{
+			die('Connect Error ('.mysqli_connect_errno().') '.mysqli_connect_error());
+		}
 	}
 
 	private function database()
@@ -189,7 +212,8 @@ $db["account"]["stricton"] = FALSE;';
 					{
 						$query = trim(implode('', $query));
 
-						mysql_query($query) or die(mysql_error());
+						if(!$this->db->query($query))
+							die($this->db->error);
 
 						while(ob_get_level() > 0)
 						{
@@ -217,7 +241,7 @@ $db["account"]["stricton"] = FALSE;';
 		$this->connect();
 
 		$realms = json_decode(stripslashes($_POST['realms']), true);
-		$emulator = mysql_real_escape_string($_POST['emulator']);
+		$emulator = $this->db->real_escape_string($_POST['emulator']);
 
 		if(!is_array($realms))
 		{
@@ -226,19 +250,19 @@ $db["account"]["stricton"] = FALSE;';
 
 		foreach($realms as $realm)
 		{
-			mysql_query("INSERT INTO realms(`emulator`, `cap`, `char_database`, `console_password`,	`console_port`,	`console_username`,	`hostname`,	`password`, `realm_port`, `realmName`, `username`, `world_database`)
+			$this->db->query("INSERT INTO realms(`emulator`, `cap`, `char_database`, `console_password`,	`console_port`,	`console_username`,	`hostname`,	`password`, `realm_port`, `realmName`, `username`, `world_database`)
 						VALUES('".$emulator."',
-								'".mysql_real_escape_string($realm['cap'])."',
-								'".mysql_real_escape_string($realm['characters'])."',
-								'".mysql_real_escape_string($realm['console_password'])."',
-								'".mysql_real_escape_string($realm['console_port'])."',
-								'".mysql_real_escape_string($realm['console_username'])."',
-								'".mysql_real_escape_string($realm['hostname'])."',
-								'".mysql_real_escape_string($realm['password'])."',
-								'".mysql_real_escape_string($realm['port'])."',
-								'".mysql_real_escape_string($realm['realmName'])."',
-								'".mysql_real_escape_string($realm['username'])."',
-								'".mysql_real_escape_string($realm['world'])."')");
+								'".$this->db->real_escape_string($realm['cap'])."',
+								'".$this->db->real_escape_string($realm['characters'])."',
+								'".$this->db->real_escape_string($realm['console_password'])."',
+								'".$this->db->real_escape_string($realm['console_port'])."',
+								'".$this->db->real_escape_string($realm['console_username'])."',
+								'".$this->db->real_escape_string($realm['hostname'])."',
+								'".$this->db->real_escape_string($realm['password'])."',
+								'".$this->db->real_escape_string($realm['port'])."',
+								'".$this->db->real_escape_string($realm['realmName'])."',
+								'".$this->db->real_escape_string($realm['username'])."',
+								'".$this->db->real_escape_string($realm['world'])."')");
 		}
 
 		die('1');
@@ -276,6 +300,17 @@ $db["account"]["stricton"] = FALSE;';
 		}
 
 		die('1');
+	}
+	
+	private function finalStep()
+	{
+		$file = fopen('.lock', 'w');
+		fclose($file);
+		
+		if(file_exists(".lock"))
+		{
+			die('success');
+		}
 	}
 }
 

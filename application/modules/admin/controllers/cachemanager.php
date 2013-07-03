@@ -15,9 +15,9 @@ class Cachemanager extends MX_Controller
 		$this->websiteMatches = array("*.cache");
 		$this->messageMatches = array("messages/*");
 
-		$this->administrator->requireOwner();
-
 		parent::__construct();
+
+		requirePermission("viewCache");
 	}
 
 	public function index()
@@ -31,7 +31,7 @@ class Cachemanager extends MX_Controller
 		);
 
 		// Load my view
-		$output = $this->template->loadPage("cache.tpl", $data);
+		$output = $this->template->loadPage("cachemanager/cache.tpl", $data);
 
 		// Put my view in the main box with a headline
 		$content = $this->administrator->box('Manage cache', $output);
@@ -59,7 +59,7 @@ class Cachemanager extends MX_Controller
 		);
 
 		// Load my view
-		$output = $this->template->loadPage("cache_data.tpl", $data);
+		$output = $this->template->loadPage("cachemanager/cache_data.tpl", $data);
 
 		die($output);
 	}
@@ -198,6 +198,8 @@ class Cachemanager extends MX_Controller
 
 	public function delete($type = false)
 	{
+		requirePermission("emptyCache");
+		
 		if(!$type || !in_array($type, array('all_but_item', 'website', 'message', 'all')))
 		{
 			die();

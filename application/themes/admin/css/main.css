@@ -82,21 +82,23 @@ table {
 }
 
 /* Icon positions */
+.settings { background-position:256px 0px; }
+.list { background-position:128px 0px; }
+.tag { background-position:144px 0px; }
+.cursor { background-position:160px 0px; }
+.file { background-position:176px 0px; }
+.database { background-position:192px 0px; }
+.link { background-position:208px 0px; }
+.windows { background-position:224px 0px; }
+.logout { background-position:240px 0px; }
+.pointer { background-position:112px 0px; }
+.share { background-position:96px 0px; }
+.heart { background-position:80px 0px; }
+.hashtag { background-position:64px 0px; }
+.users { background-position:48px 0px; }
+.power { background-position:32px 0px; }
+.star { background-position:16px 0px; }
 .dashboard { background-position:0px 0px; }
-.users { background-position:16px 0px; }
-.hashtag { background-position:32px 0px; }
-.heart { background-position:48px 0px; }
-.share { background-position:64px 0px; }
-.pointer { background-position:80px 0px; }
-.list { background-position:96px 0px; }
-.tag { background-position:112px 0px; }
-.cursor { background-position:128px 0px; }
-.file { background-position:144px 0px; }
-.database { background-position:160px 0px; }
-.link { background-position:176px 0px; }
-.windows { background-position:192px 0px; }
-.logout { background-position:208px 0px; }
-.settings { background-position:224px 0px; }
 
 /* Top bar */
 header {
@@ -710,9 +712,9 @@ header nav .active:hover {
 	border-bottom:1px solid #fff;
 }
 
-#main .right .side_right .alert {
+#main .right .alert {
 	border:1px solid red;
-	box-shadow:0px 0px 10px red;
+	box-shadow:0px 1px 0px #fff inset, 0px 1px 1px #999, 0px 0px 10px red;
 }
 
 /* Form styles */
@@ -804,10 +806,6 @@ select {
 	display:block;
 }
 
-#sidebox_list tr td{
-    vertical-align:top;
-}
-
 /* Footer */
 footer {
 	font-family:'MuseoSlab', Arial, Helvetica, Sans-serif;
@@ -820,7 +818,7 @@ footer {
 
 footer .center_1020 {
 	background-color:rgba(0,0,0,0.1);
-	/*border-left:;*/
+	border-left:;
 	height:100px;
 }
 
@@ -879,7 +877,7 @@ footer #twitter #twitter_icon {
 	background-image:url(../images/twitter.png);
 	width:31px;
 	height:21px;
-	margin-left:60px;
+	margin-left:40px;
 	margin-top:5px;
 	margin-right:10px;
 }
@@ -1291,6 +1289,20 @@ footer .divider2 {
 .q8 { color: #ffff98 }
 .q9 { color: #71D5FF }
 .q10 { color: #ffd100 }
+
 .mceEditor { padding:0px !important;width:100%; }
 .mceFirst span { padding:0px !important; }
 .mceLast > .mceLast span { display:inline !important; }
+
+/* ACP */
+.acl_group_item {
+
+}
+
+.acl_role_item {
+    padding-left: 10% !important;
+}
+
+.acl_permission_item {
+    padding-left: 20% !important;
+}

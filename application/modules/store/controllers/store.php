@@ -4,34 +4,50 @@ class Store extends MX_Controller
 {
 	public function __construct()
 	{
+		parent::__construct();
+		
 		$this->output->set_header("Cache-Control: no-store, no-cache, must-revalidate");
 		$this->output->set_header("Cache-Control: post-check=0, pre-check=0");
 		$this->output->set_header("Pragma: no-cache");
 
-		$this->user->is_logged_in();
+		$this->user->userArea();
 
 		$this->load->model("store_model");
 
 		$this->load->config('store');
+
+		requirePermission("view");
 	}
 
 	public function index()
 	{
+		requirePermission("view");
+
+		clientLang("cant_afford", "store");
+		clientLang("hide", "store");
+		clientLang("show", "store");
+		clientLang("loading", "store");
+		clientLang("want_to_buy", "store");
+		clientLang("yes", "store");
+		clientLang("checkout", "store");
+		clientLang("vp", "store");
+		clientLang("dp", "store");
+
 		// Gather the template data
 		$data = array(
-					'url' => $this->template->page_url,
-					'image_path' => $this->template->image_path,
-					'vp' => $this->user->getVp(),
-					'dp' => $this->user->getDp(),
-					'data' => $this->getData(),
-					'minimize' => $this->config->item('minimize_groups_by_default')
-				);
+			'url' => $this->template->page_url,
+			'image_path' => $this->template->image_path,
+			'vp' => $this->user->getVp(),
+			'dp' => $this->user->getDp(),
+			'data' => $this->getData(),
+			'minimize' => $this->config->item('minimize_groups_by_default')
+		);
 
 		// Load the content
 		$content = $this->template->loadPage("store.tpl", $data);
 
 		// Put the content in a box
-		$page = $this->template->box("<span style='cursor:pointer;' onClick='window.location=\"".$this->template->page_url."ucp\"'>UCP</span> &rarr; Item store", $content);
+		$page = $this->template->box("<span style='cursor:pointer;' onClick='window.location=\"".$this->template->page_url."ucp\"'>".lang("ucp")."</span> &rarr; ".lang("item_store", "store"), $content);
 
 		// Output the content
 		$this->template->view($page, "modules/store/css/store.css", "modules/store/js/store.js");

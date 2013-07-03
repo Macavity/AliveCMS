@@ -13,7 +13,7 @@ class Edit extends MX_Controller
 
 		parent::__construct();
 
-		$this->administrator->requireOwner();
+		requirePermission("editModuleConfigs");
 
 		require_once('application/libraries/configeditor.php');
 	}

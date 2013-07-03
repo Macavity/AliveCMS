@@ -9,6 +9,8 @@ class Slider extends MX_Controller
 		$this->load->model('slider_model');
 
 		parent::__construct();
+
+		requirePermission("viewSlider");
 	}
 
 	public function index()
@@ -56,7 +58,7 @@ class Slider extends MX_Controller
 		);
 
 		// Load my view
-		$output = $this->template->loadPage("slider.tpl", $data);
+		$output = $this->template->loadPage("slider/slider.tpl", $data);
 
 		// Put my view in the main box with a headline
 		$content = $this->administrator->box('Slides', $output);
@@ -67,10 +69,11 @@ class Slider extends MX_Controller
 
 	public function create()
 	{
+		requirePermission("addSlider");
+
 		$data["image"] = $this->input->post("image");
 		$data["link"] = $this->input->post("link");
-		$data["title"] = $this->input->post("title");
-        $data["text"] = $this->input->post("text");
+		$data["text"] = $this->input->post("text");
 
 		if(!preg_match("/http:\/\//", $data['image']))
 		{
@@ -100,19 +103,15 @@ class Slider extends MX_Controller
 
 		// Change the title
 		$this->administrator->setTitle('Slide #'.$slide['id']);
-        
-        
-        $image_path = "/".APPPATH.str_replace('{path}', "", $this->template->theme_path)."images/";
-        
+
 		// Prepare my data
 		$data = array(
 			'url' => $this->template->page_url,
-			'image_path' => $image_path,
 			'slide' => $slide
 		);
 
 		// Load my view
-		$output = $this->template->loadPage("edit_slider.tpl", $data);
+		$output = $this->template->loadPage("slider/edit_slider.tpl", $data);
 
 		// Put my view in the main box with a headline
 		$content = $this->administrator->box('<a href="'.$this->template->page_url.'admin/slider">Manage slider</a> &rarr; Slide #'.$slide['id'], $output);
@@ -123,6 +122,8 @@ class Slider extends MX_Controller
 
 	public function move($id = false, $direction = false)
 	{
+		requirePermission("editSlider");
+
 		if(!$id || !$direction)
 		{
 			die();
@@ -161,6 +162,8 @@ class Slider extends MX_Controller
 
 	public function saveSettings()
 	{
+		requirePermission("editSlider");
+
 		require_once('application/libraries/configeditor.php');
 
 		$slider = $this->input->post("show_slider");
@@ -206,6 +209,8 @@ class Slider extends MX_Controller
 
 	public function save($id = false)
 	{
+		requirePermission("editSlider");
+
 		if(!$id || !is_numeric($id))
 		{
 			die();
@@ -213,7 +218,6 @@ class Slider extends MX_Controller
 
 		$data["image"] = $this->input->post("image");
 		$data["link"] = $this->input->post("link");
-        $data["title"] = $this->input->post("title");
 		$data["text"] = $this->input->post("text");
 
 		if(!preg_match("/http:\/\//", $data['image']))
@@ -228,6 +232,8 @@ class Slider extends MX_Controller
 
 	public function delete($id = false)
 	{
+		requirePermission("deleteSlider");
+
 		if(!$id || !is_numeric($id))
 		{
 			die();

@@ -14,11 +14,7 @@ var UI = {
 	 */
 	alert: function(question, time)
 	{
-		if(question.length == 0)
-		{
-			question = '<img src="http://img-cache.cdn.gaiaonline.com/c57f77cb596aae50b0725174b806e3ee/http://i1243.photobucket.com/albums/gg544/luzcyfer/Meme/okay-meme-1.jpg" />';
-		}
-		
+	
 		// Put question and button text
 		$("#alert_message").html(question);
 
@@ -132,6 +128,9 @@ var UI = {
 
 		next: function()
 		{
+			// Save the current step's fields
+			Memory.save(this.current);
+
 			if(this.current < this.max)
 			{
 				$(".sub .active").removeClass("active");

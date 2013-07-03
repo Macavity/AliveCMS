@@ -1,11 +1,4 @@
-<?php 
-/**
- * @package FusionCMS
- * @version 6.0
- * @author Jesper Lindström
- * @author Xavier Geerinck
- * @link http://raxezdev.com/fusioncms
- */
+<?php
 
 define("RACE_HUMAN", 1);
 define("RACE_ORC", 2);
@@ -31,33 +24,38 @@ define('CLASS_SHAMAN',  0x07);
 define('CLASS_MAGE',    0x08);
 define('CLASS_WARLOCK', 0x09);
 define('CLASS_DRUID',   0x0B);
- 
-$config["races"] = array(
-    RACE_HUMAN      => "Mensch",
-    RACE_DWARF      =>  array("Zwerg", "Zwerg"),
-    RACE_NIGHTELF   =>  array("Nachtelf", "Nachtelf"),
-    RACE_GNOME      =>  array("Gnom", "Gnom"),
-    RACE_DRAENEI    =>  "Draenei",
-    
-    RACE_ORC        =>  "Ork",
-    RACE_UNDEAD     =>  array("Untoter", "Untote"),
-    RACE_TAUREN     =>  array("Tauren", "Tauren"),
-    RACE_TROLL      =>  array("Troll", "Troll"),
-    RACE_BLOODELF   =>  array("Blutelf", "Blutelf"),
-);
 
-$config["classes"] = array(
-    CLASS_WARRIOR      =>  array("Krieger", "Kriegerin"),
-    CLASS_PALADIN      =>  array("Paladin", "Paladin"),
-    CLASS_HUNTER       =>  array("J&auml;ger", "J&auml;gerin"),
-    CLASS_ROGUE        =>  array("Schurke", "Schurkin"),
-    CLASS_PRIEST       =>  array("Priester", "Priesterin"),
-    CLASS_DK           =>  array("Todesritter", "Todesritterin"),
-    CLASS_SHAMAN       =>  array("Schamane", "Schamanin"),
-    CLASS_MAGE         =>  array("Magier", "Magierin"),
-    CLASS_WARLOCK      =>  array("Hexenmeister", "Hexenmeisterin"),
-    CLASS_DRUID        =>  array("Druide", "Druidin"),
-);
+$config['races'] = lang("races", "wow_constants");
+$config['classes'] = lang("classes", "wow_constants");
 
 $config['alliance_races'] = array(1,3,4,7,11);
 $config['horde_races'] = array(2,5,6,8,10);
+
+// Do not edit these unless you edit the corrosponding files names in:
+// application/images/avatars/
+$config['races_en'] = array(
+	1 => "Human",
+	2 => "Orc",
+	3 => "Dwarf",
+	4 => "Night elf",
+	5 => "Undead",
+	6 => "Tauren",
+	7 => "Gnome",
+	8 => "Troll",
+	9 => "Goblin",
+	10 => "Blood elf",
+	11 => "Draenei",
+	22 => "Worgen"
+);
+$config['classes_en'] = array(
+	1 => "Warrior",
+	2 => "Paladin",
+	3 => "Hunter",
+	4 => "Rogue",
+	5 => "Priest",
+	6 => "Death knight",
+	7 => "Shaman",
+	8 => "Mage",
+	9 => "Warlock",
+	11 => "Druid"
+);

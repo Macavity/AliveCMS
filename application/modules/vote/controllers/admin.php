@@ -1,14 +1,18 @@
 <?php
 
+// todo: NO PERMISSIONS!
+
 class Admin extends MX_Controller
 {
 	public function __construct()
 	{
+		parent::__construct();
+
 		// Make sure to load the administrator library!
 		$this->load->library('administrator');
 		$this->load->model('vote_model');
 
-		parent::__construct();
+		requirePermission("canViewAdmin");
 	}
 
 	public function index()
@@ -34,8 +38,13 @@ class Admin extends MX_Controller
 		$this->administrator->view($content, false, "modules/vote/js/admin.js");
 	}
 
+	/**
+	 * Create a new vote site.
+	 */
 	public function create()
 	{
+		requirePermission('canCreate');
+
 		$data["vote_sitename"] = $this->input->post("vote_sitename");
 		$data["vote_url"] = $this->input->post("vote_url");
 		$data["vote_image"] = $this->input->post("vote_image");
@@ -45,11 +54,23 @@ class Admin extends MX_Controller
 
 		$this->vote_model->add($data);
 
+		// Add log
+		$this->logger->createLog('Added topsite', $data['vote_sitename']);
+
+		$this->plugins->onCreateSite($data);
+
 		die('window.location.reload(true)');
 	}
 
+	/**
+	 * Edit the vote site with the given id
+	 * @param bool $id
+	 */
 	public function edit($id = false)
 	{
+		// Check for the permission
+		requirePermission("canEdit");
+
 		if(!is_numeric($id) || !$id)
 		{
 			die();
@@ -83,8 +104,15 @@ class Admin extends MX_Controller
 		$this->administrator->view($content, false, "modules/vote/js/admin.js");
 	}
 
+	/**
+	 * Save the details to the vote site with the given id.
+	 * @param bool $id
+	 */
 	public function save($id = false)
 	{
+		// Check for the permission
+		requirePermission("canEdit");
+
 		if(!$id || !is_numeric($id))
 		{
 			die();
@@ -99,16 +127,33 @@ class Admin extends MX_Controller
 
 		$this->vote_model->edit($id, $data);
 
+		// Add log
+		$this->logger->createLog('Edited topsite', $id);
+
+		$this->plugins->onEditSite($id, $data);
+
 		die('window.location="'.$this->template->page_url.'vote/admin"');
 	}
 
+	/**
+	 * Delete the vote site with the given id.
+	 * @param bool $id
+	 */
 	public function delete($id = false)
 	{
+		// Check for the permission
+		requirePermission("canDelete");
+
 		if(!$id || !is_numeric($id))
 		{
 			die();
 		}
 
 		$this->vote_model->delete($id);
+
+		// Add log
+		$this->logger->createLog('Deleted topsite', $id);
+
+		$this->plugins->onDelete($id);
 	}
 }

@@ -1,3 +1,5 @@
+var goldRegex, dpRegex, vpRegex, freeRegex;
+
 var Teleport = {
 
 	User: {
@@ -7,6 +9,26 @@ var Teleport = {
 
 		initialize: function(vp, dp)
 		{
+			var setLang = function()
+			{
+				if(typeof Language != "undefined")
+				{
+					goldRegex = new RegExp(lang("gold", "teleport"));
+					dpRegex = new RegExp(lang("dp", "teleport"));
+					vpRegex = new RegExp(lang("vp", "teleport"));
+					freeRegex = new RegExp(lang("free", "teleport"));
+				}
+				else
+				{
+					setTimeout(setLang, 50);
+				}
+			};
+
+			if(!goldRegex)
+			{
+				setLang();
+			}
+
 			this.vp = vp;
 			this.dp = dp;
 		}
@@ -30,7 +52,7 @@ var Teleport = {
 	{
 		Teleport.Character.initialize(name, guid, gold);
 
-		factions = {
+		var factions = {
 			1:1,
 			2:2,
 			3:1,
@@ -45,7 +67,7 @@ var Teleport = {
 			22:1
 		};
 
-		race = factions[race];
+		var race = factions[race];
 
 		$(".item_group").each(function()
 		{
@@ -54,7 +76,7 @@ var Teleport = {
 		});
 
 		$(button).parents(".select_character").removeClass("select_character").addClass("item_group");
-		$(button).addClass("nice_active").html('<img src="' + Config.URL + 'application/images/icons/accept.png" align="absmiddle"> Selected');
+		$(button).addClass("nice_active").html('<img src="' + Config.URL + 'application/images/icons/accept.png" align="absmiddle"> ' + lang("selected", "teleport"));
 
 		this.hideLocations(function()
 		{
@@ -116,46 +138,46 @@ var Teleport = {
 		var price = $(button).html().replace(/\<.*\/?\>/g, ""),
 			canTeleport = false;
 
-		if(/Free/.test(price))
+		if(freeRegex.test(price))
 		{
 			canTeleport = true;
 		}
-		else if(/VP/.test(price))
+		else if(vpRegex.test(price))
 		{
-			price = price.replace(/VP/, "");
+			price = price.replace(vpRegex, "");
 			price = parseInt(price);
 
 			if(Teleport.User.vp < price)
 			{
-				UI.alert("You can't afford this!");
+				UI.alert(lang("cant_afford", "teleport"));
 			}
 			else
 			{
 				canTeleport = true;
 			}
 		}
-		else if(/DP/.test(price))
+		else if(dpRegex.test(price))
 		{
-			price = price.replace(/DP/, "");
+			price = price.replace(dpRegex, "");
 			price = parseInt(price);
 
 			if(Teleport.User.dp < price)
 			{
-				UI.alert("You can't afford this!");
+				UI.alert(lang("cant_afford", "teleport"));
 			}
 			else
 			{
 				canTeleport = true;
 			}
 		}
-		else if(/gold/.test(price))
+		else if(goldRegex.test(price))
 		{
-			price = price.replace(/gold/, "");
+			price = price.replace(goldRegex, "");
 			price = parseInt(price);
 
 			if(Teleport.Character.gold < price)
 			{
-				UI.alert("Your character can't afford this!")
+				UI.alert(lang("cant_afford", "teleport"))
 			}
 			else
 			{
@@ -174,7 +196,7 @@ var Teleport = {
 			{
 				if(data == 1)
 				{
-					UI.alert(Teleport.Character.name + " has been teleported!");
+					UI.alert(Teleport.Character.name + " " + lang("teleported", "teleport"));
 				}
 				else
 				{
@@ -187,9 +209,8 @@ var Teleport = {
 			{
 				$(".item_group").each(function()
 				{
-					console.log(this);
 					$(this).removeClass("item_group").addClass("select_character");
-					$(this).find(".nice_active").removeClass("nice_active").html("Select");
+					$(this).find(".nice_active").removeClass("nice_active").html(lang("select", "teleport"));
 				});
 			});
 		}

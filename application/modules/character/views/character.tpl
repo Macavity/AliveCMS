@@ -11,7 +11,7 @@
 		{/if}
 	</section>
 
-	<img class="avatar" src="{$url}{$avatar}"/>
+	<img class="avatar" src="{$url}application/images/avatars/{$avatar}.gif"/>
 	
 	<section id="armory_name">
 		<h1>{$name} <a href="{$url}guild/{$realmId}/{$guild}">{$guildName}</a></h1>
@@ -59,10 +59,15 @@
 
 	<section id="armory_stats">
 		<center id="armory_stats_top">
-			{if $has_stats}<a href="javascript:void(0)" onClick="Character.tab('stats', this)" class="armory_current_tab">Attributes</a>{/if}
+			{if $has_stats}
+				<a href="javascript:void(0)" onClick="Character.tab('stats', this)" class="armory_current_tab">
+					{lang("attributes", "character")}
+				</a>
+			{/if}
+
 			{if $pvp.kills || $pvp.honor || $pvp.arena}
 				<a href="javascript:void(0)" onClick="Character.tab('pvp', this)" {if !$has_stats}class="armory_current_tab"{/if}>
-					Player vs Player
+					{lang("pvp", "character")}
 				</a>
 			{/if}
 		</center>
@@ -73,77 +78,85 @@
 				<div id="tab_armory_1" style="float:left;">
 					<table width="367px" cellspacing="0" cellpadding="0">
 						<tr>
-							<td width="50%">Strength</td>
-							<td>{if strlen($stats.strength)}{$stats.strength}{else}Unknown{/if}</td>
+							<td width="50%">{lang("str", "character")}</td>
+							<td>{if strlen($stats.strength)}{$stats.strength}{else}{lang("unknown", "character")}{/if}</td>
 						</tr>
 						<tr>
-							<td width="50%">Stamina</td>
-							<td>{if strlen($stats.stamina)}{$stats.stamina}{else}Unknown{/if}</td>
+							<td width="50%">{lang("sta", "character")}</td>
+							<td>{if strlen($stats.stamina)}{$stats.stamina}{else}{lang("unknown", "character")}{/if}</td>
 						</tr>
 						<tr>
-							<td width="50%">Intellect</td>
-							<td>{if strlen($stats.intellect)}{$stats.intellect}{else}Unknown{/if}</td>
+							<td width="50%">{lang("int", "character")}</td>
+							<td>{if strlen($stats.intellect)}{$stats.intellect}{else}{lang("unknown", "character")}{/if}</td>
 						</tr>
-						<tr>
-							<td width="50%">Spell power</td>
-							<td>{if strlen($stats.spellPower)}{$stats.spellPower}{else}Unknown{/if}</td>
-						</tr>
-						<tr>
-							<td width="50%">Attack power</td>
-							<td>{if strlen($stats.attackPower)}{$stats.attackPower}{else}Unknown{/if}</td>
-						</tr>
+						{if $stats && array_key_exists("spellPower", $stats)}
+							<tr>
+								<td width="50%">{lang("sp", "character")}</td>
+								<td>{if strlen($stats.spellPower)}{$stats.spellPower}{else}{lang("unknown", "character")}{/if}</td>
+							</tr>
+						{/if}
+						
+						{if $stats && array_key_exists("attackPower", $stats)}
+							<tr>
+								<td width="50%">{lang("ap", "character")}</td>
+								<td>{if strlen($stats.attackPower)}{$stats.attackPower}{else}{lang("unknown", "character")}{/if}</td>
+							</tr>
+						{/if}
 					</table>
 
-					<center id="armory_stats_next"><a href="javascript:void(0)" onClick="Character.attributes(2)">Next &rarr;</a></center>
+					<center id="armory_stats_next"><a href="javascript:void(0)" onClick="Character.attributes(2)">{lang("next", "character")} &rarr;</a></center>
 				</div>
 
 				<div id="tab_armory_2" style="float:left;">
 					<table width="367px" cellspacing="0" cellpadding="0">
+						{if $stats && array_key_exists("resilience", $stats)}
+							<tr>
+								<td width="50%">{lang("res", "character")}</td>
+								<td>{if strlen($stats.resilience)}{$stats.resilience}{else}{lang("unknown", "character")}{/if}</td>
+							</tr>
+						{/if}
+
 						<tr>
-							<td width="50%">Resilience</td>
-							<td>{if strlen($stats.resilience)}{$stats.resilience}{else}Unknown{/if}</td>
+							<td width="50%">{lang("armor", "character")}</td>
+							<td>{if strlen($stats.armor)}{$stats.armor}{else}{lang("unknown", "character")}{/if}</td>
 						</tr>
 						<tr>
-							<td width="50%">Armor</td>
-							<td>{if strlen($stats.armor)}{$stats.armor}{else}Unknown{/if}</td>
+							<td width="50%">{lang("block", "character")}</td>
+							<td>{if strlen($stats.blockPct)}{$stats.blockPct}%{else}{lang("unknown", "character")}{/if}</td>
 						</tr>
 						<tr>
-							<td width="50%">Block</td>
-							<td>{if strlen($stats.blockPct)}{$stats.blockPct}%{else}Unknown{/if}</td>
+							<td width="50%">{lang("dodge", "character")}</td>
+							<td>{if strlen($stats.dodgePct)}{$stats.dodgePct}%{else}{lang("unknown", "character")}{/if}</td>
 						</tr>
 						<tr>
-							<td width="50%">Dodge</td>
-							<td>{if strlen($stats.dodgePct)}{$stats.dodgePct}%{else}Unknown{/if}</td>
-						</tr>
-						<tr>
-							<td width="50%">Parry</td>
-							<td>{if strlen($stats.parryPct)}{$stats.parryPct}%{else}Unknown{/if}</td>
+							<td width="50%">{lang("parry", "character")}</td>
+							<td>{if strlen($stats.parryPct)}{$stats.parryPct}%{else}{lang("unknown", "character")}{/if}</td>
 						</tr>
 					</table>
 
 					<center id="armory_stats_next">
-						<a href="javascript:void(0)" onClick="Character.attributes(1)">&larr; Previous</a>
-						<a href="javascript:void(0)" onClick="Character.attributes(3)">Next &rarr;</a>
+						<a href="javascript:void(0)" onClick="Character.attributes(1)">&larr; {lang("previous", "character")}</a>
+						<a href="javascript:void(0)" onClick="Character.attributes(3)">{lang("next", "character")} &rarr;</a>
 					</center>
 				</div>
 
 				<div id="tab_armory_3" style="float:left;">
 					<table width="367px" cellspacing="0" cellpadding="0">
 						<tr>
-							<td width="50%">Crit chance</td>
-							<td>{if strlen($stats.critPct)}{$stats.critPct}%{else}Unknown{/if}</td>
+							<td width="50%">{lang("crit", "character")}</td>
+							<td>{if strlen($stats.critPct)}{$stats.critPct}%{else}{lang("unknown", "character")}{/if}</td>
 						</tr>
 						<tr>
-							<td width="50%">Ranged crit chance</td>
-							<td>{if strlen($stats.rangedCritPct)}{$stats.rangedCritPct}%{else}Unknown{/if}</td>
+							<td width="50%">{lang("ranged_crit", "character")}</td>
+							<td>{if strlen($stats.rangedCritPct)}{$stats.rangedCritPct}%{else}{lang("unknown", "character")}{/if}</td>
 						</tr>
 						<tr>
-							<td width="50%">Spell crit chance</td>
-							<td>{if strlen($stats.spellCritPct)}{$stats.spellCritPct}%{else}Unknown{/if}</td>
+							<td width="50%">{lang("spell_crit", "character")}</td>
+							<td>{if strlen($stats.spellCritPct)}{$stats.spellCritPct}%{else}{lang("unknown", "character")}{/if}</td>
 						</tr>
 						<tr>
-							<td width="50%">Spirit</td>
-							<td>{if strlen($stats.spirit)}{$stats.spirit}{else}Unknown{/if}</td>
+							<td width="50%">{lang("spirit", "character")}</td>
+							<td>{if strlen($stats.spirit)}{$stats.spirit}{else}{lang("unknown", "character")}{/if}</td>
 						</tr>
 						<tr>
 							<td width="50%">&nbsp;</td>
@@ -151,7 +164,7 @@
 						</tr>
 					</table>
 
-					<center id="armory_stats_next"><a href="javascript:void(0)" onClick="Character.attributes(2)">&larr; Previous</a></center>
+					<center id="armory_stats_next"><a href="javascript:void(0)" onClick="Character.attributes(2)">&larr; {lang("previous", "character")}</a></center>
 				</div>
 			</div>
 		</section>
@@ -161,22 +174,22 @@
 			<table width="367px" cellspacing="0" cellpadding="0">
 				{if $pvp.kills !== false}
 				<tr>
-					<td width="50%">Total kills</td>
-					<td>{if strlen($pvp.kills)}{$pvp.kills}{else}Unknown{/if}</td>
+					<td width="50%">{lang("kills", "character")}</td>
+					<td>{if strlen($pvp.kills)}{$pvp.kills}{else}{lang("unknown", "character")}{/if}</td>
 				</tr>
 				{/if}
 
 				{if $pvp.honor !== false}
 				<tr>
-					<td width="50%">Honor points</td>
-					<td>{if strlen($pvp.honor)}{$pvp.honor}{else}Unknown{/if}</td>
+					<td width="50%">{lang("honor", "character")}</td>
+					<td>{if strlen($pvp.honor)}{$pvp.honor}{else}{lang("unknown", "character")}{/if}</td>
 				</tr>
 				{/if}
 
 				{if $pvp.arena !== false}
 				<tr>
-					<td width="50%">Arena points</td>
-					<td>{if strlen($pvp.arena)}{$pvp.arena}{else}Unknown{/if}</td>
+					<td width="50%">{lang("arena", "character")}</td>
+					<td>{if strlen($pvp.arena)}{$pvp.arena}{else}{lang("unknown", "character")}{/if}</td>
 				</tr>
 				{/if}
 			</table>
@@ -202,4 +215,7 @@
 </section>
 
 <!-- Load wowhead tooltip -->
-{if !$fcms_tooltip}<script type="text/javascript" src="https://static.wowhead.com/widgets/power.js"></script>{/if}
+{if !$fcms_tooltip}
+<script type="text/javascript" src="https://static.wowhead.com/widgets/power.js"></script>
+<script>var wowhead_tooltips = { "colorlinks": false, "iconizelinks": false, "renamelinks": false }</script>
+{/if}

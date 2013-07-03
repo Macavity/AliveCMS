@@ -6,9 +6,39 @@
 		"name":"FusionCMS",
 		"website":"http:\/\/raxezdev.com\/fusioncms"
 	},
+
+	"permissions": {
+		"view": {"default" : true, "description": "View the vote screen." },
+		"canViewAdmin": {"default" : false, "description": "View the admin page." },
+		"canCreate": {"default" : false, "description": "Create topsites" },
+		"canEdit": {"default" : false, "description": "Edit topsites" },
+		"canDelete": {"default" : false, "description": "Delete topsites" }
+	},
+
+	"roles": {
+		"view": {
+			"description": "View the vote module.",
+
+			"permissions": {
+				"view": true
+			}
+		},
+
+		"manage": {
+			"description": "Manage the topsites. <font style='color:red;'>Admin-tool</font>",
+			"dangerLevel": 2,
+
+			"permissions": {
+				"canViewAdmin": true,
+				"canCreate": true,
+				"canEdit": true,
+				"canDelete": true
+			}
+		}
+	},
+
 	"admin":
-	{
-		"group":
+	[
 		{
 			"text":"Store",
 			"icon":"share",
@@ -18,11 +48,13 @@
 				{
 					"text":"Topsites",
 					"icon":"link",
-					"controller":"admin"
+					"controller":"admin",
+					"requirePermission": "canViewAdmin"
 				}
 			]
 			
 		}
-	},
+	],
+
 	"enabled":true
 }

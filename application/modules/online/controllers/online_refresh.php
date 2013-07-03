@@ -23,7 +23,7 @@ class Online_refresh extends MX_Controller
 			// Load the topsite page and format the page contents
 			$data = array(
 				"module" => "default", 
-				"headline" => "Online players", 
+				"headline" => lang("online_players", "online"), 
 				"content" => $page
 			);
 

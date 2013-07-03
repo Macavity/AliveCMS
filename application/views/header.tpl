@@ -10,7 +10,7 @@
  | |  | |_| \__ \ | (_) | | | | |____| |  | |____) |
  |_|   \__,_|___/_|\___/|_| |_|\_____|_|  |_|_____/ 
 
- raxezdev.com/fusioncms
+ fusion.raxezdev.com
 
 -->
 
@@ -21,12 +21,8 @@
 		<link rel="stylesheet" href="{$path}css/default.css" type="text/css" />
 		<link rel="stylesheet" href="{$style_path}cms.css" type="text/css" />
 		<link rel="stylesheet" href="{$style_path}main.css" type="text/css" />
-		{if $extra_css}
-            {foreach from=$extra_css item=css_file}
-                <link rel="stylesheet" href="{$css_file}" type="text/css" />
-            {/foreach}
-        {/if}
-        
+		{if $extra_css}<link rel="stylesheet" href="{$path}{$extra_css}" type="text/css" />{/if}
+		
 		<link rel="shortcut icon" href="{$favicon}" />
 		
 		<!-- Search engine related -->
@@ -39,7 +35,7 @@
 		
 		<!-- Load scripts -->
 		<script src="{if $cdn}//html5shiv.googlecode.com/svn/trunk/html5.js{else}{$path}js/html5shiv.js{/if}"></script>
-		<script type="text/javascript" src="{if $cdn}https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js{else}{$path}js/jquery.min.js{/if}"></script>
+		<script type="text/javascript" src="{if $cdn}https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js{else}{$path}js/jquery.min.js{/if}"></script>
 		<script type="text/javascript" src="{$path}js/router.js"></script>
 		<script type="text/javascript" src="{$path}js/require.js"></script>
 		<script type="text/javascript">
@@ -51,6 +47,7 @@
 					log: function()
 					{
 						// Prevent stupid browsers from doing stupid things
+						// *cough* Internet Explorer *cough*
 					}
 				};
 			}
@@ -65,7 +62,7 @@
 					y = ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
 					x = x.replace(/^\s+|\s+$/g,"");
 					
-					if(x==c_name)
+					if(x == c_name)
 					{
 						return unescape(y);
 					}
@@ -81,10 +78,10 @@
 			}
 
 			var Config = {
-				cookieLaw: "{$cookie_law}",
 				URL: "{$url}",			
 				image_path: "{$image_path}",
 				CSRF: getCookie('csrf_cookie_name'),
+				language: "{$activeLanguage}",
 
 				UseFusionTooltip: {if $use_fcms_tooltip}1{else}0{/if},
 
@@ -109,6 +106,7 @@
 				"{$path}js/jquery.placeholder.min.js",
 				"{$path}js/jquery.sort.js",
 				"{$path}js/jquery.transit.min.js",
+				"{$path}js/language.js",
 				{if $extra_js},"{$path}{$extra_js}"{/if}
 			];
 
@@ -121,6 +119,10 @@
 			{
 				$(document).ready(function()
 				{
+					{if $client_language}
+						Language.set("{addslashes($client_language)}");
+					{/if}
+
 					UI.initialize();
 
 					{if $extra_css}

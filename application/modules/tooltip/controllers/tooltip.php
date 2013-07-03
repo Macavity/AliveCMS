@@ -14,7 +14,7 @@ class Tooltip extends MX_Controller
 			die("No item or realm specified!");
 		}
 
-		$cache = $this->cache->get("items/tooltip_".$realm."_".$id);
+		$cache = $this->cache->get("items/tooltip_".$realm."_".$id."_".getLang());
 
 		if($cache !== false)
 		{
@@ -36,7 +36,7 @@ class Tooltip extends MX_Controller
 			$out = $this->template->loadPage("tooltip.tpl", $data);
 
 			// Cache it
-			$this->cache->save("items/tooltip_".$realm."_".$id, $out);
+			$this->cache->save("items/tooltip_".$realm."_".$id."_".getLang(), $out);
 
 			die($out);
 		}
@@ -64,28 +64,22 @@ class Tooltip extends MX_Controller
 		// No item was found
 		if(!$item || $item == "empty")
 		{
-			die("Unknown item");
+			die(lang("unknown_item", "item"));
 		}
 
 		$this->flags = $this->getFlags($item['Flags']);
 
-		//TODO this aint working.
-		//Change the name to a color if it got a |cff thing in front example: |cffFF0000
-		if(stristr($item['name'], '|cff') != FALSE)
+		$this->item['name'] = $item['name'];
+
+		// Support custom colors
+		if(preg_match("/\|cff/", $item['name']))
 		{
-			//Color found	
-			$tempColor = substr($item['name'], 4, 6);
-			$itemName = substr($item['name'], 10, strlen($item['name']) - 10);
-			$this->item['name'] = $itemName;
-			$this->item['specialColor'] = $tempColor;
+			while(preg_match("/\|cff/", $this->item['name']))
+			{
+				$this->item['name'] = preg_replace("/\|cff([A-Za-z0-9]{6})(.*)(\|cff)?/", '<span style="color:#$1;">$2</span>', $this->item['name']);
+			}
 		}
-		else
-		{
-			//No color just assign the name
-			$this->item['name'] = $item['name'];
-			$this->item['specialColor'] = '';
-		}
-		
+
 		$this->item['quality'] = $item['Quality'];
 		$this->item['bind'] = $bind[$item['bonding']];
 		$this->item['unique'] = ($this->hasFlag(524288)) ? "Unique-Equipped" : null;
@@ -102,6 +96,7 @@ class Tooltip extends MX_Controller
 			$this->item['damage_min'] = $item['dmg_min1'];
 			$this->item['damage_max'] = $item['dmg_max1'];
 		}
+
 		// For SkyFire: calculate weapon damage manually
 		elseif($item['class'] == 2)
 		{
@@ -153,26 +148,26 @@ class Tooltip extends MX_Controller
 	{
 		if(array_key_exists("socketColor_1", $item))
 		{
-		$output = "";
+			$output = "";
 
-		$meta = "<span class='socket-meta q0'>Meta Socket</span><br />";
-		$red = "<span class='socket-red q0'>Red Socket</span><br />";
-		$yellow = "<span class='socket-yellow q0'>Yellow Socket</span><br />";
-		$blue = "<span class='socket-blue q0'>Blue Socket</span><br />";
+			$meta = "<span class='socket-meta q0'>".lang("meta", "item")."</span><br />";
+			$red = "<span class='socket-red q0'>".lang("red", "item")."</span><br />";
+			$yellow = "<span class='socket-yellow q0'>".lang("yellow", "item")."</span><br />";
+			$blue = "<span class='socket-blue q0'>".lang("blue", "item")."</span><br />";
 
-		for($i = 1; $i < 3; $i++)
-		{
-			switch($item['socketColor_'.$i])
+			for($i = 1; $i < 3; $i++)
 			{
-				case 1: $output .= $meta; break;
-				case 2: $output .= $red; break;
-				case 4: $output .= $yellow; break;
-				case 8: $output .= $blue; break;
+				switch($item['socketColor_'.$i])
+				{
+					case 1: $output .= $meta; break;
+					case 2: $output .= $red; break;
+					case 4: $output .= $yellow; break;
+					case 8: $output .= $blue; break;
+				}
 			}
-		}
 
-		return $output;
-	}
+			return $output;
+		}
 		else
 		{
 			return false;
@@ -218,11 +213,11 @@ class Tooltip extends MX_Controller
 				// Mana/health
 				if(in_array($item['stat_type'.$i], array(42,46)))
 				{
-					$stat = "<span class='q2'>Equip: Restores ".$item['stat_value'.$i]." ".$types[$item['stat_type'.$i]]."</span><br />";
+					$stat = "<span class='q2'>".lang("restores", "item")." ".$item['stat_value'.$i]." ".$types[$item['stat_type'.$i]]."</span><br />";
 				}
 				elseif($item['stat_type'.$i] > 7 && !in_array($item['stat_type'.$i], array(42,46)))
 				{
-					$stat = "<span class='q2'>Equip: Increases your ".$types[$item['stat_type'.$i]]."by ".$item['stat_value'.$i].".</span><br />";
+					$stat = "<span class='q2'>".lang("increases", "item")." ".$types[$item['stat_type'.$i]].lang("by", "item")." ".$item['stat_value'.$i].".</span><br />";
 				}
 				else
 				{

@@ -13,7 +13,9 @@ class Read extends MX_Controller
 		$this->load->library('fusioneditor');
 
 		// Make sure they are logged in
-		$this->user->is_logged_in();
+		$this->user->userArea();
+
+		requirePermission("view");
 
 		// Define which tools to remove for the editor
 		$this->removeTools = array("size", "image", "color", "left", "center", "right", "html");
@@ -21,6 +23,8 @@ class Read extends MX_Controller
 
 	public function index($id = false)
 	{
+		clientLang("inbox", "messages");
+		
 		// Make sure ID is set and is a number
 		if(!$id || !is_numeric($id))
 		{
@@ -32,25 +36,27 @@ class Read extends MX_Controller
 		$title = "";
 
 		if($messages)
-		{			
+		{
 			$userId = ($messages[0]['sender_id'] == $this->user->getId()) ? $messages[0]['user_id'] : $messages[0]['sender_id'];
 			$userName = $this->user->getNickname($userId);
-			$title = "Conversation between you &amp; ".$userName;
+			$title = lang("conversation_between", "messages")." &amp; ".$userName;
 
 			$this->read_model->markRead($this->user->getId(), $userId);
 			$this->cache->delete('messages/'.$this->user->getId()."_*");
-			
+
 			$myAvatar = $this->user->getAvatar();
 			$hisAvatar = $this->user->getAvatar($userId);
 
-			foreach($messages as $key=>$value)
+			foreach($messages as $key => $value)
 			{
 				$messages[$key]['avatar'] = ($value['sender_id'] == $this->user->getId()) ? $myAvatar : $hisAvatar;
-				$messages[$key]['name'] = ($value['sender_id'] == $this->user->getId()) ? "You" : $userName;
+				$messages[$key]['name'] = ($value['sender_id'] == $this->user->getId()) ? lang("you", "messages") : $userName;
 				$messages[$key]['message'] = $this->fusioneditor->parse($value['message'], $this->removeTools);
-			}	
+			}
+
+			$this->plugins->onRead($messages);
 		}
-		
+
 		$data = array(
 			'messages' => $messages,
 			'url' => $this->template->page_url,
@@ -59,12 +65,12 @@ class Read extends MX_Controller
 			"him" => ((!$messages) ? $this->user->getId() : $userId),
 			'myAvatar' => $this->user->getAvatar()
 		);
-			
+
 		$pm_page = $this->template->loadPage("read.tpl", $data);
 
 		$page_data = array(
 			"module" => "default", 
-			"headline" => "<span style='cursor:pointer;' onClick='window.location=\"".$this->template->page_url."messages\"'>Messages</span> &rarr; ". ((!$messages) ? "Message not found!": $title), 
+			"headline" => "<span style='cursor:pointer;' onClick='window.location=\"".$this->template->page_url."messages\"'>".lang("messages", "messages")."</span> &rarr; ". ((!$messages) ? lang("not_found", "messages"): $title), 
 			"content" => $pm_page
 		);
 	
@@ -75,16 +81,18 @@ class Read extends MX_Controller
 
 	public function reply($id = false)
 	{
+		requirePermission("reply");
+
 		if(!$id || $id == $this->user->getId())
 		{
-			die("Please enter a recipient");
+			die(lang("enter_recipient", "messages"));
 		}
 
 		$content = $this->input->post('content');
 
 		if(!$content && strlen($content) > 3)
 		{
-			die("Please enter a message");
+			die(lang("enter_message", "messages"));
 		}
 
 		// Format title
@@ -100,6 +108,8 @@ class Read extends MX_Controller
 
 		// Add it to the database
 		$this->read_model->reply($id, $this->user->getId(), $title, $content);
+
+		$this->plugins->onReply($id, $this->user->getId(), $title, $content);
 		
 		// Clear the sender and receiver's PM cache
 		$this->cache->delete('messages/'.$id."_*");

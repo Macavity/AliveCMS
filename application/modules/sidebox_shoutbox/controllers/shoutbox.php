@@ -14,12 +14,12 @@ class Shoutbox extends MX_Controller
 		$shouts = $this->get();
 
 		$data = array(
-						"module" => "sidebox_shoutbox",
-						"shouts" => $shouts,
-						"logged_in" => $this->user->getOnline(),
-						"count" => $this->getCount(),
-						"shoutsPerPage" => $this->config->item("shouts_per_page")
-					);
+			"module" => "sidebox_shoutbox",
+			"shouts" => $shouts,
+			"logged_in" => $this->user->getOnline(),
+			"count" => $this->getCount(),
+			"shoutsPerPage" => $this->config->item("shouts_per_page")
+		);
 					
 		$out = $this->template->loadPage("shoutbox_view.tpl", $data);
 		
@@ -39,7 +39,7 @@ class Shoutbox extends MX_Controller
 			$die = true;
 		}
 
-		$cache = $this->cache->get("shoutbox_".$id);
+		$cache = $this->cache->get("shoutbox_".$id."_".getLang());
 
 		if($cache !== false)
 		{
@@ -55,10 +55,9 @@ class Shoutbox extends MX_Controller
 			{
 				$shouts[$key]['nickname']= $this->internal_user_model->getNickname($shouts[$key]['author']);
 				$shouts[$key]['content'] = $this->template->format($shouts[$key]['content'], true, true, true, 40);
-				$shouts[$key]['is_gm'] = $this->user->isStaff($shouts[$key]['author']);
 			}
 
-			$this->cache->save("shoutbox_".$id, $shouts);
+			$this->cache->save("shoutbox_".$id."_".getLang(), $shouts);
 		}
 
 		foreach($shouts as $key => $value)
@@ -71,7 +70,7 @@ class Shoutbox extends MX_Controller
 					"module" => "sidebox_shoutbox",
 					"shouts" => $shouts,
 					"url" => $this->template->page_url,
-					"user_is_gm" => $this->user->isStaff()
+					"user_is_gm" => hasPermission("removeShout", "sidebox_shoutbox")
 				);
 					
 		$shouts = $this->template->loadPage("shouts.tpl", $data);
@@ -89,19 +88,24 @@ class Shoutbox extends MX_Controller
 	
 	public function submit()
 	{
+		// Check for the permission
+		requirePermission("shout", "sidebox_shoutbox");
+
 		if($this->user->isOnline() && $this->input->post('message'))
 		{
 			$this->cache->delete('shoutbox_*');
 			$content = $this->input->post('message');
 			$this->shoutbox_model->insertShout($content);
 
+			$this->plugins->onShout($this->user->getId(), $content);
+
 			$data = array(
-						'uniqueId' => uniqid(),
-						'message' => wordwrap($this->template->format($content, true)),
-						'name' => $this->user->getNickname(),
-						'id' => $this->user->getId(),
-						'time' => $this->template->formatTime(1)
-					);
+				'uniqueId' => uniqid(),
+				'message' => $this->template->format($content, true),
+				'name' => $this->user->getNickname(),
+				'id' => $this->user->getId(),
+				'time' => $this->template->formatTime(1)
+			);
 
 			die(json_encode($data));
 		}
@@ -127,20 +131,22 @@ class Shoutbox extends MX_Controller
 
 	public function delete($id = false)
 	{
+		// Check for the permission
+		requirePermission("removeShout", "sidebox_shoutbox");
+
 		if(!$id)
 		{
 			die();
 		}
-		else
-		{
-			if($this->user->isStaff())
-			{
-				$this->shoutbox_model->deleteShout($id);
 
-				$this->cache->delete('shoutbox_*');
+		$this->shoutbox_model->deleteShout($id);
+		$this->cache->delete('shoutbox_*');
 
-				die('Success');
-			}
-		}
+		// Add log
+		$this->logger->createLog('Deleted shout', $id);
+
+		$this->plugins->onDelete($id);
+
+		die('Success');
 	}
 }

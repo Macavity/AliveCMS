@@ -7,5 +7,19 @@
 		"website": "http://raxezdev.com/fusioncms"
 	},
 	
+	"permissions": {
+		"view": { "default": true, "description": "View the register page" }
+	},
+
+	"roles": {
+		"view": {
+			"description": "View the register page",
+
+			"permissions": {
+				"view": true
+			}
+		}
+	},
+
 	"enabled": true
 }

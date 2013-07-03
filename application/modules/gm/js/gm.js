@@ -28,7 +28,7 @@ var Gm = {
 
 	ban: function()
 	{
-		var html = '<input type="text" id="ban_account" placeholder="Account name" value=""/><br /><input type="text" id="reason" placeholder="Ban reason" value=""/>';
+		var html = '<input type="text" id="ban_account" placeholder="' + lang("account_name", "gm") + '" value=""/><br /><input type="text" id="reason" placeholder="' + lang("ban_reason", "gm") + '" value=""/>';
 
 		UI.confirm(html, "Ban", function()
 		{
@@ -37,56 +37,51 @@ var Gm = {
 
 			$.post(Config.URL + "gm/ban/" + account, {reason: reason, csrf_token_name: Config.CSRF}, function(data)
 			{
-				console.log(data);
-				UI.alert("Account " + account + " has been banned");
+				UI.alert(lang("account", "gm") + " " + account + " " + lang("has_been_banned", "gm"));
 			});
 		});
 	},
 
 	kick: function(realm)
 	{
-		var html = '<input type="text" id="kick_character" placeholder="Character name" value=""/>';
+		var html = '<input type="text" id="kick_character" placeholder="' + lang("character_name", "gm") + '" value=""/>';
 
-		UI.confirm(html, "Kick", function()
+		UI.confirm(html, lang("kick_short", "gm"), function()
 		{
 			var character = $("#kick_character").val();
 			
 			$.get(Config.URL + "gm/kick/" + realm + "/" + character, function(data)
 			{
-				console.log(data);
-				UI.alert("Character has been kicked");
+				UI.alert(lang("character_has_been_kicked", "gm"));
 			});
 		});
 	},
 
 	close: function(realm, id, field)
 	{
-		UI.confirm("Are you sure you want to close this ticket?", "Close", function()
+		UI.confirm(lang("close_ticket", "gm"), lang("close_short", "gm"), function()
 		{
 			$(field).parents(".gm_ticket").slideUp(300, function()
 			{
 				$(this).remove();
 			});
 
-			$.get(Config.URL + "gm/close/" + realm + "/" + id, function(data)
-			{
-				console.log(data);
-			});
+			$.get(Config.URL + "gm/close/" + realm + "/" + id);
 		});
 	},
 
 	answer: function(realm, id, field)
 	{
-		var html = '<textarea id="answer_message" style="width:90%"></textarea>';
+		var html = '<textarea id="answer_message" style="width:90%" maxlength="7999"></textarea>';
 
-		UI.confirm(html, "Send", function()
+		UI.confirm(html, lang("send", "gm"), function()
 		{
 			var message = $("#answer_message").val();
 
 			$.post(Config.URL + "gm/answer/" + realm + "/" + id, {csrf_token_name: Config.CSRF, message:message}, function(data)
 			{
 				console.log(data);
-				UI.alert("Mail has been sent");
+				UI.alert(lang("mail_sent", "gm"));
 			});
 		});
 	},
@@ -99,11 +94,11 @@ var Gm = {
 
 			if(data == '1')
 			{
-				UI.alert("The character has been teleported");
+				UI.alert(lang("teleported", "gm"));
 			}
 			else
 			{
-				UI.alert("The character must be offline");
+				UI.alert(lang("must_be_offline", "gm"));
 			}
 		});
 	},
@@ -119,7 +114,7 @@ var Gm = {
 			$.post(Config.URL + "gm/sendItem/" + realm + "/" + id, {csrf_token_name: Config.CSRF, item:item}, function(data)
 			{
 				console.log(data);
-				UI.alert("Item has been sent");
+				UI.alert(lang("item_sent", "gm"));
 			});
 		});
 	}

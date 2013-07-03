@@ -4,9 +4,11 @@
 		Changes (<div style="display:inline;" id="changelog_count">{if !$changes}0{else}{count($changes)}{/if}</div>)
 	</h2>
 	
-	<span>
-		<a class="nice_button" href="javascript:void(0)" onClick="Changelog.add()">Create category</a>
-	</span>
+	{if hasPermission("canAddCategory")}
+		<span>
+			<a class="nice_button" href="javascript:void(0)" onClick="Changelog.add()">Create category</a>
+		</span>
+	{/if}
 
 	{if $categories}
 	{foreach from=$categories item=category}
@@ -14,12 +16,20 @@
 			<li id="headline_{$category.id}">
 				<table width="100%">
 					<tr>
-						<td width="5%"><a href="javascript:void(0)" onClick="Changelog.addChange({$category.id})" data-tip="Add change"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_plus.png" /></a></td>
+						{if hasPermission("canAddChange")}
+							<td width="5%"><a href="javascript:void(0)" onClick="Changelog.addChange({$category.id})" data-tip="Add change"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_plus.png" /></a></td>
+						{/if}
 						<td><b>{$category.typeName}</b></td>
 						
 						<td style="text-align:right;" width="10%">
-							<a href="javascript:void(0)" onClick="Changelog.renameCategory({$category.id}, this)" data-tip="Rename category"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_edit.png" /></a>&nbsp;
-							<a href="javascript:void(0)" onClick="Changelog.removeCategory({$category.id}, this)" data-tip="Delete category and all it's entries"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_minus.png" /></a>
+							
+							{if hasPermission("canEditCategory")}
+								<a href="javascript:void(0)" onClick="Changelog.renameCategory({$category.id}, this)" data-tip="Rename category"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_edit.png" /></a>&nbsp;
+							{/if}
+							
+							{if hasPermission("canRemoveCategory")}
+								<a href="javascript:void(0)" onClick="Changelog.removeCategory({$category.id}, this)" data-tip="Delete category and all its entries"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_minus.png" /></a>
+							{/if}
 						</td>
 					</tr>
 				</table>
@@ -34,8 +44,13 @@
 								<td width="20%">{date('Y/m/d', $change.time)}</td>
 								
 								<td style="text-align:right;" width="10%">
-									<a href="{$url}changelog/admin/edit/{$change.change_id}" data-tip="Edit"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_edit.png" /></a>&nbsp;
-									<a href="javascript:void(0)" onClick="Changelog.remove({$change.change_id}, this)" data-tip="Delete"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_minus.png" /></a>
+									{if hasPermission("canEditChange")}
+										<a href="{$url}changelog/admin/edit/{$change.change_id}" data-tip="Edit"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_edit.png" /></a>&nbsp;
+									{/if}
+
+									{if hasPermission("canRemoveChange")}
+										<a href="javascript:void(0)" onClick="Changelog.remove({$change.change_id}, this)" data-tip="Delete"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_minus.png" /></a>
+									{/if}
 								</td>
 							</tr>
 						</table>

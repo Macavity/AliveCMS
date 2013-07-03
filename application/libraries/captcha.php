@@ -1,10 +1,11 @@
 <?php
 
 /**
- * Captcha system
- * @author Jesper Lindström <raxezdev@gmail.com>
  * @package FusionCMS
- * @version 6.02
+ * @author Jesper Lindström
+ * @author Xavier Geerinck
+ * @author Elliott Robbins
+ * @link http://raxezdev.com/fusioncms
  */
 
 class Captcha
@@ -14,7 +15,7 @@ class Captcha
 	 */
 	private $stack = "abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ123456789";
 	private $length = 7;
-	private $distortionLevel = 5;
+	private $distortionLevel = 3;
 
 	/**
 	 * Runtime values
@@ -30,7 +31,8 @@ class Captcha
 		// Count the stack (starting from 0)
 		$this->stackLength = strlen($this->stack) - 1;
 
-		session_start();
+		if(session_id() == '')
+			session_start();
 
 		// Initialize the previous session
 		if(isset($_SESSION['captcha']))

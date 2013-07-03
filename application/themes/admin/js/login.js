@@ -31,6 +31,14 @@ var Login = {
 					$("#password").attr("disabled", "disabled").removeClass("error");
 				break;
 
+				case "permission":
+					$("#security_code").attr("disabled", "disabled").removeClass("error");
+					$("#username").attr("disabled", "disabled").removeClass("error");
+					$("#password").attr("disabled", "disabled").removeClass("error");
+
+					alert("You do not have permission to access the admin panel (assign permission: [view, admin])");
+				break;
+
 				case "welcome":
 					$("#security_code").attr("disabled", "disabled").removeClass("error");
 					$("#username").attr("disabled", "disabled").removeClass("error");

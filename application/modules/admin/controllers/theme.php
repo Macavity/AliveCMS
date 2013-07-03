@@ -7,11 +7,11 @@ class Theme extends MX_Controller
 		// Make sure to load the administrator library!
 		$this->load->library('administrator');
 
-		$this->administrator->requireOwner();
-
 		parent::__construct();
 
 		require_once('application/libraries/configeditor.php');
+
+		requirePermission("changeTheme");
 	}
 
 	public function index()

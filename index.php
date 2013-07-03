@@ -1,6 +1,6 @@
 <?php
 
-if(file_exists("install"))
+if(file_exists("install") && !file_exists("install/.lock"))
 {
 	header("Location: install");
 	die();
@@ -40,7 +40,7 @@ if (defined('ENVIRONMENT'))
 	switch (ENVIRONMENT)
 	{
 		case 'development':
-			error_reporting(E_ALL);
+			error_reporting(E_ALL & ~E_DEPRECATED);
 			ini_set('display_errors', '1');
 		break;
 	
@@ -225,7 +225,7 @@ if(!ini_get('date.timezone'))
  * And away we go...
  *
  */
-require_once BASEPATH.'core/CodeIgniter_mac.php';
+require_once BASEPATH.'core/CodeIgniter.php';
 
 /* End of file index.php */
 /* Location: ./index.php */

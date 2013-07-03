@@ -1,7 +1,7 @@
 <?php
 
 class Gm_model extends CI_Model
-{
+{	
 	/**
 	 * Get all tickets
 	 * @param Object $realm
@@ -96,7 +96,7 @@ class Gm_model extends CI_Model
 	public function characterExists($guid, $realmConnection, $realmId)
 	{
 		$query = $realmConnection->query("SELECT COUNT(*) AS `total` FROM ".table("characters", $realmId)." WHERE ".column("characters", "guid", false, $realmId)." = ? AND ".column("characters", "online", false, $realmId)." = 0", array($guid));
-		
+
 		if($realmConnection->_error_message())
 		{
 			die($realmConnection->_error_message());

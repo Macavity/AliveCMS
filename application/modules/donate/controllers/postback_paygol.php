@@ -20,9 +20,9 @@ class Postback_paygol extends MX_Controller
 		// check that the request comes from PayGol server
 		if(!in_array($_SERVER['REMOTE_ADDR'], $serverArr) && !$this->debug) 
 		{
-		  header("HTTP/1.0 403 Forbidden");
+			header("HTTP/1.0 403 Forbidden");
 
-		  die("Error: invalid IP");
+			die("Error: invalid IP");
 		}
 
 		if($this->debug)
@@ -66,7 +66,7 @@ class Postback_paygol extends MX_Controller
 				$this->fields[$field] = $this->input->get($field);
 			}
 		}
-	
+
 		if(strtoupper($this->fields['currency']) != strtoupper($this->config->item('donation_currency')))
 		{
 			// We need to convert the currency
@@ -86,6 +86,8 @@ class Postback_paygol extends MX_Controller
 		$this->db->insert("paygol_logs", $this->fields);
 		
 		$this->updateMonthlyIncome($this->fields['converted_price']);
+
+		$this->plugins->onDonationPostback($this->fields['custom'], $this->fields['converted_price'], $this->fields['points']);
 
 		die('success');
 	}

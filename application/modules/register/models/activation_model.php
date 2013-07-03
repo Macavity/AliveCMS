@@ -10,7 +10,7 @@ class Activation_model extends CI_Model
 			'password' =>  $this->user->createHash($username, $password),
 			'expansion' => $expansion,
 			'timestamp' => time(),
-			'ip' => $_SERVER['REMOTE_ADDR'],
+			'ip' => $this->input->ip_address(),
 			'key' => sha1($username.$email.$password.time())
 		);
 

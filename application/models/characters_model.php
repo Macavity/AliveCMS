@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * @package FusionCMS
+ * @author Jesper Lindström
+ * @author Xavier Geerinck
+ * @author Elliott Robbins
+ * @link http://raxezdev.com/fusioncms
+ */
+
 class Characters_model
 {
 	private $db;
@@ -95,10 +103,6 @@ class Characters_model
 			case "horde":
 				$query = $this->db->query("SELECT COUNT(*) as `total` FROM ".table("characters", $this->realmId)." WHERE ".column("characters", "online", false, $this->realmId)."='1' AND ".column("characters", "race")." IN(".implode(",", get_instance()->realms->getHordeRaces()).")");
 			break;
-            
-            case "gm":
-                $query = $this->db->query("SELECT COUNT(*) as `total` FROM ".table("characters", $this->realmId)." WHERE ".column("characters", "online", false, $this->realmId)."='1' AND ".column("characters", "account")." IN(SELECT `id` from trinity_realm.account_access WHERE `RealmID` IN('-1','1'))");
-            break;
 		}
 
 		if($this->db->_error_message())
@@ -120,69 +124,7 @@ class Characters_model
 
 		return $online;
 	}
-    
-    /**
-     * Finds the guild id of a character, if available
-     * @param Integer $charGUID
-     */
-    public function getGuild($charGUID = -1){
-        
-        $this->connect();
-    
-        $query = $this->db->query(
-            "SELECT ".column("guild_member", "guildid", true, $this->realmId)." FROM ".table("guild_member", $this->realmId)." WHERE ".column("guild_member", "guid", false, $this->realmId)."= ?", 
-            array($charGUID));
 
-        if($this->db->_error_message()){
-            die($this->db->_error_message());
-        }
-
-        if($query && $query->num_rows() > 0){
-            $row = $query->result_array();
-
-            return $row[0]['guildid'];
-        }
-        else{
-            $query2 = $this->db->query(
-                "SELECT ".column("guild", "guildid", true, $this->realmId)." FROM ".table("guild", $this->realmId)." WHERE ".column("guild", "leaderguid", false, $this->realmId)."= ?", 
-                array($charGUID));
-
-            if($this->db->_error_message()){
-                die($this->db->_error_message());
-            }
-
-            if($query2 && $query2->num_rows() > 0){
-
-                $row2 = $query2->result_array();
-
-                return $row2[0]['guildid'];
-            }
-            else{
-                return false;
-            }
-        }
-    }
-
-    /**
-     * Returns the guild name of a specified guild
-     * @param Integer $guildId
-     */
-    public function getGuildName($guildId = -1){
-        
-        $this->connect();
-
-        $query = $this->db->query("SELECT ".column("guild", "name", true, $this->realmId)." FROM ".table("guild", $this->realmId)." WHERE ".column("guild", "guildid", false, $this->realmId)."= ?", array($guildId));
-
-        if($query && $query->num_rows() > 0){
-            $row = $query->result_array();
-
-            return $row[0]['name'];
-        }
-        else{
-            return false;
-        }
-    }
-    
 	/**
 	 * Count the characters that belongs to one account
 	 * @param Int $account
@@ -235,7 +177,6 @@ class Characters_model
 	*/
 	public function getGuidByName($name)
 	{
-	    $name = utf8_encode($name);
 		$this->connect();
 
 		$query = $this->db->query("SELECT ".column("characters", "guid", true, $this->realmId)." FROM ".table('characters', $this->realmId)." WHERE ".column("characters", "name", false, $this->realmId)."=?", array($name));
@@ -250,6 +191,34 @@ class Characters_model
 			$row = $query->result_array();
 
 			return $row[0]['guid'];
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	* Get the character online/offline status
+	* @param Int $guid
+	* @return Boolean
+	*/
+	public function isOnline($guid)
+	{
+		$this->connect();
+
+		$query = $this->db->query("SELECT ".column("characters", "online", true, $this->realmId)." FROM ".table('characters', $this->realmId)." WHERE ".column("characters", "guid", false, $this->realmId)."=?", array($guid));
+
+		if($this->db->_error_message())
+		{
+			die($this->db->_error_message());
+		}
+
+		if($query->num_rows() > 0)
+		{
+			$row = $query->result_array();
+
+			return $row[0]['online'];
 		}
 		else
 		{
@@ -317,10 +286,20 @@ class Characters_model
 				9 => 2,
 				10 => 2,
 				11 => 1,
-				22 => 1
+				22 => 1,
+				24 => 0,
+				25 => 1,
+				26 => 2
 			);
 
-			return $factions[$row[0]['race']];
+			if(array_key_exists($row[0]['race'], $factions))
+			{
+				return $factions[$row[0]['race']];
+			}
+			else
+			{
+				return 0;
+			}
 		}
 		else
 		{

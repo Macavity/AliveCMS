@@ -125,7 +125,7 @@ var Topsites = {
 	/**
 	 * ----------- Module specific code -----------
 	 */
-	findImage: function(field)
+	check: function(field)
 	{
 		var imageURL = false;
 
@@ -153,13 +153,40 @@ var Topsites = {
 		{
 			imageURL = "top100arena.jpg";
 		}
+		else if(/topgamesites/.test(field.value))
+		{
+			imageURL = "topgamesites.gif";
+		}
 		else if(/topg/.test(field.value))
 		{
 			imageURL = "topg.gif";
+			
+			if(!/\{account_id\}/i.test($(field).val()))
+			{
+				var question = "www.topg.org supports postback checking which allows FusionCMS to verify that the user actually does vote. This requires <a style='padding:0px;margin:0px;color:blue;font-weight:normal;float:none;display:inline;' target='_blank' href='https://raxezdev.zendesk.com/entries/22237928-How-to-enable-topg-org-vote-postback'>additional configuration on www.topg.org</a>.<br /><br />Do you want to enable it in FusionCMS?";
+
+				UI.confirm(question, "Yes", function()
+				{
+					$("#api").fadeIn(100);
+					$("#api_enabled").val("1");
+					$(field).val(function(index, value)
+					{
+						return value + "-{account_id}";
+					});
+				}, false, 380);
+			}
 		}
 		else if(/xtremetopgames/.test(field.value))
 		{
 			imageURL = "xtremetopgames.png";
+		}
+		else if(/wowstatus/.test(field.value))
+		{
+			imageURL = "wowstatus.gif";
+		}
+		else if(/deadlytop100/.test(field.value))
+		{
+			imageURL = "deadlytop100.jpg";
 		}
 
 		if(imageURL)

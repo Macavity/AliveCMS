@@ -11,11 +11,13 @@ class Online extends MX_Controller
 		
 		$this->css = "modules/online/css/online.css";
 		$this->js = "modules/online/js/sort.js";
+
+		requirePermission("view");
 	}
 	
 	public function index()
 	{
-		$this->template->setTitle("Online players");
+		$this->template->setTitle(lang("online_players", "online"));
 
 		// Perform ajax call to refresh if expired
 		if($this->cache->hasExpired("online_module"))
@@ -32,7 +34,7 @@ class Online extends MX_Controller
 			// Load the topsite page and format the page contents
 			$data2 = array(
 				"module" => "default", 
-				"headline" => "Online players", 
+				"headline" => lang("online_players", "online"), 
 				"content" => $ajax
 			);
 

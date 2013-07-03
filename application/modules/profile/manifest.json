@@ -6,5 +6,20 @@
 		"name":"FusionCMS",
 		"website":"http:\/\/raxezdev.com\/fusioncms"
 	},
+	
+	"permissions": {
+		"view": { "default": true, "description": "View the user profiles" }
+	},
+
+	"roles": {
+		"view": {
+			"description": "View the user profiles",
+
+			"permissions": {
+				"view": true
+			}
+		}
+	},
+
 	"enabled":true
 }

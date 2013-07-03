@@ -28,18 +28,8 @@ function UI()
 		// Give older browsers some html5-placeholder love!
 		$('input[placeholder], textarea[placeholder]').placeholder();
 
-		if(Config.cookieLaw)
-		{
-			var allowCookies = getCookie("allowCookies");
-
-			if(!allowCookies)
-			{
-				UI.confirm("This website makes use of cookies to be able to keep track of who is who, and we are due to the new <a style='margin:0px;float:none;display:inline;color:green;padding:0px;' href='http://www.youtube.com/watch?v=arWJA0jVPAc' target='_blank'>EU cookie law</a> forced to ask for the visitors permission to use it", "Accept", function()
-				{
-					setCookie("allowCookies", 1, 365);
-				});
-			}
-		}
+		// Enable tooltip
+		Tooltip.initialize();
 	}
 
 	/**
@@ -83,12 +73,7 @@ function UI()
 	 * @param String message
 	 */
 	this.alert = function(question, time)
-	{
-		if(question.length == 0)
-		{
-			question = '<img src="http://img-cache.cdn.gaiaonline.com/c57f77cb596aae50b0725174b806e3ee/http://i1243.photobucket.com/albums/gg544/luzcyfer/Meme/okay-meme-1.jpg" />';
-		}
-		
+	{		
 		// Put question and button text
 		$("#alert_message").html(question);
 
@@ -140,9 +125,19 @@ function UI()
 	 * @param String question
 	 * @param String button
 	 * @param Function callback
+	 * @param Int width
 	 */
-	this.confirm = function(question, button, callback, callback_cancel)
+	this.confirm = function(question, button, callback, callback_cancel, width)
 	{
+		var normalWidth = $("#confirm").css("width");
+		var normalMargin = $("#confirm").css("margin-left");
+
+		if(width)
+		{
+			$("#confirm").css({width: width+"px"});
+			$("#confirm").css({marginLeft: "-"+(width/2)+"px"});
+		}
+
 		$(".popup_links").show();
 		
 		// Put question and button text
@@ -156,6 +151,8 @@ function UI()
 		// Assign click event
 		$("#confirm_button").bind('click', function()
 		{
+			$("#confirm").css({width:normalWidth});
+			$("#confirm").css({marginLeft:normalMargin});
 			callback();
 			UI.hidePopup();	
 		});
@@ -163,6 +160,8 @@ function UI()
 		// Assign hide-function to background
 		$("#popup_bg").bind('click', function()
 		{
+			$("#confirm").css({width:normalWidth});
+			$("#confirm").css({marginLeft:normalMargin});
 			UI.hidePopup();
 		});
 
@@ -172,6 +171,8 @@ function UI()
 			// If "enter"
 			if(event.which == 13)
 			{
+				$("#confirm").css({width:normalWidth});
+				$("#confirm").css({marginLeft:normalMargin});
 				callback();
 				UI.hidePopup();
 			}
@@ -193,11 +194,6 @@ function UI()
 		$("#confirm_button").unbind('click');
 		$("#alert_button").unbind('click');
 		$(document).unbind('keypress');
-
-		if(!getCookie('allowCookies') && Config.cookieLaw)
-		{
-			window.location = "http://google.com";
-		}
 	}
 
 	/**
@@ -219,7 +215,7 @@ function UI()
 /**
  * Tooltip related functions
  */
-function FTooltip()
+function Tooltip()
 {
 	/**
 	 * Add event-listeners
@@ -235,9 +231,7 @@ function FTooltip()
 		// Add mouse listener
 		$(document).mousemove(function(e)
 		{
-		    if(typeof fusionTooltip != "undefined" && fusionTooltip != 0){
-	            fusionTooltip.move(e.pageX, e.pageY);		        
-		    }
+			Tooltip.move(e.pageX, e.pageY);
 		});
 	}
 
@@ -260,7 +254,7 @@ function FTooltip()
 		$("[data-tip]").hover(
 			function()
 			{
-			    fusionTooltip.show($(this).attr("data-tip"));
+				Tooltip.show($(this).attr("data-tip"));
 			},
 			function()
 			{
@@ -275,9 +269,9 @@ function FTooltip()
 				{
 					if(/^item=[0-9]*$/.test($(this).attr("rel")))
 					{
-					    fusionTooltip.Item.get(this, function(data)
+						Tooltip.Item.get(this, function(data)
 						{
-					        fusionTooltip.show(data);
+							Tooltip.show(data);
 						});
 					}
 				},
@@ -342,7 +336,7 @@ function FTooltip()
 	 		var obj = $(element);
 	 		var realm = obj.attr("data-realm");
 	 		var id = obj.attr("rel").replace("item=", "");
-	 		fusionTooltip.Item.currentId = id;
+	 		Tooltip.Item.currentId = id;
 
 	 		if(id in this.cache)
 	 		{
@@ -350,7 +344,7 @@ function FTooltip()
 	 		}
 	 		else
 	 		{
-	 			var cache = fusionTooltip.Item.CacheObj.get("item_" + realm + "_" + id);
+	 			var cache = Tooltip.Item.CacheObj.get("item_" + realm + "_" + id + "_" + Config.language);
 
 		 		if(cache !== false)
 		 		{
@@ -363,11 +357,11 @@ function FTooltip()
 			 		$.get(Config.URL + "tooltip/" + realm + "/" + id, function(data)
 			 		{
 			 			// Cache it this visit
-			 		   fusionTooltip.Item.cache[id] = data;
-			 			fusionTooltip.Item.CacheObj.save("item_" + realm + "_" + id, data);
+			 			Tooltip.Item.cache[id] = data;
+			 			Tooltip.Item.CacheObj.save("item_" + realm + "_" + id  + "_" + Config.language, data);
 
 			 			// Make sure it's still visible
-			 			if($("#tooltip").is(":visible") && fusionTooltip.Item.currentId == id)
+			 			if($("#tooltip").is(":visible") && Tooltip.Item.currentId == id)
 			 			{
 			 				callback(data);
 			 			}
@@ -435,11 +429,4 @@ function FTooltip()
 }
 
 var UI = new UI();
-var fusionTooltip = new FTooltip();
-
-//Enable tooltip
-$(document).ready(function(){
-    if(fusionTooltip != 0){
-        fusionTooltip.initialize();        
-    }
-});
+var Tooltip = new Tooltip();

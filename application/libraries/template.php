@@ -1,14 +1,20 @@
 <?php
+
 /**
  * @package FusionCMS
- * @version 6.0
+ * @version 6.X
  * @author Jesper Lindström
  * @author Xavier Geerinck
+ * @author Elliott Robbins
  * @link http://raxezdev.com/fusioncms
  */
+
 class Template
 {
-	protected $CI;
+	private $CI;
+	private $title;
+	private $custom_description;
+	private $custom_keywords;
 	public $theme_path;
 	public $page_path;
 	public $full_theme_path;
@@ -19,29 +25,9 @@ class Template
 	public $style_path;
 	public $view_path;
 	public $module_name;
-	private $title;
-	private $showSlider;
-    
-    private $showSidebar = TRUE;
-    private $topHeader = "";
-    
-    /**
-     * Shows/Hides the breadcrumbs
-     * @type {Boolean}
-     */
-    private $showBreadcrumbs = FALSE;
-    
-    /**
-     * Contains the content trail of breadcrumbs
-     * @type {Array}
-     */
-    private $breadcrumbs = array();
-    
-	private $custom_description;
-	private $custom_keywords;
 
 	/**
-	 * Get the CI instance and construct the paths
+	 * Get the CI instance and create the paths
 	 */
 	public function __construct()
 	{
@@ -56,106 +42,14 @@ class Template
 		$this->view_path = "views/";
 		$this->style_path = base_url().APPPATH."themes/".$this->theme."/css/";
 		$this->image_path = base_url().APPPATH."themes/".$this->theme."/images/";
-        $this->js_path = base_url().APPPATH."themes/".$this->theme."/js/";
 		$this->page_url = ($this->CI->config->item('rewrite')) ? base_url() : base_url().'index.php/';
 		$this->loadManifest();
 		$this->title = "";
-
-		// Check if module manifest exists or not
-		if(file_exists("application/modules/".$this->module_name."/manifest.json"))
-		{
-			// Load the manifest data
-			$moduleManifestData = file_get_contents("application/modules/".$this->module_name."/manifest.json");
-			$moduleManifest = json_decode($moduleManifestData, true);
-
-			// Check for the enabled flag
-			if(!array_key_exists("enabled", $moduleManifest) || !$moduleManifest['enabled'])
-			{
-			    if($this->CI->input->is_ajax_request() && isset($_REQUEST['is_json_ajax']) && $_REQUEST['is_json_ajax'] == 1)
-				{
-					$array = array(
-						"title" => "The module has been disabled", 
-						"content" => "<script>window.location.reload(true)</script>",
-						"js" => "",
-						"css" => "",
-						"slider" => false
-					);
-
-					die(json_encode($array));
-				}
-				else
-				{
-					show_error("The module (".$this->module_name.") is not enabled.");
-				}
-			}
-		}
-		else
-		{
-			show_error("Invalid module (<b>".$this->module_name."</b> is missing manifest.json)");
-		}
 
 		if(!defined("pageURL"))
 		{
 			define("pageURL", $this->page_url);
 		}
-
-		$this->preSlider();
-        
-        // Breadcrumb to the homepage
-        $this->addBreadcrumb($this->CI->config->item("server_name"), base_url());
-        $this->hideBreadcrumbs();
-	}
-
-	/**
-	 * Determinate if we should show the slider or not
-	 */
-	private function preSlider()
-	{
-		// Should we display the slider on this page?
-		if($this->CI->config->item('slider'))
-		{
-			// Is it meant to be displayed only on the news page
-			if($this->CI->config->item('slider_home')
-			&& $this->CI->router->class == "news")
-			{
-				$this->showSlider = true;
-			}
-
-			// If it's not on the news page
-			elseif($this->CI->config->item('slider_home')
-			&& $this->CI->router->class != "news")
-			{
-				$this->showSlider = false;
-			}
-
-			// Simply enabled
-			else
-			{
-				$this->showSlider = true;
-			}
-		}
-		else
-		{
-			$this->showSlider = false;
-		}
-	}
-
-	/**
-	 * Display the global announcement message
-	 */
-	private function announcement()
-	{
-		$data = array(
-				'module' => 'default',
-				'title' => $this->CI->config->item("title"),
-				'headline' => $this->CI->config->item("message_headline"),
-				'message' => $this->CI->config->item("message_text"),
-				'size' => $this->CI->config->item('message_headline_size')
-			);
-
-		$output = $this->loadPage("message.tpl", $data);
-		
-		die($output);
 	}
 
 	/**
@@ -187,78 +81,183 @@ class Template
 		$this->theme_data = $array;
 	}
 
-	/**
-	 * Add an extra page title
-	 * @param String $title
-	 */
-	public function setTitle($title)
-	{
-		$this->title = $title . " - ";
-	}
 
 	/**
-	 * Add an extra description
-	 * @param String $description
+	 * Returns if the slider should be shown on the current page.
+	 * @return bool
 	 */
-	public function setDescription($description)
+	private function isSliderShown()
 	{
-		$this->custom_description = $description;
-	}
+		// Is it enabled?
+		if($this->CI->config->item('slider'))
+		{
+			// Only on news page?, if yes make sure we are on the news page, then show it
+			if($this->CI->config->item('slider_home') && $this->CI->router->class == "news")
+			{
+				return true;
+			}
 
-	/**
-	 * Add extra keywords
-	 * @param String $keywords
-	 */
-	public function setKeywords($keywords)
-	{
-		$this->custom_keywords = $keywords;
+			// If we want to only show it on the home page, then do not show it on the other pages.
+			elseif($this->CI->config->item('slider_home') && $this->CI->router->class != "news")
+			{
+				return false;
+			}
+
+			return true;
+		}
+
+		return false;
 	}
 	
 	/**
 	 * Loads the template
 	 * @param String $content The page content
-	 * @param Array $css Full path to your css file
+	 * @param String $css Full path to your css file
 	 * @param String $js Full path to your js file
 	 */
 	public function view($content, $css = false, $js = false)
 	{
+		// Avoid loading the main site in the ACP layout
+		if($this->CI->input->get('is_acp'))
+		{
+			$this->CI->load->library('administrator');
+			$this->CI->administrator->view('<script>window.location.reload(true)</script>');
+		}
+
+		$output = "";
+
 		if($this->CI->config->item("message_enabled"))
 		{
-			$this->announcement();
+			$output = $this->handleAnnouncement();
 		}
-
-		if($this->CI->input->is_ajax_request() && isset($_REQUEST['is_json_ajax']) && $_REQUEST['is_json_ajax'] == 1)
+		elseif($this->CI->input->is_ajax_request() && isset($_GET['is_json_ajax']) && $_GET['is_json_ajax'] == 1)
 		{
-		    $array = array(
-				"title" => $this->title.$this->CI->config->item('title'), 
-				"content" => $content,
-				"js" => $js,
-				"css" => $css,
-				"slider" => $this->showSlider
-			);
-
-			$this->outputJSON($array);
+			$output = $this->handleAjaxRequest($content, $css, $js);
 		}
-		
-        // Extra CSS Files
-        if(is_string($css)){
-            $css = array($css);
-        }
-        
-		//Load the sideboxes 
+		else
+		{
+			$output = $this->handleNormalPage($content, $css, $js);
+		}
+
+		// Output and stop rendering
+		die($output);
+	}
+
+	/**
+	 * Handles the normal loading.
+	 * @param $content
+	 * @param $css
+	 * @param $js
+	 * @return mixed
+	 */
+	private function handleNormalPage($content, $css, $js)
+	{
+		//Load the sideboxes
 		$sideboxes = $this->loadSideboxes();
-		        
-                
+		$header = $this->getHeader($css, $js);
+		$modals = $this->getModals();
+
+		$url = $this->CI->router->fetch_class();
+
+		if($this->CI->router->fetch_method() != "index")
+		{
+			$url .= "/".$this->CI->router->fetch_method();
+		}
+
+		// Gather the theme data
+		$theme_data = array(
+			"currentPage" => $url,
+			"url" => $this->page_url,
+			"theme_path" => $this->theme_path,
+			"full_theme_path" => $this->page_url."application/".$this->theme_path,
+			"serverName" => $this->CI->config->item('server_name'),
+			"page" => '<div id="content_ajax">'.$content.'</div>',
+			"slider" => $this->getSlider(),
+			"show_slider" => $this->isSliderShown(),
+			"head" => $header,
+			"modals" => $modals,
+			"CI" => $this->CI,
+			"image_path" => $this->image_path,
+			"isOnline" => $this->CI->user->isOnline(),
+			"header_url" => ($this->CI->config->item('header_url')) ? "style='background-image:url(".$this->CI->config->item('header_url').")'" : "",
+			"sideboxes" => $sideboxes
+		);
+
+		// Load the main template
+		return $output = $this->CI->smarty->view($this->theme_path."template.tpl", $theme_data, true);
+	}
+
+	/**
+	 * When an ajax request is made to a page it calls this.
+	 * @param string $content
+	 * @param string $css
+	 * @param string $js
+	 * @return string
+	 */
+	private function handleAjaxRequest($content = "", $css = "", $js = "")
+	{
+		$array = array(
+			"title" => $this->title.$this->CI->config->item('title'),
+			"content" => $content,
+			"js" => $js,
+			"css" => $css,
+			"slider" => $this->isSliderShown(),
+			"language" => $this->CI->language->getClientData()
+		);
+
+		return json_encode($array);
+	}
+
+	/**
+	 * Display the global announcement message
+	 */
+	private function handleAnnouncement()
+	{
+		$data = array(
+			'module' => 'default',
+			'title' => $this->CI->config->item("title"),
+			'headline' => $this->CI->config->item("message_headline"),
+			'message' => $this->CI->config->item("message_text"),
+			'size' => $this->CI->config->item('message_headline_size')
+		);
+
+		$output = $this->loadPage("message.tpl", $data);
+
+		return $output;
+	}
+
+	/**
+	 * Gets the modals
+	 * @return mixed
+	 */
+	private function getModals()
+	{
+		$modal_data = array(
+			'url' => $this->page_url,
+			'vote_reminder' => $this->CI->config->item('vote_reminder'),
+			'vote_reminder_image' => $this->CI->config->item('vote_reminder_image')
+		);
+
+		// Load the modals
+		$modals = $this->CI->smarty->view($this->theme_path."views/modals.tpl", $modal_data, true);
+
+		return $modals;
+	}
+
+	/**
+	 * Gets the header completely loaded.
+	 * @param string $css
+	 * @param string $js
+	 * @return mixed
+	 */
+	private function getHeader($css = "", $js = "")
+	{
 		// Gather the header data
 		$header_data = array(
-		    "controller" => $this->CI->router->class,
-            "method" => $this->CI->router->method,
 			"style_path" => $this->style_path,
 			"theme_path" => $this->theme_path,
 			"image_path" => $this->image_path,
-			"js_path" => $this->js_path,
 			"url" => $this->page_url,
-            "server_name" => $this->CI->config->item('server_name'),
 			"title" => $this->title . $this->CI->config->item('title'),
 			"slider_interval" => $this->CI->config->item('slider_interval'),
 			"slider_style" => $this->CI->config->item('slider_style'),
@@ -276,119 +275,13 @@ class Template
 			"use_fcms_tooltip" => $this->CI->config->item('use_fcms_tooltip'),
 			"slider" => $this->theme_data['slider_text'],
 			"slider_id" => $this->theme_data['slider_id'],
-			"cookie_law" => $this->CI->config->item('cookie_law'),
-			"csrf_cookie" => $this->CI->input->cookie('csrf_token_name')
+			"csrf_cookie" => $this->CI->input->cookie('csrf_token_name'),
+			"client_language" => $this->CI->language->getClientData(),
+			"activeLanguage" => $this->CI->language->getLanguage()
 		);
 
 		// Load the theme
-		
-		// Is there a specified header.tpl for the current theme?
-        if(file_exists(APPPATH.$this->theme_path."views/header.tpl")){
-            //debug("themed header", APPPATH.$this->theme_path);
-            $header = $this->CI->smarty->view($this->theme_path."views/header.tpl", $header_data, true);
-            
-        }
-        else{
-            $header = $this->CI->smarty->view($this->view_path."header.tpl", $header_data, true);
-        }
-		
-		$modal_data = array(
-			'url' => $this->page_url,
-			'vote_reminder' => $this->CI->config->item('vote_reminder'),
-			'vote_reminder_image' => $this->CI->config->item('vote_reminder_image')
-		);
-
-		// Load the modals
-		$modals = $this->CI->smarty->view($this->theme_path."views/modals.tpl", $modal_data, true);
-
-		$url = $this->CI->router->fetch_class();
-
-		if($this->CI->router->fetch_method() != "index")
-		{
-			$url .= "/".$this->CI->router->fetch_method();
-		}
-        
-        /*
-         * Breadcrumbs
-         */
-        
-        /**
-         * Contains the breadcrumb html if activated
-         * @type String
-         */
-        $breadCrumbs = "";
-        
-        if($this->showBreadcrumbs == TRUE && !empty($this->breadcrumbs)){
-            $data = array(
-                "show_breadcrumbs" => $this->showBreadcrumbs,
-                "breadcrumbs" => $this->breadcrumbs,
-            );
-            $breadCrumbs = $this->CI->smarty->view($this->theme_path."views/breadcrumbs.tpl", $data, true);
-        }
-        
-        /*
-         * Slider
-         */
-        $slider = "";
-        
-        /**
-         * Standard path to the slider template file
-         */
-        $sliderTplPath = $this->view_path."slider.tpl";
-        
-        if($this->showSlider){
-            
-            $data = array(
-                "slider" => $this->getSlider(),
-                "show_slider" => $this->showSlider,
-            );
-            
-            // Template specific slider?
-            if(file_exists(APPPATH.$this->theme_path."views/slider.tpl")){
-                $sliderTplPath = $this->theme_path."views/slider.tpl";
-            }
-            $slider = $this->CI->smarty->view($sliderTplPath, $data, true);
-            
-        }
-        
-        /*
-         * Userplate
-         */
-        $userPlate = $this->getUserplate();
-        
-        
-        // Gather the theme data
-		$theme_data = array(
-			"currentPage" => $url,
-			"url" => $this->page_url,
-			"theme_path" => $this->theme_path,
-			"full_theme_path" => $this->page_url."application/".$this->theme_path,
-			"serverName" => $this->CI->config->item('server_name'),
-			"page" => '<div id="content_ajax">'.$content.'</div>',
-			"slider" => $slider,
-			"show_slider" => $this->showSlider,
-			"show_sidebar" => $this->showSidebar,
-            "topheader" => $this->topHeader,
-			"head" => $header,
-			"modals" => $modals,
-			"breadcrumbs" => $breadCrumbs,
-			"userplate" => $userPlate,
-			"CI" => $this->CI,
-			"image_path" => $this->image_path,
-            "isOnline" => $this->CI->user->isOnline(),
-            "is_gm" => $this->CI->user->isGm(),
-            "is_admin" => $this->CI->user->isAdmin(),
-            "is_dev" => $this->CI->user->isDev(),
-            "is_owner" => $this->CI->user->isOwner(),
-            "user_name" => $this->CI->user->getNickname(),
-			"header_url" => ($this->CI->config->item('header_url')) ? "style='background-image:url(".$this->CI->config->item('header_url').")'" : "",
-			"sideboxes" => $sideboxes,
-		);
-
-		// Load the main template
-		$output = $this->CI->smarty->view($this->theme_path."template.tpl", $theme_data, true);
-
-		die($output);
+		return $this->CI->smarty->view($this->view_path."header.tpl", $header_data, true);
 	}
 
 	/**
@@ -397,71 +290,61 @@ class Template
 	 */
 	private function voteReminder()
 	{
-		if($this->CI->config->item('vote_reminder')
-		&& !$this->CI->input->cookie("vote_reminder"))
+		if($this->CI->config->item('vote_reminder') && !$this->CI->input->cookie("vote_reminder"))
 		{
 			$this->CI->input->set_cookie("vote_reminder", "1", $this->CI->config->item('reminder_interval'));
 			
 			return true;
 		}
-		else
-		{
-			return false;
-		}
+
+		return false;
 	}
 
+	/**
+	 * Loads the sideboxes, and returns the result
+	 * @return array
+	 */
 	public function loadSideboxes()
 	{
 		require_once("application/interfaces/sidebox.php");
 		
 		$out = array();
-        
-        $controller = $this->CI->router->class;
-        $method = $this->CI->router->method;
-        
-		$sideboxes_db = $this->CI->cms_model->getSideboxes($controller, $method);
-		
-		foreach($sideboxes_db as $sidebox)
+
+		$sideboxes_db = $this->CI->cms_model->getSideboxes();
+
+		// If we got sideboxes
+		if($sideboxes_db)
 		{
-			$fileLocation =  'application/modules/sidebox_'.$sidebox['type'].'/controllers/'.$sidebox['type'].'.php';
-
-			if(file_exists($fileLocation))
+			// Go through them all and add them to the output.
+			foreach($sideboxes_db as $sidebox)
 			{
-				require_once($fileLocation);
+				if($sidebox['permission'] && !hasViewPermission($sidebox['permission'], "--SIDEBOX--"))
+				{
+					continue;
+				}
 
-				if($sidebox['type'] == 'custom')
+				$fileLocation = 'application/modules/sidebox_'.$sidebox['type'].'/controllers/'.$sidebox['type'].'.php';
+
+				if(file_exists($fileLocation))
 				{
-					$object = new $sidebox['type']($sidebox['id']);
+					require_once($fileLocation);
+
+					if($sidebox['type'] == 'custom')
+					{
+						$object = new $sidebox['type']($sidebox['id']);
+					}
+					else
+					{
+						$object = new $sidebox['type']();
+					}
+
+					// Add the sidebox to the output.
+					array_push($out, array('name' => langColumn($sidebox['displayName']), 'data' => $object->view()));
 				}
-				else 
+				else
 				{
-					$object = new $sidebox['type']();
+					array_push($out, array('name' => "Oops, something went wrong", 'data' => 'The following sidebox module is missing or contains an invalid module structure: <b>sidebox_'.$sidebox['type'].'</b>'));
 				}
-                
-				if($this->CI->user->requireRank($sidebox['rank_needed'], false))
-				{
-					
-                    $sideboxName = $sidebox["displayName"];
-                    $sideboxData = $object->view();
-                    
-                    if(!empty($object->overwriteDisplayName)){
-                        $sideboxName = $object->overwriteDisplayName;
-                    }
-                    
-                    array_push($out, array(
-                       'name' => $sideboxName, 
-                       'css_id' => (empty($sidebox['css_id'])) ? "sidebox-".$sidebox['id'] : $sidebox['css_id'], 
-                       'data' => $sideboxData
-                    ));
-                    
-				}
-			}
-			else
-			{
-				array_push($out, array(
-				    'name' => "Oops, something went wrong", 
-				    "css_id" => "",
-				    'data' => 'The following sidebox module is missing: <b>'.$sidebox['type'].'</b>'));
 			}
 		}
 		
@@ -474,46 +357,36 @@ class Template
 	 * @param Array $data Array of additional template data
 	 * @return String
 	 */
-	public function loadPage($page, $data = array(), $json = false)
+	public function loadPage($page, $data = array())
 	{
-		// Determinate which module to load from
-		if(array_key_exists('module', $data))
-		{
-			$module = $data['module'];
-		}
-		else
-		{
-			$module = $this->module_name;
-		}
+		// Get the module, we need to check if it's enabled first
+		$data['module'] = array_key_exists("module", $data) ? $data['module'] : $this->module_name;
+
+		// Get the rest of the data
+		$data['url'] = array_key_exists("url", $data) ? $data['url'] : $this->page_url;
+		$data['theme_path'] = array_key_exists("theme_path", $data) ? $data['theme_path'] : $this->theme_path;
+		$data['image_path'] = array_key_exists("image_path", $data) ? $data['image_path'] : $this->image_path;
+		$data['CI'] = array_key_exists("CI", $data) ? $data['CI'] : $this->CI;
 
 		// Should we load from the default views or not?
-		if($module == "default")
+		if($data['module'] == "default")
 		{
 			// Shorthand for loading views/page.tpl
 			$page = ($page == "page.tpl") ? "views/page.tpl" : $page;
-			
+
 			return $this->CI->smarty->view($this->theme_path . $page, $data, true, true);
 		}
-		else
-		{
-			// Default data
-			$data['url'] = array_key_exists("url", $data) ? $data['url'] : $this->page_url;
-			$data['theme_path'] = array_key_exists("theme_path", $data) ? $data['theme_path'] : $this->theme_path;
-			$data['image_path'] = array_key_exists("image_path", $data) ? $data['image_path'] : $this->image_path;
 
-			// Consruct the path
-			$themeView = "application/" . $this->theme_path . "modules/" . $module . "/" . $page;
+		// Consruct the path
+		$themeView = "application/" . $this->theme_path . "modules/" . $data['module'] . "/" . $page;
 			
-			// Check if this theme wants to replace our view with it's own
-			if(file_exists($themeView))
-			{
-				return $this->CI->smarty->view($themeView, $data, true);
-			}
-			else
-			{
-				return $this->CI->smarty->view('modules/'.$module.'/views/'.$page, $data, true);
-			}
+		// Check if this theme wants to replace our view with it's own
+		if(file_exists($themeView))
+		{
+			return $this->CI->smarty->view($themeView, $data, true);
 		}
+
+		return $this->CI->smarty->view('modules/'.$data['module'].'/views/'.$page, $data, true);
 	}
 
 	/**
@@ -526,10 +399,10 @@ class Template
 	public function box($title, $body, $full = false, $css = false, $js = false)
 	{
 		$data = array(
-				"module" => "default", 
-				"headline" => $title, 
-				"content" => $body
-			);
+			"module" => "default",
+			"headline" => $title,
+			"content" => $body
+		);
 
 		$page = $this->loadPage("page.tpl", $data);
 
@@ -537,159 +410,55 @@ class Template
 		{
 			$this->view($page, $css, $js);
 		}
-		else
-		{
-			return $page;
-		}
+
+		return $page;
 	}
 	
-    /**
-     * Generates the Userplate, used to switch the active character
-     */
-    public function getUserplate(){
-            
-        
-        $data = array(
-            "isOnline" => $this->CI->user->isOnline(),
-            "charList" => array(),
-            "nickname" => $this->CI->user->getNickname(),
-            "image_path" => $this->image_path,
-            "url" => $this->page_url,
-        );
-        if($this->CI->user->isOnline()){
-            
-            /**
-             * List of all realms with all characters on each realm
-             * @type Array
-             */
-            $realmChars = $this->CI->user->getCharacters($this->CI->user->getId());    
-                
-            $charList = array();
-            $activeChar = array();
-            
-            $activeCharFound = FALSE;
-            
-            //debug("realmChars", $realmChars);
-            //debug("activeGuid", $this->CI->user->getActiveChar());
-            
-            $n = 0;
-            
-            foreach($realmChars as $realmRow){
-                
-                $realmId = $realmRow["realmId"];
-                $realmName = "Norganon";
-                
-                foreach($realmRow["characters"] as $charRow){
-                    
-                    $charRow["realmId"] = $realmId;
-                    $charRow["realmName"] = $realmName;
-                    $charRow["url"] = "/characters/".strtolower($realmName)."/".$charRow["name"]."/";
-                    $charRow["hasGuild"] = FALSE;
-                    
-                    $charRow["classString"] = $this->CI->realms->getClass($charRow["class"], $charRow["gender"]);
-                    $charRow["raceString"] = $this->CI->realms->getRace($charRow["race"], $charRow["gender"]);
-                    
-                    if($charRow["guid"] == $this->CI->user->getActiveChar() && $realmId == $this->CI->user->getActiveRealm()){
-                        $activeCharFound = TRUE;
-                        $activeChar = $charRow;
-                    }
-                    else{
-                        $charList[$n] = $charRow;
-                        $n++;
-                    }
-                }
-                
-            }
-             
-            if(!$activeCharFound && count($charList) > 0){
-                
-                //debug("0er", $charList[0]);
-                $this->CI->user->setActiveChar($charList[0]["guid"], $charList[0]["realmId"]);
-                $activeCharFound = true;
-                $activeChar = $charList[0];
-                unset($charList[0]);
-                
-            }
-            
-            if($activeChar){
-                $activeRealm = $this->CI->realms->getRealm($this->CI->user->getActiveRealm())->getCharacters();
-                
-                $data["factionString"] = $this->CI->realms->getFactionString($activeChar["race"]);
-                
-                $guildId = $activeRealm->getGuild($this->CI->user->getActiveChar());
-                
-                $activeChar["avatarUrl"] = $this->CI->realms->formatAvatarPath($activeChar);
-                
-                if($guildId){
-                    $activeChar["hasGuild"] = TRUE;
-                    $activeChar["guildName"] = $activeRealm->getGuildName($guildId);
-                    $activeChar["guildUrl"] = "/guild/".strtolower($activeChar["realmName"])."/".$activeChar["guildName"]."/";
-                }
-                
-            }
-            else{
-                $data["factionString"] = "neutral";
-            }
-            
-            $data["activeChar"] = $activeChar;
-            $data["charList"] = $charList;
-            
-        }
-        return $this->CI->smarty->view($this->theme_path."views/userplate.tpl", $data, true);
-        
-        
-    }
-    
 	/**
 	 * Get the menu links
 	 * @param Int $side ID of the specific menu
 	 */
 	public function getMenu($side = "top") 
 	{
-		//Get the database values
-		$result = $this->CI->cms_model->getLinks($side);
-		
-		foreach($result as $key=>$item)
+		$result = array();
+
+		// Get the database values
+		$links = $this->CI->cms_model->getLinks($side);
+
+		foreach($links as $key => $item)
 		{
-			//Xss protect out names
-			$result[$key]['name'] = $this->format($result[$key]['name'], false, false);
-			
+			if(!hasViewPermission($links[$key]['permission'], "--MENU--") && $links[$key]['permission'])
+			{
+				continue;
+			}
+
+			// Xss protect out names
+			$links[$key]['name'] = $this->format(langColumn($links[$key]['name']), false, false);
+
 			// Hard coded PM count
-			if($result[$key]['link'] == "messages")
+			if($links[$key]['link'] == "messages")
 			{
 				$count = $this->CI->cms_model->getMessagesCount();
 
 				if($count > 0)
 				{
-					$result[$key]['name'] .= " <b>(".$count.")</b>";
+					$links[$key]['name'] .= " <b>(".$count.")</b>";
 				}
 			}
 
-			if(!preg_match("/http:\/\//i", $result[$key]['link']))
+			if(!preg_match("/^\/|[a-z][a-z0-9+\-.]*:/i", $links[$key]['link']))
 			{
-				$result[$key]['link'] = $this->page_url . $result[$key]['link'];
+				 $links[$key]['link'] = $this->page_url . $links[$key]['link'];
 			}
-			
-			//Append if it's a direct link or not
-			$result[$key]['link'] = 'href="'.$result[$key]['link'].'" direct="'.$result[$key]['direct_link'].'"';
+
+			// Append if it's a direct link or not
+			$links[$key]['link'] = 'href="'.$links[$key]['link'].'" direct="'.$links[$key]['direct_link'].'"';
+
+			array_push($result, $links[$key]);
 		}
 
 		return $result;
 	}
-    
-    /**
-     * Hides the sidebar if requested
-     */
-    public function hideSidebar(){
-        $this->showSidebar = FALSE;
-    }
-    
-    /**
-     * Shows the sidebar if requested
-     */
-    public function showSidebar(){
-        $this->showSidebar = TRUE;
-    }
 
 	/**
 	 * Load the image slider
@@ -706,11 +475,86 @@ class Template
 				$slides_arr[$key]['link'] = $this->page_url . $image['link'];
 			}
 
+			$slides_arr[$key]['text'] = langColumn($image['text']);
+
 			// Replace {path} by the theme image path
 			$slides_arr[$key]['image'] = preg_replace("/\{path\}/", $this->image_path, $image['image']);
 		}
 		
 		return $slides_arr;
+	}
+
+	/**
+	 * Show the 404 error
+	 */
+	public function show404()
+	{
+		if($this->CI->input->get('is_acp'))
+		{
+			header('HTTP/1.0 404 Not Found');
+		}
+
+		$this->setTitle(lang("404_title", "error"));
+
+		$message = $this->loadPage("error.tpl", array('module' => 'error', 'is404' => true));
+		$output = $this->box(lang("404", "error"), $message);
+
+		$this->view($output);
+	}
+
+	/**
+	 * Show an error message
+	 * @param String $error
+	 */
+	public function showError($error = false)
+	{
+		$message = $this->loadPage("error.tpl", array('module' => 'error', 'errorMessage' => $error));
+		$output = $this->box($error, $message);
+
+		$this->view($output);
+	}
+
+	/**
+	 * Returns true if $a >= $b
+	 * @param String $a
+	 * @param String $b
+	 * @param Boolean $notEqual
+	 * @return Boolean
+	 */
+	public function compareVersions($a, $b, $notEqual = false)
+	{
+		$maxLength = 4;
+
+		$a = preg_replace("/\./", "", $a);
+		$b = preg_replace("/\./", "", $b);
+
+		// Add ending zeros if necessary
+		if(strlen($a) < $maxLength)
+		{
+
+			for($i = 0; $i <= ($maxLength - strlen($a)); $i++)
+			{
+				$a .= "0";
+			}
+		}
+
+		// Add ending zeros if necessary
+		if(strlen($b) < $maxLength)
+		{
+			for($i = 0; $i <= ($maxLength - strlen($b)); $i++)
+			{
+				$b .= "0";
+			}
+		}
+
+		if($notEqual)
+		{
+			return (int)$a > (int)$b;
+		}
+		else
+		{
+			return (int)$a >= (int)$b;
+		}
 	}
 
 	/**
@@ -762,85 +606,90 @@ class Template
 		{
 			return "Not a number";
 		}
-		else
-		{
-			$a = array(
-					30 * 24 * 60 * 60       => 'month',
-					24 * 60 * 60            =>  'day',
-					60 * 60                 =>  'hour',
-					60                      =>  'minute',
-					1                       =>  'second'
-			);
-		
-			foreach($a as $secs => $str)
-			{
-				$d = $time / $secs;
 
-				if ($d >= 1)
-				{
-					$r = round($d);
-					
-					return $r . ' ' . $str . ($r > 1 ? 's' : '');
-				}
+		$a = array(
+			30 * 24 * 60 * 60       => 'month',
+			24 * 60 * 60            =>  'day',
+			60 * 60                 =>  'hour',
+			60                      =>  'minute',
+			1                       =>  'second'
+		);
+		
+		foreach($a as $secs => $str)
+		{
+			$d = $time / $secs;
+
+			if($d >= 1)
+			{
+				$r = round($d);
+
+				return $r . ' ' . ($r > 1 ? lang($str.'s') : lang($str));
 			}
 		}
 	}
-	
+
+	/**
+	 * Gets the domain name we are on
+	 * @return mixed
+	 */
 	public function getDomainName()
 	{
-	    return preg_replace("/^[\w]{2,6}:\/\/([\w\d\.\-]+).*$/","$1", $this->CI->config->slash_item('base_url'));
+		return preg_replace("/^[\w]{2,6}:\/\/([\w\d\.\-]+).*$/","$1", $this->CI->config->slash_item('base_url'));
 	}
 
+	/**
+	 * Getter for the title
+	 * @return string
+	 */
 	public function getTitle()
 	{
 		return $this->title;
 	}
-    
+
+	/**
+	 * Add an extra page title
+	 * @param String $title
+	 */
+	public function setTitle($title)
+	{
+		$this->title = $title . " - ";
+	}
+
+	/**
+	 * Add an extra description
+	 * @param String $description
+	 */
+	public function setDescription($description)
+	{
+		$this->custom_description = $description;
+	}
+
+	/**
+	 * Add extra keywords
+	 * @param String $keywords
+	 */
+	public function setKeywords($keywords)
+	{
+		$this->custom_keywords = $keywords;
+	}
+
     /**
-     * Adds a breadcrumb to the content trail
-     * @param String title
-     * @param String link
+     * Get the module id
+     * @return int
      */
-    public function addBreadcrumb($title, $link = ""){
-        $this->breadcrumbs[] = array(
-            "title" => $title,
-            "link" => $link
-        );
-        $this->showBreadcrumbs();
-    }
-    
+    public function getModuleId()
+	{
+		$module = $this->CI->cms_model->getModuleByName($this->CI->template->module_name);
+
+		return $module['id'];
+	}
+
     /**
-     * Returns all set breadcrumbs
-     * @return Array
+     * Get the module name
+     * @return string
      */
-    public function getBreadcrumbs(){
-        if(is_array($this->breadcrumbs)){
-            return $this->breadcrumbs;        
-        }
-        else{
-            return array();
-        }
-    }
-    
-    public function hideBreadcrumbs(){
-        $this->showBreadcrumbs = false;
-    }
-    
-    public function showBreadcrumbs(){
-        $this->showBreadcrumbs = true;
-    }
-    
-    /**
-     * Controls if the header is shown outside the page-wrapper
-     */
-    public function setTopHeader($header){
-        $this->topHeader = $header;
-    }
-    
-    /**
-     * Generates a json formatted output
-     */
-    private function outputJSON($json){
-        die(json_encode($json));
+    public function getModuleName()
+    {
+        return $this->module_name;
     }
 }

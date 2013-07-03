@@ -45,9 +45,12 @@ class Shoutbox_model extends CI_Model
 	
 	public function insertShout($content)
 	{
-		$data = array('author' => $this->user->getId(), 
-					  'content' => $content, 
-					  'date' => time());
+		$data = array(
+			'author' => $this->user->getId(), 
+			'content' => $content, 
+			'date' => time(),
+			'is_gm' => hasPermission("shoutAsStaff", "sidebox_shoutbox")
+		);
 					  
 		$this->db->insert('shouts', $data);
 	}

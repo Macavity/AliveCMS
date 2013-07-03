@@ -78,10 +78,9 @@ var Changelog = {
 			}
 		});
 
-		$.post(Config.URL + this.Links.create, values, function(data)
+		$.post(Config.URL + this.Links.create, values, function()
 		{
-			console.log(data);
-			eval(data);
+			window.location.reload(true);
 		});
 	},
 
@@ -103,8 +102,7 @@ var Changelog = {
 
 		$.post(Config.URL + this.Links.save + id, values, function(data)
 		{
-			console.log(data);
-			eval(data);
+			window.location = Config.URL + "changelog/admin";
 		});
 	},
 

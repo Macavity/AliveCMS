@@ -13,20 +13,11 @@ should be up and running in just a few minutes, please
 navigate to your website and follow the steps on the
 installer to proceed.
 
+============================================================
 
-======================== Notice ============================
+An installation walkthrough is available here:
 
-In case you use custom staff ranks, you will need to
-manually enter those after the installation, either
-via the database or through the admin panel.
-
-
-======================== Notice ============================
-
-To display armory player stats on MaNGoS, Trinity and SkyFire
-you need to set the following in the realm/world config;
-
-PlayerSave.Stats.MinLevel = 1
+http://www.youtube.com/watch?v=C0PhEKbtVGE
 
 
 ======================= Need help? ==========================
@@ -35,6 +26,7 @@ If you run into problems, please contact us at;
 
 http://fusion.raxezdev.com/support
 
+
 ============================================================
 
 Thanks again for supporting our work, we wish you a
@@ -42,5 +34,4 @@ pleasant website experience while using our system!
 
 
 Best regards,
-
-Jesper Lindström & Xavier Geerinck
+The FusionCMS Team

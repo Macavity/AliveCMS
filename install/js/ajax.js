@@ -1,5 +1,20 @@
 var Ajax = {
 
+	initialize: function()
+	{
+		$.get("system.php?step=getEmulators", function(data)
+		{
+			data = JSON.parse(data);
+
+			$("#emulator").html("");
+
+			$.each(data, function(key, value)
+			{
+				$("#emulator").append('<option value=' + key + '>' + value + '</option>');
+			});
+		});
+	},
+
 	Realms: {
 		data: [],
 
@@ -25,8 +40,12 @@ var Ajax = {
 		{
 			if(Ajax.Realms.data.length)
 			{
-				UI.Navigation.next();
-				Ajax.Install.initialize();
+				UI.confirm('<input type="text" id="superadmin" placeholder="Enter username that will receive owner access..." autofocus/>', 'Accept', function()
+				{
+					var name = $("#superadmin").val();
+					UI.Navigation.next();
+					Ajax.Install.initialize(name);
+				});
 			}
 			else
 			{
@@ -103,9 +122,9 @@ var Ajax = {
 
 	Install: {
 
-		initialize: function()
+		initialize: function(name)
 		{
-			Ajax.Install.configs(function()
+			Ajax.Install.configs(name, function()
 			{
 				Ajax.Install.database(function()
 				{
@@ -113,7 +132,22 @@ var Ajax = {
 					{
 						Ajax.Install.ranks(function()
 						{
-							UI.alert('Please remove or move the install directory to complete the installation')
+							$.get("system.php?step=final", function(data)
+							{
+								if(data != "success")
+								{
+									UI.alert('Please delete or rename the "install" folder and then visit <a href="../">your site</a> again.');
+								}
+								else
+								{
+									UI.alert('Installation successful', 500);
+
+									setTimeout(function()
+									{
+										window.location = "../";
+									}, 500);
+								}
+							});
 						});
 					});
 				});
@@ -125,7 +159,7 @@ var Ajax = {
 			$("#install").append("<div style='color:green;display:inline;'>done</div><br />");
 		},
 
-		configs: function(callback)
+		configs: function(name, callback)
 		{
 			$("#install").append("Writing configs...");
 
@@ -148,7 +182,8 @@ var Ajax = {
 				realmd_password: $("#realmd_password").val(),
 				realmd_database: $("#realmd_database").val(),
 				security_code: $("#security_code").val(),
-				emulator: $("#emulator").val()
+				emulator: $("#emulator").val(),
+				superadmin: name
 			};
 
 			$.post("system.php?step=config", data, function(res)

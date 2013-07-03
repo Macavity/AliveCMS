@@ -1,11 +1,13 @@
 <?php
+
 /**
  * @package FusionCMS
- * @version 6.0
  * @author Jesper Lindström
  * @author Xavier Geerinck
+ * @author Elliott Robbins
  * @link http://raxezdev.com/fusioncms
  */
+
 class Realm
 {
 	// Config

@@ -1,7 +1,13 @@
 <?php
+
 /**
- * This class takes care of the external account system
+ * @package FusionCMS
+ * @author Jesper Lindström
+ * @author Xavier Geerinck
+ * @author Elliott Robbins
+ * @link http://raxezdev.com/fusioncms
  */
+
 class External_account_model extends CI_Model
 {
 	private $connection;
@@ -114,11 +120,24 @@ class External_account_model extends CI_Model
 			column("account", "password") => ($isHashed) ? $password : $this->user->createHash($username, $password),
 			column("account", "email") => $email,
 			column("account", "expansion") => $expansion,
-			column("account", "last_ip") => $_SERVER['REMOTE_ADDR'],
+			column("account", "last_ip") => $this->input->ip_address(),
 			column("account", "joindate") => date("Y-m-d")
 		);
 
+		// Fix for ArcEmu
+		if(get_class($this->realms->getEmulator()) == "Arcemu")
+		{
+			$data['banned'] = 0;
+		}
+
 		$this->connection->insert(table("account"), $data);
+
+		// Fix for TrinityCore RBAC (or any emulator with 'rbac' in it's emulator filename)
+		if(preg_match("/rbac/i", get_class($this->realms->getEmulator())))
+		{
+			$userId = $this->user->getId($username);
+			$this->connection->query("INSERT INTO rbac_account_groups(`accountId`, `groupId`, `realmId`) values (?, 1, -1)", array($userId));
+		}
 
 		$this->updateDailySignUps();
 	}
@@ -159,7 +178,7 @@ class External_account_model extends CI_Model
 		elseif(query('get_ip_banned'))
 		{
 			//check if the ip is banned
-			$query = $this->connection->query(query("get_ip_banned"), array($_SERVER['REMOTE_ADDR'], time()));
+			$query = $this->connection->query(query("get_ip_banned"), array($this->input->ip_address(), time()));
 			
 			if($query->num_rows() > 0)
 			{
@@ -311,12 +330,12 @@ class External_account_model extends CI_Model
 		if(column("account", "v") && column("account", "s") && column("account", "sessionkey"))
 		{
 			$this->connection->update(table("account"), array(
-														column("account", "v") => "", 
-														column("account", "s")  => "", 
-														column("account", "sessionkey") => "", 
-														column("account", "password") => $newPassword
-														)
-													);
+				column("account", "v") => "", 
+				column("account", "s")  => "", 
+				column("account", "sessionkey") => "", 
+				column("account", "password") => $newPassword
+				)
+			);
 		}
 		else
 		{

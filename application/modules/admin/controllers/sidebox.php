@@ -12,6 +12,8 @@ class Sidebox extends MX_Controller
 		$this->load->library('fusioneditor');
 
 		parent::__construct();
+
+		requirePermission("viewSideboxes");
 	}
 
 	public function index()
@@ -27,14 +29,10 @@ class Sidebox extends MX_Controller
 		{
 			foreach($sideboxes as $key => $value)
 			{
-				$sideboxes[$key]['rank_name'] = $this->internal_user_model->getRankName($value['rank_needed'], true);
 				$sideboxes[$key]['name'] = $this->sideboxModules["sidebox_".$value['type']]['name'];
-                
-                // Neater display of seperate pages
-                $sideboxes[$key]['page'] = explode(";", $sideboxes[$key]['page']);
-                $sideboxes[$key]['page'] = implode(";<br/>", $sideboxes[$key]['page']);
-        
-                
+
+				$sideboxes[$key]['displayName'] = langColumn($sideboxes[$key]['displayName']);
+
 				if(strlen($sideboxes[$key]['displayName']) > 15)
 				{
 					$sideboxes[$key]['displayName'] = mb_substr($sideboxes[$key]['displayName'], 0, 15) . '...';
@@ -49,12 +47,11 @@ class Sidebox extends MX_Controller
 			'url' => $this->template->page_url,
 			'sideboxes' => $sideboxes,
 			'sideboxModules' => $this->sideboxModules,
-			'fusionEditor' => $fusionEditor,
-			'ranks' => $this->cms_model->getRanks()
+			'fusionEditor' => $fusionEditor
 		);
 
 		// Load my view
-		$output = $this->template->loadPage("sidebox.tpl", $data);
+		$output = $this->template->loadPage("sidebox/sidebox.tpl", $data);
 
 		// Put my view in the main box with a headline
 		$content = $this->administrator->box('Sideboxes', $output);
@@ -82,21 +79,25 @@ class Sidebox extends MX_Controller
 
 	public function create()
 	{
+		requirePermission("addSideboxes");
+
 		$data["type"] = preg_replace("/sidebox_/", "", $this->input->post("type"));
 		$data["displayName"] = $this->input->post("displayName");
-		$data["rank_needed"] = $this->input->post("rank_needed");
-        $data["page"] = $this->input->post("page");
-        $data["css_id"] = $this->input->post("css_id");
 
-		foreach($data as $key => $value)
+		foreach($data as $value)
 		{
-			if(!$value && !in_array($key, array("css_id")))
+			if(!$value)
 			{
 				die("UI.alert('The fields can\'t be empty')");
 			}
 		}
 
-		$this->sidebox_model->add($data);
+		$id = $this->sidebox_model->add($data);
+
+		if($this->input->post('visibility') == "group")
+		{
+			$this->sidebox_model->setPermission($id);
+		}
 
 		// Handle custom sidebox text
 		if($data['type'] == "custom")
@@ -111,6 +112,8 @@ class Sidebox extends MX_Controller
 
 	public function edit($id = false)
 	{
+		requirePermission("editSideboxes");
+
 		if(!is_numeric($id) || !$id)
 		{
 			die();
@@ -129,14 +132,8 @@ class Sidebox extends MX_Controller
 		$this->sideboxModules = $this->getSideboxModules();
 
 		// Change the title
-		$this->administrator->setTitle($sidebox['displayName']);
+		$this->administrator->setTitle(langColumn($sidebox['displayName']));
 
-		$sidebox['rank_name'] = $this->internal_user_model->getRankName($sidebox['rank_needed'], true);
-        
-        // Neater display of seperate pages
-        $onPages = explode(";", $sidebox["page"]);
-        $sidebox["page"] = implode("; ", $onPages);
-        
 		$fusionEditor = $this->fusioneditor->create("text", false, 250, $sideboxCustomText);
 
 		// Prepare my data
@@ -144,15 +141,14 @@ class Sidebox extends MX_Controller
 			'url' => $this->template->page_url,
 			'sidebox' => $sidebox,
 			'sideboxModules' => $this->sideboxModules,
-			'fusionEditor' => $fusionEditor,
-			'ranks' => $this->cms_model->getRanks()
+			'fusionEditor' => $fusionEditor
 		);
 
 		// Load my view
-		$output = $this->template->loadPage("edit_sidebox.tpl", $data);
+		$output = $this->template->loadPage("sidebox/edit_sidebox.tpl", $data);
 
 		// Put my view in the main box with a headline
-		$content = $this->administrator->box('<a href="'.$this->template->page_url.'admin/sidebox">Sideboxes</a> &rarr; '.$sidebox['displayName'], $output);
+		$content = $this->administrator->box('<a href="'.$this->template->page_url.'admin/sidebox">Sideboxes</a> &rarr; '.langColumn($sidebox['displayName']), $output);
 
 		// Output my content. The method accepts the same arguments as template->view
 		$this->administrator->view($content, false, "modules/admin/js/sidebox.js");
@@ -160,6 +156,8 @@ class Sidebox extends MX_Controller
 
 	public function move($id = false, $direction = false)
 	{
+		requirePermission("editSideboxes");
+
 		if(!$id || !$direction)
 		{
 			die();
@@ -198,6 +196,8 @@ class Sidebox extends MX_Controller
 
 	public function save($id = false)
 	{
+		requirePermission("editSideboxes");
+
 		if(!$id || !is_numeric($id))
 		{
 			die();
@@ -205,20 +205,10 @@ class Sidebox extends MX_Controller
 
 		$data["type"] = preg_replace("/sidebox_/", "", $this->input->post("type"));
 		$data["displayName"] = $this->input->post("displayName");
-		$data["rank_needed"] = $this->input->post("rank_needed");
-        $data["page"] = $this->input->post("page");
-        $data["css_id"] = $this->input->post("css_id");
-        
-        
-        
-        $data["page"] = str_replace("; ", ";", $data["page"]);
-        $onPages = explode(";", $data["page"]);
-        
-        $data["page"] = implode(";", $onPages);
-        
-		foreach($data as $key => $value)
+
+		foreach($data as $value)
 		{
-			if(!$value && !in_array($key, array("css_id")))
+			if(!$value)
 			{
 				die("UI.alert('The fields can\'t be empty')");
 			}
@@ -233,11 +223,24 @@ class Sidebox extends MX_Controller
 			$this->sidebox_model->editCustom($id, $text);
 		}
 
+		$hasPermission = $this->sidebox_model->hasPermission($id);
+
+		if($this->input->post('visibility') == "group" && !$hasPermission)
+		{
+			$this->sidebox_model->setPermission($id);
+		}
+		elseif($this->input->post('visibility') != "group" && $hasPermission)
+		{
+			$this->sidebox_model->deletePermission($id);
+		}
+
 		die('window.location="'.$this->template->page_url.'admin/sidebox"');
 	}
 
 	public function delete($id = false)
 	{
+		requirePermission("deleteSideboxes");
+
 		if(!$id || !is_numeric($id))
 		{
 			die();

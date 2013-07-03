@@ -1,6 +1,6 @@
 <?php
 
-class Status extends CI_Controller implements Sidebox
+class Status extends MX_Controller
 {
 	public function view()
 	{
@@ -21,7 +21,7 @@ class Status extends CI_Controller implements Sidebox
 		{
 			// Load realm objects
 			$realms = $this->realms->getRealms();
-            
+
 			// Prepare data
 			$data = array(
 						"module" => "sidebox_status", 

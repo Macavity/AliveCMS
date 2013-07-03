@@ -4,10 +4,17 @@
 		Items (<div style="display:inline;" id="item_count">{if !$items}0{else}{count($items)}{/if}</div>)
 	</h2>
 
+	{if hasPermission("canAddItems") || hasPermission("canAddGroups")}
 	<span>
-		<a class="nice_button" href="javascript:void(0)" onClick="Items.add()">Create item</a>&nbsp;
-		<a class="nice_button" href="javascript:void(0)" onClick="Items.addGroup()">Create group</a>
+		{if hasPermission("canAddItems")}
+			<a class="nice_button" href="javascript:void(0)" onClick="Items.add()">Create item</a>&nbsp;
+		{/if}
+
+		{if hasPermission("canAddGroups")}
+			<a class="nice_button" href="javascript:void(0)" onClick="Items.addGroup()">Create group</a>
+		{/if}
 	</span>
+	{/if}
 
 	<ul id="item_list">
 		{if $items}
@@ -20,10 +27,15 @@
 						<td width="20%" {if array_key_exists("title", $item) && $item.title}class="item_group"{/if}>
 							{if array_key_exists("title", $item) && $item.title}
 								<div class="group_actions" style="display:none;">
+									{if hasPermission("canEditGroups")}
 									<a href="javascript:void(0)" onClick="Items.renameGroup({$item.group}, this)" data-tip="Rename group"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_edit.png" /></a>&nbsp;
+									{/if}
+
+									{if hasPermission("canRemoveGroups")}
 									<a href="javascript:void(0)" onClick="Items.removeGroup({$item.group}, this, true)" data-tip="Delete group and all of it's items">
 										<img src="{$url}application/themes/admin/images/icons/black16x16/ic_minus.png" />
 									</a>
+									{/if}
 								</div>
 								<div class="group_title">{$item.title}</div>
 							{/if}
@@ -38,8 +50,13 @@
 							{/if}
 						</td>
 						<td style="text-align:right;">
-							<a href="{$url}store/admin_items/edit/{$item.id}" data-tip="Edit"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_edit.png" /></a>&nbsp;
-							<a href="javascript:void(0)" onClick="Items.remove({$item.id}, this)" data-tip="Delete"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_minus.png" /></a>
+							{if hasPermission("canEditItems")}
+								<a href="{$url}store/admin_items/edit/{$item.id}" data-tip="Edit"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_edit.png" /></a>&nbsp;
+							{/if}
+
+							{if hasPermission("canRemoveItems")}
+								<a href="javascript:void(0)" onClick="Items.remove({$item.id}, this)" data-tip="Delete"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_minus.png" /></a>
+							{/if}
 						</td>
 					</tr>
 				</table>
@@ -56,8 +73,77 @@
 		<label for="item_type">Item type</label>
 		<select id="item_type" name="item_type" onChange="Items.changeType(this)">
 			<option value="item" selected>Item</option>
+			<option value="command">Console command</option>
 			<option value="query">Query</option>
 		</select>
+	</form>
+
+	<form onSubmit="Items.create(this); return false" id="command_form" style="display:none;">
+
+		<label for="name">Name</label>
+		<input type="text" name="name" id="name" />
+
+		<label for="description">Description (very short; displayed below item name)</label>
+		<input type="text" name="description" id="description" />
+
+		<label for="quality">Item quality</label>
+		<select id="quality" name="quality">
+			<option value="0" class="q0">Poor</option>
+			<option value="1" class="q1">Common</option>
+			<option value="2" class="q2">Uncommon</option>
+			<option value="3" class="q3">Rare</option>
+			<option value="4" class="q4">Epic</option>
+			<option value="5" class="q5">Legendary</option>
+			<option value="6" class="q6">Artifact</option>
+			<option value="7" class="q7">Heirloom</option>
+		</select>
+
+		<label>Need character</label>
+		<input type="checkbox" id="command_need_character" name="command_need_character" checked="yes" value="1"/>
+		<label for="command_need_character" class="inline_label">Make the user select a character</label>
+
+		<label>Require offline</label>
+		<input type="checkbox" id="require_character_offline" name="require_character_offline" value="1"/>
+		<label for="require_character_offline" class="inline_label">Make sure the selected character is offline</label>
+
+		<label for="command">Command</label>
+		<textarea id="command" name="command"></textarea>
+		<span>
+			{literal}
+				<b>{ACCOUNT}</b> = Account Name, 
+				<b>{CHARACTER}</b> = Character Name
+			{/literal}
+		</span>
+
+		<label for="realm">Realm</label>
+		<select name="realm" id="realm">
+			{foreach from=$realms item=realm}
+				<option value="{$realm->getId()}">{$realm->getName()}</option>
+			{/foreach}
+		</select>
+
+		<label for="group">Item group</label>
+		<select name="group" id="group">
+			<option value="0">None</option>
+			{foreach from=$groups item=group}
+				<option value="{$group.id}">{$group.title}</option>
+			{/foreach}
+		</select>
+
+		<div class="vp_price">
+			<label for="vpCost">VP price</label>
+			<input type="text" name="vpCost" id="vpCost" value="0"/>
+		</div>
+
+		<div class="dp_price">
+			<label for="dpCost">DP price</label>
+			<input type="text" name="dpCost" id="dpCost" value="0"/>
+		</div>
+
+		<label for="icon">Icon name</label>
+		<input type="text" name="icon" id="icon" value="" />
+
+		<input type="submit" value="Save command" />
 	</form>
 
 	<form onSubmit="Items.create(this); return false" id="query_form" style="display:none;">
@@ -83,15 +169,19 @@
 		<label for="query_database">Database</label>
 		<select id="query_database" name="query_database">
 			<option value="cms">CMS</option>
-			<option value="realm">Realm</option>
-			<option value="realmd">Realmd (Accounts/Logon)</option>
+			<option value="realm">Realm (characters)</option>
+			<option value="realmd">Realmd (accounts/auth/logon)</option>
 		</select>
 
 		<label>Need character</label>
 		<input type="checkbox" id="query_need_character" name="query_need_character" checked="yes" value="1"/>
 		<label for="query_need_character" class="inline_label">Make the user select a character</label>
 
-		<label for="query">SQL query</label>
+		<label>Require offline</label>
+		<input type="checkbox" id="require_character_offline" name="require_character_offline" value="1"/>
+		<label for="require_character_offline" class="inline_label">Make sure the selected character is offline</label>
+
+		<label for="query" data-tip="Example query: UPDATE characters SET level = 80 WHERE guid = {literal}{CHARACTER}{/literal}">SQL query <a>(?)</a></label>
 		<textarea id="query" name="query"></textarea>
 		<span>
 			{literal}
@@ -127,7 +217,7 @@
 		</div>
 
 		<label for="icon">Icon name</label>
-		<input type="text" name="icon" id="icon" value="inv_misc_questionmark" />
+		<input type="text" name="icon" id="icon" value="" />
 
 		<input type="submit" value="Submit query" />
 	</form>
@@ -167,6 +257,9 @@
 			<label for="dpCost">DP price</label>
 			<input type="text" name="dpCost" id="dpCost" value="0"/>
 		</div>
+
+		<label for="icon">Icon name</label>
+		<input type="text" name="icon" id="icon" placeholder="Will be added automatically if you leave empty, and only specify one item ID" />
 
 		<input type="submit" value="Submit item" />
 	</form>

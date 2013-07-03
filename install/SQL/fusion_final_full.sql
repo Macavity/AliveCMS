@@ -30,7 +30,7 @@ CREATE TABLE `articles` (
 -- ----------------------------
 -- Records of articles
 -- ----------------------------
-INSERT INTO `articles` VALUES ('1', 'Welcome to your new FusionCMS powered website!', 'Your website has been successfully installed and we, the FusionCMS team, sincerely hope that you will have a nice time using it.<div><br></div><div>To proceed, log into the administrator panel using an administrator account and the security code you specified during the installation.</div><div><br></div><div>If you run into problems, please contact us via the <a href=\"http://fusion.raxezdev.com\" target=\"_blank\">FusionHub</a>.</div><div><br></div><div>Best regards,</div><div>Jesper Lindstrom &amp; Xavier Geerinck</div>', '1344607279', '1', '', '-1');
+INSERT INTO `articles` VALUES ('1', 'Welcome to your new FusionCMS powered website!', 'Your website has been successfully installed and we, the FusionCMS team, sincerely hope that you will have a nice time using it.<div><br></div><div>To proceed, log into the administrator panel using an administrator account and the security code you specified during the installation.</div><div><br></div><div>If you run into problems, please contact us via the <a href=\"http://fusion.raxezdev.com\" target=\"_blank\">FusionHub</a>.</div><div><br></div><div>Best regards,</div><div>the FusionCMS team</div>', '1344607279', '1', '', '-1');
 
 -- ----------------------------
 -- Table structure for `changelog`
@@ -45,7 +45,7 @@ CREATE TABLE `changelog` (
   PRIMARY KEY (`change_id`),
   KEY `FK_changelog_changelog_type` (`type`),
   CONSTRAINT `FK_changelog_changelog_type` FOREIGN KEY (`type`) REFERENCES `changelog_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='Changelog is being saved here';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of changelog
@@ -60,7 +60,7 @@ CREATE TABLE `changelog_type` (
   `typeName` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='The type of changelog, example: race change, ....';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of changelog_type
@@ -134,7 +134,7 @@ CREATE TABLE `item_display` (
   `displayid` mediumint(8) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`entry`),
   KEY `displayid` (`displayid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='Item System';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
 
 -- ----------------------------
 -- Records of item_display
@@ -146,11 +146,11 @@ CREATE TABLE `item_display` (
 DROP TABLE IF EXISTS `menu`;
 CREATE TABLE `menu` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL DEFAULT 'FusionCMS Link' COMMENT 'Name of the link',
-  `link` varchar(255) DEFAULT '#' COMMENT 'Where does the link goes to',
-  `side` varchar(255) DEFAULT 'top' COMMENT 'Where do we want to place the menu',
-  `rank` int(11) NOT NULL COMMENT 'Everything higher or equal to this can access this',
-  `specific_rank` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Do we want it to be available for the selected rank only?',
+  `name` varchar(50) NOT NULL DEFAULT 'FusionCMS Link',
+  `link` varchar(255) DEFAULT '#',
+  `side` varchar(255) DEFAULT 'top',
+  `rank` int(11) NOT NULL,
+  `specific_rank` tinyint(1) NOT NULL DEFAULT '0',
   `order` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_menu_ranks` (`rank`),
@@ -235,7 +235,7 @@ CREATE TABLE `pages` (
 -- ----------------------------
 -- Records of pages
 -- ----------------------------
-INSERT INTO `pages` VALUES ('3', 'connect', 'How to connect', '<b>1.</b> First of all, you must create an account.\nThe account is used to log into both the game and our website. <a href=\"http://81.231.122.182/projects/FusionCMS_V6/register\">Click here</a> to open the registration page. \n<br>\n<br>\n<b>2.</b> Install World of Warcraft. \nYou can download it (legally) from here: <a href=\"https://www.worldofwarcraft.com/account/download/clients/pc/InstallWoW.exe\" target=\"_blank\">Windows</a> or <a href=\"https://www.worldofwarcraft.com/account/download/clients/mac/InstallWoW.zip\" target=\"_blank\">Mac</a>.\nMake sure to upgrade to our current supported patch, which is 3.3.5 (build 12340).\nPatch mirrors can be found <a href=\"http://www.wowwiki.com/Patch_mirrors\" target=\"_blank\">here</a>.\n<br>\n<br>\n<b>3.</b> Open up the \"World of Warcraft\" directory. The default directory is \"C:\\Program Files\\World of Warcraft\". \nWhen you\'ve found it, open up the directory called \"data\", then go into the directory called either enUS or enGB, depending on your client language.\n<br>\n<br>\n<b>4.</b> Open up the file called \"realmlist.wtf\" with a text editor such as Notepad. To do this, you must right click on the file and choose properties, then select notepad as the default software for files with the \".wtf\" ending. You may also just start the text editor and drag the file into the edit window.\n<br>\n<br>\n<b>5.</b> Erase all text and change it to:\n\n<div style=\"padding:30px;display:block;font-weight:bold;\">set realmlist logon.myserver.com (edit from admin panel -&gt; pages)</div>\n\n<b>You may now start playing! If you need any help, do not hesistate to create a support ticket.</b>', '1');
+INSERT INTO `pages` VALUES ('3', 'connect', 'How to connect', '<b>1.</b> First of all, you must create an account.\nThe account is used to log into both the game and our website. <a href=\"http://81.231.122.182/projects/FusionCMS_V6/register\">Click here</a> to open the registration page. \n<br>\n<br>\n<b>2.</b> Install World of Warcraft. \nYou can download it (legally) from here: <a href=\"https://www.worldofwarcraft.com/account/download/clients/pc/InstallWoW.exe\" target=\"_blank\">Windows</a> or <a href=\"https://www.worldofwarcraft.com/account/download/clients/mac/InstallWoW.zip\" target=\"_blank\">Mac</a>.\nMake sure to upgrade to our current supported patch, which is 3.3.5 (build 12340).\nPatch mirrors can be found <a href=\"http://www.wowwiki.com/Patch_mirrors\" target=\"_blank\">here</a>.\n<br>\n<br>\n<b>3.</b> Open up the \"World of Warcraft\" directory. The default directory is \"C:\\Program Files\\World of Warcraft\". \nWhen you\'ve found it, open up the directory called \"data\", then go into the directory called either enUS or enGB, depending on your client language.\n<br>\n<br>\n<b>4.</b> Open up the file called \"realmlist.wtf\" with a text editor such as Notepad. To do this, you must right click on the file and choose properties, then select notepad as the default software for files with the \".wtf\" ending. You may also just start the text editor and drag the file into the edit window.\n<br>\n<br>\n<b>5.</b> Erase all text and change it to:\n\n<div style=\"padding:30px;display:block;font-weight:bold;\">set realmlist logon.myserver.com (edit from admin panel -&gt; pages)</div>\n\n<b>You may now start playing! If you need any help, do not hesitate to create a support ticket.</b>', '1');
 
 -- ----------------------------
 -- Table structure for `paygol_logs`
@@ -349,12 +349,12 @@ INSERT INTO `ranks` VALUES ('6', 'Owner', '4', '1', '1', '1', '1');
 DROP TABLE IF EXISTS `realms`;
 CREATE TABLE `realms` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `hostname` varchar(255) DEFAULT NULL COMMENT 'Ip of the remote database',
-  `username` varchar(255) DEFAULT NULL COMMENT 'Username to connect to the database',
-  `password` varchar(255) DEFAULT NULL COMMENT 'Password to connect to the database',
-  `char_database` varchar(255) DEFAULT NULL COMMENT 'Holds the name of the chardatabase',
-  `world_database` varchar(255) DEFAULT NULL COMMENT 'Holds the name of the worlddatabase',
-  `cap` int(5) DEFAULT '100' COMMENT 'The maximum player cap of the database.',
+  `hostname` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `char_database` varchar(255) DEFAULT NULL,
+  `world_database` varchar(255) DEFAULT NULL,
+  `cap` int(5) DEFAULT '100',
   `realmName` varchar(255) DEFAULT NULL,
   `console_username` varchar(255) DEFAULT NULL,
   `console_password` varchar(255) DEFAULT NULL,
@@ -384,8 +384,8 @@ CREATE TABLE `shouts` (
 DROP TABLE IF EXISTS `sideboxes`;
 CREATE TABLE `sideboxes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` varchar(50) NOT NULL DEFAULT '' COMMENT 'Name of the sidebox',
-  `displayName` varchar(50) DEFAULT NULL COMMENT 'Name how you want users to see it.',
+  `type` varchar(50) NOT NULL DEFAULT '',
+  `displayName` varchar(50) DEFAULT NULL,
   `rank_needed` int(10) NOT NULL DEFAULT '1',
   `order` int(11) DEFAULT '100',
   PRIMARY KEY (`id`),
@@ -397,7 +397,7 @@ CREATE TABLE `sideboxes` (
 -- Records of sideboxes
 -- ----------------------------
 INSERT INTO `sideboxes` VALUES ('1', 'status', 'Server status', '1', '2');
-INSERT INTO `sideboxes` VALUES ('2', 'info', 'User info', '2', '1');
+INSERT INTO `sideboxes` VALUES ('2', 'info_login', 'User area', '2', '1');
 INSERT INTO `sideboxes` VALUES ('3', 'shoutbox', 'Shout box', '1', '3');
 
 -- ----------------------------
@@ -7008,7 +7008,7 @@ CREATE TABLE `store_items` (
   `icon` varchar(255) DEFAULT 'inv_misc_questionmark',
   `group` int(11) DEFAULT NULL,
   `query` text,
-  `query_database` varchar(50) DEFAULT '' COMMENT 'cms | realmd | realm',
+  `query_database` varchar(50) DEFAULT '',
   `query_need_character` int(1) DEFAULT '0',
   `tooltip` int(1) DEFAULT '0',
   PRIMARY KEY (`id`),
@@ -7035,7 +7035,7 @@ CREATE TABLE `teleport_locations` (
   PRIMARY KEY (`id`),
   KEY `realm_fk` (`realm`),
   CONSTRAINT `realm_fk` FOREIGN KEY (`realm`) REFERENCES `realms` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='Here you can find every unstuck location that people can use to unstuck to.';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for `visitor_log`
@@ -7052,14 +7052,14 @@ CREATE TABLE `visitor_log` (
 DROP TABLE IF EXISTS `vote_log`;
 CREATE TABLE `vote_log` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `vote_site_id` int(10) NOT NULL DEFAULT '0' COMMENT 'The id of the vote site.',
-  `user_id` int(50) NOT NULL COMMENT 'use rid',
-  `ip` varchar(50) NOT NULL DEFAULT '127.0.0.1' COMMENT 'The ip wich they voted with',
-  `time` int(10) NOT NULL DEFAULT '0' COMMENT 'The time when they voted',
+  `vote_site_id` int(10) NOT NULL DEFAULT '0',
+  `user_id` int(50) NOT NULL,
+  `ip` varchar(50) NOT NULL DEFAULT '127.0.0.1',
+  `time` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `FK_vote_log_vote_sites` (`vote_site_id`),
   CONSTRAINT `FK_vote_log_vote_sites` FOREIGN KEY (`vote_site_id`) REFERENCES `vote_sites` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for `vote_sites`
@@ -7067,14 +7067,14 @@ CREATE TABLE `vote_log` (
 DROP TABLE IF EXISTS `vote_sites`;
 CREATE TABLE `vote_sites` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `vote_sitename` varchar(50) DEFAULT 'FusionCMS' COMMENT 'Name of the site.',
-  `vote_url` varchar(255) DEFAULT 'http://' COMMENT 'The url of the site.',
+  `vote_sitename` varchar(50) DEFAULT 'FusionCMS',
+  `vote_url` varchar(255) DEFAULT 'http://',
   `vote_image` varchar(255) DEFAULT NULL,
-  `hour_interval` int(10) NOT NULL DEFAULT '12' COMMENT 'The interval of when they are able to vote again.',
-  `points_per_vote` tinyint(4) NOT NULL DEFAULT '1' COMMENT 'How many points do the users get on each vote? (max 255)',
+  `hour_interval` int(10) NOT NULL DEFAULT '12',
+  `points_per_vote` tinyint(4) NOT NULL DEFAULT '1',
   `api_enabled` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='Here you need to fill in all the vote sites where people can vote for.';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for `vote_site_callback`
@@ -7082,7 +7082,7 @@ CREATE TABLE `vote_sites` (
 DROP TABLE IF EXISTS `vote_site_callback`;
 CREATE TABLE `vote_site_callback` (
   `site_id` int(10) NOT NULL,
-  `custom_callback_url` varchar(255) NOT NULL COMMENT 'This is the url that we use to callback, example: http://www.openwow.com/?vote=2200&spb={account_id} just make sure that the callback is right in the settings on the site you are voting for.',
+  `custom_callback_url` varchar(255) NOT NULL,
   KEY `FK__vote_sites` (`site_id`),
   CONSTRAINT `FK__vote_sites` FOREIGN KEY (`site_id`) REFERENCES `vote_sites` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -1,6 +1,6 @@
 <?php
 
-require_once('application/emulators/arkcore_soap.php');
+require_once(dirname(__FILE__).'/arkcore_soap.php');
 
 /**
  * Abstraction layer for supporting different emulators

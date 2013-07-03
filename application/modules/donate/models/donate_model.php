@@ -7,10 +7,10 @@ class Donate_model extends CI_Model
 		switch($type)
 		{
 			case 'paypal':
-				$query = $this->db->query("SELECT * FROM paypal_logs ORDER BY `timestamp` DESC");
+				$query = $this->db->query("SELECT * FROM paypal_logs ORDER BY `timestamp` DESC LIMIT 10");
 				break;
 			case 'paygol':
-				$query = $this->db->query("SELECT * FROM paygol_logs ORDER BY `timestamp` DESC");
+				$query = $this->db->query("SELECT * FROM paygol_logs ORDER BY `timestamp` DESC LIMIT 10");
 				break;
 		}
 		
@@ -168,7 +168,7 @@ class Donate_model extends CI_Model
 		if($row[0]['total'])
 		{
 			$this->db->query("UPDATE monthly_income SET amount = amount + ".floor($payment_amount)." WHERE month=?", array(date("Y-m")));
-}
+		}
 		else
 		{
 			$this->db->query("INSERT INTO monthly_income(month, amount) VALUES(?, ?)", array(date("Y-m"), floor($payment_amount)));

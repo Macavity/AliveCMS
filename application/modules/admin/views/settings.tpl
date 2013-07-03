@@ -1,7 +1,7 @@
 <section class="box big" id="realm_settings">
 	<h2><img src="{$url}application/themes/admin/images/icons/black16x16/ic_cloud.png"/> Realms (<div style="display:inline;" id="realm_count">{count($realms)}</div>)</h2>
 	<span>
-		<div style="float:right;" data-tip="The logon emulator is the emulator of the first realm"><b>Logon emulator:</b> {strtoupper($realms[0]->getConfig("emulator"))}</div>
+		<div style="float:right;" data-tip="The logon emulator is the emulator of the first realm"><b>Logon/realmd/auth emulator:</b> {strtoupper($realms[0]->getConfig("emulator"))}</div>
 		<a class="nice_button" href="javascript:void(0)" onClick="Settings.showAddRealm()">Add a new realm</a>
 	</span>
 	<ul id="realm_list">
@@ -43,11 +43,11 @@
 			</select>
 
 			<div id="one">
-			<label for="username">Database username</label>
-			<input type="text" id="username" />
+				<label for="username">Database username</label>
+				<input type="text" id="username" />
 
-			<label for="password">Database password</label>
-			<input type="password" id="password" />
+				<label for="password">Database password</label>
+				<input type="password" id="password" />
 			</div>
 
 			<div id="two" style="display:none;">
@@ -105,18 +105,18 @@
 
 			<label for="emulator">Emulator</label>
 			<select id="emulator">
-				{foreach from=$emulators item=emulator}
-				<option value="{$emulator}">{strtoupper($emulator)}</option>
+				{foreach from=$emulators key=emu_id item=emu_name}
+					<option value="{$emu_id}">{$emu_name}</option>
 				{/foreach}
 			</select>
 
-			<label for="console_port">Console port (only required for emulators that use remote console systems; usually 3443 for RA and 7878 for SOAP)</label>
+			<label for="console_port">Console port (only required for emulators that use RA or SOAP; usually 3443 for RA and 7878 for SOAP)</label>
 			<input type="text" id="console_port" />
 
-			<label for="console_username">Console username (only required for emulators that use remote console systems)</label>
+			<label for="console_username" data-tip="For an ingame account with GM level high enough to connect to your<br />emulator console remotely (see your emulator's config files for more details)">Console username (only required for emulators that use remote console systems) (?)</label>
 			<input type="text" id="console_username" />
 
-			<label for="console_password">Console password (only required for emulators that use remote console systems)</label>
+			<label for="console_password" data-tip="For an ingame account with GM level high enough to connect to your<br />emulator console remotely (see your emulator's config files for more details)">Console password (only required for emulators that use remote console systems) (?)</label>
 			<input type="password" id="console_password" />
 
 			<input type="submit" value="Add realm" />
@@ -213,6 +213,23 @@
 			<input type="submit" value="Save settings" />
 
 			<center id="smtp_ajax"></center>
+		</form>
+	</section>
+
+	<section class="box big">
+		<h2><img src="{$url}application/themes/admin/images/icons/black16x16/ic_power.png"/> Performance settings</h2>
+		
+		<form onSubmit="Settings.savePerformanceSettings(); return false">
+
+			<label for="disable_visitor_graph" data-tip="If you have many visitors, the admin panel will become very slow because of the statistics graph - disabling it will help a lot">Disable dashboard visitor graph <a>(?)</a></label>
+			<select name="disable_visitor_graph" id="disable_visitor_graph">
+				<option value="1" {if $config.disable_visitor_graph}selected{/if}>Yes</option>
+				<option value="0" {if !$config.disable_visitor_graph}selected{/if}>No</option>
+			</select>
+
+			<input type="submit" value="Save settings" />
+
+			<center id="performance_ajax"></center>
 		</form>
 	</section>
 </div>

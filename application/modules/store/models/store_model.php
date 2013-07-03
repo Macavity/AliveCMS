@@ -108,6 +108,22 @@ class Store_model extends CI_Model
 		}
 	}
 
+	public function findByUserId($type, $string)
+	{
+		$query = $this->db->query("SELECT * FROM order_log WHERE `user_id`=? AND `completed`=?", array($string, $type));
+
+		if($query->num_rows())
+		{
+			$row = $query->result_array();
+
+			return $row;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 	public function refund($user_id, $vp, $dp)
 	{
 		$this->db->query("UPDATE account_data SET vp = vp + ?, dp = dp + ? WHERE id=?", array($vp, $dp, $user_id));

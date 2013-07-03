@@ -72,7 +72,7 @@ class Modules
 				return ($output !== NULL) ? $output : $buffer;
 			}
 		}
-        
+		
 		log_message('error', "Module controller failed to run: {$module}/{$method}");
 	}
 	
@@ -190,7 +190,7 @@ class Modules
 			}
 		}
 		
-        return array(FALSE, $file);
+		return array(FALSE, $file);	
 	}
 	
 	/** Parse module routes **/
