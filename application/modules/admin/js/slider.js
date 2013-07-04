@@ -10,6 +10,12 @@ var Slider = {
 	 */
 	fusionEditor: false,
 
+    /**
+     * The path to the image folder of the current theme
+     * @alive
+     */
+    sliderImagePath: "/",
+
 	/**
 	 * Links for the ajax requests
 	 */
@@ -20,7 +26,35 @@ var Slider = {
 		move: "admin/slider/move/"
 	},
 
-	/**
+    /**
+     * Initializes the slider
+     * @alive
+     */
+    initialize: function(){
+        debug.debug("Slider.initialize");
+        this.bindEvents();
+    },
+
+    /**
+     * Bind onBlur Event to the slider image
+     * @alive
+     */
+    bindEvents: function(){
+        $(".jsSliderUrl").unbind("blur").bind("blur", function(event){
+            debug.debug("jsSliderUrl.blur");
+
+            var inputElement = $(this);
+
+            var preview = inputElement.parent().find(".jsSliderPreview");
+
+            var imagePath = $("#jsImagePath").val();
+
+            preview.attr("src", imagePath+inputElement.val());
+        });
+    },
+
+
+    /**
 	 * Removes an entry from the list
 	 * @param  Int id
 	 * @param  Object element
@@ -179,3 +213,8 @@ var Slider = {
 		});
 	}
 }
+
+
+$(document).ready(function(){
+    Slider.initialize();
+});

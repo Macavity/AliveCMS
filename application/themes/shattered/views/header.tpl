@@ -11,11 +11,7 @@
         <link rel="stylesheet" type="text/css" href="{$style_path}layout-fixed.css" />
         <link rel="stylesheet" type="text/css" href="{$style_path}sideboard.css" />
         <link rel="stylesheet" type="text/css" href="{$style_path}common.css" />
-        {if $extra_css}
-            {foreach from=$extra_css item=css_file}
-                <link rel="stylesheet" href="{$css_file}" type="text/css" />
-            {/foreach}
-        {/if}
+        {if $extra_css}<link rel="stylesheet" href="{$path}{$extra_css}" type="text/css" />{/if}
         <!-- / CSS Stylesheet -->
         
         <!-- Search engine related -->
@@ -28,7 +24,7 @@
         
         <!-- Load scripts -->
         <script src="{if $cdn}//html5shiv.googlecode.com/svn/trunk/html5.js{else}{$path}js/html5shiv.js{/if}"></script>
-        <script type="text/javascript" src="{if $cdn}https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js{else}{$path}js/jquery.min.js{/if}"></script>
+        <script type="text/javascript" src="{if $cdn}https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js{else}{$path}js/jquery.min.js{/if}"></script>
         
         <!-- TODO compile scripts -->
         <script type="text/javascript" src="{$path}js/map_static.js"></script>
@@ -47,7 +43,6 @@
         <script type="text/javascript">
 
             var Config = {
-                cookieLaw: "{$cookie_law}",
                 URL: "{$url}",            
                 image_path: "{$image_path}",
                 CSRF: getCookie('csrf_cookie_name'),
@@ -75,6 +70,7 @@
                 "{$path}js/jquery.placeholder.min.js",
                 "{$path}js/jquery.sort.js",
                 "{$path}js/jquery.transit.min.js",
+                "{$path}js/language.js",
                 {if $extra_js},"{$path}{$extra_js}"{/if}
             ];
 
@@ -85,18 +81,22 @@
 
             require(scripts, function()
             {
-                $(document).ready(function()
-                {
-                    UI.initialize();
+              $(document).ready(function()
+              {
+                {if $client_language}
+                Language.set("{addslashes($client_language)}");
+                {/if}
 
-                    {if $extra_css}
-                        Router.loadedCSS.push("{$extra_css}");
-                    {/if}
+                UI.initialize();
 
-                    {if $extra_js}
-                        Router.loadedJS.push("{$extra_js}");
-                    {/if}
-                });
+                {if $extra_css}
+                Router.loadedCSS.push("{$extra_css}");
+                {/if}
+
+                {if $extra_js}
+                Router.loadedJS.push("{$extra_js}");
+                {/if}
+              });
             });
         </script>
         <script type="text/javascript">
@@ -123,19 +123,19 @@
         </script>
 
         {if $analytics}
-        <script type="text/javascript">
-        // Google Analytics
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', '{$analytics}']);
-        _gaq.push(['_setDomainName', '.wow-alive.de']);
-        _gaq.push(['_trackPageview']);
+          <script type="text/javascript">
+            // Google Analytics
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', '{$analytics}']);
+            _gaq.push(['_trackPageview']);
 
-        (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-        </script>
+            (function() {
+              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+
+          </script>
         {/if}
         <!--[if IE 6]>
         <script type="text/javascript">

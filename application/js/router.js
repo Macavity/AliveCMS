@@ -127,6 +127,14 @@ var Router = {
 					// Make sure to assign the router to all new internal links
 					Router.initialize();
 
+                    /**
+                     * Initialize Slider elements
+                     * @alive
+                     */
+                    if(typeof Slider != "undefined"){
+                        Slider.initialize();
+                    }
+
 					if(data.language)
 					{
 						Language.set(data.language);

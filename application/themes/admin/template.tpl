@@ -12,6 +12,10 @@
 		<script src="{if $cdn}//html5shiv.googlecode.com/svn/trunk/html5.js{else}{$url}application/js/html5shiv.js{/if}"></script>
 		<script type="text/javascript" src="{if $cdn}https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js{else}{$url}application/js/jquery.min.js{/if}"></script>
 
+    <script type="text/javascript" src="{$url}application/js/function_debug.js"></script>
+    <script type="text/javascript" src="{$url}application/js/function_console.js"></script>
+    <script type="text/javascript" src="{$url}application/js/_debug.js"></script>
+
 		<script type="text/javascript">
 		
 			if(!window.console)

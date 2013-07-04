@@ -61,8 +61,8 @@
 								<a href="javascript:void(0)" onClick="Slider.move('down', {$slide.id}, this)" data-tip="Move down"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_down.png" /></a>
 							{/if}
 						</td>
-						<td width="25%"><b>{$slide.image}</b></td>
-						<td width="30%">{$slide.text}</td>
+            <td width="30%">{$slide.title}</td>
+            <td width="25%"><b>{$slide.image}</b></td>
 						<td width="20%"><a href="{$slide.link}" target="_blank">{$slide.link_short}</a></td>
 						<td style="text-align:right;">
 							{if hasPermission("editSlider")}

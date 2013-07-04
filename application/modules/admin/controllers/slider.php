@@ -75,6 +75,12 @@ class Slider extends MX_Controller
 		$data["link"] = $this->input->post("link");
 		$data["text"] = $this->input->post("text");
 
+        /**
+         * Title for this slide
+         * @alive
+         */
+        $data["title"] = $this->input->post("title");
+
 		if(!preg_match("/http:\/\//", $data['image']))
 		{
 			$data['image'] = "{path}".$data['image'];
@@ -104,11 +110,15 @@ class Slider extends MX_Controller
 		// Change the title
 		$this->administrator->setTitle('Slide #'.$slide['id']);
 
-		// Prepare my data
+        // @alive
+        $image_path = "/".APPPATH.str_replace('{path}', "", $this->template->theme_path)."images/";
+
+        // Prepare my data
 		$data = array(
 			'url' => $this->template->page_url,
-			'slide' => $slide
-		);
+			'slide' => $slide,
+            'image_path' => $image_path,
+        );
 
 		// Load my view
 		$output = $this->template->loadPage("slider/edit_slider.tpl", $data);
@@ -219,8 +229,11 @@ class Slider extends MX_Controller
 		$data["image"] = $this->input->post("image");
 		$data["link"] = $this->input->post("link");
 		$data["text"] = $this->input->post("text");
+        // @alive
+        $data["title"] = $this->input->post("title");
 
-		if(!preg_match("/http:\/\//", $data['image']))
+
+        if(!preg_match("/http:\/\//", $data['image']))
 		{
 			$data['image'] = "{path}".$data['image'];
 		}

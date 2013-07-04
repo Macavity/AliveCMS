@@ -28,6 +28,28 @@ class Template
 	public $module_name;
 
     /**
+     * Controls if a specific page should display a sidebar
+     * @alive
+     * @var bool
+     */
+    private $showSidebar = TRUE;
+
+    /**
+     * Shows/Hides the breadcrumbs
+     * @alive
+     * @type {Boolean}
+     */
+    private $showBreadcrumbs = FALSE;
+
+    /**
+     * Contains the content trail of breadcrumbs
+     * @alive
+     * @type {Array}
+     */
+    private $breadcrumbs = array();
+
+
+    /**
      * Path to JS folder
      * @alive
      * @var string
@@ -59,7 +81,11 @@ class Template
 		{
 			define("pageURL", $this->page_url);
 		}
-	}
+
+        // Breadcrumb to the homepage
+        $this->addBreadcrumb($this->CI->config->item("server_name"), base_url());
+
+    }
 
 	/**
 	 * Loads the current theme values
@@ -166,7 +192,32 @@ class Template
 		$header = $this->getHeader($css, $js);
 		$modals = $this->getModals();
 
-		$url = $this->CI->router->fetch_class();
+        /*
+         * Userplate
+         * @alive
+         */
+        $userplate = $this->getUserplate();
+
+        /*
+         * Breadcrumbs
+         * @alive
+         */
+
+        /**
+         * Contains the breadcrumb html if activated
+         * @type String
+         */
+        $breadCrumbs = "";
+
+        if($this->showBreadcrumbs == TRUE && empty($this->breadcrumbs)){
+            $data = array(
+                "show_breadcrumbs" => $this->showBreadcrumbs,
+                "breadcrumbs" => $this->breadcrumbs,
+            );
+            $breadCrumbs = $this->CI->smarty->view($this->theme_path."breadcrumbs.tpl", $data, true);
+        }
+
+        $url = $this->CI->router->fetch_class();
 
 		if($this->CI->router->fetch_method() != "index")
 		{
@@ -190,6 +241,7 @@ class Template
 			"isOnline" => $this->CI->user->isOnline(),
 			"header_url" => ($this->CI->config->item('header_url')) ? "style='background-image:url(".$this->CI->config->item('header_url').")'" : "",
 			"sideboxes" => $sideboxes,
+
             /**
              * Custom template variables for Alive
              * @alive
@@ -198,6 +250,10 @@ class Template
             "method" => $this->CI->router->method,
 
             "js_path" => $this->js_path,
+            "userplate" => $userplate,
+            "show_sidebar" => $this->showSidebar,
+            "breadcrumbs" => $breadCrumbs,
+
         );
 
 		// Load the main template
@@ -294,7 +350,18 @@ class Template
 			"slider_id" => $this->theme_data['slider_id'],
 			"csrf_cookie" => $this->CI->input->cookie('csrf_token_name'),
 			"client_language" => $this->CI->language->getClientData(),
-			"activeLanguage" => $this->CI->language->getLanguage()
+			"activeLanguage" => $this->CI->language->getLanguage(),
+
+            /**
+             * Custom template variables for Alive
+             * @alive
+             */
+            "controller" => $this->CI->router->class,
+            "method" => $this->CI->router->method,
+
+            "js_path" => $this->js_path,
+
+            "server_name" => $this->CI->config->item('server_name'),
 		);
 
 		// Load the theme
@@ -309,7 +376,107 @@ class Template
         }
 	}
 
-	/**
+    /**
+     * Generates the Userplate, used to switch the active character
+     * TODO
+     * @alive
+     */
+    public function getUserplate(){
+
+        if(!file_exists(APPPATH.$this->theme_path."views/userplace.tpl")){
+            return "";
+        }
+
+        $data = array(
+            "isOnline" => $this->CI->user->isOnline(),
+            "charList" => array(),
+            "nickname" => $this->CI->user->getNickname(),
+        );
+
+        if($this->CI->user->isOnline()){
+
+            /**
+             * List of all realms with all characters on each realm
+             * @type Array
+             */
+            $realmChars = $this->CI->user->getCharacters($this->CI->user->getId());
+
+            $charList = array();
+            $activeChar = array();
+
+            $activeCharFound = FALSE;
+
+            //debug("realmChars", $realmChars);
+            debug("activeGuid", $this->CI->user->getActiveChar());
+
+            $n = 0;
+
+            foreach($realmChars as $realmRow){
+
+                $realmId = $realmRow["realmId"];
+                $realmName = "Norganon";
+
+                foreach($realmRow["characters"] as $charRow){
+
+                    $charRow["realmId"] = $realmId;
+                    $charRow["realmName"] = $realmName;
+                    $charRow["url"] = "/characters/".strtolower($realmName)."/".$charRow["name"]."/";
+                    $charRow["hasGuild"] = FALSE;
+
+                    $charRow["classString"] = $this->CI->realms->getClass($charRow["class"], $charRow["gender"]);
+                    $charRow["raceString"] = $this->CI->realms->getRace($charRow["class"], $charRow["gender"]);
+
+                    if($charRow["guid"] == $this->CI->user->getActiveChar() && $realmId == $this->CI->user->getActiveRealm()){
+                        $activeCharFound = TRUE;
+                        $activeChar = $charRow;
+                    }
+                    else{
+                        $charList[$n] = $charRow;
+                        $n++;
+                    }
+                }
+
+            }
+
+            if(!$activeCharFound && count($charList) > 0){
+
+                debug("0er", $charList[0]);
+                $this->CI->user->setActiveChar($charList[0]["guid"], $charList[0]["realmId"]);
+                $activeCharFound = true;
+                $activeChar = $charList[0];
+                unset($charList[0]);
+
+            }
+
+            if($activeChar){
+                $activeRealm = $this->CI->realms->getRealm($this->CI->user->getActiveRealm())->getCharacters();
+
+                $data["factionString"] = $this->CI->realms->getFactionString($activeChar["race"]);
+
+                $guildId = $activeRealm->getGuild($this->CI->user->getActiveChar());
+
+                if($guildId){
+                    $activeChar["hasGuild"] = TRUE;
+                    $activeChar["guildName"] = $activeRealm->getGuildName($guildId);
+                    $activeChar["guildUrl"] = "/guild/".strtolower($activeChar["realmName"])."/".$activeChar["guildName"]."/";
+                }
+
+            }
+            else{
+                $data["factionString"] = "neutral";
+            }
+
+            $data["activeChar"] = $activeChar;
+            $data["charList"] = $charList;
+
+        }
+        debug("isOnline", $data["isOnline"]);
+        return $this->CI->smarty->view($this->theme_path."views/userplate.tpl", $data, true);
+
+    }
+
+
+    /**
 	 * Determinate whether or not we should show the vote reminder popup
 	 * @return String
 	 */
@@ -717,4 +884,47 @@ class Template
     {
         return $this->module_name;
     }
+
+    /**
+     * Adds a breadcrumb to the content trail
+     * @alive
+     * @param String title
+     * @param String link
+     */
+    public function addBreadcrumb($title, $link = ""){
+        $this->breadcrumbs[] = array(
+            "title" => $title,
+            "link" => $link
+        );
+        $this->showBreadcrumbs();
+    }
+
+    /**
+     * Returns all set breadcrumbs
+     * @alive
+     * @return Array
+     */
+    public function getBreadcrumbs(){
+        if(is_array($this->breadcrumbs)){
+            return $this->breadcrumbs;
+        }
+        else{
+            return array();
+        }
+    }
+
+    /**
+     * @alive
+     */
+    public function hideBreadcrumbs(){
+        $this->showBreadcrumbs = false;
+    }
+
+    /**
+     * @alive
+     */
+    public function showBreadcrumbs(){
+        $this->showBreadcrumbs = true;
+    }
+
 }
