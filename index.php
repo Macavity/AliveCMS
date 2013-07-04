@@ -225,7 +225,7 @@ if(!ini_get('date.timezone'))
  * And away we go...
  *
  */
-require_once BASEPATH.'core/CodeIgniter.php';
+require_once BASEPATH.'core/CodeIgniter_mac.php';
 
 /* End of file index.php */
 /* Location: ./index.php */

@@ -64,9 +64,14 @@ var Ajax = {
 		{
 			field.html('<img src="images/ajax.gif" />').fadeIn(100, function()
 			{
-				$.post("http://fusion.raxezdev.com/remote/license", {license:license}, function(data)
+                // Disable license check for local installation
+                Ajax.checkPermissions();
+                UI.Navigation.next();
+
+                /*
+                $.post("http://fusion.raxezdev.com/remote/license", {license:license}, function(data)
 				{
-					if(data == '1')
+                	if(data == '1')
 					{
 						Ajax.checkPermissions();
 						UI.Navigation.next();
@@ -76,7 +81,7 @@ var Ajax = {
 						UI.alert('Invalid license key');
 						field.html(cache);
 					}
-				});
+				});*/
 			});
 		});
 	},

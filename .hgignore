@@ -2,3 +2,4 @@ syntax: glob
 application/cache
 .idea
 application/logs
+database.php

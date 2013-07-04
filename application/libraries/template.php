@@ -6,6 +6,7 @@
  * @author Jesper Lindström
  * @author Xavier Geerinck
  * @author Elliott Robbins
+ * @author Macavity
  * @link http://raxezdev.com/fusioncms
  */
 
@@ -26,6 +27,13 @@ class Template
 	public $view_path;
 	public $module_name;
 
+    /**
+     * Path to JS folder
+     * @alive
+     * @var string
+     */
+    public $js_path;
+
 	/**
 	 * Get the CI instance and create the paths
 	 */
@@ -42,7 +50,8 @@ class Template
 		$this->view_path = "views/";
 		$this->style_path = base_url().APPPATH."themes/".$this->theme."/css/";
 		$this->image_path = base_url().APPPATH."themes/".$this->theme."/images/";
-		$this->page_url = ($this->CI->config->item('rewrite')) ? base_url() : base_url().'index.php/';
+        $this->js_path = base_url().APPPATH."themes/".$this->theme."/js/";
+        $this->page_url = ($this->CI->config->item('rewrite')) ? base_url() : base_url().'index.php/';
 		$this->loadManifest();
 		$this->title = "";
 
@@ -166,7 +175,7 @@ class Template
 
 		// Gather the theme data
 		$theme_data = array(
-			"currentPage" => $url,
+            "currentPage" => $url,
 			"url" => $this->page_url,
 			"theme_path" => $this->theme_path,
 			"full_theme_path" => $this->page_url."application/".$this->theme_path,
@@ -180,8 +189,16 @@ class Template
 			"image_path" => $this->image_path,
 			"isOnline" => $this->CI->user->isOnline(),
 			"header_url" => ($this->CI->config->item('header_url')) ? "style='background-image:url(".$this->CI->config->item('header_url').")'" : "",
-			"sideboxes" => $sideboxes
-		);
+			"sideboxes" => $sideboxes,
+            /**
+             * Custom template variables for Alive
+             * @alive
+             */
+            "controller" => $this->CI->router->class,
+            "method" => $this->CI->router->method,
+
+            "js_path" => $this->js_path,
+        );
 
 		// Load the main template
 		return $output = $this->CI->smarty->view($this->theme_path."template.tpl", $theme_data, true);
@@ -281,7 +298,15 @@ class Template
 		);
 
 		// Load the theme
-		return $this->CI->smarty->view($this->view_path."header.tpl", $header_data, true);
+
+        // Is there a specified header.tpl for the current theme?
+        if(file_exists(APPPATH.$this->theme_path."views/header.tpl")){
+            //debug("themed header", APPPATH.$this->theme_path);
+            return $this->CI->smarty->view($this->theme_path."views/header.tpl", $header_data, true);
+        }
+        else{
+            return $this->CI->smarty->view($this->view_path."header.tpl", $header_data, true);
+        }
 	}
 
 	/**
