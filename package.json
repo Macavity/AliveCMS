@@ -1,0 +1,19 @@
+{
+    "name": "WoW Alive CMS",
+    "version": "6.1.7.1",
+    "description": "FusionCMS (6.1.7) modified for WoW Alive",
+    "main": "application/js/main.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": "",
+    "author": "Macavity",
+    "license": "BSD",
+    "devDependencies": {
+        "grunt": "~0.4.1",
+        "grunt-contrib-requirejs": "~0.4.1",
+        "grunt-contrib-sass": "~0.3.0",
+        "grunt-contrib-imagemin": "~0.1.4",
+        "grunt-shell": "~0.2.2"
+    }
+}
