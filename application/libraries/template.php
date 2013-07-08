@@ -217,6 +217,24 @@ class Template
             $breadCrumbs = $this->CI->smarty->view($this->theme_path."breadcrumbs.tpl", $data, true);
         }
 
+        /**
+         * Template specific slider?
+         * @alive
+         */
+        if(file_exists(APPPATH.$this->theme_path."views/slider.tpl")){
+            $data = array(
+                "show_slider" => $this->isSliderShown(),
+                "slider" => $this->getSlider(),
+            );
+            $sliderTplPath = $this->theme_path."views/slider.tpl";
+            $slider = $this->CI->smarty->view($sliderTplPath, $data, true);
+        }
+        else{
+            $slider = $this->getSlider();
+        }
+
+
+
         $url = $this->CI->router->fetch_class();
 
 		if($this->CI->router->fetch_method() != "index")
@@ -232,7 +250,7 @@ class Template
 			"full_theme_path" => $this->page_url."application/".$this->theme_path,
 			"serverName" => $this->CI->config->item('server_name'),
 			"page" => '<div id="content_ajax">'.$content.'</div>',
-			"slider" => $this->getSlider(),
+			"slider" => $slider,
 			"show_slider" => $this->isSliderShown(),
 			"head" => $header,
 			"modals" => $modals,
@@ -253,6 +271,8 @@ class Template
             "userplate" => $userplate,
             "show_sidebar" => $this->showSidebar,
             "breadcrumbs" => $breadCrumbs,
+            "user_name" => $this->CI->user->getNickname(),
+            "is_staff" => $this->CI->user->isStaff(),
 
         );
 
@@ -502,7 +522,14 @@ class Template
 		
 		$out = array();
 
-		$sideboxes_db = $this->CI->cms_model->getSideboxes();
+        /**
+         * @alive
+         */
+        $controller = $this->CI->router->class;
+        $method = $this->CI->router->method;
+
+
+        $sideboxes_db = $this->CI->cms_model->getSideboxes($controller, $method);
 
 		// If we got sideboxes
 		if($sideboxes_db)
@@ -530,12 +557,36 @@ class Template
 						$object = new $sidebox['type']();
 					}
 
+                    /**
+                     * @alive
+                     */
+                    $sideboxName = langColumn($sidebox["displayName"]);
+                    $sideboxData = $object->view();
+
+                    if(!empty($object->overwriteDisplayName)){
+                        $sideboxName = $object->overwriteDisplayName;
+                    }
+
+                    /**
+                     * @alive
+                     */
+                    $css_id = (empty($sidebox['css_id'])) ? "sidebox-".$sidebox['id'] : $sidebox['css_id'];
+
+
 					// Add the sidebox to the output.
-					array_push($out, array('name' => langColumn($sidebox['displayName']), 'data' => $object->view()));
+					array_push($out, array(
+                        'name' => $sideboxName,
+                        'data' => $sideboxData,
+                        'css_id' => $css_id,    /* @alive */
+                    ));
 				}
 				else
 				{
-					array_push($out, array('name' => "Oops, something went wrong", 'data' => 'The following sidebox module is missing or contains an invalid module structure: <b>sidebox_'.$sidebox['type'].'</b>'));
+					array_push($out, array(
+                        'name' => "Oops, something went wrong",
+                        'css_id' => "", /* @alive */
+                        'data' => 'The following sidebox module is missing or contains an invalid module structure: <b>sidebox_'.$sidebox['type'].'</b>',
+                    ));
 				}
 			}
 		}
@@ -660,7 +711,7 @@ class Template
 		// Load the slides from the database
 		$slides_arr = $this->CI->cms_model->getSlides();
 
-		foreach($slides_arr as $key=>$image)
+        foreach($slides_arr as $key=>$image)
 		{
 			if(!preg_match("/http:\/\//i", $image['link']) || !preg_match("/https:\/\//i", $image['link']))
 			{

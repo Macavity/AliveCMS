@@ -12,7 +12,15 @@
 			{/foreach}
 		</select>
 
-		<label for="visibility">Visibility mode</label>
+    <label for="page">Page</label>
+    <input type="text" name="page" id="page" value="{$sidebox.page}" />
+
+    <label for="css_id">CSS ID (optional)</label>
+    <input type="text" name="css_id" id="css_id" value="{$sidebox.css_id}" />
+
+
+
+    <label for="visibility">Visibility mode</label>
 		<select name="visibility" id="visibility" onChange="if(this.value == 'group'){ $('#groups').fadeIn(300); } else { $('#groups').fadeOut(300); }">
 			<option value="everyone" {if !$sidebox.permission}selected{/if}>Visible to everyone</option>
 			<option value="group" {if $sidebox.permission}selected{/if}>Controlled per group</option>

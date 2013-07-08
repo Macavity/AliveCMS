@@ -92,12 +92,26 @@ class Cms_model extends CI_Model
 		return null;
 	}
 
-	public function getSideboxes()
-	{
-		$query = $this->db->query("SELECT * FROM sideboxes ORDER BY `order` ASC");
-		
-		return $query->result_array();
-	}
+    /**
+     * Returns all sideboxes for a specific (or default for all) pages
+     * @alive
+     * @param String $controller
+     * @param String $method
+     */
+    public function getSideboxes($controller = "all", $method = "*")
+    {
+        if($controller == "all"){
+            $query = $this->db->query("SELECT * FROM sideboxes ORDER BY `order` ASC");
+        }
+        else{
+
+            $page = $controller."/".$method;
+            $pageWildcard = $controller."/*";
+
+            $query = $this->db->query('SELECT * FROM sideboxes WHERE page = "'.$page.'" OR page LIKE "'.$pageWildcard.'" ORDER BY `order` ASC');
+        }
+        return $query->result_array();
+    }
 
 	/**
 	 * Load the slider images

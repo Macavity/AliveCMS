@@ -14,12 +14,13 @@
 			<li>
 				<table width="100%">
 					<tr>
-						<td width="10%"><a href="javascript:void(0)" onClick="Sidebox.move('up', {$sidebox.id}, this)" data-tip="Move up"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_up.png" /></a>
+						<td width="45"><a href="javascript:void(0)" onClick="Sidebox.move('up', {$sidebox.id}, this)" data-tip="Move up"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_up.png" /></a>
 							<a href="javascript:void(0)" onClick="Sidebox.move('down', {$sidebox.id}, this)" data-tip="Move down"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_down.png" /></a></td>
-						<td width="20%"><b>{langColumn($sidebox.displayName)}</b></td>
-						<td width="30%">{$sidebox.name}</td>
-						<td width="30%">{if $sidebox.permission}Controlled per group{else}Visible to everyone{/if}</td>
-						<td style="text-align:right;">
+            <td width="150">{$sidebox.name}</td>
+            <td><b>{langColumn($sidebox.displayName)}</b></td>
+            <td width="100">{$sidebox.page}</td>
+            <td width="130">{if $sidebox.permission}Controlled per group{else}Visible to everyone{/if}</td>
+						<td width="60" style="text-align:right;">
 							<a href="{$url}admin/sidebox/edit/{$sidebox.id}" data-tip="Edit"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_edit.png" /></a>&nbsp;
 							<a href="javascript:void(0)" onClick="Sidebox.remove({$sidebox.id}, this)" data-tip="Delete"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_minus.png" /></a>
 						</td>
@@ -44,6 +45,12 @@
 				<option value="{$name}">{$module.name}</option>
 			{/foreach}
 		</select>
+
+    <label for="page">Page</label>
+    <input type="text" name="page" id="page" />
+
+    <label for="css_id">CSS ID (optional)</label>
+    <input type="text" name="css_id" id="css_id" />
 
 		<label for="visibility">Visibility mode</label>
 		<select name="visibility" id="visibility" onChange="if(this.value == 'group'){ $('#groups').fadeIn(300); } else { $('#groups').fadeOut(300); }">

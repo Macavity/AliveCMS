@@ -84,10 +84,20 @@ class Sidebox extends MX_Controller
 		$data["type"] = preg_replace("/sidebox_/", "", $this->input->post("type"));
 		$data["displayName"] = $this->input->post("displayName");
 
-		foreach($data as $value)
-		{
-			if(!$value)
-			{
+        /**
+         * @alive
+         */
+        $data["page"] = $this->input->post("page");
+
+        /**
+         * @alive
+         */
+        $data["css_id"] = $this->input->post("css_id");
+
+        foreach($data as $key => $value)
+        {
+            if(!$value && !in_array($key, array("css_id")))
+            {
 				die("UI.alert('The fields can\'t be empty')");
 			}
 		}
@@ -206,10 +216,20 @@ class Sidebox extends MX_Controller
 		$data["type"] = preg_replace("/sidebox_/", "", $this->input->post("type"));
 		$data["displayName"] = $this->input->post("displayName");
 
-		foreach($data as $value)
+        /**
+         * @alive
+         */
+        $data["page"] = $this->input->post("page");
+
+        /**
+         * @alive
+         */
+        $data["css_id"] = $this->input->post("css_id");
+
+        foreach($data as $key => $value)
 		{
-			if(!$value)
-			{
+            if(!$value && !in_array($key, array("css_id")))
+            {
 				die("UI.alert('The fields can\'t be empty')");
 			}
 		}

@@ -24,3 +24,19 @@ $config['news_limit'] = 5;
 $config['rss_feed_name'] = "Your Server";
 $config['rss_description'] = "The best world of warcraft server in the world!";
 $config['rss_lang'] = "en-us";
+
+/*
+|--------------------------------------------------------------------------
+| External News Configuration
+|--------------------------------------------------------------------------
+| @alive
+*/
+
+//Enable getting the news from an external source. false - Disable, true - Enable
+$config['news_external_source'] = "http://forum.wow-alive.de/external_news.php";
+
+// Set if the generated html contains images with relative paths. No trailing slash.
+$config['news_external_domain'] = "http://forum.wow-alive.de";
+
+// Set if the generated html contains images with relative paths.
+$config['news_external_more'] = "http://forum.wow-alive.de/forumdisplay.php?f=16";

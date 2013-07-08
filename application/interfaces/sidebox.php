@@ -5,4 +5,4 @@
  * to "implement Sidebox" in your sidebox controller classes
  * @deprecated 6.1
  */
-interface Sidebox { }
+interface Sidebox {}

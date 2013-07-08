@@ -199,6 +199,7 @@ class Menu extends MX_Controller
 		$data['name'] = $this->input->post('name');
 		$data['link'] = $this->input->post('link');
 		$data['side'] = $this->input->post('side');
+        $data['css_class'] = $this->input->post('css_class');
 		$data['direct_link'] = $this->input->post('direct_link');
 
 		$this->menu_model->edit($id, $data);

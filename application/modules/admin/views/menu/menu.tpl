@@ -59,6 +59,7 @@
 		<select name="side" id="side">
 				<option value="top">Top</option>
 				<option value="side">Side</option>
+        <option value="explore">Explore</option>
 		</select>
 
 		<label for="visibility">Visibility mode</label>

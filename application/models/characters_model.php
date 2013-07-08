@@ -103,7 +103,11 @@ class Characters_model
 			case "horde":
 				$query = $this->db->query("SELECT COUNT(*) as `total` FROM ".table("characters", $this->realmId)." WHERE ".column("characters", "online", false, $this->realmId)."='1' AND ".column("characters", "race")." IN(".implode(",", get_instance()->realms->getHordeRaces()).")");
 			break;
-		}
+
+            case "gm":
+                $query = $this->db->query("SELECT COUNT(*) as `total` FROM ".table("characters", $this->realmId)." WHERE ".column("characters", "online", false, $this->realmId)."='1' AND ".column("characters", "account")." IN(SELECT `id` from trinity_realm.account_access WHERE `RealmID` IN('-1','1'))");
+            break;
+        }
 
 		if($this->db->_error_message())
 		{

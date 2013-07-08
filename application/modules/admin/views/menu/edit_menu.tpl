@@ -5,13 +5,17 @@
 		<label for="name">Title</label>
 		<input type="text" name="name" id="name" placeholder="My link" value="{htmlspecialchars($link.name)}" />
 
-		<label for="type" data-tip="External links must begin with http://">URL <a>(?)</a></label>
+    <label for="type" data-tip="Special CSS Class for menu items">CSS Class <a>(?)</a></label>
+    <input type="text" name="css_class" id="css_class" placeholder="" value="{$link.css_class}"/>
+
+    <label for="type" data-tip="External links must begin with http://">URL <a>(?)</a></label>
 		<input type="text" name="link" id="link" placeholder="http://" value="{$link.link}"/>
 
 		<label for="side">Menu location</label>
 		<select name="side" id="side">
 			<option value="top" {if $link.side == "top"}selected{/if}>Top</option>
 			<option value="side" {if $link.side == "side"}selected{/if}>Side</option>
+      <option value="explore" {if $link.side == "explore"}selected{/if}>Explore</option>
 		</select>
 
 		<label for="visibility">Visibility mode</label>
