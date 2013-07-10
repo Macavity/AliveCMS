@@ -3,3 +3,4 @@ application/cache
 .idea
 application/logs
 database.php
+.sass-cache
