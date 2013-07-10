@@ -46,8 +46,6 @@ class Page extends MX_Controller
                     /**
                      * @alive
                      */
-                    $this->template->setSectionTitle(langColumn($page_content["name"]));
-                    $this->template->addBreadcrumb($page_content["name"], "/".$this->uri->uri_string()."/");
 
                     if($page_content["top_category"] != 0){
 
@@ -57,6 +55,8 @@ class Page extends MX_Controller
                             $this->template->addBreadcrumb($row["title"], $row["path"]);
                         }
                     }
+                    $this->template->setSectionTitle(langColumn($page_content["name"]));
+                    $this->template->addBreadcrumb(langColumn($page_content["name"]), "/".$this->uri->uri_string()."/");
 
 
                     $page_data = array(

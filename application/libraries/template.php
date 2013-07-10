@@ -196,7 +196,6 @@ class Template
 		//Load the sideboxes
 		$sideboxes = $this->loadSideboxes();
 
-        debug("side", $sideboxes);
 
 		$header = $this->getHeader($css, $js);
 		$modals = $this->getModals();
@@ -218,12 +217,12 @@ class Template
          */
         $breadCrumbs = "";
 
-        if($this->showBreadcrumbs == TRUE && empty($this->breadcrumbs)){
+        if($this->showBreadcrumbs == TRUE && !empty($this->breadcrumbs)){
             $data = array(
                 "show_breadcrumbs" => $this->showBreadcrumbs,
                 "breadcrumbs" => $this->breadcrumbs,
             );
-            $breadCrumbs = $this->CI->smarty->view($this->theme_path."breadcrumbs.tpl", $data, true);
+            $breadCrumbs = $this->CI->smarty->view(APPPATH.$this->theme_path."views/breadcrumbs.tpl", $data, true);
         }
 
         /**
@@ -242,7 +241,8 @@ class Template
             $slider = $this->getSlider();
         }
 
-
+        debug("show bc", $this->showBreadcrumbs);
+        debug("bc", $this->breadcrumbs);
 
         $url = $this->CI->router->fetch_class();
 
