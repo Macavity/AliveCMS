@@ -71,6 +71,11 @@ $route['admin/edit/save/(:any)'] = "admin/edit/save/$1";
 $route['admin/edit/saveSource/(:any)'] = "admin/edit/saveSource/$1";
 $route['admin/edit/(:any)'] = "admin/edit/index/$1";
 
+// Server
+$route['server/howtoplay'] = "page/index/howtoplay";
+$route['server/(:any)'] = "server/index/$1";
+
+
 // Vote
 $route['vote/callback/(:any)'] = "vote/callback/index/$1";
 

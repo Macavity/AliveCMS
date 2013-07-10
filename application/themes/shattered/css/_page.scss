@@ -1,0 +1,308 @@
+
+
+/* Account Service Portal */
+.module-page {
+
+  #content {
+
+    .left-col {
+      float: left;
+      width: 617px;
+      margin-left: 30px;
+    }
+
+    .right-col {
+      float: left;
+      width: 345px;
+    }
+
+    .section-title {
+      width: 610px;
+      padding: 0 0 0 28px;
+      padding-bottom: 30px;
+      float: left;
+      span {
+        color: #efe3d2;
+        font-size: 26px;
+        line-height: 32px;
+        letter-spacing: -0.5px;
+        margin-top: 20px;
+        display: inline-block;
+      }
+      p {
+        color: #d3ac6b;
+        font-size: 12px;
+        line-height: 18px;
+        margin: 6px 0 0 0;
+      }
+    }
+    .services-content,
+    #content_ajax {
+      margin-top: 30px;
+      margin-right: 10px;
+    }
+
+    .services-content .sub-title {
+      margin: 10px 0px;
+      span {
+        color: #f0e29a;
+        text-transform: uppercase;
+        letter-spacing: -0.5px;
+        font-size: 14px;
+      }
+    }
+
+    .content-bot {
+      background: url("../images/layout/content-topbot.jpg") -992px bottom no-repeat;
+      min-height: 600px;
+    }
+    .bg-body {
+      width: 100%;
+      background: url("../images/layout/bg-community-body2.jpg") 0 0 repeat-y;
+    }
+    .body-wrapper {
+      width: 100%;
+      background: url("../images/layout/bg-community-body3.jpg") 0 100% no-repeat;
+      padding-bottom: 30px;
+      margin-left: 0px;
+      margin-top: 0px;
+      margin-right: 0px;
+    }
+    .contents-wrapper {
+      width: 100%;
+      background: url("../images/layout/bg-community-body1.jpg") 0 0 no-repeat;
+      min-height: 900px;
+    }
+  }
+
+  .main-services {
+    width: 647px;
+  }
+
+  .main-services-banner {
+    width: 277px;
+    height: 170px;
+    display: block;
+    position: relative;
+    border: 1px solid #372511;
+    margin-bottom: 28px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    box-shadow: 0 0 6px #000;
+    -moz-box-shadow: 0 0 6px #000;
+    -webkit-box-shadow: 0 0 6px #000;
+    &.left-bnr {
+      float: left;
+      margin-left: 27px;
+    }
+    &.right-bnr {
+      float: right;
+      margin-right: 27px;
+    }
+    &:hover {
+      border: 1px solid #cd9000;
+      background-position: 0 -170px;
+    }
+    .banner-title {
+      font-size: 18px;
+      display: block;
+      margin: 85px 0 0 14px;
+    }
+    .banner-desc {
+      color: #b79855;
+      font-size: 11px;
+      line-height: 12px;
+      display: block;
+      width: 177px;
+      margin: 3px 0 0 14px;
+    }
+    &:hover .banner-desc {
+      color: #fff;
+    }
+    .panel {
+      background: url("../images/layout/bg-panel-layout.png") repeat scroll 0 0 transparent;
+      border-radius: 0 0 3px 3px;
+      bottom: 0;
+      height: 64px;
+      padding: 8px 0 14px;
+      position: absolute;
+      width: 277px;
+      .wrapper {
+        margin: 0;
+      }
+      .banner-title {
+        margin-top: 0;
+      }
+    }
+  }
+
+  .sidebar-module {
+    width: 307px;
+    margin: 0 0 32px 21px;
+    .sub-title {
+      border-bottom: 2px solid #552B12;
+      padding-bottom: 6px;
+      span {
+        color: #f0e29a;
+        text-transform: uppercase;
+        letter-spacing: -0.5px;
+        font-size: 14px;
+      }
+    }
+    ul {
+      margin-top: 10px;
+      li {
+        padding: 1px 0;
+      }
+      a {
+        line-height: 24px;
+        background: url("../images/icons/services-sprite.gif") no-repeat;
+        display: block;
+        width: 100%;
+        &:hover {
+          border-radius: 5px;
+          -moz-border-radius: 5px;
+          -webkit-border-radius: 5px;
+          background-color: #3f1806;
+        }
+        span {
+          margin-left: 46px;
+        }
+      }
+    }
+    .account-security {
+      background-position: 7px 2px;
+    }
+    .account-recovery {
+      background-position: 7px -49px;
+    }
+    .account-authenticator {
+      background-position: 7px -931px;
+    }
+    .account-authenticator-faq {
+      background-position: 7px -983px;
+    }
+    .account-free-matrix-card {
+      background-position: 7px -196px;
+    }
+    .account-mobile-security-token {
+      background-position: 7px -1222px;
+    }
+    .account-customer-service-window {
+      background-position: 7px -582px;
+    }
+    .get-wow-buy {
+      background-position: 7px -1039px;
+    }
+    .get-wow-gift {
+      background-position: 7px -1099px;
+    }
+    .get-wow-free-trial {
+      background-position: 7px -243px;
+    }
+    .get-wow-online-digital {
+      background-position: 7px -293px;
+    }
+    .get-wow-language-pack {
+      background-position: 7px -341px;
+    }
+    .character-transfer {
+      background-position: 7px -385px;
+    }
+    .character-name-change {
+      background-position: 7px -430px;
+    }
+    .character-race-change {
+      background-position: 7px -480px;
+    }
+    .character-faction-change {
+      background-position: 7px -532px;
+    }
+    .character-customization {
+      background-position: 7px -583px;
+    }
+    .character-free-move {
+      background-position: 7px -632px;
+    }
+    .character-ptr {
+      background-position: 7px -682px;
+    }
+    .etc-raf {
+      background-position: 7px -733px;
+    }
+    .etc-wow-magazine {
+      background-position: 7px -783px;
+    }
+    .etc-sor {
+      background-position: 7px -835px;
+    }
+    .etc-wow-remote {
+      background-position: 7px -1163px;
+    }
+    .etc-mobile-armory {
+      background-position: 7px -1221px;
+    }
+    .etc-rewards-visa {
+      background-position: 7px -885px;
+    }
+    .etc-anti-gold {
+      background-position: 7px -1280px;
+    }
+  }
+
+}
+
+/**
+ * /account/index
+ */
+#account-index {
+  .content-top {
+    background: url("../images/layout/bg-services-top.jpg") 0 0 no-repeat;
+  }
+  #content {
+    .content-top {
+      background: url("../images/layout/bg-services-top.jpg") 0 0 no-repeat;
+    }
+    .bg-body {
+      background: url("../images/layout/bg-content-body.jpg") 0 0 repeat-y;
+      height: 100%;
+    }
+    .bg-bottom {
+      background: url("../images/layout/bg-content-bottom.jpg") 0 100% no-repeat;
+      height: 100%;
+    }
+    .contents-wrapper {
+      background: url("../images/layout/bg-services-top.jpg") 0 -40px no-repeat;
+      padding-bottom: 60px;
+      height: 100%;
+    }
+    .section-title {
+      width: 330px;
+      padding: 0 0 0 28px;
+      padding-bottom: 70px;
+      float: left;
+      min-height: 183px;
+      span {
+        color: #efe3d2;
+        font-size: 26px;
+        line-height: 32px;
+        letter-spacing: -0.5px;
+        margin-top: 40px;
+        display: inline-block;
+      }
+      p {
+        color: #d3ac6b;
+        font-size: 12px;
+        line-height: 18px;
+        margin: 6px 0 0 0;
+      }
+    }
+    .left-col {
+      width: 647px;
+      float: left;
+      margin-left: 0px;
+    }
+  }
+}
+

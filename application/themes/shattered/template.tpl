@@ -80,10 +80,10 @@
                         </div>
                         <span class="clear"><!-- --></span>
                     {elseif $show_sidebar}
-                        {if !empty($topheader)}
+                        {if !empty($section_title)}
                         <div class="top-banner">
                             <div class="section-title">
-                                <span>{$topheader}</span>
+                                <span>{$section_title}</span>
                             </div>
                             <span class="clear"><!-- --></span>
                         </div>
@@ -97,17 +97,18 @@
                             <span class="clear"><!-- --></span>
                         </div> 
                         <div class="right-col">
-                            {foreach from=$sideboxes item=sidebox}
+                          <!-- Sidebar -->
+                          {foreach from=$sideboxes item=sidebox}
                             <div id="{$sidebox.css_id}" class="sidebar-module">
-                                <div class="sidebar-title">
-                                    <h3>{$sidebox.name}</h3>
-                                </div>
-                                <span class="clear"><!-- --></span>
-                                {$sidebox.data}
-                                <span class="clear"><!-- --></span>
+                              <div class="sidebar-title">
+                                <h3>{$sidebox.name}</h3>
+                              </div>
+                              <span class="clear"><!-- --></span>
+                              {$sidebox.data}
+                              <span class="clear"><!-- --></span>
                             </div>
-                            {/foreach}
-                            <span class="clear"><!-- --></span>
+                          {/foreach}
+                          <span class="clear"><!-- --></span>
                         </div>
                         <span class="clear"><!-- --></span>
                         {if !empty($topheader)}

@@ -94,23 +94,39 @@ class Cms_model extends CI_Model
 
     /**
      * Returns all sideboxes for a specific (or default for all) pages
+     * Heavily modified by Macavity
      * @alive
      * @param String $controller
      * @param String $method
      */
     public function getSideboxes($controller = "all", $method = "*")
     {
-        if($controller == "all"){
-            $query = $this->db->query("SELECT * FROM sideboxes ORDER BY `order` ASC");
+
+        $page = $controller."/".$method;
+        $pageWildcard = $controller."/*";
+
+        $matchingSideboxes = array();
+
+        $query = $this->db->query("SELECT * FROM sideboxes ORDER BY `order` ASC");
+        $allSideboxes = $query->result_array();
+
+        if($controller != "all"){
+            foreach($allSideboxes as $row){
+
+                $row["page"] = str_replace("; ", ";", $row["page"]);
+                $onPages = explode(";", $row["page"]);
+
+                if( in_array($page, $onPages) || in_array($pageWildcard, $onPages)){
+                    $matchingSideboxes[] = $row;
+                }
+
+            }
         }
         else{
-
-            $page = $controller."/".$method;
-            $pageWildcard = $controller."/*";
-
-            $query = $this->db->query('SELECT * FROM sideboxes WHERE page = "'.$page.'" OR page LIKE "'.$pageWildcard.'" ORDER BY `order` ASC');
+            $matchingSideboxes = $allSideboxes;
         }
-        return $query->result_array();
+
+        return $matchingSideboxes;
     }
 
 	/**
@@ -210,7 +226,49 @@ class Cms_model extends CI_Model
 		return null;
 	}
 
-	/**
+    /**
+     * Calculates a path of breadcrumbs starting from a given top category
+     * @alive
+     * @param Integer $catId
+     * @return Array
+     */
+    public function getCategoryPath($catId){
+
+        $cat = $this->getPageCategory($catId);
+        if($cat && $cat["top_category"] > 0 && $topCat = $this->getPageCategory($cat["top_category"])){
+            return array(
+                $topCat,
+                $cat
+            );
+        }
+        else{
+            return array(
+                $cat
+            );
+        }
+
+        return array();
+
+    }
+
+    /**
+     * Get the selected page category from the database
+     * @param Integer $id
+     */
+    public function getPageCategory($id){
+        $query = $this->db->query("SELECT * FROM page_category WHERE id=?", array($id));
+
+        if($query->num_rows() > 0){
+            $result = $query->result_array();
+            return $result[0];
+        }
+        else{
+            return false;
+        }
+    }
+
+
+    /**
 	 * Get all data from the realms table
 	 * @return Array
 	 */

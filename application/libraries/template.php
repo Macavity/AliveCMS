@@ -35,6 +35,12 @@ class Template
     private $showSidebar = TRUE;
 
     /**
+     * A specific Title for a page can be set here.
+     * @var string
+     */
+    private $sectionTitle = "";
+
+    /**
      * Shows/Hides the breadcrumbs
      * @alive
      * @type {Boolean}
@@ -84,7 +90,7 @@ class Template
 
         // Breadcrumb to the homepage
         $this->addBreadcrumb($this->CI->config->item("server_name"), base_url());
-
+        $this->hideBreadcrumbs();
     }
 
 	/**
@@ -189,6 +195,9 @@ class Template
 	{
 		//Load the sideboxes
 		$sideboxes = $this->loadSideboxes();
+
+        debug("side", $sideboxes);
+
 		$header = $this->getHeader($css, $js);
 		$modals = $this->getModals();
 
@@ -267,6 +276,7 @@ class Template
             "controller" => $this->CI->router->class,
             "method" => $this->CI->router->method,
 
+            "section_title" => $this->sectionTitle,
             "js_path" => $this->js_path,
             "userplate" => $userplate,
             "show_sidebar" => $this->showSidebar,
@@ -531,7 +541,6 @@ class Template
          */
         $controller = $this->CI->router->class;
         $method = $this->CI->router->method;
-
 
         $sideboxes_db = $this->CI->cms_model->getSideboxes($controller, $method);
 
@@ -981,5 +990,32 @@ class Template
     public function showBreadcrumbs(){
         $this->showBreadcrumbs = true;
     }
+
+    /**
+     * Hides the sidebar if requested
+     * @alive
+     */
+    public function hideSidebar(){
+        $this->showSidebar = FALSE;
+    }
+
+    /**
+     * Shows the sidebar if requested
+     * @alive
+     */
+    public function showSidebar(){
+        $this->showSidebar = TRUE;
+    }
+
+    /**
+     * Sets a specific section title for the current page
+     * used for the static pages
+     * @alive
+     * @param $header
+     */
+    public function setSectionTitle($header){
+        $this->sectionTitle = $header;
+    }
+
 
 }
