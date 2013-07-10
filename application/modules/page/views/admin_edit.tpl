@@ -15,6 +15,17 @@
 			<option value="group" {if $page.permission}selected{/if}>Controlled per group</option>
 		</select>
 
+    <label>Page Category</label>
+    <select id="top_category">
+      <option value="0" {if $page.top_category == 0}selected="selected"{/if}>- None -</option>
+      {foreach from=$existingCats item=topCat}
+        <option value="{$topCat.id}" {if $page.top_category == $topCat.id}selected="selected"{/if}>{$topCat.title}</option>
+        {foreach from=$topCat.subCats item=subCat}
+          <option value="{$subCat.id}" {if $page.top_category == $subCat.id}selected="selected"{/if}>{$topCat.title} &rarr; {$subCat.title}</option>
+        {/foreach}
+      {/foreach}
+    </select>
+
 		<div {if !$page.permission}style="display:none"{/if} id="groups">
 			Please manage the group visibility via <a href="{$url}admin/aclmanager/groups">the group manager</a>
 		</div>

@@ -24,6 +24,18 @@ class User
 	private $register_date;
 	private $last_ip;
 	private $nickname;
+
+    /**
+     * @alive
+     * @var int
+     */
+    private $activeCharacterGUID = 0;
+
+    /**
+     * @alive
+     * @var int
+     */
+    private $activeRealmId = 0;
 	
 	public function __construct()
 	{
@@ -64,6 +76,8 @@ class User
 				'last_ip' => $this->CI->external_account_model->getLastIp(),
 				'nickname' => $this->CI->internal_user_model->getNickname(),
 				'language' => $this->CI->internal_user_model->getLanguage(),
+                'activeChar' => $this->CI->internal_user_model->getActiveChar(), /* @alive */
+                'activeRealm' => $this->CI->internal_user_model->getActiveRealm(), /* @alive */
 			);
 
 			// Set the session with the above data
@@ -296,6 +310,9 @@ class User
 			$this->vp = false;
 			$this->dp = false;
 
+            $this->activeCharacterGUID = $this->CI->session->userdata('activeChar'); /* @alive */
+            $this->activeRealmId = $this->CI->session->userdata('activeRealm'); /* @alive */
+
 			$language = ($this->CI->session->userdata('language')) ? $this->CI->session->userdata('language') : $this->CI->config->item('language');
 
 			$this->CI->language->setLanguage($language);
@@ -314,6 +331,9 @@ class User
 			$this->last_ip = null;
 			$this->nickname = null;
 			$this->language = ($this->CI->session->userdata('language')) ? $this->CI->session->userdata('language') : $this->CI->config->item('language');
+
+            $this->activeCharacterGUID = 0; /* @alive */
+            $this->activeRealmId = 0; /* @alive */
 	
 			$this->CI->language->setLanguage($this->language);
 		}
@@ -390,16 +410,25 @@ class User
 	}
 
     /**
-     * Get the character the user last selected on the portal page
-     * used for the userplate
      * @alive
-     * @param $userId
+     * @return int
      */
-    public function getActiveCharacter($userId){
-
+    public function getActiveRealmId()
+    {
+        return $this->activeRealmId;
     }
 
-	/**
+    /**
+     * @alive
+     * @return int
+     */
+    public function getActiveCharacter()
+    {
+        return $this->activeCharacterGUID;
+    }
+
+
+    /**
 	 * get the user it's characters, returns array with realmnames and character names and character id when specified realm is -1 or the default
 	 * @param int $userId
 	 * @param int $realmId
@@ -657,4 +686,19 @@ class User
 		$this->role = $newRoleId;
 		$this->CI->internal_user_model->setRoleId($this->id, $newRoleId);
 	}
+
+    /**
+     * Sets the active Character for this account
+     * @alive
+     * @param $charGUID
+     * @param $charRealm
+     */
+    public function setActiveCharacter($charGUID, $charRealm){
+        $this->activeCharacterGUID = $charGUID;
+        $this->activeRealmId = $charRealm;
+        $this->CI->internal_user_model->setActiveCharacter($this->id, $charGUID, $charRealm);
+        $this->CI->session->set_userdata('activeChar', $charGUID);
+        $this->CI->session->set_userdata('activeRealm', $charRealm);
+
+    }
 }

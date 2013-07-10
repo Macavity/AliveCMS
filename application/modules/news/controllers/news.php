@@ -171,7 +171,7 @@ class News extends MX_Controller
                  * @alive
                  */
                 "external_news_string" => $this->externalNewsString,
-                "show_external_more" => empty($confExternalMore) ? false : true,
+                "show_external_more" => (empty($confExternalMore) || empty($this->externalNewsString)) ? false : true,
                 "external_more_url" => $this->config->item("news_external_more"),
             ));
 

@@ -19,7 +19,7 @@ var Pages = {
 	{
 		if($("#pages").is(":visible"))
 		{
-			$("#pages").fadeOut(100, function()
+			$("#pages, #page_cats").fadeOut(100, function()
 			{
 				$('#add_pages').fadeIn(100);
 			});
@@ -28,18 +28,37 @@ var Pages = {
 		{
 			$("#add_pages").fadeOut(100, function()
 			{
-				$('#pages').fadeIn(100);
+				$('#pages, #page_cats').fadeIn(100);
 			});
 		}
 	},
 
-	send: function(id)
+    /**
+     * Display the details of a category
+     * @alive
+     */
+    showCat: function(){
+        if($("#pages").is(":visible")){
+            $("#pages, #page_cats").fadeOut(100, function(){
+                $('#add_cat').fadeIn(100);
+            });
+        }
+        else{
+            $("#add_cat").fadeOut(100, function(){
+                $('#pages, #page_cats').fadeIn(100);
+            });
+        }
+    },
+
+
+    send: function(id)
 	{
 		var data = {
 			name: $("#headline").val(),
 			identifier: $("#identifier").val(),
 			rank_needed: $("#rank_needed").val(),
-			content: $("#pages_content").html(),
+            top_category: $("#top_category").val(),
+            content: $("#pages_content").html(),
 			visibility: $("#visibility").val(),
 			csrf_token_name: Config.CSRF
 		};
@@ -55,5 +74,29 @@ var Pages = {
 				UI.alert(response)
 			}
 		});
-	}
+	},
+
+    /**
+     * Save the details of a page category
+     * @alive
+     * @param id
+     */
+    sendCat: function(id){
+        var data = {
+            title: $("#title").val(),
+            path: $("#path").val(),
+            top_cat: $("#top_cat").val(),
+            csrf_token_name: Config.CSRF
+        };
+
+        $.post(Config.URL + "page/admin/createCat" + ((id) ? "/" + id : ""), data, function(response){
+            if(response == "yes"){
+                window.location = Config.URL + "page/admin";
+            }
+            else{
+                UI.alert(response)
+            }
+        });
+    }
+
 }

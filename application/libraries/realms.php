@@ -207,7 +207,22 @@ class Realms
 		return $this->hordeRaces;
 	}
 
-	/**
+    /**
+     * Returns the faction to a given race id
+     * @alive
+     * @param Int $race
+     * @return String
+     */
+    public function getFactionString($race){
+        if(!count($this->hordeRaces)){
+            $this->loadConstants();
+        }
+
+        return (in_array($race, $this->hordeRaces) ? "horde" : "alliance");
+    }
+
+
+    /**
 	 * Get the name of a race
 	 * @param Int $id
 	 * @return String
@@ -301,9 +316,11 @@ class Realms
 	}
 
 	/**
-	* Format an avatar path as in Class-Race-Gender-Level
-	* @return String
-	*/
+	 * Format an avatar path as in Class-Race-Gender-Level
+     * Modified version for Alive
+     * @alive
+	 * @return String
+	 */
 	public function formatAvatarPath($character)
 	{
 		if(!count($this->races_en))
@@ -311,51 +328,29 @@ class Realms
 			$this->loadConstants();
 		}
 
-		$classes = $this->classes_en;
-		$races = $this->races_en;
+		$class = $character['class'];
+		$race = $character['race'];
 
-		// Prevent errors
-		$class = (array_key_exists($character['class'], $classes)) ? $classes[$character['class']] : null;
-		$race = (array_key_exists($character['race'], $races)) ? $races[$character['race']] : null;
+		//$gender = ($character['gender']) ? "f" : "m";
+        $gender = $character['gender'];
+        $level = $character['level'];
+        $folder = "wow";
 
-		$gender = ($character['gender']) ? "f" : "m";
+        if($level >= 60 && $level < 70){
+            $folder = "wow-default";
+        }
+        elseif($level <= 70){
+            $folder = "wow-70";
+        }
+        elseif($level >= 80){
+            $folder = "wow-80";
+        }
 
-		if($class == "Death knight")
+        $file = "application/images/avatars/".$folder."/".$gender."-".$race."-".$class.".gif";
+
+		if(!file_exists($file))
 		{
-			$level = 70;
-			$class = "Deathknight";
-		}
-		else
-		{
-			// If character is below 30, use lv 1 image
-			if($character['level'] < 30)
-			{
-				$level = 1;
-			}
-
-			// If character is below 65, use lv 60 image
-			elseif($character['level'] < 65)
-			{
-				$level = 60;
-			}
-
-			// 65+, use lvl70 image
-			else
-			{
-				$level = 70;
-			}
-		}
-
-		if(in_array($race, array("Blood elf", "Night elf")))
-		{
-			$race = preg_replace("/ /", "", $race);
-		}
-
-		$file = $class."-".strtolower($race)."-".$gender."-".$level;
-
-		if(!file_exists("application/images/avatars/".$file.".gif"))
-		{
-			return "default";
+			return "default"."?".$file;
 		}
 		else
 		{

@@ -401,8 +401,73 @@ class Characters_model
 			return false;
 		}
 	}
-	
-	/**
+
+    /**
+     * Finds the guild id of a character, if available
+     * @alive
+     * @param Integer $charGUID
+     */
+    public function getGuild($charGUID = -1){
+
+        $this->connect();
+
+        $query = $this->db->query(
+            "SELECT ".column("guild_member", "guildid", true, $this->realmId)." FROM ".table("guild_member", $this->realmId)." WHERE ".column("guild_member", "guid", false, $this->realmId)."= ?",
+            array($charGUID));
+
+        if($this->db->_error_message()){
+            die($this->db->_error_message());
+        }
+
+        if($query && $query->num_rows() > 0){
+            $row = $query->result_array();
+
+            return $row[0]['guildid'];
+        }
+        else{
+            $query2 = $this->db->query(
+                "SELECT ".column("guild", "guildid", true, $this->realmId)." FROM ".table("guild", $this->realmId)." WHERE ".column("guild", "leaderguid", false, $this->realmId)."= ?",
+                array($charGUID));
+
+            if($this->db->_error_message()){
+                die($this->db->_error_message());
+            }
+
+            if($query2 && $query2->num_rows() > 0){
+
+                $row2 = $query2->result_array();
+
+                return $row2[0]['guildid'];
+            }
+            else{
+                return false;
+            }
+        }
+    }
+
+    /**
+     * Returns the guild name of a specified guild
+     * @alive
+     * @param Integer $guildId
+     */
+    public function getGuildName($guildId = -1){
+
+        $this->connect();
+
+        $query = $this->db->query("SELECT ".column("guild", "name", true, $this->realmId)." FROM ".table("guild", $this->realmId)." WHERE ".column("guild", "guildid", false, $this->realmId)."= ?", array($guildId));
+
+        if($query && $query->num_rows() > 0){
+            $row = $query->result_array();
+
+            return $row[0]['name'];
+        }
+        else{
+            return false;
+        }
+    }
+
+
+    /**
 	 * Set the gold of a character
 	 * @param Int $account
 	 * @param Int $guid

@@ -16,8 +16,22 @@ class Internal_user_model extends CI_Model
 	private $nickname;
 	private $permissionCache;
 	private $language;
-	
-	public function __construct()
+
+    /**
+     * GUID of the active Character of the user account
+     * @alive
+     * @var int
+     */
+    private $activeCharGUID = 0;
+
+    /**
+     * Realm ID on which the current active character is
+     * @alive
+     * @var int
+     */
+    private $activeRealm = 0;
+
+    public function __construct()
 	{
 		parent::__construct();
 
@@ -62,7 +76,11 @@ class Internal_user_model extends CI_Model
 			$this->location = $result[0]['location'];
 			$this->nickname = $result[0]['nickname'];
 			$this->language = $result[0]['language'];
-		}
+
+            $this->activeCharGUID = $result[0]['active_char_guid']; /* @alive */
+            $this->activeRealm = $result[0]['active_realm_id']; /* @alive */
+
+        }
 		else 
 		{
 			$this->makeNew();
@@ -236,12 +254,31 @@ class Internal_user_model extends CI_Model
 	{
 		return $this->language;
 	}
-	
-	/*
-	| -------------------------------------------------------------------
-	|  Setters
-	| -------------------------------------------------------------------
-	*/
+
+    /**
+     * @alive
+     * @return Integer
+     */
+    public function getActiveChar()
+    {
+        return $this->activeCharGUID;
+    }
+
+    /**
+     * @alive
+     * @return Integer
+     */
+    public function getActiveRealm()
+    {
+        return $this->activeRealm;
+    }
+
+
+    /*
+    | -------------------------------------------------------------------
+    |  Setters
+    | -------------------------------------------------------------------
+    */
 	public function setVp($userId, $vp)
 	{
 		$this->connection->query("UPDATE account_data SET vp = ? WHERE id = ?", array($vp, $userId));
@@ -261,4 +298,15 @@ class Internal_user_model extends CI_Model
 	{
 		$this->connection->query("UPDATE account_data SET location = ? WHERE id = ?", array($location, $userId));
 	}
+
+    /**
+     * Set the active character for the user account
+     * @param $userId
+     * @param $charGUID
+     * @param $charRealm
+     */
+    public function setActiveCharacter($userId, $charGUID, $charRealm) {
+        $this->connection->query("UPDATE `account_data` SET `active_char_guid` = ?, `active_realm_id` = ? WHERE id=?", array($charGUID, $charRealm, $userId));
+    }
+
 }

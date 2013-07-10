@@ -17,7 +17,16 @@ class Page extends MX_Controller
 				$this->template->setTitle($cache['title']);
 				$out = $cache['content'];
 
-				if($cache['permission'] && !hasViewPermission($cache['permission'], "--PAGE--"))
+                /**
+                 * @alive
+                 */
+                $path = $cache['path'];
+
+                foreach($path as $row){
+                    $this->template->addBreadcrumb($row["title"], $row["path"]);
+                }
+
+                if($cache['permission'] && !hasViewPermission($cache['permission'], "--PAGE--"))
 				{
 					$this->template->showError(lang("permission_denied", "error"));
 				}
@@ -33,8 +42,23 @@ class Page extends MX_Controller
 				else
 				{
 					$this->template->setTitle(langColumn($page_content['name']));
-					
-					$page_data = array(
+
+                    /**
+                     * @alive
+                     */
+                    $this->template->addBreadcrumb($page_content["name"], "/".$this->uri->uri_string()."/");
+
+                    if($page_content["top_category"] != 0){
+
+                        $path = $this->cms_model->getCategoryPath($page_content["top_category"]);
+
+                        foreach($path as $row){
+                            $this->template->addBreadcrumb($row["title"], $row["path"]);
+                        }
+                    }
+
+
+                    $page_data = array(
 						"module" => "default", 
 						"headline" => langColumn($page_content['name']), 
 						"content" => langColumn($page_content['content'])
@@ -45,7 +69,8 @@ class Page extends MX_Controller
 					$this->cache->save("page_".$page."_".getLang(), array(
 						"title" => langColumn($page_content['name']),
 						"content" => $out,
-						"permission" => $page_content['permission'])
+                        "path" => $path, /* @alive */
+                        "permission" => $page_content['permission'])
 					);
 
 					if($page_content['permission'] && !hasViewPermission($page_content['permission'], "--PAGE--"))

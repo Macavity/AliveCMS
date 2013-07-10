@@ -448,7 +448,7 @@ class Template
                     $charRow["classString"] = $this->CI->realms->getClass($charRow["class"], $charRow["gender"]);
                     $charRow["raceString"] = $this->CI->realms->getRace($charRow["class"], $charRow["gender"]);
 
-                    if($charRow["guid"] == $this->CI->user->getActiveChar() && $realmId == $this->CI->user->getActiveRealm()){
+                    if($charRow["guid"] == $activeChar && $realmId == $this->CI->user->getActiveRealmId()){
                         $activeCharFound = TRUE;
                         $activeChar = $charRow;
                     }
@@ -463,7 +463,7 @@ class Template
             if(!$activeCharFound && count($charList) > 0){
 
                 debug("0er", $charList[0]);
-                $this->CI->user->setActiveChar($charList[0]["guid"], $charList[0]["realmId"]);
+                $this->CI->user->setActiveCharacter($charList[0]["guid"], $charList[0]["realmId"]);
                 $activeCharFound = true;
                 $activeChar = $charList[0];
                 unset($charList[0]);
@@ -471,11 +471,13 @@ class Template
             }
 
             if($activeChar){
-                $activeRealm = $this->CI->realms->getRealm($this->CI->user->getActiveRealm())->getCharacters();
+                $activeRealm = $this->CI->realms->getRealm($this->CI->user->getActiveRealmId())->getCharacters();
 
                 $data["factionString"] = $this->CI->realms->getFactionString($activeChar["race"]);
 
-                $guildId = $activeRealm->getGuild($this->CI->user->getActiveChar());
+                $guildId = $activeRealm->getGuild($this->CI->user->getActiveCharacter());
+
+                $activeChar["avatarUrl"] = $this->CI->realms->formatAvatarPath($activeChar);
 
                 if($guildId){
                     $activeChar["hasGuild"] = TRUE;
