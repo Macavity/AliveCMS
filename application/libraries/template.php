@@ -90,7 +90,6 @@ class Template
 
         // Breadcrumb to the homepage
         $this->addBreadcrumb($this->CI->config->item("server_name"), base_url());
-        $this->hideBreadcrumbs();
     }
 
 	/**
@@ -206,6 +205,9 @@ class Template
          */
         $userplate = $this->getUserplate();
 
+        $controller = $this->CI->router->class;
+        $method = $this->CI->router->method;
+
         /*
          * Breadcrumbs
          * @alive
@@ -217,6 +219,10 @@ class Template
          */
         $breadCrumbs = "";
 
+        if(count($this->breadcrumbs) == 1 && $this->showBreadcrumbs == TRUE){
+            $this->addBreadcrumb($this->title);
+        }
+
         if($this->showBreadcrumbs == TRUE && !empty($this->breadcrumbs)){
             $data = array(
                 "show_breadcrumbs" => $this->showBreadcrumbs,
@@ -224,6 +230,8 @@ class Template
             );
             $breadCrumbs = $this->CI->smarty->view(APPPATH.$this->theme_path."views/breadcrumbs.tpl", $data, true);
         }
+
+        debug("show bc", $this->showBreadcrumbs);
 
         /**
          * Template specific slider?
@@ -240,9 +248,6 @@ class Template
         else{
             $slider = $this->getSlider();
         }
-
-        debug("show bc", $this->showBreadcrumbs);
-        debug("bc", $this->breadcrumbs);
 
         $url = $this->CI->router->fetch_class();
 
@@ -273,8 +278,8 @@ class Template
              * Custom template variables for Alive
              * @alive
              */
-            "controller" => $this->CI->router->class,
-            "method" => $this->CI->router->method,
+            "controller" => $controller,
+            "method" => $method,
 
             "section_title" => $this->sectionTitle,
             "js_path" => $this->js_path,
@@ -356,12 +361,15 @@ class Template
 	private function getHeader($css = "", $js = "")
 	{
 		// Gather the header data
+        $title = empty($this->title) ? $this->CI->config->item('title') : $this->title. " - ".$this->CI->config->item('title');
+
+
 		$header_data = array(
 			"style_path" => $this->style_path,
 			"theme_path" => $this->theme_path,
 			"image_path" => $this->image_path,
 			"url" => $this->page_url,
-			"title" => $this->title . $this->CI->config->item('title'),
+			"title" => $title,
 			"slider_interval" => $this->CI->config->item('slider_interval'),
 			"slider_style" => $this->CI->config->item('slider_style'),
 			"vote_reminder" => $this->voteReminder(),
@@ -908,7 +916,7 @@ class Template
 	 */
 	public function setTitle($title)
 	{
-		$this->title = $title . " - ";
+		$this->title = $title;
 	}
 
 	/**

@@ -1,4 +1,11 @@
+
+<div class="section-title">
+  <h1>ALive Registrierung</h1>
+</div>
+
+<div>
 {form_open('register', 'class="page_form"')}
+
 	<table style="width:80%">
 		<tr>
 			<td><label for="register_username">{lang("username", "register")}</label></td>
@@ -49,8 +56,16 @@
 				</td>
 			</tr>
 		{/if}
+
+    <tr>
+      <td>&nbsp;</td>
+      <td>
+        <button class="ui-button button1" name="login_submit" type="submit">
+          <span class="button-left"><span class="button-right">{lang("submit", "register")}</span></span>
+        </button>
+      </td>
+    </tr>
 	</table>
-	<center style="margin-bottom:10px;">
-		<input type="submit" name="login_submit" value="{lang("submit", "register")}" />
-	</center>
+
 {form_close()}
+</div>

@@ -1,0 +1,978 @@
+
+.module-page,
+.module-server {
+  #content .content-top {
+    background: url("/application/themes/shattered/images/wiki/zone/index-bg.jpg") 0 0 no-repeat;
+  }
+
+}
+
+.reagent {
+  color: #fff;
+  font-weight: bold;
+  font-size: 13px;
+  text-align: right;
+  border-bottom: 0 !important;
+  line-height: 23px;
+  text-shadow: 0 0 3px black, 0 0 3px black, 0 0 2px black, 0 0 2px black, 0 0 1px black;
+}
+
+.reagent-list {
+  padding-top: 5px;
+}
+
+.faction {
+  float: right;
+  margin-left: 5px;
+}
+
+.wiki-tooltip {
+  min-width: 250px;
+}
+
+/* main */
+
+.wiki {
+  .term {
+    color: #98562a;
+  }
+  .has-tip {
+    border-bottom: 1px dotted #565656;
+    cursor: help;
+  }
+  a.has-tip {
+    cursor: pointer;
+  }
+  .fact-list {
+    margin-left: 5px;
+    li {
+      margin: 8px 0;
+      padding-left: 15px;
+      background: url("/application/themes/shattered/images/icons/bullet2.gif") 0 5px no-repeat;
+    }
+    .button-holder {
+      padding-top: 6px;
+    }
+  }
+  .learn-more li {
+    margin-bottom: 10px;
+    color: #B79855;
+  }
+  .sidebar {
+    float: right;
+    width: 308px;
+    padding: 25px;
+    min-height: 460px;
+    background: url("/application/themes/shattered/images/wiki/sidebar-small.png") 0 0 repeat-x;
+    .snippet {
+      margin: 30px 0;
+      &:first-child {
+        margin-top: 0;
+      }
+      h3 {
+        color: #854a26;
+        border-bottom: 1px solid #4b2a17;
+        font-size: 16px;
+        font-weight: normal;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+      }
+    }
+    .thumbnail {
+      display: block;
+      vertical-align: top;
+      position: relative;
+      .view {
+        display: block;
+        height: 40px;
+        width: 60px;
+        position: absolute;
+        right: -10px;
+        top: -16px;
+        background: url("/application/themes/shattered/images/wiki/ui.png") -80px -158px no-repeat;
+      }
+      &:hover .view {
+        background-position: -80px -209px;
+      }
+    }
+  }
+
+  .notes h3 {
+    color: #854a26;
+    border-bottom: 1px solid #4b2a17;
+    font-size: 16px;
+    font-weight: normal;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+  }
+
+  .info {
+    float: left;
+    width: 580px;
+    padding: 25px;
+    padding-top: 35px;
+    p.intro {
+      color: #b79855;
+      font-size: 16px;
+      margin: 25px 0;
+      line-height: 2em;
+    }
+    .lore, .notes {
+      line-height: 1.9em;
+      p {
+        line-height: 1.9em;
+      }
+    }
+    .lore p {
+      margin: 1em 0;
+    }
+    .notes {
+      p {
+        margin: 1em 0;
+      }
+      margin-top: 30px;
+    }
+  }
+  .title {
+    margin-bottom: 30px;
+    .parent {
+      font-size: 14px;
+      display: block;
+      padding-bottom: 10px;
+    }
+    h2 {
+      color: #efe3d2;
+      font: 52px / 100% "Palatino Linotype", Georgia, Times, sans-serif;
+      letter-spacing: -1.5px;
+      text-shadow: #241209 0 0 5px;
+    }
+    .type {
+      font-size: 16px;
+    }
+  }
+  .expansion-name {
+    font-style: italic;
+    display: block;
+    padding-top: 8px;
+  }
+  .panel {
+    .panel-title {
+      text-transform: uppercase;
+      font-size: 22px;
+      line-height: 100%;
+      letter-spacing: -1px;
+      font-weight: bold;
+      color: #efe3d2;
+    }
+    opacity: .95;
+    color: #b79855;
+    margin: 25px 0;
+    margin-bottom: 0;
+    padding: 25px;
+    background: #211309 url("/application/themes/shattered/images/wiki/box-bg.jpg") 0 0 no-repeat;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    -moz-box-shadow: #0d0703 0 0 5px;
+    -webkit-box-shadow: #0d0703 0 0 5px;
+    box-shadow: #0d0703 0 0 5px;
+  }
+  &.directory {
+    min-height: 850px;
+    padding-bottom: 25px;
+    .title {
+      padding: 25px;
+      padding-top: 35px;
+      padding-bottom: 50px;
+      margin: 0;
+    }
+    .desc {
+      width: 50%;
+      color: #a4704e;
+      margin-top: 25px;
+      line-height: 2em;
+    }
+    .navigation {
+      width: 230px;
+      float: left;
+      li {
+        height: 45px;
+        border-bottom: 1px solid #140200;
+        a {
+          display: block;
+          height: 45px;
+          line-height: 45px;
+          padding-left: 10px;
+          border-left: 3px solid white;
+          background: url("/application/themes/shattered/images/wiki/directory-tabs.png") 0 0 no-repeat;
+          &:hover {
+            background-position: 0 -45px;
+          }
+          &.nav-active {
+            background-position: 0 -90px;
+            font-weight: bold;
+            color: white;
+          }
+          &.expansion-0 {
+            border-color: #766328;
+          }
+          &.expansion-1 {
+            border-color: #4ea12d;
+          }
+          &.expansion-2 {
+            border-color: #20aeff;
+          }
+          &.expansion-3 {
+            border-color: #ee5900;
+          }
+        }
+      }
+    }
+    .groups {
+      float: right;
+      width: 680px;
+      margin-right: 42px;
+      .group {
+        opacity: .95;
+        padding: 1px;
+        background: #211309 url("/application/themes/shattered/images/wiki/box-bg.jpg") 0 0 no-repeat;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+        -moz-box-shadow: #0d0703 0 0 10px;
+        -webkit-box-shadow: #0d0703 0 0 10px;
+        box-shadow: #0d0703 0 0 10px;
+        margin-bottom: 100px;
+        .group-column {
+          float: left;
+          width: 50%;
+          h3 {
+            padding: 15px 25px;
+            color: #f9e3d5;
+            text-transform: uppercase;
+            font-weight: normal;
+            font-size: 14px;
+            border-bottom: 1px solid #0a0603;
+          }
+          ul {
+            padding: 10px 25px;
+            li {
+              margin: 10px 0;
+              &.child {
+                padding-left: 20px;
+                background-image: url("/application/themes/shattered/images/icons/bullet2.gif");
+                background-position: 5px 50%;
+                background-repeat: no-repeat;
+              }
+            }
+            a {
+              display: block;
+              line-height: 20px;
+            }
+          }
+          .separator {
+            color: #98542D;
+            font-size: 16px;
+            padding-top: 8px;
+            display: block;
+          }
+          li:first-child > .separator {
+            padding-top: 0;
+          }
+        }
+      }
+    }
+  }
+  .related {
+    margin-top: 30px;
+    background: url("/application/themes/shattered/images/wiki/tab-bg.jpg") 0 44px repeat-x;
+    .data-options-top .data-options {
+      background: none;
+      margin: 5px 0;
+    }
+    .data-options {
+      padding: 0 15px;
+    }
+    .tabs {
+      display: block;
+      margin-bottom: -1px;
+      padding: 0 15px;
+      li {
+        height: 45px;
+        display: inline-block;
+        margin-right: 5px;
+        a {
+          display: inline-block;
+          height: 45px;
+          line-height: 45px;
+          color: #c09a67;
+          background: #35190f url("/application/themes/shattered/images/wiki/tab.jpg") 0 -90px repeat-x;
+          em {
+            font-style: normal;
+          }
+          span {
+            display: block;
+            background: url("/application/themes/shattered/images/wiki/tab.jpg") 0 0 no-repeat;
+            span {
+              height: 45px;
+              padding: 0 20px;
+              background-position: 100% -45px;
+            }
+          }
+          &:hover {
+            color: #fff;
+            background-color: #48281b;
+            background-position: 0 -225px;
+            span {
+              background-position: 0 -135px;
+              span {
+                background-position: 100% -180px;
+              }
+            }
+          }
+          &.tab-active {
+            color: #fff;
+            font-weight: bold;
+            background-color: #611f04;
+            background-position: 0 -360px;
+            span {
+              background-position: 0 -270px;
+              span {
+                background-position: 100% -315px;
+              }
+            }
+          }
+        }
+      }
+      &.tabs-small li a span span {
+        padding: 0 10px;
+      }
+    }
+  }
+  .grid-view {
+    padding: 0 25px;
+  }
+  .grid-title .header {
+    margin-bottom: 15px;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  .grid {
+    float: left;
+    display: block;
+    border: 1px solid #2f2219;
+    background: #211309;
+    padding: 15px 15px 15px 190px;
+    height: 105px;
+    width: 250px;
+    margin: 0 0 25px 25px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: #0d0703 0 0 5px;
+    -webkit-box-shadow: #0d0703 0 0 5px;
+    box-shadow: #0d0703 0 0 5px;
+    &.end {
+      margin-left: 0;
+    }
+    &:hover {
+      border-color: #443224;
+    }
+    strong {
+      display: block;
+      font-size: 18px;
+      font-weight: normal;
+    }
+    em {
+      display: block;
+      font-size: 11px;
+      margin-bottom: 10px;
+    }
+    span {
+      color: #B79855;
+      font-size: 11px;
+    }
+  }
+  .related {
+    .data-options .ui-pagination {
+      a {
+        background: rgba(255, 255, 255, 0.1);
+        &:hover {
+          background: rgba(255, 255, 255, 0.2);
+        }
+      }
+      .current a {
+        font-weight: bold;
+        color: #fff;
+        background: rgba(255, 255, 255, 0.2);
+      }
+    }
+    .filters {
+      padding: 1px 15px 0 15px;
+      .advanced-toggle {
+        float: right;
+        padding-right: 25px;
+        background: url("/application/themes/shattered/images/icons/toggler.gif") 100% -58px no-repeat;
+        &:hover {
+          background-position: 100% -174px;
+        }
+        &.opened {
+          background-position: 100% 0;
+          &:hover {
+            background-position: 100% -116px;
+          }
+        }
+      }
+      .filter-tabs {
+        margin-top: 15px;
+        float: left;
+        a {
+          display: inline-block;
+          padding: 5px 10px;
+          margin-right: 5px;
+          background: #4c1f1a;
+          -moz-border-radius: 5px;
+          -webkit-border-radius: 5px;
+          border-radius: 5px;
+          &:hover {
+            background: #5f322b;
+          }
+          &.tab-active {
+            font-weight: bold;
+            color: #fff;
+            background: #5f322b;
+          }
+        }
+      }
+      .filter {
+        float: left;
+        margin: 15px 15px 0 0;
+        label {
+          display: inline-block;
+          padding: 0 5px 4px 0;
+        }
+      }
+      .keyword {
+        float: right;
+        margin-top: 15px;
+        position: relative;
+        .input {
+          width: 175px;
+          padding-right: 25px;
+          background: #fff;
+          color: #707070;
+        }
+        input.focus {
+          color: black;
+        }
+        .view {
+          display: block;
+          width: 16px;
+          height: 16px;
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          background: url("/application/themes/shattered/images/filter.gif") center center no-repeat;
+        }
+        .reset {
+          display: block;
+          width: 16px;
+          height: 16px;
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          background: url("/application/themes/shattered/images/filter.gif") center center no-repeat;
+          background-image: url("/application/themes/shattered/images/icons/cross-small-brown.gif");
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+/* info */
+
+/* title */
+
+/* box / panel */
+
+/* directory */
+
+/* directory - nav */
+
+/* directory - groups */
+
+/* related */
+
+/* grid */
+
+/* related - paging */
+
+/* related - filters */
+
+#related-content.loading {
+  padding: 100px 50px;
+  background: url("/application/themes/shattered/images/loaders/canvas-loader.gif") 50% 50% no-repeat;
+}
+
+#related-recipes table tbody td {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+/* comments overwrite */
+
+#wiki {
+  #page-comments {
+    margin: 0;
+    h3 {
+      display: none;
+    }
+  }
+  .comments-container {
+    background: none;
+  }
+}
+
+/* portrait */
+
+.boss-portrait {
+  display: block;
+  overflow: hidden;
+  width: 58px;
+  height: 58px;
+  margin: 1px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -moz-box-shadow: #0d0703 0 0 5px;
+  -webkit-box-shadow: #0d0703 0 0 5px;
+  box-shadow: #0d0703 0 0 5px;
+  background-color: #3b1c11;
+  background-position: 0 0;
+}
+
+a:hover .boss-portrait {
+  border: 1px solid #cd9000;
+  margin: 0;
+}
+
+/* bosses box */
+
+.zone-bosses {
+  .boss-column-text {
+    padding-top: 25px;
+    float: left;
+    width: 50%;
+    ul {
+      line-height: 1.8em;
+    }
+    a {
+      display: block;
+    }
+  }
+  .boss-column-portrait {
+    float: left;
+    padding-top: 25px;
+  }
+  .wing-name {
+    display: block;
+    padding-bottom: 2px;
+    color: #98542D;
+    font-size: 16px;
+    font-weight: normal;
+  }
+  .boss-avatar {
+    margin-top: 12px;
+    position: relative;
+    &:first-child {
+      margin-top: 0;
+    }
+    a {
+      display: block;
+      width: 170px;
+      min-height: 60px;
+      margin-right: 10px;
+      padding: 0 15px 0 70px;
+      .boss-portrait {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      .side-icons {
+        span {
+          margin-left: 0;
+        }
+        padding-top: 5px;
+      }
+      .boss-name, .boss-details {
+        padding-top: 5px;
+      }
+      .boss-meta {
+        color: #967648;
+      }
+      &:hover {
+        background: #180c04;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+      }
+    }
+  }
+}
+
+/* directory */
+
+.wiki.directory .groups .group {
+  .group-column {
+    ul {
+      border-top: 1px solid #432615;
+    }
+    &:first-child ul {
+      background: url("/application/themes/shattered/images/wiki/directory-separator.png") right top no-repeat;
+    }
+  }
+  .name {
+    display: block;
+    line-height: 24px;
+  }
+  .patch {
+    display: block;
+    font-size: 11px;
+    line-height: 10px;
+    color: #98542D;
+  }
+  .level-range {
+    color: #71401F;
+    font-style: normal;
+    font-size: 10px;
+    margin-top: 2px;
+    float: right;
+    white-space: nowrap;
+  }
+  .zone-thumbnail {
+    float: left;
+    display: block;
+    overflow: hidden;
+    width: 38px;
+    height: 38px;
+    margin: 1px 11px 1px 1px;
+    background-color: #3b1c11;
+    background-image: url("/application/themes/shattered/images/wiki/zone/thumbnails.png");
+    background-repeat: no-repeat;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -moz-box-shadow: #0d0703 0 0 5px;
+    -webkit-box-shadow: #0d0703 0 0 5px;
+    box-shadow: #0d0703 0 0 5px;
+  }
+  a:hover .zone-thumbnail {
+    border: 1px solid #cd9000;
+    margin: 0 10px 0 0;
+  }
+}
+
+/* floors */
+
+#map-floors {
+  width: 265px;
+  height: 177px;
+}
+
+/* Comments */
+
+#comments-page .title {
+  font-size: 21px;
+  padding: 8px 15px;
+  font-weight: normal;
+}
+
+#page-comments {
+  clear: both;
+  margin-top: 20px;
+  padding: 20px 0 65px;
+  font-family: Verdana, Geneva, sans-serif;
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+}
+
+.page-comment-interior {
+  background-repeat: no-repeat;
+  background-position: 50% 100%;
+}
+
+.page-nav-container {
+  padding-top: 90px;
+}
+
+.page-nav-int {
+  position: relative;
+}
+
+#page-comments {
+  h3 {
+    color: white;
+    text-transform: none;
+    padding-bottom: 15px;
+    font-size: 18px;
+    font-weight: normal;
+  }
+  .comment-cm {
+    float: right;
+    text-align: right;
+    width: 45%;
+    form {
+      display: inline;
+    }
+  }
+  .comment {
+    font-size: 11px;
+    line-height: 24px;
+    margin-bottom: 12px;
+    position: relative;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    color: #C09A67;
+    background-color: #2B1507;
+  }
+  .comment-interior {
+    padding: 15px 15px 15px 95px;
+  }
+  .comment {
+    .user {
+      font: 12px Arial, Helvetica;
+      line-height: 15px;
+      font-weight: bold;
+      .time a {
+        font-size: 11px;
+        margin-left: 13px;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+    .rating-value {
+      font-size: 11px;
+      opacity: 0.7;
+    }
+  }
+  .user img {
+    vertical-align: middle;
+  }
+  .comment .content {
+    padding-top: 8px;
+    word-wrap: break-word;
+  }
+  #page-comments .blizzard {
+    .context-link {
+      color: #FFF;
+    }
+  }
+  .comment-ta {
+    padding: 4px;
+    background: white;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+  }
+  textarea {
+    font: 12px / 20px Verdana, Helvetica, Arial;
+    width: 98%;
+    margin: 0;
+    border: none;
+    resize: none;
+  }
+  .auto-expand {
+    font: 12px / 20px Verdana, Helvetica, Arial;
+    width: 98%;
+    margin: 0;
+    border: none;
+    resize: none;
+    overflow: hidden;
+    min-height: 66px;
+  }
+  div.auto-expand {
+    position: absolute;
+    display: none;
+  }
+  .comment {
+    .comment-actions {
+      padding-top: 5px;
+      text-align: right;
+      visibility: hidden;
+    }
+    &:hover {
+      .comment-actions, .rate-btn {
+        visibility: visible;
+      }
+    }
+  }
+  .iehover {
+    .comment-actions, .rate-btn {
+      visibility: visible;
+    }
+  }
+  .comment .status-text {
+    position: absolute;
+    top: 14px;
+    left: 16px;
+    display: none;
+  }
+  .nested {
+    padding-left: 85px;
+    .nested {
+      padding-left: 0;
+    }
+  }
+  .reply {
+    width: 85%;
+  }
+  .new-post {
+    background: repeat-x;
+    padding: 4px;
+    margin-bottom: 12px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    .comment {
+      background: repeat-x;
+      margin-bottom: 0;
+    }
+    .avatar.half {
+      display: none;
+    }
+  }
+  .nested {
+    .avatar.full {
+      display: none;
+    }
+    .new-post .avatar.half {
+      display: block;
+    }
+  }
+  .portrait-b, .portrait-c {
+    top: 15px;
+    left: 15px;
+    position: absolute;
+  }
+  .avatar-interior {
+    background: none;
+  }
+}
+
+/* Rating specific styles */
+
+.disabled-comments-msg {
+  padding: 20px;
+  text-align: center;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+/* paging for comments */
+
+.comments-container .ui-pagination {
+  float: right;
+  margin-bottom: 20px;
+}
+
+
+
+/* thumbnails */
+.thumb-ahnkahet-the-old-kingdom { background-position: -960px 0; }
+.thumb-ahnqiraj-temple { background-position: -2040px 0; }
+.thumb-auchenai-crypts { background-position: -760px 0; }
+.thumb-azjolnerub { background-position: -1000px 0; }
+.thumb-baradin-hold { background-position: -2800px 0; }
+.thumb-blackfathom-deeps { background-position: 0 0; }
+.thumb-blackrock-caverns { background-position: -1600px 0; }
+.thumb-blackrock-depths { background-position: -40px 0; }
+.thumb-blackrock-spire { background-position: -80px 0; }
+.thumb-black-temple { background-position: -2360px 0; }
+.thumb-blackwing-descent { background-position: -2880px 0; }
+.thumb-blackwing-lair { background-position: -1960px 0; }
+.thumb-deadmines { background-position: -120px 0; }
+.thumb-dire-maul { background-position: -160px 0; }
+.thumb-draktharon-keep { background-position: -1080px 0; }
+.thumb-firelands { background-position: -2960px 0; }
+.thumb-gnomeregan { background-position: -200px 0; }
+.thumb-grim-batol { background-position: -1640px 0; }
+.thumb-gruuls-lair { background-position: -2120px 0; }
+.thumb-gundrak { background-position: -1160px 0; }
+.thumb-halls-of-lightning { background-position: -1200px 0; }
+.thumb-halls-of-origination { background-position: -1680px 0; }
+.thumb-halls-of-reflection { background-position: -1240px 0; }
+.thumb-halls-of-stone { background-position: -1280px 0; }
+.thumb-hellfire-ramparts { background-position: -840px 0; }
+.thumb-icecrown-citadel { background-position: -2720px 0; }
+.thumb-karazhan { background-position: -2080px 0; }
+.thumb-lost-city-of-the-tolvir { background-position: -1720px 0; }
+.thumb-magisters-terrace { background-position: -880px 0; }
+.thumb-magtheridons-lair { background-position: -2160px 0; }
+.thumb-manatombs { background-position: -760px 0; }
+.thumb-maraudon { background-position: -240px 0; }
+.thumb-molten-core { background-position: -1920px 0; }
+.thumb-naxxramas { background-position: -2440px 0; }
+.thumb-onyxias-lair { background-position: -2680px 0; }
+.thumb-opening-of-the-dark-portal { background-position: -800px 0; }
+.thumb-pit-of-saron { background-position: -1400px 0; }
+.thumb-ragefire-chasm { background-position: -280px 0; }
+.thumb-razorfen-downs { background-position: -320px 0; }
+.thumb-razorfen-kraul { background-position: -360px 0; }
+.thumb-ruins-of-ahnqiraj { background-position: -2000px 0; }
+.thumb-scarlet-monastery { background-position: -400px 0; }
+.thumb-scholomance { background-position: -440px 0; }
+.thumb-serpentshrine-cavern { background-position: -2240px 0; }
+.thumb-sethekk-halls { background-position: -760px 0; }
+.thumb-shadowfang-keep { background-position: -480px 0; }
+.thumb-shadow-labyrinth { background-position: -760px 0; }
+.thumb-stormwind-stockade { background-position: -520px 0; }
+.thumb-stratholme { background-position: -560px 0; }
+.thumb-sunken-temple { background-position: -600px 0; }
+.thumb-tempest-keep { background-position: -2280px 0; }
+.thumb-the-arcatraz { background-position: -2280px 0; }
+.thumb-the-bastion-of-twilight { background-position: -2840px 0; }
+.thumb-the-battle-for-mount-hyjal { background-position: -2320px 0; }
+.thumb-the-blood-furnace { background-position: -840px 0; }
+.thumb-the-botanica { background-position: -2280px 0; }
+.thumb-the-culling-of-stratholme { background-position: -1040px 0; }
+.thumb-the-escape-from-durnholde { background-position: -800px 0; }
+.thumb-the-eye-of-eternity { background-position: -2560px 0; }
+.thumb-the-forge-of-souls { background-position: -1120px 0; }
+.thumb-the-mechanar { background-position: -2280px 0; }
+.thumb-the-nexus { background-position: -1320px 0; }
+.thumb-the-obsidian-sanctum { background-position: -2480px 0; }
+.thumb-the-oculus { background-position: -1360px 0; }
+.thumb-the-ruby-sanctum { background-position: -2760px 0; }
+.thumb-the-shattered-halls { background-position: -840px 0; }
+.thumb-the-slave-pens { background-position: -2240px 0; }
+.thumb-the-steamvault { background-position: -2240px 0; }
+.thumb-the-stonecore { background-position: -1760px 0; }
+.thumb-the-sunwell { background-position: -2400px 0; }
+.thumb-the-underbog { background-position: -2240px 0; }
+.thumb-the-vortex-pinnacle { background-position: -1840px 0; }
+.thumb-throne-of-the-four-winds { background-position: -2920px 0; }
+.thumb-throne-of-the-tides { background-position: -1800px 0; }
+.thumb-trial-of-the-champion { background-position: -1440px 0; }
+.thumb-trial-of-the-crusader { background-position: -2640px 0; }
+.thumb-uldaman { background-position: -620px 0; }
+.thumb-ulduar { background-position: -2600px 0; }
+.thumb-utgarde-keep { background-position: -1480px 0; }
+.thumb-utgarde-pinnacle { background-position: -1520px 0; }
+.thumb-vault-of-archavon { background-position: -2520px 0; }
+.thumb-violet-hold { background-position: -1560px 0; }
+.thumb-wailing-caverns { background-position: -680px 0; }
+.thumb-zulaman { background-position: -920px 0; }
+.thumb-zulfarrak { background-position: -720px 0; }
+.thumb-zulgurub { background-position: -1880px 0; }
+.thumb-well-of-eternity { background-position: -3040px 0; }
+.thumb-end-time { background-position:-3120px 0 }
+.thumb-dragon-soul { background-position:-3000px 0 }
+.thumb-hour-of-twilight { background-position:-3080px 0 }
+
+/* ie */
+
+.ie6 .wiki.directory .groups .group .name {
+  float: left;
+}

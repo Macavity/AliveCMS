@@ -52,6 +52,9 @@ class News extends MX_Controller
                 $this->getExternalNews();
             }
         }
+
+        $this->template->hideBreadcrumbs();
+
         /*
 			foreach($this->plugins->getNews() as $plugin=>$data)
 				if($data != false)

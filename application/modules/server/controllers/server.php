@@ -40,9 +40,7 @@ class Server extends MX_Controller
             "module" => "server",
             "extra_css" => array($this->style_path."server.css"),
         ));
-        
-        $this->pageTitle = $this->config->item("server_name");
-        
+
     }
     
     public function index($page = "index")
@@ -71,13 +69,13 @@ class Server extends MX_Controller
             switch($page){
                 
                 case "howtoplay":
-                    $this->pageTitle .= " - Online Spielerliste";
+                    $this->pageTitle = "Online Spielerliste";
                     $this->template->addBreadcrumb("Spieler Online", site_url(array("server", $page)));
                     $this->templateFile = "server.tpl";
                     break;
                 
                 case "playersonline":
-                    $this->pageTitle .= " - Online Spielerliste";
+                    $this->pageTitle = "Online Spielerliste";
                     $this->template->addBreadcrumb("Spieler Online", site_url(array("server", $page)));
                     $this->templateFile = "playersonline.tpl";
                     $this->playersonline();
@@ -86,7 +84,7 @@ class Server extends MX_Controller
                     break;
                 
                 case "playermap":
-                    $this->pageTitle .= " - Spielerkarte";
+                    $this->pageTitle = "Spielerkarte";
                     $this->template->addBreadcrumb("Online Spielerkarte", site_url(array("server", $page)));
                     $this->templateFile = "playermap.tpl";
                     $this->template->hideSidebar();
@@ -94,7 +92,7 @@ class Server extends MX_Controller
                 
                 
                 default:
-                    $this->pageTitle .= " - Der Server";
+                    $this->pageTitle = "Der Server";
                     $this->templateFile = "server.tpl";
                     $this->pageData["extra_css"][] = $this->style_path."server-index.css";
             }
@@ -125,42 +123,61 @@ class Server extends MX_Controller
         //SELECT guid, name, race, class, gender, level, zone  FROM `characters` WHERE `online`='1' AND (NOT `extra_flags` & 1 AND NOT `extra_flags` & 16) ORDER BY `name`
         
         //debug("realms", $this->realms);
-        
-        // nicht ideal, aber wir haben ja nur einen Realm also wozu das Leben schwer machen
+
+        $realmData = array();
+
         $realms = $this->realms->getRealms();
-        $realm = $realms[0];
-        
-        $characters = $realm->getCharacters()->getOnlinePlayers();
-        
-        $onlineCharData = array();
-        
-        foreach($characters as $char){
-            
-            $zone = $this->realms->getZone($char["zone"]);
-            
-            $classes = "class-".$char["class"]." zone-".$char["zone"];
-            
-            if($char["level"] > 79){
-                $classes .= " is-80";
+
+        foreach($realms as $realm){
+            if($realm->isOnline()){
+
+                $realmCharacters = $realm->getCharacters()->getOnlinePlayers();
+
+                $onlineCharData = array();
+
+                if($realmCharacters != false){
+
+                    foreach($realmCharacters as $char){
+
+                        $zone = $this->realms->getZone($char["zone"]);
+
+                        $classes = "class-".$char["class"]." zone-".$char["zone"];
+
+                        if($char["level"] > 79){
+                            $classes .= " is-80";
+                        }
+
+                        $className = $this->realms->getClass($char["class"], $char["gender"]);
+
+                        $onlineCharData[] = array(
+                            "name" => $char["name"],
+                            "class" => $char["class"],
+                            "race" => $char["race"],
+                            "gender" => $char["gender"],
+                            "level" => $char["level"],
+                            "zone" => $zone,
+                            "css" => $classes,
+                            "class_name" => $className,
+                        );
+
+                    }
+                }
+
+                $onlineCount = $realm->getOnline();
+
+                $realmData[] = array(
+                    "id" => $realm->getId(),
+                    "name" => $realm->getName(),
+                    "count" => $onlineCount,
+                    "characters" => $onlineCharData,
+                    "shownCount" => ($onlineCount > 50) ? 50 : $onlineCount,
+                );
+
             }
-            
-            $className = $this->realms->getClass($char["class"], $char["gender"]);
-            
-            $onlineCharData[] = array(
-                "name" => $char["name"],
-                "class" => $char["class"],
-                "race" => $char["race"],
-                "gender" => $char["gender"],
-                "level" => $char["level"],
-                "zone" => $zone,
-                "css" => $classes,
-                "class_name" => $className,
-            );
-            
         }
         
-        $this->pageData["characters"] = $onlineCharData;
-        $this->pageData["sumPlayers"] = count($characters);
+        $this->pageData["realms"] = $realmData;
+        //$this->pageData["sumPlayers"] = count($characters);
         
     }
     

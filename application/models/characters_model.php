@@ -78,7 +78,14 @@ class Characters_model
 	 */
 	public function getOnlinePlayers()
 	{
-		return $this->getCharacters(columns("characters", array("guid", "account", "name", "race", "class", "gender", "level", "zone"), $this->realmId), array(column("characters", "online", false, $this->realmId) => 1));
+		return $this->getCharacters(
+            columns("characters",
+                array("guid", "account", "name", "race", "class", "gender", "level", "zone"),
+                $this->realmId),
+            array(
+                column("characters", "online", false, $this->realmId) => 1
+            )
+        );
 	}
 
 	/**
