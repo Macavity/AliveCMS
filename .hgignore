@@ -1,0 +1,6 @@
+syntax: glob
+.idea
+.sass-cache
+application/cache
+database.php
+application/logs
