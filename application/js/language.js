@@ -24,7 +24,7 @@ var Language = (function()
 		}
 
 		items[file][key] = value;
-	}
+	};
 
 	/**
 	 * Set the language items
@@ -35,7 +35,7 @@ var Language = (function()
 		data = data.replace(/\//, "");
 
 		items = JSON.parse(data);
-	}
+	};
 
 	/**
 	 * Get a language string
@@ -48,7 +48,7 @@ var Language = (function()
 		// Default to "main"
 		if(!file)
 		{
-			var file = "main";
+			file = "main";
 		}
 
 		// Make sure it exists
@@ -62,7 +62,7 @@ var Language = (function()
 
 			return false;
 		}
-	}
+	};
 
 	return self;
 }());

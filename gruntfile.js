@@ -11,14 +11,28 @@ module.exports = function(grunt) {
         jshint: {
             options: {
                 ignores: [
-                    'js/templates.js', 'js/libs/*.js'
+                    'application/js/templates.js',
+                    'application/js/hb.js',
+                    'application/js/libs.js',
+                    'application/js/ui.js',
+                    'application/js/require.js',
+                    'application/js/json2.js',
+                    'application/js/html5shiv.js',
+                    'application/js/flux.min.js',
+                    'application/js/router.js',
+                    'application/js/fusioneditor.js',
+                    'application/js/language.js',
+                    'application/js/wz_tooltip.js',
+                    'application/js/libs/**/*.js',
+                    'application/js/themes/**/*.js',
+                    'application/js/tiny_mce/**/*.js'
                 ]
             },
 
             files: [
                 'gruntfile.js',
-                'application/js/**/*.js',
-                'application/themes/shattered/js/**/*.js'
+                'application/js/**/*.js'
+                //'application/themes/shattered/js/**/*.js'
             ]
         },
 
@@ -86,6 +100,17 @@ module.exports = function(grunt) {
             }
         },
 
+        uglify: {
+            sideboard: {
+                files: {
+                    'application/js/sideboard.min.js': [
+                        'js/wz_tooltip.js',
+                        'src/input2.js'
+                    ]
+                }
+            }
+        },
+
         /*
          * Combines the precompiled templates with the runtime and custom helpers
          * Documentation: https://github.com/gruntjs/grunt-contrib-concat
@@ -95,20 +120,33 @@ module.exports = function(grunt) {
             templates: {
                 src: [
                     'node_modules/handlebars/dist/handlebars.runtime.js',
-                    'js/libs/handlebars/handlebars.helper.js',
-                    'js/templates.js'
+                    'application/js/libs/handlebars/handlebars.helper.js',
+                    'application/js/templates.js'
                 ],
-                dest: 'js/hb.js'
+                dest: 'application/js/hb.js'
             },
 
             // Already minimized libraries
             libs: {
                 src: [
-                    'js/libs/jquery-min.js',
-                    'js/libs/modernizr/modernizr-min.js',
-                    'js/libs/debug/javascript-debug.js'
+                    'application/js/libs/jquery/jquery.min.js',
+                    "application/js/libs/jquery/jquery.placeholder.min.js",
+                    "application/js/libs/jquery/jquery.sort.js",
+                    "application/js/libs/jquery/jquery.transit.min.js",
+                    'application/js/libs/modernizr/modernizr-min.js',
+                    'application/js/libs/debug/javascript-debug.js',
+                    'application/js/libs/swfobject/swfobject.js',
+                    'application/js/require.js',
+                    'application/js/router.js',
+                    'application/js/ui.js',
+                    'application/js/fusioneditor.js',
+                    'application/js/flux.min.js',
+                    'application/js/language.js',
+                    'application/js/misc.js',
+                    'application/js/wz_tooltip.js', /* used for teamspeak sideboard */
+                    'application/js/libs/debug/debug.dev.js'
                 ],
-                dest: 'js/libs.js'
+                dest: 'application/js/libs.js'
             },
 
             common: {
@@ -141,17 +179,14 @@ module.exports = function(grunt) {
             },
 
             js: {
-                options: {
-                    ignores: [
-                        'application/js/templates.js',
-                        'application/js/libs/**/*.js'
-                    ]
-                },
                 files: [
-                    'application/js/**/*.js',
-                    'js/main.js'
+                    'application/js/libs/**/*.js',
+                    'application/js/controller/**/*.js',
+                    'application/js/misc.js',
+                    'application/js/static.js',
+                    'application/js/main.js'
                 ],
-                tasks: ['jshint']
+                tasks: ['jshint','concat:libs']
             },
 
             templates: {
@@ -185,6 +220,7 @@ module.exports = function(grunt) {
         "jshint",
         'sass:dev',
         'shell:handlebars',
+        'concat:libs',
         'concat:templates'
     ]);
 

@@ -9,7 +9,7 @@ $(document).ready(function() {
 			$("#ts_control").addClass("sb_open");
 			$("#ts_control").addClass("sb_n_load");
 			
-			if($("#ts3viewer_1014260").length == 0){
+			if($("#ts3viewer_1014260").length === 0){
 				$("#ts_overlay").addClass("sb_n_load");
 				$("#ts_overlay").append('<div id="ts3viewer_1014260" style="margin-left:3px; margin-top:8px"> </div>');
 				ts3v_display.init(ts3v_url_1, 1014260, 100);
@@ -27,11 +27,12 @@ $(document).ready(function() {
 	function callback_sb_open(){
 		$("#ts_control").css("left", "320px");
 		$("#ts_control, #ts_overlay").removeClass("sb_n_load");
-	};
+	}
+
 	function callback_sb_close(){
 		$("#ts_label, #sb_passive_large, #ts_button").removeClass("sb_active");
 		$("#ts_control").removeClass("sb_open");
 		$("#ts_control").css("left", "0px");
 			
-	};
+	}
 });

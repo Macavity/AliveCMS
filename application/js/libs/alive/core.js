@@ -6,16 +6,6 @@
  * @version     2.2
  */
 
-$(function() {
-	Page.initialize();
-	Input.initialize();
-	Explore.initialize();
-	Flash.initialize();
-	Locale.initialize();
-	CharSelect.initialize();
-	Core.initialize();
-});
-
 var Core = {
 
 	/**
@@ -1224,7 +1214,7 @@ var CharSelect = {
 		Tooltip.hide();
 		$('div.character-list').html("").addClass('loading-chars');
 
-		var switchUrl = Core.baseUrl + mapAjaxUrls.changeCharacter;
+		var switchUrl = Core.baseUrl + mapStatic.urls.changeCharacter;
 		debug.debug("switchUrl: "+switchUrl);
 		
 		$.ajax({

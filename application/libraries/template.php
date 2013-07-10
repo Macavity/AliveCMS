@@ -170,9 +170,9 @@ class Template
 		{
 			$output = $this->handleAnnouncement();
 		}
-		elseif($this->CI->input->is_ajax_request() && isset($_GET['is_json_ajax']) && $_GET['is_json_ajax'] == 1)
+		elseif($this->CI->input->is_ajax_request() && isset($_REQUEST['is_json_ajax']) && $_REQUEST['is_json_ajax'] == 1)
 		{
-			$output = $this->handleAjaxRequest($content, $css, $js);
+        	$output = $this->handleAjaxRequest($content, $css, $js);
 		}
 		else
 		{

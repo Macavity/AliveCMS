@@ -19,23 +19,20 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         
         <!-- TODO compile scripts -->
-        {if $stage == "production"}
-          <script type="text/javascript" src="{$path}js/main.js"></script>
-        {else}
-          <script type="text/javascript" src="{$path}js/map_static.js"></script>
-          <script type="text/javascript" src="{$path}js/swfobject.js"></script>
-          <script type="text/javascript" src="{$path}js/function_debug.js"></script>
-          <script type="text/javascript" src="{$path}js/function_console.js"></script>
-          <script type="text/javascript" src="{$path}js/misc.js"></script>
-          <script type="text/javascript" src="{$path}js/debug.dev.js"></script>
-          <script type="text/javascript" src="{$js_path}core.js"></script>
-          <script type="text/javascript" src="{$js_path}wow.js"></script>
-          <script type="text/javascript" src="{$js_path}login.js"></script>
-          <script type="text/javascript" src="{$js_path}tooltip.js"></script>
-          <script type="text/javascript" src="{$path}js/router.js"></script>
-          <script type="text/javascript" src="{$path}js/require.js"></script>
-        {/if}
+      <script type="text/javascript" src="{$path}js/libs.js"></script>
+      {if $controller == 'news'}
+        <script type="text/javascript" src="{$path}js/news.js"></script>
+      {else}
+        <script type="text/javascript" src="{$path}js/main.js"></script>
+      {/if}
 
+      <!--
+
+      <script data-main="/application/js/main" src="/application/js/libs/require/require.js"></script>
+      <script type="text/javascript" src="{$js_path}wow.js"></script>
+      <script type="text/javascript" src="{$js_path}login.js"></script>
+      <script type="text/javascript" src="{$js_path}tooltip.js"></script>
+      -->
         <script type="text/javascript">
 
             var Config = {
@@ -60,13 +57,6 @@
             };
 
             var scripts = [
-                "{$path}js/ui.js",
-                "{$path}js/fusioneditor.js",
-                "{$path}js/flux.min.js",
-                "{$path}js/jquery.placeholder.min.js",
-                "{$path}js/jquery.sort.js",
-                "{$path}js/jquery.transit.min.js",
-                "{$path}js/language.js",
                 {if $extra_js},"{$path}{$extra_js}"{/if}
             ];
 
@@ -95,28 +85,6 @@
               });
             });
         </script>
-        <script type="text/javascript">
-        //<![CDATA[
-            var SITE_HREF = '/';
-            var DOMAIN_PATH = '{$path}';
-            var SITE_PATH = '/';
-            
-            var global_nav_lang = ''; 
-            var site_name = '{$server_name}';
-            var site_link = 'http://www.wow-alive.de/" ?>';
-            var forum_link = 'http://forum.wow-alive.de/forum.php" ?>';
-            var armory_link = 'http://arsenal.wow-alive.de/" ?>';
-            var xsToken = Config.CSRF;
-        
-            Core.staticUrl = 'http://forum.wow-alive.de/static-wow';
-            Core.baseUrl = 'http://cms.wow-alive.de';
-            Core.cdnUrl = 'http://cms.wow-alive.de';
-            Core.project = 'wow';
-            Core.locale = 'de-de';
-            Core.buildRegion = 'eu';
-            Core.loggedIn = false;
-        //]]>
-        </script>
 
         {if $analytics}
           <script type="text/javascript">
@@ -142,9 +110,7 @@
         <![endif]-->
 
         <!-- TS Viewer Sideboard -->
-        <script type="text/javascript" src="{$path}js/wz_tooltip.js"></script>
         <script type="text/javascript" src="http://static.tsviewer.com/short_expire/js/ts3viewer_loader.js"></script>
-        <script type="text/javascript" src="{$path}js/sideboard.js"></script>
         <!-- /TS Viewer Sideboard -->
 
     </head>
