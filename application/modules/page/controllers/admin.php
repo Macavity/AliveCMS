@@ -2,6 +2,8 @@
 
 class Admin extends MX_Controller
 {
+    private $pageCategories = array();
+
 	public function __construct()
 	{
 		// Make sure to load the administrator library!
@@ -9,8 +11,13 @@ class Admin extends MX_Controller
 		$this->load->helper('tinymce_helper');
 		$this->load->model('page_model');
 
+		requirePermission("canViewAdmin");
+
 		parent::__construct();
-	}
+
+        $this->pageCategories = $this->page_model->getPageCategories();
+
+    }
 
 	public function index()
 	{
@@ -19,38 +26,41 @@ class Admin extends MX_Controller
 
 		$pages = $this->page_model->getPages(true);
 
-        $existingCats = $this->page_model->getPageCategories();
-        
-        $catTitles = array();
-        
-        foreach($existingCats as $topCat){
+        /**
+         * Alive Page Categories
+         * @alive
+         */
+        $catTitles = array(
+            0 => "Nicht kategorisiert"
+        );
+
+        foreach($this->pageCategories as $topCat){
             $catTitles[$topCat['id']] = $topCat['title'];
             foreach($topCat['subCats'] as $subCat){
                 $catTitles[$subCat['id']] = $topCat['title']."&rarr;".$subCat['title'];
             }
         }
-        
-		if($pages)
+
+
+        if($pages)
 		{
 			foreach($pages as $key => $value)
 			{
-				if(strlen($value['name']) > 20)
-				{
-					$pages[$key]['name'] = mb_substr($value['name'], 0, 20) . '...';
-				}
+                $pages[$key]['name'] = langColumn($pages[$key]['name']);
 
-				$pages[$key]['rank_name'] = $this->internal_user_model->getRankName($value['rank_needed'], true);
-		      
+				if(strlen($pages[$key]['name']) > 20)
+				{
+					$pages[$key]['name'] = mb_substr($pages[$key]['name'], 0, 20) . '...';
+				}
                 $pages[$key]['top_title'] = $catTitles[$value['top_category']];
-        	}
+            }
 		}
-        
+
 		// Prepare my data
 		$data = array(
 			'url' => $this->template->page_url,
-			'pages' => $pages,
-			'existingCats' => $existingCats,
-			'ranks' => $this->cms_model->getRanks()
+            'existingCats' => $this->pageCategories,
+            'pages' => $pages
 		);
 
 		// Load my view
@@ -65,6 +75,8 @@ class Admin extends MX_Controller
 
 	public function edit($id = false)
 	{
+		requirePermission("canEdit");
+
 		if(!$id || !is_numeric($id))
 		{
 			die();
@@ -78,30 +90,33 @@ class Admin extends MX_Controller
 
 			die();
 		}
-        
-        $existingCats = $this->page_model->getPageCategories();
-        
-		// Change the title
-		$this->administrator->setTitle($page['name']);
+
+
+        // Change the title
+		$this->administrator->setTitle(langColumn($page['name']));
 
 		// Prepare my data
 		$data = array(
 			'url' => $this->template->page_url,
-			'page' => $page,
-            'existingCats' => $existingCats,
-			'ranks' => $this->cms_model->getRanks()
+            'existingCats' => $this->pageCategories,
+            'page' => $page
 		);
 
 		// Load my view
 		$output = $this->template->loadPage("admin_edit.tpl", $data);
 
 		// Put my view in the main box with a headline
-		$content = $this->administrator->box('<a href="'.$this->template->page_url.'page/admin">Custom pages</a> &rarr; '.$page['name'], $output);
+		$content = $this->administrator->box('<a href="'.$this->template->page_url.'page/admin">Custom pages</a> &rarr; '.langColumn($page['name']), $output);
 
 		// Output my content. The method accepts the same arguments as template->view
 		$this->administrator->view($content, false, "modules/page/js/admin.js");
 	}
 
+    /**
+     * Edit a page category
+     * @alive
+     * @param bool $id
+     */
     public function edit_cat($id = false)
     {
         if(!$id || !is_numeric($id))
@@ -117,9 +132,7 @@ class Admin extends MX_Controller
 
             die();
         }
-        
-        $existingCats = $this->page_model->getPageCategories();
-        
+
         // Change the title
         $this->administrator->setTitle($pageCat['title']);
 
@@ -127,7 +140,7 @@ class Admin extends MX_Controller
         $data = array(
             'url' => $this->template->page_url,
             'pageCat' => $pageCat,
-            'existingCats' => $existingCats,
+            'existingCats' => $this->pageCategories,
         );
 
         // Load my view
@@ -140,8 +153,10 @@ class Admin extends MX_Controller
         $this->administrator->view($content, false, "modules/page/js/admin.js");
     }
 
-	public function delete($id = false)
+    public function delete($id = false)
 	{
+		requirePermission("canRemove");
+
 		if(!$id)
 		{
 			die();
@@ -149,43 +164,47 @@ class Admin extends MX_Controller
 		
 		$this->cache->delete('page_*.cache');
 		$this->page_model->delete($id);
+
+		// Add log
+		$this->logger->createLog('Deleted page', $id);
+
+		$this->plugins->onDelete($id);
 	}
 
 	public function create($id = false)
 	{
+		requirePermission("canAdd");
+
 		$headline = $this->input->post('name');
 		$identifier = $this->input->post('identifier');
-		$rank_needed = $this->input->post('rank_needed');
-        $top_category = $this->input->post('top_category');
 		$content = $this->input->post('content');
-        
-		if(strlen($headline) > 70 || empty($headline))
+        $top_category = $this->input->post('top_category');
+
+        if(strlen($headline) > 70 || empty($headline))
 		{
 			die("The headline must be between 1-70 characters long");
 		}
-        
+
 		if(empty($content))
 		{
 			die("Content can't be empty");
 		}
-        
+
 		if(empty($identifier) || !preg_match("/^[A-Za-z0-9]*$/", $identifier))
 		{
 			die("Identifier can't be empty and may only contain numbers and letters");
 		}
-        
+
 		$identifier = strtolower($identifier);
-        
+
 		if($identifier == "admin")
 		{
 			die("The identifier <b>admin</b> is reserved by the system");
 		}
-        
-        $existingCats = $this->page_model->getPageCategories();
-        
+
         if($top_category != 0){
             $topCatFound = false;
-            foreach($existingCats as $cat){
+            foreach($this->pageCategories as $cat){
                 if($cat["id"] == $top_category)
                     $topCatFound = true;
             }
@@ -194,19 +213,45 @@ class Admin extends MX_Controller
             }
         }
 
-		if($this->page_model->pageExists($identifier, $id))
+        if($this->page_model->pageExists($identifier, $id))
 		{
 			die("The identifier is already in use");
 		}
 
 		if($id)
 		{
-			$this->page_model->update($id, $headline, $identifier, $rank_needed, $top_category, $content);
-			$this->cache->delete('page_*.cache');
+            $this->page_model->update($id, $headline, $identifier, $top_category, $content); /* @alive */
+            $this->cache->delete('page_*.cache');
+
+			$hasPermission = $this->page_model->hasPermission($id);
+
+			if($this->input->post('visibility') == "group" && !$hasPermission)
+			{
+				$this->page_model->setPermission($id);
+			}
+			elseif($this->input->post('visibility') != "group" && $hasPermission)
+			{
+				$this->page_model->deletePermission($id);
+			}
+
+			// Add log
+			$this->logger->createLog('Edited page', $identifier);
+
+			$this->plugins->onUpdate($id, $headline, $identifier, $content);
 		}
 		else
 		{
-			$this->page_model->create($headline, $identifier, $rank_needed, $top_category, $content);
+			$id = $this->page_model->create($headline, $identifier, $top_category, $content);
+
+			if($this->input->post('visibility') == "group")
+			{
+				$this->page_model->setPermission($id);
+			}
+
+			// Add log
+			$this->logger->createLog('Added page', $identifier);
+
+			$this->plugins->onCreate($id, $headline, $identifier, $content);
 		}
 
 		die("yes");
@@ -215,17 +260,18 @@ class Admin extends MX_Controller
     public function createCat($id = false)
     {
         $title = $this->input->post('title');
+        $identifier = $this->input->post('identifier');
         $path = $this->input->post('path');
         $topCat = $this->input->post('top_cat');
-        
+
         $existingCats = $this->page_model->getPageCategories();
 
         if(strlen($title) > 50 || empty($title)){
             die("The title must be between 1-50 characters long");
         }
-        
+
         if(empty($path) || !preg_match("/^[A-Za-z0-9\/]*$/", $path)){
-            die("Identifier can't be empty and may only contain numbers, letters and slashes.");
+            die("Path can't be empty and may only contain numbers, letters and slashes.");
         }
 
         if($topCat != 0){
@@ -250,9 +296,13 @@ class Admin extends MX_Controller
         }
         else
         {
+            $this->logger->createLog('Added Category', $identifier);
             $this->page_model->createCat($path, $title, $topCat);
+            $this->plugins->onCreate($title, $path, $topCat);
+
         }
 
         die("yes");
+
     }
 }

@@ -4,7 +4,7 @@
 			{if $realm->isOnline()}
 				{$realm->getOnline()} / {$realm->getCap()}
 			{else}
-				Offline
+				{lang("offline")}
 			{/if}
 		</div>
 		{$realm->getName()}

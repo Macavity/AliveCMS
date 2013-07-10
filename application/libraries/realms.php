@@ -1,11 +1,13 @@
 <?php
+
 /**
  * @package FusionCMS
- * @version 6.0
  * @author Jesper Lindström
  * @author Xavier Geerinck
+ * @author Elliott Robbins
  * @link http://raxezdev.com/fusioncms
  */
+
 class Realms
 {
 	// Objects
@@ -15,6 +17,8 @@ class Realms
 	// Runtime values
 	private $races;
 	private $classes;
+	private $races_en;
+	private $classes_en;
 	private $zones;
 	private $hordeRaces;
 	private $allianceRaces;
@@ -36,8 +40,8 @@ class Realms
 		
 		// Get the realms
 		$this->CI->load->model('cms_model');
-        
-        $realms = $this->CI->cms_model->getRealms();
+		
+		$realms = $this->CI->cms_model->getRealms();
 
 		if($realms == false)
 		{
@@ -45,7 +49,7 @@ class Realms
 		}
 		else
 		{
-		    foreach($realms as $realm)
+			foreach($realms as $realm)
 			{
 				// Prepare the database Config
 				$config = array(
@@ -160,6 +164,9 @@ class Realms
 		$this->hordeRaces = $this->CI->config->item('horde_races');
 		$this->allianceRaces = $this->CI->config->item('alliance_races');
 		$this->classes = $this->CI->config->item('classes');
+
+		$this->races_en = $this->CI->config->item('races_en');
+		$this->classes_en = $this->CI->config->item('classes_en');
 	}
 
 	/**
@@ -199,9 +206,10 @@ class Realms
 
 		return $this->hordeRaces;
 	}
-    
+
     /**
      * Returns the faction to a given race id
+     * @alive
      * @param Int $race
      * @return String
      */
@@ -209,33 +217,26 @@ class Realms
         if(!count($this->hordeRaces)){
             $this->loadConstants();
         }
-        
+
         return (in_array($race, $this->hordeRaces) ? "horde" : "alliance");
-        
     }
 
-	/**
+
+    /**
 	 * Get the name of a race
 	 * @param Int $id
 	 * @return String
 	 */
-	public function getRace($raceId, $gender)
+	public function getRace($id)
 	{
 		if(!count($this->races))
 		{
 			$this->loadConstants();
 		}
 
-		if(array_key_exists($raceId, $this->races))
+		if(array_key_exists($id, $this->races))
 		{
-			$label = $this->races[$raceId];
-            
-            if(is_string($label)){
-                return $label;
-            }
-            else if(is_array($label)){
-                return $label[$gender];
-            }
+			return $this->races[$id];
 		}
 		else
 		{
@@ -245,29 +246,24 @@ class Realms
 
 	/**
 	 * Get the name of a class
-	 * @param Int $classId
-     * @param Int $gender
+	 * @param Int $id
 	 * @return String
 	 */
-	public function getClass($classId, $gender)
+	public function getClass($id)
 	{
 		if(!count($this->classes))
 		{
 			$this->loadConstants();
 		}
-        
-		if(array_key_exists($classId, $this->classes))
+
+		if(array_key_exists($id, $this->classes))
 		{
-		    $label = $this->classes[$classId];
-            
-            if(is_string($label)){
-                return $label;
-            }
-            else if(is_array($label)){
-                return $label[$gender];
-            }
+			return $this->classes[$id];
 		}
-		return "Unbekannt";
+		else
+		{
+			return "Unknown";
+		}
 	}
 
 	/**
@@ -277,25 +273,19 @@ class Realms
 	 */
 	public function getZone($zoneId)
 	{
-        debug("getZone", $zoneId);
 		if(!count($this->zones))
 		{
 			$this->loadZones();
 		}
-        
+
 		if(array_key_exists($zoneId, $this->zones))
 		{
-		    $zone = $this->zones[$zoneId];
-         
-            debug("zone gefunden", $zone);   
-		    if(is_array($zone) && isset($zone["name"])){
-		        return $zone["name"];
-		    }
-            elseif(is_string($zone)){
-                return $zone;                
-            }
+			return $this->zones[$zoneId];
 		}
-		return "Ort nicht gefunden";
+		else
+		{
+			return "Unknown location";
+		}
 	}
 
 	/**
@@ -326,31 +316,29 @@ class Realms
 	}
 
 	/**
-	* Format an avatar path as in Class-Race-Gender-Level
-	* @return String
-	*/
+	 * Format an avatar path as in Class-Race-Gender-Level
+     * Modified version for Alive
+     * @alive
+	 * @return String
+	 */
 	public function formatAvatarPath($character)
 	{
-		if(!count($this->races))
+		if(!count($this->races_en))
 		{
 			$this->loadConstants();
 		}
 
-		$classes = $this->classes;
-		$races = $this->races;
-
 		$class = $character['class'];
 		$race = $character['race'];
-        
-		$gender = $character['gender'];
+
+		//$gender = ($character['gender']) ? "f" : "m";
+        $gender = $character['gender'];
         $level = $character['level'];
-        
         $folder = "wow";
-        
-		// If character is below 65, use lv 60 image
-		if($level >= 60 && $level < 70){
-		    $folder = "wow-default";
-		}
+
+        if($level >= 60 && $level < 70){
+            $folder = "wow-default";
+        }
         elseif($level <= 70){
             $folder = "wow-70";
         }
@@ -358,11 +346,11 @@ class Realms
             $folder = "wow-80";
         }
 
-		$file = "application/images/avatars/".$folder."/".$gender."-".$race."-".$class.".gif";
+        $file = "application/images/avatars/".$folder."/".$gender."-".$race."-".$class.".gif";
 
 		if(!file_exists($file))
 		{
-			return "default";
+			return "default"."?".$file;
 		}
 		else
 		{

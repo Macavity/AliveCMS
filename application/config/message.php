@@ -16,7 +16,7 @@
 | Whether or not to show the announcement message
 |
 */
-$config['message_enabled'] = false;
+$config["message_enabled"] = false;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,12 +27,12 @@ $config['message_enabled'] = false;
 | ["message_headline_size"] Size of the headline in px
 |
 */
-$config['message_headline'] = "test";
-$config['message_headline_size'] = 56;
+$config['message_headline'] = "Maintenance";
+$config["message_headline_size"] = 56;
 
 /*
 |--------------------------------------------------------------------------
 | Message text
 |--------------------------------------------------------------------------
 */
-$config['message_text'] = "test";
+$config["message_text"] = "";

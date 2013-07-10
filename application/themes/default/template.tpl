@@ -38,7 +38,14 @@
 				</aside>
 
 				<aside id="right">
-					{$slider}
+					<section id="slider_bg" {if !$show_slider}style="display:none;"{/if}>
+						<div id="slider">
+							{foreach from=$slider item=image}
+								<a href="{$image.link}"><img src="{$image.image}" title="{$image.text}"/></a>
+							{/foreach}
+						</div>
+					</section>
+
 					{$page}
 				</aside>
 
@@ -46,7 +53,7 @@
 			</div>
 			<footer>
 				<a href="http://raxezdev.com/fusioncms" id="logo" target="_blank"></a>
-				<p>&copy; Copyright 2012 {$serverName}</p>
+				<p>&copy; Copyright {date("Y")} {$serverName}</p>
 			</footer>
 		</section>
 	</body>

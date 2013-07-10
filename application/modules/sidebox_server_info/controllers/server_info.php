@@ -26,7 +26,7 @@ class Server_Info extends MX_Controller implements Sidebox{
         else{
             $this->overwriteDisplayName = 'Server Information: <span class="status-icon">Offline</span>';
         }
-        
+
         $connection = $this->load->database("account", true);
         
         /*
@@ -73,8 +73,7 @@ class Server_Info extends MX_Controller implements Sidebox{
                 $this->cache->save("maxplayers_".$realms[0]->getId(), $maxPlayers, 60*60*24);
             }
         }
-        
-        
+
         $data = array(
             "module" => "sidebox_server_info",
             "url" => $this->template->page_url,

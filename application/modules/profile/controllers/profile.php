@@ -10,9 +10,11 @@ class Profile extends MX_Controller
 	private $register_date;
 	private $rank_name;
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
+
+		requirePermission("view");
 	}
 
 	/**
@@ -88,7 +90,7 @@ class Profile extends MX_Controller
 		$this->username = $this->user->getNickname($this->id);
 		$this->register_date = preg_replace("/\s.*/", "", $external['joindate']);
 		$this->location = ($internal) ? $internal['location'] : "Unknown";
-		$this->rank_name = $this->internal_user_model->getRankName($this->external_account_model->getRank($this->id));
+		$this->groups = $this->acl_model->getGroupsByUser($this->id);
 	}
 
 	private function getProfile()
@@ -102,12 +104,12 @@ class Profile extends MX_Controller
 		else
 		{
 			$characters = $this->template->loadPage("ucp_characters.tpl", array(
-							"characters" => $this->realms->getTotalCharacters($this->id),
-							"realms" => $this->realms->getRealms(),
-							"realmsObj" => $this->realms,
-							"url" => $this->template->page_url,
-							"id" => $this->id
-						));
+				"characters" => $this->realms->getTotalCharacters($this->id),
+				"realms" => $this->realms->getRealms(),
+				"realmsObj" => $this->realms,
+				"url" => $this->template->page_url,
+				"id" => $this->id
+			));
 
 			$this->cache->save("profile_characters_".$this->id, $characters, 60*60);
 		}
@@ -115,23 +117,22 @@ class Profile extends MX_Controller
 		$this->getInfo();
 
 		$profile_data = array(
-							"characters" => $characters,
-							"username" => $this->username,
-							"location" => $this->location,
-							"status" => $this->user->getAccountStatus($this->id),
-							"register_date" => $this->register_date,
-							"use_forum" => file_exists('application/modules/forum/'),
-							"url" => $this->template->page_url,
-							"avatar" => $this->user->getAvatar($this->id, "small"),
-							"not_me" => ($this->id == $this->user->getId()) ? false : true,
-							"online" => $this->user->isOnline(),
-							"id" => $this->id,
-							"rank_name" => $this->rank_name
-						);
+			"characters" => $characters,
+			"username" => $this->username,
+			"location" => $this->location,
+			"status" => $this->user->getAccountStatus($this->id),
+			"register_date" => $this->register_date,
+			"url" => $this->template->page_url,
+			"avatar" => $this->user->getAvatar($this->id, "small"),
+			"not_me" => ($this->id == $this->user->getId()) ? false : true,
+			"online" => $this->user->isOnline(),
+			"id" => $this->id,
+			"groups" => $this->groups
+		);
 
 		$data = array(
 			"module" => "default", 
-			"headline" => "Profile: ".$this->username, 
+			"headline" => $this->username, 
 			"content" => $this->template->loadPage("profile.tpl", $profile_data)
 		);
 		
@@ -142,8 +143,8 @@ class Profile extends MX_Controller
 	{
 		$data = array(
 			"module" => "default", 
-			"headline" => "User doesn't exist", 
-			"content" => "<center style='margin:10px;font-weight:bold;'>The requested user does not exist.</center>"
+			"headline" => lang("doesnt_exist", "profile"), 
+			"content" => "<center style='margin:10px;font-weight:bold;'>".lang("doesnt_exist_long", "profile")."</center>"
 		);
 
 		return $this->template->loadPage("page.tpl", $data);

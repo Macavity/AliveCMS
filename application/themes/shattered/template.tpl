@@ -1,5 +1,5 @@
 {$head}
-    <body id="{$controller}-{$method}">
+    <body id="{$controller}-{$method}" class="module-{$controller}">
         
         <!-- Teamspeak -->
         <div class="sb_overlay sb_slide" id="ts_overlay">
@@ -80,10 +80,10 @@
                         </div>
                         <span class="clear"><!-- --></span>
                     {elseif $show_sidebar}
-                        {if !empty($topheader)}
+                        {if !empty($section_title)}
                         <div class="top-banner">
                             <div class="section-title">
-                                <span>{$topheader}</span>
+                                <span>{$section_title}</span>
                             </div>
                             <span class="clear"><!-- --></span>
                         </div>
@@ -97,17 +97,18 @@
                             <span class="clear"><!-- --></span>
                         </div> 
                         <div class="right-col">
-                            {foreach from=$sideboxes item=sidebox}
+                          <!-- Sidebar -->
+                          {foreach from=$sideboxes item=sidebox}
                             <div id="{$sidebox.css_id}" class="sidebar-module">
-                                <div class="sidebar-title">
-                                    <h3>{$sidebox.name}</h3>
-                                </div>
-                                <span class="clear"><!-- --></span>
-                                {$sidebox.data}
-                                <span class="clear"><!-- --></span>
+                              <div class="sidebar-title">
+                                <h3>{$sidebox.name}</h3>
+                              </div>
+                              <span class="clear"><!-- --></span>
+                              {$sidebox.data}
+                              <span class="clear"><!-- --></span>
                             </div>
-                            {/foreach}
-                            <span class="clear"><!-- --></span>
+                          {/foreach}
+                          <span class="clear"><!-- --></span>
                         </div>
                         <span class="clear"><!-- --></span>
                         {if !empty($topheader)}
@@ -131,7 +132,7 @@
     <div id="sitemap">
         <div class="column">
             <h3 class="bnet">
-                <a href="http://www.wow-alive.de/" tabindex="100">{$serverName}</a>
+                <a href="/" tabindex="100">{$serverName}</a>
             </h3>
             <ul>
                 <li><a href="/vote">Voten!</a></li>
@@ -174,13 +175,10 @@
             </ul>
         </div>
         <div id="copyright">
-          &copy;2012 Blizzard Entertainment, Inc. Alle Rechte vorbehalten
+          &copy;2013 Blizzard Entertainment, Inc. Alle Rechte vorbehalten
           <a href="http://forum.wow-alive.de/sendmessage.php" rel="nofollow" accesskey="9">Kontakt</a></if>
-          {if $is_admin || $is_owner}
+          {if $is_staff}
             <a href="/admin">Admin Panel</a>
-          {/if}
-          {if $is_gm}
-            <a href="/gm">GM Panel</a>
           {/if}
           <a href="http://forum.wow-alive.de/archive/index.php">Forumarchiv</a>
 
@@ -191,10 +189,6 @@
           </div>
         </div>
         <div id="legal">
-            <div class="smallfont" align="center">
-                {* {$pageGeneratedTime} sec.*}
-            </div>
-            <div id="blizzard" class="png-fix">&nbsp;</div>
             <span class="clear"><!-- --></span>
         </div>
     </div>
@@ -204,30 +198,25 @@
 <div id="service">
     <ul class="service-bar">
     {if false}
-        <li class="service-cell service-home service-maintenance"><a href="http://portal.wow-alive.de/admin/tickets/" tabindex="50" accesskey="1" data-tooltip="Es gibt offene Tickets">&nbsp;</a></li>
+        <li class="service-cell service-home service-maintenance"><a href="/admin/tickets/" tabindex="50" accesskey="1" data-tooltip="Es gibt offene Tickets">&nbsp;</a></li>
     {else}
-        <li class="service-cell service-home"><a href="http://portal.wow-alive.de/" tabindex="50" accesskey="1" title="ALive">&nbsp;</a></li>
+        <li class="service-cell service-home"><a href="/" tabindex="50" accesskey="1" title="ALive">&nbsp;</a></li>
     {/if}  
     {if $isOnline}
         <li class="service-cell service-welcome">
-            Willkommen, {if $is_gm}<span class="employee"></span>{/if}{$user_name} | <a href="/logout">Abmelden</a>
-        </li>
-        <li class="service-cell service-account">
-            <a href="http://forum.wow-alive.de/private.php" class="service-link" tabindex="50" accesskey="2">Nachrichten</a>
-        </li>
-    {else}
-        <li class="service-cell service-welcome">
-            <a href="/register" accesskey="1">Registrieren</a>
+            Willkommen, {if $is_staff}<span class="employee"></span>{/if}{$user_name}
         </li>
     {/if}
-    <li class="service-cell service-support">
-        <a href="/bugtracker" class="service-link" tabindex="50" accesskey="4">Bugtracker</a></li>
+    {foreach from=$menu_top item=menu_item}
+        <li class="service-cell {$menu_item.css_class}"><a {$menu_item.link} class="service-link">{$menu_item.name}</a></li>
+    {/foreach}
+
     <li class="service-cell service-explore">
         <a href="#explore" tabindex="50" accesskey="5" class="dropdown" id="explore-link" onclick="return false" style="cursor: progress" rel="javascript">Erkunden</a>
         <div class="explore-menu" id="explore-menu" style="display:none;">
             <div class="explore-primary">
                 <ul class="explore-nav">
-                {if $is_gm}
+                {if $is_staff}
                 <li>
                     <a href="/admin" tabindex="55">
                         <strong class="explore-caption">Administration</strong>
@@ -343,7 +332,7 @@
     </div>
     <![endif]-->
     <!--[if lte IE 8]>
-        <script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/third-party/CFInstall.min.js?v15"></script>
+        <script type="text/javascript" src="/application/third_party/CFInstall.min.js"></script>
         <script type="text/javascript">
         //<![CDATA[
         $(function(){
@@ -444,7 +433,7 @@
 //]]>
 </script>
 <!--[if lt IE 8]> 
-<script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/third-party/jquery.pngFix.pack.js?v15"></script>
+<script type="text/javascript" src="/application/third_party/jquery.pngfix.pack.js"></script>
 <script type="text/javascript">$('.png-fix').pngFix();</script>
 <![endif]-->
 

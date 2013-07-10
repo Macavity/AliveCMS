@@ -22,13 +22,13 @@ class Character extends MX_Controller
 
 	private $stats;
 	private $items;
-    
-    private $charData;
 
 	function __construct()
 	{
 		parent::__construct();
-		
+	
+		requirePermission("view");
+
 		// Set JS and CSS paths
 		$this->js = "modules/character/js/character.js";
 		$this->css = "modules/character/css/character.css";
@@ -44,6 +44,12 @@ class Character extends MX_Controller
 	 */
 	public function index($realm = false, $id = false)
 	{
+		if(!is_numeric($id))
+		{
+			$id = ucfirst($id);
+			$id = $this->realms->getRealm($realm)->getCharacters()->getGuidByName($id);
+		}
+
 		$this->setId($realm, $id);
 		
 		if($this->id != false)
@@ -119,7 +125,7 @@ class Character extends MX_Controller
 		}
 		else
 		{
-			$character_stats = array('maxhealth' => "Unknown");
+			$character_stats = array('maxhealth' => lang("unknown", "character"));
 		}
 
 		$this->pvp = array(
@@ -156,10 +162,10 @@ class Character extends MX_Controller
 		}
 		else
 		{
-			$this->raceName = $this->armory_model->realms->getRace($this->race, $this->gender);
+			$this->raceName = $this->armory_model->realms->getRace($this->race);
 		}
 
-		$this->className = $this->armory_model->realms->getClass($this->class, $this->gender);
+		$this->className = $this->armory_model->realms->getClass($this->class);
 		$this->realmName = $this->armory_model->realm->getName();
 		
 		if($this->realms->getRealm($this->realm)->getEmulator()->hasStats())
@@ -191,7 +197,7 @@ class Character extends MX_Controller
 		else
 		{
 			$this->secondBar = "mana";
-			$this->secondBarValue = "Unknown";
+			$this->secondBarValue = lang("unknown", "character");
 		}
 
 		// Load the items
@@ -273,7 +279,7 @@ class Character extends MX_Controller
 	 */
 	private function getProfile()
 	{
-		$cache = $this->cache->get("character_".$this->realm."_".$this->id);
+		$cache = $this->cache->get("character_".$this->realm."_".$this->id."_".getLang());
 
 		if($cache !== false)
 		{
@@ -293,13 +299,13 @@ class Character extends MX_Controller
 				$this->template->setTitle($this->name);
 
 				$avatarArray = array(
-							'class' => $this->class,
-							'race' => $this->race,
-							'level' => $this->level,
-							'gender' => $this->gender
-						);
+					'class' => $this->class,
+					'race' => $this->race,
+					'level' => $this->level,
+					'gender' => $this->gender
+				);
 
-				$this->charData = array(
+				$charData = array(
 					"name" => $this->name,
 					"race" => $this->race,
 					"class" => $this->class,
@@ -323,32 +329,34 @@ class Character extends MX_Controller
 					"has_stats" => $this->realms->getRealm($this->realm)->getEmulator()->hasStats()
 				);
 
-				$character = $this->template->loadPage("character.tpl", $this->charData);
+				$character = $this->template->loadPage("character.tpl", $charData);
 
 				$data = array(
 					"module" => "default", 
-					"headline" => "<span style='cursor:pointer;' data-tip='View profile' onClick='window.location=\"".$this->template->page_url."profile/".$this->account."\"'>".$this->accountName."</span> &rarr; ".$this->name,
+					"headline" => "<span style='cursor:pointer;' data-tip='".lang("view_profile", "character")."' onClick='window.location=\"".$this->template->page_url."profile/".$this->account."\"'>".$this->accountName."</span> &rarr; ".$this->name,
 					"content" => $character
 				);
+
+				$keywords = "armory,".$charData['name'].",lv".$charData['level'].",".$charData['raceName'].",".$charData['className'].",".$charData['realmName'];
+				$description = $charData['name']." - level ".$charData['level']." " .$charData['raceName']." ".$charData['className']." on ".$charData['realmName'];
+
+				$this->template->setDescription($description);
+				$this->template->setKeywords($keywords);
 
 				$page = $this->template->loadPage("page.tpl", $data);
 			}
 			else
 			{
+				$keywords = "";
+				$description = "";
+
 				$page = $this->getError(true);
 			}
-
-			$keywords = "armory,".$this->charData['name'].",lv".$this->charData['level'].",".$this->charData['raceName'].",".$this->charData['className'].",".$this->charData['realmName'];
-			$description = $this->charData['name']." - level ".$this->charData['level']." " .$this->charData['raceName']." ".$this->charData['className']." on ".$this->charData['realmName'];
-
-			$this->template->setDescription($description);
-			$this->template->setKeywords($keywords);
-
 
 			if($this->canCache)
 			{
 				// Cache for 30 min
-				$this->cache->save("character_".$this->realm."_".$this->id, array('page' => $page, 'name' => $this->name, 'keywords' => $keywords, 'description' => $description), 60*30);
+				$this->cache->save("character_".$this->realm."_".$this->id."_".getLang(), array('page' => $page, 'name' => $this->name, 'keywords' => $keywords, 'description' => $description), 60*30);
 			}
 		}
 
@@ -360,12 +368,12 @@ class Character extends MX_Controller
 	 */
 	private function getError($get = false)
 	{
-		$this->template->setTitle("Character not found");
+		$this->template->setTitle(lang("doesnt_exist", "character"));
 
 		$data = array(
 			"module" => "default", 
-			"headline" => "Character doesn't exist", 
-			"content" => "<center style='margin:10px;font-weight:bold;'>The requested character does not exist.</center>"
+			"headline" => lang("doesnt_exist", "character"),
+			"content" => "<center style='margin:10px;font-weight:bold;'>".lang("doesnt_exist_long", "character")."</center>"
 		);
 
 		$page = $this->template->loadPage("page.tpl", $data);

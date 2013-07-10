@@ -5,7 +5,7 @@
 		<label for="vote_sitename">Site name</label>
 		<input type="text" name="vote_sitename" id="vote_sitename" value="{$topsite.vote_sitename}"/>
 
-		<label for="vote_url">Site URL (for API, append {literal}{account_id}{/literal} to the postback value)</label>
+		<label for="vote_url">Site URL (for postback, append {literal}{account_id}{/literal} to the URL)</label>
 		<input type="text" name="vote_url" id="vote_url" placeholder="http://" onChange="Topsites.findImage(this)" value="{$topsite.vote_url}"/>
 
 		<label for="vote_image">Vote site image (will be auto-completed if URL is recognized)</label>
@@ -17,7 +17,7 @@
 		<label for="points_per_vote">Voting points</label>
 		<input type="text" name="points_per_vote" id="points_per_vote" value="{$topsite.points_per_vote}"/>
 
-		<label for="api_enabled">API (only some sites)</label>
+		<label for="api_enabled">Enable postback (only some topsites support this - requires additional configuration on the topsite itself)</label>
 		<select id="api_enabled" name="api_enabled">
 			<option value="0" {if !$topsite.api_enabled}selected{/if}>No</option>
 			<option value="1" {if $topsite.api_enabled}selected{/if}>Yes</option>

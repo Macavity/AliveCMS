@@ -17,5 +17,5 @@
 	}
 </script>
 
-There are <b>{$count}</b> {$word} online <span>(<a href="javascript:void(0)" onClick="Visitors.show(this)">who?</a>)</span>
+{$there_are} <b>{$count}</b> {$word} {lang("online", "sidebox_visitors")} <span>(<a href="javascript:void(0)" onClick="Visitors.show(this)">{lang("who", "sidebox_visitors")}</a>)</span>
 <div id="all_visitors" style="margin-top:10px;display:none;"></div>

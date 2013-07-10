@@ -116,7 +116,7 @@ class Postback_paypal extends MX_Controller
 		}
 		else
 		{
-			fputs ($fp, $header . $req);
+			fputs($fp, $header . $req);
 			
 			$res = "";
 
@@ -128,68 +128,68 @@ class Postback_paypal extends MX_Controller
 
 
 			if($this->debug)
-				{
+			{
 				$res = "DEBUG ONLY RESPONSE THAT MAKES THIS PAYMENT BECOME VERIFIED";
 			}
 
 			if(stristr($res, "VERIFIED")) 
 			{
-					// Make sure the currency is correct
-					if($this->payment_currency != $this->config->item('donation_currency'))
-					{
-						$error .= "Invalid currency (set to ".$this->payment_currency.")<br />";
-						$error_count++;
-					}
-
-					// Make sure the receiver email is correct
-					if($this->receiver_email != $this->config_paypal['email'])
-					{
-						$error .= "Invalid receiver email (set to ".$this->receiver_email.")<br />";
-						$error_count++;
-					}
-
-					// Make sure the payment has not already been processed
-					if($this->transactionExists($this->txn_id))
-					{
-						$error .= "Payment has already been processed";
-						$error_count++;
-					}
-
-					// Make sure payment status is completed
-					if($this->payment_status != "Completed")
-					{
-						$error .= "Payment status is not completed (".$this->payment_status.")<br />";
-						$error_count++;
-					}
-					
-					//Add pending reasons
-					if($this->pending_reason == "unilateral")
-					{
-						$error .= "Pending_reason: unilateral<br />";
-						$error .= "The payment is pending because it was made to an email address that is not yet registered or confirmed.<br />";
-						$error_count += 2;
-					}
-					
-					//If no errors where posted, process payment and add points.
-					if($error_count == 0)
-					{
-						// Update the account with the given money multiplied by the money multiplier
-					$dpReward = $this->getDpAmount();
-							
-						// Update account with donation points
-						$this->db->query("UPDATE `account_data` SET `dp` = `dp` + ? WHERE `id` = ?", array($dpReward, $this->custom));
-
-						// Update the transaction log and set validated to 1
-						$validated = 1;
-
-						$this->updateMonthlyIncome(); 
-					}
-				}
-			elseif(stristr($res, "INVALID"))
+				// Make sure the currency is correct
+				if($this->payment_currency != $this->config->item('donation_currency'))
 				{
-					$error .= "PayPal validation failed: invalid transaction<br />";
+					$error .= "Invalid currency (set to ".$this->payment_currency.")<br />";
 					$error_count++;
 				}
+
+				// Make sure the receiver email is correct
+				if($this->receiver_email != $this->config_paypal['email'])
+				{
+					$error .= "Invalid receiver email (set to ".$this->receiver_email.")<br />";
+					$error_count++;
+				}
+
+				// Make sure the payment has not already been processed
+				if($this->transactionExists($this->txn_id))
+				{
+					$error .= "Payment has already been processed";
+					$error_count++;
+				}
+
+				// Make sure payment status is completed
+				if($this->payment_status != "Completed")
+				{
+					$error .= "Payment status is not completed (".$this->payment_status.")<br />";
+					$error_count++;
+				}
+				
+				//Add pending reasons
+				if($this->pending_reason == "unilateral")
+				{
+					$error .= "Pending_reason: unilateral<br />";
+					$error .= "The payment is pending because it was made to an email address that is not yet registered or confirmed.<br />";
+					$error_count += 2;
+				}
+				
+				//If no errors where posted, process payment and add points.
+				if($error_count == 0)
+				{
+					// Update the account with the given money multiplied by the money multiplier
+					$dpReward = $this->getDpAmount();
+						
+					// Update account with donation points
+					$this->db->query("UPDATE `account_data` SET `dp` = `dp` + ? WHERE `id` = ?", array($dpReward, $this->custom));
+
+					// Update the transaction log and set validated to 1
+					$validated = 1;
+
+					$this->updateMonthlyIncome(); 
+				}
+			}
+			elseif(stristr($res, "INVALID"))
+			{
+				$error .= "PayPal validation failed: invalid transaction<br />";
+				$error_count++;
+			}
 			else
 			{
 				$error .= "Unknown problem<br />";
@@ -215,7 +215,9 @@ class Postback_paypal extends MX_Controller
 			);
 
 			$this->db->insert("paypal_logs", $data);
-			
+
+			$this->plugins->onDonationPostback($data['user_id'], $data['payment_amount'], $this->getDpAmount());
+
 			die();
 		}
 	}

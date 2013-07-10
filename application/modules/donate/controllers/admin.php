@@ -10,6 +10,8 @@ class Admin extends MX_Controller
 		$this->load->config('donate');
 		
 		parent::__construct();
+
+		requirePermission("viewAdmin");
 	}
 
 	public function index()
@@ -266,6 +268,9 @@ class Admin extends MX_Controller
 
 		$this->donate_model->updateMonthlyIncome($log['payment_amount']);
 		$this->donate_model->updatePayPal($id, $data);
+
+		// Add log
+		$this->logger->createLog('Manually completed transaction', $id);
 	}
 
 	/**
@@ -283,7 +288,8 @@ class Admin extends MX_Controller
 			if($price == round($payment_amount))
 			{
 				$points = $reward;
-}		}
+			}
+		}
 
 		return $points;
 	}

@@ -9,11 +9,15 @@ class Password_recovery extends MX_Controller
 		$this->load->config('password_recovery');
 		$this->load->model('password_recovery_model');
 
-		$this->user->is_not_logged_in();
+		$this->load->helper('email_helper');
+
+		$this->user->guestArea();
+		
+		requirePermission("view");
 
 		if(!$this->config->item('has_smtp'))
 		{
-			die("This feature is disabled because the server doesn't have SMTP installed.");
+			die(lang("smtp_disabled", "recovery"));
 		}
 	}
 	
@@ -23,19 +27,17 @@ class Password_recovery extends MX_Controller
 
 		if($this->input->post('recover_username'))
 		{
-			//They set recovery username send email
-			//Get the email
 			$email = $this->password_recovery_model->getEmail($this->input->post('recover_username'));
 			
 			if($email)
 			{
 				$link = base_url().'password_recovery/requestPassword/'.$this->generateKey($this->input->post('recover_username'), $email);
-				$this->sendMail($email, $this->config->item('password_recovery_sender_email'), $this->config->item('server_name').': reset your password', 'You have requested to reset your password, to complete the request please navigate to <a href="'.$link.'">'.$link.'</a>');
+				sendMail($email, $this->config->item('password_recovery_sender_email'), $this->config->item('server_name').': '.lang("reset_password", "recovery"), lang("email", "recovery").' <a href="'.$link.'">'.$link.'</a>');
 
 				$this->template->view($this->template->loadPage("page.tpl", array(
 					"module" => "default", 
-					"headline" => "Password recovery", 
-					"content" => "An email has been sent to you with further information. Please check your inbox to proceed."
+					"headline" => lang("password_recovery", "recovery"), 
+					"content" => lang("email_sent", "recovery")
 				)));
 			}
 			else
@@ -43,8 +45,8 @@ class Password_recovery extends MX_Controller
 				//Wrong username or an error occured
 				$this->template->view($this->template->loadPage("page.tpl", array(
 					"module" => "default", 
-					"headline" => "Password recovery", 
-					"content" => "The user doesn't exist. <a href=''>Go back</a>",
+					"headline" => lang("password_recovery", "recovery"), 
+					"content" => lang("doesnt_exist", "recovery")." <a href=''>".lang("go_back", "recovery")."</a>",
 				)));
 			}
 		}
@@ -53,40 +55,10 @@ class Password_recovery extends MX_Controller
 			//Nothing in the email so they didnt filled in a username
 			$this->template->view($this->template->loadPage("page.tpl", array(
 				"module" => "default", 
-				"headline" => "Password recovery", 
+				"headline" => lang("password_recovery", "recovery"), 
 				"content" => $this->template->loadPage("password_recovery.tpl", array("class" => array("class" => "page_form")))
 			)));
 		}	
-	}
-	
-	private function sendMail($receiver, $sender, $subject, $message)
-	{
-		$this->load->config('smtp');
-
-		if($this->config->item('use_own_smtp_settings'))
-		{
-			$config['protocol'] = "smtp";
-			$config['smtp_host'] = $this->config->item('smtp_host');
-			$config['smtp_user'] = $this->config->item('smtp_user');
-			$config['smtp_pass'] = $this->config->item('smtp_pass');
-			$config['smtp_port'] = $this->config->item('smtp_port');
-			$config['crlf'] = "\r\n";
-			$config['newline'] = "\r\n";
-		}
-
-		$config['charset'] = 'utf-8';
-		$config['wordwrap'] = TRUE;
-		$config['mailtype'] = 'html';
-
-		$this->load->library('email', $config);
-
-		$this->email->from($sender, $this->config->item('server_name'));
-		$this->email->to($receiver); 
-
-		$this->email->subject($subject);
-		$this->email->message($message);	
-
-		$this->email->send();
 	}
 	
 	public function requestPassword($key = "")
@@ -108,13 +80,13 @@ class Password_recovery extends MX_Controller
 				$this->password_recovery_model->changePassword($username, $newPasswordHash);
 				
 				//Send a mail with the new password
-				$this->sendMail($this->password_recovery_model->getEmail($username), $this->config->item('password_recovery_sender_email'), $this->config->item('server_name').': your new password', 'Your new password is <b>'.$newPassword.'</b>');
+				sendMail($this->password_recovery_model->getEmail($username), $this->config->item('password_recovery_sender_email'), $this->config->item('server_name').': '.lang("your_new_password", "recovery"), lang("new_password", "recovery").' <b>'.$newPassword.'</b>');
 				
 				//Show a new message
 				$this->template->view($this->template->loadPage("page.tpl", array(
 					"module" => "default", 
-					"headline" => "Password recovery", 
-					"content" => "Your password has been changed! The new password has been sent to your email adress."
+					"headline" => lang("password_recovery", "recovery"), 
+					"content" => lang("changed", "recovery")
 				)));
 				
 				//Remove the key from the database
@@ -125,8 +97,8 @@ class Password_recovery extends MX_Controller
 				//Error occurred
 				$this->template->view($this->template->loadPage("page.tpl", array(
 					"module" => "default", 
-					"headline" => "Password recovery", 
-					"content" => "Invalid key."
+					"headline" => lang("password_recovery", "recovery"), 
+					"content" => lang("invalid_key", "recovery")
 				)));
 			}
 		}
@@ -134,8 +106,8 @@ class Password_recovery extends MX_Controller
 		{
 			$this->template->view($this->template->loadPage("page.tpl", array(
 				"module" => "default", 
-				"headline" => "Password recovery", 
-				"content" => "No key entered."
+				"headline" => lang("password_recovery", "recovery"), 
+				"content" => lang("no_key", "recovery")
 			)));
 		}
 	}
@@ -143,12 +115,13 @@ class Password_recovery extends MX_Controller
 	private function generateKey($username, $email)
 	{
 		$key = sha1($username.":".$email.":".time());
-		if(!$this->password_recovery_model->insertKey($key, $username, $_SERVER['REMOTE_ADDR']))
+		
+		if(!$this->password_recovery_model->insertKey($key, $username, $this->input->ip_address()))
 		{
 			$this->template->view($this->template->loadPage("page.tpl", array(
 				"module" => "default", 
-				"headline" => "Password recovery", 
-				"content" => "Error while inserting the key."
+				"headline" => lang("password_recovery", "recovery"), 
+				"content" => lang("error_while_inserting", "recovery")
 			)));
 		}	
 		

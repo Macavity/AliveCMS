@@ -4,9 +4,11 @@
 		Teleport locations (<div style="display:inline;" id="teleport_count">{if !$teleport_locations}0{else}{count($teleport_locations)}{/if}</div>)
 	</h2>
 
-	<span>
-		<a class="nice_button" href="javascript:void(0)" onClick="Teleport.add()">Create teleport location</a>
-	</span>
+	{if hasPermission("canAdd")}
+		<span>
+			<a class="nice_button" href="javascript:void(0)" onClick="Teleport.add()">Create teleport location</a>
+		</span>
+	{/if}
 
 	<ul id="teleport_locationr_list">
 		{if $teleport_locations}
@@ -31,8 +33,13 @@
 								{/if}
 							</td>
 							<td style="text-align:right;">
+								{if hasPermission("canEdit")}
 								<a href="{$url}teleport/admin/edit/{$teleport_location.id}" data-tip="Edit"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_edit.png" /></a>&nbsp;
-								<a href="javascript:void(0)" onClick="Teleport.remove({$teleport_location.id}, this)" data-tip="Delete"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_minus.png" /></a>
+								{/if}
+
+								{if hasPermission("canRemove")}
+									<a href="javascript:void(0)" onClick="Teleport.remove({$teleport_location.id}, this)" data-tip="Delete"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_minus.png" /></a>
+								{/if}
 							</td>
 						</tr>
 					</table>

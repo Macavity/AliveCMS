@@ -1,12 +1,12 @@
 var Admin = {
 
-	enableModule: function(moduleName, element)
+	enableModule: function(moduleId, element)
 	{
-		$.post(Config.URL + 'admin/enable/' + moduleName, {csrf_token_name: Config.CSRF}, function(data)
+		$.post(Config.URL + 'admin/enable/' + moduleId, {csrf_token_name: Config.CSRF}, function(data)
 		{
 			if(data == 'SUCCESS')
 			{
-				$(element).attr("onClick", "Admin.disableModule('" + moduleName + "', this)").html("Disable");
+				$(element).attr("onClick", "Admin.disableModule(" + moduleId + ", this)").html("Disable");
 				
 				var parent = $(element).parent();
 
@@ -17,15 +17,15 @@ var Admin = {
 		});
 	},
 	
-	disableModule: function(moduleName, element)
+	disableModule: function(moduleId, element)
 	{
-		UI.confirm("Are you sure you want to disable " + moduleName + "?", "Yes", function()
+		UI.confirm("Are you sure you want to disable " + moduleId + "?", "Yes", function()
 		{
-			$.post(Config.URL + 'admin/disable/' + moduleName, {csrf_token_name: Config.CSRF}, function(data)
+			$.post(Config.URL + 'admin/disable/' + moduleId, {csrf_token_name: Config.CSRF}, function(data)
 			{
 				if(data == 'SUCCESS')
 				{
-					$(element).attr("onClick", "Admin.enableModule('" + moduleName + "', this)").html("Enable");
+					$(element).attr("onClick", "Admin.enableModule(" + moduleId + ", this)").html("Enable");
 					
 					var parent = $(element).parent();
 
@@ -35,7 +35,7 @@ var Admin = {
 				}
 				else
 				{
-					UI.alert(moduleName + " is a core module that can not be disabled!");
+					UI.alert(moduleId + " is a core module that can not be disabled!");
 				}
 			});
 		});
@@ -77,13 +77,17 @@ var Admin = {
 
 	remoteCheck: function()
 	{
+		setTimeout(function() {
+			$(".shouldHaveAlert").addClass("alert");
+		}, 500);
+
 		$.get(Config.URL + "admin/remote", function(data)
 		{
 			switch(data)
 			{
 				case '1':
 					$("#system_box").addClass("alert");
-					$("#update").show();
+					$("#update").fadeIn(500);
 				break;
 
 				case '2':
@@ -103,5 +107,4 @@ var Admin = {
 $(document).ready(function()
 {
 	Admin.remoteCheck();
-	/*Router.initialize();*/
 });

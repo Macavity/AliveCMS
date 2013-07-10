@@ -40,7 +40,7 @@
 
 // CodeIgniter
 $route['default_controller'] = "news";
-$route['404_override'] = 'error/index';
+$route['404_override'] = 'error';
 
 // News
 $route['news/(:num)'] = "news/index/$1";
@@ -66,9 +66,6 @@ $route['guild/(:any)'] = "guild/index/$1";
 $route['tooltip/(:any)'] = "tooltip/index/$1";
 $route['item/(:any)'] = "item/index/$1";
 
-// API/AJAX
-$route['ajax/character/(:any)'] = "ajax/ajax_character/index/$1";
-
 // Admin
 $route['admin/edit/save/(:any)'] = "admin/edit/save/$1";
 $route['admin/edit/saveSource/(:any)'] = "admin/edit/saveSource/$1";
@@ -76,8 +73,11 @@ $route['admin/edit/(:any)'] = "admin/edit/index/$1";
 
 // Server
 $route['server/howtoplay'] = "page/index/howtoplay";
-
 $route['server/(:any)'] = "server/index/$1";
+
+
+// Vote
+$route['vote/callback/(:any)'] = "vote/callback/index/$1";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

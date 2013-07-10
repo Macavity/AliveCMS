@@ -8,15 +8,19 @@
 </script>
 
 {if $type == "offline"}
-	We're sorry but the realm we were trying to contact appears to be offline. Your points have been restored. Please try again later.
+	{lang("error_offline", "store")}
 {elseif $type == "character"}
-	We can't send you the items as you don't have a character. Your points have been restored.
+	{lang("error_character", "store")}
 {elseif $type == "character_exists"}
-	The entered character does not exist.
+	{lang("error_character_exists", "store")}
 {elseif $type == "character_not_mine"}
-	The entered character does not belong to you.
+	{lang("error_character_not_mine", "store")}
+{elseif $type == "character_not_offline"}
+	{lang("error_character_not_offline", "store")}
+{elseif $type == "no_console"}
+	{lang("error_no_console", "store")}
 {/if}
 
-<a href="javascript:window.location.reload(true)">Go back</a>
+<a href="javascript:window.location.reload(true)">{lang("go_back", "store")}</a>
 
 </div>

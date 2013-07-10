@@ -8,7 +8,7 @@
 		Orders that show up here have failed because of a system error. If the error didn't occur immediately some items might have been delivered. You should manually investigate if the user should be refunded.
 	</span>
 
-	<ul>
+	<ul id="order_list_failed">
 		{if $failed}
 			{foreach from=$failed item=failed_log}
 				<li>
@@ -29,10 +29,12 @@
 							<td>
 								<a data-tip="{foreach from=$failed_log.json item=item}{$item.itemName} to {$item.characterName}<br />{/foreach}">{count($failed_log.json)} items</a>
 							</td>
-
-							<td style="text-align:right;">
-								<a class="nice_button" href="javascript:void(0)" onClick="Orders.refund({$failed_log.id}, this)">Refund</a>
-							</td>
+							
+							{if hasPermission("canRefundOrders")}
+								<td style="text-align:right;">
+									<a class="nice_button" href="javascript:void(0)" onClick="Orders.refund({$failed_log.id}, this)">Refund</a>
+								</td>
+							{/if}
 						</tr>
 					</table>
 				</li>
@@ -47,7 +49,12 @@
 		Last 10 successful orders
 	</h2>
 
-	<ul>
+	<form style="margin-top:0px;" onSubmit="Orders.search('successful'); return false">
+		<input type="text" name="search_successful" id="search_successful" placeholder="Search by username" style="width:90%;margin-right:5px;"/>
+		<input type="submit" value="Search" style="display:inline;padding:8px;" />
+	</form>
+
+	<ul id="order_list_successful">
 		{if $completed}
 			{foreach from=$completed item=completed_log}
 				<li>

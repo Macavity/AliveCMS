@@ -18,7 +18,7 @@
 </script>
 <section id="teleport">
 	<section id="select_character">
-		<div class="online_realm_button">Select character</div>
+		<div class="online_realm_button">{lang("select_char", "teleport")}</div>
 		
 		{if $total}
 			{foreach from=$characters item=realm}
@@ -28,21 +28,21 @@
 						<div class="character store_item">
 							<section class="character_buttons">
 								<a href="javascript:void(0)" class="nice_button" onClick="Teleport.selectCharacter(this, {$realm.realmId}, {$character.guid}, '{$character.name}', {$character.money / 10000}, '{$character.race}')">
-									Select
+									{lang("select", "teleport")}
 								</a>
 							</section>
 			
 							<img class="item_icon" width="36" height="36" src="{$url}application/images/avatars/{$character.avatar}.gif" align="absmiddle" data-tip="<img src='{$url}application/images/stats/{$character.class}.gif' align='absbottom'/> {$character.name} (Lv{$character.level})">
 			
 							<a class="character_name" data-tip="<img src='{$url}application/images/stats/{$character.class}.gif' align='absbottom'/> {$character.name} (Lv{$character.level})">{$character.name}</a>
-							<br /><img src="{$url}application/images/icons/coins.png" align="absmiddle"> {floor($character.money / 10000)} gold
+							<br /><img src="{$url}application/images/icons/coins.png" align="absmiddle"> {floor($character.money / 10000)} {lang("gold", "teleport")}
 							<div class="clear"></div>
 						</div>
 					</div>
 				{/foreach}
 			{/foreach}
 		{else}
-			<center style="padding-top:10px;"><b>You have no characters</b></center>
+			<center style="padding-top:10px;"><b>{lang("no_chars", "teleport")}</b></center>
 		{/if}
 	</section>
 	<div class="vertical_divider"></div>
@@ -54,15 +54,15 @@
 						<a href="javascript:void(0)" onClick="Teleport.buy({$location.id}, this)" class="nice_button">
 							{if $location.vpCost}
 								<img src="{$url}application/images/icons/lightning.png" align="absmiddle">
-								{$location.vpCost} VP
+								{$location.vpCost} {lang("vp", "teleport")}
 							{elseif $location.dpCost}
 								<img src="{$url}application/images/icons/coins.png" align="absmiddle">
-								{$location.dpCost} DP
+								{$location.dpCost} {lang("dp", "teleport")}
 							{elseif $location.goldCost}
 								<img src="{$url}application/images/icons/coins.png" align="absmiddle">
-								{$location.goldCost} gold
+								{$location.goldCost} {lang("gold", "teleport")}
 							{else}
-								Free
+								{lang("free", "teleport")}
 							{/if}
 						</a>
 					</section>
@@ -73,7 +73,7 @@
 				</div>
 			{/foreach}
 		{else}
-			<center style="padding-top:10px;"><b>No locations</b></center>
+			<center style="padding-top:10px;"><b>{lang("no_locations", "teleport")}</b></center>
 		{/if}
 	</section>
 

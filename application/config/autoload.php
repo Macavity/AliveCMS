@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('cache', 'database', 'session', 'smarty', 'template', 'realms', 'user');
+$autoload['libraries'] = array('cache', 'database', 'session', 'smarty', 'template', 'language', 'realms', 'acl', 'user', 'logger', 'plugins');
 
 
 /*
@@ -64,7 +64,7 @@ $autoload['libraries'] = array('cache', 'database', 'session', 'smarty', 'templa
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'smiley', 'emulator', 'form', 'text', "portal_helper");
+$autoload['helper'] = array('url', 'smiley', 'emulator', 'form', 'text', 'lang', 'breadcumb', 'permission', 'portal_helper');
 
 
 /*
@@ -80,7 +80,7 @@ $autoload['helper'] = array('url', 'smiley', 'emulator', 'form', 'text', "portal
 |
 */
 
-$autoload['config'] = array('version', 'fusion', 'message');
+$autoload['config'] = array('default_language', 'version', 'acl_defaults', 'fusion', 'message');
 
 
 /*
@@ -109,7 +109,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('cms_model', 'external_account_model', 'internal_user_model');
+$autoload['model'] = array('cms_model', 'external_account_model', 'internal_user_model', 'acl_model');
 
 
 /* End of file autoload.php */

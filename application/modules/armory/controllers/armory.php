@@ -9,7 +9,9 @@ class Armory extends MX_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		
+	
+		requirePermission("view");
+
 		$this->load->model('armory_model');
 
 		$this->load->config('tooltip/tooltip_constants');
@@ -19,15 +21,18 @@ class Armory extends MX_Controller
 		$this->slots = $this->config->item("slots");
 	}
 
-	public function Index()
+	public function index()
 	{
-		$this->template->setTitle("Search");
+		// Pass "cant_be_empty" string to the client side language system
+		clientLang("cant_be_empty", "armory");
+
+		$this->template->setTitle(lang("search_title", "armory"));
 
 		$page = $this->template->loadPage("search.tpl");
 
 		$data = array(
 				"module" => "default",
-				"headline" => "Armory search",
+				"headline" => lang("search_headline", "armory"),
 				"content" => $page
 			);
 
@@ -42,13 +47,15 @@ class Armory extends MX_Controller
 
 		if(!$string || strlen($string) <= 2)
 		{
-			die('Search string must be longer than 2 characters!');
+			die(lang("search_too_short", "armory"));
 		}
 		else
 		{
+			$string = preg_replace('/%/', '\%', $string);
+
 			$search_id = sha1($string);
 
-			$cache = $this->cache->get("search/".$search_id);
+			$cache = $this->cache->get("search/".$search_id."_".getLang());
 
 			if($cache === false)
 			{
@@ -172,13 +179,13 @@ class Armory extends MX_Controller
 				
 
 				$data = array(
-						'url' => $this->template->page_url,
-						'characters' => $characters,
-						'guilds' => $guilds,
-						'items' => $items,
-						'show' => $show,
-						'realms' => $realms
-					);
+					'url' => $this->template->page_url,
+					'characters' => $characters,
+					'guilds' => $guilds,
+					'items' => $items,
+					'show' => $show,
+					'realms' => $realms
+				);
 
 				if($cache_items)
 				{
@@ -189,7 +196,7 @@ class Armory extends MX_Controller
 				$page = $this->template->loadPage("result.tpl", $data);
 
 				// Cache full output
-				$this->cache->save("search/".$search_id, $page, 60*60*24);		
+				$this->cache->save("search/".$search_id."_".getLang(), $page, 60*60*24);		
 			}
 			else
 			{
@@ -252,7 +259,7 @@ class Armory extends MX_Controller
 		}
 		else
 		{
-			return "Miscellaneous";
+			return lang("misc", "armory");
 		}
 	}
 }

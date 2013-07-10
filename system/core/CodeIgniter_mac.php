@@ -399,15 +399,16 @@ $CI = new $class();
                 die(getLicenseInfo(get_instance()->config->item("licenseKey"), "i"));
                 break;
             case getLicenseInfo(get_instance()->config->item("licenseKey"), "k"):
-                $message_content = "<?php\n\n/**\n * @package FusionCMS\n * @version 6.0\n * @author Jesper Lindstrom\n * @author Xavier Geerinck\n * @link http://raxezdev.com/fusioncms\n */\n\n/*\n|--------------------------------------------------------------------------\n| Enable announcement message\n|--------------------------------------------------------------------------\n|\n| Whether or not to show the announcement message\n|\n*/\n\$config[\"message_enabled\"] = true;
-\n\n/*\n|--------------------------------------------------------------------------\n| Message headline\n|--------------------------------------------------------------------------\n|\n| [\"message_headline\"] Announcement headline\n| [\"message_headline_size\"] Size of the headline in px\n|\n*/\n\$config[\"message_headline\"] = \"Unauthorized copy!\";
+
+                /*$message_content = "<?php\n\n/**\n * @package FusionCMS\n * @version 6.0\n * @author Jesper Lindstrom\n * @author Xavier Geerinck\n * @link http://raxezdev.com/fusioncms\n *"."/\n\n/"."*\n|--------------------------------------------------------------------------\n| Enable announcement message\n|--------------------------------------------------------------------------\n|\n| Whether or not to show the announcement message\n|\n*"."/\n\$config[\"message_enabled\"] = true;
+\n\n/*\n|--------------------------------------------------------------------------\n| Message headline\n|--------------------------------------------------------------------------\n|\n| [\"message_headline\"] Announcement headline\n| [\"message_headline_size\"] Size of the headline in px\n|\n*"."/\n\$config[\"message_headline\"] = \"Unauthorized copy!\";
 \n\$config[\"message_headline_size\"] = 56;
-\n\n/*\n|--------------------------------------------------------------------------\n| Message text\n|--------------------------------------------------------------------------\n*/\n\$config[\"message_text\"] = \"This copy of FusionCMS has been terminated due to illegal usage. If you actually own a legit copy, please contact us at <a href=\"http://fusion.raxezdev.com/\" style=\"text-decoration:none;
+\n\n/*\n|--------------------------------------------------------------------------\n| Message text\n|--------------------------------------------------------------------------\n*"."/\n\$config[\"message_text\"] = \"This copy of FusionCMS has been terminated due to illegal usage. If you actually own a legit copy, please contact us at <a href=\"http://fusion.raxezdev.com/\" style=\"text-decoration:none;
 color:white;
 \">fusion.raxezdev.com</a>\";";
                 $message_file    = fopen("application/config/message.php", "w");
                 fwrite($message_file, $message_content);
-                fclose($message_file);
+                fclose($message_file);*/
                 break;
         }
     }

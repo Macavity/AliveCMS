@@ -8,19 +8,19 @@ var Create = {
 
 		if(content.length <= 3)
 		{
-			UI.alert("Message must be longer than 3 characters!");
+			UI.alert(lang("message_limit", "messages"));
 		}
 		else if(title.length <= 0 || title.length > 50)
 		{
-			UI.alert("Title must be between 1-50 characters");
+			UI.alert(lang("title_limit", "messages"));
 		}
 		else if(username.length <= 0)
 		{
-			UI.alert("Recipient can't be empty!");
+			UI.alert(lang("recipient_empty", "messages"));
 		}
 		else if(!/accept\.png/.test($("#pm_username_error").html()))
 		{
-			UI.alert('Invalid recipient!');
+			UI.alert(lang("invalid_recipient", "messages"));
 		}
 		else
 		{
@@ -37,16 +37,11 @@ var Create = {
 						window.location = Config.URL + "messages";
 					}, 1000);
 
-					spot.html('<div style="text-align:center;padding:10px;">Message has been sent! You are being redirected back to <a href="' + Config.URL + 'messages">the inbox</a>...</div>');
+					spot.html('<div style="text-align:center;padding:10px;">' + lang("sent", "messages") + ' <a href="' + Config.URL + 'messages">' + lang("the_inbox", "messages") + '</a>...</div>');
 				}
 				else
 				{
-					setTimeout(function()
-					{
-						window.location.reload(true);
-					}, 1000);
-
-					spot.html('<div style="text-align:center;padding:10px;">Something went wrong, please try again!</div>');
+					spot.html('<div style="text-align:center;padding:10px;">' + lang("error", "messages") + '</div>');
 				}
 			});
 		}
@@ -59,7 +54,7 @@ var Create = {
 		if(element.value.length == 0 || !/^[A-Za-z0-9]*$/.test(element.value))
 		{
 			$("#" + id + "_autocomplete").html('').hide();
-			$("#" + id + "_error").html('<img src="' + Config.URL + 'application/images/icons/exclamation.png" data-tip="Invalid recipient"/>');
+			$("#" + id + "_error").html('<img src="' + Config.URL + 'application/images/icons/exclamation.png" data-tip="' + lang("invalid_recipient", "messages") + '"/>');
 			Tooltip.refresh();
 		}
 		else
@@ -70,7 +65,7 @@ var Create = {
 
 				if(exists == 0)
 				{
-					$("#" + id + "_error").html('<img src="' + Config.URL + 'application/images/icons/exclamation.png" data-tip="Invalid recipient"/>');
+					$("#" + id + "_error").html('<img src="' + Config.URL + 'application/images/icons/exclamation.png" data-tip="' + lang("invalid_recipient", "messages") + '"/>');
 					Tooltip.refresh();
 				}
 				else
@@ -129,7 +124,7 @@ var Create = {
 
 		if(element.value.length == 0)
 		{
-			$("#" + error + "_error").html('<img src="' + Config.URL + 'application/images/icons/exclamation.png" data-tip="Title can\'t be empty!"/>');
+			$("#" + error + "_error").html('<img src="' + Config.URL + 'application/images/icons/exclamation.png" data-tip="' + lang("title_cant_be_empty", "messages") + '"/>');
 			Tooltip.refresh();
 		}
 		else

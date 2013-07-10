@@ -10,22 +10,26 @@ class Admin extends MX_Controller
 		$this->load->helper('tinymce_helper');
 
 		parent::__construct();
+
+		requirePermission("canViewAdmin");
 	}
 
 	public function index()
 	{
 		// Change the title
 		$this->administrator->setTitle("News");
-        
+
 		$articles = $this->news_model->getArticles(true);
 
 		if($articles)
 		{
 			foreach($articles as $key => $value)
 			{
-				if(strlen($value['headline']) > 20)
+				$articles[$key]['headline'] = langColumn($articles[$key]['headline']);
+					
+				if(strlen($articles[$key]['headline']) > 20)
 				{
-					$articles[$key]['headline'] = mb_substr($value['headline'], 0, 20) . '...';
+					$articles[$key]['headline'] = mb_substr($articles[$key]['headline'], 0, 20) . '...';
 				}	
 
 				$articles[$key]['nickname'] = $this->user->getNickname($value['author_id']);
@@ -48,8 +52,14 @@ class Admin extends MX_Controller
 		$this->administrator->view($content, false, "modules/news/js/admin.js");
 	}
 
+	/**
+	 * Edit a news post with the given id.
+	 * @param bool $id
+	 */
 	public function edit($id = false)
 	{
+		requirePermission("canEditArticle");
+
 		if(!$id || !is_numeric($id))
 		{
 			die();
@@ -64,7 +74,7 @@ class Admin extends MX_Controller
 		}
 
 		// Change the title
-		$this->administrator->setTitle($article['headline']);
+		$this->administrator->setTitle(langColumn($article['headline']));
 
 		// Prepare my data
 		$data = array(
@@ -76,7 +86,7 @@ class Admin extends MX_Controller
 		$output = $this->template->loadPage("admin_edit.tpl", $data);
 
 		// Put my view in the main box with a headline
-		$content = $this->administrator->box('<a href="'.$this->template->page_url.'news/admin">News articles</a> &rarr; '.$article['headline'], $output);
+		$content = $this->administrator->box('<a href="'.$this->template->page_url.'news/admin">News articles</a> &rarr; '.langColumn($article['headline']), $output);
 
 		// Output my content. The method accepts the same arguments as template->view
 		$this->administrator->view($content, false, "modules/news/js/admin.js");
@@ -84,6 +94,8 @@ class Admin extends MX_Controller
 
 	public function delete($id = false)
 	{
+		requirePermission("canRemoveArticle");
+
 		if(!$id)
 		{
 			die();
@@ -91,15 +103,21 @@ class Admin extends MX_Controller
 		
 		$this->cache->delete('news_*.cache');
 		$this->news_model->delete($id);
+
+		// Add log
+		$this->logger->createLog('Deleted article', $id);
+
+		$this->plugins->onDelete($id);
 	}
 
 	public function create($id = false)
 	{
+		requirePermission("canAddArticle");
+
 		$headline = $this->input->post('headline');
 		$avatar = $this->input->post('avatar');
 		$comments = $this->input->post('comments');
 		$content = $this->input->post('content');
-        $page = $this->input->post('page');
 
 		if(strlen($headline) > 70 || empty($headline))
 		{
@@ -128,20 +146,24 @@ class Admin extends MX_Controller
 		{
 			$avatar = "";
 		}
-        
-        // Article page
-        if(!in_array($page, array("article", "news")))
-        {
-            $page = "article";
-        }
-        
+
 		if($id)
 		{
-			$this->news_model->update($id, $headline, $avatar, $comments, $content, $page);
+			$this->news_model->update($id, $headline, $avatar, $comments, $content);
+
+			// Add log
+			$this->logger->createLog('Edited article', $headline);
+
+			$this->plugins->onUpdate($id, $headline, $content, $avatar, $comments);
 		}
 		else
 		{
-			$this->news_model->create($headline, $avatar, $comments, $content, $page);
+			$this->news_model->create($headline, $avatar, $comments, $content);
+
+			// Add log
+			$this->logger->createLog('Created article', $headline);
+
+			$this->plugins->onCreate($headline, $content, $avatar, $comments);
 		}
 
 		$this->cache->delete('news_*.cache');

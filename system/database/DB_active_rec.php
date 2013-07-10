@@ -1161,7 +1161,7 @@ class CI_DB_active_record extends CI_DB_driver {
 	 * @return	object
 	 */
 	function insert($table = '', $set = NULL)
-	{
+    {
 		if ( ! is_null($set))
 		{
 			$this->set($set);

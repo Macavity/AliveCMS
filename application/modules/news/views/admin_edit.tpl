@@ -3,21 +3,14 @@
 	<h2>Edit article</h2>
 
 	<form onSubmit="News.send({$article.id}); return false">
-		<label for="headline">Titel</label>
-		<input type="text" id="headline" value="{$article.headline}"/>
+		<label for="headline">Headline</label>
+		<input type="hidden" id="headline" value="{htmlspecialchars($article.headline)}"/>
 		
-		<label for="type">Art</label>
-		<select id="newstype" name="newstype">
-            <option>Bitte wählen</option>
-            <option value="news"{if $article.page == 'news'}selected="selected"{/if}>News</option>
-            <option value="article"{if $article.page == 'article'}selected="selected"{/if}>Artikel</option>
-        </select>
-
-	    <label for="news_content">
-            Content
-        </label>
+		<label for="news_content">
+			Content
+		</label>
 	</form>
-    	<div style="padding:10px;">
+		<div style="padding:10px;">
 			<textarea name="news_content" class="tinymce" id="news_content" cols="30" rows="10">{$article.content}</textarea>
 		</div>
 	<form onSubmit="News.send({$article.id}); return false">
@@ -32,3 +25,10 @@
 		<input type="submit" value="Save article" />
 	</form>
 </section>
+
+<script>
+	require([Config.URL + "application/themes/admin/js/mli.js"], function()
+	{
+		new MultiLanguageInput($("#headline"));
+	});
+</script>

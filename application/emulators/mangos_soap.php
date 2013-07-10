@@ -315,7 +315,7 @@ class Mangos_soap implements Emulator
 	 * @param String $body
 	 * @param Array $items
 	 */
-		public function sendItems($character, $subject, $body, $items)
+	public function sendItems($character, $subject, $body, $items)
 	{
 		$item_command = array();
 		$mail_id = 0;

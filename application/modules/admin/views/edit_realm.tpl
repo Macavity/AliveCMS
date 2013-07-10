@@ -47,18 +47,18 @@
 
 		<label for="emulator">Emulator</label>
 		<select id="emulator" name="emulator">
-			{foreach from=$emulators item=emulator}
-			<option value="{$emulator}" {if $emulator == $realm->getConfig('emulator')}selected{/if}>{strtoupper($emulator)}</option>
+			{foreach from=$emulators key=emu_id item=emu_name}
+			<option value="{$emu_id}" {if $emu_id == $realm->getConfig('emulator')}selected{/if}>{$emu_name}</option>
 			{/foreach}
 		</select>
 
 		<label for="console_port">Console port (only required for emulators that use remote console systems; usually 3443 for RA and 7878 for SOAP)</label>
 		<input type="text" id="console_port" name="console_port" value="{$realm->getConfig('console_port')}"/>
 
-		<label for="console_username">Console username (only required for emulators that use remote console systems)</label>
+		<label for="console_username" data-tip="For an ingame account with GM level high enough to connect to your<br />emulator console remotely (see your emulator's config files for more details)">Console username (only required for emulators that use remote console systems) (?)</label>
 		<input type="text" id="console_username" name="console_username" value="{$realm->getConfig('console_username')}" />
 
-		<label for="console_password">Console password (only required for emulators that use remote console systems)</label>
+		<label for="console_password" data-tip="For an ingame account with GM level high enough to connect to your<br />emulator console remotely (see your emulator's config files for more details)">Console password (only required for emulators that use remote console systems) (?)</label>
 		<input type="text" id="console_password" name="console_password" placeholder="Enter a new password if you want to change it" />
 
 		<input type="submit" value="Save realm" />

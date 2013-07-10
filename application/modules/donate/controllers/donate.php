@@ -8,14 +8,16 @@ class Donate extends MX_Controller
 		parent::__construct();
 		
 		//Make sure that we are logged in
-		$this->user->is_logged_in();
-		
+		$this->user->userArea();
+
 		$this->load->config('donate');
 	}
 	
 	public function index()
 	{
-		$this->template->setTitle("Donate");
+		requirePermission("view");
+
+		$this->template->setTitle(lang("donate_title", "donate"));
 
 		$donate_paypal = $this->config->item('donate_paypal');
 		$donate_paygol = $this->config->item('donate_paygol');
@@ -36,7 +38,7 @@ class Donate extends MX_Controller
 
 		$output = $this->template->loadPage("donate.tpl", $data);
 
-		$this->template->box("<span style='cursor:pointer;' onClick='window.location=\"".$this->template->page_url."ucp\"'>UCP</span> &rarr; Donate panel", $output, true, "modules/donate/css/donate.css", "modules/donate/js/donate.js");
+		$this->template->box("<span style='cursor:pointer;' onClick='window.location=\"".$this->template->page_url."ucp\"'>".lang("ucp")."</span> &rarr; ".lang("donate_panel", "donate"), $output, true, "modules/donate/css/donate.css", "modules/donate/js/donate.js");
 	}
 
 	public function success()
@@ -45,6 +47,6 @@ class Donate extends MX_Controller
 
 		$page = $this->template->loadPage("success.tpl", array('url' => $this->template->page_url));
 
-		$this->template->box("Thanks for your donation!", $page, true);
+		$this->template->box(lang("donate_thanks", "donate"), $page, true);
 	}
 }

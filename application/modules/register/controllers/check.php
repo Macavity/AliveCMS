@@ -4,11 +4,9 @@ class Check extends MX_Controller
 {
 	public function __construct()
 	{
-		//Call the constructor of MX_Controller
 		parent::__construct();
 
-		//make sure that we are not yet logged in
-		Modules::run('login/is_not_logged_in');
+		$this->user->guestArea();
 	}
 	
 	public function username($value = false)

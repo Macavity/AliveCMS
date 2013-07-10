@@ -56,7 +56,7 @@ class Password_recovery_model extends CI_Model
 			if($result[0]['recoverykey'] == $key)
 			{
 				return $result[0]['username'];
-}
+			}
 			else
 			{
 				return false;

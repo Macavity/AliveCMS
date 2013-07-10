@@ -28,9 +28,9 @@
 		{/foreach}
 	</div>
 
-	<a href="javascript:void(0)" onClick="Search.showTab(1, this)" class="search_link {if $show.characters == 'block'}nice_active{/if} nice_button">Characters ({count($characters)})</a>
-	<a href="javascript:void(0)" onClick="Search.showTab(2, this)" class="search_link {if $show.guilds == 'block'}nice_active{/if} nice_button">Guilds ({count($guilds)})</a>
-	<a href="javascript:void(0)" onClick="Search.showTab(3, this)" class="search_link {if $show.items == 'block'}nice_active{/if} nice_button">Items ({count($items)})</a>
+	<a href="javascript:void(0)" onClick="Search.showTab(1, this)" class="search_link {if $show.characters == 'block'}nice_active{/if} nice_button">{lang('characters', 'armory')} ({count($characters)})</a>
+	<a href="javascript:void(0)" onClick="Search.showTab(2, this)" class="search_link {if $show.guilds == 'block'}nice_active{/if} nice_button">{lang('guilds', 'armory')} ({count($guilds)})</a>
+	<a href="javascript:void(0)" onClick="Search.showTab(3, this)" class="search_link {if $show.items == 'block'}nice_active{/if} nice_button">{lang('items', 'armory')} ({count($items)})</a>
 </div>
 
 <div class="ucp_divider"></div>
@@ -49,7 +49,7 @@
 		{/foreach}
 		<div class="clear"></div>
 	{else}
-		<center>No characters found</center>
+		<center>{lang("no_characters_found", "armory")}</center>
 	{/if}
 </div>
 
@@ -57,10 +57,10 @@
 	{if count($guilds) > 0}
 		<table class="nice_table" cellspacing="0" >
 			<tr>
-				<td>Name</td>
-				<td align="center">Members</td>
-				<td>Owner</td>
-				<td>Realm</td>
+				<td>{lang("name", "armory")}</td>
+				<td align="center">{lang("members", "armory")}</td>
+				<td>{lang("owner", "armory")}</td>
+				<td>{lang("realm", "armory")}</td>
 			</tr>
 
 			{foreach from=$guilds item=guild}
@@ -68,14 +68,14 @@
 					<td><a href="{$url}guild/{$guild.realm}/{$guild.id}" data-tip="View guild page">{$guild.name}</a></td>
 					<td align="center">{$guild.members}</td>
 					<td>
-						<a href="{$url}character/{$guild.realm}/{$guild.ownerGuid}" data-tip="View character profile">{$guild.ownerName}</a>
+						<a href="{$url}character/{$guild.realm}/{$guild.ownerGuid}" data-tip="{lang('view_character_profile', 'armory')}">{$guild.ownerName}</a>
 					</td>
 					<td>{$guild.realmName}</td>
 				</tr>
 			{/foreach}
 		</table>
 	{else}
-		<center>No guilds found</center>
+		<center>{lang("no_guilds_found", "armory")}</center>
 	{/if}
 </div>
 
@@ -83,11 +83,11 @@
 	{if count($items) > 0}
 		<table class="nice_table" cellspacing="0">
 			<tr>
-				<td width="30%">Name</td>
-				<td align="center" width="15%">Level</td>
-				<td align="center" width="15%">Required</td>
-				<td width="20%">Type</td>
-				<td width="20%">Realm</td>
+				<td width="30%">{lang("name", "armory")}</td>
+				<td align="center" width="15%">{lang("level", "armory")}</td>
+				<td align="center" width="15%">{lang("required", "armory")}</td>
+				<td width="20%">{lang("type", "armory")}</td>
+				<td width="20%">{lang("realm", "armory")}</td>
 			</tr>
 
 			{foreach from=$items item=item}
@@ -111,6 +111,6 @@
 			{/foreach}
 		</table>
 	{else}
-		<center>No items found</center>
+		<center>{lang("no_items_found", "armory")}</center>
 	{/if}
 </div>

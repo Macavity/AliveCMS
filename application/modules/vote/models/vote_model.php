@@ -3,6 +3,7 @@
 class Vote_model extends CI_Model
 {
 	private $vote_sites;
+
 	/**
 	 * Connect to the database
 	 */
@@ -10,7 +11,8 @@ class Vote_model extends CI_Model
 	{
 		parent::__construct();
 		
-		$this->deleteOld();
+		if($this->config->item('delete_old_votes'))
+			$this->deleteOld();
 
 		//init our vote sites
 		$this->vote_sites = $this->getVoteSites();
@@ -120,16 +122,14 @@ class Vote_model extends CI_Model
 	private function deleteOld()
 	{
 		$time_back = time() - (24 * 60 * 60);
-
-		$this->db->query("DELETE FROM vote_log WHERE `time` < ?", array($time_back));
+		$this->db->query("DELETE FROM vote_log WHERE `time` < (SELECT MAX(hour_interval) * 3600 FROM vote_sites)", array($time_back));
 	}
 
 	public function getNextTime($canVote, $vote_site_id)
 	{
 		if(!$canVote)
 		{
-			//No fake ips....
-			$user_ip = $_SERVER['REMOTE_ADDR'];
+			$user_ip = $this->input->ip_address();
 			
 			$vote_site = $this->getVoteSite($vote_site_id);
 			$time_interval = $vote_site['hour_interval'];
@@ -177,6 +177,8 @@ class Vote_model extends CI_Model
 
 		if($insert)
 		{
+			$this->db->query("UPDATE account_data SET total_votes = total_votes + 1 WHERE id = ?", array($this->user->getId()));
+		
 			//Return true if we voted
 			return true;
 		}
@@ -216,7 +218,7 @@ class Vote_model extends CI_Model
 	public function canVote($vote_site_id)
 	{
 		//Get the user ip
-		$user_ip = $_SERVER['REMOTE_ADDR'];
+		$user_ip = $this->input->ip_address();
 		
 		//Get the vote site
 		$vote_site = $this->getVoteSite($vote_site_id);

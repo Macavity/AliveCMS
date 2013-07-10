@@ -8,7 +8,8 @@
 		<link rel="shortcut icon" href="{$url}application/themes/admin/images/favicon.png" />
 		<link rel="stylesheet" href="{$url}application/themes/admin/css/login.css" type="text/css" />
 
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+		<script src="{if $cdn}//html5shiv.googlecode.com/svn/trunk/html5.js{else}{$url}application/js/html5shiv.js{/if}"></script>
+		<script type="text/javascript" src="{if $cdn}https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js{else}{$url}application/js/jquery.min.js{/if}"></script>
 
 		<script type="text/javascript">
 			function getCookie(c_name)
@@ -21,7 +22,7 @@
 					y = ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
 					x = x.replace(/^\s+|\s+$/g,"");
 					
-					if(x==c_name)
+					if(x == c_name)
 					{
 						return unescape(y);
 					}
@@ -34,7 +35,6 @@
 			};
 		</script>
 
-		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
 		<script src="{$url}application/js/require.js" type="text/javascript" ></script>
 		<script type="text/javascript">
 
@@ -104,7 +104,7 @@
 				<aside id="twitter">
 					<h1>Follow us on Twitter!</h1>
 					<div id="twitter_icon"></div>
-					<a href="http://twitter.com/FCMS6" target="_blank">@FCMS6</a>
+					<a href="http://twitter.com/FusionHub" target="_blank">@FusionHub</a>
 				</aside>
 				<div class="divider"></div>
 				<aside id="html5">

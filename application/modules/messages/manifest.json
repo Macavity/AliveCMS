@@ -6,6 +6,24 @@
 		"name": "FusionCMS",
 		"website": "http://raxezdev.com/fusioncms"
 	},
+
+	"permissions": {
+		"view": {"default" : true, "description": "View the private messages" },
+		"reply": {"default" : true, "description": "Respond to a private message" },
+		"compose": {"default" : true, "description": "Compose a new private message" }
+	},
+
+	"roles": {
+		"use": {
+			"description": "Use the private messaging system",
+
+			"permissions": {
+				"view": true,
+				"reply": true,
+				"compose": true
+			}
+		}
+	},
 	
 	"enabled": true
 }

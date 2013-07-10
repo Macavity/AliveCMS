@@ -6,11 +6,11 @@ var Store = {
 
 		if(group.is(":visible"))
 		{
-			$(field).html('[+]').attr('data-tip', 'Show group');
+			$(field).html('[+]').attr('data-tip', lang("show", "store"));
 		}
 		else
 		{
-			$(field).html('[-]').attr('data-tip', 'Hide group');
+			$(field).html('[-]').attr('data-tip', lang("hide", "store"));
 		}
 
 		group.slideToggle(300);
@@ -27,7 +27,7 @@ var Store = {
 			groups.each(function()
 			{
 				var group = $(this).parent().next('.item_group');
-				$(this).html('[-]').attr('data-tip', 'Hide group');
+				$(this).html('[-]').attr('data-tip', lang("hide", "store"));
 				group.slideDown(300);
 			});
 		}
@@ -38,7 +38,7 @@ var Store = {
 			groups.each(function()
 			{
 				var group = $(this).parent().next('.item_group');
-				$(this).html('[+]').attr('data-tip', 'Show group');
+				$(this).html('[+]').attr('data-tip', lang("show", "store"));
 				group.slideUp(300);
 			});
 		}
@@ -463,7 +463,7 @@ var Store = {
 			{
 				this[priceType] = old;
 
-				UI.alert("You can't afford this!");
+				UI.alert(lang("cant_afford", "store"));
 			}
 			else
 			{
@@ -557,7 +557,7 @@ var Store = {
 						var itemHTML = '<article class="store_item" id="cart_item_' + Store.Cart.count + '">' +
 											'<div class="item_price">' +
 												'<img src="' + Config.URL + 'application/images/icons/' + ((priceType == "vp") ? "lightning" : "coins") + '.png" align="absmiddle" />' +
-												price + ((priceType == "vp") ? " VP" : " DP") +
+												price + " " + ((priceType == "vp") ? lang("vp", "store") : lang("dp", "store")) +
 											'</div>' +
 											'<a href="javascript:void(0)" onClick="Store.Cart.remove(' + id + ', ' + Store.Cart.count + ')" class="delete_item">' +
 												'<img src="' + Config.URL + 'application/images/icons/delete.png" align="absmiddle" />' +
@@ -699,7 +699,7 @@ var Store = {
 				$("#store").fadeOut(150, function()
 				{
 					// Restore the button
-					$(button).removeClass("nice_active").attr("href", "javascript:void(0)").attr("onClick", "Store.Cart.checkout(this)").html("Checkout");
+					$(button).removeClass("nice_active").attr("href", "javascript:void(0)").attr("onClick", "Store.Cart.checkout(this)").html(lang("checkout", "store"));
 
 					// Display the content
 					$("#checkout").html(data).fadeIn(150, function()
@@ -715,7 +715,7 @@ var Store = {
 		 */
 		pay: function()
 		{
-			UI.confirm("Are you sure you want to buy these items?", "Yes", function()
+			UI.confirm(lang("want_to_buy", "store"), lang("yes", "store"), function()
 			{
 				$("[data-id]").attr("data-available", "1");
 
@@ -748,7 +748,18 @@ var Store = {
 						{
 							$("#store_wrapper").fadeOut(150, function()
 							{
-								$("#store_wrapper").html(data).fadeIn(150);
+								$("#store_wrapper").html(data).fadeIn(150, function()
+								{
+									// Reset cart after successful or failed purchase
+									Store.Cart.items= {};
+									Store.Cart.list = [];
+									Store.Cart.vpCost = 0;
+									Store.Cart.dpCost = 0;
+									Store.Cart.count = 0;
+
+									Store.updatePrice();
+									$("#cart_item_count").html('0');
+								});
 							});
 						});
 					})

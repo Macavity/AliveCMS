@@ -23,7 +23,7 @@
 
 			// Example content CSS (should be your site CSS)
 			content_css : "",
-            
+
 			relative_urls : false,
 			remove_script_host : true,
 			document_base_url : "http://cms.wow-alive.de/",

@@ -240,6 +240,26 @@ var Settings = {
 		});
 	},
 
+	savePerformanceSettings: function()
+	{
+		var data = {
+			disable_visitor_graph:$("#disable_visitor_graph").val(),
+			csrf_token_name: Config.CSRF
+		};
+
+		$.post(Config.URL + "admin/settings/savePerformance", data, function(response)
+		{
+			if(response == "yes")
+			{
+				$("#performance_ajax").html('Settings have been saved!');
+			}
+			else
+			{
+				UI.alert(response);
+			}
+		});
+	},
+
 	submitConfig: function(form, moduleName, configName)
 	{
 		var values = {csrf_token_name: Config.CSRF};
@@ -345,5 +365,6 @@ var Settings = {
 				$("#two, #one").hide();
 				$("#three").show();
 			break;
+		}
 	}
-}}
+}

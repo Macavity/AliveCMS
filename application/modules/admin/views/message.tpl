@@ -1,3 +1,4 @@
+{if hasPermission("toggleMessage")}
 <section class="box big">
 	<h2>Message</h2>
 	<span>
@@ -24,6 +25,7 @@
 		<input type="submit" value="Save config" />
 	</form>
 </section>
+{/if}
 
 <section class="box big">
 	<h2>Preview</h2>

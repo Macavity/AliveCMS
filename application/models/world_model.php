@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * @package FusionCMS
+ * @author Jesper Lindström
+ * @author Xavier Geerinck
+ * @author Elliott Robbins
+ * @link http://raxezdev.com/fusioncms
+ */
+
 class World_model
 {
 	private $db;

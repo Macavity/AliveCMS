@@ -1,20 +1,25 @@
 <?php
+
 /**
  * @package FusionCMS
- * @version 6.0
  * @author Jesper Lindström
  * @author Xavier Geerinck
+ * @author Elliott Robbins
  * @link http://raxezdev.com/fusioncms
  */
+
 class Cache
 {
 	private $runtimeCache;
 	private $enabled;
+	private $CI;
 
 	public function __construct()
 	{
+		$this->CI = &get_instance();
+
 		$this->runtimeCache = array();
-		$this->enabled = &get_instance()->config->item('cache');
+		$this->enabled = $this->CI->config->item('cache');
 		
 		$this->createFolders();
 	}
@@ -67,6 +72,7 @@ class Cache
 	/**
 	 * Get cached data by name
 	 * @param String $name
+	 * @param Boolean $useLanguage
 	 * @return Mixed
 	 */
 	public function get($name)

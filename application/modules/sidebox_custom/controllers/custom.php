@@ -1,8 +1,7 @@
 <?php
 
-class Custom extends MX_Controller implements Sidebox
+class Custom extends MX_Controller
 {
-	//The sidebox id.
 	private $id;
 	
 	public function __construct($id)
@@ -15,9 +14,10 @@ class Custom extends MX_Controller implements Sidebox
 	
 	public function view()
 	{
-		//Get the custom data
-		$data = $this->custom_model->getCustomData($this->id);	
-		//Return the custom data
-		return $data['content'];
+		// Get the custom data
+		$data = $this->custom_model->getCustomData($this->id);
+
+		// Return the custom data
+		return langColumn($data['content']);
 	}
 }

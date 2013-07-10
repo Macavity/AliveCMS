@@ -16,7 +16,10 @@ class Create extends MX_Controller
 		$this->load->library('fusioneditor');
 
 		// Make sure they are logged in
-		$this->user->is_logged_in();
+		$this->user->userArea();
+
+		requirePermission("view");
+		requirePermission("compose");
 
 		$this->removeTools = array("size", "image", "color", "left", "center", "right", "html");
 	}
@@ -27,7 +30,17 @@ class Create extends MX_Controller
 	 */
 	public function index($username = false)
 	{
-		$this->template->setTitle("Compose");
+		// Pass some language strings to the client
+		clientLang("message_limit", "messages");
+		clientLang("title_limit", "messages");
+		clientLang("recipient_empty", "messages");
+		clientLang("invalid_recipient", "messages");
+		clientLang("sent", "messages");
+		clientLang("the_inbox", "messages");
+		clientLang("error", "messages");
+		clientLang("title_cant_be_empty", "messages");
+
+		$this->template->setTitle(lang("compose", "messages"));
 		
 		// Load the create view
 		$data = array(
@@ -41,7 +54,7 @@ class Create extends MX_Controller
 		// Define our box values
 		$page_data = array(
 				"module" => "default", 
-				"headline" => "<span style='cursor:pointer;' onClick='window.location=\"".$this->template->page_url."messages\"'>Messages</span> &rarr; Compose", 
+				"headline" => "<span style='cursor:pointer;' onClick='window.location=\"".$this->template->page_url."messages\"'>".lang("messages", "messages")."</span> &rarr; ".lang("compose", "messages"), 
 				"content" => $content
 			);
 
@@ -61,7 +74,7 @@ class Create extends MX_Controller
 		// Username must be set
 		if($username == false)
 		{
-			die();
+			die("no username");
 		}
 
 		$content = $this->input->post('content');
@@ -70,7 +83,7 @@ class Create extends MX_Controller
 		// Message must be set and more than 3 characters
 		if(!$content || strlen($content) <= 3)
 		{
-			die();
+			die("content length");
 		}
 
 		$user_id = $this->internal_user_model->getIdByNickname($username);
@@ -78,12 +91,12 @@ class Create extends MX_Controller
 		// You can't send it to yourself
 		if($user_id == $this->user->getId())
 		{
-			die();
+			die("yourself");
 		}
 
 		if(empty($user_id))
 		{
-			die();
+			die("invalid user");
 		}
 		
 		// Compile it into BBcode
@@ -91,6 +104,8 @@ class Create extends MX_Controller
 
 		// Add it to the database
 		$this->create_model->insertMessage($user_id, $this->user->getId(), $title, $content);
+
+		$this->plugins->onCreate($user_id, $this->user->getId(), $title, $content);
 		
 		// Clear the sender and receiver's PM cache
 		$this->cache->delete('messages/'.$user_id."_*");

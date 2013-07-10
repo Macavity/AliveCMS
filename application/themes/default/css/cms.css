@@ -441,6 +441,7 @@ textarea:focus {
 /* =========== CMS: shout box =========== */
 #left #shoutbox textarea {
 	width:92%;
+	max-width:92%;
 	height:20px;
 }
 

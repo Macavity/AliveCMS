@@ -9,6 +9,8 @@ class Admin extends MX_Controller
 		$this->load->model('poll_model');
 
 		parent::__construct();
+
+		requirePermission("canViewAdmin", "sidebox_poll");
 	}
 
 	public function index()
@@ -56,6 +58,9 @@ class Admin extends MX_Controller
 
 	public function create()
 	{
+		// Check for the permission
+		requirePermission("createPoll", "sidebox_poll");
+
 		$data["question"] = $this->input->post("question");
 		
 		$answers = array();
@@ -75,16 +80,29 @@ class Admin extends MX_Controller
 
 		$this->poll_model->add($data, $answers);
 
+		// Add log
+		$this->logger->createLog('Created poll', $data["question"]);
+
+		$this->plugins->onCreatePoll($id, $data['question'], $answers);
+
 		die('window.location.reload(true)');
 	}
 
 	public function delete($id = false)
 	{
+		// Check for the permission
+		requirePermission("removePoll", "sidebox_poll");
+
 		if(!$id || !is_numeric($id))
 		{
 			die();
 		}
 
 		$this->poll_model->delete($id);
+
+		// Add log
+		$this->logger->createLog('Removed poll', $id);
+
+		$this->plugins->onDeletePoll($id);
 	}
 }

@@ -19,7 +19,7 @@ var Settings = {
 		{
 			if(Settings.canSubmit)
 			{
-				UI.alert("Passwords doesn't match!");
+				UI.alert(lang("pw_doesnt_match", "ucp"));
 				Settings.canSubmit = false;
 			}
 		}
@@ -46,13 +46,13 @@ var Settings = {
 			{
 				if(/yes/.test(data))
 				{
-					$("#settings_ajax").html("Changes have been saved!");
+					$("#settings_ajax").html(lang("changes_saved", "ucp"));
 				}
 				else if(/no/.test(data))
 				{
 					$("#settings_ajax").html('');
 
-					UI.alert("Incorrect password!");
+					UI.alert(lang("invalid_pw", "ucp"));
 
 					Settings.wrongPassword = $("#old_password").val();
 				}
@@ -67,15 +67,25 @@ var Settings = {
 	submitInfo: function()
 	{
 		var value = $("#nickname_field").val(),
-			loc = $("#location_field").val();
+			loc = $("#location_field").val(),
+			language;
+
+		if($("#language_field"))
+		{
+			language = $("#language_field").val();
+		}
+		else
+		{
+			language = 0;
+		}
 
 		if(value.length < 4 || value.length > 14)
 		{
-			UI.alert("Nickname must be between 4 and 14 characters long")
+			UI.alert(lang("nickname_error"));
 		}
 		else if(loc.length > 14)
 		{
-			UI.alert("Location may only be up to 14 characters long")
+			UI.alert(lang("location_error"));
 		}
 		else
 		{
@@ -87,18 +97,29 @@ var Settings = {
 			{
 				nickname: value,
 				location: loc,
+				language: language,
 				csrf_token_name: Config.CSRF
 			},
 			function(data)
 			{
 				if(/1/.test(data))
 				{
-					$("#settings_info_ajax").html("Changes have been saved!");
+					$("#settings_info_ajax").html(lang("changes_saved", "ucp"));
+
+					if(language)
+					{
+						window.location.reload(true);
+					}
 				}
 				else if(/2/.test(data))
 				{
 					$("#settings_info_ajax").html('');
-					UI.alert("Nickname is already taken");
+					UI.alert(lang("nickname_taken", "ucp"));
+				}
+				else if(/3/.test(data))
+				{
+					$("#settings_info_ajax").html('');
+					UI.alert(lang("invalid_language", "ucp"));
 				}
 				else
 				{

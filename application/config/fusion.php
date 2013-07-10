@@ -13,7 +13,7 @@
 | License key
 |--------------------------------------------------------------------------
 */
-$config['licenseKey'] = "rlWxV-wbvq2-93YJS-fnKMy-YzEyV-vjvnF-V6VwZ-0AlVf-VzfvB-vWxMT-R4BTS-yZmZj-MGHmL-GVvsD-==";
+$config['licenseKey'] = false;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,10 +37,20 @@ $config['theme'] = "shattered";
 
 /*
 |--------------------------------------------------------------------------
+| Deployment Stage
+|--------------------------------------------------------------------------
+|
+| development / production
+|
+*/
+$config['deployment_stage'] = "development";
+
+/*
+|--------------------------------------------------------------------------
 | Website title
 |--------------------------------------------------------------------------
 */
-$config['title'] = "WoW Alive Portal";
+$config['title'] = "WoW Alive";
 
 /*
 |--------------------------------------------------------------------------
@@ -93,7 +103,7 @@ $config['has_smtp'] = 1;
 | WoTLK and Cataclysm.
 |
 */
-$config['disabled_expansions'] = array(3);
+$config['disabled_expansions'] = array();
 
 /*
 |--------------------------------------------------------------------------
@@ -148,8 +158,8 @@ $config['slider_style'] = false;
 |
 */
 $config['vote_reminder'] = 0;
-$config['vote_reminder_image'] = "/application/images/misc/banner.jpg";
-$config['reminder_interval'] = 108000;
+$config['vote_reminder_image'] = "/images/misc/banner.jpg";
+$config['reminder_interval'] = 60 * 60 * 12;
 
 /*
 |--------------------------------------------------------------------------
@@ -160,8 +170,8 @@ $config['reminder_interval'] = 108000;
 | ['description'] Brief description of your site
 |
 */
-$config['keywords'] = "alive, wow alive, 4life, wow4life, wow, world of warcraft, private server, privatserver";
-$config['description'] = "WoW Alive";
+$config['keywords'] = "alive, 4life, world of warcraft, wow, private server, privatserver, wotlk, cata";
+$config['description'] = "WoW Alive der World of Warcraft Privatserver mit WotLK und Cata Realm";
 
 /*
 |--------------------------------------------------------------------------
@@ -173,7 +183,7 @@ $config['description'] = "WoW Alive";
 | the website won't load since it relies on those libraries.
 |
 */
-$config['cdn'] = 1;
+$config['cdn'] = false;
 
 /*
 |--------------------------------------------------------------------------
@@ -212,7 +222,10 @@ $config['smiley_path'] = "application/images/emoticons/";
 | Example: UA-XXXXXXXX-1, format may differ
 |
 */
-// For live use: UA-15760448-1
+/*
+ * For live use: UA-15760448-1
+ * @alive
+*/
 $config['analytics'] = false;
 
 /*
@@ -225,44 +238,3 @@ $config['analytics'] = false;
 |
 */
 $config['cache'] = false;
-
-/*
-|--------------------------------------------------------------------------
-| Ask for permission to use cookies
-|--------------------------------------------------------------------------
-|
-| Due to this retarded EU cookie law: http://www.youtube.com/watch?v=arWJA0jVPAc
-| people may want to ask their users for permission to store cookies
-|
-*/
-$config['cookie_law'] = true;
-
-/*
-|--------------------------------------------------------------------------
-| DEVELOPER CONFIGS (don't touch if you don't know what you're doing)
-|--------------------------------------------------------------------------
-*/
-
-/*
-|--------------------------------------------------------------------------
-| Guest Rank
-|--------------------------------------------------------------------------
-|
-| ['default_guest_rank'] This defines the gmlevel of the guest rank.
-| ['default_guest_id'] This defines the rank ID (see ranks table) of the guest rank
-|
-*/
-$config['default_guest_rank'] = -1;
-$config['default_guest_id'] = 1;
-
-/*
-|--------------------------------------------------------------------------
-| Player Rank
-|--------------------------------------------------------------------------
-|
-| ['default_player_rank'] This defines the gmlevel of the player rank.
-| ['default_player_id'] This defines the rank ID (see ranks table) of the player rank
-|
-*/
-$config['default_player_rank'] = 0;
-$config['default_player_id'] = 2;

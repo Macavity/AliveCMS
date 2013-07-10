@@ -8,12 +8,13 @@ class Settings extends MX_Controller
 		$this->load->library('administrator');
 
 		parent::__construct();
-
-		$this->administrator->requireOwner();
-
+		
 		$this->load->config('smtp');
+		$this->load->config('performance');
 
 		require_once('application/libraries/configeditor.php');
+
+		requirePermission("editSystemSettings");
 	}
 
 	public function index()
@@ -31,9 +32,13 @@ class Settings extends MX_Controller
 		$config['vote_reminder'] = $this->config->item('vote_reminder');
 		$config['vote_reminder_image'] = $this->config->item('vote_reminder_image');
 		$config['reminder_interval'] = $this->config->item('reminder_interval');
-		$config['cdn'] = $this->config->item('cdn');
 		$config['has_smtp'] = $this->config->item('has_smtp');
+		$config['cdn'] = $this->config->item('cdn');
 
+		// Performance
+		$config['disable_visitor_graph'] = $this->config->item('disable_visitor_graph');
+
+		// SMTP
 		$smtp['use_own_smtp_settings'] = $this->config->item('use_own_smtp_settings');
 		$smtp['smtp_host'] = $this->config->item('smtp_host');
 		$smtp['smtp_user'] = $this->config->item('smtp_user');
@@ -61,20 +66,9 @@ class Settings extends MX_Controller
 
 	private function getEmulators()
 	{
-		$emulators = glob("application/emulators/*");
-		$emulatorArr = array();
+		require("application/config/emulator_names.php");
 
-		foreach($emulators as $key => $value)
-		{
-			$value = preg_replace("/application\/emulators\/([A-Za-z0-9_-]*)\.php/", "$1", $value);
-
-			if(!preg_match("/index\.html/", $value))
-			{
-				array_push($emulatorArr, $value);
-			}
-		}
-
-		return $emulatorArr;
+		return $emulators;
 	}
 
 	public function saveWebsite()
@@ -113,6 +107,17 @@ class Settings extends MX_Controller
 		}
 
 		$fusionConfig->set('disabled_expansions', $disabled_expansions);
+		
+		$fusionConfig->save();
+
+		die('yes');
+	}
+
+	public function savePerformance()
+	{
+		$fusionConfig = new ConfigEditor("application/config/performance.php");
+
+		$fusionConfig->set('disable_visitor_graph', $this->input->post('disable_visitor_graph'));
 		
 		$fusionConfig->save();
 

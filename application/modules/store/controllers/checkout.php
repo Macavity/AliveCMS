@@ -8,9 +8,13 @@ class Checkout extends MX_Controller
 
 	public function __construct()
 	{
-		$this->user->is_logged_in();
+		parent::__construct();
+		
+		$this->user->userArea();
 
 		$this->load->model("store_model");
+
+		requirePermission("view");
 	}
 
 	/**
@@ -67,7 +71,7 @@ class Checkout extends MX_Controller
 				}
 				else
 				{
-					die("You can't buy items that cost 0 VP or DP.");
+					die(lang("free_items", "store"));
 				}
 			}
 

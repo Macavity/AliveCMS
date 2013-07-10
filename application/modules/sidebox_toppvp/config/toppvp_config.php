@@ -8,7 +8,7 @@ $config['pvp_players'] = 5;
 /**
  * Realms to display
  */
-$config['pvp_realms'] = array(); 
+$config['pvp_realms'] = array(1); 
 
 /**
  * Whether or not to display race icon

@@ -33,6 +33,8 @@ class Menu_model extends CI_Model
 	
 	public function delete($id)
 	{
+		$this->deletePermission($id);
+
 		if($this->db->query("DELETE FROM menu WHERE id = ?", array($id)))
 		{
 			return true;
@@ -49,15 +51,14 @@ class Menu_model extends CI_Model
 		$this->db->update('menu', $data);
 	}
 	
-	public function add($name, $link, $side, $rank, $specific_rank, $direct_link)
+	public function add($name, $link, $side, $direct_link)
 	{
 		$data = array(
 			"name" => $name,
 			"link" => $link,
 			"side" => $side,
-			"rank" => $rank,
-			"specific_rank" => $specific_rank,
-			"direct_link" => $direct_link
+			"direct_link" => $direct_link,
+			"rank" => $this->cms_model->getAnyOldRank()
 		);
 
 		$this->db->insert("menu", $data);
@@ -66,11 +67,42 @@ class Menu_model extends CI_Model
 		$row = $query->result_array();
 
 		$this->db->query("UPDATE menu SET `order`=? WHERE id=?", array($row[0]['id'], $row[0]['id']));
+
+		return $row[0]['id'];
+	}
+
+	public function setPermission($id)
+	{
+		$this->db->query("UPDATE menu SET `permission`=? WHERE id=?", array($id, $id));
+		$this->db->query("INSERT INTO acl_roles(`name`, `module`) VALUES(?, '--MENU--')", array($id));
+		$this->db->query("INSERT INTO acl_roles_permissions(`role_name`, `permission_name`, `module`, `value`) VALUES(?, ?, '--MENU--', 1)", array($id, $id));
+	}
+
+	public function deletePermission($id)
+	{
+		$this->db->query("UPDATE menu SET `permission`='' WHERE id=?", array($id));
+		$this->db->query("DELETE FROM acl_roles WHERE module='--MENU--' AND name=?", array($id));
+	}
+
+	public function hasPermission($id)
+	{
+		$query = $this->db->query("SELECT `permission` FROM menu WHERE id=?", array($id));
+		
+		if($query->num_rows() > 0)
+		{
+			$result = $query->result_array();
+			
+			return $result[0]['permission'];
+		}
+		else 
+		{
+			return false;
+		}
 	}
 
 	public function getPages()
 	{
-		$this->db->select('id,name,identifier')->from('pages')->order_by('id', 'desc');
+		$this->db->select('id, name, identifier')->from('pages')->order_by('id', 'desc');
 		$query = $this->db->get();
 			
 		if($query->num_rows() > 0)

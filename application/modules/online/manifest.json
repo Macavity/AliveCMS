@@ -6,6 +6,20 @@
 		"name": "FusionCMS",
 		"website": "http://raxezdev.com/fusioncms"
 	},
+
+	"permissions": {
+		"view": { "default": true, "description": "View the online players page" }
+	},
+
+	"roles": {
+		"view": {
+			"description": "View the online players page",
+
+			"permissions": {
+				"view": true
+			}
+		}
+	},
 	
 	"enabled": true
 }

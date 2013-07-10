@@ -22,11 +22,11 @@ var Messages = {
 	{
 		UI.confirm("Empty inbox?", "Yes", function()
 		{
-			$("#pm_inbox").html('<div style="text-align:center;padding:10px;">Deleting...</div>');
+			$("#pm_inbox").html('<div style="text-align:center;padding:10px;">' + lang("deleting", "messages") + '...</div>');
 
 			$.get(Config.URL + "messages/clear", function()
 			{
-				$("#pm_inbox").html('<div style="text-align:center;padding:10px;">You have no messages.</div>');
+				$("#pm_inbox").html('<div style="text-align:center;padding:10px;">' + lang("no_messages", "messages") + '.</div>');
 			});
 		});
 	},
@@ -35,11 +35,11 @@ var Messages = {
 	{
 		UI.confirm("Empty sent?", "Yes", function()
 		{
-			$("#pm_sent").html('<div style="text-align:center;padding:10px;">Deleting...</div>');
+			$("#pm_sent").html('<div style="text-align:center;padding:10px;">' + lang("deleting", "messages") + '...</div>');
 
 			$.get(Config.URL + "messages/clearSent", function()
 			{
-				$("#pm_sent").html('<div style="text-align:center;padding:10px;">You have no messages.</div>');
+				$("#pm_sent").html('<div style="text-align:center;padding:10px;">' + lang("no_messages", "messages") + '.</div>');
 			});
 		});
 	}

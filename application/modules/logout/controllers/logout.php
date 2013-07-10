@@ -7,8 +7,7 @@ class Logout extends MX_Controller
 		//Call the constructor of MX_Controller
 		parent::__construct();
 		
-		//make sure that we are logged in
-		Modules::run('login/is_logged_in');
+		$this->user->userArea();
 		
 		$this->load->helper('cookie');
 	}
@@ -22,6 +21,8 @@ class Logout extends MX_Controller
 		delete_cookie("fcms_password");
 
 		$this->session->sess_destroy();
+
+		$this->plugins->onLogout();
 
 		redirect($this->template->page_url);
 	}

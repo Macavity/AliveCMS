@@ -54,7 +54,6 @@ p {
 </style>
 </head>
 <body>
-    <!-- Standard 404 -->
 	<div id="container">
 		<h1><?php echo $heading; ?></h1>
 		<?php echo $message; ?>

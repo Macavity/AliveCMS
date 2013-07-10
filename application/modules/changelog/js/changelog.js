@@ -18,7 +18,7 @@ var Changelog = {
 									'<td><a>' + typeText + '</a></td>' +
 								'</tr>';
 				var dateHTML = '<tr id="my_date">' +
-									'<td><div class="changelog_info">Changes made on ' + dateText + '</div></td>' +
+									'<td><div class="changelog_info">' + lang("changes_made_on", "changelog") + ' ' + dateText + '</div></td>' +
 								'</tr>';
 				var changeHTML = '<tr>' +
 									'<td><a href="' + Config.URL + 'changelog/remove/' + id + '" style="display:inline !important;margin:0px !important;"><img src="' + Config.URL + 'application/images/icons/delete.png" align="absmiddle" /></a> &nbsp;' + changeText + '</td>' +

@@ -17,8 +17,10 @@ var Router = {
 			$("a[href*='" + Config.URL + "']").each(function()
 			{
 				// Make sure it has not been assigned already
-				if(typeof $(this).data('events') == "undefined" && $(this).attr("target") != "_blank")
+				if(!$(this).attr('data-hasEvent') && $(this).attr("target") != "_blank")
 				{
+					$(this).attr('data-hasEvent', '1');
+					
 					// Add the event listener
 					$(this).click(function(event)
 					{
@@ -74,7 +76,7 @@ var Router = {
 		else
 		{
 			// Load the page
-			$.get(link, { is_json_ajax: "1" }, function(data)
+			$.get(link, { is_json_ajax: "1", is_acp: "1" }, function(data)
 			{
 				if(Router.page == link)
 				{

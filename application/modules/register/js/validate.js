@@ -59,13 +59,13 @@ var Validate = {
 		// Length check
 		if(value.length < 4 || value.length > 32)
 		{
-			this.invalid(field_name, "Username must be between 4 and 32 characters long");
+			this.invalid(field_name, lang("username_limit_length", "register"));
 		}
 
 		// Alpha-numeric check
 		else if(!/^[a-z0-9]+$/i.test(value))
 		{
-			this.invalid(field_name, "Username may only contain alphabetical and numerical characters");
+			this.invalid(field_name, lang("username_limit", "register"));
 		}
 
 		// Availability check
@@ -82,7 +82,7 @@ var Validate = {
 				}
 				else
 				{
-					Validate.invalid(field_name, "Username is not available");
+					Validate.invalid(field_name, lang("username_not_available", "register"));
 				}
 			});
 		}
@@ -100,7 +100,7 @@ var Validate = {
 		// Email check
 		if(!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(value))
 		{
-			this.invalid(field_name, "Email must be a valid email");
+			this.invalid(field_name, lang("email_invalid", "register"));
 		}
 
 		// Availability check
@@ -117,7 +117,7 @@ var Validate = {
 				}
 				else
 				{
-					Validate.invalid(field_name, "Email is not available");
+					Validate.invalid(field_name, lang("email_not_available", "register"));
 				}
 			});
 		}
@@ -134,7 +134,7 @@ var Validate = {
 
 		if(value.length < 6)
 		{
-			this.invalid(field_name, "Password must be longer than 6 characters");
+			this.invalid(field_name, lang("password_short", "register"));
 		}
 		else
 		{
@@ -153,7 +153,7 @@ var Validate = {
 
 		if(value !== $("#register_password").val())
 		{
-			this.invalid(field_name, "Passwords doesn't match");
+			this.invalid(field_name, lang("password_match", "register"));
 		}
 		else
 		{

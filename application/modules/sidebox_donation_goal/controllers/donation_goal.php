@@ -1,6 +1,6 @@
 <?php
 
-class Donation_goal extends CI_Controller implements Sidebox
+class Donation_goal extends MX_Controller
 {
 	private $db;
 	

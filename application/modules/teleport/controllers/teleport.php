@@ -9,17 +9,16 @@ class Teleport extends MX_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		
-		//Make sure that we are logged in
-		$this->user->is_logged_in();
-		
+
+		$this->user->userArea();
+
 		//Load the models
 		$this->load->model('teleport_model');
-		
+
 		//Init the variables
 		$this->init();
-	}	
-	
+	}
+
 	/**
 	 * Init every variable
 	 */
@@ -62,8 +61,19 @@ class Teleport extends MX_Controller
 	 */
 	public function index()
 	{
+		requirePermission("view");
+
+		clientLang("cant_afford", "teleport");
+		clientLang("select", "teleport");
+		clientLang("selected", "teleport");
+		clientLang("teleported", "teleport");
+		clientLang("vp", "teleport");
+		clientLang("dp", "teleport");
+		clientLang("gold", "teleport");
+		clientLang("free", "teleport");
+		
 		//Set the title to teleport locations
-		$this->template->setTitle("Teleport hub");
+		$this->template->setTitle(lang("teleport_hub", "teleport"));
 			
 		//Load the content
 		$content_data = array(
@@ -80,7 +90,7 @@ class Teleport extends MX_Controller
 		//Load the page
 		$page_data = array(
 			"module" => "default", 
-			"headline" => "<span style='cursor:pointer;' onClick='window.location=\"".$this->template->page_url."ucp\"'>UCP</span> &rarr; Teleport hub", 
+			"headline" => "<span style='cursor:pointer;' onClick='window.location=\"".$this->template->page_url."ucp\"'>".lang("ucp")."</span> &rarr; ".lang("teleport_hub", "teleport"), 
 			"content" => $page_content
 		);
 		
@@ -125,36 +135,48 @@ class Teleport extends MX_Controller
 						$this->user->setVp($this->user->getVp() - $teleport_exists['vpCost']);
 						$this->user->setDp($this->user->getDp() - $teleport_exists['dpCost']);
 						$realmConnection->setGold($this->user->getId(), $characterGuid, ($realmConnection->getGold($this->user->getId(), $characterGuid) - ($teleport_exists['goldCost']*100*100)));
-						
+
 						//Change the location of our user 
 						//Array ( [0] => Array ( [id] => 1 [teleport_name] => Elwynn Forest [x] => -9055.14 [y] => 342.213 [z] => 94.2731 [orientation] => 2.88417 [MapId] => 0 ) ) 1
-		
-						$this->teleport_model->setLocation($location['x'], $location['y'], $location['z'], $location['orientation'], $location['mapId'], $characterGuid, $realmConnection->getConnection());	
-		
+
+						$this->teleport_model->setLocation($location['x'], $location['y'], $location['z'], $location['orientation'], $location['mapId'], $characterGuid, $realmConnection->getConnection());
+
+						$this->plugins->onTeleport($this->user->getId(), $characterGuid, $teleport_exists['vpCost'], $teleport_exists['dpCost'], $teleport_exists['goldCost'], $location['x'], $location['y'], $location['z'], $location['orientation'], $location['mapId']);
+
 						die("1");
 					}
 					else 
 					{
-						die("You can't afford this!");
+						die(lang("cant_afford", "teleport"));
 					}
 				}
 				else
 				{
-					die("The character must be offline!");
+					die(lang("must_be_offline", "teleport"));
 				}
 			}
 			else
 			{
-				die("The location you selected does not exist!");
+				die(lang("doesnt_exist", "teleport"));
 			}
 		}
 		else
 		{
-			die("The teleport location was not set!");
+			die(lang("no_location", "teleport"));
 		}
 	}
 
-	public function canPay($currentVp, $currentDp, $currentGold, $requiredVp, $requiredDp, $requiredGold)
+    /**
+     * Can they pay for this teleport?
+     * @param $currentVp
+     * @param $currentDp
+     * @param $currentGold
+     * @param $requiredVp
+     * @param $requiredDp
+     * @param $requiredGold
+     * @return bool
+     */
+    public function canPay($currentVp, $currentDp, $currentGold, $requiredVp, $requiredDp, $requiredGold)
 	{
 		//check if we can pay
 		if(($currentVp >= $requiredVp) && ($currentDp >= $requiredDp) && ($currentGold >= $requiredGold))

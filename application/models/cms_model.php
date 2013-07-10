@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * @package FusionCMS
+ * @author Jesper Lindström
+ * @author Xavier Geerinck
+ * @author Elliott Robbins
+ * @link http://raxezdev.com/fusioncms
+ */
+
 class Cms_model extends CI_Model
 {
 	private $db;
@@ -21,7 +29,7 @@ class Cms_model extends CI_Model
 	{
 		if(!$this->input->is_ajax_request() && !isset($_GET['is_json_ajax']))
 		{
-			$this->db->query("INSERT INTO visitor_log(`date`, `ip`) VALUES(?, ?)", array(date("Y-m-d"), $_SERVER['REMOTE_ADDR']));
+			$this->db->query("INSERT INTO visitor_log(`date`, `ip`) VALUES(?, ?)", array(date("Y-m-d"), $this->input->ip_address()));
 		}
 
 		$session = array(
@@ -68,41 +76,58 @@ class Cms_model extends CI_Model
 	{
 		$this->db->query("DELETE FROM ci_sessions WHERE last_activity < ?", array(time() - 60*60));
 	}
-	
+
+	public function getModuleConfigKey($moduleId, $key)
+	{
+		$query = $this->db->query("SELECT m.id, m.module_id, m.key, m.value, m.date_added, m.date_changed FROM modules_configs m WHERE m.module_id = ? AND m.key = ?", array((int)$moduleId, (string)$key));
+
+		// Return results
+		if($query->num_rows() > 0)
+		{
+			$result = $query->result_array();
+
+			return $result[0];
+		}
+
+		return null;
+	}
+
     /**
      * Returns all sideboxes for a specific (or default for all) pages
+     * Heavily modified by Macavity
+     * @alive
      * @param String $controller
-     * @param String $method 
+     * @param String $method
      */
-	public function getSideboxes($controller = "all", $method = "*"){
-        //debug("loadSideboxes for $controller/$method");
-        
+    public function getSideboxes($controller = "all", $method = "*")
+    {
+
         $page = $controller."/".$method;
         $pageWildcard = $controller."/*";
 
-	    // Get all sideboxes
-        $query = $this->db->query("SELECT * FROM sideboxes ORDER BY `order` ASC");
-        
         $matchingSideboxes = array();
-        
+
+        $query = $this->db->query("SELECT * FROM sideboxes ORDER BY `order` ASC");
+        $allSideboxes = $query->result_array();
+
         if($controller != "all"){
-            foreach($query->result_array() as $row){
-                
+            foreach($allSideboxes as $row){
+
                 $row["page"] = str_replace("; ", ";", $row["page"]);
                 $onPages = explode(";", $row["page"]);
-                
+
                 if( in_array($page, $onPages) || in_array($pageWildcard, $onPages)){
                     $matchingSideboxes[] = $row;
                 }
-                
-            }   
+
+            }
         }
         else{
-            $matchingSideboxes = $query->result_array();
+            $matchingSideboxes = $allSideboxes;
         }
-        
+
         return $matchingSideboxes;
-	}
+    }
 
 	/**
 	 * Load the slider images
@@ -111,9 +136,13 @@ class Cms_model extends CI_Model
 	public function getSlides()
 	{
 		$query = $this->db->query("SELECT * FROM image_slider ORDER BY `order` ASC");
-		$result = $query->result_array();
 
-		return $result;
+		if($query->num_rows() > 0)
+		{
+			return $query->result_array();
+		}
+
+		return null;
 	}
 
 	/**
@@ -123,89 +152,88 @@ class Cms_model extends CI_Model
 	 */
 	public function getLinks($side = "top")
 	{
-		//Get the rank of our user
-		$rank = $this->user->getRank();
+		if(in_array($side, array("top", "side")))
+		{
+			$query = $this->db->query("SELECT * FROM menu WHERE side = ? ORDER BY `order` ASC", array($side));
+		}
+		else
+		{
+			$query = $this->db->query("SELECT * FROM menu ORDER BY `order` ASC", array($side));
+		}
 
-		//Get the menu for the rank that we give + the specified rank
-		$query = $this->db->query("SELECT * FROM menu WHERE side = ? AND ((rank <= ? AND specific_rank = 0) OR specific_rank = ?) ORDER BY `order` ASC", array($side, $rank, $rank));
-
-		//check if we got results
 		if($query->num_rows() > 0)
 		{
 			return $query->result_array();
 		}
-		else 
-		{
-			return array();	
-		}
-	}
 
-	/**
-	 * Get the id and rank_name of all ranks
-	 * @return Array
-	 */
-	public function getRanks()
-	{
-		$query = $this->db->query("SELECT id, rank_name FROM ranks ORDER BY id ASC");
-		
-		if($query->num_rows() > 0)
-		{
-			return $query->result_array();
-		}
-		else
-		{
-			return array();
-		}
-	}
-	
-	/**
-	 * Gets the access_id that we need  to access this page.
-	 * @param String $link
-	 * @return int access_id or the lowest rank that they can have
-	 */
-	public function getRankNeededForMenu($link)
-	{
-		$query = $this->db->query("SELECT access_id FROM menu, ranks WHERE menu.rank = ranks.id AND menu.link = ? LIMIT 1", array($link));
-		
-		if($query->num_rows() > 0)
-		{
-			$result = $query->result_array();
-			return $result[0]['access_id'];
-		}
-		else
-		{
-			//Return the lowest rank that we can have (here it's guest)
-			return -1;
-		}
+		return null;
 	}
 	
 	/**
 	 * Get the selected page from the database
 	 * @param String $page
-	 * @return Array $result[0] IF we found the page else String "error"
+	 * @return Array 
 	 */
 	public function getPage($page)
 	{
 		$this->db->select('*')->from('pages')->where('identifier', $page);
 		$query = $this->db->get();
+
 		if($query->num_rows() > 0)
 		{
 			$result = $query->result_array();
+
 			return $result[0];
 		}
-		else
-		{
-			return false;
-		}
+
+		return null;
 	}
-    
+
+	/**
+	 * Get any old rank ID (to avoid foreign key errors)
+	 * @return Int 
+	 */
+	public function getAnyOldRank()
+	{
+		$query = $this->db->query("SELECT id FROM `ranks` ORDER BY id ASC LIMIT 1");
+
+		if($query->num_rows() > 0)
+		{
+			$result = $query->result_array();
+
+			return $result[0]['id'];
+		}
+
+		return false;
+	}
+	
+	/**
+	 * Get all pages
+	 * @return Array
+	 */
+	public function getPages()
+	{
+		$this->db->select('*')->from('pages');
+		$query = $this->db->get();
+
+		if($query->num_rows() > 0)
+		{
+			$result = $query->result_array();
+
+			return $result;
+		}
+
+		return null;
+	}
+
     /**
      * Calculates a path of breadcrumbs starting from a given top category
+     * @alive
      * @param Integer $catId
-     * @return Array 
+     * @return Array
      */
     public function getCategoryPath($catId){
-        
+
         $cat = $this->getPageCategory($catId);
         if($cat && $cat["top_category"] > 0 && $topCat = $this->getPageCategory($cat["top_category"])){
             return array(
@@ -218,11 +246,11 @@ class Cms_model extends CI_Model
                 $cat
             );
         }
-        
+
         return array();
-        
+
     }
-    
+
     /**
      * Get the selected page category from the database
      * @param Integer $id
@@ -232,7 +260,6 @@ class Cms_model extends CI_Model
 
         if($query->num_rows() > 0){
             $result = $query->result_array();
-
             return $result[0];
         }
         else{
@@ -240,7 +267,8 @@ class Cms_model extends CI_Model
         }
     }
 
-	/**
+
+    /**
 	 * Get all data from the realms table
 	 * @return Array
 	 */
@@ -251,12 +279,12 @@ class Cms_model extends CI_Model
 		
 		if($query->num_rows() > 0)
 		{
-			return $query->result_array();
+			$result = $query->result_array();
+
+			return $result;
 		}
-		else
-		{
-			return false;
-		}
+
+		return null;
 	}
 
 	/**
@@ -271,13 +299,12 @@ class Cms_model extends CI_Model
 		
 		if($query->num_rows() > 0)
 		{
-			$row = $query->result_array();
-			return $row[0];
+			$result = $query->result_array();
+
+			return $result[0];
 		}
-		else
-		{
-			return false;
-		}
+
+		return null;
 	}
 
 	/**
@@ -291,12 +318,11 @@ class Cms_model extends CI_Model
 		
 		if($query->num_rows() > 0)
 		{
-			$row = $query->result_array();
-			return $row[0]['total'];
+			$result = $query->result_array();
+
+			return $result[0]['total'];
 		}
-		else
-		{
-			return 0;
-		}
+
+		return 0;
 	}
 }

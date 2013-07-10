@@ -6,5 +6,19 @@
 		"name":"FusionCMS",
 		"website":"http:\/\/raxezdev.com\/fusioncms"
 	},
-	"enabled":true
+	"enabled":true,
+
+	"permissions": {
+		"view": {"default" : true, "description": "View the guild pages" }
+	},
+
+	"roles": {
+		"view": {
+			"description": "View the guild pages.",
+
+			"permissions": {
+				"view": true
+			}
+		}
+	}
 }

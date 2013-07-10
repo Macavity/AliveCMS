@@ -6,35 +6,27 @@ class News_model extends CI_Model
 	{
 		parent::__construct();
 	}
-
-	public function delete($id)
-	{
-		$this->db->query("DELETE FROM articles WHERE id=?", array($id));
-	}
 	
 	/**
 	 * Get news entries
 	 * @param Int $start
 	 * @param Int $limit
-     * @param String $page default: article, different if this article is used as a content element on a specific page
 	 * @return Array
 	 */
-	public function getArticles($start = 0, $limit = 1, $page = "article")
+	public function getArticles($start = 0, $limit = 1)
 	{
-		    
-        if($page == "all"){
-            $this->db->select('*')->from('articles')->order_by('id', 'desc');
-        }
-        elseif($start === true)
+		if($start === true)
 		{
-			$this->db->select('*')->from('articles')->where(array("page" => $page))->order_by('id', 'desc');
+			$this->db->select('id, headline, content, timestamp, author_id, avatar, comments');
 		}
 		else
 		{
-			$this->db->select('*')->from('articles')->where(array("page" => $page))->order_by('id', 'desc')->limit($limit, $start);
+			$this->db->select('id, headline, content, timestamp, author_id, avatar, comments');
+			$this->db->limit($limit, $start);
 		}
 
-		$query = $this->db->get();
+		$this->db->order_by('id', 'desc');
+		$query = $this->db->get('articles');
 		$result = $query->result_array();
 
 		// Did we have any results?
@@ -48,18 +40,22 @@ class News_model extends CI_Model
 			return array(
 						array(
 							'id' => 0,
-							'headline' => 'Willkommen zu FusionCMS V6!',
+							'headline' => 'Welcome to FusionCMS V6!',
 							'content' => 'Welcome to your new website! This news article will disappear as soon as you add a new one.',
 							'author_id' => 0,
 							'timestamp' => time(),
 							'avatar' => null,
-							'comments' => -1,
-							'page' => 'article',
+							'comments' => -1
 						)
 					);
 		}
 	}
 
+	/**
+	 * Get the article with the specified id.
+	 * @param $id
+	 * @return bool
+	 */
 	public function getArticle($id)
 	{
 		$query = $this->db->query("SELECT * FROM articles WHERE id=?", array($id));
@@ -75,7 +71,30 @@ class News_model extends CI_Model
 			return false;
 		}
 	}
-	
+
+	/**
+	 * Get the tags for the given article id
+	 * @param $articleId
+	 * @return array|bool
+	 */
+	public function getTags($articleId)
+	{
+		$this->db->select('t.name');
+		$this->db->where('at.article_id', $articleId);
+		$this->db->where('at.tag_id = t.id');
+		$query = $this->db->get('tag t, article_tag at');
+
+		if($query->num_rows() > 0)
+		{
+			$result = $query->result_array();
+			return $result;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 	/**
 	 * Count the articles
 	 * @return Int
@@ -89,11 +108,17 @@ class News_model extends CI_Model
 	 * Check whether an article exists or not
 	 * @param Int $id
 	 * @param Boolean $comment Check if comments are enabled
+	 * @return bool
 	 */
 	public function articleExists($id, $comment = false)
 	{
-		$this->db->select('comments')->from('articles')->where('id', $id);
-		$query = $this->db->get();
+		if (!$id)
+			return false;
+
+		$this->db->select('comments');
+		$this->db->where('id', $id);
+		$query = $this->db->get('articles');
+
 		$result = $query->result_array();
 
 		// If comments are enabled
@@ -112,29 +137,52 @@ class News_model extends CI_Model
 		}
 	}
 
-	public function create($headline, $avatar, $comments, $content, $page = "article")
+	/**
+	 * Create a news article
+	 * @param $headline
+	 * @param $avatar
+	 * @param $comments
+	 * @param $content
+	 * @return bool
+	 */
+	public function create($headline, $avatar, $comments, $content)
 	{
+		if (!is_string($headline) || !is_string($avatar) || !is_string($content))
+			return false;
+
 		$data = array(
 			'headline' => $headline,
 			'avatar' => $avatar,
 			'comments' => $comments,
 			'content' => $content,
-            'page' => $page,
 			'timestamp' => time(),
 			'author_id' => $this->user->getId()
 		);
 
 		$this->db->insert("articles", $data);
+
+		return true;
 	}
 
-	public function update($id, $headline, $avatar, $comments, $content, $page = "article")
+	/**
+	 * Update the article with the given id
+	 * @param $id
+	 * @param $headline
+	 * @param $avatar
+	 * @param $comments
+	 * @param $content
+	 * @return bool
+	 */
+	public function update($id, $headline, $avatar, $comments, $content)
 	{
+		if (!is_numeric($id) || !is_string($headline) ||  !is_string($avatar) || !is_string($content))
+			return false;
+
 		$data = array(
 			'headline' => $headline,
 			'avatar' => $avatar,
 			'comments' => $comments,
 			'content' => $content,
-            'page' => $page,
 		);
 
 		if($data['comments'] == 0)
@@ -150,5 +198,23 @@ class News_model extends CI_Model
 
 		$this->db->where('id', $id);
 		$this->db->update("articles", $data);
+
+		return true;
+	}
+
+	/**
+	 * Delete the article with the given id.
+	 * @param $articleId
+	 * @return bool
+	 */
+	public function delete($articleId)
+	{
+		if (!is_numeric($articleId))
+			return false;
+
+		$this->db->where('id', $articleId);
+		$this->db->delete('articles');
+
+		return true;
 	}
 }

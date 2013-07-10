@@ -8,8 +8,8 @@
 	<form onSubmit="Search.submit();return false;">
 		<table width="100%">
 			<tr>
-				<td><input type="text" placeholder="Search characters, items and guilds..." id="search_field" /></td>
-				<td width="70px"><input type="submit" value="Search" /></td>
+				<td><input type="text" placeholder="{lang('search_placeholder', 'armory')}" id="search_field" /></td>
+				<td width="70px"><input type="submit" value="{lang('search_button', 'armory')}" /></td>
 			<tr>
 		</table>
 		<div class="clear"></div>

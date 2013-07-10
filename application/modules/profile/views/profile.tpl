@@ -8,12 +8,12 @@
 			<table width="100%">
 				<tr>
 					<td width="10%"><img src="{$url}application/images/icons/user.png" /></td>
-					<td width="40%">Nickname</td>
+					<td width="40%">{lang("nickname", "profile")}</td>
 					<td width="50%" style="overflow:hidden;">{$username}</td>
 				</tr>
 				<tr>
 					<td width="10%"><img src="{$url}application/images/icons/world.png" /></td>
-					<td width="40%">Location</td>
+					<td width="40%">{lang("location", "profile")}</td>
 					<td width="50%">{$location}</td>
 				</tr>
 			</table>
@@ -23,12 +23,12 @@
 			<table width="100%">
 				<tr>
 					<td width="10%"><img src="{$url}application/images/icons/shield.png" /></td>
-					<td width="40%">Status</td>
+					<td width="40%">{lang("status", "profile")}</td>
 					<td width="50%">{$status}</td>
 				</tr>
 				<tr>
 					<td width="10%"><img src="{$url}application/images/icons/date.png" /></td>
-					<td width="40%">Signed up</td>
+					<td width="40%">{lang("signed_up", "profile")}</td>
 					<td width="50%">{$register_date}</td>
 				</tr>
 			</table>
@@ -37,14 +37,14 @@
 			<table width="100%">
 				<tr>
 					<td width="10%"><img src="{$url}application/images/icons/award_star_bronze_1.png" /></td>
-					<td width="20%">Rank</td>
-					<td width="70%">{$rank_name}</td>
+					<td width="20%">{lang("rank", "profile")}</td>
+					<td width="70%">{foreach from=$groups item=group} <span {if $group.color}style="color:{$group.color}"{/if}>{$group.name}</span> {/foreach}</td>
 				</tr>
 				{if $online && $not_me}
 					<tr>
 						<td><img src="{$url}application/images/icons/email.png" /></td>
-						<td>Contact</td>
-						<td><a href="{$url}messages/create/{$id}">Private message</a></td>
+						<td>{lang("contact", "profile")}</td>
+						<td><a href="{$url}messages/create/{$id}">{lang("pm", "profile")}</a></td>
 					</tr>
 				{else}
 					<tr>

@@ -8,9 +8,9 @@ class Realmmanager extends MX_Controller
 		$this->load->library('administrator');
 		$this->load->model('realm_model');
 
-		$this->administrator->requireOwner();
-
 		parent::__construct();
+
+		requirePermission("editSystemSettings");
 	}
 
 	public function edit($id = false)
@@ -52,20 +52,9 @@ class Realmmanager extends MX_Controller
 
 	private function getEmulators()
 	{
-		$emulators = glob("application/emulators/*");
-		$emulatorArr = array();
+		require("application/config/emulator_names.php");
 
-		foreach($emulators as $key => $value)
-		{
-			$value = preg_replace("/application\/emulators\/([A-Za-z0-9_-]*)\.php/", "$1", $value);
-
-			if(!preg_match("/index\.html/", $value))
-			{
-				array_push($emulatorArr, $value);
-			}
-		}
-
-		return $emulatorArr;
+		return $emulators;
 	}
 
 	public function delete($id)

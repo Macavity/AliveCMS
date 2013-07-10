@@ -211,27 +211,49 @@ var Items = {
 	},
 
 	formType: "item",
+	
+	fadeFormIn: function(name)
+	{
+		Items.formType = name;
+
+		$("#" + name + "_form").fadeIn(300);
+	},
 
 	changeType: function(select)
 	{
 		switch(select.value)
 		{
 			case "item":
-				$("#query_form").fadeOut(300, function()
+				if($("#query_form").is(":visible"))
 				{
-					Items.formType = "item";
+					$("#query_form").fadeOut(300, this.fadeFormIn("item"));
+				}
+				else if($("#command_form").is(":visible"))
+				{
+					$("#command_form").fadeOut(300, this.fadeFormIn("item"));
+				}
+			break;
 
-					$("#item_form").fadeIn(300);
-				});
+			case "command":
+				if($("#query_form").is(":visible"))
+				{
+					$("#query_form").fadeOut(300, this.fadeFormIn("command"));
+				}
+				else if($("#item_form").is(":visible"))
+				{
+					$("#item_form").fadeOut(300, this.fadeFormIn("command"));
+				}
 			break;
 
 			case "query":
-				$("#item_form").fadeOut(300, function()
+				if($("#item_form").is(":visible"))
 				{
-					Items.formType = "query";
-
-					$("#query_form").fadeIn(300);
-				});
+					$("#item_form").fadeOut(300, this.fadeFormIn("query"));
+				}
+				else if($("#command_form").is(":visible"))
+				{
+					$("#command_form").fadeOut(300, this.fadeFormIn("query"));
+				}
 			break;
 		}
 	}

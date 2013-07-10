@@ -1,5 +1,5 @@
 var Donate = {
-
+	
 	/**
 	 * Show the PayPal donation area
 	 * @param Object button
@@ -24,5 +24,5 @@ var Donate = {
 
 		$("#paypal_area").hide();
 		$("#paygol_area").show();
-		}
-		}
+	}
+}

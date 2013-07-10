@@ -4,30 +4,32 @@
 
 	<form onSubmit="Pages.send({$page.id}); return false">
 		<label for="headline">Headline</label>
-		<input type="text" id="headline" value="{$page.name}"/>
+		<input type="text" id="headline" value="{htmlspecialchars($page.name)}"/>
 		
 		<label for="identifier">Unique link identifier (as in mywebsite.com/page/<b>mypage</b>)</label>
 		<input type="text" id="identifier" placeholder="mypage" value="{$page.identifier}" />
 
-		<label for="rank_needed">Minimum user rank</label>
-		<select id="rank_needed">
-			{foreach from=$ranks item=rank}
-				<option value="{$rank.id}" {if $page.rank_needed == $rank.id}selected{/if}>{$rank.rank_name}</option>
-			{/foreach}
+		<label for="visibility">Visibility mode</label>
+		<select name="visibility" id="visibility" onChange="if(this.value == 'group'){ $('#groups').fadeIn(300); } else { $('#groups').fadeOut(300); }">
+			<option value="everyone" {if !$page.permission}selected{/if}>Visible to everyone</option>
+			<option value="group" {if $page.permission}selected{/if}>Controlled per group</option>
 		</select>
-        
-        <label>Page Category</label>
-        <select id="top_category">
-            <option value="0" {if $page.top_category == 0}selected="selected"{/if}>- None -</option>
-            {foreach from=$existingCats item=topCat}
-                <option value="{$topCat.id}" {if $page.top_category == $topCat.id}selected="selected"{/if}>{$topCat.title}</option>
-                {foreach from=$topCat.subCats item=subCat}
-                <option value="{$subCat.id}" {if $page.top_category == $subCat.id}selected="selected"{/if}>{$topCat.title} &rarr; {$subCat.title}</option>
-                {/foreach}
-            {/foreach}
-        </select>
-        
-        
+
+    <label>Page Category</label>
+    <select id="top_category">
+      <option value="0" {if $page.top_category == 0}selected="selected"{/if}>- None -</option>
+      {foreach from=$existingCats item=topCat}
+        <option value="{$topCat.id}" {if $page.top_category == $topCat.id}selected="selected"{/if}>{$topCat.title}</option>
+        {foreach from=$topCat.subCats item=subCat}
+          <option value="{$subCat.id}" {if $page.top_category == $subCat.id}selected="selected"{/if}>{$topCat.title} &rarr; {$subCat.title}</option>
+        {/foreach}
+      {/foreach}
+    </select>
+
+		<div {if !$page.permission}style="display:none"{/if} id="groups">
+			Please manage the group visibility via <a href="{$url}admin/aclmanager/groups">the group manager</a>
+		</div>
+
 		<label for="Pages_content">
 			Content
 		</label>
@@ -39,3 +41,10 @@
 		<input type="submit" value="Save page" />
 	</form>
 </section>
+
+<script>
+	require([Config.URL + "application/themes/admin/js/mli.js"], function()
+	{
+		new MultiLanguageInput($("#headline"));
+	});
+</script>

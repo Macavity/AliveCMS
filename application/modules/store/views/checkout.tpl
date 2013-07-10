@@ -1,14 +1,14 @@
 <section id="checkout_info">
 	
-	<a href="javascript:void(0)" onClick="Store.Cart.pay()" class="nice_button button_right">Checkout &rarr;</a>
+	<a href="javascript:void(0)" onClick="Store.Cart.pay()" class="nice_button button_right">{lang("checkout", "store")} &rarr;</a>
 
-	<a href="javascript:void(0)" onClick="Store.Cart.back()" class="nice_button button_left">&larr; Go back</a>
+	<a href="javascript:void(0)" onClick="Store.Cart.back()" class="nice_button button_left">&larr; {lang("go_back", "store")}</a>
 
-	You are buying <b>{$count} items</b> for a total of 
+	{lang("buying", "store")} <b>{$count} items</b> {lang("total_of", "store")}
 	
-	{if $vp}<img src="{$url}application/images/icons/lightning.png" align="absmiddle" /> <b>{$vp} VP</b>{/if}
+	{if $vp}<img src="{$url}application/images/icons/lightning.png" align="absmiddle" /> <b>{$vp} {lang("vp", "store")}</b>{/if}
 	{if $vp && $dp}and{/if}
-	{if $dp}<img src="{$url}application/images/icons/coins.png" align="absmiddle" /> <b>{$dp} DP</b>{/if}
+	{if $dp}<img src="{$url}application/images/icons/coins.png" align="absmiddle" /> <b>{$dp} {lang("dp", "store")}</b>{/if}
 
 	<div class="clear"></div>
 </section>
@@ -34,7 +34,7 @@
 							</select>
 						{else}
 							<div style="height:10px;"></div>
-							<b>You have no character</b>
+							<b>{lang("no_character", "store")}</b>
 						{/if}
 					</section>
 				{/if}

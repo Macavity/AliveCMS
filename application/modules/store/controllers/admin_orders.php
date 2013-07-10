@@ -9,6 +9,8 @@ class Admin_orders extends MX_Controller
 		$this->load->model('store_model');
 		
 		parent::__construct();
+
+		requirePermission("canViewOrders");
 	}
 
 	public function index()
@@ -80,11 +82,77 @@ class Admin_orders extends MX_Controller
 		$this->administrator->view($content, false, "modules/store/js/admin_orders.js");
 	}
 
-	public function refund($id = false)
+	public function search($type)
 	{
-		if(!$id || !is_numeric($id))
+		$string = $this->input->post('string');
+		
+		if(!$string || !$type || !in_array($type, array('successful', 'failed')))
 		{
 			die();
+		}
+		else
+		{
+			$type = ($type == 'successful');
+
+			if(preg_match("/^[a-zA-Z0-9]*$/", $string) && strlen($string) > 3 && strlen($string) < 15)
+			{
+				// Username
+				$user_id = $this->user->getId($string);
+				
+				if(!$user_id)
+				{
+					die("<span>Unknown account</span>");
+				}
+
+				$results = $this->store_model->findByUserId($type, $user_id);
+			}
+			else
+			{
+				$results = $this->store_model->getOrders($type);
+			}
+
+			if(!$results)
+			{
+				die("<span>No matches</span>");
+			}
+
+			foreach($results as $k => $v)
+			{
+				$results[$k]["username"] = $this->user->getUsername($v['user_id']);
+				$results[$k]["json"] = json_decode($v['cart'], true);
+
+				foreach($results[$k]["json"] as $key => $value)
+				{
+					$item = $this->store_model->getItem($value['id']);
+
+					if(isset($value['character']))
+					{
+						$character = $this->realms->getRealm($item['realm'])->getCharacters()->getNameByGuid($value['character']);
+					}
+					
+					$results[$k]["json"][$key]['itemName'] = $item['name'];
+					$results[$k]["json"][$key]['characterName'] = (isset($character)) ? $character : "Unknown";
+				}
+			}
+
+			$data = array(
+				'url' => $this->template->page_url,
+				'results' => $results
+			);
+
+			$output = $this->template->loadPage("admin_list.tpl", $data);
+
+			die($output);
+		}
+	}
+
+	public function refund($id = false)
+	{
+		requirePermission("canRefundOrders");
+
+		if(!$id || !is_numeric($id))
+		{
+			die("Bad ID");
 		}
 
 		$order = $this->store_model->getOrder($id);
@@ -93,6 +161,17 @@ class Admin_orders extends MX_Controller
 		{
 			$this->store_model->refund($order['user_id'], $order['vp_cost'], $order['dp_cost']);
 			$this->store_model->deleteLog($id);
+			
+			// Add log
+			$this->logger->createLog('Refunded order', $id);
+
+			$this->plugins->onRefund($id, $order['user_id'], $order['vp_cost'], $order['dp_cost']);
 		}
+		else
+		{
+			die("Invalid order");
+		}
+
+		die("done");
 	}
 }

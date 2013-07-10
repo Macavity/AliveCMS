@@ -2,6 +2,9 @@
 	<script type="text/javascript">
 		var pollTotal = {$total};
 
+		var show_results = "{lang("show_results", "sidebox_poll")}";
+		var show_options = "{lang("show_options", "sidebox_poll")}";
+
 		{literal}
 			var Poll = {
 
@@ -11,7 +14,7 @@
 					{
 						$("#poll_results").slideUp(300, function()
 						{
-							$(field).html("Show results");
+							$(field).html(show_results);
 							$("#poll_answers").slideDown(300);
 						});
 					}
@@ -19,7 +22,7 @@
 					{
 						$("#poll_answers").slideUp(300, function()
 						{
-							$(field).html("Show options");
+							$(field).html(show_options);
 							$("#poll_results").slideDown(300);
 						});
 					}
@@ -87,7 +90,7 @@
 				{foreach from=$poll.answers item=answer}
 					<div class="poll_answer">
 						<label for="poll_option_{$answer.answerid}">
-							<input type="radio" name="poll_options" id="poll_option_{$answer.answerid}" {if $online}onChange="Poll.vote({$answer.questionid}, {$answer.answerid}, this)"{else}onClick="UI.alert('Please log in to vote!')"{/if}/>
+							<input type="radio" name="poll_options" id="poll_option_{$answer.answerid}" {if $online}onChange="Poll.vote({$answer.questionid}, {$answer.answerid}, this)"{else}onClick="UI.alert('{lang("log_in", "sidebox_poll")}')"{/if}/>
 							{$answer.answer}
 					</label>
 					</div>
@@ -117,13 +120,13 @@
 
 		{if !$myVote}
 			<a id="poll_actions" class="nice_button" href="javascript:void(0)" onClick="Poll.toggle(this)">
-				Show results
+				{lang("show_results", "sidebox_poll")}
 			</a>
 			<div style="height:10px"></div>
 		{/if}
 	{else}
-		<center>This question has no answers</center>
+		<center>{lang("no_answers", "sidebox_poll")}</center>
 	{/if}
 {else}
-	<center>There are currently no active poll</center>
+	<center{lang("no_poll", "sidebox_poll")}</center>
 {/if}

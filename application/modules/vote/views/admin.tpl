@@ -4,9 +4,11 @@
 		Topsites (<div style="display:inline;" id="topsites_count">{if !$topsites}0{else}{count($topsites)}{/if}</div>)
 	</h2>
 
-	<span>
-		<a class="nice_button" href="javascript:void(0)" onClick="Topsites.add()">Create topsites location</a>
-	</span>
+	{if hasPermission("canCreate")}
+		<span>
+			<a class="nice_button" href="javascript:void(0)" onClick="Topsites.add()">Create topsite</a>
+		</span>
+	{/if}
 
 	<ul id="topsites_list">
 		{if $topsites}
@@ -18,8 +20,13 @@
 							<td width="30%">{$vote_site.points_per_vote} voting point{if $vote_site.points_per_vote > 1}s{/if}</td>
 							<td width="30%">{$vote_site.hour_interval} hours</td>
 							<td style="text-align:right;">
+								{if hasPermission("canEdit")}
 								<a href="{$url}vote/admin/edit/{$vote_site.id}" data-tip="Edit"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_edit.png" /></a>&nbsp;
+								{/if}
+
+								{if hasPermission("canDelete")}
 								<a href="javascript:void(0)" onClick="Topsites.remove({$vote_site.id}, this)" data-tip="Delete"><img src="{$url}application/themes/admin/images/icons/black16x16/ic_minus.png" /></a>
+								{/if}
 							</td>
 						</tr>
 					</table>
@@ -37,8 +44,8 @@
 		<label for="vote_sitename">Site name</label>
 		<input type="text" name="vote_sitename" id="vote_sitename"/>
 
-		<label for="vote_url">Site URL (for API, append {literal}{account_id}{/literal} to the postback value)</label>
-		<input type="text" name="vote_url" id="vote_url" placeholder="http://" onChange="Topsites.findImage(this)"/>
+		<label for="vote_url">Site URL</label>
+		<input type="text" name="vote_url" id="vote_url" placeholder="http://" onChange="Topsites.check(this)"/>
 
 		<label for="vote_image">Vote site image (will be auto-completed if URL is recognized)</label>
 		<input type="text" name="vote_image" id="vote_image" placeholder="(optional)"/>
@@ -49,11 +56,13 @@
 		<label for="points_per_vote">Voting points</label>
 		<input type="text" name="points_per_vote" id="points_per_vote" value="1"/>
 
-		<label for="api_enabled">API (only some sites)</label>
-		<select id="api_enabled" name="api_enabled">
-			<option value="0" selected>No</option>
-			<option value="1">Yes</option>
-		</select>
+		<div id="api" style="display:none;">
+			<label for="api_enabled">Enable postback (only some topsites support this - requires additional configuration on the topsite itself)</label>
+			<select id="api_enabled" name="api_enabled">
+				<option value="0" selected>No</option>
+				<option value="1">Yes</option>
+			</select>
+		</div>
 
 		<input type="submit" value="Submit topsite" />
 	</form>

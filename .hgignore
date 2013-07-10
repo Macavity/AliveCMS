@@ -1,6 +1,6 @@
 syntax: glob
-.idea
-.sass-cache
 application/cache
-database.php
+.idea
 application/logs
+database.php
+.sass-cache

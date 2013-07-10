@@ -1,6 +1,6 @@
 <?php
 
-require_once('application/emulators/trinity_tbc_soap.php');
+require_once(dirname(__FILE__).'/trinity_tbc_soap.php');
 
 /**
  * Abstraction layer for supporting different emulators
