@@ -14,7 +14,7 @@
 
     <script type="text/javascript" src="{$url}application/js/function_debug.js"></script>
     <script type="text/javascript" src="{$url}application/js/function_console.js"></script>
-    <script type="text/javascript" src="{$url}application/js/_debug.js"></script>
+    <script type="text/javascript" src="{$url}application/js/debug.dev.js"></script>
 
 		<script type="text/javascript">
 		

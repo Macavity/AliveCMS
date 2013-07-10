@@ -27,7 +27,7 @@ module.exports = function(grunt) {
          * Documentation: https://github.com/gruntjs/grunt-contrib-imagemin
          */
         imagemin: {
-            dist: {
+            build: {
                 options: {
                     optimizationLevel: 3
                 },
@@ -61,7 +61,7 @@ module.exports = function(grunt) {
                     style: "compressed"
                 },
                 files: {
-                    'application/themes/shattered/css/main.css': 'application/themes/shattered/css/sass/main.scss'
+                    'application/themes/shattered/css/main.css': 'application/themes/shattered/css/main.scss'
                     /*
                      * Every page specific scss file has to be entered here
                      */
@@ -78,7 +78,7 @@ module.exports = function(grunt) {
                     debugInfo: true
                 },
                 files: {
-                    'application/themes/shattered/css/main.css': 'application/themes/shattered/css/sass/main.scss'
+                    'application/themes/shattered/css/main.css': 'application/themes/shattered/css/main.scss'
                     /*
                      * Every page specific scss file has to be entered here
                      */
@@ -92,14 +92,14 @@ module.exports = function(grunt) {
          */
         concat: {
             // templates-task
-            /*templates: {
+            templates: {
                 src: [
                     'node_modules/handlebars/dist/handlebars.runtime.js',
                     'js/libs/handlebars/handlebars.helper.js',
                     'js/templates.js'
                 ],
                 dest: 'js/hb.js'
-            },*/
+            },
 
             // Already minimized libraries
             libs: {
@@ -135,7 +135,7 @@ module.exports = function(grunt) {
         watch: {
             css: {
                 files: [
-                    'application/themes/shattered/css/sass/**/*.scss'
+                    'application/themes/shattered/css/**/*.scss'
                 ],
                 tasks: ['sass:dev']
             },
@@ -143,11 +143,12 @@ module.exports = function(grunt) {
             js: {
                 options: {
                     ignores: [
-                        'js/templates.js', 'js/libs/*.js'
+                        'application/js/templates.js',
+                        'application/js/libs/**/*.js'
                     ]
                 },
                 files: [
-                    'js/app/**/*.js',
+                    'application/js/**/*.js',
                     'js/main.js'
                 ],
                 tasks: ['jshint']
@@ -162,9 +163,9 @@ module.exports = function(grunt) {
 
             images: {
                 files: [
-                    '**/{,*/}*.{png,jpg,jpeg,gif}'
+                    '/application/**/{,*/}*.{png,jpg,jpeg,gif}'
                 ],
-                tasks: ['imagemin:dist']
+                tasks: ['imagemin:build']
             }
         }
 
@@ -172,12 +173,9 @@ module.exports = function(grunt) {
 
     // Each of these should be installed via npm
     grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-handlebars');
     grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-sass');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.loadNpmTasks('grunt-shell');
@@ -186,14 +184,6 @@ module.exports = function(grunt) {
     grunt.registerTask('default', [
         "jshint",
         'sass:dev',
-        'shell:handlebars',
-        'concat:templates'
-    ]);
-
-    // Used to compile a testing build
-    grunt.registerTask('build', [
-        'jshint',
-        'sass:dist',
         'shell:handlebars',
         'concat:templates'
     ]);

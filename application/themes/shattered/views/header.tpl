@@ -1,17 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
-        <title>{$title}</title>
-        <link href="{$favicon}" type="image/x-icon" rel="shortcut icon" />
+      <title>{$title}</title>
+      <link href="{$favicon}" type="image/x-icon" rel="shortcut icon" />
         
         
-        <!-- CSS -->
-        <link rel="stylesheet" href="{$path}css/default.css" type="text/css" />
-        <link rel="stylesheet" type="text/css" href="{$style_path}html-reset.css" />
-        <link rel="stylesheet" type="text/css" href="{$style_path}layout-fixed.css" />
-        <link rel="stylesheet" type="text/css" href="{$style_path}sideboard.css" />
-        <link rel="stylesheet" type="text/css" href="{$style_path}common.css" />
-        {if $extra_css}<link rel="stylesheet" href="{$path}{$extra_css}" type="text/css" />{/if}
+      <!-- CSS -->
+      <link rel="stylesheet" href="{$style_path}main.css" type="text/css" />
+      {if $extra_css}<link rel="stylesheet" href="{$path}{$extra_css}" type="text/css" />{/if}
         <!-- / CSS Stylesheet -->
         
         <!-- Search engine related -->
@@ -22,23 +18,23 @@
         <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         
-        <!-- Load scripts -->
-        <script src="{if $cdn}//html5shiv.googlecode.com/svn/trunk/html5.js{else}{$path}js/html5shiv.js{/if}"></script>
-        <script type="text/javascript" src="{if $cdn}https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js{else}{$path}js/jquery.min.js{/if}"></script>
-        
         <!-- TODO compile scripts -->
-        <script type="text/javascript" src="{$path}js/map_static.js"></script>
-        <script type="text/javascript" src="{$path}js/swfobject.js"></script>
-        <script type="text/javascript" src="{$path}js/function_debug.js"></script>
-        <script type="text/javascript" src="{$path}js/function_console.js"></script>
-        <script type="text/javascript" src="{$path}js/misc.js"></script>
-        <script type="text/javascript" src="{$path}js/_debug.js"></script>
-        <script type="text/javascript" src="{$js_path}core.js"></script>
-        <script type="text/javascript" src="{$js_path}wow.js"></script>
-        <script type="text/javascript" src="{$js_path}login.js"></script>
-        <script type="text/javascript" src="{$js_path}tooltip.js"></script>
-        <script type="text/javascript" src="{$path}js/router.js"></script>
-        <script type="text/javascript" src="{$path}js/require.js"></script>
+        {if $stage == "production"}
+          <script type="text/javascript" src="{$path}js/main.js"></script>
+        {else}
+          <script type="text/javascript" src="{$path}js/map_static.js"></script>
+          <script type="text/javascript" src="{$path}js/swfobject.js"></script>
+          <script type="text/javascript" src="{$path}js/function_debug.js"></script>
+          <script type="text/javascript" src="{$path}js/function_console.js"></script>
+          <script type="text/javascript" src="{$path}js/misc.js"></script>
+          <script type="text/javascript" src="{$path}js/debug.dev.js"></script>
+          <script type="text/javascript" src="{$js_path}core.js"></script>
+          <script type="text/javascript" src="{$js_path}wow.js"></script>
+          <script type="text/javascript" src="{$js_path}login.js"></script>
+          <script type="text/javascript" src="{$js_path}tooltip.js"></script>
+          <script type="text/javascript" src="{$path}js/router.js"></script>
+          <script type="text/javascript" src="{$path}js/require.js"></script>
+        {/if}
 
         <script type="text/javascript">
 

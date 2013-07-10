@@ -1,5 +1,5 @@
 {$head}
-    <body id="{$controller}-{$method}">
+    <body id="{$controller}-{$method}" class="module-{$controller}">
         
         <!-- Teamspeak -->
         <div class="sb_overlay sb_slide" id="ts_overlay">
@@ -131,7 +131,7 @@
     <div id="sitemap">
         <div class="column">
             <h3 class="bnet">
-                <a href="http://www.wow-alive.de/" tabindex="100">{$serverName}</a>
+                <a href="/" tabindex="100">{$serverName}</a>
             </h3>
             <ul>
                 <li><a href="/vote">Voten!</a></li>
@@ -174,7 +174,7 @@
             </ul>
         </div>
         <div id="copyright">
-          &copy;2012 Blizzard Entertainment, Inc. Alle Rechte vorbehalten
+          &copy;2013 Blizzard Entertainment, Inc. Alle Rechte vorbehalten
           <a href="http://forum.wow-alive.de/sendmessage.php" rel="nofollow" accesskey="9">Kontakt</a></if>
           {if $is_staff}
             <a href="/admin">Admin Panel</a>
@@ -188,10 +188,6 @@
           </div>
         </div>
         <div id="legal">
-            <div class="smallfont" align="center">
-                {* {$pageGeneratedTime} sec.*}
-            </div>
-            <div id="blizzard" class="png-fix">&nbsp;</div>
             <span class="clear"><!-- --></span>
         </div>
     </div>
@@ -335,7 +331,7 @@
     </div>
     <![endif]-->
     <!--[if lte IE 8]>
-        <script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/third-party/CFInstall.min.js?v15"></script>
+        <script type="text/javascript" src="/application/third_party/CFInstall.min.js"></script>
         <script type="text/javascript">
         //<![CDATA[
         $(function(){
@@ -436,7 +432,7 @@
 //]]>
 </script>
 <!--[if lt IE 8]> 
-<script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/third-party/jquery.pngFix.pack.js?v15"></script>
+<script type="text/javascript" src="/application/third_party/jquery.pngfix.pack.js"></script>
 <script type="text/javascript">$('.png-fix').pngFix();</script>
 <![endif]-->
 

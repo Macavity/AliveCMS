@@ -388,7 +388,17 @@ class User
 
 		return "https://secure.gravatar.com/avatar/".md5(strtolower(trim($email)))."?d=".urlencode($default)."&s=".$px;
 	}
-	
+
+    /**
+     * Get the character the user last selected on the portal page
+     * used for the userplate
+     * @alive
+     * @param $userId
+     */
+    public function getActiveCharacter($userId){
+
+    }
+
 	/**
 	 * get the user it's characters, returns array with realmnames and character names and character id when specified realm is -1 or the default
 	 * @param int $userId

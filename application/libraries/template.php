@@ -378,6 +378,7 @@ class Template
              */
             "controller" => $this->CI->router->class,
             "method" => $this->CI->router->method,
+            "stage" => $this->CI->config->item("deployment_stage"),
 
             "js_path" => $this->js_path,
 
@@ -403,8 +404,8 @@ class Template
      */
     public function getUserplate(){
 
-        if(!file_exists(APPPATH.$this->theme_path."views/userplace.tpl")){
-            return "";
+        if(!file_exists(APPPATH.$this->theme_path."views/userplate.tpl")){
+            return "<!-- Partial template userplate.tpl not found: ".APPPATH.$this->theme_path."views/userplate.tpl -->";
         }
 
         $data = array(
@@ -427,7 +428,8 @@ class Template
             $activeCharFound = FALSE;
 
             //debug("realmChars", $realmChars);
-            debug("activeGuid", $this->CI->user->getActiveChar());
+            $activeChar = $this->CI->user->getActiveCharacter();
+            debug("activeGuid", $activeChar);
 
             $n = 0;
 
