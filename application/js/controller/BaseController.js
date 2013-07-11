@@ -10,6 +10,8 @@ define(function () {
 
         this.initTS3Viewer();
 
+        this.initUserplate();
+
         /*
          Page.initialize();
          Input.initialize();
@@ -23,6 +25,14 @@ define(function () {
     }
 
     controllerBase.prototype = {
+
+        initUserplate: function(){
+            $(".plate-logged-out").on("click",function(e){
+                e.preventDefault();
+                Login = require("libs/alive/login");
+                Login.open();
+            });
+        },
 
         initTS3Viewer: function(){
             debug.debug("Base.initTS3Viewer");

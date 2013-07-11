@@ -1,0 +1,12 @@
+{
+    "name": "Character Migration",
+    "description": "Adds the ability to migrate characters from other Servers",
+
+    "author": {
+        "name": "Macavity",
+        "website": "http://www.wow-alive.de/"
+    },
+    
+    "enabled": true
+
+}

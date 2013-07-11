@@ -70,6 +70,7 @@ class CI_DB_mysql_driver extends CI_DB {
 			$this->hostname .= ':'.$this->port;
 		}
 
+        //debug("connect", $this->hostname.",".$this->username.",".$this->password );
 		return @mysql_connect($this->hostname, $this->username, $this->password, TRUE);
 	}
 

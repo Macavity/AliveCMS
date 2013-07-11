@@ -8,7 +8,8 @@ class Status extends MX_Controller
 		if($this->cache->hasExpired("online_*", "/online_([0-9]*)\.cache$/")
 		&& $this->cache->hasExpired("isOnline_*", "/isOnline_([0-9]*)\.cache$/"))
 		{
-			// Prepare data
+
+            // Prepare data
 			$data = array(
 						"module" => "sidebox_status",
 						"image_path" => $this->template->image_path
@@ -22,7 +23,7 @@ class Status extends MX_Controller
 			// Load realm objects
 			$realms = $this->realms->getRealms();
 
-			// Prepare data
+         	// Prepare data
 			$data = array(
 						"module" => "sidebox_status", 
 						"realms" => $realms,
