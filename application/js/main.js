@@ -14,20 +14,16 @@ requirejs.config({
     }
 });
 
-require(['static', 'controller/PageController', 'libs/alive/core'], function (static, controller, Core) {
+require([
+        'static',
+        'controller/PageController',
+       'libs/alive/core'
+    ], function (static, controller, Core) {
 
     $(function () {
 
         debug.debug("asdas");
         controller.init();
-        /*
-        Page.initialize();
-        Input.initialize();
-        Explore.initialize();
-        Flash.initialize();
-        Locale.initialize();
-        CharSelect.initialize();*/
-        Core.initialize();
 
         /*
         Core.staticUrl = 'http://forum.wow-alive.de/static-wow';

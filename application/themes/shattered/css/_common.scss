@@ -684,3 +684,26 @@ sup {
     }
   }
 }
+
+.server-error {
+  width: 375px;
+  margin: 0 auto;
+  padding-top: 50px;
+  text-align: center;
+  font-size: 18px;
+  min-height: 900px;
+  h2 {
+    font-size:125px;
+    &.http {
+      font-size: 85px;
+    }
+  }
+  h3 { font-size:35px; margin-bottom: 50px; }
+  em { font-size: 12px; }
+}
+
+
+/* Hide the field for the login dialog */
+.ui-dialog-content #password_error {
+  display: none;
+}

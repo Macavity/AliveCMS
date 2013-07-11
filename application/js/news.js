@@ -18,14 +18,17 @@ require([
         'static',
         'controller/NewsController',
         'libs/alive/core',
-        'libs/alive/slideshow'
+        'libs/alive/slideshow',
+        'libs/alive/login'
     ],
-    function (static, controller, Core, Slideshow) {
+    function (static, controller, Core) {
 
     $(function () {
 
         debug.debug("asdas");
         controller.init();
+
+        controller.initSlideshow();
 
         /*
          Core.staticUrl = 'http://forum.wow-alive.de/static-wow';

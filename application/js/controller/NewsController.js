@@ -10,10 +10,8 @@ define(['./BaseController'], function (BaseController) {
     pageController.prototype = new BaseController("Frontpage");
 
     // Define the class methods.
-    pageController.init = function(){
+    pageController.init = function(Slideshow){
         debug.debug("Frontpage.initialize");
-
-        this.initSlideshow();
 
         debug.debug("Frontpage.initialize END");
     };

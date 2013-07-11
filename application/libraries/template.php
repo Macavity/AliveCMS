@@ -753,7 +753,7 @@ class Template
 	 */
 	public function show404()
 	{
-		if($this->CI->input->get('is_acp'))
+        if($this->CI->input->get('is_acp'))
 		{
 			header('HTTP/1.0 404 Not Found');
 		}
