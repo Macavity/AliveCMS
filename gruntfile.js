@@ -130,6 +130,7 @@ module.exports = function(grunt) {
             libs: {
                 src: [
                     'application/js/libs/jquery/jquery.min.js',
+                    'application/js/libs/jquery/jquery-ui-1.10.3.custom.min.js',
                     "application/js/libs/jquery/jquery.placeholder.min.js",
                     "application/js/libs/jquery/jquery.sort.js",
                     "application/js/libs/jquery/jquery.transit.min.js",
@@ -184,7 +185,8 @@ module.exports = function(grunt) {
                     'application/js/controller/**/*.js',
                     'application/js/misc.js',
                     'application/js/static.js',
-                    'application/js/main.js'
+                    'application/js/main.js',
+                    'gruntfile.js'
                 ],
                 tasks: ['jshint','concat:libs']
             },
@@ -203,7 +205,6 @@ module.exports = function(grunt) {
                 tasks: ['imagemin:build']
             }
         }
-
     });
 
     // Each of these should be installed via npm

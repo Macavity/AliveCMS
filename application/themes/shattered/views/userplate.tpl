@@ -1,7 +1,7 @@
 
 {if !$isOnline}
 <div class="user-plate ajax-update">
-    <a href="/login/" class="card-character plate-logged-out" onclick="return Login.open();">
+    <a href="/login/" class="card-character plate-logged-out">
         <span class="card-portrait"></span>
         <span class="wow-login-key"></span>
         <span class="login-msg"><strong>Loggt euch ein</strong>, um auf zusätzliche Funktionen zuzugreifen.</span>

@@ -1022,6 +1022,39 @@ acronym {
   top: -2px;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_common\.scss}line{font-family:\00003688}}
+.server-error {
+  width: 375px;
+  margin: 0 auto;
+  padding-top: 50px;
+  text-align: center;
+  font-size: 18px;
+  min-height: 900px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_common\.scss}line{font-family:\00003695}}
+.server-error h2 {
+  font-size: 125px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_common\.scss}line{font-family:\00003697}}
+.server-error h2.http {
+  font-size: 85px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_common\.scss}line{font-family:\00003701}}
+.server-error h3 {
+  font-size: 35px;
+  margin-bottom: 50px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_common\.scss}line{font-family:\00003702}}
+.server-error em {
+  font-size: 12px;
+}
+
+/* Hide the field for the login dialog */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_common\.scss}line{font-family:\00003707}}
+.ui-dialog-content #password_error {
+  display: none;
+}
+
 /* vorher layout-fixed */
 /* *********************************************************************************** */
 /* 02. LAYOUT
