@@ -1,4 +1,12 @@
 
+# General
+
+Um lokal arbeiten zu können lade dir den Dev-Branch herunter und zweige einen eigenen Branch davon ab. Von mir oder einem der andere bekommst du eine database.php die in /application/config/ gehört und nicht im Mercurial erfasst werden sollte. Der dort enthaltene MySQL-User hat auf die Realm- und Charakterdatenbank nur Lesezugriff, dennoch geh damit umsichtig um.
+
+Du kannst bei Downloads auf bitbucket.org einen Dump der data_portal-Datenbank finden den du benutzen kannst um eine lokale Version aufzusetzen.
+
+Wenn du eine komplette Offline-Version willst musst du die database.php auf deinen lokalen MySQL richten und dort eine trinity_realm-Datenbank bereitstellen. Ebenfalls brauchst du eine world- und character-Datenbank mit Daten damit alles funktioniert.
+
 
 # Mac / Unix
 
