@@ -9,19 +9,4 @@
     
     "enabled": true
 
-    "admin": [
-        {
-            "text": "Website",
-            "icon": "cursor",
-            "links": [
-                {
-                    "text": "News articles",
-                    "icon": "file",
-                    "controller": "admin",
-                    "requirePermission": "canViewAdmin"
-                }
-            ]
-        }
-    ]
-
 }
