@@ -11,18 +11,24 @@ module.exports = function(grunt) {
         jshint: {
             options: {
                 ignores: [
+                    // Generated files
+                    'application/js/alive.js',
                     'application/js/templates.js',
                     'application/js/hb.js',
                     'application/js/libs.js',
+
+                    // Fusion Files
                     'application/js/ui.js',
                     'application/js/require.js',
                     'application/js/json2.js',
-                    'application/js/html5shiv.js',
-                    'application/js/flux.min.js',
                     'application/js/router.js',
                     'application/js/fusioneditor.js',
+
+                    'application/js/html5shiv.js',
+                    'application/js/flux.min.js',
                     'application/js/language.js',
                     'application/js/wz_tooltip.js',
+
                     'application/js/libs/**/*.js',
                     'application/js/themes/**/*.js',
                     'application/js/tiny_mce/**/*.js'
@@ -101,12 +107,9 @@ module.exports = function(grunt) {
         },
 
         uglify: {
-            sideboard: {
+            alive: {
                 files: {
-                    'application/js/sideboard.min.js': [
-                        'js/wz_tooltip.js',
-                        'src/input2.js'
-                    ]
+
                 }
             }
         },
@@ -129,25 +132,53 @@ module.exports = function(grunt) {
             // Already minimized libraries
             libs: {
                 src: [
+                    // JQuery
                     'application/js/libs/jquery/jquery.min.js',
                     'application/js/libs/jquery/jquery-ui-1.10.3.custom.min.js',
                     "application/js/libs/jquery/jquery.placeholder.min.js",
-                    "application/js/libs/jquery/jquery.sort.js",
+                    "application/js/libs/jquery/jquery.sort.min.js",
                     "application/js/libs/jquery/jquery.transit.min.js",
+
+                    // Modernizr
                     'application/js/libs/modernizr/modernizr-min.js',
+
+                    // Debug Library
                     'application/js/libs/debug/javascript-debug.js',
+                    'application/js/libs/debug/debug.dev.js',
                     'application/js/libs/swfobject/swfobject.js',
-                    'application/js/require.js',
-                    'application/js/router.js',
-                    'application/js/ui.js',
-                    'application/js/fusioneditor.js',
+
+                    //'application/js/require/require.js',
+
+                    // Flux Slider
                     'application/js/flux.min.js',
+
+                    // Fusion Libraries
+                    'application/js/fusioneditor.js',
                     'application/js/language.js',
+                    'application/js/ui.js',
+                    //'application/js/router.js',
+
+                    // Some miscalenous functions
                     'application/js/misc.js',
-                    'application/js/wz_tooltip.js', /* used for teamspeak sideboard */
-                    'application/js/libs/debug/debug.dev.js'
+
+                    // Some prototype overwrites
+                    'application/js/prototypes.js',
+
+                    // Used by TS Viewer
+                    //'application/js/wz_tooltip.js'
                 ],
                 dest: 'application/js/libs.js'
+            },
+
+
+
+            alive: {
+                src: [
+                    'application/js/libs/alive/core.js',
+                    'application/js/libs/alive/wow.js',
+                    'application/js/libs/alive/tooltip.js'
+                ],
+                dest: 'application/js/alive.js'
             },
 
             common: {

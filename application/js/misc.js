@@ -22,3 +22,35 @@ function setCookie(c_name,value,exdays)
     var c_value = escape(value) + ((exdays === null) ? "" : "; expires="+exdate.toUTCString());
     document.cookie = c_name + "=" + c_value;
 }
+
+/**
+ * Setup ajax calls.
+ */
+$.ajaxSetup({
+    error: function(xhr) {
+        if (xhr.readyState != 4)
+            return false;
+
+        if (xhr.getResponseHeader("X-App") == "login") {
+            location.reload(true);
+            return false;
+        }
+
+        if (xhr.status) {
+            switch (xhr.status) {
+                case 301:
+                case 302:
+                case 307:
+                case 403:
+                case 404:
+                case 500:
+                case 503:
+                    //location.reload(true);
+                    return false;
+                    break;
+            }
+        }
+
+        return true;
+    }
+});

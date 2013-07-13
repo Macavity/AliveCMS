@@ -4,8 +4,8 @@ define(function () {
      * @constructor
      * @param id
      */
-    function controllerBase(id) {
-        debug.debug("controllerBase: "+id);
+    function Base(id) {
+
         this.id = id;
 
         this.initTS3Viewer();
@@ -13,12 +13,13 @@ define(function () {
         this.initUserplate();
 
         /*
-         Page.initialize();
-         Input.initialize();
-         Explore.initialize();
-         Flash.initialize();
-         Locale.initialize();
-         CharSelect.initialize();*/
+        Page.initialize();
+        Input.initialize();
+        Explore.initialize();
+        Flash.initialize();
+        Locale.initialize();
+        */
+        CharSelect.initialize();
         Core.initialize();
 
         return this;
