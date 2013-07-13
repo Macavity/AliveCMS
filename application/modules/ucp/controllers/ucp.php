@@ -69,4 +69,46 @@ class Ucp extends MX_Controller
 			"content" => $this->template->loadPage("ucp.tpl", $data)
 		)), "modules/ucp/css/ucp.css");
 	}
+
+    /**
+     * Changes the active character
+     * used via ajax
+     * @alive
+     */
+    public function changeCharacter(){
+        // Login required and ajax request
+        if(!$this->input->is_ajax_request() || !$this->user->isOnline()){
+            redirect("ucp");
+        }
+
+        $newGUID = $this->input->post("index");
+        $newRealm = $this->input->post("realm");
+        $xsToken = $this->input->post("xstoken");
+        $error = "";
+
+        if($this->realms->realmExists($newRealm)){
+            $realmCharDb = $this->realms->getRealm($newRealm)->getCharacters();
+
+            if($realmCharDb->characterBelongsToAccount($newGUID, $this->user->getId())){
+                $this->user->setActiveCharacter($newGUID, $newRealm);
+            }
+        }
+        else{
+            $error = "Realm nicht gefunden";
+        }
+
+        $content = $this->template->getUserplate();
+
+        // Damit wir später .find benutzen können muss der Content in einem Oberelement liegen.
+        $content = "<div>".$content."</div>";
+
+        $array = array(
+            "content" => $content,
+            "guid" => $newGUID,
+            "error" => $error,
+        );
+
+        $this->outputJson($array);
+    }
+
 }

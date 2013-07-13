@@ -316,7 +316,14 @@ class Template
 		return json_encode($array);
 	}
 
-	/**
+    /**
+     * Generates a json formatted output
+     */
+    private function handleJsonOutput($json){
+            die(json_encode($json));
+    }
+
+    /**
 	 * Display the global announcement message
 	 */
 	private function handleAnnouncement()
@@ -430,6 +437,7 @@ class Template
             "isOnline" => $this->CI->user->isOnline(),
             "charList" => array(),
             "nickname" => $this->CI->user->getNickname(),
+
         );
 
         if($this->CI->user->isOnline()){
@@ -447,24 +455,27 @@ class Template
 
             //debug("realmChars", $realmChars);
             $activeChar = $this->CI->user->getActiveCharacter();
-            debug("activeGuid", $activeChar);
+            //debug("activeGuid", $activeChar);
 
             $n = 0;
+
+            $knownGuilds = array();
 
             foreach($realmChars as $realmRow){
 
                 $realmId = $realmRow["realmId"];
-                $realmName = "Norganon";
+                $realmName = $realmRow["realmName"];
 
                 foreach($realmRow["characters"] as $charRow){
 
+
                     $charRow["realmId"] = $realmId;
                     $charRow["realmName"] = $realmName;
-                    $charRow["url"] = "/characters/".strtolower($realmName)."/".$charRow["name"]."/";
+                    $charRow["url"] = "/character/".$realmId."/".$charRow["name"]."/";
                     $charRow["hasGuild"] = FALSE;
 
                     $charRow["classString"] = $this->CI->realms->getClass($charRow["class"], $charRow["gender"]);
-                    $charRow["raceString"] = $this->CI->realms->getRace($charRow["class"], $charRow["gender"]);
+                    $charRow["raceString"] = $this->CI->realms->getRace($charRow["race"], $charRow["gender"]);
 
                     if($charRow["guid"] == $activeChar && $realmId == $this->CI->user->getActiveRealmId()){
                         $activeCharFound = TRUE;
@@ -474,6 +485,7 @@ class Template
                         $charList[$n] = $charRow;
                         $n++;
                     }
+                    //debug("char", $charRow);
                 }
 
             }
@@ -512,7 +524,7 @@ class Template
             $data["charList"] = $charList;
 
         }
-        debug("isOnline", $data["isOnline"]);
+        //debug("isOnline", $data["isOnline"]);
         return $this->CI->smarty->view($this->theme_path."views/userplate.tpl", $data, true);
 
     }
