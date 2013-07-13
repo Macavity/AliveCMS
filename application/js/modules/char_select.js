@@ -1,4 +1,4 @@
-
+/*jshint -W004 */
 define(function(){
 
     /**

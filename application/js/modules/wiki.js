@@ -1,384 +1,375 @@
 
-$(function() {
-	Wiki.initialize();
+
+
+define('Wiki', function(){
+    var Wiki = {
+
+        /**
+         * Related content object instances.
+         */
+        related: {},
+
+        /**
+         * URL of the page we are on.
+         */
+        pageUrl: '',
+
+        /**
+         * Currently active related tab.
+         */
+        tab: '',
+
+        /**
+         * Hash tag query params.
+         */
+        query: {},
+
+        /**
+         * Auto load the appropriate related tab.
+         *
+         * @constructor
+         */
+        initialize: function() {
+            var tabs = $('#related-tabs'),
+                hash = Core.getHash();
+
+            if (tabs.length <= 0)
+                return;
+
+            tabs.find('a').click(function() {
+                Wiki.loadRelated(this);
+                return false;
+            });
+
+            // Load comments tab
+            if (hash && /^c-([0-9]+)$/.test(hash)) {
+                Wiki.loadRelated($('#tab-comments'));
+
+                if (!Core.isIE()) {
+                    Filter.reset();
+                    Core.scrollTo('#related-tabs');
+                }
+
+                // Else determine which tab
+            } else {
+                Filter.initialize(function(query) {
+                    Wiki.query = query;
+
+                    if (query.tab) {
+                        $('#tab-'+ query.tab).click();
+
+                        if (!Core.isIE())
+                            Core.scrollTo('#related-tabs');
+                    } else {
+                        tabs.find('a:first').click();
+                    }
+                });
+            }
+        },
+
+        /**
+         * Load related content pages. Save a cache of the content.
+         *
+         * @param node
+         * @param reload
+         * @return bool
+         */
+        loadRelated: function(node, reload) {
+            node = $(node);
+
+            // Generate url key
+            var key = node.data('key'),
+                wrapper = $('#related-content');
+
+            $('#related-tabs a').removeClass('tab-active');
+
+            node.addClass('tab-active');
+            wrapper.find('.related-content').hide();
+
+            // Set filter
+            if (Wiki.tab !== '') {
+                Filter.addParam('tab', key);
+                Filter.addParam('page', '');
+                Filter.applyQuery();
+            }
+
+            // Check cache
+            if (Wiki.related[key] && !reload) {
+                $('#related-'+ key).show();
+                wrapper.removeClass('loading');
+
+                Wiki.tab = key;
+                Wiki.query = {};
+
+                return false;
+            }
+
+            $.ajax({
+                type: 'GET',
+                url: Wiki.pageUrl + key,
+                dataType: 'html',
+                global: false,
+                cache: (key != 'comments'),
+                beforeSend: function() {
+                    wrapper.addClass('loading');
+                },
+                success: function(data) {
+                    if (data) {
+                        Wiki.tab = key;
+                        wrapper.removeClass('loading').append(data);
+                        Wiki.query = {};
+
+                        Core.fixTableHeaders('#related-'+ key);
+                    }
+                }
+            });
+
+            return false;
+        },
+
+        /**
+         * Callback for posting a comment, will reload the tab.
+         */
+        postComment: function() {
+            var tab = $('#tab-comments'),
+                count = tab.find('em'),
+                no = parseInt(count.html(), null);
+
+            if (!no || no <= 0)
+                no = 0;
+
+            count.html(no + 1);
+
+            delete Wiki.related.comments;
+            Wiki.loadRelated(tab, true);
+        }
+
+    };
+
+    return Wiki;
 });
 
+define('WikiDirectory', function(){
+    var WikiDirectory = {
 
-function activateTab(id)
-{
-	$(".navigation a").removeClass("nav-active");
-	$(".navigation a#nav-"+id).addClass("nav-active");
-	
-	$(".groups .group").hide();
-	$(".groups #expansion-"+id).show();
-	
-	$("body").removeClass("expansion-0");
-	$("body").removeClass("expansion-1");
-	$("body").removeClass("expansion-2");
-	
-	$("body").addClass("expansion-"+id);
-	
-	return false;
-}
+        /**
+         * Current selected expansion.
+         */
+        expansion: 0,
 
-var Wiki = {
+        /**
+         * Initialize the selected expansion.
+         *
+         * @param id
+         */
+        initialize: function(id) {
+            WikiDirectory.expansion = id;
 
-	/**
-	 * Related content object instances.
-	 */
-	related: {},
+            Filter.initialize(function(query) {
+                if (query.expansion) {
+                    if (query.expansion > 3 || query.expansion < 0) {
+                        query.expansion = 0;
+                    }
 
-	/**
-	 * URL of the page we are on.
-	 */
-	pageUrl: '',
+                    WikiDirectory.view($('#nav-'+ query.expansion), query.expansion);
+                }
+            });
+        },
 
-	/**
-	 * Currently active related tab.
-	 */
-	tab: '',
+        /**
+         * Select an expansion.
+         *
+         * @param node
+         * @param id
+         */
+        view: function(node, id) {
+            node = $(node);
+            node.parent().parent().find('a').removeClass('nav-active');
+            node.addClass('nav-active');
 
-	/**
-	 * Hash tag query params.
-	 */
-	query: {},
+            $('body')
+                .removeClass('expansion-'+ WikiDirectory.expansion)
+                .addClass('expansion-'+ id);
 
-	/**
-	 * Auto load the appropriate related tab.
-	 *
-	 * @constructor
-	 */
-	initialize: function() {
-		var tabs = $('#related-tabs'),
-			hash = Core.getHash();
-			
-		if (tabs.length <= 0)
-			return;
+            $('#wiki')
+                .find('.groups .group').hide().end()
+                .find('#expansion-'+ id).show().end();
 
-		tabs.find('a').click(function() {
-			Wiki.loadRelated(this);
-			return false;
-		});
+            Filter.addParam('expansion', id.toString());
+            Filter.applyQuery();
 
-		// Load comments tab
-		if (hash && /^c-([0-9]+)$/.test(hash)) {
-			Wiki.loadRelated($('#tab-comments'));
+            WikiDirectory.expansion = id;
+        }
 
-			if (!Core.isIE()) {
-				Filter.reset();
-				Core.scrollTo('#related-tabs');
-			}
+    };
 
-		// Else determine which tab
-		} else {
-			Filter.initialize(function(query) {
-				Wiki.query = query;
+    return WikiDirectory;
+});
 
-				if (query.tab) {
-					$('#tab-'+ query.tab).click();
+define('WikiRelated', function(){
+    var WikiRelated = Class.extend({
+        object: null,
+        table: null,
+        page: null,
 
-					if (!Core.isIE())
-						Core.scrollTo('#related-tabs');
-				} else {
-					tabs.find('a:first').click();
-				}
-			});
-		}
-	},
+        /**
+         * Initialize table and events.
+         *
+         * @param page
+         * @param config
+         */
+        init: function(page, config) {
+            this.page = page;
+            this.object = $('#related-'+ page);
 
-	/**
-	 * Load related content pages. Save a cache of the content.
-	 *
-	 * @param node
-	 * @param reload
-	 * @return bool
-	 */
-	loadRelated: function(node, reload) {
-		node = $(node);
+            if (this.object.find('table').length) {
+                this.table = new Table(this.object, config);
 
-		// Generate url key
-		var key = node.data('key'),
-			wrapper = $('#related-content');
+                if (Wiki.tab == page && Wiki.query.page)
+                    this.table.paginate(Wiki.query.page);
+            }
 
-		$('#related-tabs a').removeClass('tab-active');
-		
-		node.addClass('tab-active');
-		wrapper.find('.related-content').hide();
+            // Advanced toggle
+            this.object.find('.advanced-toggle').click($.proxy(this.toggleAdvanced, this));
 
-		// Set filter
-		if (Wiki.tab != '') {
-			Filter.addParam('tab', key);
-			Filter.addParam('page', '');
-			Filter.applyQuery();
-		}
+            if (!this.table)
+                return;
 
-		// Check cache
-		if (Wiki.related[key] && !reload) {
-			$('#related-'+ key).show();
-			wrapper.removeClass('loading');
+            // Setup filters
+            var filters = this.object.find('.filters');
 
-			Wiki.tab = key;
-			Wiki.query = {};
-			
-			return false;
-		}
+            if (filters.length) {
+                Filter.bindInputs(filters, $.proxy(this.filter, this));
 
-		$.ajax({
-			type: 'GET',
-			url: Wiki.pageUrl + key,
-			dataType: 'html',
-			global: false,
-			cache: (key != 'comments'),
-			beforeSend: function() {
-				wrapper.addClass('loading')
-			},
-			success: function(data) {
-				if (data) {
-					Wiki.tab = key;
-					wrapper.removeClass('loading').append(data);
-					Wiki.query = {};
-					
-					Core.fixTableHeaders('#related-'+ key);
-				}
-			}
-		});
+                filters.find('.filter-name').bind('focus blur', this.inputBehavior);
+            }
 
-		return false;
-	},
+            // Setup keyword
+            var keyword = this.object.find('.keyword');
 
-	/**
-	 * Callback for posting a comment, will reload the tab.
-	 */
-	postComment: function() {
-		var tab = $('#tab-comments'),
-			count = tab.find('em'),
-			no = parseInt(count.html());
+            if (keyword.length) {
+                keyword
+                    .find('.reset').click($.proxy(this.keywordReset, this)).end()
+                    .find('input').keyup($.proxy(this.keywordClick, this));
+            }
+        },
 
-		if (!no || no <= 0)
-			no = 0;
+        /**
+         * Event for keyword input click.
+         *
+         * @param e
+         */
+        keywordClick: function(e) {
+            var node = $(e.currentTarget || e.target),
+                view = node.siblings('.view'),
+                reset = node.siblings('.reset');
 
-		count.html(no + 1);
-			
-		delete Wiki.related.comments;
-		Wiki.loadRelated(tab, true);
-	}
+            if (node.val() !== '') {
+                view.hide();
+                reset.show();
+            } else {
+                view.show();
+                reset.hide();
+            }
+        },
 
-}
+        /**
+         * Event for keyword reset.
+         *
+         * @param e
+         */
+        keywordReset: function(e) {
+            var node = $(e.currentTarget || e.target),
+                view = node.siblings('.view'),
+                input = node.siblings('input');
 
-var WikiDirectory = {
+            view.show();
+            node.hide();
+            input.val('').trigger('keyup').trigger('blur');
+        },
 
-	/**
-	 * Current selected expansion.
-	 */
-	expansion: 0,
+        /**
+         * Run the filters no the table.
+         *
+         * @param data
+         */
+        filter: function(data) {
+            if (data.tag == 'a') {
+                this.object.find('.filter-tabs a').removeClass('tab-active');
 
-	/**
-	 * Initialize the selected expansion.
-	 *
-	 * @param id
-	 */
-	initialize: function(id) {
-		WikiDirectory.expansion = id;
+                data.node.addClass('tab-active');
 
-		Filter.initialize(function(query) {
-			if (query.expansion) {
-				if (query.expansion > 3 || query.expansion < 0) {
-					query.expansion = 0;
-				}
-				
-				WikiDirectory.view($('#nav-'+ query.expansion), query.expansion);
-			}
-		});
-	},
+                this.table.filter(data.filter, data.column, data.value, 'contains');
 
-	/**
-	 * Select an expansion.
-	 *
-	 * @param node
-	 * @param id
-	 */
-	view: function(node, id) {
-		node = $(node);
-		node.parent().parent().find('a').removeClass('nav-active');
-		node.addClass('nav-active');
+            } else {
+                if (data.filter == 'column') {
+                    this.table.filter('column', data.column, data.value);
+                } else {
+                    this.table.filter(data.filter, data.name, data.value);
+                }
+            }
+        },
 
-		$('body')
-			.removeClass('expansion-'+ WikiDirectory.expansion)
-			.addClass('expansion-'+ id);
+        /**
+         * Filter down the table based on the selected tab.
+         *
+         * @param e
+         */
+        filterTabs: function(e) {
+            var node = $(e.currentTarget || e.target);
 
-		$('#wiki')
-			.find('.groups .group').hide().end()
-			.find('#expansion-'+ id).show().end();
+            this.object.find('.filter-tabs a').removeClass('tab-active');
+            node.addClass('tab-active');
 
-		Filter.addParam('expansion', id.toString());
-		Filter.applyQuery();
-		
-		WikiDirectory.expansion = id;
-	}
+            this.table.filter(node.data('filter'), node.data('column'), node.data('value'), 'contains');
+        },
 
-}
+        /**
+         * Auto select the hide non-equippable checkbox.
+         */
+        hideNonEquipment: function() {
+            var select = this.object.find('.filter-class'),
+                equip = this.object.find('.filter-isEquippable'),
+                value = select.val();
 
-var WikiRelated = Class.extend({
-	object: null,
-	table: null,
-	page: null,
+            if (equip.length && (equip.is(':checked') && value === '' || !equip.is(':checked') && value !== '')) {
+                equip.click();
+                this.table.filter('class', 'isEquippable', 'is-equipment');
+            }
+        },
 
-	/**
-	 * Initialize table and events.
-	 *
-	 * @param page
-	 * @param config
-	 */
-	init: function(page, config) {
-		this.page = page;
-		this.object = $('#related-'+ page);
+        /**
+         * Default behavior for input fields.
+         */
+        inputBehavior: function() {
+            if (this.value == this.title) {
+                this.value = '';
+                $(this).addClass('focus');
 
-		if (this.object.find('table').length) {
-			this.table = new Table(this.object, config);
+            } else if ($.trim(this.value) === '') {
+                this.value = this.title;
+                $(this).removeClass('focus');
+            }
+        },
 
-			if (Wiki.tab == page && Wiki.query.page)
-				this.table.paginate(Wiki.query.page);
-		}
+        /**
+         * Open or close the advanced filters.
+         *
+         * @param e
+         */
+        toggleAdvanced: function(e) {
+            var node = $(e.currentTarget || e.target);
 
-		// Advanced toggle
-		this.object.find('.advanced-toggle').click($.proxy(this.toggleAdvanced, this));
-		
-		if (!this.table)
-			return;
+            if (node.hasClass('opened')) {
+                node.removeClass('opened');
+                this.object.find('.advanced-filters').hide();
 
-		// Setup filters
-		var filters = this.object.find('.filters');
+            } else {
+                node.addClass('opened');
+                this.object.find('.advanced-filters').show();
+            }
+        }
 
-		if (filters.length) {
-			Filter.bindInputs(filters, $.proxy(this.filter, this));
-
-			filters.find('.filter-name').bind('focus blur', this.inputBehavior);
-		}
-
-		// Setup keyword
-		var keyword = this.object.find('.keyword');
-
-		if (keyword.length) {
-			keyword
-				.find('.reset').click($.proxy(this.keywordReset, this)).end()
-				.find('input').keyup($.proxy(this.keywordClick, this));
-		}
-	},
-
-	/**
-	 * Event for keyword input click.
-	 *
-	 * @param e
-	 */
-	keywordClick: function(e) {
-		var node = $(e.currentTarget || e.target),
-			view = node.siblings('.view'),
-			reset = node.siblings('.reset');
-
-		if (node.val() != '') {
-			view.hide();
-			reset.show();
-		} else {
-			view.show();
-			reset.hide();
-		}
-	},
-
-	/**
-	 * Event for keyword reset.
-	 *
-	 * @param e
-	 */
-	keywordReset: function(e) {
-		var node = $(e.currentTarget || e.target),
-			view = node.siblings('.view'),
-			input = node.siblings('input');
-
-		view.show();
-		node.hide();
-		input.val('').trigger('keyup').trigger('blur');
-	},
-
-	/**
-	 * Run the filters no the table.
-	 *
-	 * @param data
-	 */
-	filter: function(data) {
-		if (data.tag == 'a') {
-			this.object.find('.filter-tabs a').removeClass('tab-active');
-
-			data.node.addClass('tab-active');
-
-			this.table.filter(data.filter, data.column, data.value, 'contains');
-
-		} else {
-			if (data.filter == 'column') {
-				this.table.filter('column', data.column, data.value);
-			} else {
-				this.table.filter(data.filter, data.name, data.value);
-			}
-		}
-	},
-
-	/**
-	 * Filter down the table based on the selected tab.
-	 *
-	 * @param e
-	 */
-	filterTabs: function(e) {
-		var node = $(e.currentTarget || e.target);
-
-		this.object.find('.filter-tabs a').removeClass('tab-active');
-		node.addClass('tab-active');
-
-		this.table.filter(node.data('filter'), node.data('column'), node.data('value'), 'contains');
-	},
-
-	/**
-	 * Auto select the hide non-equippable checkbox.
-	 */
-	hideNonEquipment: function() {
-		var select = this.object.find('.filter-class'),
-			equip = this.object.find('.filter-isEquippable'),
-			value = select.val();
-
-		if (equip.length && (equip.is(':checked') && value == '' || !equip.is(':checked') && value != '')) {
-			equip.click();
-			this.table.filter('class', 'isEquippable', 'is-equipment');
-		}
-	},
-
-	/**
-	 * Default behavior for input fields.
-	 */
-	inputBehavior: function() {
-		if (this.value == this.title) {
-			this.value = '';
-			$(this).addClass('focus');
-
-		} else if ($.trim(this.value) == '') {
-			this.value = this.title;
-			$(this).removeClass('focus');
-		}
-	}, 
-
-	/**
-	 * Open or close the advanced filters.
-	 *
-	 * @param e
-	 */
-	toggleAdvanced: function(e) {
-		var node = $(e.currentTarget || e.target);
-
-		if (node.hasClass('opened')) {
-			node.removeClass('opened');
-			this.object.find('.advanced-filters').hide();
-
-		} else {
-			node.addClass('opened');
-			this.object.find('.advanced-filters').show();
-		}
-	}
-
+    });
+    return WikiRelated;
 });

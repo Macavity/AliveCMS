@@ -289,7 +289,7 @@ var Filter = {
 			view = input.siblings('.view'),
 			reset = input.siblings('.reset');
 
-		if (input.val() != '') {
+		if (input.val() !== '') {
 			view.hide();
 			reset.show();
 		} else {

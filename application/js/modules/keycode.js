@@ -1,4 +1,4 @@
-
+/*jshint -W004 */
 define(['alive/core', 'jquery'], function(Core, $){
     /**
      * Mappings of keyboard key codes for all supported regions.

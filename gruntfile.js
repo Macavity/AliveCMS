@@ -10,6 +10,18 @@ module.exports = function(grunt) {
          */
         jshint: {
             options: {
+
+                force: true,
+
+                // Enforcing
+                curly: false,
+                browser: true,
+                eqeqeq: false,
+
+                // Relaxing
+                eqnull: true,
+                scripturl: true,
+
                 ignores: [
                     // Generated files
                     'application/js/alive.js',
@@ -28,6 +40,8 @@ module.exports = function(grunt) {
                     'application/js/flux.min.js',
                     'application/js/language.js',
                     'application/js/wz_tooltip.js',
+                    'application/js/misc.js',
+                    'application/js/prototypes.js',
 
                     'application/js/libs/**/*.js',
                     'application/js/themes/**/*.js',
@@ -37,7 +51,10 @@ module.exports = function(grunt) {
 
             files: [
                 'gruntfile.js',
-                'application/js/**/*.js'
+                'application/js/modules/*.js',
+                'application/js/controller/*.js',
+                'application/js/main.js',
+                'application/js/news.js'
                 //'application/themes/shattered/js/**/*.js'
             ]
         },
@@ -213,6 +230,7 @@ module.exports = function(grunt) {
             js: {
                 files: [
                     'application/js/libs/**/*.js',
+                    'application/js/modules/**/*.js',
                     'application/js/controller/**/*.js',
                     'application/js/misc.js',
                     'application/js/static.js',

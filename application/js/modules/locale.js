@@ -44,7 +44,7 @@ define(function(){
                 toggler.toggleClass('open');
 
             } else {
-                if (node.html() != "") {
+                if (node.html() !== "") {
                     Locale.display();
                     toggler.toggleClass('open');
                 } else {

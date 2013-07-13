@@ -1,3 +1,4 @@
+/*jshint -W041,-W084,-W086,-W004 */
 /**
  * All global and core class objects.
  */
@@ -127,14 +128,11 @@ define(function(){
                 case 1:
                 default:
                     return Core.locale.replace('-', divider);
-                    break;
                 case 2:
                     var parts = Core.locale.split('-');
                     return parts[0] + divider + parts[1].toUpperCase();
-                    break;
                 case 3:
                     return Core.locale.toUpperCase().replace('-', divider);
-                    break;
             }
         },
 

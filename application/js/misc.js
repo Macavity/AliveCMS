@@ -23,6 +23,23 @@ function setCookie(c_name,value,exdays)
     document.cookie = c_name + "=" + c_value;
 }
 
+function activateTab(id)
+{
+    $(".navigation a").removeClass("nav-active");
+    $(".navigation a#nav-"+id).addClass("nav-active");
+
+    $(".groups .group").hide();
+    $(".groups #expansion-"+id).show();
+
+    $("body").removeClass("expansion-0");
+    $("body").removeClass("expansion-1");
+    $("body").removeClass("expansion-2");
+
+    $("body").addClass("expansion-"+id);
+
+    return false;
+}
+
 /**
  * Setup ajax calls.
  */

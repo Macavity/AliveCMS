@@ -60,7 +60,7 @@ define(function(){
         reset: function(node) {
             node = $(node);
 
-            if (node.val() == "")
+            if (node.val() === "")
                 node.removeClass("active").val(node.attr('alt'));
             else if (node.val() != node.attr('alt'))
                 node.addClass("active");

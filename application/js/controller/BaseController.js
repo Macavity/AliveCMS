@@ -4,7 +4,7 @@ define(function () {
      * @constructor
      * @param id
      */
-    function Base(id) {
+    function controllerBase(id) {
 
         this.id = id;
 
