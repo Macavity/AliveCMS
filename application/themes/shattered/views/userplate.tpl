@@ -22,7 +22,7 @@
                 </a>
                 <div id="context-1" class="ui-context character-select">
                     <div class="context">
-                        <a href="javascript:;" class="close" onclick="return CharSelect.close(this);"></a>
+                        <a href="javascript:;" class="close"></a>
                         <div class="context-user">
                             <strong>{$activeChar.name}</strong>
                             <br />
@@ -47,7 +47,7 @@
                                     <span class="realm up">{$activeChar.realmName}</span>
                                 </a>
                                 {foreach from=$charList item=charRow name=charList}
-                                <a href="{$charRow.url}" onclick="CharSelect.pin({$charRow.guid}, {$charRow.realmId}, this); return false;" class="char" rel="np">
+                                <a href="{$charRow.url}" class="char" rel="np" data-guid="{$charRow.guid}" data-realm="{$charRow.realmId}">
                                     <span class="pin"></span>
                                     <span class="name">{$charRow.name}</span>
                                     <span class="class wow-class-{$charRow.class}">{$charRow.level} {$charRow.raceString} {$charRow.classString}</span>

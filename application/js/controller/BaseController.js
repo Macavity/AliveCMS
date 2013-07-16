@@ -1,40 +1,31 @@
-define(function () {
+define(['core', 'char_select', 'login'], function (Core, CharSelect, Login) {
 
-    /**
-     * @constructor
-     * @param id
-     */
-    function controllerBase(id) {
+    var BaseController = Class.extend({
 
-        this.id = id;
+        init: function(){
 
-        this.initTS3Viewer();
+            this.initTS3Viewer();
+            this.initUserplate();
 
-        this.initUserplate();
+            /*
+             Page.initialize();
+             Input.initialize();
+             Explore.initialize();
+             Flash.initialize();
+             Locale.initialize();
+             */
 
-        /*
-        Page.initialize();
-        Input.initialize();
-        Explore.initialize();
-        Flash.initialize();
-        Locale.initialize();
-        */
-        CharSelect.initialize();
-        Core.initialize();
+            Core.initialize();
+            CharSelect.initialize();
 
-        return this;
-    }
-
-    controllerBase.prototype = {
+        },
 
         initUserplate: function(){
             $(".plate-logged-out").on("click",function(e){
                 e.preventDefault();
-                Login = require("libs/alive/login");
                 Login.open();
             });
         },
-
         initTS3Viewer: function(){
             debug.debug("Base.initTS3Viewer");
             $("#ts_button").mouseover(function(){ $("#sb_passive_large").addClass("sb_open"); });
@@ -102,7 +93,7 @@ define(function () {
             return Handlebars.templates[templateName];
         }
 
-    };
+    });
 
-    return controllerBase;
+    return BaseController;
 });

@@ -20,8 +20,7 @@ require([
     ], function (static, controller) {
 
     $(function () {
-
-        debug.debug("asdas");
+        debug.debug("js/main");
         controller.init();
         UserAgent.initialize();
 

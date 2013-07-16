@@ -1,5 +1,5 @@
 
-define(function(){
+define(['core'], function(Core){
 
 
     /*

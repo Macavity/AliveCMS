@@ -1,5 +1,5 @@
 /*jshint -W004 */
-define(function(){
+define(['core', 'toggle', 'input', 'tooltip'], function(Core, Toggle, Input, Tooltip){
 
     /**
      * Manage the context / character selection menu.
@@ -21,6 +21,20 @@ define(function(){
                 .keyup(CharSelect.filter);
 
             Input.bind('.character-filter');
+
+            $('.user-plate .character-select .close').on("click", function(event){
+                event.preventDefault();
+                CharSelect.close(this);
+            });
+
+            $(".user-plate .character-list .char").not(".pinned").on("click", function(event){
+                event.preventDefault();
+                var object = $(this);
+                var guid = object.data("guid");
+                var realm = object.data("realm");
+                CharSelect.pin(guid, realm, this);
+            });
+
         },
 
         /**
@@ -35,7 +49,6 @@ define(function(){
             $('div.character-list').html("").addClass('loading-chars');
 
             var switchUrl = mapStatic.urls.changeCharacter;
-            debug.debug("switchUrl: "+switchUrl);
 
             $.ajax({
                 type: 'POST',
@@ -61,16 +74,18 @@ define(function(){
                     }
 
                     // If homepage or account status, use those pages since they are unique
-                    if (location.pathname.indexOf('/ucp') >= 0)
-                        refreshUrl = Core.baseUrl +'/ucp';
-                    else if (location.pathname == Core.baseUrl +'/')
-                        refreshUrl = Core.baseUrl +'/';
+                    /*if ($(".module-ucp"))
+                        refreshUrl = '/ucp';
+                    else if($(".module-news"))
+                        refreshUrl = '/news';
 
                     // Request new content or replace
                     if (refreshUrl != switchUrl)
                         CharSelect.pageUpdate(refreshUrl);
-                    else
+                    else*/
                         CharSelect.replace(content);
+
+                    // TODO: Check necessity
                     $("#vote-active-char").html($(".context .context-user strong").html());
                 }
             });
