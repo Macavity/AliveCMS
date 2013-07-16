@@ -36,6 +36,11 @@
 	padding:0px;
 }
 
+.role_module em {
+    color: red;
+    font-style: normal;
+}
+
 .memberList {
 	background-color:#fff;
 	border-radius:5px;

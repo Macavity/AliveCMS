@@ -132,7 +132,7 @@
 		<!-- Top bar -->
 		<header>
 			<div class="center_1020">
-				<a href="#" class="logo"></a>
+				<a href="{$url}" class="logo"></a>
 
 				<!-- Top menu -->
 				<aside class="right">
