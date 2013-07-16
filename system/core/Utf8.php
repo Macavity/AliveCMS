@@ -86,11 +86,56 @@ class CI_Utf8 {
 	{
 		if ($this->_is_ascii($str) === FALSE)
 		{
-			$str = @iconv('UTF-8', 'UTF-8//IGNORE', $str);
+            /**
+             * @see https://github.com/EllisLab/CodeIgniter/issues/261#issuecomment-11255959
+             */
+            $str = $this->valid_utf8_bytes($str);
+            //$str = @iconv('UTF-8', 'UTF-8//IGNORE', $str);
 		}
 
 		return $str;
 	}
+
+    /**
+     * filter valid utf-8 byte sequences
+     *
+     * take over all valid bytes, drop an invalid sequence until first
+     * non-matching byte, start over at that byte.
+     *
+     * @param string $str
+     * @return string
+     */
+    function valid_utf8_bytes($str)
+    {
+        $return = '';
+        $length = strlen($str);
+        $invalid = array_flip(array("\xEF\xBF\xBF" /* U-FFFF */, "\xEF\xBF\xBE" /* U-FFFE */));
+
+        for ($i=0; $i < $length; $i++)
+        {
+            $c = ord($str[$o=$i]);
+
+            if ($c < 0x80) $n=0; # 0bbbbbbb
+            elseif (($c & 0xE0) === 0xC0) $n=1; # 110bbbbb
+            elseif (($c & 0xF0) === 0xE0) $n=2; # 1110bbbb
+            elseif (($c & 0xF8) === 0xF0) $n=3; # 11110bbb
+            elseif (($c & 0xFC) === 0xF8) $n=4; # 111110bb
+            else continue; # Does not match
+
+            for ($j=++$n; --$j;) # n bytes matching 10bbbbbb follow ?
+            if ((++$i === $length) || ((ord($str[$i]) & 0xC0) != 0x80))
+                continue 2
+                ;
+
+            $match = substr($str, $o, $n);
+
+            if ($n === 3 && isset($invalid[$match])) # test invalid sequences
+            continue;
+
+            $return .= $match;
+        }
+        return $return;
+    }
 
 	// --------------------------------------------------------------------
 
