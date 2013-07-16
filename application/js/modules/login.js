@@ -2,7 +2,7 @@
  * Opens a login overlay (or redirects to the login server).
  */
 
-define(function () {
+define(['blackout'], function (Blackout) {
     var Login = {
 
         /**

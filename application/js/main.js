@@ -16,14 +16,13 @@ requirejs.config({
 
 require([
         'static',
-        'controller/PageController',
-       'libs/alive/core'
-    ], function (static, controller, Core) {
+        'controller/PageController'
+    ], function (static, controller) {
 
     $(function () {
-
-        debug.debug("asdas");
+        debug.debug("js/main");
         controller.init();
+        UserAgent.initialize();
 
         /*
         Core.staticUrl = 'http://forum.wow-alive.de/static-wow';

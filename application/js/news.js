@@ -11,24 +11,32 @@ requirejs.config({
     urlArgs: "rev=617.1",
 
     paths: {
+        'app' : 'modules/app',
+        'blackout' : 'modules/blackout',
+        'char_select' : 'modules/char_select',
+        'cookie': 'modules/cookie',
+        'core' : 'modules/core',
+        'input': 'modules/input',
+        'login' : 'modules/login',
+        'slideshow' : 'modules/slideshow',
+        'toggle': 'modules/toggle',
+        'tooltip': 'modules/tooltip',
+        'wow': 'modules/wow',
+        'zone': 'modules/zone'
     }
 });
 
 require([
         'static',
         'controller/NewsController',
-        'libs/alive/core',
-        'libs/alive/slideshow',
-        'libs/alive/login'
+        'tooltip'
     ],
-    function (static, controller, Core) {
+    function (static, NewsController, Tooltip) {
 
     $(function () {
+        debug.debug("js/news");
 
-        debug.debug("asdas");
-        controller.init();
-
-        controller.initSlideshow();
+        var controller = new NewsController();
 
         /*
          Core.staticUrl = 'http://forum.wow-alive.de/static-wow';

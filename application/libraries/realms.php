@@ -167,7 +167,8 @@ class Realms
 
 		$this->races_en = $this->CI->config->item('races_en');
 		$this->classes_en = $this->CI->config->item('classes_en');
-	}
+
+    }
 
 	/**
 	 * Load the wow_zones config and populate the zones array
@@ -224,10 +225,11 @@ class Realms
 
     /**
 	 * Get the name of a race
+     * @alive
 	 * @param Int $id
 	 * @return String
 	 */
-	public function getRace($id)
+	public function getRace($id, $gender)
 	{
 		if(!count($this->races))
 		{
@@ -236,20 +238,26 @@ class Realms
 
 		if(array_key_exists($id, $this->races))
 		{
-			return $this->races[$id];
+            $label = $this->races[$id];
+
+            if(is_string($label)){
+                return $label;
+            }
+            else if(is_array($label)){
+                return $label[$gender];
+            }
+            return $this->races[$id];
 		}
-		else
-		{
-			return "Unknown";
-		}
+		return "Unknown";
 	}
 
 	/**
 	 * Get the name of a class
+     * @alive
 	 * @param Int $id
 	 * @return String
 	 */
-	public function getClass($id)
+	public function getClass($id, $gender)
 	{
 		if(!count($this->classes))
 		{
@@ -258,12 +266,16 @@ class Realms
 
 		if(array_key_exists($id, $this->classes))
 		{
-			return $this->classes[$id];
-		}
-		else
-		{
-			return "Unknown";
-		}
+            $label = $this->classes[$id];
+
+            if(is_string($label)){
+                return $label;
+            }
+            else if(is_array($label)){
+                return $label[$gender];
+            }
+        }
+		return "Unknown";
 	}
 
 	/**

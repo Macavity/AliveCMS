@@ -181,7 +181,12 @@ header nav a:active {
 	background-image:none;
 }
 
-header nav .active, #main .right .side_left .box li .button:hover, #main .right .side_right .box .button:hover, input[type="submit"]:hover, .nice_button:hover {
+header nav .active,
+#main .right .side_left .box li .button:hover,
+#main .right .side_right .box .button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.nice_button:hover {
 	border:1px solid #3a8fc0;
 	background-color:#1d6d9c;
 	background-image: linear-gradient(bottom, #1D6D9C 0%, #3D92C4 100%);
@@ -350,7 +355,9 @@ header nav .active:hover {
 	font-family:'MuseoSlab', Arial, Helvetica, Sans-serif;
 }
 
-#main .left article a, #main .right section span a, #main .right section form label a {
+#main .left article a,
+#main .right section span a,
+#main .right section form label a {
 	text-decoration:none;
 	color:#499fd1;
 }
@@ -359,7 +366,8 @@ header nav .active:hover {
 	color:#fff;
 }
 
-#main .right section span a:hover, #main .right section form label a:hover {
+#main .right section span a:hover,
+#main .right section form label a:hover {
 	color:#000;
 }
 
@@ -633,7 +641,11 @@ header nav .active:hover {
 	background-color:#dfdfdf;
 }
 
-#main .right .box li .button, #main .right .side_right .box .button, input[type="submit"], .nice_button {
+#main .right .box li .button,
+#main .right .side_right .box .button,
+input[type="submit"],
+input[type="button"],
+.nice_button {
 	float:right;
 	font-size:12px;
 	text-decoration:none;
@@ -666,14 +678,22 @@ header nav .active:hover {
 	padding:6px 10px;
 }
 
-#main .right .side_left .box li .button:hover, #main .right .side_right .box .button:hover, input[type="submit"]:hover, .nice_button:hover {
+#main .right .side_left .box li .button:hover,
+#main .right .side_right .box .button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.nice_button:hover {
 	box-shadow:0px 1px 0px #7dc2ea inset, 0px 1px 0px #fff;
 	border:1px solid #305e79;
 	color:#112e3f;
 	text-shadow:1px 1px 0px #2fa4d1;
 }
 
-#main .right .side_left .box li .button:active, #main .right .side_right .box .button:active, input[type="submit"]:active, .nice_button:active {
+#main .right .side_left .box li .button:active,
+#main .right .side_right .box .button:active,
+input[type="submit"]:active,
+input[type="button"]:active,
+.nice_button:active {
 	background-image:none;
 	box-shadow:0px 1px 0px #fff;
 }
@@ -695,7 +715,9 @@ header nav .active:hover {
 	margin-bottom:15px;
 }
 
-#main .right .side_right .box .button, input[type="submit"] {
+#main .right .side_right .box .button,
+input[type="submit"],
+input[type="button"] {
 	float:none;
 	width:60%;
 	display:block;
@@ -718,11 +740,13 @@ header nav .active:hover {
 }
 
 /* Form styles */
-form {
+form,
+section .form {
 	margin:10px;
 }
 
-input[type="submit"] {
+input[type="submit"],
+input[type="button"] {
 	padding:7px;
 	width:auto;
 	margin-top:20px;
@@ -818,7 +842,7 @@ footer {
 
 footer .center_1020 {
 	background-color:rgba(0,0,0,0.1);
-	border-left:;
+	/*border-left:;*/
 	height:100px;
 }
 

@@ -25,6 +25,475 @@
  * Box Shadow
  */
 /**
+ * Colors and Variables
+ */
+/* faction */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\000038}}
+.wow-faction-0, .wow-faction-0 a,
+.color-tooltip-alliance,
+.alliance {
+  color: #247faa;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000312}}
+.wow-faction-1, .wow-faction-1 a,
+.color-tooltip-horde,
+.horde {
+  color: #b30000;
+}
+
+/* item quality */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000324}}
+.color-q0, .color-q0 a {
+  color: #9d9d9d !important;
+}
+
+/* poor (gray) */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000325}}
+.color-q1, .color-q1 a {
+  color: white !important;
+}
+
+/* common (white) */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000326}}
+.color-q2, .color-q2 a {
+  color: #1eff00 !important;
+}
+
+/* uncommon (green) */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000327}}
+.color-q3, .color-q3 a {
+  color: #0081ff !important;
+}
+
+/* #0070dd rare (blue) */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000328}}
+.color-q4, .color-q4 a {
+  color: #c600ff !important;
+}
+
+/* #a335ee epic (purple) */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000329}}
+.color-q5, .color-q5 a {
+  color: #e5cc80 !important;
+}
+
+/* lengendary (orange) */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000330}}
+.color-q6, .color-q6 a {
+  color: #e5cc80 !important;
+}
+
+/* artifact (gold) */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000331}}
+.color-q7, .color-q7 a {
+  color: #e5cc80 !important;
+}
+
+/* heirloom (gold) */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000333}}
+.border-q0 {
+  border-color: #9d9d9d !important;
+}
+
+/* poor (gray) */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000334}}
+.border-q1 {
+  border-color: white !important;
+}
+
+/* common (white) */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000335}}
+.border-q2 {
+  border-color: #1eff00 !important;
+}
+
+/* uncommon (green) */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000336}}
+.border-q3 {
+  border-color: #0081ff !important;
+}
+
+/* rare (blue) */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000337}}
+.border-q4 {
+  border-color: #c600ff !important;
+}
+
+/* epic (purple) */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000338}}
+.border-q5 {
+  border-color: #e5cc80 !important;
+}
+
+/* lengendary (orange) */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000339}}
+.border-q6 {
+  border-color: #e5cc80 !important;
+}
+
+/* artifact (gold) */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000340}}
+.border-q7 {
+  border-color: #e5cc80 !important;
+}
+
+/* heirloom (gold) */
+/* class */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000344}}
+.color-c1, .color-c1 a {
+  color: #c69b6d !important;
+}
+
+/* warrior */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000345}}
+.color-c2, .color-c2 a {
+  color: #f48cba !important;
+}
+
+/* paladin */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000346}}
+.color-c3, .color-c3 a, .color-g2 {
+  color: #aad372 !important;
+}
+
+/* hunter */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000347}}
+.color-c4, .color-c4 a, .color-g1 {
+  color: #fff468 !important;
+}
+
+/* rogue */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000348}}
+.color-c5, .color-c5 a {
+  color: #f0ebe0 !important;
+}
+
+/* priest */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000349}}
+.color-c6, .color-c6 a {
+  color: #c41e3b !important;
+}
+
+/* death knight */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000350}}
+.color-c7, .color-c7 a {
+  color: #2359ff !important;
+}
+
+/* shaman */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000351}}
+.color-c8, .color-c8 a, .color-g3 {
+  color: #68ccef !important;
+}
+
+/* mage */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000352}}
+.color-c9, .color-c9 a {
+  color: #9382c9 !important;
+}
+
+/* warlock */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000353}}
+.color-c11, .color-c11 a, .color-g4 {
+  color: #ff7c0a !important;
+}
+
+/* druid */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000355}}
+.wow-class-1, .wow-class-1 a {
+  color: #c69b6d !important;
+}
+
+/* warrior */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000356}}
+.wow-class-2, .wow-class-2 a {
+  color: #f48cba !important;
+}
+
+/* paladin */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000357}}
+.wow-class-3, .wow-class-3 a {
+  color: #aad372 !important;
+}
+
+/* hunter */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000358}}
+.wow-class-4, .wow-class-4 a {
+  color: #fff468 !important;
+}
+
+/* rogue */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000359}}
+.wow-class-5, .wow-class-5 a {
+  color: #f0ebe0 !important;
+}
+
+/* priest */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000360}}
+.wow-class-6, .wow-class-6 a {
+  color: #c41e3b !important;
+}
+
+/* death knight */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000361}}
+.wow-class-7, .wow-class-7 a {
+  color: #2359ff !important;
+}
+
+/* shaman */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000362}}
+.wow-class-8, .wow-class-8 a {
+  color: #68ccef !important;
+}
+
+/* mage */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000363}}
+.wow-class-9, .wow-class-9 a {
+  color: #9382c9 !important;
+}
+
+/* warlock */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000364}}
+.wow-class-11, .wow-class-11 a {
+  color: #ff7c0a !important;
+}
+
+/* druid */
+/* item details and tooltips */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000367}}
+.color-tooltip-yellow {
+  color: #ffd100 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000368}}
+.color-tooltip-red {
+  color: #f00 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000369}}
+.color-tooltip-green {
+  color: #0f0 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000370}}
+.color-tooltip-blue {
+  color: #71D5FF !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000371}}
+.color-tooltip-beige {
+  color: #FFFF98 !important;
+}
+
+/* difficulty */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000374}}
+.color-d1, .color-d1 a {
+  color: #ff8040 !important;
+}
+
+/* orange */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000375}}
+.color-d2, .color-d2 a {
+  color: #ffff00 !important;
+}
+
+/* yellow */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000376}}
+.color-d3, .color-d3 a {
+  color: #40bf40 !important;
+}
+
+/* green */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000377}}
+.color-d4, .color-d4 a {
+  color: #808080 !important;
+}
+
+/* gray */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000378}}
+.color-d5, .color-d5 a {
+  color: #88aaff !important;
+}
+
+/* light blue */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000379}}
+.color-d6, .color-d6 a {
+  color: #ff0000 !important;
+}
+
+/* red */
+/* expansion */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000387}}
+.color-ex0 {
+  color: #fff468 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000388}}
+.color-ex1 {
+  color: #aad372 !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000389}}
+.color-ex2 {
+  color: #68ccef !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000390}}
+.color-ex3 {
+  color: #ff7c0a !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000392}}
+.wow-exp-0, .wow-exp-0 a {
+  color: #fff468 !important;
+}
+
+/* classic */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000393}}
+.wow-exp-1, .wow-exp-1 a {
+  color: #aad372 !important;
+}
+
+/* the burning crusade */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000394}}
+.wow-exp-2, .wow-exp-2 a {
+  color: #68ccef !important;
+}
+
+/* wrath of the lich king */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000395}}
+.wow-exp-3, .wow-exp-3 a {
+  color: #ff7c0a !important;
+}
+
+/* cataclysm */
+/* skill difficulty */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000398}}
+.color-s0 {
+  color: red;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\0000399}}
+.color-s1 {
+  color: #FF8040;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\00003100}}
+.color-s2 {
+  color: #FFFF00;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\00003101}}
+.color-s3 {
+  color: #40BF40;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\00003102}}
+.color-s4 {
+  color: #808080;
+}
+
+/* wow background colors */
+/* gem */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\00003107}}
+.bgcolor-g1 {
+  background-color: gray;
+}
+
+/* Meta */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\00003108}}
+.bgcolor-g2 {
+  background-color: red;
+}
+
+/* Red */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\00003109}}
+.bgcolor-g4 {
+  background-color: yellow;
+}
+
+/* Yellow */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\00003110}}
+.bgcolor-g8 {
+  background-color: blue;
+}
+
+/* Blue */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\00003111}}
+.bgcolor-g6 {
+  background-color: orange;
+}
+
+/* Orange */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\00003112}}
+.bgcolor-g10 {
+  background-color: purple;
+}
+
+/* Purple */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\00003113}}
+.bgcolor-g12 {
+  background-color: green;
+}
+
+/* Green */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\00003114}}
+.bgcolor-g14 {
+  background-color: white;
+}
+
+/* Prismatic */
+/* wow item quality */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\00003118}}
+.wow-item-0, .wow-item-0 a {
+  color: #9d9d9d !important;
+}
+
+/* poor (gray) */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\00003119}}
+.wow-item-1, .wow-item-1 a {
+  color: #ffffff !important;
+}
+
+/* common (white) */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\00003120}}
+.wow-item-2, .wow-item-2 a {
+  color: #1eff00 !important;
+}
+
+/* uncommon (green) */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\00003121}}
+.wow-item-3, .wow-item-3 a {
+  color: #0081ff !important;
+}
+
+/* rare (blue) */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\00003122}}
+.wow-item-4, .wow-item-4 a {
+  color: #c600ff !important;
+}
+
+/* epic (purple) */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\00003123}}
+.wow-item-5, .wow-item-5 a {
+  color: #ff8000 !important;
+}
+
+/* legendary (orange) */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\00003124}}
+.wow-item-6, .wow-item-6 a {
+  color: #e5cc80 !important;
+}
+
+/* artifact (gold) */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_statics\.scss}line{font-family:\00003125}}
+.wow-item-7, .wow-item-7 a {
+  color: #e5cc80 !important;
+}
+
+/* heirloom (gold) */
+/**
  * Standard Fusion Stylesheet
  */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_common\.scss}line{font-family:\000033}}

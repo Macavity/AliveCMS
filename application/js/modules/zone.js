@@ -53,4 +53,4 @@ var Zone = {
 		$('#map-floors').css('background-position', '-'+ (Zone.mapWidth * (floor - 1)) +'px 0px');
 	}
 	
-}
+};

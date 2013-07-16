@@ -1,46 +1,40 @@
 
-define(['./BaseController'], function (BaseController) {
+define(['./BaseController', 'slideshow'], function (BaseController, Slideshow) {
 
-    function pageController(id){
-        debug.debug("new PageController");
-        BaseController.call(this, id);
-        return (this);
-    }
+    var NewsController = BaseController.extend({
+        init: function(){
+            this._super();
 
-    pageController.prototype = new BaseController("Frontpage");
+            debug.debug("NewsController.initialize");
+            this.initSlideshow();
+            debug.debug("NewsController.initialize -- DONE");
+        },
 
-    // Define the class methods.
-    pageController.init = function(Slideshow){
-        debug.debug("Frontpage.initialize");
+        initSlideshow: function(){
+            if($("#slideshow").length){
+                debug.debug("NewsController.initSlideshow");
 
-        debug.debug("Frontpage.initialize END");
-    };
+                var slideData = [];
 
-    pageController.initSlideshow = function(){
-        if($("#slideshow").length){
-            debug.debug("Frontpage.initSlideshow");
-            var Slideshow = require('libs/alive/slideshow');
+                var slides = $("#slideshow .slide");
+                var slideCount = slides.length;
 
-            var slideData = [];
+                for(var n = 0; n < slideCount; n++){
+                    var slide = $(slides[n]);
 
-            var slides = $("#slideshow .slide");
-            var slideCount = slides.length;
+                    slideData.push({
+                        image: slide.data("image"),
+                        desc: slide.data("desc"),
+                        title: slide.data("title"),
+                        url: slide.data("url"),
+                        id: slide.attr("id")
+                    });
+                }
 
-            for(var n = 0; n < slideCount; n++){
-                var slide = $(slides[n]);
-
-                slideData.push({
-                    image: slide.data("image"),
-                    desc: slide.data("desc"),
-                    title: slide.data("title"),
-                    url: slide.data("url"),
-                    id: slide.attr("id")
-                });
+                Slideshow.initialize("#slideshow", slideData);
             }
-
-            Slideshow.initialize("#slideshow", slideData);
         }
-    };
+    });
 
-    return (pageController);
+    return NewsController;
 });

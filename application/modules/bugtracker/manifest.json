@@ -1,10 +1,95 @@
 {
     "name": "Bugtracker",
-    "description": "Simple Bugtracker with basic functionality",
+    "description": "WoW Alive Bugtracker",
 
     "author": {
         "name": "Macavity",
         "website": "http://www.wow-alive.de"
+    },
+
+    "permissions": {
+        "view": {"default": true, "description": "View the Bugtracker"},
+
+        "canCreateBugs": {"default": false, "description": "Bugs eintragen"},
+        "canEditBugs": {"default": false, "description": "Bugs bearbeiten"},
+        "canRemoveBugs": {"default": false, "description": "Bugs entfernen"},
+
+        "canCreateProjects": {"default": false, "description": "Bugs eintragen"},
+        "canEditProjects": {"default": false, "description": "Bugs bearbeiten"},
+        "canRemoveProjects": {"default": false, "description": "Bugs entfernen"}
+
+    },
+
+    "admin": [
+        {
+            "text": "Bugtracker",
+            "icon": "share",
+            "links": [
+                {
+                    "text": "Projekte",
+                    "icon": "tag",
+                    "controller": "admin_projects",
+                    "requirePermission": "canEditProjects"
+                },
+
+                {
+                    "text": "Bugs",
+                    "icon": "tag",
+                    "controller": "admin_entries",
+                    "requirePermission": "canEditBugs"
+                }
+            ]
+        }
+    ],
+
+    "roles": {
+        "view": {
+            "description": "View the Bug lists",
+            "permissions": {
+                "view": true
+            }
+        },
+
+        "create": {
+            "description": "Kann Bugs erstellen und kommentieren",
+
+            "permissions": {
+                "canCreateBugs": true,
+                "canCommentBugs": true
+            }
+        },
+
+        "moderate": {
+            "description": "Kann Bugs wieder öffnen",
+            "dangerLevel": 1,
+
+            "permissions": {
+                "canReopenBugs": true
+            }
+        },
+
+        "manage": {
+            "description": "Kann Bugs bearbeiten. <em>Admin-Tool<em>",
+            "dangerLevel": 2,
+
+            "permissions": {
+                "canEditBugs": true,
+                "canCloseBugs": true
+            }
+        },
+
+        "administrate": {
+            "description": "Kann Projekte und Bugs bearbeiten und entfernen <em>Admin-Tool<em>",
+            "dangerLevel": 3,
+
+            "permissions": {
+                "canCreateProjects": true,
+                "canEditProjects": true,
+                "canRemoveProjects": true,
+
+                "canRemoveBugs": true
+            }
+        }
     },
     
     "enabled": true

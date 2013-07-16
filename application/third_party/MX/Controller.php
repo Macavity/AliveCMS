@@ -132,4 +132,15 @@ class MX_Controller
 			}
 		}
 	}
+
+    /**
+     * Generates a json formatted output
+     * @alive
+     */
+    public function outputJson($json){
+        //ob_end_clean();
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+        //return json_encode($json);
+    }
+
 }

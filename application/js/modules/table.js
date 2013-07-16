@@ -1,10 +1,7 @@
-/**
- * Primary table utility that handles the sorting, filtering and pagination of a table and its rows.
- *
- * @copyright   2010, Blizzard Entertainment, Inc
- * @class       Table
- * @requires    Core
- */
+/*jshint -W084 */
+/*jshint -W038 */
+
+
 var Table = Class.extend({
 
 	/**
@@ -23,7 +20,6 @@ var Table = Class.extend({
 	 * Configuration.
 	 */
 	config: {},
-	lastSort: null,
 	lastSort: null,
 
 	/**
@@ -936,7 +932,7 @@ var TableStatic = {
 	 * @param match
 	 */
 	range: function(text, match) {
-		return (parseInt(text) >= match[0] && parseInt(text) <= match[1]);
+		return (parseInt(text, null) >= match[0] && parseInt(text, null) <= match[1]);
 	},
 
 	/**
@@ -946,7 +942,7 @@ var TableStatic = {
 	 * @param match
 	 */
 	greaterThan: function(text, match) {
-		return (parseInt(text) > match);
+		return (parseInt(text, null) > match);
 	},
 
 	/**
@@ -956,7 +952,7 @@ var TableStatic = {
 	 * @param match
 	 */
 	greaterThanEquals: function(text, match) {
-		return (parseInt(text) >= match);
+		return (parseInt(text, null) >= match);
 	},
 
 	/**
@@ -966,7 +962,7 @@ var TableStatic = {
 	 * @param match
 	 */
 	lessThan: function(text, match) {
-		return (parseInt(text) < match);
+		return (parseInt(text, null) < match);
 	},
 
 	/**
@@ -976,7 +972,7 @@ var TableStatic = {
 	 * @param match
 	 */
 	lessThanEquals: function(text, match) {
-		return (parseInt(text) <= match);
+		return (parseInt(text, null) <= match);
 	},
 
 	/**
@@ -1043,4 +1039,4 @@ var TableStatic = {
 		return ((x < y) ? -1 : ((x > y) ? 1 : 0));
 	}
 
-}
+};

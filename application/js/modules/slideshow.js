@@ -9,7 +9,7 @@
  *      Slideshow.initialize('#slideshow', []);
  *
  */
-define(function () {
+define(['core','cookie'], function (Core, Cookie) {
     var Slideshow = {
 
         /**
@@ -66,9 +66,27 @@ define(function () {
                 function() { Slideshow.play(); }
             );
 
+
+
             Slideshow.object.find('.paging a').mouseleave(function() {
                 Slideshow.object.find('.preview').empty().hide();
             });
+
+            // Generate paging
+            for(var i = 0; i < Slideshow.data.length; i++){
+                var slideIndex = $(Slideshow.slides[i]).data("index");
+                var pager = Slideshow.object.find("#paging-"+slideIndex);
+
+                $(pager)
+                    .on("mouseover", function(el){
+                        var object = $(this);
+                        Slideshow.preview(object.data("index"));
+                    })
+                    .on("click", function(){
+                        var object = $(this);
+                        Slideshow.jump(object.data("index"), this);
+                    });
+            }
 
             // Save views
             if (Slideshow.data.length > 0 && Slideshow.data[0].id) {
@@ -97,6 +115,8 @@ define(function () {
 
             Slideshow.link(0);
             Slideshow.play();
+
+            window.Slideshow = Slideshow;
         },
 
         /**

@@ -34,6 +34,7 @@ class Bugtracker extends MX_Controller{
         $this->user->userArea();
         
         $this->load->model('bug_model');
+        $this->load->model('project_model');
         $this->load->helper('string');
         
         // Breadcrumbs
@@ -49,7 +50,7 @@ class Bugtracker extends MX_Controller{
     public function index(){
         
         $this->template->setTitle($this->moduleTitle);
-        $this->template->setTopHeader($this->moduleTitle);
+        $this->template->setSectionTitle($this->moduleTitle);
         
         $bugRows = $this->bug_model->getBugs();
         
