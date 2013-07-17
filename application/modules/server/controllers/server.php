@@ -38,7 +38,7 @@ class Server extends MX_Controller
         $this->pageData = array_merge($this->pageData, array(
             "theme_path" => $this->theme_path,
             "module" => "server",
-            "extra_css" => array($this->style_path."server.css"),
+            "extra_css" => "",
         ));
 
     }
@@ -79,7 +79,7 @@ class Server extends MX_Controller
                     $this->template->addBreadcrumb("Spieler Online", site_url(array("server", $page)));
                     $this->templateFile = "playersonline.tpl";
                     $this->playersonline();
-                    $this->pageData["extra_css"][] = $this->style_path."wiki.css";
+                    // $this->pageData["extra_css"][] = $this->style_path."wiki.css";
                     $this->template->hideSidebar();
                     break;
                 
@@ -94,7 +94,7 @@ class Server extends MX_Controller
                 default:
                     $this->pageTitle = "Der Server";
                     $this->templateFile = "server.tpl";
-                    $this->pageData["extra_css"][] = $this->style_path."server-index.css";
+                    //$this->pageData["extra_css"][] = $this->style_path."server-index.css";
             }
             
             // save the generated content to the cache
