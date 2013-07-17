@@ -1,5 +1,5 @@
 
-define('Wiki', function(){
+define(function(){
     var Wiki = {
 
         /**

@@ -62,6 +62,12 @@ class Template
      */
     public $js_path;
 
+    /**
+     * Used for the RequireJS call
+     * @var {String}
+     */
+    public $js_action;
+
 	/**
 	 * Get the CI instance and create the paths
 	 */
@@ -82,6 +88,7 @@ class Template
         $this->page_url = ($this->CI->config->item('rewrite')) ? base_url() : base_url().'index.php/';
 		$this->loadManifest();
 		$this->title = "";
+        $this->js_action = "main";
 
 		if(!defined("pageURL"))
 		{
@@ -406,6 +413,7 @@ class Template
             "stage" => $this->CI->config->item("deployment_stage"),
 
             "js_path" => $this->js_path,
+            "js_action" => $this->js_action,
 
             "server_name" => $this->CI->config->item('server_name'),
 		);
@@ -1035,6 +1043,15 @@ class Template
      */
     public function setSectionTitle($header){
         $this->sectionTitle = $header;
+    }
+
+    /**
+     * Sets the js_action variable
+     * @alive
+     * @param $jsAction
+     */
+    public function setJsAction($jsAction){
+        $this->js_action = $jsAction;
     }
 
 

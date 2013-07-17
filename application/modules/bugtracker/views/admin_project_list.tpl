@@ -14,7 +14,7 @@
         <tr>
           <td>{$project.title}</td>
           <td>
-            Tickets: {$project.open_tickets} offen (Gesamtzahl: {$project.all_tickets}
+            Tickets: {$project.done_tickets} offen (Gesamtzahl: {$project.all_tickets})
           </td>
           <td width="45">
             <a href="javascript:void(0)" onClick="Bugtracker.moveProject('up', {$project.id}, this)" data-tip="Move up">

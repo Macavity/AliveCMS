@@ -1,5 +1,6 @@
 <?php
 
+
 define("BUGSTATE_OPEN", 1);
 define("BUGSTATE_ACTIVE", 2);
 define("BUGSTATE_REJECTED", 3);
@@ -31,7 +32,6 @@ define("BUGTYPE_ACHIEVEMENT",   700);
 define("BUGTYPE_PVP",           800);
 
 
-
 class Bug_model extends CI_Model
 {
     var $tableName = "bugtracker_entries";
@@ -39,17 +39,29 @@ class Bug_model extends CI_Model
     var $defaultProject = 1;
     var $defaultHomepageProject = 3;
 
-    var $availableBugStates = array(
-        BUGSTATE_OPEN => "Offen",
-        BUGSTATE_ACTIVE => "Bearbeitung",
-        BUGSTATE_DONE => "Erledigt",
-        BUGSTATE_REJECTED => "Abgewiesen",
-        BUGSTATE_IMPOSSIBLE => "Nicht umsetzbar"
-    );
+    var $availableBugStates = array();
 
+    public function __construct(){
+
+        $this->tableName = "bugtracker_entries";
+        $this->defaultProject = 1;
+        $this->defaultHomepageProject = 3;
+
+        $this->availableBugStates = array(
+            BUGSTATE_OPEN => "Offen",
+            BUGSTATE_ACTIVE => "Bearbeitung",
+            BUGSTATE_DONE => "Erledigt",
+            BUGSTATE_REJECTED => "Abgewiesen"
+        );
+    }
+
+    /**
+     * Get all bugs
+     * @return bool
+     */
     public function getBugs()
     {
-        $this->db->select('*')->from($this->tableName)->order_by('id', 'desc');
+        $this->db->select('id, bug_type, bug_subtype, bug_state, title, date as createdDate, date2 as changedDate, createdTimestamp, changedTimestamp')->order_by('id', 'desc')->from($this->tableName);
         $query = $this->db->get();
             
         if($query->num_rows() > 0)
@@ -64,11 +76,51 @@ class Bug_model extends CI_Model
         }
     }
 
+    /**
+     * Get all Bugs of a project
+     * @param $projectId
+     * @return bool
+     */
+    public function getBugsByProject($projectId, $restriction = "normal")
+    {
+
+        if($restriction == "normal"){
+            $this->db
+                ->select('id, bug_type, bug_subtype, bug_state, title, date as createdDate, date2 as changedDate, createdTimestamp, changedTimestamp')
+                ->order_by('id', 'desc')
+                ->where('project', $projectId)
+                ->where_in('bug_state', array(BUGSTATE_DONE, BUGSTATE_ACTIVE, BUGSTATE_OPEN))
+                ->from($this->tableName);
+        }
+        elseif($restriction == "none"){
+            $this->db
+                ->select('id, bug_type, bug_subtype, bug_state, title, date as createdDate, date2 as changedDate, createdTimestamp, changedTimestamp')
+                ->order_by('id', 'desc')
+                ->where('project', $projectId)
+                ->from($this->tableName);
+        }
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
+            $results = $query->result_array();
+
+            return $results;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public function importOldBugs(){
+
+        $defaultProject = $this->defaultProject;
 
         // Send all not old bugs to the wotlk project by default
         $this->db->where("project", 0)->update($this->tableName, array(
-            "project" => $this->defaultProject
+            "project" => $defaultProject,
         ));
 
         // Old state to new state
@@ -261,17 +313,37 @@ class Bug_model extends CI_Model
      */
     public function getBugCountByProject($projectId, $type = 0){
 
-        $this->db->select('count(state) as count, state')->from($this->tableName)->group_by('bug_state')->where('project', $projectId);
-
         if($type === 0){
+            /**
+             * Get the count for all states except REJECTED
+             */
+            $query = $this->db->select('count(bug_state) as count, bug_state')->group_by("bug_state")
+                ->where('project', $projectId)
+                ->where_in('bug_state', array(BUGSTATE_DONE, BUGSTATE_ACTIVE, BUGSTATE_OPEN))
+                ->from($this->tableName);
+            $results = $query->get()->result_array();
+
+            if(count($results) > 0){
+                $data = array();
+                foreach($results as $row){
+                    $data[$row["bug_state"]] = $row["count"];
+                }
+                return $data;
+            }
         }
         else{
-            $this->db->where('state', $type);
+            $query = $this->db->select('count(bug_state) as count, bug_state')
+                ->where('project', $projectId)
+                ->where('bug_state', $type)
+                ->from($this->tableName);
+            $results = $query->get()->result_array();
+
+            if(count($results) > 0){
+                return $results[0]["count"];
+            }
         }
 
-        $results = $this->db->result();
-
-        $result = $results[0];
+        return 0;
     }
 
     public function delete($id)
@@ -320,5 +392,25 @@ class Bug_model extends CI_Model
         {
             return false;
         }
+    }
+
+    public function getTypeLabel($type){
+        return (empty($this->availableBugStates[$type])) ? "" : $this->availableBugStates[$type];
+    }
+
+    public function findSimilarBugs($search, $bugId){
+        $this->db->select('id, title')
+            ->like('link', $search)
+            ->where_in('bug_state', array(BUGSTATE_OPEN, BUGSTATE_ACTIVE))
+            ->where('id <>', $bugId)
+            ->from($this->tableName);
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+        return false;
+
     }
 }

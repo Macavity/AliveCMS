@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Class Admin_Bugs
+ * Class Admin
  * @package Alive/Bugtracker
  */
-class Admin_Bugs extends MX_Controller
+class Admin extends MX_Controller
 {
 
     var $jsPath = "modules/bugtracker/js/bugtracker_admin.js";
@@ -29,41 +29,72 @@ class Admin_Bugs extends MX_Controller
     }
 
     /**
-     * Startseite, zeigt alle Projekte und von jedem Projekt die Beschreibung und Anzahl der Bugs
+     *
      */
-    public function index()
+    public function bug_list($projectId, $showState = "open")
     {
+
+        requirePermission("canEditBugs");
+
         // Change the title
         $this->administrator->setTitle($this->mainTitle);
 
-        $projects = $this->project_model->getProjects(true);
-        $projectCount = count($projects);
+        $project = $this->project_model->findProjectById($projectId);
 
-        foreach($projects as $key => $project){
-
-            $countBugs = $this->bug_model->getBugCountByProject($project["id"]);
-
-            $project["done_tickets"] = $countBugs[BUGSTATE_DONE] * 1;
-            $project["open_tickets"] = $countBugs[BUGSTATE_OPEN] * 1;
-            $project["all_tickets"] = $countBugs[BUGSTATE_DONE] + $countBugs[BUGSTATE_OPEN] + $countBugs[BUGSTATE_ACTIVE];
-
-            $project["percentage"] = ($project["all_tickets"] > 0) ? round($project["done_tickets"]/$project["all_tickets"])*100 : 0;
-            //debug($project);
-
-            // Update Original array element
-            $projects[$key] = $project;
+        if(!$project){
+            show_error("Projekt $projectId nicht gefunden");
+            die();
         }
 
+        switch($showState){
+            case "all":
+                $restriction = "none";
+                break;
+            case "open":
+            default:
+                $restriction = "normal";
+                break;
+        }
+
+        $bugs = $this->bug_model->getBugsByProject($projectId, $restriction);
+
+        foreach($bugs as $key => $bug){
+
+            $bug["state"] = $this->bug_model->getTypeLabel($bug["bug_state"]);
+
+            // Changed Date
+            if($bug["createdTimestamp"] == 0){
+                $date = explode(".", $bug["createdDate"]);
+                // 30.10.2011 => array( 0 => 30, 1 => 10, 2 => 2011)
+                $bug["createdTimestamp"] = strtotime($date[2]."-".$date[1]."-".$date[0]);
+            }
+            if($bug["changedTimestamp"] == 0 && !empty($bug["changedDate"])){
+                $date = explode(".", $bug["changedDate"]);
+                // 30.10.2011 => array( 0 => 30, 1 => 10, 2 => 2011)
+                $bug["changedTimestamp"] = strtotime($date[2]."-".$date[1]."-".$date[0]);
+            }
+            // No change yet? then use same date for both fields
+            if($bug["changedTimestamp"] == 0){
+                $bug["changedTimestamp"] = $bug["createdTimestamp"];
+            }
+            if(empty($bug["changedDate"])){
+                $bug["changedDate"] = strftime("%d.%m.%Y", $bug["changedTimestamp"]);
+            }
+            $bug["changedSort"] = strftime("%Y-%m-%d", $bug["changedTimestamp"]);
+
+
+            $bugs[$key] = $bug;
+        }
 
         // Prepare my data
         $templateData = array(
             'url' => $this->template->page_url,
-            'projects' => $projects,
-            'projectCount' => $projectCount,
+            'project' => $project,
+            'bugs' => $bugs,
         );
 
         // Load my view
-        $output = $this->template->loadPage("admin_bugs_index.tpl", $templateData);
+        $output = $this->template->loadPage("admin_bugs_list.tpl", $templateData);
 
         // Put my view in the main box with a headline
         $content = $this->administrator->box('Bugtracker', $output);
@@ -71,7 +102,13 @@ class Admin_Bugs extends MX_Controller
         $this->administrator->view($content, false, $this->jsPath);
     }
 
+    /**
+     * Change class/type for all bugs that were imported from the old system
+     */
     public function import(){
+
+        requirePermission("canEditProjects");
+
         $this->bug_model->importOldBugs();
 
         $this->index();

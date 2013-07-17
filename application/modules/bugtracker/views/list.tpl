@@ -1,6 +1,7 @@
 <a href="{site_url('bugtracker/create')}" class="ui-button button2"><span><span>Neuen Bug eintragen</span></span></a>&nbsp;
 
-<div class="wiki">
+
+<div id="buglist" class="wiki" data-rowcount="{$rowCount}">
     <div class="related">
         <span class="clear"><!-- --></span> 
 
@@ -25,7 +26,7 @@
 					<div class="option">
 						<ul class="ui-pagination"></ul>
 					</div>
-					Zeige <strong class="results-start">1</strong>–<strong class="results-end">50</strong> von <strong class="results-total">{$rowCount}</strong> Ergebnissen 
+					Zeige <strong class="results-start">{$rowMin}</strong>–<strong class="results-end">{$rowMax}</strong> von <strong class="results-total">{$rowCount}</strong> Ergebnissen
 		            <span class="clear"><!-- --></span> 
 				</div>
 			</div>
@@ -42,10 +43,10 @@
 					</thead>
 					<tbody>
 					{foreach from=$bugRows key=i item=bug}
-						<tr class="{$bug.css}">
-							<td data-raw="{$bug.status}">&nbsp;</td>
-							<td class="align-center" data-raw="{$bug.id}"><a href="/server/bugtracker/bug/{$bug.id}">#{$bug.id}</a></td>
-							<td>{$bug.class}</td>
+						<tr class="{$bug.css} {cycle values="row1,row2"}">
+							<td data-raw="{$bug.bug_state}">&nbsp;</td>
+							<td class="align-center" data-raw="{$bug.id}"><a href="/bugtracker/bug/{$bug.id}">#{$bug.id}</a></td>
+							<td>{$bug.type_string}</td>
 							<td data-raw="{$bug.title}">{$bug.title}</td>
 							<td data-raw="{$bug.changedSort}"><span data-tooltip="Eintragung am {$bug.createdDate}">{$bug.changedDate}</span></td>
 						</tr>
@@ -64,27 +65,12 @@
                 </div>
 			</div>
 		</div>	
-
+<!--
 		<script type="text/javascript" src="{$js_path}wiki.js?v2"></script>
 		<script type="text/javascript" src="{$js_path}zone.js"></script>
 		<script type="text/javascript" src="{$js_path}table.js"></script>
 		<script type="text/javascript" src="{$js_path}filter.js"></script>
-		<script type="text/javascript" src="{$js_path}lightbox.js"></script>
+		<script type="text/javascript" src="{$js_path}lightbox.js"></script>-->
 		
-		<script type="text/javascript">
-		//<![CDATA[
-		$(function() {
-            Wiki.pageUrl = '/bugtracker/';
-			Wiki.related['loot'] = new WikiRelated('loot', {
-				paging: true,
-				totalResults: {$rowCount},
-					column: 4,
-					method: 'date',
-					type: 'desc'
-			});
-		});
-		//]]>
-		</script> 
-
-    </div> <!-- /related -->
+  </div> <!-- /related -->
 </div>

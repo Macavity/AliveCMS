@@ -22,8 +22,8 @@
   <script type="text/javascript" src="{$path}js/libs.js"></script>
   <script type="text/javascript" src="{$path}js/hb.js"></script>
 
-  {if $controller == 'news'}
-    <script type="text/javascript" src="{$path}js/libs/require/require.js" data-main="application/js/news"></script>
+  {if $js_action}
+    <script type="text/javascript" src="{$path}js/libs/require/require.js" data-main="application/js/{$js_action}"></script>
   {else}
     <script type="text/javascript" src="{$path}js/libs/require/require.js" data-main="application/js/main"></script>
   {/if}

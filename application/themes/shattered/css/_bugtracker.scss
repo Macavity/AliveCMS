@@ -1,0 +1,359 @@
+
+.module-bugtracker {
+
+  /* Comments */
+
+  #comments-page .title {
+    font-size: 21px;
+    padding: 8px 15px;
+    font-weight: normal;
+  }
+
+  #content .section-title {
+    padding-bottom: 0px;
+  }
+
+  .page-comment-interior {
+    background-repeat: no-repeat;
+    background-position: 50% 100%;
+  }
+
+  .page-nav-container {
+    padding-top: 90px;
+  }
+
+  .page-nav-int {
+    position: relative;
+  }
+
+  span.time {
+    color: #824F30;
+    font-size: 11px;
+    margin-left: 13px;
+  }
+
+  #page-comments {
+    clear: both;
+    margin-top: 20px;
+    padding: 20px 0 65px;
+    font-family: Verdana, Geneva, sans-serif;
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+
+    .action-log {
+      font-size: 11px;
+      color: white;
+    }
+
+    h3 {
+      color: white;
+      text-transform: none;
+      padding-bottom: 15px;
+      font-size: 18px;
+      font-weight: normal;
+    }
+    .comment-cm {
+      float: right;
+      text-align: right;
+      width: 45%;
+      form {
+        display: inline;
+      }
+    }
+
+    .loggedOut .comment {
+      padding-left: 25px;
+    }
+
+    .comment {
+      font-size: 11px;
+      line-height: 24px;
+      margin-bottom: 12px;
+      position: relative;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      .user {
+        font: 12px Arial, Helvetica;
+        line-height: 15px;
+        font-weight: bold;
+
+        .time {
+          a {
+            color: #824F30;
+            font-size: 11px;
+            margin-left: 13px;
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+          color: #824F30;
+          font-size: 11px;
+          margin-left: 13px;
+        }
+      }
+      .rating-value {
+        font-size: 11px;
+        opacity: 0.7;
+      }
+      .content {
+        padding-top: 8px;
+        word-wrap: break-word;
+      }
+    }
+    .user img {
+      vertical-align: middle;
+    }
+
+    .comment-interior {
+      padding: 15px 15px 15px 95px;
+      min-height: 64px;
+    }
+
+    .portrait-b img,
+    .portrait-c img {
+      -moz-box-shadow: 0 0 10px #000;
+      -webkit-box-shadow: 0 0 10px #000;
+      box-shadow: 0 0 10px #000;
+    }
+    .blizzard {
+      .context-link {
+        color: #FFF;
+      }
+    }
+    .comment-ta {
+      padding: 4px;
+      background: white;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+    }
+    textarea {
+      font: 12px / 20px Verdana, Helvetica, Arial;
+      width: 98%;
+      margin: 0;
+      border: none;
+      resize: none;
+    }
+    .auto-expand {
+      font: 12px / 20px Verdana, Helvetica, Arial;
+      width: 98%;
+      margin: 0;
+      border: none;
+      resize: none;
+      overflow: hidden;
+      min-height: 66px;
+    }
+    div.auto-expand {
+      position: absolute;
+      display: none;
+    }
+    .comment {
+      &:hover {
+        .comment-actions, .rate-btn {
+          visibility: visible;
+        }
+      }
+
+      .comment-actions {
+        padding-top: 5px;
+        text-align: right;
+        visibility: hidden;
+      }
+
+      .status-text {
+        position: absolute;
+        top: 14px;
+        left: 16px;
+        display: none;
+      }
+      .karma {
+        position: absolute;
+        top: 1px;
+        right: 5px;
+      }
+
+      .hidden {
+        padding-bottom: 19px;
+        .status-text {
+          display: block;
+        }
+        .avatar, .content, .rate-btn-holder, .comment-actions {
+          display: none;
+        }
+      }
+    }
+
+    .iehover {
+      .comment-actions, .rate-btn {
+        visibility: visible;
+      }
+    }
+
+    .karma .rate-action {
+      top: 2px;
+    }
+    .low-rated {
+      opacity: 0.3;
+      &:hover {
+        opacity: 0.6;
+      }
+    }
+
+  }
+
+  .character-info .user-name {
+    display: inline;
+    position: relative;
+  }
+
+
+  /* Rating specific styles */
+
+  .comment-actions .reply-link {
+    margin-right: 5px;
+    text-transform: uppercase;
+  }
+
+  #content .cm-action {
+    float: left;
+  }
+
+  .comment-actions .break-down {
+    float: left;
+    line-height: 24px;
+    padding-left: 15px;
+    font-size: 12px;
+  }
+
+  #page-comments {
+    .nested {
+      padding-left: 85px;
+      .nested {
+        padding-left: 0;
+      }
+    }
+    .reply {
+      width: 85%;
+    }
+    .new-post {
+      background: repeat-x;
+      padding: 4px;
+      margin-bottom: 12px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+      .comment {
+        background: repeat-x;
+        margin-bottom: 0;
+      }
+
+      .avatar.half {
+        display: none;
+      }
+    }
+    .nested {
+      .avatar.full {
+        display: none;
+      }
+      .new-post .avatar.half {
+        display: block;
+      }
+    }
+    .portrait-b, .portrait-c {
+      top: 15px;
+      left: 15px;
+      position: absolute;
+    }
+    .avatar-interior {
+      background: none;
+    }
+  }
+
+  .disabled-comments-msg {
+    padding: 20px;
+    text-align: center;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+
+  #comment-form-reply {
+    display: none;
+  }
+
+  #page-comments {
+    .action {
+      clear: both;
+      text-align: right;
+      font-size: 14px;
+      padding: 10px 0 5px;
+    }
+    .spacer {
+      margin: 0 10px 0 10px;
+    }
+    .cancel, .submit {
+      float: right;
+    }
+    .cancel {
+      padding-right: 10px;
+      display: none;
+      line-height: 38px;
+    }
+    .postCountdown {
+      line-height: 38px;
+    }
+  }
+
+  #comment-form-reply .cancel {
+    display: block;
+  }
+
+  #page-comments {
+    #report-post {
+      margin-bottom: 12px;
+    }
+    .reporting {
+      margin-bottom: 0;
+    }
+  }
+
+  /* paging for comments */
+
+  .comments-container .ui-pagination {
+    float: right;
+    margin-bottom: 20px;
+  }
+
+  .fresh td:first-child,
+  .table tbody tr.fresh:hover td:first-child,
+  .inprogress td:first-child,
+  .table tbody tr.inprogress:hover td:first-child{
+    background-color:#F60;
+    padding:0px;
+  }
+
+  .done td:first-child,
+  tbody tr.done:hover td:first-child{
+    background-color:#0C0;
+    padding:0px;
+  }
+
+  .disabled td:first-child,
+  tbody .disabled td:first-child{
+    background-color:#C00;
+    padding:0px;
+  }
+
+  .table thead th {
+    padding: 0;
+    background: #4D1A08 url("/templates/Shattered-World/images/table-header.gif") 0 100% repeat-x;
+    border-bottom: 1px solid #1A0F08;
+    border-left: 0px solid #7C2804;
+    border-right: 0px solid #391303;
+    border-top: 0px solid #7C2804;
+    white-space: nowrap;
+    span {
+      padding-left: 10px;
+    }
+  }
+  .wiki .related { background: none; }
+
+}
