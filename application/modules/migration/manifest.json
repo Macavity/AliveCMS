@@ -6,7 +6,16 @@
         "name": "Macavity",
         "website": "http://www.wow-alive.de/"
     },
-    
+
+    "permissions": {
+        "view": {"default": true, "description": "Darf die Transferanleitung ansehen"},
+
+        "canMigrateCharacter": {"default": false, "description": "Darf den Transfervorgang nutzen"}
+
+
+    },
+
     "enabled": true
+
 
 }

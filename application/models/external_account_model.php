@@ -524,4 +524,7 @@ class External_account_model extends CI_Model
 	{
 		return $this->expansion;
 	}
+
+
+
 }
