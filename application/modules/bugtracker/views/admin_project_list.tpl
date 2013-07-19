@@ -1,3 +1,5 @@
+<script type="text/javascript" src="{$url}application/js/libs/jquery/jquery-ui-1.10.3.custom.min.js"></script>
+
 <section class="box big" id="main_bugtracker">
   <h2>
     <img src="{$url}application/themes/admin/images/icons/black16x16/ic_grid.png"/>
@@ -8,35 +10,38 @@
 		<a class="nice_button" href="javascript:void(0)" onClick="Bugtracker.addProject();">Projekt erstellen</a>
 	</span>
 
+  <p>Die Projekte können per Drag & Drop in ihrer Reihenfolge verändert werden.</p>
+
   <div class="form">
-    <table width="100%">
+    <ul class="project-list">
       {foreach from=$projects item=project}
-        <tr>
-          <td>{$project.title}</td>
-          <td>
-            Tickets: {$project.open_tickets} offen (Gesamtzahl: {$project.all_tickets}
-          </td>
-          <td width="45">
-            <a href="javascript:void(0)" onClick="Bugtracker.moveProject('up', {$project.id}, this)" data-tip="Move up">
-              <img src="{$url}application/themes/admin/images/icons/black16x16/ic_up.png" />
-            </a>
-            <a href="javascript:void(0)" onClick="Bugtracker.moveProject('down', {$project.id}, this)" data-tip="Move down">
-              <img src="{$url}application/themes/admin/images/icons/black16x16/ic_down.png" />
-            </a>
-          </td>
-          <td width="60" style="text-align:right;">
-            <a href="{$url}bugtracker/admin_projects/edit/{$project.id}" data-tip="Bearbeiten">
-              <img src="{$url}application/themes/admin/images/icons/black16x16/ic_edit.png" /></a>&nbsp;
-            <!--
-            <a href="javascript:void(0)" onClick="Bugtracker.removeProject({$project.id}, this)" data-tip="Löschen">
-              <img src="{$url}application/themes/admin/images/icons/black16x16/ic_minus.png" /></a>
-            -->
-          </td>
-        </tr>
+        <li>
+          <label>{$project.title}</label>
+          <a href="{$url}bugtracker/admin_projects/edit/{$project.id}" data-tip="Bearbeiten">
+            <img src="{$url}application/themes/admin/images/icons/black16x16/ic_edit.png" />
+          </a>
+
+          {if $project.projects}
+            <ul class="sub-projects">
+              {foreach from=$project.projects item=sub}
+                <li>
+                  <label>{$sub.title}</label>
+                </li>
+              {/foreach}
+            </ul>
+          {/if}
+
+        </li>
       {/foreach}
-    </table>
+    </ul>
 
   </div>
+  <script>
+    $(function() {
+      $( ".project-list" ).sortable();
+      $( ".project-list" ).disableSelection();
+    });
+  </script>
 
 </section>
 
@@ -48,6 +53,16 @@
 
     <label for="displayName">Beschreibung</label>
     <input type="text" name="projectDesc" id="projectDesc" />
+
+    <label for="displayName">Oberkategorie</label>
+    <select id="projectParent" name="projectParent">
+      <option value="0">- Keine -</option>
+      {foreach from=$projectChoices item=choice key=choiceId}
+        <option value="{$choiceId}">{$choice}</option>
+      {/foreach}
+    </select>
+
+
     <input type="button" value="Projekt erstellen" onclick="Bugtracker.createProject(this);" />
   </div>
 </section>

@@ -29,7 +29,8 @@ class Ucp extends MX_Controller
 				"characters" => $this->realms->getTotalCharacters(),
 				"realms" => $this->realms->getRealms(),
 				"url" => $this->template->page_url,
-				"realmObj" => $this->realms
+                "image_path" => $this->template->image_path,    /* @alive */
+				"realmObj" => $this->realms,
 			);
 
 			$characters = $this->template->loadPage("ucp_characters.tpl", $characters_data);
@@ -60,7 +61,12 @@ class Ucp extends MX_Controller
 				"teleport" => $this->config->item('ucp_teleport'),
 				"admin" => $this->config->item('ucp_admin'),
 				"gm" => $this->config->item('ucp_gm')
-			)
+			),
+
+            /**
+             * @alive
+             */
+            "image_path" => $this->template->image_path,
 		);
 
 		$this->template->view($this->template->loadPage("page.tpl", array(

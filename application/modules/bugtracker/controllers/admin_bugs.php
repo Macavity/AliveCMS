@@ -13,8 +13,10 @@ class Admin_Bugs extends MX_Controller
     public function __construct()
     {
         // Dummys
-        $this->bug_model = new Bug_model();
-        $this->project_model = new Project_Model();
+        if(false){
+            $this->bug_model = new Bug_model();
+            $this->project_model = new Project_Model();
+        }
 
         // Make sure to load the administrator library!
         $this->load->library('administrator');
@@ -37,26 +39,43 @@ class Admin_Bugs extends MX_Controller
         $projects = $this->project_model->getProjects(true);
         $projectCount = count($projects);
 
-        foreach($projects as $project){
+        foreach($projects as $key => $project){
 
-            $countDone = $this->bug_model->getBugCountByProject(BUGSTATE_DONE);
-            $countAll = $this->bug_model->getBugCountByProject();
+            $countBugs = $this->bug_model->getBugCountByProject($project["id"]);
+
+            $project["done_tickets"] = $countBugs[BUGSTATE_DONE] * 1;
+            $project["open_tickets"] = $countBugs[BUGSTATE_OPEN] * 1;
+            $project["all_tickets"] = $countBugs[BUGSTATE_DONE] + $countBugs[BUGSTATE_OPEN] + $countBugs[BUGSTATE_ACTIVE];
+
+            $project["percentage"] = ($project["all_tickets"] > 0) ? round($project["done_tickets"]/$project["all_tickets"])*100 : 0;
+            //debug($project);
+
+            // Update Original array element
+            $projects[$key] = $project;
         }
+
 
         // Prepare my data
         $templateData = array(
             'url' => $this->template->page_url,
-            'projects' => $this->project_model->getProjects(),
+            'projects' => $projects,
             'projectCount' => $projectCount,
         );
 
         // Load my view
-        $output = $this->template->loadPage("admin_project_list.tpl", $templateData);
+        $output = $this->template->loadPage("admin_bugs_index.tpl", $templateData);
 
         // Put my view in the main box with a headline
         $content = $this->administrator->box('Bugtracker', $output);
 
         $this->administrator->view($content, false, $this->jsPath);
+    }
+
+    public function import(){
+        $this->bug_model->importOldBugs();
+
+        $this->index();
+
     }
 
     /**

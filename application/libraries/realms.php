@@ -335,11 +335,6 @@ class Realms
 	 */
 	public function formatAvatarPath($character)
 	{
-		if(!count($this->races_en))
-		{
-			$this->loadConstants();
-		}
-
 		$class = $character['class'];
 		$race = $character['race'];
 
@@ -369,4 +364,16 @@ class Realms
 			return $file;
 		}
 	}
+
+    /**
+     * Get the link to the detail page of a certain character
+     * @alive
+     * @param $character
+     * @return string
+     */
+    public function getArmoryUrl($characterName, $realmId = 1){
+
+        $string = "character/".$realmId."/".$characterName;
+        return $string;
+    }
 }

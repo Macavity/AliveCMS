@@ -1,9 +1,10 @@
 <?php
 
+
 define("BUGSTATE_OPEN", 1);
 define("BUGSTATE_ACTIVE", 2);
 define("BUGSTATE_REJECTED", 3);
-define("BUGSTATE_DONE", 10);
+define("BUGSTATE_DONE", 9);
 
 define("BUGTYPE_GENERIC",       100);
 define("BUGTYPE_GENERIC_ITEM",  101);
@@ -31,7 +32,6 @@ define("BUGTYPE_ACHIEVEMENT",   700);
 define("BUGTYPE_PVP",           800);
 
 
-
 class Bug_model extends CI_Model
 {
     var $tableName = "bugtracker_entries";
@@ -39,17 +39,41 @@ class Bug_model extends CI_Model
     var $defaultProject = 1;
     var $defaultHomepageProject = 3;
 
-    var $availableBugStates = array(
-        BUGSTATE_OPEN => "Offen",
-        BUGSTATE_ACTIVE => "Bearbeitung",
-        BUGSTATE_DONE => "Erledigt",
-        BUGSTATE_REJECTED => "Abgewiesen",
-        BUGSTATE_IMPOSSIBLE => "Nicht umsetzbar"
-    );
+    private $availableBugStates = array();
 
-    public function getBugs()
+    public function __construct(){
+
+        $this->tableName = "bugtracker_entries";
+        $this->defaultProject = 1;
+        $this->defaultHomepageProject = 3;
+
+        $this->availableBugStates = array(
+            BUGSTATE_OPEN => "Offen",
+            BUGSTATE_ACTIVE => "Bearbeitung",
+            BUGSTATE_DONE => "Erledigt",
+            BUGSTATE_REJECTED => "Abgewiesen"
+        );
+    }
+
+    public function getBugStates(){
+        return $this->availableBugStates;
+    }
+
+    /**
+     * Get all bugs
+     * @param $projectId string
+     * @return bool
+     */
+    public function getBugs($projectId = 0)
     {
-        $this->db->select('*')->from($this->tableName)->order_by('id', 'desc');
+        $this->db->select('id, project, project_path, bug_state, title, date as createdDate, date2 as changedDate, createdTimestamp, changedTimestamp');
+
+        if($projectId != 0){
+            $this->db->where("project", $projectId);
+        }
+
+        $this->db->from($this->tableName)->order_by('id', 'desc');
+
         $query = $this->db->get();
             
         if($query->num_rows() > 0)
@@ -64,11 +88,51 @@ class Bug_model extends CI_Model
         }
     }
 
+    /**
+     * Get all Bugs of a project
+     * @param $projectId
+     * @return bool
+     */
+    public function getBugsByProject($projectId, $restriction = "normal")
+    {
+
+        if($restriction == "normal"){
+            $this->db
+                ->select('id, bug_state, project, project_path, title, date as createdDate, date2 as changedDate, createdTimestamp, changedTimestamp')
+                ->order_by('id', 'desc')
+                ->where('project', $projectId)
+                ->where_in('bug_state', array(BUGSTATE_DONE, BUGSTATE_ACTIVE, BUGSTATE_OPEN))
+                ->from($this->tableName);
+        }
+        elseif($restriction == "none"){
+            $this->db
+                ->select('id, bug_state, project, project_path, title, date as createdDate, date2 as changedDate, createdTimestamp, changedTimestamp')
+                ->order_by('id', 'desc')
+                ->where('project', $projectId)
+                ->from($this->tableName);
+        }
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
+            $results = $query->result_array();
+
+            return $results;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public function importOldBugs(){
+
+        $defaultProject = $this->defaultProject;
 
         // Send all not old bugs to the wotlk project by default
         $this->db->where("project", 0)->update($this->tableName, array(
-            "project" => $this->defaultProject
+            "project" => $defaultProject,
         ));
 
         // Old state to new state
@@ -86,168 +150,141 @@ class Bug_model extends CI_Model
 
         // Quests
         $this->db
-            ->where('bug_type', 0)
             ->where('class', "[Quest]")
             ->update($this->tableName, array(
-                "bug_type" => BUGTYPE_QUEST,
-                "bug_subtype" => BUGTYPE_QUEST_ALL
+                "project" => 5,
+                "project_path" => json_encode(array("base" => 1, "parent" => 5)),
             ));
 
         // Instanz
         $this->db
-            ->where('bug_type', 0)
             ->where('class', "[Instanz]")
             ->update($this->tableName, array(
-                "bug_type" => BUGTYPE_INSTANCE,
-                "bug_subtype" => 0
+                "project" => 9,
+                "project_path" => json_encode(array("base" => 1, "parent" => 9)),
             ));
 
         // NPC
         $this->db
-            ->where('bug_type', 0)
             ->where('class', "[NPC]")
             ->update($this->tableName, array(
-                "bug_type" => BUGTYPE_GENERIC,
-                "bug_subtype" => BUGTYPE_GENERIC_NPC,
-            ));
-
-        // Instanz
-        $this->db
-            ->where('bug_type', 0)
-            ->where('class', "[Instanz]")
-            ->update($this->tableName, array(
-                "bug_type" => BUGTYPE_INSTANCE,
-                "bug_subtype" => 0
+                "project" => 43,
+                "project_path" => json_encode(array("base" => 1, "parent" => 43)),
             ));
 
 
         // Erfolg
         $this->db
-            ->where('bug_type', 0)
             ->where('class', "[Erfolg]")
             ->update($this->tableName, array(
-                "bug_type" => BUGTYPE_ACHIEVEMENT,
-                "bug_subtype" => 0
+                "project" => 11,
+                "project_path" => json_encode(array("base" => 1, "parent" => 11)),
             ));
 
 
         // Item
         $this->db
-            ->where('bug_type', 0)
             ->where('class', "[Item]")
             ->update($this->tableName, array(
-                "bug_type" => BUGTYPE_GENERIC,
-                "bug_subtype" => BUGTYPE_GENERIC_ITEM,
+                "project" => 45,
+                "project_path" => json_encode(array("base" => 1, "parent" => 45)),
             ));
 
 
         // Homepage
         $this->db
-            ->where('bug_type', 0)
             ->where('class', "[Homepage]")
             ->update($this->tableName, array(
                 "project" => $this->defaultHomepageProject,
-                "bug_type" => BUGTYPE_GENERIC,
-                "bug_subtype" => 0,
+                "project_path" => json_encode(array("base" => $this->defaultHomepageProject, "parent" => $this->defaultHomepageProject)),
             ));
 
         // Charakter
         $this->db
-            ->where('bug_type', 0)
             ->where('class', "[Charakter]")
             ->update($this->tableName, array(
-                "bug_type" => BUGTYPE_CLASS,
-                "bug_subtype" => 0
+                "project" => 49,
+                "project_path" => json_encode(array("base" => 1, "parent" => 49)),
             ));
 
         // Charakter/Hexenmeister
         $this->db
-            ->where('bug_type', 0)
             ->where('class', "[Charakter/Hexenmeister]")
             ->update($this->tableName, array(
-                "bug_type" => BUGTYPE_CLASS,
-                "bug_subtype" => BUGTYPE_CLASS_WARLOCK
+                "project" => 31,
+                "project_path" => json_encode(array("base" => 1, "parent" => 7)),
             ));
 
         // Charakter/Jäger
         $this->db
-            ->where('bug_type', 0)
             ->where('class', "[Charakter/Jäger]")
             ->update($this->tableName, array(
-                "bug_type" => BUGTYPE_CLASS,
-                "bug_subtype" => BUGTYPE_CLASS_HUNTER
+                "project" => 25,
+                "project_path" => json_encode(array("base" => 1, "parent" => 7)),
             ));
 
         // Charakter/Krieger
         $this->db
-            ->where('bug_type', 0)
             ->where('class', "[Charakter/Krieger]")
             ->update($this->tableName, array(
-                "bug_type" => BUGTYPE_CLASS,
-                "bug_subtype" => BUGTYPE_CLASS_WARRIOR
+                "project" => 23,
+                "project_path" => json_encode(array("base" => 1, "parent" => 7)),
             ));
 
         // Charakter/Magier
         $this->db
-            ->where('bug_type', 0)
             ->where('class', "[Charakter/Magier]")
             ->update($this->tableName, array(
-                "bug_type" => BUGTYPE_CLASS,
-                "bug_subtype" => BUGTYPE_CLASS_MAGE
+                "project" => 30,
+                "project_path" => json_encode(array("base" => 1, "parent" => 7)),
             ));
 
         // Charakter/Paladin
         $this->db
-            ->where('bug_type', 0)
             ->where('class', "[Charakter/Paladin]")
             ->update($this->tableName, array(
-                "bug_type" => BUGTYPE_CLASS,
-                "bug_subtype" => BUGTYPE_CLASS_PALADIN
+                "project" => 24,
+                "project_path" => json_encode(array("base" => 1, "parent" => 7)),
             ));
 
         // Charakter/Priester
         $this->db
-            ->where('bug_type', 0)
             ->where('class', "[Charakter/Priester]")
             ->update($this->tableName, array(
-                "bug_type" => BUGTYPE_CLASS,
-                "bug_subtype" => BUGTYPE_CLASS_PRIEST
+                "project" => 27,
+                "project_path" => json_encode(array("base" => 1, "parent" => 7)),
             ));
 
         // Charakter/Schamane
         $this->db
-            ->where('bug_type', 0)
             ->where('class', "[Charakter/Schamane]")
             ->update($this->tableName, array(
-                "bug_type" => BUGTYPE_CLASS,
-                "bug_subtype" => BUGTYPE_CLASS_SHAMAN
+                "project" => 29,
+                "project_path" => json_encode(array("base" => 1, "parent" => 7)),
             ));
 
         // Charakter/Schurke
         $this->db
-            ->where('bug_type', 0)
             ->where('class', "[Charakter/Schurke]")
             ->update($this->tableName, array(
-                "bug_type" => BUGTYPE_CLASS,
-                "bug_subtype" => BUGTYPE_CLASS_ROGUE
+                "project" => 26,
+                "project_path" => json_encode(array("base" => 1, "parent" => 7)),
             ));
 
         // Charakter/Todesritter
         $this->db
-            ->where('bug_type', 0)
             ->where('class', "[Charakter/Todesritter]")
             ->update($this->tableName, array(
-                "bug_type" => BUGTYPE_CLASS,
-                "bug_subtype" => BUGTYPE_CLASS_DK
+                "project" => 28,
+                "project_path" => json_encode(array("base" => 1, "parent" => 7)),
             ));
 
         // Charakter/Druide
         $this->db
-            ->where('bug_type', 0)
             ->where('class', "[Charakter/Druide]")
             ->update($this->tableName, array(
-                "bug_type" => BUGTYPE_CLASS,
-                "bug_subtype" => BUGTYPE_CLASS_DRUID
+                "project" => 32,
+                "project_path" => json_encode(array("base" => 1, "parent" => 7)),
             ));
 
 
@@ -259,19 +296,45 @@ class Bug_model extends CI_Model
      * @param $projectId
      * @param int $type
      */
-    public function getBugCountByProject($projectId, $type = 0){
+    public function getBugCountByProject($projectId = 0, $type = 0){
 
-        $this->db->select('count(state) as count, state')->from($this->tableName)->group_by('bug_state')->where('project', $projectId);
+        $this->db->select('count(bug_state) as count, bug_state');
+
+        if($projectId != 0){
+            $this->db->where('project', $projectId);
+        }
 
         if($type === 0){
+            $this->db
+                ->where_in('bug_state', array(BUGSTATE_DONE, BUGSTATE_ACTIVE, BUGSTATE_OPEN))
+                ->group_by("bug_state");
+            $query = $this->db->from($this->tableName);
+            $results = $query->get()->result_array();
+
+            if(count($results) > 0){
+                $data = array();
+                foreach($results as $row){
+                    $data[$row["bug_state"]] = $row["count"];
+                }
+            }
+
+            $data[BUGSTATE_DONE] = empty($data[BUGSTATE_DONE]) ? 0 : $data[BUGSTATE_DONE] * 1;
+            $data[BUGSTATE_ACTIVE] = empty($data[BUGSTATE_ACTIVE]) ? 0 : $data[BUGSTATE_ACTIVE] * 1;
+            $data[BUGSTATE_OPEN] = empty($data[BUGSTATE_OPEN]) ? 0 : $data[BUGSTATE_OPEN] * 1;
+
+            return $data;
         }
         else{
-            $this->db->where('state', $type);
+            $this->db->where('bug_state', $type);
+            $query = $this->db->from($this->tableName);
+            $results = $query->get()->result_array();
+
+            if(count($results) > 0){
+                return $results[0]["count"];
+            }
+            return 0;
         }
 
-        $results = $this->db->result();
-
-        $result = $results[0];
     }
 
     public function delete($id)
@@ -308,7 +371,8 @@ class Bug_model extends CI_Model
 
     public function getBug($id)
     {
-        $query = $this->db->query("SELECT * FROM bugs WHERE id=?", array($id));
+        $this->db->select("*")->where("id", $id)->from($this->tableName);
+        $query = $this->db->get();
 
         if($query->num_rows() > 0)
         {
@@ -316,9 +380,50 @@ class Bug_model extends CI_Model
 
             return $result[0];
         }
-        else
-        {
-            return false;
+        return false;
+    }
+
+    /**
+     * @param $bugId
+     * @return bool
+     */
+    public function getBugComments($bugId){
+
+        $this->db->select("*")->where("postid", $bugId)->order_by("id", "asc")->from("bugtracker_comments");
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0){
+            return $query->result_array();
         }
+        return false;
+    }
+
+    /**
+     * @param $type
+     * @return string
+     */
+    public function getTypeLabel($type){
+        return "";  // TODO System umschreiben auf administrierbare Bug-Kategorien
+    }
+
+    public function getStateLabel($type){
+        return (empty($this->availableBugStates[$type])) ? "" : $this->availableBugStates[$type];
+    }
+
+    public function findSimilarBugs($search, $bugId){
+        $this->db->select('id, title')
+            ->like('link', $search)
+            ->where_in('bug_state', array(BUGSTATE_OPEN, BUGSTATE_ACTIVE))
+            ->where('id <>', $bugId)
+            ->from($this->tableName);
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+        return array();
+
     }
 }
