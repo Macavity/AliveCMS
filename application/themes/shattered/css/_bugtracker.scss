@@ -1,7 +1,120 @@
 
+
 .module-bugtracker {
 
+  .bugtracker-project {
+
+    max-resolution: 40px;
+    
+    a {
+      color: #fff;
+    }
+
+    .row{
+      margin-left:20px;
+    }
+
+    header {
+      height: 40px;
+      margin-bottom: 20px;
+
+      h2 {
+        font-size: 30px;
+        float: left;
+        line-height: 30px;
+        width: 90%;
+        cursor: pointer;
+
+        &:hover {
+          color:white;
+        }
+      }
+
+      .span1 {
+        margin-left: 0px;
+      }
+
+      span {
+        float:left;
+        width: 90%;
+        display: block;
+      }
+
+      img.icon {
+        @include vendorPrefix(box-shadow, 0 0 10px #fff);
+        @include roundAllCorners(2px);
+      }
+    }
+
+    .project-list {
+      .project-level-1{
+        margin-left: 50px;
+
+        h3 {
+          font-size: 18px;
+        }
+
+        .row {
+          margin-left: 0px;
+        }
+      }
+      .sub-project-list {
+        border-left: 3px solid rgb(64, 68, 80);
+        margin-bottom: 20px;
+
+        label {
+          font-size: 14px;
+        }
+      }
+    }
+
+
+    .progress {
+      background-color: #000;
+      @include addGradient(#202328, #000);
+
+      .bar {
+        color: #ffffff;
+        background-color: #0e90d2;
+        @include addGradient(#149bdf,#0480be);
+      }
+
+    }
+
+    .progress-danger .bar,
+    .progress .bar-danger {
+      background-color: #dd514c;
+      @include addGradient(#ee5f5b,#c43c35);
+    }
+
+    .progress-success .bar,
+    .progress .bar-success {
+      background-color: #5eb95e;
+      @include addGradient(#62c462,#57a957);
+    }
+
+    .progress-info .bar,
+    .progress .bar-info {
+      background-color: #4bb1cf;
+      @include addGradient(#5bc0de,#339bb9);
+    }
+
+    .progress-warning .bar,
+    .progress .bar-warning {
+      background-color: #faa732;
+      @include addGradient(#fbb450,#f89406);
+    }
+
+  }
+
   /* Comments */
+  #content .content-top {
+    background: url("../images/wiki/zone/index-bg.jpg") 0 0 no-repeat;
+  }
+
+  .bugtracker-actions {
+    margin-left: 10px;
+  }
 
   #comments-page .title {
     font-size: 21px;

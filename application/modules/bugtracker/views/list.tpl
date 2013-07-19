@@ -1,4 +1,9 @@
-<a href="{site_url('bugtracker/create')}" class="ui-button button2"><span><span>Neuen Bug eintragen</span></span></a>&nbsp;
+
+<div class="bugtracker-actions">
+  {if hasPermission("canCreateBugs")}
+    <a href="{site_url('bugtracker/create')}" class="ui-button button2"><span><span>Neuen Bug eintragen</span></span></a>&nbsp;
+  {/if}
+</div>
 
 
 <div id="buglist" class="wiki" data-rowcount="{$rowCount}">
@@ -14,9 +19,9 @@
 				</div>
 				<div class="filter-tabs"> 
 					<a href="javascript:;" data-filter="column" data-column="0" data-value="" data-name="type" class="tab-active"> Alle </a> 
-					<a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="0"> Offen </a> 
-					<a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="1"> In Bearbeitung </a> 
-					<a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="2"> Erledigt </a> 
+					<a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="1"> Offen </a>
+					<a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="2"> In Bearbeitung </a>
+					<a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="9"> Erledigt </a>
 					<a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="3"> Abgewiesen </a> 
 				</div>
 				<span class="clear"><!-- --></span> 

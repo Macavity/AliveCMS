@@ -93,12 +93,12 @@ module.exports = function(grunt) {
             /*
              * Task to create bundle for deployment on test or production server
              */
-            dist: {
+            admin: {
                 options: {
-                    style: "compressed"
+                    style: "expanded"
                 },
                 files: {
-                    'application/themes/shattered/css/main.css': 'application/themes/shattered/css/main.scss'
+                    'application/themes/admin/css/main.css': 'application/themes/admin/css/main.scss'
                     /*
                      * Every page specific scss file has to be entered here
                      */
@@ -155,6 +155,10 @@ module.exports = function(grunt) {
                     "application/js/libs/jquery/jquery.placeholder.min.js",
                     "application/js/libs/jquery/jquery.sort.min.js",
                     "application/js/libs/jquery/jquery.transit.min.js",
+
+                    // Bootstrap
+                    "application/js/libs/bootstrap/bootstrap.min.js",
+
 
                     // Modernizr
                     'application/js/libs/modernizr/modernizr-min.js',
@@ -225,6 +229,12 @@ module.exports = function(grunt) {
                     'application/themes/shattered/css/**/*.scss'
                 ],
                 tasks: ['sass:dev']
+            },
+            cssAdmin: {
+                files: [
+                    'application/themes/admin/css/**/*.scss'
+                ],
+                tasks: ['sass:admin']
             },
 
             js: {

@@ -17,27 +17,153 @@ class Bugtracker extends MX_Controller{
             $this->bug_model = new Bug_model();
             $this->project_model = new Project_Model();
             $this->template = new Template();
+            $this->external_account_model = new External_account_model();
         }
         
         $this->load->model('bug_model');
         $this->load->model('project_model');
         $this->load->helper('string');
+
+        // Realm DB
+        $this->connection = $this->external_account_model->getConnection();
         
         // Breadcrumbs
         $this->template->addBreadcrumb("Server", site_url("server/index"));
         $this->template->addBreadcrumb("Bugtracker", site_url("bugtracker/index"));
 
         $this->template->setJsAction("bugtracker");
+
+        $this->template->hideSidebar();
     }
-    
+
+    /**
+     * Shows all Bug Projects
+     */
     public function index(){
+        requirePermission("view");
+
+        $this->template->setTitle($this->moduleTitle);
+        $this->template->setSectionTitle($this->moduleTitle);
+        $projectList = $this->project_model->getProjects();
+        $projectCount = count($projectList);
+
+        $projectChoices = array();
+        $baseProjects = array();
+        $projectsByParent = array();
+
+
+        foreach($projectList as $l0project){
+
+            $l0key = $l0project["id"];
+
+            $projectData = $this->project_model->getAllProjectData($l0key, $l0project);
+
+            $l0project["counts"] = array(
+                "open" => $projectData["counts"][BUGSTATE_OPEN]+$projectData["counts"][BUGSTATE_ACTIVE],
+                "done" => $projectData["counts"][BUGSTATE_DONE],
+                "all" => $projectData["counts"]["all"],
+                "percentage" => array(
+                    "done" => $projectData["counts"]["percentage"][BUGSTATE_DONE]
+                )
+            );
+
+            // Icons
+            if(!empty($l0project["icon"])){
+                $iconPath = $l0project["icon"];
+                if(substr_count($iconPath, "patch") > 0){
+                    $iconPath = 'images/icons/patch/'.$iconPath.'.jpg';
+                }
+                else{
+                    $iconPath = 'images/icons/36/'.$iconPath.'.jpg';
+                }
+
+                $localPath = APPPATH."themes/".$this->template->theme."/".$iconPath;
+                $webPath = base_url().$localPath;
+                //debug("local", $localPath);
+
+                $l0project["icon"] = file_exists($localPath)
+                    ? $webPath
+                    : base_url()."themes/".$this->template->theme."/".'images/icons/36/ability_creature_cursed_02.grey.jpg?'.$iconPath;
+            }
+
+            if($l0project["parent"] != 0){
+                $projectsByParent[$l0project["parent"]][$l0project["id"]] = $l0project;
+            }
+            else{
+                $baseProjects[$l0project["id"]] = $l0project;
+            }
+        }
+
+        // Level 0 Projects
+        foreach($baseProjects as $l0key => $l0project){
+
+            //$projectChoices[$l0key] = $l0project["title"];
+
+            if(!empty($projectsByParent[$l0key])){
+
+                // Level 1 Projects of this project
+                $l1projects = $projectsByParent[$l0key];
+
+                // Foreach level 1 Project of this Level 1 project
+                foreach($l1projects as $l1key => $l1project){
+
+                    if(!empty($projectsByParent[$l1key])){
+
+                        // Level 2 Projects
+                        $l2projects = $projectsByParent[$l1key];
+
+                        foreach($l2projects as $l2key => $l2project){
+                            // Add "done" and "all" counts to the Level-1
+                            $l1project["counts"]["done"] += $l2project["counts"]["done"];
+                            $l1project["counts"]["all"] += $l2project["counts"]["all"];
+                        }
+
+                        // Save L2 back to L1 stack
+                        $l1projects[$l1key]["projects"] = $l2projects;
+                    }
+
+                    // Add "done" and "all" counts to the L0
+                    $l0project["counts"]["done"] += $l1project["counts"]["done"];
+                    $l0project["counts"]["all"] += $l1project["counts"]["all"];
+
+
+                }
+
+                // Save L1 back to L0 stack (Base)
+                $baseProjects[$l0key]["projects"] = $l1projects;
+            }
+
+        }
+
+        //debug("base", $baseProjects);
+
+
+        // Prepare my data
+        $templateData = array(
+            'url' => $this->template->page_url,
+            'projects' => $baseProjects,
+            'projectCount' => $projectCount,
+            'projectChoices' => $projectChoices,
+        );
+
+        // Load my view
+        $out = $this->template->loadPage("project_list.tpl", $templateData);
+
+        $this->template->view($out, $this->css);
+    }
+
+    /**
+     * Show all Bugs of a project
+     * @param $project
+     */
+    public function buglist($project){
 
         requirePermission("view");
         
         $this->template->setTitle($this->moduleTitle);
         $this->template->setSectionTitle($this->moduleTitle);
 
-        $bugRows = $this->bug_model->getBugs();
+        $bugRows = $this->bug_model->getBugs($project);
         
         
         foreach($bugRows as $i => $row){
@@ -114,6 +240,7 @@ class Bugtracker extends MX_Controller{
     public function bug($bugId){
         requirePermission("view");
 
+
         if(!is_numeric($bugId)){
             show_404("Dieser Link ist ungültig");
             return;
@@ -127,6 +254,8 @@ class Bugtracker extends MX_Controller{
         }
 
         $this->template->setTitle("Bug #".$bugId);
+        $this->template->setSectionTitle("Bug #".$bugId." ".htmlentities($bug['title'], ENT_QUOTES, "UTF-8"));
+
         $this->template->addBreadcrumb("Bug #".$bugId, site_url("bugtracker/bug/".$bugId));
 
         /*
@@ -134,9 +263,9 @@ class Bugtracker extends MX_Controller{
          */
 
         $class = $bug['class'];
-        $title = htmlentities($bug['title']);
+        $title = htmlentities($bug['title'], ENT_QUOTES, "UTF-8");
         $desc = $bug['desc'];
-        $state = $bug['state'];
+        $state = $bug['bug_state'];
         $complete = str_replace("%","",$bug['complete']);
         $complete .= "%";
         $by = $bug['by'];
@@ -158,7 +287,7 @@ class Bugtracker extends MX_Controller{
          * Similar Bugs
          * @type {Array}
          */
-        $otherBugs = array();
+        $similarBugs = array();
 
         /*
          * Link
@@ -197,14 +326,12 @@ class Bugtracker extends MX_Controller{
 
 
         switch($state){
-            case "Erledigt":
+            case BUGSTATE_DONE:
                 $cssState = "color-q2"; break;
-            case "Offen":
-            case "Bearbeitung":
+            case BUGSTATE_OPEN:
+            case BUGSTATE_ACTIVE:
                 $cssState = "color-q1"; break;
-            case "Abgewiesen":
-            case "nicht umsetzbar":
-            case "Nicht umsetzbar":
+            case BUGSTATE_REJECTED:
                 $cssState = "color-q0"; break;
         }
 
@@ -221,12 +348,13 @@ class Bugtracker extends MX_Controller{
 
         if(!empty($bug["posterData"])){
             $posterData = json_decode($bug["posterData"]);
-            debug("posterData",$posterData);
+            //debug("posterData",$posterData);
+
             $bugPoster = array(
                 "details" => true,
                 "name" => $posterData->name,
                 "class" => $posterData->class,
-                "url" => $char->GetUrl($posterData),
+                "url" => "",    // TODO Link zur Armory integrieren
             );
         }
         else{
@@ -235,24 +363,27 @@ class Bugtracker extends MX_Controller{
             );
         }
 
-        $commentRows = $DataDB->select("SELECT * FROM kommentar WHERE `postid` = ?d ORDER BY `id` ASC", $bugId);
+        $commentRows = $this->bug_model->getBugComments($bugId);
 
         $counter = 1;
-        $rowclass = "row1";
+        //$rowclass = "row1";
+
         foreach($commentRows as $i => $row){
-            $rowclass = cycle($rowclass, array("row1", "row2"));
             $actionLog = array();
+
+            //$rowclass = cycle($rowclass, array("row1", "row2"));
+            //$commentRows[$i]["css-row"] = $rowclass;
 
             $commentRows[$i]["id"] = $row["id"];
             $commentRows[$i]["n"] = $counter++;
             $commentRows[$i]["gm"] = false;
-            $commentRows[$i]["css-row"] = $rowclass;
             $commentRows[$i]["avatar"] = "";
             $commentRows[$i]["action"] = "";
             $commentRows[$i]["lastEdit"] = "";
             $commentRows[$i]["name"] = htmlentities($row["name"]);
-            $commentRows[$i]["text"] = makeWowheadLinks(htmlentities($row["text"]));
+            $commentRows[$i]["text"] = nl2br(makeWowheadLinks(htmlentities($row["text"])));
             $commentRows[$i]["date"] = ($row["timestamp"] > 60) ? "vor ".sec_to_dhms(time()-$row["timestamp"],true):"";
+            $commentRows[$i]["canEditThisComment"] = hasPermission("canEditComments");
 
             // State changes
             if(!empty($row["action"])){
@@ -279,15 +410,27 @@ class Bugtracker extends MX_Controller{
 
             if(!empty($row["posterData"])){
                 $posterData = json_decode($row["posterData"]);
+
+                if(empty($posterData->realmId)){
+                    $posterData->realmId = 1;
+                }
+
                 $commentRows[$i]["details"] = true;
-                $commentRows[$i]["avatar"] = $char->GetCharacterAvatar($posterData);
-                $commentRows[$i]["char_url"] = $char->GetUrl($posterData);
+                $commentRows[$i]["avatar"] = $this->realms->formatAvatarPath(array(
+                    "class" => $posterData->class,
+                    "race" => $posterData->race,
+                    "gender" => $posterData->gender,
+                    "level" => $posterData->level
+                ));
+                $commentRows[$i]["char_url"] = $this->realms->getArmoryUrl($posterData->name, $posterData->realmId);
                 $commentRows[$i]["char_class"] = $posterData->class;
             }
 
             if(!empty($row["posterAccountId"])){
-                $gm = $DB->selectRow("SELECT * FROM account_access WHERE id = ?d AND gmlevel > 0 AND RealmID = 1", $row["posterAccountId"]);
-                if($gm){
+
+                $rank = $this->external_account_model->getRank($row["posterAccountId"]);
+
+                if($rank){
                     $commentRows[$i]["gm"] = true;
                 }
             }
@@ -312,10 +455,52 @@ class Bugtracker extends MX_Controller{
         ksort($bugLog);
 
         /*
+         * User Specific
+         */
+        $activeCharGuid = $this->user->getActiveCharacter();
+        $activeRealmId = $this->user->getActiveRealmId();
+
+        if($activeCharGuid > 0){
+            $activeCharacter = $this->user->getActiveCharacterData();
+            $activeCharacter["active"] = true;
+            $activeCharacter["url"] = $this->realms->getArmoryUrl($activeCharacter["name"], $activeRealmId);
+            $activeCharacter["avatar"] = $this->realms->formatAvatarPath($activeCharacter);
+        }
+        else{
+            $activeCharacter = array(
+                "active" => false,
+            );
+        }
+
+        /*
          * Template Generation
          */
         $page_data = array(
             "module" => "bugtracker",
+            "canEditBugs" => hasPermission("canEditBugs"),
+            "bugId" => $bugId,
+            "bugStates" => $this->bug_model->getBugStates(),
+            "typeString" => "",
+            "title" => $title,
+            "cssState" => $cssState,
+            "state" => $state,
+            "stateLabel" => $this->bug_model->getStateLabel($state),
+            "class" => "",
+
+            "createdDetail" => $createdDetail,
+            "date" => $date,
+            "date2" => $date2,
+            "changedDetail" => $changedDetail,
+            "complete" => $complete,
+            "links" => $links,
+            "bugPoster" => $bugPoster,
+            "desc" => nl2br($desc),
+            "similarBugs" => $similarBugs,
+            "activeCharacter" => $activeCharacter,
+            /*"state" => $asd,
+            "state" => $asd,
+            "state" => $asd,
+            "state" => $asd,*/
         );
 
         $out = $this->template->loadPage("detail.tpl", $page_data);
@@ -328,7 +513,7 @@ class Bugtracker extends MX_Controller{
         requirePermission("canCreateBugs");
 
         $this->template->setTitle($this->moduleTitle);
-        $this->template->setTopHeader("Neuen Bug eintragen");
+        $this->template->setSectionTitle("Neuen Bug eintragen");
         $this->template->addBreadcrumb("Neuen Bug eintragen", site_url('bugtracker/create'));
         
         $this->load->helper('form');

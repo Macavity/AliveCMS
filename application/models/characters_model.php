@@ -72,6 +72,32 @@ class Characters_model
 		}
 	}
 
+    /**
+     * Get a specific character by its guid
+     * @alive
+     * @param $guid
+     * @param string $fields
+     * @return bool
+     */
+    public function getCharacterByGUID($guid, $fields = "*"){
+
+        // Make sure we're connected
+        $this->connect();
+
+        $this->db->select($fields)->from(table('characters', $this->realmId))->where("guid", $guid);
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0){
+            $results = $query->result_array();
+            return $results[0];
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
 	/**
 	 * Get the online players
 	 * @return Array

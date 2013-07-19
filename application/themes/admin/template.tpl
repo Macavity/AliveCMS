@@ -7,11 +7,13 @@
 
 		<link rel="shortcut icon" href="{$url}application/themes/admin/images/favicon.png" />
 		<link rel="stylesheet" href="{$url}application/themes/admin/css/main.css" type="text/css" />
+    <link rel="stylesheet" href="{$url}application/css/jquery-ui.css" type="text/css" />
 		{if $extra_css}<link rel="stylesheet" href="{$url}application/{$extra_css}" type="text/css" />{/if}
 
 		<script src="{if $cdn}//html5shiv.googlecode.com/svn/trunk/html5.js{else}{$url}application/js/html5shiv.js{/if}"></script>
 		<script type="text/javascript" src="{if $cdn}https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js{else}{$url}application/js/libs/jquery/jquery.min.js{/if}"></script>
 
+    <script type="text/javascript" src="{$url}application/js/libs/jquery/jquery-ui.js"></script>
     <script type="text/javascript" src="{$url}application/js/libs/debug/javascript-debug.js"></script>
     <script type="text/javascript" src="{$url}application/js/libs/debug/debug.dev.js"></script>
     <script type="text/javascript" src="{$url}application/js/misc.js"></script>

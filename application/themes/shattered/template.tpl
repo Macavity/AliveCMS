@@ -111,7 +111,7 @@
                           <span class="clear"><!-- --></span>
                         </div>
                         <span class="clear"><!-- --></span>
-                        {if !empty($topheader)}
+                        {if !empty($section_title)}
                                 </div><!-- /.contents-wrapper -->
                                 <span class="clear"><!-- --></span>
                             </div><!-- /.body-wrapper -->
@@ -120,8 +120,31 @@
                         <span class="clear"><!-- --></span>
                         {/if}
                     {else}
-                            {$slider}
-                            {$page}
+                      {$slider}
+
+                      {if !empty($section_title)}
+                        <div class="top-banner">
+                          <div class="section-title">
+                            <span>{$section_title}</span>
+                          </div>
+                          <span class="clear"><!-- --></span>
+                        </div>
+                        <div class="bg-body">
+                          <div class="body-wrapper">
+                            <div class="contents-wrapper">
+                      {/if}
+
+                      {$page}
+
+                      {if !empty($section_title)}
+                            </div><!-- /.contents-wrapper -->
+                            <span class="clear"><!-- --></span>
+                          </div><!-- /.body-wrapper -->
+                          <span class="clear"><!-- --></span>
+                        </div><!-- /.bg-body -->
+                        <span class="clear"><!-- --></span>
+                      {/if}
+
                     {/if}
                     </div> <!-- /content-bot -->
                 </div> <!-- /content-top -->

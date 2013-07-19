@@ -486,6 +486,23 @@ class User
 		}
 	}
 
+    public function getActiveCharacterData(){
+
+        if(!$this->online || $this->activeCharacterGUID == 0 || $this->activeRealmId == 0){
+            return false;
+        }
+
+        $realm = $this->CI->realms->getRealm($this->activeRealmId);
+
+        if($realm){
+            $characterDb = $realm->getCharacters();
+
+            $character = $characterDb->getCharacterByGuid($this->activeCharacterGUID);
+
+            return $character;
+        }
+    }
+
 	/**
 	 * Get the userId from the current User or the given Username
 	 * @param bool $username

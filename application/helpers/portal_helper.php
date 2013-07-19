@@ -41,22 +41,21 @@ if( ! function_exists("sec_to_dhms") ){
 
     function sec_to_dhms($sec, $show_days = false, $label = "")
     {
-        global $lang;
         $days = intval($sec / 86400);
         $hours = intval(($sec / 3600) % 24);
         $minutes = intval(($sec / 60) % 60);
         $seconds = intval($sec % 60);
         $string = array();
         if($days > 0)
-            $string[] = $days." ".$lang["rs_days"];
+            $string[] = $days." Tage";
         if($hours > 0)
-            $string[] = $hours." ".$lang["rs_hours"];
+            $string[] = $hours." Std.";
         if($minutes > 0)
-            $string[] = $minutes." ".$lang["rs_minutes"];
+            $string[] = $minutes." Min.";
         if($seconds > 0)
-            $string[] = $seconds." ".$lang["rs_seconds"];
+            $string[] = $seconds." Sek.";
 
-        $string = implode(", ", $string);
+        $string = implode(" ", $string);
 
         if(!empty($label))
             $string = $label.$string;

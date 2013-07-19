@@ -1,0 +1,47 @@
+
+.project-list {
+
+
+  li {
+
+    &:nth-child(odd){
+      background-color: transparent;
+    }
+
+    label {
+      position: relative;
+      display: inline-block;
+      border: 0px solid transparent;
+
+      clear: both;
+
+      width: 620px;
+      margin: 0px 0px 0px 0px;
+    }
+
+    a {
+      width: 200px;
+    }
+
+  }
+
+
+
+  ul.sub-projects {
+    margin-left: 20px;
+
+    li{
+
+    }
+
+    .level-1:before{
+      content: "-";
+    }
+    .level-2:before{
+      content: "--";
+    }
+
+
+  }
+
+}

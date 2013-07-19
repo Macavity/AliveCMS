@@ -8,7 +8,9 @@ class Project_Model extends CI_Model {
      */
     public function getProjects()
     {
-        $this->db->select('*')->from('bugtracker_projects')->order_by('order', 'asc');
+        $this->db->select('*')->from('bugtracker_projects')
+            ->order_by('parent', 'asc')
+            ->order_by('order', 'asc');
         $query = $this->db->get();
 
         $baseProjects = array();
@@ -77,6 +79,43 @@ class Project_Model extends CI_Model {
         else {
             return FALSE;
         }
+    }
+
+    public function getAllProjectData($projectId, $project = array()){
+
+        if(empty($project)){
+            $project = $this->findProjectById($projectId);
+        }
+
+
+        $project["counts"] = $this->getProjectBugStateCounts($projectId);
+
+        return $project;
+    }
+
+    public function getProjectBugStateCounts($projectId){
+
+        $countStates = $this->bug_model->getBugCountByProject($projectId);
+        //debug($countStates);
+
+        $countStates[BUGSTATE_DONE] *= 1;
+        $countStates[BUGSTATE_ACTIVE] *= 1;
+        $countStates[BUGSTATE_OPEN] *= 1;
+
+        $countStates["all"] = $countStates[BUGSTATE_DONE] + $countStates[BUGSTATE_ACTIVE] + $countStates[BUGSTATE_OPEN];
+
+        if($countStates["all"] > 0){
+            $countStates["percentage"][BUGSTATE_DONE] = round(($countStates[BUGSTATE_DONE]/$countStates["all"])*100);
+            $countStates["percentage"][BUGSTATE_ACTIVE] = round(($countStates[BUGSTATE_DONE]/$countStates["all"])*100);
+            $countStates["percentage"][BUGSTATE_OPEN] = round(($countStates[BUGSTATE_DONE]/$countStates["all"])*100);
+        }
+        else{
+            $countStates["percentage"][BUGSTATE_DONE] = 0;
+            $countStates["percentage"][BUGSTATE_ACTIVE] = 0;
+            $countStates["percentage"][BUGSTATE_OPEN] = 0;
+        }
+
+        return $countStates;
     }
 
     /**

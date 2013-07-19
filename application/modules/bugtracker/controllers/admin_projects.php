@@ -25,14 +25,63 @@ class Admin_Projects extends MX_Controller
 		// Change the title
 		$this->administrator->setTitle("Bugtracker Projekte");
 
-        $projects = $this->project_model->getProjects();
-        $projectCount = count($projects);
+        $projectList = $this->project_model->getProjects();
+        $projectCount = count($projectList);
+
+        $projectChoices = array();
+        $baseProjects = array();
+        $projectsByParent = array();
+
+        foreach($projectList as $project){
+            if($project["parent"] != 0){
+                $projectsByParent[$project["parent"]][$project["id"]] = $project;
+            }
+            else{
+                $baseProjects[$project["id"]] = $project;
+            }
+        }
+
+        $baseProjectIds = array_keys($baseProjects);
+        $subProjectIds = array_keys($projectsByParent);
+
+        /*
+        foreach($projectsByParent as $parent => $subProjects){
+
+            foreach($subProjects as $key => $project){
+                $projectsByParent[$project["parent"]][] = $project;
+            }
+
+        }*/
+
+        foreach($baseProjects as $projectId => $project){
+            $projectChoices[$projectId] = $project["title"];
+
+            if(!empty($projectsByParent[$projectId])){
+                $subProjects = $projectsByParent[$projectId];
+
+                foreach($subProjects as $key => $subProject){
+                    if(!empty($projectsByParent[$key])){
+                        $subsubs = $projectsByParent[$key];
+
+                        $subProjects[$key]["projects"] = $subsubs;
+                    }
+
+                    $projectChoices[$key] = $project["title"].": ".$subProject["title"];
+
+                }
+
+                $baseProjects[$projectId]["projects"] = $subProjects;
+
+            }
+
+        }
 
 		// Prepare my data
 		$templateData = array(
 			'url' => $this->template->page_url,
-			'projects' => $this->project_model->getProjects(),
+			'projects' => $baseProjects,
 		    'projectCount' => $projectCount,
+            'projectChoices' => $projectChoices,
         );
 
 		// Load my view
@@ -54,6 +103,7 @@ class Admin_Projects extends MX_Controller
         $data = array(
             "title" => $this->input->post("projectTitle"),
             "description" => $this->input->post("projectDesc"),
+            "parent" => $this->input->post("projectParent"),
         );
 
         $output = array(
@@ -62,22 +112,19 @@ class Admin_Projects extends MX_Controller
             "debug" => print_r($data, true),
         );
 
-        foreach($data as $value)
+        if(empty($data["title"]))
         {
-            /* All fields are mandatory */
-            if(empty($value))
-            {
-                $output["state"] = "error";
-                $output["message"] = "Bitte fülle alle Felder aus!";
-            }
+            $output["state"] = "error";
+            $output["message"] = "Bitte tragen einen Namen für diese Kategorie ein!";
         }
+
 
         if($output["state"] != "error"){
             $id = $this->project_model->add($data);
             $output["message"] = "Das Projekt wurde erfolgreich hinzugefügt.";
-        }
 
-        $this->logger->createLog('Created Bugtracker Project', "(".$id.") ".$data['title']);
+            $this->logger->createLog('Created Bugtracker Project', "(".$id.") ".$data['title']);
+        }
 
         $this->outputJson($output);
 
