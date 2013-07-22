@@ -8693,3 +8693,16 @@ a:hover .boss-portrait {
 .ie6 .wiki.directory .groups .group .name {
   float: left;
 }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_game\.scss}line{font-family:\000034}}
+.module-game .expansion-0 #content .content-top {
+  background: url("../images/wiki/index-bg-0.jpg") 0 0 no-repeat;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_game\.scss}line{font-family:\000035}}
+.module-game .expansion-1 #content .content-top {
+  background: url("../images/wiki/index-bg-1.jpg") 0 0 no-repeat;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_game\.scss}line{font-family:\000036}}
+.module-game .expansion-2 #content .content-top {
+  background: url("../images/wiki/index-bg-2.jpg") 0 0 no-repeat;
+}
