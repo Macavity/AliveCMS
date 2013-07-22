@@ -1,5 +1,5 @@
 
-define(['modules/table','modules/filter', 'wiki'], function(Table, Filter, Wiki){
+define(['modules/table','modules/filter', 'modules/wiki'], function(Table, Filter, Wiki){
     var WikiRelated = Class.extend({
         object: null,
         table: null,

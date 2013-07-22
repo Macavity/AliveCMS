@@ -4,7 +4,7 @@
  */
 /*jshint -W083 */
 
-define(['core','cookie'], function (Core, Cookie) {
+define(['modules/core','modules/cookie'], function (Core, Cookie) {
     var Slideshow = {
 
         /**

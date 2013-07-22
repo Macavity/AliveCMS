@@ -25,9 +25,13 @@
     </p>
     <ul id="help-links">
       {if $has_smtp}
-      <li class="icon-pass"><a href="{$url}password_recovery">{lang("lost_your_password", "login")}</a></li>
+      <li>
+        <i class="icon-refresh icon-white"></i>
+        <a href="{$url}password_recovery">{lang("lost_your_password", "login")}</a></li>
       {/if}
-      <li class="icon-signup">Haben Sie noch keinen Account? <a href="/register/">Jetzt anmelden</a>! </li>
+      <li>
+        <i class="icon-user icon-white"></i>
+        Haben Sie noch keinen Account? <a href="/register/">Jetzt anmelden</a>! </li>
     </ul>
   </form>
 </div>

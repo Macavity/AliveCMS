@@ -17,12 +17,12 @@ requirejs.config({
 require([
         'static',
         'controller/PageController'
-    ], function (static, controller) {
+    ], function (static, PageController) {
 
     $(function () {
         debug.debug("js/main");
-        controller.init();
-        UserAgent.initialize();
+        var controller = new PageController();
+        //UserAgent.initialize();
 
         /*
         Core.staticUrl = 'http://forum.wow-alive.de/static-wow';

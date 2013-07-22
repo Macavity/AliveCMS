@@ -1,5 +1,5 @@
 /*jshint -W004 */
-define(['core', 'toggle', 'input', 'tooltip'], function(Core, Toggle, Input, Tooltip){
+define(['modules/core', 'modules/toggle', 'modules/input', 'modules/tooltip'], function(Core, Toggle, Input, Tooltip){
 
     /**
      * Manage the context / character selection menu.

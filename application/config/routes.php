@@ -73,7 +73,7 @@ $route['admin/edit/(:any)'] = "admin/edit/index/$1";
 
 // Server
 $route['server/howtoplay'] = "page/index/howtoplay";
-$route['server/(:any)'] = "server/index/$1";
+$route['server/(:any)'] = "server/$1";
 
 // Bugtracker
 $route['bugtracker/admin/(:any)/(:num)'] = "bugtracker/admin/$1/$2";

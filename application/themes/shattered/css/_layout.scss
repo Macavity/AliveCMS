@@ -66,6 +66,7 @@ body {
   z-index: 5;
 }
 #search-form {
+  /*
   float: right;
   width: 336px;
   background: white;
@@ -75,7 +76,7 @@ body {
   border-radius: 5px;
   -moz-box-shadow: 0 0 10px #361005;
   -webkit-box-shadow: 0 0 10px #361005;
-  box-shadow: 0 0 10px #361005;
+  box-shadow: 0 0 10px #361005;*/
 }
 #search-button {
   border: none;
@@ -91,10 +92,15 @@ body {
 }
 /* search */
 #search-field {
-  color: #707070; width: 315px; padding: 3px; border: none; background: transparent;
+  width: 315px;
+  /*
+  color: #707070;
+  padding: 3px;
+  border: none;
+  background: transparent;
 
   &.active,
-  &:focus { font-weight: bold; }
+  &:focus { font-weight: bold; }*/
 }
 
 /*
@@ -172,7 +178,6 @@ body {
           padding: 1px 0;
           a {
             line-height: 24px;
-            background: url("../images/services-sprite.gif") no-repeat;
             display: block;
             width: 100%;
 
@@ -1118,8 +1123,15 @@ tr {
         background-image: url("../images/icons/context.gif");
         background-repeat: no-repeat;
         font-weight: bold;
+        width: auto;
       }
+
+      [class^="icon-"], [class*=" icon-"]{
+        background-image: url("../images/icons/context.gif");
+      }
+
       .icon-profile {
+        background-image: url("../images/icons/context.gif");
         background-position: 0 0;
       }
       .icon-posts {
@@ -2516,8 +2528,8 @@ div {
     font: 12px / 1.5 Arial, Verdana, sans-serif;
   }
   &.checkbox {
-    vertical-align: bottom;
-    background-color: none;
+    /*vertical-align: bottom;
+    background-color: none;*/
   }
 }
 
@@ -2802,31 +2814,30 @@ div {
   }
 }
 
-#embedded-login .input.disabled, .input[disabled="disabled"] {
+#embedded-login{
+  h1{
+    line-height: 20px;
+  }
+  .label {
+    display: block;
+    padding-bottom: 2px;
+    font-size: 11px;
+    text-transform: uppercase;
+    background: none;
+    text-shadow: none;
+    border-width: 0px;
+    margin: 0px;
+  }
+  .input {
+    width: 343px;
+  }
+}
+
+#embedded-login .input.disabled,
+.input[disabled="disabled"] {
   background: #e3e3e3;
   color: #b6b6b6;
   border-color: #c0c0c0;
-}
-
-#embedded-login .label {
-  display: block;
-  padding-bottom: 2px;
-  font-size: 11px;
-  text-transform: uppercase;
-}
-
-#login-embedded #embedded-login .label {
-  color: #68727b;
-}
-
-#embedded-login .input {
-  width: 343px;
-}
-
-#login-embedded #embedded-login #remember-me {
-  float: right;
-  display: block;
-  vertical-align: middle;
 }
 
 #embedded-close {
@@ -2834,6 +2845,16 @@ div {
 }
 
 #login-embedded {
+  #embedded-login {
+    #remember-me {
+      float: right;
+      display: block;
+      vertical-align: middle;
+    }
+    .label {
+      color: #68727b;
+    }
+  }
   #embedded-close {
     width: 10px;
     height: 10px;
@@ -2851,6 +2872,7 @@ div {
     }
   }
 }
+
 
 /* overlay */
 
@@ -2939,7 +2961,6 @@ div {
   li {
     padding: 2px 0 0 20px;
     margin-bottom: 7px;
-    background: url("../images/icons/help-icons.gif") 0 0 no-repeat;
     &.icon-pass {
       background-position: 2px 3px;
     }

@@ -1,5 +1,5 @@
 
-define(['alive/core'], function(Core){
+define(['modules/core'], function(Core){
 
     /**
      * Pop up toasts at the bottom left of the browser, or at a certain location.

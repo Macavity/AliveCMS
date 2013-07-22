@@ -1,16 +1,8 @@
 /**
  * Dynamically create tooltips, append specific content from different medians, and display at certain positions.
- *
- * @copyright   2010, Blizzard Entertainment, Inc
- * @class       Tooltip
- * @requires    Page
- * @example
- *
- *      onmouseover="Tooltip.show(this, 'This is the tooltip text!');"
- *
  */
 
-define(['core'], function(Core){
+define(['modules/page', 'modules/core'], function(Page, Core){
     var Tooltip = {
 
         /**
@@ -133,6 +125,7 @@ define(['core'], function(Core){
          * @param callback
          */
         bind: function(query, options, callback) {
+            debug.debug("Tooltip.bind "+query);
             var doc = $(document),
                 func;
 
@@ -163,6 +156,7 @@ define(['core'], function(Core){
         show: function(node, content, options) {
             if (!Tooltip.wrapper)
                 Tooltip.initialize();
+            //debug.debug("Tooltip.show");
 
             if (options === true)
                 options = { ajax: true };
@@ -253,6 +247,7 @@ define(['core'], function(Core){
         hide: function() {
             if (!Tooltip.wrapper)
                 return;
+            //debug.debug("Tooltip.hide");
 
             if (Core.isIE(6)) {
                 $('.tooltip-frame').hide();
@@ -303,6 +298,7 @@ define(['core'], function(Core){
          * @param h
          */
         move: function(x, y, w, h) {
+            //debug.debug("Tooltip.move "+x+":"+y);
             Tooltip.wrapper
                 .css("left", x +"px")
                 .css("top",  y +"px")

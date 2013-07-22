@@ -60,7 +60,8 @@
           <div class="filter" style="padding-top: 3px;">
             <label for="filter-is80">
               <input id="filter-is80" type="checkbox" class="input checkbox filter-is80" data-name="is80" data-filter="class" data-value="is-80" />
-              nur 80er </label>
+              <span class="help-inline">nur 80er </span>
+            </label>
           </div>
           <span class="clear"><!-- --></span>
         </div>
@@ -86,7 +87,7 @@
           </thead>
           <tbody>
           {foreach item=row from=$realm.characters name=onlinelist}
-          <tr class="{$row.css}">
+          <tr class="{$row.css} {cycle values="row1,row2"}">
             <td align="center" data-raw="{$smarty.foreach.onlinelist.index+1}">{$smarty.foreach.onlinelist.index+1}</td>
             <td align="center" data-raw="{strtolower($row.name)}">
               <a href="/character/Norgannon/{$row.name}/">
@@ -129,28 +130,35 @@
   {/foreach}
 </div>
 <script type="text/javascript" language="javascript">
-//<![CDATA[
-$(function() {
-	Wiki.pageUrl = '/server/playersonline/';
-});
-//]]>
-</script> 
+  require([
+    'static',
+    'modules/wiki',
+    'modules/wiki_related',
+    'modules/table',
+    'modules/filter',
+    'modules/zone'
+  ],
+  function (static, Wiki, WikiRelated, Table, Filter, Zone) {
 
-<script type="text/javascript" src="{$theme_path}js/wiki.js?v2"></script>
-<script type="text/javascript" src="{$theme_path}js/zone.js"></script>
-<script type="text/javascript" src="{$theme_path}js/table.js"></script>
-<script type="text/javascript" src="{$theme_path}js/filter.js"></script>
+    $(function () {
+      debug.debug("/server/playersonline");
 
-<script type="text/javascript">
-//<![CDATA[
-{foreach item=realm from=$realms}
-	Wiki.related['realm-{$realm.id}'] = new WikiRelated('realm-{$realm.id}', {
-		paging: true,
-		totalResults: {$realm.count},
-			column: 0,
-			method: 'numeric',
-			type: 'asc'
-	});
-{/foreach}
-//]]>
-</script> 
+      Zone.initialize();
+
+      Wiki.pageUrl = '/server/playersonline/';
+      {foreach item=realm from=$realms}
+      Wiki.related['realm-{$realm.id}'] = new WikiRelated('realm-{$realm.id}', {
+        paging: true,
+        totalResults: {$realm.count},
+        column: 0,
+        method: 'numeric',
+        type: 'asc'
+      });
+      {/foreach}
+
+    });
+  });
+
+
+</script>
+
