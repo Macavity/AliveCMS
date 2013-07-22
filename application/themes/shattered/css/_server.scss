@@ -101,14 +101,11 @@
       min-height: 900px;
     }
 
-    .left-col,
-    .right-col {
-      float: left;
-    }
-
     .left-col {
       width: 647px;
+      margin-left: 0px;
     }
+
     .right-col {
       width: 345px;
     }
@@ -242,7 +239,7 @@
       }
       a {
         line-height: 24px;
-        background: url("http://portal.wow-alive.de/templates/Shattered-World/images/services-sprite.gif") no-repeat;
+        background: url("../images/icons/services-sprite.gif") no-repeat;
         display: block;
         width: 100%;
         &:hover {

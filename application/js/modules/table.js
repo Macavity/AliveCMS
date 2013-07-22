@@ -1,7 +1,7 @@
 /*jshint -W084 */
 /*jshint -W038 */
 
-define(['core','modules/table_static'], function(Core, TableStatic){
+define(['modules/core','modules/table_static'], function(Core, TableStatic){
 var Table = Class.extend({
 
 	/**

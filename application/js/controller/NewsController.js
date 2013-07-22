@@ -1,5 +1,5 @@
 
-define(['./BaseController', 'slideshow'], function (BaseController, Slideshow) {
+define(['./BaseController', 'modules/slideshow'], function (BaseController, Slideshow) {
 
     var NewsController = BaseController.extend({
         init: function(){

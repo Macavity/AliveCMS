@@ -54,6 +54,7 @@ class Template
      */
     private $breadcrumbs = array();
 
+    private $shownMethod = null;
 
     /**
      * Path to JS folder
@@ -238,7 +239,7 @@ class Template
             $breadCrumbs = $this->CI->smarty->view(APPPATH.$this->theme_path."views/breadcrumbs.tpl", $data, true);
         }
 
-        debug("show bc", $this->showBreadcrumbs);
+        //debug("show bc", $this->showBreadcrumbs);
 
         /**
          * Template specific slider?
@@ -286,7 +287,7 @@ class Template
              * @alive
              */
             "controller" => $controller,
-            "method" => $method,
+            "method" => ($this->shownMethod == null) ? $this->CI->router->method : $this->shownMethod,
 
             "section_title" => $this->sectionTitle,
             "js_path" => $this->js_path,
@@ -409,7 +410,7 @@ class Template
              * @alive
              */
             "controller" => $this->CI->router->class,
-            "method" => $this->CI->router->method,
+            "method" => ($this->shownMethod == null) ? $this->CI->router->method : $this->shownMethod,
             "stage" => $this->CI->config->item("deployment_stage"),
 
             "js_path" => $this->js_path,
@@ -1043,6 +1044,11 @@ class Template
      */
     public function setSectionTitle($header){
         $this->sectionTitle = $header;
+    }
+
+    public function setMethod($method){
+        debug("set method", $method);
+        $this->shownMethod = $method;
     }
 
     /**

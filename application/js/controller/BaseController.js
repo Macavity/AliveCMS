@@ -1,4 +1,4 @@
-define(['core', 'char_select', 'login'], function (Core, CharSelect, Login) {
+define(['modules/core', 'modules/page', 'modules/char_select', 'modules/login', 'modules/tooltip'], function (Core, Page, CharSelect, Login, Tooltip) {
 
     var BaseController = Class.extend({
 
@@ -8,15 +8,18 @@ define(['core', 'char_select', 'login'], function (Core, CharSelect, Login) {
             this.initUserplate();
 
             /*
-             Page.initialize();
              Input.initialize();
              Explore.initialize();
              Flash.initialize();
              Locale.initialize();
              */
 
+            Page.initialize();
             Core.initialize();
             CharSelect.initialize();
+
+            // Set data-tooltip binds globally
+            //
 
         },
 

@@ -29,8 +29,8 @@
                             <span class="realm up">{$activeChar.realmName}</span>
                         </div>
                         <div class="context-links">
-                            <a href="{$activeChar.url}" title="Profil" rel="np" class="icon-profile link-first">
-                                Profil
+                            <a href="{$activeChar.url}" title="Profil" rel="np" class="icn-profile link-first">
+                              Profil
                             </a>
                             <a href="/" title="Meine Beiträge ansehen" rel="np" class="icon-posts"><!--  --></a>
                             <a href="/server/auction/alliance/" title="Auktionen einsehen" rel="np" class="icon-auctions"><!--  --></a>

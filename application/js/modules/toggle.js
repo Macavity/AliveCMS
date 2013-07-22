@@ -1,5 +1,5 @@
 
-define(['core'], function(Core){
+define(['modules/core'], function(Core){
 
 
     /*

@@ -23,9 +23,9 @@
   <script type="text/javascript" src="{$path}js/hb.js"></script>
 
   {if $js_action}
-    <script type="text/javascript" src="{$path}js/libs/require/require.js" data-main="application/js/{$js_action}"></script>
+    <script type="text/javascript" src="{$path}js/libs/require/require.js" data-main="{$path}js/{$js_action}"></script>
   {else}
-    <script type="text/javascript" src="{$path}js/libs/require/require.js" data-main="application/js/main"></script>
+    <script type="text/javascript" src="{$path}js/libs/require/require.js" data-main="{$path}js/main"></script>
   {/if}
 
   <script type="text/javascript">
@@ -68,7 +68,7 @@
         Language.set("{addslashes($client_language)}");
         {/if}
 
-        UI.initialize();
+        //UI.initialize();
 
         {if $extra_css}
         //Router.loadedCSS.push("{$extra_css}");
