@@ -327,7 +327,7 @@ class Template
     /**
      * Generates a json formatted output
      */
-    private function handleJsonOutput($json){
+    public function handleJsonOutput($json){
             die(json_encode($json));
     }
 

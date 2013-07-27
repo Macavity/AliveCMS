@@ -1,8 +1,12 @@
-define(['modules/core', 'modules/page', 'modules/char_select', 'modules/login', 'modules/tooltip'], function (Core, Page, CharSelect, Login, Tooltip) {
+define(
+    ['modules/core', 'modules/page', 'modules/char_select', 'modules/login', 'modules/tooltip', 'modules/wow'],
+
+    function (Core, Page, CharSelect, Login, Tooltip, Wow) {
 
     var BaseController = Class.extend({
 
         init: function(){
+            debug.debug("BaseController.init");
 
             this.initTS3Viewer();
             this.initUserplate();
@@ -17,6 +21,7 @@ define(['modules/core', 'modules/page', 'modules/char_select', 'modules/login', 
             Page.initialize();
             Core.initialize();
             CharSelect.initialize();
+            Wow.initialize();
 
             // Set data-tooltip binds globally
             //
@@ -29,6 +34,8 @@ define(['modules/core', 'modules/page', 'modules/char_select', 'modules/login', 
                 Login.open();
             });
         },
+
+
         initTS3Viewer: function(){
             debug.debug("Base.initTS3Viewer");
             $("#ts_button").mouseover(function(){ $("#sb_passive_large").addClass("sb_open"); });

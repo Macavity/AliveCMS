@@ -2,6 +2,8 @@
 /* 02. LAYOUT
 /* *********************************************************************************** */
 
+@import "statics";
+
 html { min-width: 1006px; }
 
 /*
@@ -2465,6 +2467,11 @@ div {
   }
 }
 
+.formEndLink {
+  position: static;
+  bottom: 20px;
+}
+
 /* shadows */
 
 .drop-shadow {
@@ -2720,7 +2727,7 @@ div {
     font-weight: normal;
   }
   strong {
-    color: #feba02;
+    color: $orange;
   }
 }
 
@@ -2788,6 +2795,52 @@ div {
 }
 
 /* form */
+
+#content {
+  legend {
+    color: $orange;
+  }
+  .input-append .add-on,
+  .input-prepend .add-on{
+    color: #333;
+  }
+
+  a[data-toggle=collapse]{
+    color: white;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: block;
+
+    i.icon{
+      background-image: url("/application/images/glyphicons-halflings-white.png");
+      background-position: -433px -96px;
+      width: 14px;
+      height: 14px;
+      display: inline-block;
+      position: relative;
+      top: 2px;
+
+    }
+
+    &.collapsed {
+      i.icon{
+        background-position: -408px -96px;
+      }
+    }
+  }
+
+}
+
+fieldset .control-group.error{
+  margin-left:0px;
+}
+
+.alert-info {
+  a {
+    color: #08c;
+  }
+}
 
 #login-embedded {
   .input {

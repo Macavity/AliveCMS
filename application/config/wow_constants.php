@@ -25,6 +25,29 @@ define('CLASS_MAGE',    0x08);
 define('CLASS_WARLOCK', 0x09);
 define('CLASS_DRUID',   0x0B);
 
+
+/* Inventory Slots */
+define('INV_HEAD', 0);
+define('INV_NECK', 1);
+define('INV_SHOULDER', 2);
+define('INV_SHIRT', 3);
+define('INV_CHEST', 4);
+define('INV_BELT', 5);
+define('INV_LEGS', 6);
+define('INV_BOOTS', 7);
+define('INV_BRACERS', 8);
+define('INV_GLOVES', 9);
+define('INV_RING_1', 10);
+define('INV_RING_2', 11);
+define('INV_TRINKET_1', 12);
+define('INV_TRINKET_2', 13);
+define('INV_BACK', 14);
+define('INV_MAIN_HAND', 15);
+define('INV_OFF_HAND', 16);
+define('INV_RANGED_RELIC', 17);
+define('INV_TABARD', 18);
+define('INV_MAX', 19);
+
 $config['races'] = lang("races", "wow_constants");
 $config['classes'] = lang("classes", "wow_constants");
 

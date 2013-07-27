@@ -156,7 +156,7 @@ define(['modules/page', 'modules/core'], function(Page, Core){
         show: function(node, content, options) {
             if (!Tooltip.wrapper)
                 Tooltip.initialize();
-            //debug.debug("Tooltip.show");
+            debug.debug("Tooltip.show");
 
             if (options === true)
                 options = { ajax: true };
@@ -199,11 +199,11 @@ define(['modules/page', 'modules/core'], function(Page, Core){
                     } else {
                         var url = content;
 
-                        if(url.indexOf("arsenal.wow-alive.de") > 0){
+                        /*if(url.indexOf("/") === 0){
                         }
                         else if (url.indexOf(Core.projectUrl) !== 0) { // Add base URL when provided URL doesn't begin with project URL (e.g. /d3)
                             url = Core.baseUrl + content;
-                        }
+                        }*/
 
                         $.ajax({
                             type: "GET",

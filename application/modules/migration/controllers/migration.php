@@ -30,7 +30,12 @@ class Migration extends MX_Controller
     
     private $pageTitle = "";
     //private $realms = array();
-    
+
+    private $races = array();
+    private $classes = array();
+
+
+
     /**
      * Contains the template variables
      * @type {Array}
@@ -42,19 +47,25 @@ class Migration extends MX_Controller
         //debug("Server.__construct");
         
         parent::__construct();
-        
-        $this->load->helper('url');
+
+        if(false){
+            $this->template = new Template();
+        }
+
+        $this->load->helper(array('url','form'));
         
         $this->CI = &get_instance();
         
         $this->theme_path = base_url().APPPATH.$this->template->theme_path;
         $this->style_path = $this->theme_path."css/";
         $this->image_path = $this->theme_path."images/";
+
+        $this->template->setJsAction("migration");
         
         $this->pageData = array_merge($this->pageData, array(
             "theme_path" => $this->theme_path,
-            "module" => "server",
-            "extra_css" => array($this->style_path."server.css"),
+            "module" => "migration",
+            "extra_css" => "",
         ));
 
     }
@@ -62,139 +73,322 @@ class Migration extends MX_Controller
     public function index($page = "index")
     {
         //debug("Server ($page)");
-        
-        /**
-         * Identifier for the cache
-         * @type {String}
-         */
-        $this->cacheId = "server_".$page;
-        
-        $cache = $this->cache->get($this->cacheId);
+        $this->template->addBreadcrumb("Transferanleitung", site_url(array("migration", "index")));
 
-        if($this->cacheActive && $cache !== false)
-        {
-            $this->user->requireRank($cache['rank']);
-
-            $this->template->setTitle($cache['title']);
-            $out = $cache['content'];
-        }
-        else
-        {
-            $this->template->addBreadcrumb("Server", site_url(array("server")));
-            
-            switch($page){
-                
-                case "howtoplay":
-                    $this->pageTitle = "Online Spielerliste";
-                    $this->template->addBreadcrumb("Spieler Online", site_url(array("server", $page)));
-                    $this->templateFile = "server.tpl";
-                    break;
-                
-                case "playersonline":
-                    $this->pageTitle = "Online Spielerliste";
-                    $this->template->addBreadcrumb("Spieler Online", site_url(array("server", $page)));
-                    $this->templateFile = "playersonline.tpl";
-                    $this->playersonline();
-                    $this->pageData["extra_css"][] = $this->style_path."wiki.css";
-                    $this->template->hideSidebar();
-                    break;
-                
-                case "playermap":
-                    $this->pageTitle = "Spielerkarte";
-                    $this->template->addBreadcrumb("Online Spielerkarte", site_url(array("server", $page)));
-                    $this->templateFile = "playermap.tpl";
-                    $this->template->hideSidebar();
-                    break;
-                
-                
-                default:
-                    $this->pageTitle = "Der Server";
-                    $this->templateFile = "server.tpl";
-                    $this->pageData["extra_css"][] = $this->style_path."server-index.css";
-            }
-            
-            // save the generated content to the cache
-            /*$this->cache->save($this->cacheId, array(
-                "title" => $this->pageTitle, 
-                "content" => $this->out, 
-                "rank" => $page_content['rank_needed']
-            ));*/
-            
-        }
-        
         // Set the page title
-        $this->template->setTitle($this->pageTitle);
+        $this->template->setTitle("Transferanleitung");
         
-        $out = $this->template->loadPage($this->templateFile, $this->pageData);
+        $out = $this->template->loadPage("migration_index.tpl");
             
-        $this->template->view($out, $this->pageData["extra_css"]);
+        $this->template->view($out);
     }
-    
-    private function howtoplay(){
-        $page_content = $this->cms_model->getPage($page);
-        
-    }
-    
-    private function playersonline(){
-        //SELECT guid, name, race, class, gender, level, zone  FROM `characters` WHERE `online`='1' AND (NOT `extra_flags` & 1 AND NOT `extra_flags` & 16) ORDER BY `name`
-        
-        //debug("realms", $this->realms);
 
-        $realmData = array();
+    public function form(){
+        $this->template->addBreadcrumb("Transferanleitung", site_url(array("migration", "index")));
+        $this->template->addBreadcrumb("Charaktertransfer", site_url(array("migration", "form")));
 
-        $realms = $this->realms->getRealms();
+        if(!count($this->races))
+        {
+            $this->loadConstants();
+        }
 
-        foreach($realms as $realm){
-            if($realm->isOnline()){
+        $this->loadVars();
 
-                $realmCharacters = $realm->getCharacters()->getOnlinePlayers();
+        $this->load->library('form_validation');
+        $this->lang->load('form_validation', $this->config->item('language'));
 
-                $onlineCharData = array();
+        // Set the page title
+        $this->template->setTitle("Charaktertransfer");
 
-                if($realmCharacters != false){
 
-                    foreach($realmCharacters as $char){
 
-                        $zone = $this->realms->getZone($char["zone"]);
+        $post = array(
+            "name" => "",
+            "Server" => "",
+            "Link" => "",
+            "Armory" => "",
+            "Download" => "",
+            "Bemerkung" => "",
+            "icq" => "",
+            "skype" => "",
+            "race" => "",
+            "class" => "",
+            "Level" => "",
+            "Gold" => "",
 
-                        $classes = "class-".$char["class"]." zone-".$char["zone"];
+            "Reiten" => "",
+            "Mount_boden" => "",
+            "Mount_flug" => "",
 
-                        if($char["level"] > 79){
-                            $classes .= " is-80";
-                        }
+            "Beruf1" => "",
+            "Beruf2" => "",
+            "Beruf1_skill" => "",
+            "Beruf2_skill" => "",
+            "Kochen" => "",
+            "Angeln" => "",
+            "Erstehilfe" => "",
+/*
+            "repA" => $this->reputationsAlliance,
+            "repH" => $this->reputationsHorde,
+            "repBC" => $this->reputationsBC,
+            "repWotlk" => $this->reputationsWotlk,*/
+        );
 
-                        $className = $this->realms->getClass($char["class"], $char["gender"]);
 
-                        $onlineCharData[] = array(
-                            "name" => $char["name"],
-                            "class" => $char["class"],
-                            "race" => $char["race"],
-                            "gender" => $char["gender"],
-                            "level" => $char["level"],
-                            "zone" => $zone,
-                            "css" => $classes,
-                            "class_name" => $className,
-                        );
+        // Repopulate standard fields
+        foreach($post as $key => $value){
+            $post[$key] = $this->input->post($key);
+        }
 
-                    }
-                }
+        // Repopulate Random Items
+        for($i = 1; $i < 11; $i++){
+            $post["random_item"][$i] = $this->input->post('random-'.$i);
+        }
 
-                $onlineCount = $realm->getOnline();
+        // Repopulate Equipment Items
+        foreach($this->equipmentSlots as $key => $slot){
+            $post["equipment"][$slot] = $this->input->post('equip-'.$key);
+        }
 
-                $realmData[] = array(
-                    "id" => $realm->getId(),
-                    "name" => $realm->getName(),
-                    "count" => $onlineCount,
-                    "characters" => $onlineCharData,
-                    "shownCount" => ($onlineCount > 50) ? 50 : $onlineCount,
-                );
-
+        // Repopulate Reputations
+        foreach($this->reputations as $repGroup){
+            foreach($repGroup["factions"] as $repKey => $repLabel){
+                $post['faction'][$repKey] = $this->input->post('faction_'.$repKey);
             }
         }
-        
-        $this->pageData["realms"] = $realmData;
-        //$this->pageData["sumPlayers"] = count($characters);
-        
+
+        // Rules
+        $this->form_validation->set_rules('name', "Charaktername", 'trim|required|alpha');
+        $this->form_validation->set_rules('Server', "Servername", 'trim|required');
+        $this->form_validation->set_rules('Link', "Serverlink", 'trim|required');
+        $this->form_validation->set_rules('Download', "Screenshotdatei", 'trim|required');
+
+        $this->form_validation->set_rules('race', "Charakterrasse", 'required');
+        $this->form_validation->set_rules('class', "Charakterklasse", 'required');
+        $this->form_validation->set_rules('Level', "Charakterlevel", 'required|is_natural_no_zero|less_than[81]');
+
+        if($post["Level"] > 80){
+            $post["Level"] = 80;
+        }
+
+        $this->form_validation->set_rules('Gold', "Gold", 'is_natural_no_zero|less_than[10001]');
+
+        if($post["Gold"] > 10000){
+            $post["Gold"] = 10000;
+        }
+
+
+        if ($this->form_validation->run() == FALSE){
+            $data = array(
+                "formAttributes" => array('class' => 'form-horizontal', 'id' => 'migrationForm'),
+                "validationErrors" => validation_errors(),
+                "races" => $this->races,
+                "classes" => $this->classes,
+                "post" => $post,
+                "profs" => $this->proffessions,
+                "slots" => $this->equipmentSlots,
+                "reputations" => $this->reputations,
+                "reputationStates" => $this->reputationStates,
+                "ridingLevels" => $this->ridingLevels
+            );
+
+            $out = $this->template->loadPage("migration_form.tpl", $data);
+        }
+        else{
+            $data = array(
+            );
+
+            $out = $this->template->loadPage("migration_done.tpl", $data);
+
+        }
+
+
+        $this->template->view($out);
+
     }
-    
+
+    public function item($realmId = "", $itemId = ""){
+        if(!$itemId || !$realmId)
+        {
+            $this->jsonError("Invalid URL.");
+        }
+
+        $realmObj = $this->realms->getRealm($realmId);
+
+        // Get the item SQL data
+        $item = $realmObj->getWorld()->getItem($itemId);
+
+        if(!$item || $item == "empty"){
+            $this->jsonError(lang("unknown_item", "item"));
+        }
+
+        $data = array(
+            'status' => 'success',
+            'item' => $item
+        );
+
+        $this->template->handleJsonOutput($data);
+
+    }
+
+
+
+    private function loadConstants(){
+        $this->CI->config->load('wow_constants');
+    }
+
+    private function loadVars(){
+        $races = $this->CI->config->item('races');
+
+        foreach($races as $key => $value){
+            $this->races[$key] = is_array($value) ? $value[0] : $value;
+        }
+
+        $classes = $this->CI->config->item('classes');
+
+        foreach($classes as $key => $value){
+            $this->classes[$key] = is_array($value) ? $value[0]: $value;
+        }
+
+        $this->hordeRaces = $this->CI->config->item('horde_races');
+        $this->allianceRaces = $this->CI->config->item('alliance_races');
+
+        $this->reputationsAlliance = array(
+            "72" => "Sturmwind",
+            "930" => "Die Exodar",
+            "47" => "Eisenschmiede",
+            "54" => "Gnomeregangnome",
+            "69" => "Darnassus",
+        );
+
+        $this->reputationsHorde = array(
+            "76" => "Orgrimmar",
+            "911" => "Silbermond",
+            "68" => "Unterstadt",
+            "81" => "Donnerfels",
+            "530" => "Dunkelspeertrolle",
+        );
+
+        $this->reputationsBC = array(
+            "933" => "Das Konsortium",
+            "967" => "Das Violette Auge",
+            "1012" => "Die Todeshörigen",
+            "990" => "Die Wächter der Sande",
+            "946" => "Ehrenfeste",
+            "942" => "Expedition des Cenarius",
+            "989" => "Hüter der Zeit",
+            "978" => "Kurenai",
+            "1015" => "Netherschwingen",
+            "1038" => "Ogrila",
+            "970" => "Sporeggar",
+            "947" => "Thrallmar",
+        );
+
+
+        $this->reputationsWotlk = array(
+            "1106" => "Argentumkreuzung",
+            "1094" => "Der Silberbund",
+            "1091" => "Der Wyrmruhpakt",
+            "1126" => "Die Frosterben",
+            "1067" => "Die Hand der Rache",
+            "1073" => "Die Kalu'ak",
+            "1105" => "Die Orakel",
+            "1119" => "Die Söhne Hodir",
+            "1124" => "Die Sonnenhäscher",
+            "1064" => "Die Taunka",
+            "1052" => "Expedion der Horde",
+            "1050" => "Expedion Valianz",
+            "1068" => "Forscherliga",
+            "1090" => "Kirin Tor",
+            "1085" => "Kriegshymnenoffensive",
+            "1098" => "Ritter der schwarzen Klinge",
+            "809" => "Shen'dralar:",
+            "1104" => "Stamm der Wildherzen",
+            "1037" => "Vorposten der Allianz",
+            "1156" => "Das Äscherne Verdikt",
+        );
+
+        $this->reputationStates = array(
+            0 => "-",
+            1 => "Freundlich",
+            2 => "Wohlwollend",
+            3 => "Respektvoll",
+            4 => "Ehrfürchtig",
+        );
+
+        $this->ridingLevels = array(
+            0 => 0,
+            75 => '75',
+            150 => '150',
+            225 => '225',
+            300 => '300',
+            301 => '300+Kaltwetter'
+        );
+
+
+        $this->reputations = array(
+            "repWotlk" => array(
+                "label" => "Wrath of the Lich King",
+                "factions" => $this->reputationsWotlk,
+            ),
+            "repBC" => array(
+                "label" => "Burning Crusade",
+                "factions" => $this->reputationsBC,
+            ),
+            "repA" => array(
+                "label" => "Allianzfraktionen",
+                "factions" => $this->reputationsAlliance,
+            ),
+            "repH" => array(
+                "label" => "Hordefraktionen",
+                "factions" => $this->reputationsHorde,
+            ),
+        );
+
+        $this->proffessions = array(
+            'Alchemie',
+            'Schmiedekunst',
+            'Verzauberungskunst',
+            'Ingenieurskunst',
+            'Kräutersammeln',
+            'Lederer',
+            'Bergbau',
+            'Kürschnerei',
+            'Schneiderei',
+            'Inschriftenkunde',
+            'Juwelenschleifen'
+        );
+
+
+        $this->equipmentSlots = array(
+            INV_HEAD => 'Kopf',
+            INV_NECK => 'Hals',
+            INV_SHOULDER => 'Schulter',
+            INV_BACK => 'Rücken',
+            INV_CHEST => 'Brust',
+            INV_TABARD => 'Wappenrock',
+            INV_BRACERS => 'Handgelenke',
+            INV_GLOVES => 'Hände',
+            INV_BELT => 'Taille',
+            INV_LEGS => 'Beine',
+            INV_BOOTS => 'Füsse',
+            INV_RING_1 => 'Ring 1',
+            INV_RING_2 => 'Ring 2',
+            INV_TRINKET_1 => 'Schmuck 1',
+            INV_TRINKET_2 => 'Schmuck 2',
+            INV_MAIN_HAND => 'Waffenhand',
+            INV_OFF_HAND => 'Nebenhand',
+            INV_RANGED_RELIC => 'Distanzwaffe/etc',
+        );
+
+    }
+
+
+    private function jsonError($message){
+        die(json_encode(array(
+            "status" => "error",
+            "message" => $message,
+        )));
+    }
+
 }
