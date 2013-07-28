@@ -873,13 +873,15 @@ input, select, textarea {
   -webkit-box-sizing: border-box;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="email"],
-textarea {
+#wrapper input[type="text"],
+#wrapper input[type="password"],
+#wrapper input[type="email"],
+#wrapper textarea {
   font-family: Arial, Helvetica, Sans-serif;
   font-size: 12px;
   width: 99%;
+  height: auto;
+  line-height: normal;
   padding: 8px;
   color: #666;
   background-color: #fff;
