@@ -21,10 +21,10 @@ class Server_Info extends MX_Controller implements Sidebox{
         $isOnline = $realms[0]->isOnline();
         
         if($isOnline){
-            $this->overwriteDisplayName = 'Server Information: <span class="status-icon up">Online</span>';
+            $this->overwriteDisplayName = 'Server Information: <span class="up">Online</span>';
         }
         else{
-            $this->overwriteDisplayName = 'Server Information: <span class="status-icon">Offline</span>';
+            $this->overwriteDisplayName = 'Server Information: <span class="down">Offline</span>';
         }
 
         $connection = $this->load->database("account", true);
