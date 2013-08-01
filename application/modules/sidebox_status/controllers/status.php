@@ -37,7 +37,19 @@ class Status extends MX_Controller
                     $values[$key] = intval($value);
                 }
 
+                switch($realm->getId()){
+                    case 1:
+                        $cssClass = "color-ex2";
+                        break;
+                    case 2:
+                        $cssClass = "color-ex3";
+                        break;
+                    default:
+                        $cssClass = '';
+                }
+
                 $realmData[] = array(
+                    "css" => $cssClass,
                     "online" => (bool) $realm->isOnline(),
                     "name" => $realm->getName(),
                     "gm" => $values['gm'],
