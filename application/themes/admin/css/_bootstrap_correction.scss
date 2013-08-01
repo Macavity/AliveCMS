@@ -1,0 +1,27 @@
+
+#main .right .alert{
+  &.alert-info,
+  &.alert-warning,
+  &.alert-error,
+  &.alert-success,
+  &.alert-danger{
+    box-shadow: none;
+  }
+
+  &.alert-success {
+    border-color: #d6e9c6;
+  }
+
+  &.alert-warning {
+    border-color: #fbeed5;
+  }
+
+  &.alert-danger,
+  &.alert-error {
+    border-color: #eed3d7;
+  }
+
+  &.alert-info {
+    border-color: #bce8f1;
+  }
+}

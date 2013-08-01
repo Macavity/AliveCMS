@@ -45,3 +45,23 @@
   }
 
 }
+
+.table{
+  .inprogress td:first-child,
+  .inprogress:hover td:first-child{
+    background-color:#F60;
+    padding:0px;
+  }
+
+  .done td:first-child,
+  .done:hover td:first-child{
+    background-color:#0C0;
+    padding:0px;
+  }
+  .deleted td:first-child,
+  .deleted:hover td:first-child{
+    background-color:#C00;
+    padding:0px;
+  }
+
+}

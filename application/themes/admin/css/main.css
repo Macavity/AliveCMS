@@ -498,6 +498,7 @@ header nav .active:hover {
   padding: 0px;
   padding-top: 6px;
   text-align: center;
+  line-height: normal;
   width: 100%;
   font-weight: normal;
   font-family: MuseoSlab, Arial, Helvetica, Sans-serif;
@@ -558,7 +559,7 @@ header nav .active:hover {
 }
 
 #main .right h2 img {
-  margin-top: 3px;
+  /*margin-top:3px;*/
   position: absolute;
   margin-left: -25px;
 }
@@ -619,6 +620,7 @@ header nav .active:hover {
   text-align: center;
   font-family: MuseoSlab;
   font-weight: normal;
+  line-height: normal;
   color: #171717;
   font-size: 16px;
   padding-top: 10px;
@@ -639,24 +641,23 @@ header nav .active:hover {
 #main .right .big {
   margin: 10px;
 }
-
+#main .right .box > div {
+  margin: 10px;
+}
 #main .right .box span {
   padding: 10px;
   display: block;
 }
-
 #main .right .box ul {
   margin: 0px;
   padding: 0px;
 }
-
 #main .right .box li {
   list-style: none;
   margin: 0px;
   padding: 10px;
   padding-left: 15px;
 }
-
 #main .right .box li:hover td img {
   opacity: 0.6;
 }
@@ -1440,6 +1441,37 @@ footer .divider2 {
   content: "--";
 }
 
+.table .inprogress td:first-child,
+.table .inprogress:hover td:first-child {
+  background-color: #F60;
+  padding: 0px;
+}
+.table .done td:first-child,
+.table .done:hover td:first-child {
+  background-color: #0C0;
+  padding: 0px;
+}
+.table .deleted td:first-child,
+.table .deleted:hover td:first-child {
+  background-color: #C00;
+  padding: 0px;
+}
+
 /**
  * Twitter Bootstrap
  */
+#main .right .alert.alert-info, #main .right .alert.alert-warning, #main .right .alert.alert-error, #main .right .alert.alert-success, #main .right .alert.alert-danger {
+  box-shadow: none;
+}
+#main .right .alert.alert-success {
+  border-color: #d6e9c6;
+}
+#main .right .alert.alert-warning {
+  border-color: #fbeed5;
+}
+#main .right .alert.alert-danger, #main .right .alert.alert-error {
+  border-color: #eed3d7;
+}
+#main .right .alert.alert-info {
+  border-color: #bce8f1;
+}
