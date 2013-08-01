@@ -94,20 +94,24 @@
 #server-index {
   #content {
     .content-top {
-      background: url("http://forum.wow-alive.de/static-wow/images/game/landing/bg-top.jpg") 0 0 no-repeat;
+      background: url("../images/server/bg-top.jpg") 0 0 no-repeat;
     }
     .content-bot {
-      background: url("http://forum.wow-alive.de/static-wow/images/game/landing/bg-bottom.jpg") 0 100% no-repeat;
+      background: url("../images/server/bg-bottom.jpg") 0 100% no-repeat;
       min-height: 900px;
     }
 
     .left-col {
       width: 647px;
       margin-left: 0px;
+
+      #blog {
+        background: none;
+      }
     }
 
     .right-col {
-      width: 345px;
+      /*width: 345px;*/
     }
   }
 
@@ -146,11 +150,12 @@
 
     &.left-bnr {
       float: left;
-      margin-left: 27px;
+      /*margin-left: 27px;*/
     }
     &.right-bnr {
-      float: right;
-      margin-right: 27px;
+      float: left;
+      margin-left:20px;
+      /*margin-right: 27px;*/
     }
 
     .banner-title {
@@ -218,119 +223,151 @@
     margin-top: 40px;
   }
 
-  .sidebar-module {
-    width: 307px;
-    margin: 0 0 32px 21px;
 
-    .sidebar-title {
-      border-bottom: 2px solid #552B12;
-      padding-bottom: 6px;
+}
+
+
+.sidebar-module {
+  width: 307px;
+  margin: 0 0 32px 21px;
+
+  .sidebar-title {
+    border-bottom: 2px solid #552B12;
+    padding-bottom: 6px;
+    span {
+      color: #f0e29a;
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+      font-size: 14px;
+    }
+  }
+  ul {
+    margin-top: 10px;
+    li {
+      padding: 1px 0;
+    }
+    a {
+      line-height: 24px;
+      display: block;
+      width: 100%;
+      &:hover {
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        background-color: #3f1806;
+      }
       span {
-        color: #f0e29a;
-        text-transform: uppercase;
-        letter-spacing: -0.5px;
-        font-size: 14px;
+        margin-left: 46px;
       }
     }
-    ul {
-      margin-top: 10px;
-      li {
-        padding: 1px 0;
-      }
-      a {
-        line-height: 24px;
-        background: url("../images/icons/services-sprite.gif") no-repeat;
-        display: block;
-        width: 100%;
-        &:hover {
-          border-radius: 5px;
-          -moz-border-radius: 5px;
-          -webkit-border-radius: 5px;
-          background-color: #3f1806;
-        }
-        span {
-          margin-left: 46px;
-        }
-      }
-    }
+  }
 
-    .account-security {
-      background-position: 7px 2px;
-    }
-    .account-recovery {
-      background-position: 7px -49px;
-    }
-    .account-authenticator {
-      background-position: 7px -931px;
-    }
-    .account-authenticator-faq {
-      background-position: 7px -983px;
-    }
-    .account-free-matrix-card {
-      background-position: 7px -196px;
-    }
-    .account-mobile-security-token {
-      background-position: 7px -1222px;
-    }
-    .account-customer-service-window {
-      background-position: 7px -582px;
-    }
-    .get-wow-buy {
-      background-position: 7px -1039px;
-    }
-    .get-wow-gift {
-      background-position: 7px -1099px;
-    }
-    .get-wow-free-trial {
-      background-position: 7px -243px;
-    }
-    .get-wow-online-digital {
-      background-position: 7px -293px;
-    }
-    .get-wow-language-pack {
-      background-position: 7px -341px;
-    }
-    .character-transfer {
-      background-position: 7px -385px;
-    }
-    .character-name-change {
-      background-position: 7px -430px;
-    }
-    .character-race-change {
-      background-position: 7px -480px;
-    }
-    .character-faction-change {
-      background-position: 7px -532px;
-    }
-    .character-customization {
-      background-position: 7px -583px;
-    }
-    .character-free-move {
-      background-position: 7px -632px;
-    }
-    .character-ptr {
-      background-position: 7px -682px;
-    }
-    .etc-raf {
-      background-position: 7px -733px;
-    }
-    .etc-wow-magazine {
-      background-position: 7px -783px;
-    }
-    .etc-sor {
-      background-position: 7px -835px;
-    }
-    .etc-wow-remote {
-      background-position: 7px -1163px;
-    }
-    .etc-mobile-armory {
-      background-position: 7px -1221px;
-    }
-    .etc-rewards-visa {
-      background-position: 7px -885px;
-    }
-    .etc-anti-gold {
-      background-position: 7px -1280px;
-    }
+  .account-security,
+  .account-recovery,
+  .account-authenticator,
+  .account-authenticator-faq,
+  .account-free-matrix-card,
+  .account-mobile-security-token,
+  .account-customer-service-window,
+  .get-wow-buy,
+  .get-wow-gift,
+  .get-wow-free-trial,
+  .get-wow-online-digital,
+  .get-wow-language-pack,
+  .character-transfer,
+  .character-name-change,
+  .character-race-change,
+  .character-faction-change,
+  .character-customization,
+  .character-free-move,
+  .character-ptr,
+  .etc-raf,
+  .etc-wow-magazine,
+  .etc-sor,
+  .etc-wow-remote,
+  .etc-mobile-armory,
+  .etc-rewards-visa,
+  .etc-anti-gold {
+    background: url("../images/icons/services-sprite.gif") no-repeat;
+  }
+
+
+  .account-security {
+    background-position: 7px 2px;
+  }
+  .account-recovery {
+    background-position: 7px -49px;
+  }
+  .account-authenticator {
+    background-position: 7px -931px;
+  }
+  .account-authenticator-faq {
+    background-position: 7px -983px;
+  }
+  .account-free-matrix-card {
+    background-position: 7px -196px;
+  }
+  .account-mobile-security-token {
+    background-position: 7px -1222px;
+  }
+  .account-customer-service-window {
+    background-position: 7px -582px;
+  }
+  .get-wow-buy {
+    background-position: 7px -1039px;
+  }
+  .get-wow-gift {
+    background-position: 7px -1099px;
+  }
+  .get-wow-free-trial {
+    background-position: 7px -243px;
+  }
+  .get-wow-online-digital {
+    background-position: 7px -293px;
+  }
+  .get-wow-language-pack {
+    background-position: 7px -341px;
+  }
+  .character-transfer {
+    background-position: 7px -385px;
+  }
+  .character-name-change {
+    background-position: 7px -430px;
+  }
+  .character-race-change {
+    background-position: 7px -480px;
+  }
+  .character-faction-change {
+    background-position: 7px -532px;
+  }
+  .character-customization {
+    background-position: 7px -583px;
+  }
+  .character-free-move {
+    background-position: 7px -632px;
+  }
+  .character-ptr {
+    background-position: 7px -682px;
+  }
+  .etc-raf {
+    background-position: 7px -733px;
+  }
+  .etc-wow-magazine {
+    background-position: 7px -783px;
+  }
+  .etc-sor {
+    background-position: 7px -835px;
+  }
+  .etc-wow-remote {
+    background-position: 7px -1163px;
+  }
+  .etc-mobile-armory {
+    background-position: 7px -1221px;
+  }
+  .etc-rewards-visa {
+    background-position: 7px -885px;
+  }
+  .etc-anti-gold {
+    background-position: 7px -1280px;
   }
 }

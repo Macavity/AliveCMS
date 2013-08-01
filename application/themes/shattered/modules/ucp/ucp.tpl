@@ -108,7 +108,7 @@
       {/if}
 
       {if hasPermission("canMigrateCharacter", "migration")}
-        <a href="{$url}{$config.migtration}" class="main-services-banner right-bnr" style="background-image:url('{$image_path}/boxes/thumb-main-content-2.jpg');" >
+        <a href="{$url}migration" class="main-services-banner right-bnr" style="background-image:url('{$image_path}/boxes/thumb-main-content-2.jpg');" >
           <span class="banner-title">Transferantrag</span>
           <span class="banner-desc">Details und Informationen wie du deinen bisherigen Charakter auf unseren Server &uuml;n kannst.</span>
         </a>
