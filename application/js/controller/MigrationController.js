@@ -1,3 +1,4 @@
+/*jshint -W041 */
 
 define(['./BaseController', 'modules/tooltip'], function (BaseController, Tooltip) {
 
@@ -86,7 +87,7 @@ define(['./BaseController', 'modules/tooltip'], function (BaseController, Toolti
             var Controller = this;
 
 
-            if(value == ""){
+            if(value === ""){
                 return;
             }
 
@@ -97,7 +98,7 @@ define(['./BaseController', 'modules/tooltip'], function (BaseController, Toolti
             helper.html('<i class="icon-white icon-refresh"></i>');
 
 
-            if(Controller.isNumber(value) == false){
+            if(Controller.isNumber(value) === false){
                 Controller.helperWarning(controlGroup ,helper, "Bitte nur Zahlen eingeben!");
             }
             else{
@@ -118,7 +119,7 @@ define(['./BaseController', 'modules/tooltip'], function (BaseController, Toolti
                             var item = jsonData.item;
 
                             if(item.ItemLevel > 245){
-                                Controller.helperWarning(controlGroup, helper, "Itemlevel zu hoch!")
+                                Controller.helperItemWarning(controlGroup, helper, item);
                             }
                             else{
                                 Controller.helperLink(controlGroup, helper, item);
@@ -136,6 +137,11 @@ define(['./BaseController', 'modules/tooltip'], function (BaseController, Toolti
         helperWarning: function(controlGroup, helper, text){
             controlGroup.addClass("error");
             helper.html('<i class="icon-white icon-warning-sign"></i> '+text);
+        },
+
+        helperItemWarning: function(controlGroup, helper, item){
+            controlGroup.addClass("error");
+            helper.html('<i class="icon-white icon-warning-sign"></i> ['+item.ItemLevel+'] <a href="/item/1/'+item.entry+'" target="_blank">'+item.name+'</a> <br>Itemlevel zu hoch!');
         },
 
         helperLink: function(controlGroup, helper, item){

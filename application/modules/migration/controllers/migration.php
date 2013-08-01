@@ -50,9 +50,16 @@ class Migration extends MX_Controller
 
         if(false){
             $this->template = new Template();
+            $this->migration_model = new Migration_Model();
         }
 
         $this->load->helper(array('url','form'));
+        $this->load->config('migration');
+
+        $this->load->model("migration_model");
+
+        $this->template->enable_profiler(TRUE);
+
         
         $this->CI = &get_instance();
         
@@ -77,20 +84,51 @@ class Migration extends MX_Controller
 
         // Set the page title
         $this->template->setTitle("Transferanleitung");
-        
+        $this->template->setSectionTitle("Transferanleitung");
+
         $out = $this->template->loadPage("migration_index.tpl");
             
         $this->template->view($out);
     }
 
+    public function denied($reason = "")
+    {
+        //debug("Server ($page)");
+        $this->template->addBreadcrumb("Transfere gesperrt", site_url(array("migration", "denied")));
+
+        // Set the page title
+        $this->template->setTitle("Transferformular");
+        $this->template->setSectionTitle("Transferformular gesperrt");
+
+        $points = $this->config->item("migration_vote_point_price");
+
+        $out = $this->template->loadPage("migration_denied.tpl", array("reason" => $reason, "cash_needed" => $points));
+
+        $this->template->view($out);
+    }
+
+
     public function form(){
         $this->template->addBreadcrumb("Transferanleitung", site_url(array("migration", "index")));
         $this->template->addBreadcrumb("Charaktertransfer", site_url(array("migration", "form")));
+
+        if(hasPermission("canMigrateCharacter") == FALSE){
+            $this->denied("norights");
+            exit;
+        }
+
+        $accountMigrationCount = $this->migration_model;
+
+        if($accountMigrationCount){
+
+        }
+
 
         if(!count($this->races))
         {
             $this->loadConstants();
         }
+
 
         $this->loadVars();
 
@@ -145,17 +183,23 @@ class Migration extends MX_Controller
             $post["random_item"][$i] = $this->input->post('random-'.$i);
         }
 
+        $equipmentSlots = $this->migration_model->getEquipmentSlots();
+
         // Repopulate Equipment Items
-        foreach($this->equipmentSlots as $key => $slot){
+        foreach($equipmentSlots as $key => $slot){
             $post["equipment"][$slot] = $this->input->post('equip-'.$key);
         }
 
+        $reputations = $this->migration_model->getReputations();
+
         // Repopulate Reputations
-        foreach($this->reputations as $repGroup){
+        foreach($reputations as $repGroup){
             foreach($repGroup["factions"] as $repKey => $repLabel){
                 $post['faction'][$repKey] = $this->input->post('faction_'.$repKey);
             }
         }
+
+        //debug("post", $post);
 
         // Rules
         $this->form_validation->set_rules('name', "Charaktername", 'trim|required|alpha');
@@ -185,19 +229,21 @@ class Migration extends MX_Controller
                 "races" => $this->races,
                 "classes" => $this->classes,
                 "post" => $post,
-                "profs" => $this->proffessions,
-                "slots" => $this->equipmentSlots,
-                "reputations" => $this->reputations,
-                "reputationStates" => $this->reputationStates,
-                "ridingLevels" => $this->ridingLevels
+                "profs" => $this->migration_model->getProfessions(),
+                "slots" => $equipmentSlots,
+                "reputations" => $reputations,
+                "reputationStates" => $this->migration_model->getReputationStates(),
+                "ridingLevels" => $this->migration_model->getRidingLevels(),
             );
 
             $out = $this->template->loadPage("migration_form.tpl", $data);
         }
         else{
-            $data = array(
-            );
 
+
+
+            // Save Data to Database
+            $data = array();
             $out = $this->template->loadPage("migration_done.tpl", $data);
 
         }
@@ -231,8 +277,6 @@ class Migration extends MX_Controller
 
     }
 
-
-
     private function loadConstants(){
         $this->CI->config->load('wow_constants');
     }
@@ -252,134 +296,6 @@ class Migration extends MX_Controller
 
         $this->hordeRaces = $this->CI->config->item('horde_races');
         $this->allianceRaces = $this->CI->config->item('alliance_races');
-
-        $this->reputationsAlliance = array(
-            "72" => "Sturmwind",
-            "930" => "Die Exodar",
-            "47" => "Eisenschmiede",
-            "54" => "Gnomeregangnome",
-            "69" => "Darnassus",
-        );
-
-        $this->reputationsHorde = array(
-            "76" => "Orgrimmar",
-            "911" => "Silbermond",
-            "68" => "Unterstadt",
-            "81" => "Donnerfels",
-            "530" => "Dunkelspeertrolle",
-        );
-
-        $this->reputationsBC = array(
-            "933" => "Das Konsortium",
-            "967" => "Das Violette Auge",
-            "1012" => "Die Todeshörigen",
-            "990" => "Die Wächter der Sande",
-            "946" => "Ehrenfeste",
-            "942" => "Expedition des Cenarius",
-            "989" => "Hüter der Zeit",
-            "978" => "Kurenai",
-            "1015" => "Netherschwingen",
-            "1038" => "Ogrila",
-            "970" => "Sporeggar",
-            "947" => "Thrallmar",
-        );
-
-
-        $this->reputationsWotlk = array(
-            "1106" => "Argentumkreuzung",
-            "1094" => "Der Silberbund",
-            "1091" => "Der Wyrmruhpakt",
-            "1126" => "Die Frosterben",
-            "1067" => "Die Hand der Rache",
-            "1073" => "Die Kalu'ak",
-            "1105" => "Die Orakel",
-            "1119" => "Die Söhne Hodir",
-            "1124" => "Die Sonnenhäscher",
-            "1064" => "Die Taunka",
-            "1052" => "Expedion der Horde",
-            "1050" => "Expedion Valianz",
-            "1068" => "Forscherliga",
-            "1090" => "Kirin Tor",
-            "1085" => "Kriegshymnenoffensive",
-            "1098" => "Ritter der schwarzen Klinge",
-            "809" => "Shen'dralar:",
-            "1104" => "Stamm der Wildherzen",
-            "1037" => "Vorposten der Allianz",
-            "1156" => "Das Äscherne Verdikt",
-        );
-
-        $this->reputationStates = array(
-            0 => "-",
-            1 => "Freundlich",
-            2 => "Wohlwollend",
-            3 => "Respektvoll",
-            4 => "Ehrfürchtig",
-        );
-
-        $this->ridingLevels = array(
-            0 => 0,
-            75 => '75',
-            150 => '150',
-            225 => '225',
-            300 => '300',
-            301 => '300+Kaltwetter'
-        );
-
-
-        $this->reputations = array(
-            "repWotlk" => array(
-                "label" => "Wrath of the Lich King",
-                "factions" => $this->reputationsWotlk,
-            ),
-            "repBC" => array(
-                "label" => "Burning Crusade",
-                "factions" => $this->reputationsBC,
-            ),
-            "repA" => array(
-                "label" => "Allianzfraktionen",
-                "factions" => $this->reputationsAlliance,
-            ),
-            "repH" => array(
-                "label" => "Hordefraktionen",
-                "factions" => $this->reputationsHorde,
-            ),
-        );
-
-        $this->proffessions = array(
-            'Alchemie',
-            'Schmiedekunst',
-            'Verzauberungskunst',
-            'Ingenieurskunst',
-            'Kräutersammeln',
-            'Lederer',
-            'Bergbau',
-            'Kürschnerei',
-            'Schneiderei',
-            'Inschriftenkunde',
-            'Juwelenschleifen'
-        );
-
-
-        $this->equipmentSlots = array(
-            INV_HEAD => 'Kopf',
-            INV_NECK => 'Hals',
-            INV_SHOULDER => 'Schulter',
-            INV_BACK => 'Rücken',
-            INV_CHEST => 'Brust',
-            INV_TABARD => 'Wappenrock',
-            INV_BRACERS => 'Handgelenke',
-            INV_GLOVES => 'Hände',
-            INV_BELT => 'Taille',
-            INV_LEGS => 'Beine',
-            INV_BOOTS => 'Füsse',
-            INV_RING_1 => 'Ring 1',
-            INV_RING_2 => 'Ring 2',
-            INV_TRINKET_1 => 'Schmuck 1',
-            INV_TRINKET_2 => 'Schmuck 2',
-            INV_MAIN_HAND => 'Waffenhand',
-            INV_OFF_HAND => 'Nebenhand',
-            INV_RANGED_RELIC => 'Distanzwaffe/etc',
-        );
 
     }
 

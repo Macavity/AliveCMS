@@ -40,18 +40,18 @@
       <div class="controls">
        <div class="input-prepend">
           <span class="add-on">http://</span>
-          <input type="text" name="Armory" value="{$post.Armory}" class="input-xlarge">
+          <input type="text" name="Armory" value="{$post.Armory}" class="input-large">
         </div>
       </div>
     </div>
 
     <p>
-      Screenshots (Played Time, Login, Abzeichen, Berufe, Ruf, Abzeichen, Taschen)! Bitte in eine gezippte Datei packen und hochladen.
+      Screenshots (Played Time, Login, Abzeichen, Berufe, Ruf, Abzeichen, Taschen)! Bitte in eine gezippte Datei (ZIP oder RAR) packen und zum Beispiel bei einem Dienst wie <a href="http://www.file-upload.net/" target="_blank">http://www.file-upload.net</a> hochladen.
     </p>
     <div class="control-group">
       <label class="control-label">Screenshotdatei</label>
       <div class="controls">
-        <input type="file" name="Download">
+        <input type="text" name="Download" value="{$post.Download}" class="input-large">
       </div>
     </div>
 
@@ -279,7 +279,7 @@
                         <input type="hidden" name="faction_{$rep_id}" value="{$post.faction[$rep_id]}">
                         <div class="btn-group" data-toggle="buttons-radio">
                             {foreach from=$reputationStates key=state_key item=state}
-                                <button type="button" class="btn {if $post.faction[$rep_id] == state_key}active{/if}" data-target="faction_{$rep_id}" value="{$state_key}">{$state}</button>
+                                <button type="button" class="btn {if $post.faction[$rep_id] == $state_key}active{/if}" data-target="faction_{$rep_id}" value="{$state_key}">{$state}</button>
                             {/foreach}
                         </div>
                     </div>
@@ -290,58 +290,6 @@
     {/foreach}
 
 
-    <a data-toggle="collapse" data-target="#repBC"><i class="icon"></i>Burning Crusade</a>
-      <div class="tab-pane collapse in" id="repBC">
-        {foreach from=$post.repBC key=rep_id item=rep_name}
-          <div class="control-group">
-            <label class="control-label">{$rep_name}</label>
-            <div class="controls">
-              <input type="hidden" name="faction_{$rep_id}" value="0">
-              <div class="btn-group" data-toggle="buttons-radio">
-                {foreach from=$reputationStates key=state_key item=state}
-                  <button type="button" class="btn" data-target="faction_{$rep_id}" value="{$state_key}">{$state}</button>
-                {/foreach}
-              </div>
-            </div>
-          </div>
-        {/foreach}
-      </div>
-
-    <a data-toggle="collapse" data-target="#repA"><i class="icon"></i>Allianzfraktionen</a>
-
-    <div class="tab-pane collapse in" id="repA">
-        {foreach from=$post.repA key=rep_id item=rep_name}
-          <div class="control-group">
-            <label class="control-label">{$rep_name}</label>
-            <div class="controls">
-              <input type="hidden" name="faction_{$rep_id}" value="0">
-              <div class="btn-group" data-toggle="buttons-radio">
-                {foreach from=$reputationStates key=state_key item=state}
-                  <button type="button" class="btn" data-target="faction_{$rep_id}" value="{$state_key}">{$state}</button>
-                {/foreach}
-              </div>
-            </div>
-          </div>
-        {/foreach}
-      </div>
-
-    <a data-toggle="collapse" data-target="#repH"><i class="icon"></i>Hordefraktionen</a>
-      <div class="tab-pane collapse in" id="repH">
-        {foreach from=$post.repH key=rep_id item=rep_name}
-          <div class="control-group">
-            <label class="control-label">{$rep_name}</label>
-            <div class="controls">
-              <input type="hidden" name="faction_{$rep_id}" value="0">
-              <div class="btn-group" data-toggle="buttons-radio">
-                {foreach from=$reputationStates key=state_key item=state}
-                  <button type="button" class="btn" data-target="faction_{$rep_id}" value="{$state_key}">{$state}</button>
-                {/foreach}
-              </div>
-            </div>
-          </div>
-        {/foreach}
-      </div>
-    </div>
   </fieldset>
 
 </form>
