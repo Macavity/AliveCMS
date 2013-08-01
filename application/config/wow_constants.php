@@ -1,5 +1,7 @@
 <?php
 
+define("INCLUDED_WOW_CONSTANTS", TRUE);
+
 define("RACE_HUMAN", 1);
 define("RACE_ORC", 2);
 define("RACE_DWARF", 3);

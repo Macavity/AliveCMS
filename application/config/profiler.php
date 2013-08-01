@@ -10,7 +10,7 @@
 |	http://codeigniter.com/user_guide/general/profiling.html
 |
 */
-
+$config["config"] = FALSE;
 
 
 /* End of file profiler.php */

@@ -28,6 +28,13 @@ class Template
 	public $module_name;
 
     /**
+     * Determines wether profiler is enabled
+     * @var bool
+     * @access 	protected
+     */
+    protected $enable_profiler = FALSE;
+
+    /**
      * Controls if a specific page should display a sidebar
      * @alive
      * @var bool
@@ -257,6 +264,19 @@ class Template
             $slider = $this->getSlider();
         }
 
+        /**
+         *
+         */
+        if($this->enable_profiler == TRUE){
+
+            $this->CI->load->library("profiler");
+
+            $profiler = $this->CI->profiler->run();
+        }
+        else{
+            $profiler = "";
+        }
+
         $url = $this->CI->router->fetch_class();
 
 		if($this->CI->router->fetch_method() != "index")
@@ -297,6 +317,7 @@ class Template
             "user_name" => $this->CI->user->getNickname(),
             "is_staff" => $this->CI->user->isStaff(),
 
+            "profiler" => $profiler,
         );
 
 		// Load the main template
@@ -879,6 +900,20 @@ class Template
 
 		return $text;
 	}
+
+
+    /**
+     * Enable/disable Profiler
+     * @access	public
+     * @param	bool
+     * @return	void
+     */
+    function enable_profiler($val = TRUE)
+    {
+        $this->enable_profiler = (is_bool($val)) ? $val : TRUE;
+
+        return $this;
+    }
 
 	/**
 	 * Format time as "XX days/hours/minutes/seconds"
