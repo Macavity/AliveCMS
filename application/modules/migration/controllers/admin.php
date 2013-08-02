@@ -542,8 +542,10 @@ class Admin extends CI_Controller {
             $classes = "deleted disabled";
         }
 
-        if(isset($actions[0]["by"])){
-            $message = $actions[0]["by"];
+        $lastAction = array_pop($actions);
+
+        if(isset($lastAction["by"])){
+            $message = $lastAction["by"];
         }
         else{
             $message = "";

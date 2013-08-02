@@ -19,7 +19,7 @@
 <section class="box big" id="migration_list">
 
     <h2>
-        <i class="icon-white icon-tasks"></i>
+        <i class="icon icon-tasks"></i>
         Transferliste
     </h2>
 
