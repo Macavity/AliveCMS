@@ -38,6 +38,11 @@ var Table = Class.extend({
 	source: [],
 	cached: [],
 
+    /**
+     * Local storage of mapStatic.lang
+     */
+    lang: {},
+
 	/**
 	 * Detect if the table exists, if so apply config and detach nodes.
 	 *
@@ -48,6 +53,8 @@ var Table = Class.extend({
 		this.query = table;
 
 		var wrapper = $(table);
+
+        this.lang = mapStatic.lang;
 
 		if (wrapper.length) {
 			if (wrapper[0].tagName.toLowerCase() === 'table') {
@@ -596,6 +603,7 @@ var Table = Class.extend({
 	 * Create the pagination links and save to a variable.
 	 */
 	_buildPagination: function() {
+        debug.debug("buildPagination");
 		if (!this.controls.length)
 			return;
 
@@ -618,8 +626,8 @@ var Table = Class.extend({
 
 			// Build expanders
 			if (total > this.config.pageCount) {
-				var first = this._buildLink(Msg.grammar.first, 1),
-					last = this._buildLink(Msg.grammar.last, total);
+				var first = this._buildLink(this.lang.first, 1),
+					last = this._buildLink(this.lang.last, total);
 
 				first.addClass('first-item').prependTo(ul);
 				last.addClass('last-item').appendTo(ul);
