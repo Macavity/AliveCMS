@@ -518,6 +518,7 @@ define(['modules/page', 'modules/core'], function(Page, Core){
     // Set data-tooltip binds globally
     $(function() {
         Tooltip.bind('[data-tooltip]');
+        Tooltip.bind('[data-tip]');
     });
 
     return Tooltip;
