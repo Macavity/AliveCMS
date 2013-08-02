@@ -257,7 +257,7 @@ class Realms
 	 * @param Int $id
 	 * @return String
 	 */
-	public function getClass($id, $gender)
+	public function getClass($id, $gender = 0)
 	{
 		if(!count($this->classes))
 		{

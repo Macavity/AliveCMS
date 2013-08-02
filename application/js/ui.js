@@ -28,8 +28,8 @@ function UI()
 		// Give older browsers some html5-placeholder love!
 		$('input[placeholder], textarea[placeholder]').placeholder();
 
-		// Enable tooltip
-		Tooltip.initialize();
+		// Enable FusionTooltip
+		//FusionTooltip.initialize();
 	}
 
 	/**
@@ -213,9 +213,9 @@ function UI()
 }
 
 /**
- * Tooltip related functions
+ * FusionTooltip related functions
  */
-function Tooltip()
+function FusionTooltip()
 {
 	/**
 	 * Add event-listeners
@@ -231,7 +231,7 @@ function Tooltip()
 		// Add mouse listener
 		$(document).mousemove(function(e)
 		{
-			Tooltip.move(e.pageX, e.pageY);
+			FusionTooltip.move(e.pageX, e.pageY);
 		});
 	}
 
@@ -269,9 +269,9 @@ function Tooltip()
 				{
 					if(/^item=[0-9]*$/.test($(this).attr("rel")))
 					{
-						Tooltip.Item.get(this, function(data)
+                        FusionTooltip.Item.get(this, function(data)
 						{
-							Tooltip.show(data);
+                            FusionTooltip.show(data);
 						});
 					}
 				},
@@ -336,7 +336,7 @@ function Tooltip()
 	 		var obj = $(element);
 	 		var realm = obj.attr("data-realm");
 	 		var id = obj.attr("rel").replace("item=", "");
-	 		Tooltip.Item.currentId = id;
+            FusionTooltip.Item.currentId = id;
 
 	 		if(id in this.cache)
 	 		{
@@ -344,7 +344,7 @@ function Tooltip()
 	 		}
 	 		else
 	 		{
-	 			var cache = Tooltip.Item.CacheObj.get("item_" + realm + "_" + id + "_" + Config.language);
+	 			var cache = FusionTooltip.Item.CacheObj.get("item_" + realm + "_" + id + "_" + Config.language);
 
 		 		if(cache !== false)
 		 		{
@@ -357,11 +357,11 @@ function Tooltip()
 			 		$.get(Config.URL + "tooltip/" + realm + "/" + id, function(data)
 			 		{
 			 			// Cache it this visit
-			 			Tooltip.Item.cache[id] = data;
-			 			Tooltip.Item.CacheObj.save("item_" + realm + "_" + id  + "_" + Config.language, data);
+                        FusionTooltip.Item.cache[id] = data;
+                        FusionTooltip.Item.CacheObj.save("item_" + realm + "_" + id  + "_" + Config.language, data);
 
 			 			// Make sure it's still visible
-			 			if($("#tooltip").is(":visible") && Tooltip.Item.currentId == id)
+			 			if($("#tooltip").is(":visible") && FusionTooltip.Item.currentId == id)
 			 			{
 			 				callback(data);
 			 			}
@@ -429,4 +429,4 @@ function Tooltip()
 }
 
 var UI = new UI();
-var Tooltip = new Tooltip();
+var FusionTooltip = new FusionTooltip();

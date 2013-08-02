@@ -19,6 +19,8 @@ class Migration_Model extends CI_Model {
     protected $reputations = array();
     protected $professions = array();
     protected $equipmentSlots = array();
+    protected $migrationStates = array();
+
 
     public function __construct(){
         parent::__construct();
@@ -57,7 +59,6 @@ class Migration_Model extends CI_Model {
             "970" => "Sporeggar",
             "947" => "Thrallmar",
         );
-
 
         $this->reputationsWotlk = array(
             "1106" => "Argentumkreuzung",
@@ -98,7 +99,6 @@ class Migration_Model extends CI_Model {
             300 => '300',
             301 => '300+Kaltwetter'
         );
-
 
         $this->reputations = array(
             "repWotlk" => array(
@@ -187,6 +187,21 @@ class Migration_Model extends CI_Model {
             INV_RANGED_RELIC => 'Distanzwaffe/etc',
         );
 
+        $this->migrationStates = array(
+            MIGRATION_STATUS_OPEN => array(
+                "label" => "Offen"
+            ),
+            MIGRATION_STATUS_IN_PROGRESS => array(
+                "label" => "In Bearbeitung"
+            ),
+            MIGRATION_STATUS_DECLINED => array(
+                "label" => "Abgewiesen"
+            ),
+            MIGRATION_STATUS_DONE => array(
+                "label" => "Erledigt"
+            ),
+        );
+
     }
 
     /**
@@ -196,7 +211,7 @@ class Migration_Model extends CI_Model {
     public function importMigrationArchive(){
 
         $this->db->select("*")
-            ->from("migration_archive");
+            ->from("formular_basis");
 
         $query = $this->db->get();
 
@@ -204,7 +219,6 @@ class Migration_Model extends CI_Model {
 
             foreach ($query->result() as $row){
 
-                echo "<br>Transfer #".$row->id.": ";
 
                 $this->db->select("id")
                     ->where("id", $row->id)
@@ -212,10 +226,68 @@ class Migration_Model extends CI_Model {
 
                 $count = $this->db->count_all_results();
 
-
                 if($count > 0){
-                    echo "Skipped";
                     continue;
+                }
+
+                echo "<br>Transfer #".$row->id.": ";
+
+                /**
+                 * Items
+                 */
+                $items = array(
+                    'equipment' => array(),
+                    'mounts' => array(),
+                    'random' => array(),
+                );
+
+                $itemQuery = $this->db->select('*')
+                    ->where('id', $row->id)
+                    ->from('formular_item')->get();
+
+                if($itemQuery->num_rows() > 0){
+                    $results = $itemQuery->result_array();
+
+                    $itemRow = $results[0];
+
+                    $items['equipment'] = array(
+                        INV_HEAD => $itemRow['kopf'],
+                        INV_NECK => $itemRow['hals'],
+                        INV_SHOULDER => $itemRow['schulter'],
+                        INV_BACK => $itemRow['ruecken'],
+                        INV_CHEST => $itemRow['brust'],
+                        INV_TABARD => $itemRow['wappenrock'],
+                        INV_BRACERS => $itemRow['handgelenke'],
+                        INV_GLOVES => $itemRow['haende'],
+                        INV_BELT => $itemRow['taille'],
+                        INV_LEGS => $itemRow['beine'],
+                        INV_BOOTS => $itemRow['fuesse'],
+                        INV_RING_1 => $itemRow['ring1'],
+                        INV_RING_2 => $itemRow['ring2'],
+                        INV_TRINKET_1 => $itemRow['schmuck1'],
+                        INV_TRINKET_2 => $itemRow['schmuck2'],
+                        INV_MAIN_HAND => $itemRow['waffenhand'],
+                        INV_OFF_HAND => $itemRow['nebenhand'],
+                        INV_RANGED_RELIC => $itemRow['distanzwaffe'],
+                    );
+
+                    $items['mounts']['fly'] = $itemRow['mount_f'];
+                    $items['mounts']['floor'] = $itemRow['mount_b'];
+                }
+
+                $randomQuery = $this->db->select('*')
+                    ->where('id', $row->id)
+                    ->from('formular_randomitem')->get();
+
+                if($randomQuery->num_rows() > 0){
+                    $results = $randomQuery->result_array();
+
+                    $randomRow = $results[0];
+
+                    for($i = 1; $i <= 10; $i++){
+                        $items['random'][] = $randomRow['ri'.$i];
+                    }
+
                 }
 
                 /*
@@ -228,12 +300,11 @@ class Migration_Model extends CI_Model {
                  */
                 if(substr_count($row->gm, "Erledigt von") > 0){
                     $state = MIGRATION_STATUS_DONE;
-                    $str = trim(str_replace("Erledigt von","", $row->gm));
 
-                    if(strpos($str, " ") > 0){
+                    if(preg_match("/Erledigt von ([A-Za-z]+)(.*)/",$row->gm, $matches)){
                         $array = explode(" ", $str, 2);
-                        $actions["by"] = $array[0];
-                        $actions["reason"] = $array[1];
+                        $actions["by"] = $matches[1];
+                        $actions["reason"] = $matches[2];
                     }
                     else{
                         $actions["by"] = $str;
@@ -248,7 +319,7 @@ class Migration_Model extends CI_Model {
 
                     if(preg_match("/Gel[^\s]+ von ([A-Za-z]+)(.*)/",$row->gm, $matches)){
                         $actions["by"] = $matches[1];
-                        $actions["reason"] = trim($matches[2]);
+                        $actions["reason"] = $matches[2];
                     }
                 }
                 elseif($row->id < 2000){
@@ -284,16 +355,79 @@ class Migration_Model extends CI_Model {
                 /*
                  * Skills
                  */
-                $skills = array(
-                    "Reiten" => (substr_count($row->reiten, "Kaltwetter") > 0) ? 301 : $row->reiten,
+                $profs = array(
                     "Beruf1" => $row->beruf1,
                     "Beruf2" => $row->beruf2,
                     "Beruf1_skill" => $row->beruf1skill,
                     "Beruf2_skill" => $row->beruf2skill,
-                    "Kochen" => $row->kochen,
-                    "Angeln" => $row->angeln,
-                    "Erstehilfe" => $row->erstehilfe,
                 );
+
+                $skills = array(
+                    "Riding" => (substr_count($row->reiten, "Kaltwetter") > 0) ? 301 : $row->reiten,
+                    "Cooking" => $row->kochen,
+                    "Angling" => $row->angeln,
+                    "Firstaid" => $row->erstehilfe,
+                    "professions" => array(),
+                );
+
+                for($i = 1; $i <= 2; $i++){
+                    $profName = $profs['Beruf'.$i];
+                    $profSkill = $profs['Beruf'.$i.'_skill'];
+
+                    switch($profName){
+                        case "Schmiedekunst":
+                            $spell = 2018;
+                            $spell_skill = 164;
+                            break;
+                        case "Verzauberungskunst":
+                            $spell = 7411;
+                            $spell_skill = 333;
+                            break;
+                        case "Ingeneurskunst":
+                            $spell = 4036;
+                            $spell_skill = 202;
+                            break;
+                        case "Kraeutersammeln":
+                            $spell = 2366;
+                            $spell_skill = 182;
+                            break;
+                        case "Juwelenschleifen":
+                            $spell = 25229;
+                            $spell_skill = 755;
+                            break;
+                        case "Lederer":
+                            $spell = 2108;
+                            $spell_skill = 165;
+                            break;
+                        case "Bergbau":
+                            $spell = 2575;
+                            $spell_skill = 186;
+                            break;
+                        case "Kuerschnerei":
+                            $spell = 8613;
+                            $spell_skill = 393;
+                            break;
+                        case "Schneiderei":
+                            $spell = 3908;
+                            $spell_skill = 197;
+                            break;
+                        case "Inschriftenkunde":
+                            $spell = 45357;
+                            $spell_skill = 773;
+                            break;
+                        case "Alchemie":
+                            $spell = 2259;
+                            $spell_skill = 171;
+                            break;
+                    }
+
+                    $skills["professions"][$i] = array(
+                        'learn_spell' => $spell,
+                        'skill' => $spell_skill,
+                        'skill_level' => $profSkill,
+                    );
+
+                }
 
                 /*
                  * Reputations (Legacy)
@@ -302,12 +436,79 @@ class Migration_Model extends CI_Model {
                     "archive" => true,
                 );
 
-                /*
-                 * Items (Legacy)
+                /**
+                 * Race
                  */
-                $items = array(
-                    "archive" => true,
-                );
+                $race = null;
+                switch($row->rasse){
+                    case 'Allianz - Dranei':
+                        $race = RACE_DRAENEI;
+                        break;
+                    case 'Allianz - Gnom':
+                        $race = RACE_GNOME;
+                        break;
+                    case 'Allianz - Mensch':
+                        $race = RACE_HUMAN;
+                        break;
+                    case 'Allianz - Nachtelf':
+                        $race = RACE_NIGHTELF;
+                        break;
+                    case 'Allianz - Zwerg':
+                        $race = RACE_DWARF;
+                        break;
+                    case 'Horde - Blutelf':
+                        $race = RACE_BLOODELF;
+                        break;
+                    case 'Horde - Orc':
+                        $race = RACE_ORC;
+                        break;
+                    case 'Horde - Tauren':
+                        $race = RACE_TAUREN;
+                        break;
+                    case 'Horde - Troll':
+                        $race = RACE_TROLL;
+                        break;
+                    case 'Horde - Untoter':
+                        $race = RACE_UNDEAD;
+                        break;
+                }
+
+                /**
+                 * Class
+                 */
+                $class = null;
+                switch($row->klasse){
+                    case 'Druide':
+                        $class = CLASS_DRUID;
+                        break;
+                    case 'Hexenmeister':
+                        $class = CLASS_WARLOCK;
+                        break;
+                    case 'Jaeger':
+                        $class = CLASS_HUNTER;
+                        break;
+                    case 'Krieger':
+                        $class = CLASS_WARRIOR;
+                        break;
+                    case 'Magier':
+                        $class = CLASS_MAGE;
+                        break;
+                    case 'Paladin':
+                        $class = CLASS_PALADIN;
+                        break;
+                    case 'Priester':
+                        $class = CLASS_PRIEST;
+                        break;
+                    case 'Schamane':
+                        $class = CLASS_SHAMAN;
+                        break;
+                    case 'Schurke':
+                        $class = CLASS_ROGUE;
+                        break;
+                    case 'Todesritter':
+                        $class = CLASS_DK;
+                        break;
+                }
 
                 $actions = array($actions);
 
@@ -319,6 +520,8 @@ class Migration_Model extends CI_Model {
                     "account_id" => $accountId,
                     "icq" => $row->icq,
                     "character_name" => $row->char,
+                    "character_class" => $class,
+                    "character_race" => $race,
                     "server_name" => $row->server,
                     "server_link" => $row->serverlink,
                     "character_armory" => $row->armorylink,
@@ -346,12 +549,37 @@ class Migration_Model extends CI_Model {
      */
     public function getAccountMigrations($accountId){
 
-        $this->db->select("id")
+        $this->db->select('id,server_name,character_name,status,actions')
             ->where("account_id", $accountId)
-            ->where_in("status", array(MIGRATION_STATUS_DONE, MIGRATION_STATUS_IN_PROGRESS, MIGRATION_STATUS_OPEN))
+            ->where_in("status", array(MIGRATION_STATUS_DONE, MIGRATION_STATUS_IN_PROGRESS, MIGRATION_STATUS_OPEN, MIGRATION_STATUS_DECLINED))
             ->from($this->tableName);
-        $count = $this->db->count_all_results();
-        return $count;
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0){
+            $result = $query->result_array();
+            return $result;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get all data of a migration entry
+     * @param $migrationId
+     * @return array|false
+     */
+    public function getMigration($migrationId){
+        $this->db->select('*')
+            ->where('id', $migrationId)
+            ->from($this->tableName);
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0){
+            $result = $query->result_array();
+            return $result[0];
+        }
+        return false;
     }
 
     public function getRealmMigrationCount($realmId){
@@ -371,10 +599,10 @@ class Migration_Model extends CI_Model {
      * @param string $from
      * @return mixed
      */
-    public function getRealmMigrations($realmId, $limit = "1000", $from = "0"){
+    public function getRealmMigrations($realmId, $limit = '1000', $from = '0', $sort = 'desc'){
         $this->db->select('id,status,date_created,date_done,account_id,character_name,server_name,actions')
             ->where('target_realm', $realmId)
-            ->order_by('id', 'desc')
+            ->order_by('id', $sort)
             ->limit($limit, $from)
             ->from($this->tableName);
 
@@ -389,6 +617,10 @@ class Migration_Model extends CI_Model {
 
     public function getProfessions(){
         return $this->professions;
+    }
+
+    public function getMigrationStates(){
+        return $this->migrationStates;
     }
 
     public function getReputations(){
@@ -465,6 +697,24 @@ class Migration_Model extends CI_Model {
 
         $this->db->insert($this->tableName, $data);
 
+    }
+
+    public function updateMigrationDetail($migrationId, $status = MIGRATION_STATUS_OPEN, $characterGuid = "", $actions = array()){
+        $data = array(
+            "character_guid" => $characterGuid,
+            "status" => $status,
+            "actions" => json_encode($actions),
+        );
+        $this->db->where('id', $migrationId)
+            ->update($this->tableName, $data);
+    }
+
+    public function getStateLabel($state){
+        return $this->migrationStates[$state]['label'];
+    }
+
+    public function getProfessionLabel($profId){
+        return $this->professions[$profId]['label'];
     }
 
 

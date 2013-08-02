@@ -9,8 +9,6 @@ define(['./BaseController', 'modules/tooltip'], function (BaseController, Toolti
 
             this.initBindings();
 
-            this.initFormBehaviour();
-
         },
 
         initBindings: function(){
@@ -46,25 +44,6 @@ define(['./BaseController', 'modules/tooltip'], function (BaseController, Toolti
                Controller.getItemInfo({target: this});
             });
 
-        },
-
-        initFormBehaviour: function(){
-            debug.debug("MigrationController.initFormBehaviour");
-
-            // Shortcuts cachen
-            var _jq = $;
-
-            _jq("[data-toggle=buttons-radio] .btn").each(function(){
-                _jq(this).bind('click', function(){
-                    var object = _jq(this);
-                    if(object.data("target")){
-                        object.parent().parent().find('[name="'+object.data("target")+'"]').val(object.val());
-                    }
-                    else{
-                        object.parent().parent().find("input.hidden").value = object.val();
-                    }
-                });
-            });
         },
 
         eventChangeController: function(event){

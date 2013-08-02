@@ -27,7 +27,8 @@ var mapStatic = {
 
     lang: {
         first: 'Erster',
-        last: 'Letzter'
+        last: 'Letzter',
+        loading: 'Lade…'
     },
 
     /**

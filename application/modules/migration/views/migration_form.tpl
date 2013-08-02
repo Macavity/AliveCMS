@@ -13,7 +13,7 @@
     <legend>Dein alter Server</legend>
 
     <div class="control-group">
-      <label class="control-label">Charaktername</label>
+      <label class="control-label">Alter Charaktername</label>
       <div class="controls">
         <input type="text" name="name" size="25" value="{$post.name}" class="input-xlarge">
       </div>

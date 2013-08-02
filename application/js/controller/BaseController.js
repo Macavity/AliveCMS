@@ -11,6 +11,8 @@ define(
             this.initTS3Viewer();
             this.initUserplate();
 
+            this.initFormBehaviour();
+
             /*
              Input.initialize();
              Explore.initialize();
@@ -32,6 +34,25 @@ define(
             $(".plate-logged-out").on("click",function(e){
                 e.preventDefault();
                 Login.open();
+            });
+        },
+
+        initFormBehaviour: function(){
+            debug.debug("BaseController.initFormBehaviour");
+
+            // Shortcuts cachen
+            var _jq = $;
+
+            _jq("[data-toggle=buttons-radio] .btn").each(function(){
+                _jq(this).bind('click', function(){
+                    var object = _jq(this);
+                    if(object.data("target")){
+                        object.parent().parent().find('[name="'+object.data("target")+'"]').val(object.val());
+                    }
+                    else{
+                        object.parent().parent().find("input.hidden").value = object.val();
+                    }
+                });
             });
         },
 

@@ -214,7 +214,7 @@ define(['modules/page', 'modules/core'], function(Page, Core){
                                 // Show "Loading..." tooltip when request is being slow
                                 setTimeout(function() {
                                     if (!Tooltip.visible)
-                                        Tooltip.position(node, Msg.ui.loading, options.location);
+                                        Tooltip.position(node, mapStatic.lang.loading, options.location);
                                 }, 500);
                             },
                             success: function(data) {

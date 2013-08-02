@@ -16,15 +16,15 @@
             {foreach from=$realm.pakets item=paket}
                 {if $paket.state == "new"}
                     <div class="alert alert-success">
-                        <a href="{$url}migration/admin/cache_gen/{$realm.id}/{$paket.from}/{$paket.to}">Paket #{$paket.i}</a> von {$paket.from} bis {$paket.to} wurde Aktualisiert.
+                        <a href="{$url}migration/admin/cache_gen/{$realm.id}/{$paket.from}/1000">Paket #{$paket.i}</a> von {$paket.from} bis {$paket.to} wurde Aktualisiert.
                     </div>
                 {elseif $paket.state == "renew"}
                     <div class="alert alert-danger">
-                        <a href="{$url}migration/admin/cache_gen/{$realm.id}/{$paket.from}/{$paket.to}">Paket #{$paket.i}</a> von {$paket.from} bis {$paket.to} fehlt.
+                        <a href="{$url}migration/admin/cache_gen/{$realm.id}/{$paket.from}/1000">Paket #{$paket.i}</a> von {$paket.from} bis {$paket.to} fehlt.
                     </div>
                 {elseif $paket.state == "existing"}
                     <div class="alert alert-info">
-                        <a href="{$url}migration/admin/cache_gen/{$realm.id}/{$paket.from}/{$paket.to}">Paket #{$paket.i}</a> von {$paket.from} bis {$paket.to} ist vorhanden.
+                        <a href="{$url}migration/admin/cache_gen/{$realm.id}/{$paket.from}/1000">Paket #{$paket.i}</a> von {$paket.from} bis {$paket.to} ist vorhanden.
                     </div>
                 {/if}
             {/foreach}

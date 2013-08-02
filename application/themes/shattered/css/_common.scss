@@ -259,7 +259,7 @@ sup {
 
 .tip { border-bottom: 1px dotted #6A5336; cursor: help; }
 
-.ui-tooltip .frame-36 {position: absolute; left: -56px;top: -10px; }
+
 .item-specs { margin-top: 10px; }
 .item-specs li { margin: 1px 0; padding: 0; }
 
@@ -492,6 +492,11 @@ sup {
   }
   .float-right {
     padding-left: 30px;
+  }
+  .frame-36 {
+    position: absolute;
+    left: -56px;
+    top: -10px;
   }
   .frame-56 {
     position: absolute;

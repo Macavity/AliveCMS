@@ -1,2 +1,12 @@
 {foreach from=$migrations item=transfer}
-<tr class="{cycle values="row1,row2"} {$transfer.classes}"><td data-raw="{$transfer.status}">&nbsp;</td><td data-raw="{$transfer.id}"><a href="{$url}migration/admin/detail/{$transfer.id}" target="_blank">{$transfer.id}</a></td><td class="align-center" data-raw="{$transfer.character_name}">{$transfer.character_name}</td><td data-raw="{$transfer.server_name}">{$transfer.server_name}</td><td data-raw="{$transfer.date}">{$transfer.date}</td><td data-raw="{$transfer.message}">{$transfer.message}</td></tr>{/foreach}
+<tr class="{cycle values="row1,row2"} {$transfer.classes}">
+    <td class="w20" data-raw="{$transfer.status}">&nbsp;</td>
+    <td class="w50" data-raw="{$transfer.id}">
+        <a href="{$url}migration/admin/detail/{$transfer.id}" target="_blank">{$transfer.id}</a>
+    </td>
+    <td class="w80">{$transfer.account_id}</td>
+    <td class="w120">{$transfer.character_name}</td>
+    <td class="w120">{$transfer.server_name}</td>
+    <td class="w120">{$transfer.date}</td>
+    <td class="w120">{$transfer.message}</td>
+</tr>{/foreach}
