@@ -1572,6 +1572,12 @@ footer .divider2 {
   border: 0px solid transparent;
   padding-top: 0px;
 }
+#wrapper .form-horizontal label.checkbox {
+  margin: 0px;
+  padding: 0px 0px 0px 20px;
+  font-size: 14px;
+  border: 0px solid transparent;
+}
 
 .ui-tooltip {
   border: 1px solid #353837;

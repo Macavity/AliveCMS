@@ -1,11 +1,19 @@
-
+<style>
+    .form-horizontal .control-label {
+        width: 170px;
+    }
+    .form-horizontal .controls{
+        max-resolution: 190px;
+    }
+</style>
 <a href="#formEnd" class="formEndLink">Zum Ende des Formulars</a>
 
 {form_open_multipart('migration/form', $formAttributes)}
 
-    {if $validationErrors != ""}
+    {if $validationErrors != "" || $formErrors != ""}
         <div class="alert alert-error">
             {$validationErrors}
+            {$formErrors}
         </div>
     {/if}
 
@@ -88,21 +96,25 @@
     <legend>Dein neuer Charakter</legend>
 
     <div class="control-group">
-      <label class="control-label">Rasse deines Charakters</label>
+      <label class="control-label">Gewünschte Rasse</label>
       <div class="controls">
         <select name="race" id="race">
           {html_options options=$races selected=$post.race}
         </select>
+        <br><br>
+        <div class="alert alert-info">Achtung: Du kannst die Rasse wählen, die du hier bei uns spielen möchtest. Natürlich muss die Rasse zur Klasse passen.</div>
       </div>
     </div>
 
     <div class="control-group">
-      <label class="control-label">Gewünschte Klasse</label>
-      <div class="controls">
-        <select name="class" id="class">
-          {html_options options=$classes selected=$post.class}
-        </select>
-      </div>
+        <label class="control-label">Gewünschte Klasse</label>
+        <div class="controls">
+            <select name="class" id="class">
+                {html_options options=$classes selected=$post.class}
+            </select>
+            <br><br>
+            <div class="alert alert-danger">Achtung: Bitte trage die Klasse ein die dein alter Charakter hatte, beim Transfer wird genau die Klasse transferiert die du vorher gespielt hast.</div>
+        </div>
     </div>
 
     <div class="control-group">
@@ -126,10 +138,10 @@
     <div class="control-group">
       <label class="control-label">Reitenf&auml;higkeit</label>
       <div class="controls">
-        <input type="hidden" class="hidden" name="Reiten" value="{$post.Reiten}">
+        <input type="hidden" class="hidden" name="Riding" value="{$post.Riding}">
         <div class="btn-group" data-toggle="buttons-radio">
           {foreach from=$ridingLevels key=level item=label}
-            <button type="button" class="btn {if $level == $post.Reiten}active{/if}" data-target="Reiten" value="{$level}">{$label}</button>
+            <button type="button" class="btn {if $level == $post.Riding}active{/if}" data-target="Riding" value="{$level}">{$label}</button>
           {/foreach}
         </div>
       </div>
@@ -199,10 +211,10 @@
     <div class="control-group">
       <label class="control-label">Kochen</label>
       <div class="controls">
-        <input type="hidden" class="hidden" name="Kochen" value="{$post.Kochen}">
+        <input type="hidden" class="hidden" name="Cooking" value="{$post.Cooking}">
         <div class="btn-group" data-toggle="buttons-radio">
           {foreach from=array(0,75,150,225,300,350,400,450) item=item}
-            <button type="button" class="btn {if $item == $post.Kochen}active{/if}" data-target="Kochen" value="{$item}">{$item}</button>
+            <button type="button" class="btn {if $item == $post.Cooking}active{/if}" data-target="Cooking" value="{$item}">{$item}</button>
           {/foreach}
         </div>
       </div>
@@ -211,10 +223,10 @@
     <div class="control-group">
       <label class="control-label">Angeln</label>
       <div class="controls">
-        <input type="hidden" class="hidden" name="Angeln" value="{$post.Angeln}">
+        <input type="hidden" class="hidden" name="Angling" value="{$post.Angling}">
         <div class="btn-group" data-toggle="buttons-radio">
           {foreach from=array(0,75,150,225,300,350,400,450) item=item}
-            <button type="button" class="btn {if $item == $post.Angeln}active{/if}" data-target="Angeln" value="{$item}">{$item}</button>
+            <button type="button" class="btn {if $item == $post.Angling}active{/if}" data-target="Angling" value="{$item}">{$item}</button>
           {/foreach}
         </div>
       </div>
@@ -223,10 +235,10 @@
     <div class="control-group">
       <label class="control-label">Erste Hilfe</label>
       <div class="controls">
-        <input type="hidden" class="hidden" name="Erstehilfe" value="{$post.Erstehilfe}">
+        <input type="hidden" class="hidden" name="Firstaid" value="{$post.Firstaid}">
         <div class="btn-group" data-toggle="buttons-radio">
           {foreach from=array(0,75,150,225,300,350,400,450) item=item}
-            <button type="button" class="btn {if $item == $post.Erstehilfe}active{/if}" data-target="Erstehilfe" value="{$item}">{$item}</button>
+            <button type="button" class="btn {if $item == $post.Firstaid}active{/if}" data-target="Firstaid" value="{$item}">{$item}</button>
           {/foreach}
         </div>
       </div>
@@ -254,7 +266,7 @@
 
     <p>Du kannst bis zu 10 gemischte Gegenstände mitnehmen von deinem alten Server, das können spezielle Handwerksgegenstände, Equipteile für deine zweite Spec oder auch Reittiere/Haustiere sein, was immer du möchtest und dir wichtig ist. Beachte dass das maximale Itemlevel auch hier nicht überschritten werden darf.<br><br></p>
 
-    {section name=random_item start=1 loop=10}
+    {section name=random_item start=1 loop=11}
       <div class="control-group">
         <label class="control-label">#{$smarty.section.random_item.index}</label>
         <div class="controls">
@@ -275,6 +287,32 @@
             {foreach from=$rep.factions key=rep_id item=rep_name}
                 <div class="control-group">
                     <label class="control-label">{$rep_name}</label>
+                    <div class="controls">
+                        <input type="hidden" name="faction_{$rep_id}" value="{$post.faction[$rep_id]}">
+                        <div class="btn-group" data-toggle="buttons-radio">
+                            {foreach from=$reputationStates key=state_key item=state}
+                                <button type="button" class="btn {if $post.faction[$rep_id] == $state_key}active{/if}" data-target="faction_{$rep_id}" value="{$state_key}">{$state}</button>
+                            {/foreach}
+                        </div>
+                    </div>
+                </div>
+            {/foreach}
+            {foreach from=$rep.alliance key=rep_id item=rep_name}
+                <div class="control-group allianceOnly">
+                    <label class="control-label">{$rep_name}<i class="icon-faction-0"></i></label>
+                    <div class="controls">
+                        <input type="hidden" name="faction_{$rep_id}" value="{$post.faction[$rep_id]}">
+                        <div class="btn-group" data-toggle="buttons-radio">
+                            {foreach from=$reputationStates key=state_key item=state}
+                                <button type="button" class="btn {if $post.faction[$rep_id] == $state_key}active{/if}" data-target="faction_{$rep_id}" value="{$state_key}">{$state}</button>
+                            {/foreach}
+                        </div>
+                    </div>
+                </div>
+            {/foreach}
+            {foreach from=$rep.horde key=rep_id item=rep_name}
+                <div class="control-group hordeOnly">
+                    <label class="control-label">{$rep_name}<i class="icon-faction-1"></i></label>
                     <div class="controls">
                         <input type="hidden" name="faction_{$rep_id}" value="{$post.faction[$rep_id]}">
                         <div class="btn-group" data-toggle="buttons-radio">

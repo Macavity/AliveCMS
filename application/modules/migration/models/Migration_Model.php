@@ -10,10 +10,11 @@ class Migration_Model extends CI_Model {
 
     var $tableName = "migration_entries";
 
-    protected $reputationsAlliance = array();
-    protected $reputationsHorde = array();
-    protected $reputationsBC = array();
-    protected $reputationsWotlk = array();
+    protected $factionsAlliance = array();
+    protected $factionsHorde = array();
+    protected $factionsBC = array();
+    protected $factionsWotlk = array();
+    protected $factionsAll = array();
     protected $reputationStates = array();
     protected $ridingLevels = array();
     protected $reputations = array();
@@ -29,59 +30,81 @@ class Migration_Model extends CI_Model {
             $this->load->config("wow_constants");
         }
 
-        $this->reputationsAlliance = array(
-            "72" => "Sturmwind",
-            "930" => "Die Exodar",
-            "47" => "Eisenschmiede",
-            "54" => "Gnomeregangnome",
-            "69" => "Darnassus",
+        $this->factionsAlliance = array(
+            72 => "Sturmwind",
+            930 => "Die Exodar",
+            47 => "Eisenschmiede",
+            54 => "Gnomeregangnome",
+            69 => "Darnassus",
         );
 
-        $this->reputationsHorde = array(
-            "76" => "Orgrimmar",
-            "911" => "Silbermond",
-            "68" => "Unterstadt",
-            "81" => "Donnerfels",
-            "530" => "Dunkelspeertrolle",
+        $this->factionsHorde = array(
+            76 => "Orgrimmar",
+            911 => "Silbermond",
+            68 => "Unterstadt",
+            81 => "Donnerfels",
+            530 => "Dunkelspeertrolle",
         );
 
-        $this->reputationsBC = array(
-            "933" => "Das Konsortium",
-            "967" => "Das Violette Auge",
-            "1012" => "Die Todeshörigen",
-            "990" => "Die Wächter der Sande",
-            "946" => "Ehrenfeste",
-            "942" => "Expedition des Cenarius",
-            "989" => "Hüter der Zeit",
-            "978" => "Kurenai",
-            "1015" => "Netherschwingen",
-            "1038" => "Ogrila",
-            "970" => "Sporeggar",
-            "947" => "Thrallmar",
+        $this->factionsBC = array(
+            933 => "Das Konsortium",
+            967 => "Das Violette Auge",
+            1012 => "Die Todeshörigen",
+            990 => "Die Wächter der Sande",
+            946 => "Ehrenfeste",
+            942 => "Expedition des Cenarius",
+            989 => "Hüter der Zeit",
+            978 => "Kurenai",
+            1015 => "Netherschwingen",
+            1038 => "Ogrila",
+            970 => "Sporeggar",
+            947 => "Thrallmar",
         );
 
-        $this->reputationsWotlk = array(
-            "1106" => "Argentumkreuzung",
-            "1094" => "Der Silberbund",
-            "1091" => "Der Wyrmruhpakt",
-            "1126" => "Die Frosterben",
-            "1067" => "Die Hand der Rache",
-            "1073" => "Die Kalu'ak",
-            "1105" => "Die Orakel",
-            "1119" => "Die Söhne Hodir",
-            "1124" => "Die Sonnenhäscher",
-            "1064" => "Die Taunka",
-            "1052" => "Expedion der Horde",
-            "1050" => "Expedion Valianz",
-            "1068" => "Forscherliga",
-            "1090" => "Kirin Tor",
-            "1085" => "Kriegshymnenoffensive",
-            "1098" => "Ritter der schwarzen Klinge",
-            "809" => "Shen'dralar:",
-            "1104" => "Stamm der Wildherzen",
-            "1037" => "Vorposten der Allianz",
-            "1156" => "Das Äscherne Verdikt",
+        $this->factionsWotlk = array(
+            809 => "Shen'dralar:",
+            1073 => "Die Kalu'ak",
+            1090 => "Kirin Tor",
+            1091 => "Der Wyrmruhpakt",
+            1098 => "Ritter der schwarzen Klinge",
+            1104 => "Stamm der Wildherzen",
+            1105 => "Die Orakel",
+            1106 => "Argentumkreuzung",
+            1119 => "Die Söhne Hodir",
+            1156 => "Das Äscherne Verdikt",
         );
+
+        $this->factionsWotlkA = array(
+            1050 => "Expedition Valianz",
+            1068 => "Forscherliga",
+            1094 => "Der Silberbund",
+            1126 => "Die Frosterben",
+        );
+
+        $this->factionsWotlkH = array(
+            1064 => "Die Taunka",
+            1067 => "Die Hand der Rache",
+            1085 => "Kriegshymnenoffensive",
+            1124 => "Die Sonnenhäscher",
+        );
+
+
+
+        $this->factionsAll += $this->factionsAlliance
+            + $this->factionsHorde
+            + $this->factionsBC
+            + $this->factionsWotlk
+            + $this->factionsWotlkA
+            + $this->factionsWotlkH;
+
+        $this->factionsAll += array(
+            469 => "Allianz (Classic)",
+            67 => "Horde (Classic)",
+            1037 => "Vorposten der Allianz",
+            1052 => "Expedition der Horde",
+        );
+
+        //debug($this->factionsAll);
 
         $this->reputationStates = array(
             0 => "-",
@@ -103,19 +126,19 @@ class Migration_Model extends CI_Model {
         $this->reputations = array(
             "repWotlk" => array(
                 "label" => "Wrath of the Lich King",
-                "factions" => $this->reputationsWotlk,
+                "factions" => $this->factionsWotlk,
+                "alliance" => $this->factionsWotlkA,
+                "horde" => $this->factionsWotlkH,
             ),
             "repBC" => array(
                 "label" => "Burning Crusade",
-                "factions" => $this->reputationsBC,
+                "factions" => $this->factionsBC,
             ),
-            "repA" => array(
-                "label" => "Allianzfraktionen",
-                "factions" => $this->reputationsAlliance,
-            ),
-            "repH" => array(
-                "label" => "Hordefraktionen",
-                "factions" => $this->reputationsHorde,
+            "repClassic" => array(
+                "label" => "Classic",
+                "factions" => array(),
+                "alliance" => $this->factionsAlliance,
+                "horde" => $this->factionsHorde,
             ),
         );
 
@@ -202,6 +225,50 @@ class Migration_Model extends CI_Model {
             ),
         );
 
+    }
+
+    public function calcAllianceRep($reputations){
+        $array = array(72,930,47,54,69);
+
+        $sum = 0;
+        foreach($array as $key){
+            $sum += isset($reputations[$key]['standing']) ? $reputations[$key]['standing'] : 0;
+        }
+
+        return round($sum/5);
+    }
+
+    public function calcAllianceWotlkRep($reputations){
+        $array = array(1094,1126,1050,1068);
+
+        $sum = 0;
+        foreach($array as $key){
+            $sum += isset($reputations[$key]['standing']) ? $reputations[$key]['standing'] : 0;
+        }
+
+        return round($sum/4);
+    }
+
+    public function calcHordeRep($reputations){
+        $array = array(76,911,68,81,530);
+
+        $sum = 0;
+        foreach($array as $key){
+            $sum += isset($reputations[$key]['standing']) ? $reputations[$key]['standing'] : 0;
+        }
+
+        return round($sum/5);
+    }
+
+    public function calcHordeWotlkRep($reputations){
+        $array = array(1067,1124,1064,1085);
+
+        $sum = 0;
+        foreach($array as $key){
+            $sum += isset($reputations[$key]['standing']) ? $reputations[$key]['standing'] : 0;
+        }
+
+        return round($sum/4);
     }
 
     /**
@@ -376,53 +443,41 @@ class Migration_Model extends CI_Model {
 
                     switch($profName){
                         case "Schmiedekunst":
-                            $spell = 2018;
                             $spell_skill = 164;
                             break;
                         case "Verzauberungskunst":
-                            $spell = 7411;
                             $spell_skill = 333;
                             break;
                         case "Ingeneurskunst":
-                            $spell = 4036;
                             $spell_skill = 202;
                             break;
                         case "Kraeutersammeln":
-                            $spell = 2366;
                             $spell_skill = 182;
                             break;
                         case "Juwelenschleifen":
-                            $spell = 25229;
                             $spell_skill = 755;
                             break;
                         case "Lederer":
-                            $spell = 2108;
                             $spell_skill = 165;
                             break;
                         case "Bergbau":
-                            $spell = 2575;
                             $spell_skill = 186;
                             break;
                         case "Kuerschnerei":
-                            $spell = 8613;
                             $spell_skill = 393;
                             break;
                         case "Schneiderei":
-                            $spell = 3908;
                             $spell_skill = 197;
                             break;
                         case "Inschriftenkunde":
-                            $spell = 45357;
                             $spell_skill = 773;
                             break;
                         case "Alchemie":
-                            $spell = 2259;
                             $spell_skill = 171;
                             break;
                     }
 
                     $skills["professions"][$i] = array(
-                        'learn_spell' => $spell,
                         'skill' => $spell_skill,
                         'skill_level' => $profSkill,
                     );
@@ -560,7 +615,7 @@ class Migration_Model extends CI_Model {
             return $result;
         }
 
-        return false;
+        return array();
     }
 
     /**
@@ -627,6 +682,10 @@ class Migration_Model extends CI_Model {
         return $this->reputations;
     }
 
+    public function getFactionLabel($factionId){
+        return $this->factionsAll["$factionId"];
+    }
+
     public function getReputationStates(){
         return $this->reputationStates;
     }
@@ -639,63 +698,83 @@ class Migration_Model extends CI_Model {
      * Creates a new entry in the database with all data
      * @param $data
      */
-    public function createMigrationEntry($data){
+    public function createMigrationEntry($realmId, $post){
 
         $realmObj = $this->realms->getRealm($realmId);
 
         $worldDb = $realmObj->getWorld();
 
-        $tableData = array(
-            "date_created" => time(),
-            "status" => MIGRATION_STATUS_OPEN,
-            "account_id" => $data,
-
-            "icq" => $data["icq"],
-            "skype" => $data["skype"],
-
-            "character_name" => $data["name"],
-            "character_race" => $data["race"],
-            "character_class" => $data["class"],
-            "server_name" => $data["Server"],
-            "server_link" => $data["Link"],
-            "character_armory" => $data["Armory"],
-            "screenshots_link" => $data["Download"],
-            "comment" => $data["Bemerkung"],
-            "level" => $data["Level"],
-            "gold" => $data["Gold"],
+        /*
+         * Skills
+         */
+        $dataSkills = array(
+            "Riding" => $post['Riding'],
+            "Cooking" => $post['Cooking'],
+            "Angling" => $post['Angling'],
+            "Firstaid" => $post['Firstaid'],
+            'professions' => array(),
         );
 
-        $skills = array(
-            "Reiten" => (int) $data["Reiten"],
-            "Beruf1" => $data["Beruf1"],
-            "Beruf2" => $data["Beruf2"],
-            "Beruf1_skill" => (int) $data["Beruf1_skill"],
-            "Beruf2_skill" => (int) $data["Beruf2_skill"],
-            "Kochen" => (int) $data["Kochen"],
-            "Angeln" => (int) $data["Angeln"],
-            "Erstehilfe" => (int) $data["Erstehilfe"],
-        );
-
-        $reputations = array(
-
-        );
-
-        $items = array(
-            "mount_boden" => $data["Mount_boden"],
-            "mount_flug" => $data["Mount_flug"],
-            "randoms" => array(),
-            "equipment" => array(),
-        );
-
-        // Randoms
-        for($i = 1; $i <= 10; $i++){
-            if(!empty($data["random_item"][$i])){
-                $items["randoms"][] = $data["random_item"][$i];
-            }
+        for($i = 1; $i <= 2; $i++){
+            $dataSkills["professions"][$i] = array(
+                'skill' => $post['Beruf'.$i],
+                'skill_level' => $post['Beruf'.$i.'_skill'],
+            );
         }
 
+        /*
+         * Items
+         */
+        $dataEquipment = array();
+
+        $equipmentSlots = $this->getEquipmentSlots();
+
+        foreach($equipmentSlots as $key => $slot){
+            $dataEquipment[$key] = $this->input->post('equip-'.$key);
+        }
+
+        $dataItems = array(
+            "equipment" => $dataEquipment,
+            "random" => $post["random_item"],
+            "mounts" => array(
+                "fly" => $post['Mount_flug'],
+                "floor" => $post['Mount_boden'],
+            )
+        );
+
+        /*
+         * Faction reputations
+         */
+        $dataReputations = $post['faction'];
+
+        debug($dataReputations);
+
+        // Save Data to Database
+        $data = array(
+            "date_created" => strftime("%d.%m.%Y %H:%M:%S"),
+            "status" => MIGRATION_STATUS_OPEN,
+            "account_id" => $this->user->getId(),
+            "icq" => $post['icq'],
+            "skype" => $post['skype'],
+            "character_name" => $post['name'],
+            "character_class" => $post['class'],
+            "character_race" => $post['race'],
+            "server_name" => $post['Server'],
+            "server_link" => $post['Link'],
+            "character_armory" => $post['Armory'],
+            "screenshots_link" => $post['Download'],
+            "comment" => $post['Bemerkung'],
+            "level" => $post['Level'],
+            "gold" => $post['Gold'],
+            "skills" => json_encode($dataSkills),
+            "reputations" => json_encode($dataReputations),
+            "items" => json_encode($dataItems),
+            "actions" => ""
+        );
 
         $this->db->insert($this->tableName, $data);
+
+        return $this->db->insert_id();
 
     }
 
@@ -707,6 +786,7 @@ class Migration_Model extends CI_Model {
         );
         $this->db->where('id', $migrationId)
             ->update($this->tableName, $data);
+        $this->logger->createLog('Migration Update', 'Id: '.$migrationId.', Status: '.$this->getStateLabel($status).', CharGUID: '.$characterGuid);
     }
 
     public function getStateLabel($state){
@@ -715,6 +795,35 @@ class Migration_Model extends CI_Model {
 
     public function getProfessionLabel($profId){
         return $this->professions[$profId]['label'];
+    }
+
+    public function getProfessionBaseSpell($profId){
+        return $this->professions[$profId]['base'];
+    }
+
+    public function checkRaceClassCombination($race,$class){
+
+
+        $map = array(
+                //      CLASS_DK    CLASS_DRUID CLASS_HUNTER    CLASS_MAGE  CLASS_PALADIN CLASS_PRIEST  CLASS_ROGUE CLASS_SHAMAN    CLASS_WARLOCK   CLASS_WARRIOR
+RACE_ORC      => array( CLASS_DK,               CLASS_HUNTER,                                           CLASS_ROGUE,CLASS_SHAMAN,   CLASS_WARLOCK,  CLASS_WARRIOR   ),
+RACE_UNDEAD   => array( CLASS_DK,                               CLASS_MAGE,               CLASS_PRIEST, CLASS_ROGUE,                CLASS_WARLOCK,  CLASS_WARRIOR   ),
+RACE_TAUREN   => array( CLASS_DK,   CLASS_DRUID,CLASS_HUNTER,                                                       CLASS_SHAMAN,                   CLASS_WARRIOR   ),
+RACE_TROLL    => array( CLASS_DK,               CLASS_HUNTER,   CLASS_MAGE,               CLASS_PRIEST, CLASS_ROGUE,CLASS_SHAMAN,                   CLASS_WARRIOR   ),
+RACE_BLOODELF => array( CLASS_DK,               CLASS_HUNTER,   CLASS_MAGE, CLASS_PALADIN,CLASS_PRIEST, CLASS_ROGUE,                CLASS_WARLOCK,                  ),
+
+RACE_HUMAN    => array( CLASS_DK,                               CLASS_MAGE, CLASS_PALADIN,CLASS_PRIEST, CLASS_ROGUE,                CLASS_WARLOCK,  CLASS_WARRIOR   ),
+RACE_DWARF    => array( CLASS_DK,               CLASS_HUNTER,               CLASS_PALADIN,CLASS_PRIEST, CLASS_ROGUE,                                CLASS_WARRIOR   ),
+RACE_NIGHTELF => array( CLASS_DK,   CLASS_DRUID,CLASS_HUNTER,                             CLASS_PRIEST, CLASS_ROGUE,                                CLASS_WARRIOR   ),
+RACE_GNOME    => array( CLASS_DK,                               CLASS_MAGE,                             CLASS_ROGUE,                CLASS_WARLOCK,  CLASS_WARRIOR   ),
+RACE_DRAENEI  => array( CLASS_DK,               CLASS_HUNTER,   CLASS_MAGE,               CLASS_PRIEST,             CLASS_SHAMAN,                   CLASS_WARRIOR   ),
+        );
+
+        if(isset($map[$race]) && in_array($class, $map[$race])){
+            return true;
+        }
+        return false;
+
     }
 
 

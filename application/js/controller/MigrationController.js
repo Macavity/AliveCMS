@@ -97,16 +97,38 @@ define(['./BaseController', 'modules/tooltip'], function (BaseController, Toolti
                         else{
                             var item = jsonData.item;
 
-                            if(item.ItemLevel > 245){
+                            if(item.ItemLevel > 251){
                                 Controller.helperItemWarning(controlGroup, helper, item);
                             }
                             else{
-                                Controller.helperLink(controlGroup, helper, item);
+                                var raceError = true;
+                                var races = jsonData.races;
+                                var length = races.length;
+
+                                if(races && length > 0){
+                                    var selectedRace = $("#race").val();
+
+                                    for(var i = 0, l = races.length; i < l; i++){
+
+                                        if(selectedRace == races[i]){
+                                            raceError = false;
+                                        }
+                                    }
+                                }
+                                else{
+                                    raceError = false;
+                                }
+
+                                if(raceError){
+                                    Controller.helperRaceWarning(controlGroup, helper, item);
+                                }
+                                else{
+                                    Controller.helperLink(controlGroup, helper, item);
+                                }
+
                             }
 
                         }
-
-
 
 
                     });
@@ -121,6 +143,11 @@ define(['./BaseController', 'modules/tooltip'], function (BaseController, Toolti
         helperItemWarning: function(controlGroup, helper, item){
             controlGroup.addClass("error");
             helper.html('<i class="icon-white icon-warning-sign"></i> ['+item.ItemLevel+'] <a href="/item/1/'+item.entry+'" target="_blank">'+item.name+'</a> <br>Itemlevel zu hoch!');
+        },
+
+        helperRaceWarning: function(controlGroup, helper, item){
+            controlGroup.addClass("error");
+            helper.html('<i class="icon-white icon-warning-sign"></i> ['+item.ItemLevel+'] <a href="/item/1/'+item.entry+'" target="_blank">'+item.name+'</a> <br>Dieses Item passt nicht zu deiner gewählten Rasse!');
         },
 
         helperLink: function(controlGroup, helper, item){

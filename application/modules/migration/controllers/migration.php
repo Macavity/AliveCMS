@@ -51,10 +51,11 @@ class Migration extends MX_Controller
         if(false){
             $this->template = new Template();
             $this->migration_model = new Migration_Model();
+            $this->user = new User();
         }
 
         $this->load->helper(array('url','form'));
-        $this->load->config('migration');
+        $this->load->config('migration_config');
 
         $this->load->model("migration_model");
 
@@ -102,11 +103,35 @@ class Migration extends MX_Controller
 
         $points = $this->config->item("migration_vote_point_price");
 
-        $out = $this->template->loadPage("migration_denied.tpl", array("reason" => $reason, "cash_needed" => $points));
+        // Get Open Migrations
+        $openMigrations = $this->migration_model->getAccountMigrations($this->user->getId());
+
+        $migrations = array();
+
+        foreach($openMigrations as $mig){
+
+            $actions = json_decode($mig["actions"], true);
+            $messageText = "";
+            if(is_array($actions) && count($actions) > 0){
+                $last_action = array_pop($actions);
+                $messageText = $last_action["by"].( empty($last_action["reason"]) ? "" : ": ".$last_action["reason"] );
+            }
+
+            $mig["state_label"] = $this->migration_model->getStateLabel($mig["status"]);
+            $mig["message"] = $messageText;
+
+            $migrations[] = $mig;
+        }
+        debug($migrations);
+
+        $out = $this->template->loadPage("migration_denied.tpl", array(
+            "reason" => $reason,
+            "cash_needed" => $points,
+            'open_migrations' => $migrations,
+        ));
 
         $this->template->view($out);
     }
-
 
     public function form(){
         $this->template->addBreadcrumb("Transferanleitung", site_url(array("migration", "index")));
@@ -117,10 +142,26 @@ class Migration extends MX_Controller
             exit;
         }
 
-        $accountMigrationCount = $this->migration_model;
+        if($this->user->getVp() < $this->config->item("migration_vote_point_price")){
+            $this->denied("cash");
+            exit;
+        }
 
-        if($accountMigrationCount){
+        /**
+         * @var Integer
+         */
+        $realmId = 1;
 
+        /**
+         * @var Object
+         */
+        $realmObj = $this->realms->getRealm($realmId);
+
+        $accountMigrationCount = count($this->migration_model->getAccountMigrations($this->user->getId()));
+
+        if($accountMigrationCount > $this->config->item("migration_max_per_account")){
+            $this->denied("limit");
+            exit;
         }
 
 
@@ -154,7 +195,7 @@ class Migration extends MX_Controller
             "Level" => "",
             "Gold" => "",
 
-            "Reiten" => "",
+            "Riding" => "",
             "Mount_boden" => "",
             "Mount_flug" => "",
 
@@ -162,9 +203,9 @@ class Migration extends MX_Controller
             "Beruf2" => "",
             "Beruf1_skill" => "",
             "Beruf2_skill" => "",
-            "Kochen" => "",
-            "Angeln" => "",
-            "Erstehilfe" => "",
+            "Cooking" => "",
+            "Angling" => "",
+            "Firstaid" => "",
 /*
             "repA" => $this->reputationsAlliance,
             "repH" => $this->reputationsHorde,
@@ -197,9 +238,28 @@ class Migration extends MX_Controller
             foreach($repGroup["factions"] as $repKey => $repLabel){
                 $post['faction'][$repKey] = $this->input->post('faction_'.$repKey);
             }
+            if(isset($repGroup['alliance'])){
+                foreach($repGroup["alliance"] as $repKey => $repLabel){
+                    $post['faction'][$repKey] = $this->input->post('faction_'.$repKey);
+                }
+            }
+            if(isset($repGroup['horde'])){
+                foreach($repGroup["horde"] as $repKey => $repLabel){
+                    $post['faction'][$repKey] = $this->input->post('faction_'.$repKey);
+                }
+            }
         }
 
         //debug("post", $post);
+
+        // Professions
+        $professions = $this->migration_model->getProfessions();
+
+        $profLabels = array();
+        foreach($professions as $key => $prof){
+            $profLabels[$key] = $prof['label'];
+        }
+
 
         // Rules
         $this->form_validation->set_rules('name', "Charaktername", 'trim|required|alpha');
@@ -221,15 +281,56 @@ class Migration extends MX_Controller
             $post["Gold"] = 10000;
         }
 
+        $formErrors = array();
 
-        if ($this->form_validation->run() == FALSE){
+        if(!empty($post['name'])){
+
+            if(!$this->migration_model->checkRaceClassCombination($post['race'], $post['class'])){
+                $formErrors[] = "Bitte wähle eine andere Rasse die zu der gewählten Klasse passt.";
+            }
+
+            /*
+             * Check Equipment for Race/Class Requirements
+             */
+            foreach($equipmentSlots as $slotId => $slotName){
+
+                $itemId = $post['equipment'][$slotName];
+
+                if(empty($itemId))
+                    continue;
+
+                $item = $realmObj->getWorld()->getItem($itemId);
+
+                if(!$item || $item == "empty"){
+                    $formErrors[] = "Achtung: ".$slotName." beinhaltet keine gültige Id.";
+                }
+                else{
+                    $allowableRaces = array_keys($this->realms->getAllowableRaces($item['AllowableRace']));
+                    if(count($allowableRaces) > 0 && !in_array($post['race'], $allowableRaces)){
+                        $formErrors[] = "Achtung: Dein &lt;".$slotName.'&gt; ist nicht für die gewählte Rasse geeignet.';
+
+                    }
+                }
+            }
+
+
+        }
+
+
+
+
+        if ($this->form_validation->run() == FALSE || count($formErrors) > 0){
+
+            $formErrors = implode("<br>",$formErrors);
+
             $data = array(
                 "formAttributes" => array('class' => 'form-horizontal', 'id' => 'migrationForm'),
                 "validationErrors" => validation_errors(),
+                "formErrors" => $formErrors,
                 "races" => $this->races,
                 "classes" => $this->classes,
                 "post" => $post,
-                "profs" => $this->migration_model->getProfessions(),
+                "profs" => $profLabels,
                 "slots" => $equipmentSlots,
                 "reputations" => $reputations,
                 "reputationStates" => $this->migration_model->getReputationStates(),
@@ -239,11 +340,15 @@ class Migration extends MX_Controller
             $out = $this->template->loadPage("migration_form.tpl", $data);
         }
         else{
+            $realmId = 1;
+            $migrationId = $this->migration_model->createMigrationEntry($realmId, $post);
 
+            $this->user->setVp($this->user->getVp() - $this->config->item("migration_vote_point_price"));
 
+            $data = array(
+                "migration_id" => $migrationId,
+            );
 
-            // Save Data to Database
-            $data = array();
             $out = $this->template->loadPage("migration_done.tpl", $data);
 
         }
@@ -268,9 +373,12 @@ class Migration extends MX_Controller
             $this->jsonError(lang("unknown_item", "item"));
         }
 
+        $allowableRaces = array_keys($this->realms->getAllowableRaces($item['AllowableRace']));
+
         $data = array(
             'status' => 'success',
-            'item' => $item
+            'races' => $allowableRaces,
+            'item' => $item,
         );
 
         $this->template->handleJsonOutput($data);

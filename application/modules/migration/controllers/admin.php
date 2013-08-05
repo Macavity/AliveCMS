@@ -106,7 +106,7 @@ class Admin extends CI_Controller {
         /**
          * @var String
          */
-        $message = "";
+        $message = array();
 
         /**
          * Migration
@@ -119,11 +119,25 @@ class Admin extends CI_Controller {
         }
 
         /**
+         * @var Integer
+         */
+        $realmId = $migration['target_realm'];
+
+        /**
+         * @var Object
+         */
+        $realmObj = $this->realms->getRealm($realmId);
+
+        /**
          * Actions
          */
         $migrationStates = $this->migration_model->getMigrationStates();
 
         $actions = json_decode($migration['actions'], true);
+
+        if(!is_array($actions)){
+            $actions = array();
+        }
 
         /**
          * Save changes
@@ -132,31 +146,63 @@ class Admin extends CI_Controller {
             $charGuid = $this->input->post('character_guid');
             $newStatus = $this->input->post('new_status');
             $newComment = $this->input->post('new_comment');
+            $transferChar = $this->input->post('transfer_to_account');
 
-            $newAction = array(
-                "by" => ucfirst(strtolower($this->user->getUsername())),
-                "ts" => time(),
-                "reason" => $newComment,
-                "status" => $newStatus,
-            );
-
-            $actions[] = $newAction;
-
-            /*
-             * Update database record
-             */
-            $this->migration_model->updateMigrationDetail($migrationId, $newStatus, $charGuid, $actions);
-
-            /*
-             * Update Migration object
-             */
-            $migration['status'] = $newStatus;
             $migration['character_guid'] = $charGuid;
 
-            $message = array(
-                "type" => "success",
-                "message" => "Die neuen Daten für diesen Transfer wurden gespeichert.",
-            );
+            if($newStatus == MIGRATION_STATUS_DONE){
+                if( !$charGuid || empty($charGuid) || $charGuid == 0 ){
+                    $message = array(
+                        "type" => "error",
+                        "message" => "Bitte fülle zuerst das Feld für die Charakter GUID aus.",
+                    );
+                }
+                else{
+                    $char = $realmObj->getCharacters()->getCharacterByGUID($charGuid, "account,name");
+
+                    if($char == false){
+                        $message = array(
+                            "type" => "error",
+                            "message" => "Es existiert kein Charakter mit dieser GUID.",
+                        );
+                    }
+                }
+            }
+
+            // Update
+            if(empty($message)){
+
+                $newAction = array(
+                    "by" => ucfirst(strtolower($this->user->getUsername())),
+                    "ts" => time(),
+                    "reason" => $newComment,
+                    "status" => $newStatus,
+                );
+
+                $actions[] = $newAction;
+
+                /*
+                 * Update database record
+                 */
+                $this->migration_model->updateMigrationDetail($migrationId, $newStatus, $charGuid, $actions);
+
+                if($transferChar == "yes"){
+                    $accountTransfer = $realmObj->getCharacters()->moveCharacterToAccount($charGuid, $migration['account_id'], 1);
+                    if($accountTransfer){
+                        $this->logger->createLog('Migration Move', 'Migration Id: '.$migrationId.', Char: '.$charGuid.', Account: '.$migration['account_id']);
+                    }
+                }
+
+                /*
+                 * Update Migration object
+                 */
+                $migration['status'] = $newStatus;
+
+                $message = array(
+                    "type" => "success",
+                    "message" => "Die neuen Daten für diesen Transfer wurden gespeichert.",
+                );
+            }
         }
 
         /**
@@ -178,15 +224,6 @@ class Admin extends CI_Controller {
         $migration['actions'] = $actions;
 
 
-        /**
-         * @var Integer
-         */
-        $realmId = $migration['target_realm'];
-
-        /**
-         * @var Object
-         */
-        $realmObj = $this->realms->getRealm($realmId);
 
         debug("Mig",$migration);
 
@@ -214,10 +251,14 @@ class Admin extends CI_Controller {
             }
 
             $actions = json_decode($mig["actions"], true);
-            $last_action = array_pop($actions);
+            $messageText = "";
+            if(is_array($actions) && count($actions) > 0){
+                $last_action = array_pop($actions);
+                $messageText = $last_action["by"].( empty($last_action["reason"]) ? "" : ": ".$last_action["reason"] );
+            }
 
             $mig["state_label"] = $this->migration_model->getStateLabel($mig["status"]);
-            $mig["message"] = $last_action["by"].( empty($last_action["reason"]) ? "" : ": ".$last_action["reason"] );
+            $mig["message"] = $messageText;
 
             $otherMigrations[] = $mig;
         }
@@ -239,6 +280,9 @@ class Admin extends CI_Controller {
 
         foreach($migration['professions'] as $i => $prof){
             $prof['label'] = $this->migration_model->getProfessionLabel($prof['skill']).", ";
+
+            $prof['learn_spell'] = $this->migration_model->getProfessionBaseSpell($prof['skill']);
+
             $migration['professions'][$i] = $prof;
 
             if($prof['skill'] == 755 && $prof['skill_level'] >= 450){
@@ -287,6 +331,10 @@ class Admin extends CI_Controller {
 
             $item = $realmObj->getWorld()->getItem($itemId);
 
+            if(!$item || $item == "empty"){
+                continue;
+            }
+
             $slots[$slotId] = $this->prepareSlotItem($slotLabel, $item);
         }
         $migration['slots'] = $slots;
@@ -322,6 +370,11 @@ class Admin extends CI_Controller {
 
             if($itemId != 0){
                 $item = $realmObj->getWorld()->getItem($itemId);
+
+                if(!$item || $item == "empty"){
+                    continue;
+                }
+                
                 $migration['items'][] = $this->prepareSlotItem("#".$slotId, $item);
             }
         }
@@ -329,6 +382,78 @@ class Admin extends CI_Controller {
         /**
          * Reputations
          */
+        $reputations = json_decode($migration['reputations'], true);
+
+        foreach($reputations as $repId => $standing){
+
+            switch($standing){
+                case 1:
+                    $value = 6001;
+                    break;
+                case 2:
+                    $value = 12001;
+                    break;
+                case 3:
+                    $value = 21000;
+                    break;
+                case 4:
+                    $value = 99999;
+                    break;
+                case 0:
+                default:
+                    $value = 0;
+                    break;
+            }
+            if($standing == 0){
+                continue;
+            }
+
+            $migration['factions'][$repId] = array(
+                'label' => $this->migration_model->getFactionLabel($repId),
+                'standing' => $value,
+            );
+        }
+
+        $faction = $this->realms->getFaction($migration['character_race']);
+
+        if($faction == FACTION_HORDE){
+            $migration['factions'][67] = array(
+                'label' => $this->migration_model->getFactionLabel(469),
+                'standing' => $this->migration_model->calcHordeRep($migration['factions']),
+            );
+            $migration['factions'][1052] = array(
+                'label' => $this->migration_model->getFactionLabel(1052),
+                'standing' => $this->migration_model->calcHordeWotlkRep($migration['factions']),
+            );
+        }
+        else{
+            $migration['factions'][469] = array(
+                'label' => $this->migration_model->getFactionLabel(469),
+                'standing' => $this->migration_model->calcAllianceRep($migration['factions']),
+            );
+            $migration['factions'][1037] = array(
+                'label' => $this->migration_model->getFactionLabel(1037),
+                'standing' => $this->migration_model->calcAllianceWotlkRep($migration['factions']),
+            );
+        }
+
+        /**
+         * Migration completed?
+         */
+        $migration['is_completed'] = false;
+        $migration['current_name'] = "";
+
+        if($migration['character_guid'] > 0){
+
+            $char = $realmObj->getCharacters()->getCharacterByGUID($migration['character_guid'], "account,name");
+
+            if($char != false){
+                if($char['account'] == $migration['account_id']){
+                    $migration['is_completed'] = true;
+                }
+                $migration['current_name'] = $char['name'];
+            }
+        }
 
         // Prepare my data
         $templateData = array(
@@ -530,6 +655,7 @@ class Admin extends CI_Controller {
 
     private function prepareMigrationListRow($row){
         $classes = "";
+        $message = "";
         $actions = json_decode($row->actions, true);
 
         if($row->status == MIGRATION_STATUS_DONE){
@@ -541,15 +667,18 @@ class Admin extends CI_Controller {
         elseif($row->status == MIGRATION_STATUS_DECLINED){
             $classes = "deleted disabled";
         }
-
-        $lastAction = array_pop($actions);
-
-        if(isset($lastAction["by"])){
-            $message = $lastAction["by"];
-        }
         else{
-            $message = "";
+            $classes = "open";
         }
+
+        if(is_array($actions)){
+            $lastAction = array_pop($actions);
+            if(isset($lastAction["by"])){
+                $message = $lastAction["by"];
+            }
+
+        }
+
         $row->classes = $classes;
         $row->message = $message;
         $row->date = empty($row->date_done) ? $row->date_created : $row->date_done;

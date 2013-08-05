@@ -22,6 +22,7 @@
 
     {if $message}
         {if $message.type == "info"}<div class="alert alert-info">{$message.message}</div>{/if}
+        {if $message.type == "error"}<div class="alert alert-danger">{$message.message}</div>{/if}
         {if $message.type == "success"}<div class="alert alert-success">{$message.message}</div>{/if}
     {/if}
 
@@ -42,7 +43,7 @@
             <li>Wichtig: Wenn der Spieler von Blizzard kommt ist der Armorylink absolute Pflicht.</li>
             <li>Ladet euch die Screenshots runter, solltet ihr Probleme mit dem Download von z.B Rapidshare haben bittet den Spieler, das Packet woanders hochzuladen! Wichtig: schau dir die Screenshots genau an, wichtig sind vor allem Play-Time (sollte bei Level 80 so bei mindestens 5 Tagen liegen) und der Login Screenshot.</li>
             <li>Erstellt den Charakter gem&auml;&szlig; Screens (Rasse etc), portet euch zur <b>.tele transferinsel</b> und macht den Transfer. Als letztes gibst du <b>.character customize</b> ein und logst dich aus.</li>
-            <li>Gehe nun auf das Portal und verschiebe den Charakter auf den Spieleraccount</li>
+            <li>Trage nun unten im Formular die GUID des neuen Chars ein und wähle die Checkbox für "Abgeschlossen" aus, der Charakter wird dann auf den neuen Account transferiert.</li>
         </ol>
     </fieldset>
 
@@ -133,6 +134,13 @@
             <div class="controls">{$migration.character_name}</div>
         </div>
 
+        {if $migration.current_name}
+            <div class="control-group">
+                <label class="control-label">Aktueller Charaktername</label>
+                <div class="controls">{$migration.current_name}</div>
+            </div>
+        {/if}
+
         <div class="control-group">
             <label class="control-label">Alter Servername</label>
             <div class="controls">{$migration.server_name}</div>
@@ -155,7 +163,7 @@
 
         <div class="control-group">
             <label class="control-label">Bemerkung</label>
-            <div class="controls">{$migration.Bemerkung}</div>
+            <div class="controls">{$migration.comment}</div>
         </div>
 
     </fieldset>
@@ -251,6 +259,7 @@
 
         <div class="control-group">
             <div class="controls">
+
                 <table class="table">
                     {foreach from=$migration.slots item=slot}
                         <tr>
@@ -280,7 +289,6 @@
 
     <fieldset>
         <legend>Reittiere und Gemischte Gegenstände</legend>
-
 
         <div class="control-group">
             <div class="controls">
@@ -315,14 +323,19 @@
             <label class="control-label">Makro</label>
             <div class="controls">
                 <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Fraktionsname</th>
+                        </tr>
+                    </thead>
                     <tr>
                         <td>
-                            {foreach from=$factions item=faction}
-                                <a href="http://de.wowhead.com/?faction={$faction.id}">{$faction.name}</a><br>
+                            {foreach from=$migration.factions key=faction_id item=faction}
+                                <a href="http://de.wowhead.com/?faction={$faction_id}">{$faction.label}</a><br>
                             {/foreach}</td>
                         <td>
-                            {foreach from=$factions item=faction}
-                                .modify rep {$faction.id} {$faction.rep_value}<br>
+                            {foreach from=$migration.factions key=faction_id item=faction}
+                                .modify rep {$faction_id} {$faction.standing}<br>
                             {/foreach}</td>
                     </tr>
                 </table>
@@ -364,7 +377,17 @@
             <div class="control-group">
                 <label class="control-label">Charakter GUID</label>
                 <div class="controls">
-                    <input type="text" name="character_guid" class="input-xlarge" value="{$migration.character_guid}">
+                    <input type="text" name="character_guid" class="input-xlarge" value="{$migration.character_guid}"><br/><br/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label"></label>
+                <div class="controls">
+                    <label class="checkbox">
+                        <input type="checkbox" name="transfer_to_account" value="yes">
+                        Charakter auf Spieler-Account schieben?
+                    </label>
                 </div>
             </div>
 
