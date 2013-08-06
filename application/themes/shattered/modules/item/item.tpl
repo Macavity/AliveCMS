@@ -28,8 +28,27 @@
         </div>
     </div>
     <div class="info">
+        <div class="title">
+            <h2 class="color-q{$item.Quality}">{$item.name}</h2>
+        </div>
         <div class="item-detail">
-		    {$item}
+        <span class="icon-frame frame-56" style="background-image: url(/application/themes/shattered/images/icons/56/{$item.icon}.jpg);">
+			{if $item.stackable > 1}
+                <span class="stack">{$item.stackable}</span>
+            {/if}
+        </span>
+            {if $item.has_counterpart}
+                <div class="faction-related">
+                    <a href="/item/{$realm}/{$item.counterpart}/" data-tooltip="#faction-tooltip">
+                        <span class="icon-frame frame-14"><img src="/application/themes/shattered/images/icons/18/faction_{if $item.faction == 0}1{else}0{/if}.jpg" alt="" width="14" height="14" /></span>
+                        <span class="icon-frame frame-14"><img src="/application/themes/shattered/images/icons/18/{$item.counterpart_icon}.jpg" alt="" width="14" height="14" /></span>
+                    </a>
+                    <div id="faction-tooltip" style="display: none">Dieser Gegenstand wird zu <span class="color-q{$item.Quality}">{$item.counterpart_name}</span> verwandelt, falls ihr zu der {if $item.faction == 0}Horde{else}Allianz{/if} transferiert.</div>
+                </div>
+            {/if}
+            <span id="tooltip-data">
+                {$tooltipData}
+            </span>
         </div>
     </div>
     <span class="clear"><!-- --></span>
@@ -62,28 +81,27 @@
     require([
         'static',
         'controller/PageController',
-        'tooltip'
+        'modules/wiki',
+        'modules/model_rotator',
+        'modules/item',
+        'modules/tooltip'
     ],
-            function (static, PageController, Tooltip) {
+    function (static, PageController, Wiki, ModelRotator, Item, Tooltip) {
 
-                $(function () {
-                    debug.debug("js/item");
+        $(function () {
+            debug.debug("js/item");
 
-                    var controller = new PageController();
+            var controller = new PageController();
 
-                    Item.model = new ModelRotator("#model-{$entry}", {
-                        zoom: false
-                    });
-                    Wiki.pageUrl = '/item/{$realm}/{$entry}/';
-
-                    controller.initWiki('migrations', {
-                        paging: true,
-                        results: 100,
-                        column: 1,
-                        method: 'numeric',
-                        type: 'desc'
-                    });
-
-                });
+            Item.model = new ModelRotator("#model-{$entry}", {
+                zoom: false
             });
+            Wiki.pageUrl = '/item/{$realm}/{$entry}/';
+
+            $.get(Config.URL + "tooltip/{$realm}/{$entry}", function(data){
+                $("#tooltip-data").html(data);
+            });
+
+        });
+    });
 </script>

@@ -14,32 +14,72 @@ class Item extends MX_Controller
 			die(lang("no_item", "item"));
 		}
 
+        $this->template->setTitle($itemName);
+        $this->template->addBreadcrumb("Spiel", site_url("game/index"));
+        $this->template->addBreadcrumb("Gegenstände", site_url("game/index"));
+
 		$this->realm = $realm;
 
 		$cache = $this->cache->get("items/tooltip_".$realm."_".$id."_".getLang());
-		$cache2 = $this->cache->get("items/item_".$realm."_".$id);
+		$item = $this->realms->getRealm($realm)->getWorld()->getItem($id);
 
-		if($cache2 !== false)
-		{
-			$itemName = $cache2['name'];
+		if($item !== false || $item != "empty"){
+			$itemName = $item['name'];
 		}
-		else
-		{
+		else{
 			$itemName = lang("view_item", "item");
 		}
 
-		$this->template->setTitle($itemName);
+        $this->template->addBreadcrumb($itemName, site_url("game/index"));
+
 
 		$icon = $this->getIcon($id);
 
         // Rotating Image
-        if(!file_exists($_SERVER['DOCUMENT_ROOT'].'/application/themes/shattered/images/items/item'.$id.".jpg")){
-            $this->getRotateImage($id);
+        $this->getRotateImage($id);
+
+        // Icon
+        $item['icon'] = "";
+        $iconQuery = $this->db->select('icon')->from('armory_icons')->where('displayid',$item['displayid'])->get();
+
+        if($iconQuery->num_rows() > 0){
+            $iconRow = $iconQuery->row_array();
+
+            $this->getSizedIcon($iconRow['icon'], 18);
+            $this->getSizedIcon($iconRow['icon'], 56);
+
+            $item['icon'] = $iconRow['icon'];
         }
 
-		if($cache !== false)
+        // Counterpart
+        $item['has_counterpart'] = false;
+        $item['counterpart_icon'] = "";
+        $item['counterpart_name'] = "";
+
+        if(!empty($item['counterpart'])){
+            $counterItem = $this->realms->getRealm($realm)->getWorld()->getItem($item['counterpart']);
+
+            if($counterItem && $counterItem != "empty"){
+                $item['has_counterpart'] = true;
+                $item['counterpart_name'] = $counterItem['name'];
+
+                $counterIcon = $this->db->select('icon')->from('armory_icons')->where('displayid',$counterItem['displayid'])->get();
+
+                if($counterIcon->num_rows() > 0){
+                    $counterIconRow = $counterIcon->row_array();
+                    $this->getSizedIcon($counterIconRow['icon'], 18);
+                    $this->getSizedIcon($counterIconRow['icon'], 56);
+
+                    $item['counterpart_icon'] = $counterIconRow['icon'];
+                }
+            }
+
+        }
+
+
+		/*if($cache !== false)
 		{
-			$item = $cache;
+            $tooltipData = $cache;
 		}
 		else
 		{
@@ -50,14 +90,15 @@ class Item extends MX_Controller
                 //'icon' => $icon
             );
 
-			$item = $this->template->loadPage("ajax.tpl", $itemData);
-		}
+            $tooltipData = $this->template->loadPage("ajax.tpl", $itemData);
+		}*/
 
         $contentData = array(
             'module' => 'item',
             'realm' => $realm,
             'entry' => $id,
             'item' => $item,
+            'tooltipData' => "",
             'icon' => $icon
         );
 
@@ -195,17 +236,29 @@ class Item extends MX_Controller
 
     private function getSizedIcon($icon,$size = 56){
         $url = 'http://media.blizzard.com/wow/icons/'.$size.'/'.$icon.'.jpg';
+        $localUrl = $_SERVER['DOCUMENT_ROOT'].'/application/themes/shattered/images/icons/'.$size.'/'.$icon.".jpg";
+
+        if(file_exists($localUrl)){
+            return;
+        }
+
         $contents = file_get_contents($url);
         if(strlen($contents) > 0){
-            file_put_contents($_SERVER['DOCUMENT_ROOT'].'/application/themes/shattered/images/icons/'.$size.'/'.$icon.".jpg", $contents);
+            file_put_contents($localUrl, $contents);
         }
     }
 
     private function getRotateImage($entry){
         $url = "http://eu.media.blizzard.com/wow/renders/items/item".$entry.".jpg";
+        $localUrl = $_SERVER['DOCUMENT_ROOT']."/application/themes/shattered/images/items/item".$entry.".jpg";
+
+        if(file_exists($localUrl)){
+            return;
+        }
+
         $contents = file_get_contents($url);
         if(strlen($contents) > 0){
-            file_put_contents($_SERVER['DOCUMENT_ROOT']."/application/themes/shattered/images/items/item".$entry.".jpg", $contents);
+            file_put_contents($localUrl, $contents);
         }
     }
 }

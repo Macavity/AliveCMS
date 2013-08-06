@@ -5,6 +5,10 @@
     background: url("../images/wiki/item/page-bg.jpg") 0 0 no-repeat;
   }
 
+  .wiki .info .title h2 {
+    font-size: 42px;
+  }
+
   /* item detail */
   .item-detail {
     padding-left: 80px;
@@ -64,7 +68,7 @@
         border-radius: 5px;
         background: 0 0 no-repeat;
       }
-      background: #3b1c11 url("/templates/Shattered-World/images/wiki/bg-280.jpg") 0 0 no-repeat;
+      background: #3b1c11 url("../images/wiki/bg-280.jpg") 0 0 no-repeat;
       margin: 0 auto;
       position: relative;
       border: 1px solid #3a1c10;
@@ -75,7 +79,7 @@
       -webkit-box-shadow: #241209 0 0 10px;
       box-shadow: #241209 0 0 10px;
       .loading {
-        background: url("/images/canvas-loader-bright.gif") center center no-repeat;
+        background: url("../images/loader/canvas-loader-bright.gif") center center no-repeat;
       }
       .zoom {
         position: absolute;
@@ -84,7 +88,7 @@
         display: none;
         width: 23px;
         height: 21px;
-        background: url("/templates/Shattered-World/images/wiki/zoom.gif") no-repeat;
+        background: url("../images/wiki/zoom.gif") no-repeat;
         -moz-box-shadow: #241209 0 0 3px;
         -webkit-box-shadow: #241209 0 0 3px;
         box-shadow: #241209 0 0 3px;
@@ -94,14 +98,14 @@
       }
     }
     .can-drag {
-      cursor: url("/images/grab.cur"), e-resize;
+      cursor: url("../images/grab.cur"), e-resize;
       .zoom {
         display: block;
       }
     }
     /* model - draggable */
     .dragging {
-      cursor: url("/images/grabbing.cur"), e-resize !important;
+      cursor: url("../images/grabbing.cur"), e-resize !important;
     }
     .can-drag:hover, .dragging {
       border: 1px solid #542818;
@@ -111,7 +115,7 @@
       border-color: #3a1c10 !important;
       cursor: default !important;
       .loading {
-        background: url("/templates/Shattered-World/images/wiki/error.gif") center center no-repeat !important;
+        background: url("../images/wiki/error.gif") center center no-repeat !important;
       }
     }
     /* model buttons */
@@ -124,7 +128,7 @@
         width: 14px;
         height: 14px;
         margin-left: 5px;
-        background: url("/templates/Shattered-World/images/wiki/button.gif") no-repeat;
+        background: url("../images/wiki/button.gif") no-repeat;
         &:hover {
           background-position: -18px 0;
         }

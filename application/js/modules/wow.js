@@ -16,11 +16,11 @@ define(['modules/core', 'modules/tooltip'], function(Core, Tooltip){
                  Wow.bindTooltips('quest');
                  Wow.bindTooltips('currency');
                  Wow.bindTooltips('zone');
-                 Wow.bindTooltips('faction');
                  Wow.bindTooltips('npc');
                  Wow.bindCharacterTooltips();
                  Wow.initNewFeatureTip();
                  */
+                Wow.bindTooltips('faction');
                 Wow.bindItemTooltips();
             }, 1);
         },
