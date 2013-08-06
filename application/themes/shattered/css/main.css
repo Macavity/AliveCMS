@@ -7586,7 +7586,7 @@ fieldset .control-group.error {
   font-weight: bold;
   color: white;
   padding-left: 11px;
-  background: url("/images/icons/achievements.gif") left 7px no-repeat;
+  background: url("../images/icons/achievements.gif") left 7px no-repeat;
   line-height: 23px;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_server\.scss}line{font-family:\0000383}}

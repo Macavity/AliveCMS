@@ -373,7 +373,8 @@ class Migration extends MX_Controller
             $this->jsonError(lang("unknown_item", "item"));
         }
 
-        $allowableRaces = array_keys($this->realms->getAllowableRaces($item['AllowableRace']));
+        $allowableRaces = $this->realms->getAllowableRaces($item['AllowableRace']);
+
 
         $data = array(
             'status' => 'success',

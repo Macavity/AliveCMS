@@ -73,10 +73,36 @@ class World_model
 			{
 				$row = $query->result_array();
 
-				// Cache it forever
-				$this->CI->cache->save("items/item_".$this->realmId."_".$id, $row[0]);
+                $itemRow = $row[0];
 
-				return $row[0];
+                $counterQuery = $this->db->select('alliance_id,horde_id')
+                    ->from('player_factionchange_items')
+                    ->where('alliance_id', $id)
+                    ->or_where('horde_id', $id)
+                    ->get();
+
+                $itemRow['faction'] = "";
+                $itemRow['counterpart'] = "";
+
+                if($counterQuery->num_rows() > 0){
+                    $row = $counterQuery->result_array();
+                    $counterRow = $row[0];
+
+                    if($counterRow["alliance_id"] == $id){
+                        $itemRow['faction'] = 0;
+                        $itemRow['counterpart'] = $counterRow["horde_id"];
+                    }
+                    else{
+                        $itemRow['faction'] = 1;
+                        $itemRow['counterpart'] = $counterRow["alliance_id"];
+                    }
+                }
+
+
+				// Cache it forever
+				$this->CI->cache->save("items/item_".$this->realmId."_".$id, $itemRow);
+
+				return $itemRow;
 			}
 			else 
 			{
