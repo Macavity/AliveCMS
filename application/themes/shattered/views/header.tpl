@@ -105,7 +105,8 @@
   <![endif]-->
 
   <!-- TS Viewer Sideboard -->
-  <script type="text/javascript" src="http://static.tsviewer.com/short_expire/js/ts3viewer_loader.js"></script>
-  <!-- /TS Viewer Sideboard -->
+<!--
+<script type="text/javascript" src="http://static.tsviewer.com/short_expire/js/ts3viewer_loader.js"></script>
+-->  <!-- /TS Viewer Sideboard -->
 
 </head>

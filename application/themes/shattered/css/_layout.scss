@@ -2,6 +2,8 @@
 /* 02. LAYOUT
 /* *********************************************************************************** */
 
+@import "statics";
+
 html { min-width: 1006px; }
 
 /*
@@ -205,6 +207,34 @@ body {
   margin-top: 30px;
   margin-right: 10px;
 }
+
+/**
+ * Sidebar + Section Title
+ */
+#content{
+  .bg-body {
+    width: 100%;
+    background: url("../images/community/bg-community-body2.jpg") 0 0 repeat-y;
+  }
+  .body-wrapper {
+    width: 100%;
+    background: url("../images/community/bg-community-body3.jpg") 0 100% no-repeat;
+    padding-bottom: 30px;
+    margin-left: 0px;
+    margin-top: 0px;
+    margin-right: 0px;
+  }
+  .contents-wrapper {
+    width: 100%;
+    background: url("../images/community/bg-community-body1.jpg") 0 0 no-repeat;
+    min-height: 698px;
+    #content_ajax {
+      margin-top: 30px;
+      margin-right: 10px;
+    }
+  }
+}
+
 
 /* main sidebar navigation list */
 .dynamic-menu {
@@ -1262,6 +1292,17 @@ tr {
   #right {
     margin: 0px 13px 20px 0;
   }
+
+  .sidebar-module {
+    ul {
+      a {
+        &:hover {
+          background: none;
+
+        }
+      }
+    }
+  }
 }
 
 
@@ -1727,6 +1768,41 @@ span.employee {
 }
 
 /* buttons */
+$btnLight:  #692303;
+$btnDark:   #3f0d07;
+/*
+.btn {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #faa732;
+  *background-color: #f89406;
+  background-image: -moz-linear-gradient(top, $btnLight, $btnDark);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from($btnLight), to($btnDark));
+  background-image: -webkit-linear-gradient(top, $btnLight, $btnDark);
+  background-image: -o-linear-gradient(top, $btnLight, $btnDark);
+  background-image: linear-gradient(to bottom, $btnLight, $btnDark);
+  background-repeat: repeat-x;
+  border-color: #f89406 #f89406 #ad6704;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff692303', endColorstr='#ff3f0d07', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.btn:hover,
+.btn:focus,
+.btn:active,
+.btn.active,
+.btn.disabled,
+.btn[disabled] {
+  color: #ffffff;
+  background-color: #f89406;
+  *background-color: #df8505;
+}
+
+.btn:active,
+.btn.active {
+  background-color: #c67605 \9;
+}*/
 
 button::-moz-focus-inner {
   padding: 0;
@@ -2465,6 +2541,12 @@ div {
   }
 }
 
+.formEndLink {
+  position: static;
+  bottom: 20px;
+  display: none;
+}
+
 /* shadows */
 
 .drop-shadow {
@@ -2720,7 +2802,7 @@ div {
     font-weight: normal;
   }
   strong {
-    color: #feba02;
+    color: $orange;
   }
 }
 
@@ -2788,6 +2870,52 @@ div {
 }
 
 /* form */
+
+#content {
+  legend {
+    color: $orange;
+  }
+  .input-append .add-on,
+  .input-prepend .add-on{
+    color: #333;
+  }
+
+  a[data-toggle=collapse]{
+    color: white;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: block;
+
+    i.icon{
+      background-image: url("/application/images/glyphicons-halflings-white.png");
+      background-position: -433px -96px;
+      width: 14px;
+      height: 14px;
+      display: inline-block;
+      position: relative;
+      top: 2px;
+
+    }
+
+    &.collapsed {
+      i.icon{
+        background-position: -408px -96px;
+      }
+    }
+  }
+
+}
+
+fieldset .control-group.error{
+  margin-left:0px;
+}
+
+.alert-info {
+  a {
+    color: #08c;
+  }
+}
 
 #login-embedded {
   .input {

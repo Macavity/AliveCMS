@@ -7,47 +7,13 @@
 
 		<link rel="shortcut icon" href="{$url}application/themes/admin/images/favicon.png" />
 		<link rel="stylesheet" href="{$url}application/themes/admin/css/main.css" type="text/css" />
-    <link rel="stylesheet" href="{$url}application/css/jquery-ui.css" type="text/css" />
+        <!--<link rel="stylesheet" href="{$url}application/css/jquery-ui.css" type="text/css" />-->
 		{if $extra_css}<link rel="stylesheet" href="{$url}application/{$extra_css}" type="text/css" />{/if}
 
 		<script src="{if $cdn}//html5shiv.googlecode.com/svn/trunk/html5.js{else}{$url}application/js/html5shiv.js{/if}"></script>
-		<script type="text/javascript" src="{if $cdn}https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js{else}{$url}application/js/libs/jquery/jquery.min.js{/if}"></script>
-
-    <script type="text/javascript" src="{$url}application/js/libs/jquery/jquery-ui.js"></script>
-    <script type="text/javascript" src="{$url}application/js/libs/debug/javascript-debug.js"></script>
-    <script type="text/javascript" src="{$url}application/js/libs/debug/debug.dev.js"></script>
-    <script type="text/javascript" src="{$url}application/js/misc.js"></script>
+        <script type="text/javascript" src="{$url}application/js/libs.js"></script>
 
 		<script type="text/javascript">
-		
-			if(!window.console)
-			{
-				var console = {
-				
-					log: function()
-					{
-						// Prevent stupid browsers from doing stupid things
-					}
-				};
-			}
-
-			function getCookie(c_name)
-			{
-				var i, x, y, ARRcookies = document.cookie.split(";");
-
-				for(i = 0; i < ARRcookies.length;i++)
-				{
-					x = ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
-					y = ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
-					x = x.replace(/^\s+|\s+$/g,"");
-					
-					if(x == c_name)
-					{
-						return unescape(y);
-					}
-				}
-			}
-
 			var Config = {
 				URL: "{$url}",
 				CSRF: getCookie('csrf_cookie_name'),
@@ -58,8 +24,12 @@
 		</script>
 
 		<script src="{$url}application/themes/admin/js/router.js" type="text/javascript"></script>
-		<script src="{$url}application/js/libs/require/require.js" type="text/javascript" ></script>
-		
+        {if $require_js}
+            <script type="text/javascript" src="/application/js/libs/require/require.js" data-main="/application/js/{$require_js}"></script>
+        {else}
+            <script src="{$url}application/js/libs/require/require.js" type="text/javascript" ></script>
+        {/if}
+
 		<script type="text/javascript">
 
 			var scripts = [
@@ -86,7 +56,18 @@
 				});
 			});
 
-		</script>
+            requirejs.config({
+                baseUrl: '/application/js',
+
+                // Disable internal caching of the files (development only)
+                urlArgs: "rev=617.2",
+
+                paths: {
+                }
+            });
+
+
+        </script>
 
 		<!--[if IE]>
 			<style type="text/css">
@@ -230,5 +211,6 @@
 				<div class="clear"></div>
 			</div>
 		</footer>
-	</body>
+
+    </body>
 </html>

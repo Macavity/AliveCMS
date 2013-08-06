@@ -379,6 +379,28 @@ class Characters_model
 		}
 	}
 
+    /**
+     * Move a character to a different account
+     * @alive
+     * @param $charGuid
+     * @param $newAccount
+     * @param $realmId
+     */
+    public function moveCharacterToAccount($charGuid, $newAccount, $realmId){
+        $this->connect();
+
+        if(empty($charGuid) || empty($newAccount) || empty($realmId)){
+            return false;
+        }
+
+        $this->db->where('guid', $charGuid)
+            ->update(table('characters', $this->realmId), array(
+                "account" => $newAccount
+            ));
+
+        return true;
+    }
+
 	/**
 	* Check if a character belongs to the specified account
 	* @param Int $characterId

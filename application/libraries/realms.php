@@ -180,7 +180,7 @@ class Realms
 		$this->zones = $this->CI->config->item('zones');
 	}
 
-	/**
+    /**
 	 * Get the alliance race IDs
 	 * @return Array
 	 */
@@ -222,6 +222,13 @@ class Realms
         return (in_array($race, $this->hordeRaces) ? "horde" : "alliance");
     }
 
+    public function getFaction($race){
+        if(!count($this->hordeRaces)){
+            $this->loadConstants();
+        }
+        return (in_array($race, $this->hordeRaces) ? FACTION_HORDE : FACTION_ALLIANCE);
+    }
+
 
     /**
 	 * Get the name of a race
@@ -229,7 +236,7 @@ class Realms
 	 * @param Int $id
 	 * @return String
 	 */
-	public function getRace($id, $gender)
+	public function getRace($id, $gender = 0)
 	{
 		if(!count($this->races))
 		{
@@ -257,7 +264,7 @@ class Realms
 	 * @param Int $id
 	 * @return String
 	 */
-	public function getClass($id, $gender)
+	public function getClass($id, $gender = 0)
 	{
 		if(!count($this->classes))
 		{
@@ -277,6 +284,68 @@ class Realms
         }
 		return "Unknown";
 	}
+
+    /**
+     * Goes through a bitmask of AllowableRaces
+     * Returns zero if the mask is empty of all races are active
+     * @param $mask
+     * @return array|int
+     */
+    public function getAllowableRaces($mask){
+        $mask &= 0x7FF;
+
+        // Return zero if for all class (or for none)
+        if($mask == 0x7FF || $mask == 0) {
+            return 0;
+        }
+
+        if(!count($this->races_en)){
+            $this->loadConstants();
+        }
+
+        $i = 1;
+        $raceMask = array();
+
+        while($mask) {
+            if($mask & 1) {
+                $raceMask[$i] = $this->races_en[$i];
+            }
+            $mask >>= 1;
+            $i++;
+        }
+        return $raceMask;
+    }
+
+    /**
+     * Goes through a bitmask of AllowableClasses
+     * Returns zero if the mask is empty of all classes are active
+     * @param $mask
+     * @return array|int
+     */
+    public function getAllowableClasses($mask){
+        $mask &= 0x5FF;
+
+        // Return zero if for all class (or for none)
+        if($mask == 0x5FF || $mask == 0) {
+            return 0;
+        }
+
+        if(!count($this->classes_en)){
+            $this->loadConstants();
+        }
+
+        $i = 1;
+        $classMask = array();
+
+        while($mask) {
+            if($mask & 1) {
+                $classMask[$i] = $this->classes_en[$i];
+            }
+            $mask>>=1;
+            $i++;
+        }
+        return $classMask;
+    }
 
 	/**
 	 * Get the zone name by zone ID

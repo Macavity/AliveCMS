@@ -317,7 +317,17 @@ class Pay extends MX_Controller
 			$query = preg_replace("/\{CHARACTER\}/", "?", $query);
 			$query = preg_replace("/\{REALM\}/", "?", $query);
 
-			$db->query($query, $data);
+            if ($query != ''){
+                // Disable the CI DB Debug
+                $db->db_debug = false;
+
+                $query = $db->query($query, $data);
+
+                if($db->_error_message())
+                {
+                    die($db->_error_message());
+                }
+            }
 		}
 	}
 

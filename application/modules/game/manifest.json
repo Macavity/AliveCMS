@@ -1,0 +1,11 @@
+{
+    "name": "Game Information Pages",
+    "description": "Controller for some specific game pages",
+
+    "author": {
+        "name": "Macavity",
+        "website": "http://www.wow-alive.de/"
+    },
+    
+    "enabled": true
+}

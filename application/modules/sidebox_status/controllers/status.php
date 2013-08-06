@@ -23,10 +23,45 @@ class Status extends MX_Controller
 			// Load realm objects
 			$realms = $this->realms->getRealms();
 
-         	// Prepare data
+            $realmData = array();
+
+            foreach($realms as $realm){
+
+                $values = array(
+                    "gm" => $realm->getOnline("gm"),
+                    "horde" => $realm->getOnline("horde"),
+                    "alliance" => $realm->getOnline("alliance"),
+                );
+
+                foreach($values as $key => $value){
+                    $values[$key] = intval($value);
+                }
+
+                switch($realm->getId()){
+                    case 1:
+                        $cssClass = "color-ex2";
+                        break;
+                    case 2:
+                        $cssClass = "color-ex3";
+                        break;
+                    default:
+                        $cssClass = '';
+                }
+
+                $realmData[] = array(
+                    "css" => $cssClass,
+                    "online" => (bool) $realm->isOnline(),
+                    "name" => $realm->getName(),
+                    "gm" => $values['gm'],
+                    "horde" => $values['horde'],
+                    "alliance" => $values['alliance'],
+                );
+            }
+
+            // Prepare data
 			$data = array(
 						"module" => "sidebox_status", 
-						"realms" => $realms,
+						"realms" => $realmData,
 						"realmlist" => $this->config->item('realmlist')
 					);
 

@@ -6,7 +6,7 @@ class Tooltip extends MX_Controller
 	private $realm;
 	private $item;
 
-	public function Index($realm = false, $id = false)
+	public function Index($realm = false, $id = false, $json = "")
 	{
 		// Make sure item and realm are set
 		if(!$id || !$realm)
@@ -14,7 +14,7 @@ class Tooltip extends MX_Controller
 			die("No item or realm specified!");
 		}
 
-		$cache = $this->cache->get("items/tooltip_".$realm."_".$id."_".getLang());
+		$cache = $this->cache->get("items/tooltip_".$realm."_".$id.$json."_".getLang());
 
 		if($cache !== false)
 		{
@@ -26,19 +26,45 @@ class Tooltip extends MX_Controller
 			$this->id = $id;
 			$this->realm = $realm;
 
-			$this->getItemData();
+            if($json == "json"){
+                if(!$this->getItemData()){
+                    $data = array(
+                        "status" => "error",
+                        "message" => lang("unknown_item", "item"),
+                    );
+                }
+                else{
+                    $data = array(
+                        'status' => 'success',
+                        'item' => $this->item
+                    );
+                }
 
-			$data = array(
-					'module' => 'tooltip',
-					'item' => $this->item
-				);
 
-			$out = $this->template->loadPage("tooltip.tpl", $data);
+                // Cache it
+                $this->cache->save("items/tooltip_".$realm."_".$id.$json."_".getLang(), json_encode($data));
 
-			// Cache it
-			$this->cache->save("items/tooltip_".$realm."_".$id."_".getLang(), $out);
+                $this->template->handleJsonOutput($data);
+            }
+            else{
 
-			die($out);
+                if(!$this->getItemData()){
+                    die(lang("unknown_item", "item"));
+                }
+
+                $data = array(
+                    'module' => 'tooltip',
+                    'item' => $this->item
+                );
+
+                $out = $this->template->loadPage("tooltip.tpl", $data);
+
+                // Cache it
+                $this->cache->save("items/tooltip_".$realm."_".$id."_".getLang(), $out);
+
+                die($out);
+
+            }
 		}
 	}
 
@@ -64,7 +90,7 @@ class Tooltip extends MX_Controller
 		// No item was found
 		if(!$item || $item == "empty")
 		{
-			die(lang("unknown_item", "item"));
+			return false;
 		}
 
 		$this->flags = $this->getFlags($item['Flags']);
@@ -122,6 +148,8 @@ class Tooltip extends MX_Controller
 		$this->item['speed'] = ($item['delay'] > 0) ? ($item['delay'] / 1000) . "0": 0;
 		$this->item['dps'] = $this->getDPS($this->item['damage_min'], $this->item['damage_max'], $this->item['speed']);
 		$this->item['sockets'] = $this->getSockets($item);
+
+        return true;
 	}
 
 	private function calculateDamage($item)

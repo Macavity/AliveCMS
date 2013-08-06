@@ -1,6 +1,6 @@
 /*jshint -W065 */
 
-define(function(){
+define(['modules/core', 'modules/tooltip'], function(Core, Tooltip){
     var Wow = {
 
         /**
@@ -18,10 +18,10 @@ define(function(){
                  Wow.bindTooltips('zone');
                  Wow.bindTooltips('faction');
                  Wow.bindTooltips('npc');
-                 Wow.bindItemTooltips();
                  Wow.bindCharacterTooltips();
                  Wow.initNewFeatureTip();
                  */
+                Wow.bindItemTooltips();
             }, 1);
         },
 
@@ -38,13 +38,18 @@ define(function(){
          * Gathers the item ID from the href, and the optional params from the data-item attribute.
          */
         bindItemTooltips: function() {
+            debug.debug("WoW.bindItemToolstip");
+
             Tooltip.bind('a[href*="/item/"], [data-item]', false, function() {
+                debug.debug("WoW.ItemTooltip Show");
+
                 if (this.rel == 'np')
                     return;
 
                 var self = $(this),
                     id,
-                    query;
+                    query,
+                    realm;
 
                 if (this.href !== null) {
                     if (this.href == 'javascript:;' || this.href.indexOf('#') === 0)
@@ -52,18 +57,20 @@ define(function(){
 
                     var data = self.data('item');
                     var	href = self.attr('href');
-                    href = href.replace(Core.baseUrl,"").split('/item/');
+                    href = href.replace(/.*item\//,"").split('/');
 
-                    id = parseInt(href[1]);
+                    realm = +href[0];
+                    id = +href[1];
                     query = (data) ? '/?'+ data : "";
 
                 } else {
-                    id = parseInt(self.data('item'));
+                    id = +self.data('item');
+                    realm = +self.data("realm");
                     query = '';
                 }
 
                 if (id && id > 0)
-                    Tooltip.show(this, '/tooltip/item/'+ id + query, true);
+                    Tooltip.show(this, '/tooltip/'+ realm + '/' + id + query, true);
             });
         },
 

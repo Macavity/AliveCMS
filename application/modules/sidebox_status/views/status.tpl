@@ -1,4 +1,6 @@
-{foreach from=$realms item=realm}
+
+{if count($realms) > 0}
+    {foreach from=$realms item=realm}
 	<div class="realm">
 		<div class="realm_online">
 			{if $realm->isOnline()}
@@ -27,5 +29,7 @@
 		-->
 
 	</div>
-{/foreach}
+    {/foreach}
+{/if}
+
 <div id="realmlist">set realmlist {$realmlist}</div>

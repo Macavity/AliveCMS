@@ -5,8 +5,8 @@ body {
   height:100%;
 }
 
-html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-em, img, strong, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, pre,
+em, img, strong, dl, dt, dd, ul, li, form, table, caption, tbody, tfoot, thead, tr, th, td {
   margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%;
 }
 
@@ -259,7 +259,7 @@ sup {
 
 .tip { border-bottom: 1px dotted #6A5336; cursor: help; }
 
-.ui-tooltip .frame-36 {position: absolute; left: -56px;top: -10px; }
+
 .item-specs { margin-top: 10px; }
 .item-specs li { margin: 1px 0; padding: 0; }
 
@@ -492,6 +492,11 @@ sup {
   }
   .float-right {
     padding-left: 30px;
+  }
+  .frame-36 {
+    position: absolute;
+    left: -56px;
+    top: -10px;
   }
   .frame-56 {
     position: absolute;

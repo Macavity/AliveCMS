@@ -1,11 +1,17 @@
-define(['modules/core', 'modules/page', 'modules/char_select', 'modules/login', 'modules/tooltip'], function (Core, Page, CharSelect, Login, Tooltip) {
+define(
+    ['modules/core', 'modules/page', 'modules/char_select', 'modules/login', 'modules/tooltip', 'modules/wow'],
+
+    function (Core, Page, CharSelect, Login, Tooltip, Wow) {
 
     var BaseController = Class.extend({
 
         init: function(){
+            debug.debug("BaseController.init");
 
             this.initTS3Viewer();
             this.initUserplate();
+
+            this.initFormBehaviour();
 
             /*
              Input.initialize();
@@ -17,6 +23,7 @@ define(['modules/core', 'modules/page', 'modules/char_select', 'modules/login', 
             Page.initialize();
             Core.initialize();
             CharSelect.initialize();
+            Wow.initialize();
 
             // Set data-tooltip binds globally
             //
@@ -29,6 +36,27 @@ define(['modules/core', 'modules/page', 'modules/char_select', 'modules/login', 
                 Login.open();
             });
         },
+
+        initFormBehaviour: function(){
+            debug.debug("BaseController.initFormBehaviour");
+
+            // Shortcuts cachen
+            var _jq = $;
+
+            _jq("[data-toggle=buttons-radio] .btn").each(function(){
+                _jq(this).bind('click', function(){
+                    var object = _jq(this);
+                    if(object.data("target")){
+                        object.parent().parent().find('[name="'+object.data("target")+'"]').val(object.val());
+                    }
+                    else{
+                        object.parent().parent().find("input.hidden").value = object.val();
+                    }
+                });
+            });
+        },
+
+
         initTS3Viewer: function(){
             debug.debug("Base.initTS3Viewer");
             $("#ts_button").mouseover(function(){ $("#sb_passive_large").addClass("sb_open"); });

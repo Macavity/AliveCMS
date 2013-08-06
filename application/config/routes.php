@@ -78,6 +78,8 @@ $route['server/(:any)'] = "server/$1";
 // Bugtracker
 $route['bugtracker/admin/(:any)/(:num)'] = "bugtracker/admin/$1/$2";
 
+// Game Info
+
 // Vote
 $route['vote/callback/(:any)'] = "vote/callback/index/$1";
 

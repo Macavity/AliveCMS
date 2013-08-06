@@ -28,6 +28,13 @@ class Template
 	public $module_name;
 
     /**
+     * Determines wether profiler is enabled
+     * @var bool
+     * @access 	protected
+     */
+    protected $enable_profiler = FALSE;
+
+    /**
      * Controls if a specific page should display a sidebar
      * @alive
      * @var bool
@@ -203,6 +210,7 @@ class Template
 		//Load the sideboxes
 		$sideboxes = $this->loadSideboxes();
 
+        //debug("sideboxes", $sideboxes);
 
 		$header = $this->getHeader($css, $js);
 		$modals = $this->getModals();
@@ -257,6 +265,19 @@ class Template
             $slider = $this->getSlider();
         }
 
+        /**
+         *
+         */
+        if($this->enable_profiler == TRUE){
+
+            $this->CI->load->library("profiler");
+
+            $profiler = $this->CI->profiler->run();
+        }
+        else{
+            $profiler = "";
+        }
+
         $url = $this->CI->router->fetch_class();
 
 		if($this->CI->router->fetch_method() != "index")
@@ -297,6 +318,7 @@ class Template
             "user_name" => $this->CI->user->getNickname(),
             "is_staff" => $this->CI->user->isStaff(),
 
+            "profiler" => $profiler,
         );
 
 		// Load the main template
@@ -327,7 +349,7 @@ class Template
     /**
      * Generates a json formatted output
      */
-    private function handleJsonOutput($json){
+    public function handleJsonOutput($json){
             die(json_encode($json));
     }
 
@@ -568,10 +590,13 @@ class Template
         /**
          * @alive
          */
+        $module = $this->getModuleName();
         $controller = $this->CI->router->class;
         $method = $this->CI->router->method;
 
-        $sideboxes_db = $this->CI->cms_model->getSideboxes($controller, $method);
+        //debug("$controller - $method", $this->getModuleName());
+
+        $sideboxes_db = $this->CI->cms_model->getSideboxes($module, $controller, $method);
 
 		// If we got sideboxes
 		if($sideboxes_db)
@@ -755,7 +780,7 @@ class Template
 
         foreach($slides_arr as $key=>$image)
 		{
-			if(!preg_match("/http:\/\//i", $image['link']) || !preg_match("/https:\/\//i", $image['link']))
+            if(!preg_match('|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $image['link']))
 			{
 				$slides_arr[$key]['link'] = $this->page_url . $image['link'];
 			}
@@ -879,6 +904,20 @@ class Template
 
 		return $text;
 	}
+
+
+    /**
+     * Enable/disable Profiler
+     * @access	public
+     * @param	bool
+     * @return	void
+     */
+    function enable_profiler($val = TRUE)
+    {
+        $this->enable_profiler = (is_bool($val)) ? $val : TRUE;
+
+        return $this;
+    }
 
 	/**
 	 * Format time as "XX days/hours/minutes/seconds"

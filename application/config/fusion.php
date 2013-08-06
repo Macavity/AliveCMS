@@ -237,4 +237,4 @@ $config['analytics'] = false;
 | Turning it on will improve performance drastically.
 |
 */
-$config['cache'] = false;
+$config['cache'] = true;

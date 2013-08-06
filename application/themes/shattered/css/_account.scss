@@ -136,6 +136,16 @@
     background: url("../images/layout/bg-services-top.jpg") 0 0 no-repeat;
   }
   #content {
+
+    #blog {
+      background: none;
+      padding: 0px;
+
+      .detail {
+        padding: 0px;
+      }
+    }
+
     .content-top {
       background: url("../images/layout/bg-services-top.jpg") 0 0 no-repeat;
     }
@@ -174,3 +184,4 @@
     }
   }
 }
+

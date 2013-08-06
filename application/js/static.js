@@ -25,6 +25,12 @@ var mapStatic = {
     selectors: {
     },
 
+    lang: {
+        first: 'Erster',
+        last: 'Letzter',
+        loading: 'Lade…'
+    },
+
     /**
      * Will be filled by scripts for further use of generic values
      */
