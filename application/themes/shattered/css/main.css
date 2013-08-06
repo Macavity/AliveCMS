@@ -9367,6 +9367,163 @@ a:hover .boss-portrait {
   float: left;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\000033}}
+.module-item {
+  /* item detail */
+  /* item browse */
+  /* model viewer */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\000034}}
+.module-item #content .content-top {
+  background: url("../images/wiki/item/page-bg.jpg") 0 0 no-repeat;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\000039}}
+.module-item .item-detail {
+  padding-left: 80px;
+  color: #fff;
+  width: 310px;
+  position: relative;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\0000314}}
+.module-item .item-detail .frame-56 {
+  position: absolute;
+  overflow: hidden;
+  left: 0;
+  top: 5px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\0000320}}
+.module-item .item-detail .item-specs {
+  padding-top: 1px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\0000323}}
+.module-item .item-detail .faction-related {
+  position: absolute;
+  left: 5px;
+  top: 85px;
+  background: #000;
+  padding: 5px;
+  height: 18px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\0000334}}
+.module-item .item-detail .stack {
+  display: block;
+  padding: 35px 3px 0 0;
+  text-align: right;
+  font-size: 16px;
+  font-weight: bold;
+  text-shadow: #000 0 0 3px, #000 0 0 3px, #000 0 0 3px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\0000345}}
+.module-item .item-results em {
+  color: #EFC9A0;
+  font-style: normal;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\0000351}}
+.module-item .model-viewer {
+  /* model - draggable */
+  /* model - load error */
+  /* model buttons */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\0000352}}
+.module-item .model-viewer .model {
+  width: 280px;
+  height: 280px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  background: 0 0 no-repeat;
+  background: #3b1c11 url("/templates/Shattered-World/images/wiki/bg-280.jpg") 0 0 no-repeat;
+  margin: 0 auto;
+  position: relative;
+  border: 1px solid #3a1c10;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: #241209 0 0 10px;
+  -webkit-box-shadow: #241209 0 0 10px;
+  box-shadow: #241209 0 0 10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\0000359}}
+.module-item .model-viewer .model .bg, .module-item .model-viewer .model .loading, .module-item .model-viewer .model .viewer {
+  width: 280px;
+  height: 280px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  background: 0 0 no-repeat;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\0000377}}
+.module-item .model-viewer .model .loading {
+  background: url("/images/canvas-loader-bright.gif") center center no-repeat;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\0000380}}
+.module-item .model-viewer .model .zoom {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: none;
+  width: 23px;
+  height: 21px;
+  background: url("/templates/Shattered-World/images/wiki/zoom.gif") no-repeat;
+  -moz-box-shadow: #241209 0 0 3px;
+  -webkit-box-shadow: #241209 0 0 3px;
+  box-shadow: #241209 0 0 3px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\0000391}}
+.module-item .model-viewer .model .zoom:hover {
+  background-position: -23px 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\0000396}}
+.module-item .model-viewer .can-drag {
+  cursor: url("/images/grab.cur"), e-resize;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\0000398}}
+.module-item .model-viewer .can-drag .zoom {
+  display: block;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\00003103}}
+.module-item .model-viewer .dragging {
+  cursor: url("/images/grabbing.cur"), e-resize !important;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\00003106}}
+.module-item .model-viewer .can-drag:hover, .module-item .model-viewer .dragging {
+  border: 1px solid #542818;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\00003110}}
+.module-item .model-viewer .load-fail {
+  border-color: #3a1c10 !important;
+  cursor: default !important;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\00003113}}
+.module-item .model-viewer .load-fail .loading {
+  background: url("/templates/Shattered-World/images/wiki/error.gif") center center no-repeat !important;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\00003118}}
+.module-item .model-viewer .buttons {
+  text-align: right;
+  padding: 10px 10px 0 10px;
+  text-align: center;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\00003122}}
+.module-item .model-viewer .buttons a {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-left: 5px;
+  background: url("/templates/Shattered-World/images/wiki/button.gif") no-repeat;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\00003128}}
+.module-item .model-viewer .buttons a:hover {
+  background-position: -18px 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\00003131}}
+.module-item .model-viewer .buttons a.button-active {
+  background-position: 100% 0;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_game\.scss}line{font-family:\000034}}
 .module-game .expansion-0 #content .content-top {
   background: url("../images/wiki/index-bg-0.jpg") 0 0 no-repeat;
