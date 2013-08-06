@@ -96,6 +96,27 @@ define(['./BaseController', 'modules/tooltip'], function (BaseController, Toolti
                         }
                         else{
                             var item = jsonData.item;
+                            var selectedRace = $("#race").val();
+
+                            var selectedFaction = 0;
+                            var itemFaction = item.faction;
+                            var itemCounterpart = item.counterpart;
+
+                            if(itemFaction !== ""){
+
+                                if(selectedRace == 2
+                                    || selectedRace == 5
+                                    || selectedRace == 6
+                                    || selectedRace == 8
+                                    || selectedRace == 10){
+                                    selectedFaction = 1;
+                                }
+
+                                if(selectedFaction != itemFaction && itemCounterpart !== "" && itemCounterpart > 0){
+                                    Controller.helperCounterWarning(controlGroup, helper, item);
+                                    return;
+                                }
+                            }
 
                             if(item.ItemLevel > 251){
                                 Controller.helperItemWarning(controlGroup, helper, item);
@@ -106,7 +127,6 @@ define(['./BaseController', 'modules/tooltip'], function (BaseController, Toolti
                                 var length = races.length;
 
                                 if(races && length > 0){
-                                    var selectedRace = $("#race").val();
 
                                     for(var i = 0, l = races.length; i < l; i++){
 
@@ -143,6 +163,11 @@ define(['./BaseController', 'modules/tooltip'], function (BaseController, Toolti
         helperItemWarning: function(controlGroup, helper, item){
             controlGroup.addClass("error");
             helper.html('<i class="icon-white icon-warning-sign"></i> ['+item.ItemLevel+'] <a href="/item/1/'+item.entry+'" target="_blank">'+item.name+'</a> <br>Itemlevel zu hoch!');
+        },
+
+        helperCounterWarning: function(controlGroup, helper, item){
+            controlGroup.addClass("error");
+            helper.html('<i class="icon-white icon-warning-sign"></i> <a href="/item/1/'+item.entry+'" target="_blank">'+item.name+'</a> ist für die falsche Fraktion, <br>Benutze stattdessen: <a href="/item/1/'+item.counterpart+'" target="_blank">'+item.counterpart+'</a>');
         },
 
         helperRaceWarning: function(controlGroup, helper, item){

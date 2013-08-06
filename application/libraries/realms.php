@@ -292,11 +292,14 @@ class Realms
      * @return array|int
      */
     public function getAllowableRaces($mask){
+
+        //debug($mask);
         $mask &= 0x7FF;
+        //debug($mask);
 
         // Return zero if for all class (or for none)
         if($mask == 0x7FF || $mask == 0) {
-            return 0;
+            return array("mask" => $mask);
         }
 
         if(!count($this->races_en)){
@@ -308,7 +311,7 @@ class Realms
 
         while($mask) {
             if($mask & 1) {
-                $raceMask[$i] = $this->races_en[$i];
+                $raceMask[] = $i;
             }
             $mask >>= 1;
             $i++;
@@ -327,7 +330,7 @@ class Realms
 
         // Return zero if for all class (or for none)
         if($mask == 0x5FF || $mask == 0) {
-            return 0;
+            return array("none");
         }
 
         if(!count($this->classes_en)){
@@ -339,7 +342,7 @@ class Realms
 
         while($mask) {
             if($mask & 1) {
-                $classMask[$i] = $this->classes_en[$i];
+                $classMask[] = $i;
             }
             $mask>>=1;
             $i++;
