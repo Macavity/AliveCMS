@@ -61,6 +61,11 @@
         </div>
 
         <div class="control-group">
+            <label class="control-label">Account Name</label>
+            <div class="controls">{$migration.account_name}</div>
+        </div>
+
+        <div class="control-group">
             <label class="control-label">Erstellt am</label>
             <div class="controls">{$migration.date_created}</div>
         </div>
@@ -93,12 +98,7 @@
     </fieldset>
 
     <fieldset>
-        <legend>Alle Transfere dieses Accounts</legend>
-
-        <div class="control-group">
-            <label class="control-label">Transferanzahl</label>
-            <div class="controls">{$migration_count}</div>
-        </div>
+        <legend>Andere Transfere ({$migration_count-1}) dieses Accounts</legend>
 
         {if $migration_count > 0}
             <div class="table">
@@ -123,6 +123,31 @@
             </div>
             <br />
         {/if}
+    </fieldset>
+
+    <fieldset>
+        <legend>Charaktere dieses Accounts</legend>
+
+        <div class="table">
+            <table width="100%">
+                <tr>
+                    <th>ID</th>
+                    <th>Level</th>
+                    <th>Charaktername</th>
+                    <th>Klasse</th>
+                    <th>Realm</th>
+                </tr>
+                {foreach from=$characters item=char}
+                    <tr class="{cycle values="row1,row2"}">
+                        <td>{$char.guid}</td>
+                        <td>{$char.level}</td>
+                        <td>{$char.name}</td>
+                        <td class="color-c{$char.class}">{$char.class_label}</td>
+                        <td>{$char.realm}</td>
+                    </tr>
+                {/foreach}
+            </table>
+        </div>
     </fieldset>
 
 

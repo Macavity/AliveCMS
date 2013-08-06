@@ -886,7 +886,7 @@ input, select, textarea {
   height: auto;
   */
   line-height: normal;
-  padding: 8px;
+  /*padding:8px;*/
   color: #666;
   background-color: #fff;
   border: 1px solid #999;
@@ -1422,6 +1422,57 @@ footer .divider2 {
   padding-left: 20% !important;
 }
 
+/* class */
+.color-c1, .color-c1 a {
+  color: #c69b6d !important;
+}
+
+/* warrior */
+.color-c2, .color-c2 a {
+  color: #f48cba !important;
+}
+
+/* paladin */
+.color-c3, .color-c3 a, .color-g2 {
+  color: #6CAA18 !important;
+}
+
+/* hunter */
+.color-c4, .color-c4 a, .color-g1 {
+  color: #978C02 !important;
+}
+
+/* rogue */
+.color-c5, .color-c5 a {
+  color: #6D7979 !important;
+}
+
+/* priest */
+.color-c6, .color-c6 a {
+  color: #c41e3b !important;
+}
+
+/* death knight */
+.color-c7, .color-c7 a {
+  color: #2359ff !important;
+}
+
+/* shaman */
+.color-c8, .color-c8 a, .color-g3 {
+  color: #68ccef !important;
+}
+
+/* mage */
+.color-c9, .color-c9 a {
+  color: #9382c9 !important;
+}
+
+/* warlock */
+.color-c11, .color-c11 a, .color-g4 {
+  color: #ff7c0a !important;
+}
+
+/* druid */
 .project-list li:nth-child(odd) {
   background-color: transparent;
 }
