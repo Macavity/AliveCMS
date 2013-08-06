@@ -210,6 +210,7 @@ class Template
 		//Load the sideboxes
 		$sideboxes = $this->loadSideboxes();
 
+        //debug("sideboxes", $sideboxes);
 
 		$header = $this->getHeader($css, $js);
 		$modals = $this->getModals();
@@ -589,10 +590,13 @@ class Template
         /**
          * @alive
          */
+        $module = $this->getModuleName();
         $controller = $this->CI->router->class;
         $method = $this->CI->router->method;
 
-        $sideboxes_db = $this->CI->cms_model->getSideboxes($controller, $method);
+        //debug("$controller - $method", $this->getModuleName());
+
+        $sideboxes_db = $this->CI->cms_model->getSideboxes($module, $controller, $method);
 
 		// If we got sideboxes
 		if($sideboxes_db)

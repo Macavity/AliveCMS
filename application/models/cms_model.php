@@ -99,24 +99,27 @@ class Cms_model extends CI_Model
      * @param String $controller
      * @param String $method
      */
-    public function getSideboxes($controller = "all", $method = "*")
+    public function getSideboxes($module = "all", $controller = "*", $method = "*")
     {
-
-        $page = $controller."/".$method;
-        $pageWildcard = $controller."/*";
+        $page = $module.'/'.$controller.'/'.$method;
+        $pageWildcard = $module.'/'.$controller.'/*';
+        $controllerWildcard = $module."/*";
 
         $matchingSideboxes = array();
 
-        $query = $this->db->query("SELECT * FROM sideboxes ORDER BY `order` ASC");
+        $query = $this->db->select('*')->order_by('order', 'asc')->from('sideboxes')->get();
         $allSideboxes = $query->result_array();
 
-        if($controller != "all"){
+        if($module != "all"){
             foreach($allSideboxes as $row){
 
                 $row["page"] = str_replace("; ", ";", $row["page"]);
                 $onPages = explode(";", $row["page"]);
 
-                if( in_array($page, $onPages) || in_array($pageWildcard, $onPages)){
+                if( in_array($page, $onPages)
+                    || in_array($pageWildcard, $onPages)
+                    || in_array($controllerWildcard, $onPages))
+                {
                     $matchingSideboxes[] = $row;
                 }
 
