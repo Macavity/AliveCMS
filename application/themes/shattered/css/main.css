@@ -506,6 +506,12 @@ a:hover, a:focus {
   text-decoration: none;
 }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_bootstrap_correction\.scss}line{font-family:\000037}}
+.popover-title,
+.popover-content {
+  color: #333;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_common\.scss}line{font-family:\000033}}
 body {
   font-size: 100%;
@@ -9531,6 +9537,243 @@ a:hover .boss-portrait {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\00003135}}
 .module-item .model-viewer .buttons a.button-active {
   background-position: 100% 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\000031}}
+#store {
+  min-width: 700px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\000034}}
+#store form label {
+  margin-right: 10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\000037}}
+#store form input[type="text"], #store form select {
+  margin: 0px;
+  width: 125px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\0000311}}
+#store form input[type="text"] {
+  width: 120px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\0000314}}
+#store form .filter_field {
+  float: left;
+  padding: 15px 15px;
+  padding-top: 5px;
+  height: 30px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\0000315}}
+#store form .filter_field:first-child {
+  border-left: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\0000318}}
+#store form .filter_field a {
+  margin-right: 10px;
+  margin-top: 0px;
+  display: block;
+  float: left;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\0000330}}
+#store #store_realms {
+  width: 650px;
+  float: left;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\0000334}}
+#store #cart {
+  float: right;
+  width: 260px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\0000338}}
+#store #store_content {
+  margin-top: -15px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\0000345}}
+#store .table th {
+  padding: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\0000349}}
+#store .table.full-width td:first-child {
+  padding-left: 10px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\0000356}}
+.cart-item {
+  height: 60px;
+  position: relative;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\0000360}}
+.cart-item .divider {
+  clear: both;
+  height: 0;
+  border-top: 1px solid #020201;
+  border-bottom: 1px solid #452408;
+  overflow: hidden;
+  margin: 0 0 5px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\0000369}}
+.cart-item .item-name {
+  font-size: 13px;
+  white-space: nowrap;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\0000373}}
+.cart-item .item-name a {
+  float: left;
+  max-width: 130px;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\0000381}}
+.cart-item .item-name .qty {
+  color: #c8b5b1;
+  padding-left: 2px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\0000384}}
+.cart-item .item-name .qty span {
+  color: #8baed8;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\0000389}}
+.cart-item .item-nick {
+  color: #ac672b;
+  font-size: 11px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\0000393}}
+.cart-item .item-price {
+  float: right;
+  text-align: right;
+  width: 50px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\0000398}}
+.cart-item .item-icon {
+  float: left;
+  display: block;
+  margin-right: 12px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\00003103}}
+.cart-item .jsDeleteFromCart {
+  display: none;
+  color: #d44747;
+  background: url(../images/icons/cross-small.gif) 100% 50% no-repeat;
+  padding: 0 16px 1px 0;
+  position: absolute;
+  bottom: 14px;
+  right: 3px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\00003113}}
+.cart-item:hover .jsDeleteFromCart {
+  display: block;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\00003120}}
+#cart .delete_item {
+  float: left;
+  display: block;
+  margin-right: 10px;
+  margin-top: 6px;
+  width: 0px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  -webkit-transition: 0.5s all;
+  -moz-transition: 0.5s all;
+  -o-transition: 0.5s all;
+  -ms-transition: 0.5s all;
+  transition: 0.5s all;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\00003136}}
+#cart .store_item:hover .item_name, #cart .store_item:hover .item_realm {
+  margin-left: 25px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\00003139}}
+#cart .store_item:hover .delete_item {
+  width: 17px;
+  opacity: 1;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\00003144}}
+#cart .item_price {
+  float: right;
+  font-size: 10px;
+  font-weight: bold;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\00003145}}
+#cart .item_price img {
+  margin-right: 2px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\00003152}}
+#cart .store_item {
+  display: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\00003153}}
+#cart .store_item .item_name, #cart .store_item .item_realm {
+  font-size: 12px;
+  -webkit-transition: 0.5s all;
+  -moz-transition: 0.5s all;
+  -o-transition: 0.5s all;
+  -ms-transition: 0.5s all;
+  transition: 0.5s all;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\00003165}}
+#dp_price_full, #vp_price_full {
+  float: left;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\00003172}}
+#cart_price {
+  display: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\00003174}}
+#cart_price a {
+  float: right;
+  margin-top: 0px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\00003180}}
+#empty_cart {
+  text-align: center;
+  padding: 10px;
+  opacity: 0.5;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\00003186}}
+#checkout {
+  display: none;
+  padding: 10px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\00003191}}
+#checkout_info {
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 20px;
+  margin-top: 15px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\00003196}}
+#checkout_info a {
+  margin-top: -10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\00003199}}
+#checkout_info .button_right {
+  float: right;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\00003202}}
+#checkout_info .button_left {
+  float: left;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\00003207}}
+.checkout_characters {
+  float: right;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_store\.scss}line{font-family:\00003209}}
+.checkout_characters select {
+  width: 180px;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\.local\/application\/themes\/shattered\/css\/_game\.scss}line{font-family:\000034}}

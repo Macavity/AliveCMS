@@ -1,6 +1,6 @@
 
-define(function(){
-    var Wiki = {
+define(['modules/core', 'modules/filter', 'modules/wiki_related'], function(Core, Filter, WikiRelated){
+    var WikiClass = {
 
         /**
          * Related content object instances.
@@ -29,7 +29,8 @@ define(function(){
          */
         initialize: function() {
             var tabs = $('#related-tabs'),
-                hash = Core.getHash();
+                hash = Core.getHash(),
+                Wiki = this;
 
             if (tabs.length <= 0)
                 return;
@@ -77,7 +78,8 @@ define(function(){
 
             // Generate url key
             var key = node.data('key'),
-                wrapper = $('#related-content');
+                wrapper = $('#related-content'),
+                Wiki = this;
 
             $('#related-tabs a').removeClass('tab-active');
 
@@ -117,6 +119,17 @@ define(function(){
                         wrapper.removeClass('loading').append(data);
                         Wiki.query = {};
 
+                        if(Wiki.pageUrl == '/store/realm/'){
+                            var total = $("#related-"+key+" .table tbody tr").length - 1;
+                            Wiki.related[key] = new WikiRelated(key, {
+                                paging: true,
+                                totalResults: total,
+                                column: 2,
+                                method: 'numeric',
+                                type: 'asc'
+                            }, Wiki);
+                        }
+
                         Core.fixTableHeaders('#related-'+ key);
                     }
                 }
@@ -144,5 +157,5 @@ define(function(){
 
     };
 
-    return Wiki;
+    return WikiClass;
 });

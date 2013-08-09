@@ -11,15 +11,19 @@ define(['modules/table','modules/filter', 'modules/wiki'], function(Table, Filte
          * @param page
          * @param config
          */
-        init: function(page, config) {
+        init: function(page, config, localWiki) {
             this.page = page;
             this.object = $('#related-'+ page);
+
+            if(typeof active == "undefined"){
+                active = false;
+            }
 
             if (this.object.find('table').length) {
                 this.table = new Table(this.object, config);
 
-                if (Wiki.tab == page && Wiki.query.page)
-                    this.table.paginate(Wiki.query.page);
+                if (localWiki.tab == page && localWiki.query.page)
+                    this.table.paginate(localWiki.query.page);
             }
 
             // Advanced toggle

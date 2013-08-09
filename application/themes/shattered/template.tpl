@@ -452,13 +452,6 @@
 <script type="text/javascript" src="/application/third_party/jquery.pngfix.pack.js"></script>
 <script type="text/javascript">$('.png-fix').pngFix();</script>
 <![endif]-->
-<!--
-<script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/third-party/jquery-ui-1.8.6.custom.min.js?v15"></script>
-<script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/overlay.js?v15"></script>
-<script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/search.js?v15"></script>
-<script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/third-party/jquery.mousewheel.min.js?v15"></script>
-<script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/third-party/jquery.tinyscrollbar.min.js?v15"></script>
--->
 {if not empty($refreshCacheItems)}
 <script type="text/javascript">
 var _urls = [

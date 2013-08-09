@@ -53,7 +53,7 @@
     </div>
     <span class="clear"><!-- --></span>
     <div class="related">
-        <div class="tabs ">
+        <div class="tabs">
             <ul id="related-tabs">
                 {if count($source.creature) > 0}
                     <li>

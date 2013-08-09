@@ -1,5 +1,5 @@
 
-define(function(){
+define(['modules/core'], function(Core){
 
     var Filter = {
 
