@@ -89,11 +89,11 @@ define(['modules/core', 'modules/toggle', 'modules/input', 'modules/tooltip'], f
                      * Store Name updates
                      * @type {*|jQuery|HTMLElement}
                      */
-                    var activeChar = $("#selected-character");
+                    /*var activeChar = $("#selected-character");
 
                     if(activeChar.length != 0){
                         $("#cart_items .item-nick").html(activeChar.data("name")+" @ "+activeChar.data("realmname"));
-                    }
+                    }*/
                 }
             });
             return;

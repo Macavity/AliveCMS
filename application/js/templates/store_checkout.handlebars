@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3>{{header}}</h3>
+</div>
+<div class="modal-body">
+    {{#if error}}
+        <div class="alert alert-danger">
+            {{lang.cant_afford}}<br />
+        </div>
+    {{else}}
+        <p>{{lang.want_to_buy}} <img src="{$url}application/images/icons/lightning.png" align="absmiddle" /> {{vp_sum}} VP</p>
+    {{/if}}
+</div>
+<div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">{{lang.cancel}}</button>
+    <button class="btn btn-primary jsStorePay">{{lang.buy}}</button>
+</div>

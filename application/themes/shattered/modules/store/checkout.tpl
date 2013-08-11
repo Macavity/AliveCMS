@@ -1,8 +1,8 @@
 <section id="checkout_info">
 	
-	<a href="javascript:void(0)" onClick="Store.Cart.pay()" class="nice_button button_right">{lang("checkout", "store")} &rarr;</a>
+	<a href="javascript:void(0)" onClick="Store.Cart.pay()" class="ui-button button1 button1-next jsStorePay"><span><span>{lang("checkout", "store")}</span></span></a>
 
-	<a href="javascript:void(0)" onClick="Store.Cart.back()" class="nice_button button_left">&larr; {lang("go_back", "store")}</a>
+	<a href="javascript:void(0)" onClick="Store.Cart.back()" class="ui-button button1 button1-previous jsGoToStore"><span><span>{lang("go_back", "store")}</span></span></a>
 
 	{lang("buying", "store")} <b>{$count} items</b> {lang("total_of", "store")}
 	

@@ -8,7 +8,7 @@
                 <h2>Vote Shop</h2>
             </div>
             <div class="alert alert-info span7">
-                Der Shop orientiert sich an deinem ausgewählten Charakter.
+                Der Shop orientiert sich an deinem ausgewählten Charakter. Du kannst den Charakter wechseln und so auf einen Schlag mehrere Gegenstände für verschiedene Charaktere einkaufen.
             </div>
 
             <!-- Right Side -->
@@ -27,7 +27,7 @@
                 <div id="cart_price" class="snippet">
                     <div id="cart_price_divider"></div>
 
-                    <a href="#" class="ui-button button1 button1-next jsStorePay"><span><span>{lang("checkout", "store")}</span></span></a>
+                    <a href="#" class="ui-button button1 button1-next jsStoreCheckout"><span><span>{lang("checkout", "store")}</span></span></a>
                     <div id="vp_price_full">
                         <img src="{$url}application/images/icons/lightning.png" align="absmiddle" /> <span id="vp_price">0</span> VP
                     </div>
@@ -61,6 +61,11 @@
         </section>
 
     </section>
+
+    <div id="modalCheckout" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+
+    </div>
+
 </section>
 <script type="text/javascript">
     require([

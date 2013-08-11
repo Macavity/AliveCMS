@@ -23,9 +23,10 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
 
             this.vp = vp;
 
+            this.updateActiveChar();
+
             this.initBindings();
 
-            this.updateActiveChar();
         },
 
         initBindings: function(){
@@ -34,6 +35,8 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
 
             $("#related-content").on("click", ".jsPutToCart", function(event){
                 debug.debug("jsPutToCart Event");
+
+                Controller.updateActiveChar();
 
                 var button = $(event.target);
 
@@ -75,11 +78,14 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
                     itemid: button.data("itemid"),
                     icon: button.data("icon"),
                     name: button.data("name"),
+                    character: Controller.activeChar.name,
+                    charGuid: Controller.activeChar.id,
+                    realm: Controller.activeChar.realm.id,
                     type: "vp"
                 };
 
-                if(Controller.isInCart(itemObject.id)){
-                    Controller.increaseCount(itemObject.id);
+                if(Controller.isInCart(itemObject)){
+                    Controller.increaseCount(itemObject);
                 }
                 else{
                     Controller.addToCart(itemObject);
@@ -89,31 +95,68 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
 
             });
 
+            /**
+             * Cart - Remove item from cart
+             */
             $("#cart_items").on("click", ".jsDeleteFromCart", function(event){
 
                 var button = $(event.target);
 
-                var removeId = button.data("item");
+                var removeKey = button.data("itemkey");
 
                 var newCart = [];
 
                 var cart = Controller.shoppingCart;
-                for(var id in cart){
-                    if (cart.hasOwnProperty(id)) {
-                        if(id != removeId){
-                            newCart[id] = cart[id];
+                for(var n in cart){
+                    if (cart.hasOwnProperty(n)) {
+                        if(n != removeKey){
+                            newCart.push(cart[n]);
                         }
                     }
                 }
 
                 Controller.shoppingCart = newCart;
 
-                $("#cart-item-"+removeId).remove();
+                $("#cart-item-"+removeKey).remove();
 
                 Controller.updateCartPrice();
             });
 
-            $("#cart_price").on("click", ".jsStorePay", function(event){
+            /**
+             * Cart - Show modal dialog if the user really wants to buy
+             */
+            $("#cart_price").on("click", ".jsStoreCheckout", function(event){
+
+                event.preventDefault();
+
+                Controller.updateCartPrice();
+
+                var modalTemplate = Controller.getTemplate("store_checkout");
+
+                var sumPrice = $("#vp_price").html()*1;
+
+                var hasError = false;
+
+                if(sumPrice > Controller.vp){
+                    hasError = true;
+                }
+
+                var modalHtml = modalTemplate({
+                    header: '',
+                    error: hasError,
+                    vp_sum: sumPrice,
+                    lang: mapStatic.lang.store
+                });
+
+                $("#modalCheckout").html(modalHtml)
+                    .modal('show');
+
+            });
+
+            /**
+             * Store - Buy
+             */
+            $("#store_wrapper").on("click", ".jsStorePay", function(event){
 
                 event.preventDefault();
 
@@ -123,41 +166,37 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
                     return;
                 }
 
-                var previousButtonHtml = button.html();
-
                 button
                     .addClass("disabled")
                     .html("<span><span>"+mapStatic.lang.loading+"</span></span>");
 
                 var cartList = JSON.stringify(Controller.shoppingCart);
 
-                $.post(Config.URL + "store/checkout", {
-                    cart: cartList,
-                    csrf_token_name: Config.CSRF
-                }, function(data){
+                $.post(Config.URL + "store/pay", {
+                        data: cartList,
+                        csrf_token_name: Config.CSRF
+                    },
+                    function(data){
 
-                    // Restore the button
-                    button
-                        .removeClass("disabled")
-                        .html(previousButtonHtml);
+                        // Close the modal
+                        $("#modalCheckout").modal("hide")
 
-                    if(data.type == "error"){
-                        var template = Controller.getTemplate("alert");
-                        var alertHtml = template({
-                            type: "danger",
-                            message: data.msg
-                        });
-                        $("#checkout").html(alertHtml).fadeIn(150);
+                        if(data.type == "error"){
+                            var template = Controller.getTemplate("alert");
+                            var alertHtml = template({
+                                type: "danger",
+                                message: data.msg
+                            });
+                            $("#checkout").html(alertHtml).fadeIn(150);
 
-                    }
-                    else if(data.type == "success"){
-                        $("#store").fadeOut(150);
-                        $("#checkout").html(data.content).fadeIn(150);
-                    }
-
-                }, "json");
-
+                        }
+                        else if(data.type == "success"){
+                            $("#store").fadeOut(150);
+                            $("#checkout").html(data.content).fadeIn(150);
+                        }
+                    }, "json");
             });
+
         },
 
         initWikiRelated: function(wrapperId, options){
@@ -167,12 +206,14 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
 
         addToCart: function(itemObject){
             this.updateActiveChar();
-            this.shoppingCart[itemObject.id] = itemObject;
-            this.shoppingCart[itemObject.id].count = 1;
+            itemObject.count = 1;
+            itemObject.wrapperKey = this.shoppingCart.length;
+            this.shoppingCart.push(itemObject);
 
             var compiledTemplate = this.getTemplate('store_article');
 
             var itemHTML = compiledTemplate({
+                wrapper_key: itemObject.id+"-"+this.activeChar.guid,
                 item: itemObject,
                 realm: this.activeChar.realm,
                 recipient: this.activeChar.name,
@@ -189,6 +230,7 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
             if(activeChar.length != 0){
                 this.activeChar = {
                     name: activeChar.data("name"),
+                    guid: activeChar.data("charid"),
                     realm: {
                         id: activeChar.data("realmid"),
                         name: activeChar.data("realmname")
@@ -221,15 +263,53 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
             }
         },
 
-        isInCart: function(id){
-            return (typeof this.shoppingCart[id] == "undefined")
-                ? false
-                : true;
+        /**
+         * Checks if a Store Entry is already in the cart for the specified Character
+         * @param itemObject
+         * @returns {boolean}
+         */
+        isInCart: function(itemObject){
+
+            var cartItem;
+            var cart = this.shoppingCart;
+
+            for(var n in cart){
+                if (cart.hasOwnProperty(n)) {
+                    cartItem = cart[n];
+                    // Realm needs no check because the storeEntryId is unique for each realm
+                    if(cartItem.id == itemObject.id && cartItem.character == itemObject.character){
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         },
 
-        increaseCount: function(id){
-            this.shoppingCart[id].count++;
-            $("#cart-quantity-"+id+" span").html("x"+this.shoppingCart[id].count);
+        /**
+         * Increase the count for this item
+         * @param itemObject
+         * @returns {boolean}
+         */
+        increaseCount: function(itemObject){
+
+            var cartItem;
+
+            for(var n in this.shoppingCart){
+                if (this.shoppingCart.hasOwnProperty(n)) {
+                    cartItem = this.shoppingCart[n];
+                    // Realm needs no check because the storeEntryId is unique for each realm
+                    if(cartItem.id == itemObject.id && cartItem.character == itemObject.character){
+
+                        this.shoppingCart[n].count++;
+                        $("#cart-quantity-"+this.shoppingCart[n].wrapper_key+" span").html("x"+this.shoppingCart[n].count);
+
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         },
 
         getTemplate: function(templateName){

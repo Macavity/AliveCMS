@@ -28,7 +28,13 @@ var mapStatic = {
     lang: {
         first: 'Erster',
         last: 'Letzter',
-        loading: 'Lade…'
+        loading: 'Lade…',
+        store: {
+            buy: "Kaufen",
+            cancel: "Abbrechen",
+            cant_afford: "Du kannst dir dies nicht leisten!",
+            want_to_buy: "Bist Du dir Sicher das Du diese Gegenstände kaufen möchtest?"
+        }
     },
 
     /**
