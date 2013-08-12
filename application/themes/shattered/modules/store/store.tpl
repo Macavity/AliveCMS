@@ -1,18 +1,25 @@
 <section id="store_wrapper">
 
-    <section id="checkout" class="span7"></section>
 
     <section id="store">
         <section id="store_content" class="wiki">
             <div class="title">
                 <h2>Vote Shop</h2>
             </div>
+
+            <section id="checkout" class="span7"></section>
+
             <div class="alert alert-info span7">
                 Der Shop orientiert sich an deinem ausgewählten Charakter. Du kannst den Charakter wechseln und so auf einen Schlag mehrere Gegenstände für verschiedene Charaktere einkaufen.
             </div>
 
             <!-- Right Side -->
             <section id="cart" class="sidebar">
+
+                <div class="snippet">
+                    Dein Guthaben: <img src="{$url}application/images/icons/lightning.png" align="absmiddle" /> {$vp} VP
+                </div>
+
                 <div class="online_realm_button snippet">
                     {lang("cart", "store")} (<span id="cart_item_count">0</span> {lang("items", "store")})
                 </div>

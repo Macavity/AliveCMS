@@ -30,6 +30,7 @@ var mapStatic = {
         last: 'Letzter',
         loading: 'Lade…',
         store: {
+            checkout: "Einkauf bestätigen",
             buy: "Kaufen",
             cancel: "Abbrechen",
             cant_afford: "Du kannst dir dies nicht leisten!",

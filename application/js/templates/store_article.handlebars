@@ -1,4 +1,4 @@
-<article id="cart-item-{{wrapper_key}}" class="cart-item">
+<article id="cart-item-{{item.uniqueKey}}" class="cart-item">
     <div class="divider"></div>
     <div class="item-icon">
         <a href="/item/{{realm.id}}/{{item.itemid}}" class="item-link">
@@ -11,8 +11,8 @@
     </div>
     <div class="item-name">
         <a href="#">{{item.name}}</a>
-        <span class="qty" id="cart-quantity-{{wrapper_key}}">[<span>x{{item.count}}</span>]</span>
+        <span class="qty" id="cart-quantity-{{item.uniqueKey}}">[<span>x{{item.count}}</span>]</span>
     </div>
     <span class="item-nick">{{recipient}} @ {{realm.name}}</span>
-    <a href="#" class="jsDeleteFromCart" data-itemkey="{{wrapper_key}}">Entfernen</a>
+    <a href="#" class="jsDeleteFromCart" data-itemkey="{{item.uniqueKey}}">Entfernen</a>
 </article>

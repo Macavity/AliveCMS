@@ -23,10 +23,8 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, stack2, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<article id=\"cart-item-";
-  if (stack1 = helpers.wrapper_key) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.wrapper_key; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
+  buffer += "<article id=\"cart-item-"
+    + escapeExpression(((stack1 = ((stack1 = depth0.item),stack1 == null || stack1 === false ? stack1 : stack1.uniqueKey)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\" class=\"cart-item\">\n    <div class=\"divider\"></div>\n    <div class=\"item-icon\">\n        <a href=\"/item/"
     + escapeExpression(((stack1 = ((stack1 = depth0.realm),stack1 == null || stack1 === false ? stack1 : stack1.id)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "/"
@@ -41,10 +39,8 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
     + escapeExpression(((stack1 = ((stack1 = depth0.item),stack1 == null || stack1 === false ? stack1 : stack1.vp_price)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\n    </div>\n    <div class=\"item-name\">\n        <a href=\"#\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.item),stack1 == null || stack1 === false ? stack1 : stack1.name)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</a>\n        <span class=\"qty\" id=\"cart-quantity-";
-  if (stack2 = helpers.wrapper_key) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
-  else { stack2 = depth0.wrapper_key; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
-  buffer += escapeExpression(stack2)
+    + "</a>\n        <span class=\"qty\" id=\"cart-quantity-"
+    + escapeExpression(((stack1 = ((stack1 = depth0.item),stack1 == null || stack1 === false ? stack1 : stack1.uniqueKey)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\">[<span>x"
     + escapeExpression(((stack1 = ((stack1 = depth0.item),stack1 == null || stack1 === false ? stack1 : stack1.count)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span>]</span>\n    </div>\n    <span class=\"item-nick\">";
@@ -53,17 +49,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   buffer += escapeExpression(stack2)
     + " @ "
     + escapeExpression(((stack1 = ((stack1 = depth0.realm),stack1 == null || stack1 === false ? stack1 : stack1.name)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span>\n    <a href=\"#\" class=\"jsDeleteFromCart\" data-itemkey=\"";
-  if (stack2 = helpers.wrapper_key) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
-  else { stack2 = depth0.wrapper_key; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
-  buffer += escapeExpression(stack2)
+    + "</span>\n    <a href=\"#\" class=\"jsDeleteFromCart\" data-itemkey=\""
+    + escapeExpression(((stack1 = ((stack1 = depth0.item),stack1 == null || stack1 === false ? stack1 : stack1.uniqueKey)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\">Entfernen</a>\n</article>";
   return buffer;
   });
 templates['store_checkout'] = template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
+  var buffer = "", stack1, stack2, functionType="function", escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
   
@@ -79,7 +73,11 @@ function program3(depth0,data) {
   var buffer = "", stack1, stack2;
   buffer += "\n        <p>"
     + escapeExpression(((stack1 = ((stack1 = depth0.lang),stack1 == null || stack1 === false ? stack1 : stack1.want_to_buy)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + " <img src=\"{$url}application/images/icons/lightning.png\" align=\"absmiddle\" /> ";
+    + " <img src=\"";
+  if (stack2 = helpers.url) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.url; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "application/images/icons/lightning.png\" align=\"absmiddle\" /> ";
   if (stack2 = helpers.vp_sum) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.vp_sum; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
@@ -87,13 +85,11 @@ function program3(depth0,data) {
   return buffer;
   }
 
-  buffer += "<div class=\"modal-header\">\n    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">×</button>\n    <h3>";
-  if (stack1 = helpers.header) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.header; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
+  buffer += "<div class=\"modal-header\">\n    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">×</button>\n    <h3>"
+    + escapeExpression(((stack1 = ((stack1 = depth0.lang),stack1 == null || stack1 === false ? stack1 : stack1.checkout)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</h3>\n</div>\n<div class=\"modal-body\">\n    ";
-  stack1 = helpers['if'].call(depth0, depth0.error, {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  stack2 = helpers['if'].call(depth0, depth0.error, {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n</div>\n<div class=\"modal-footer\">\n    <button class=\"btn\" data-dismiss=\"modal\" aria-hidden=\"true\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.lang),stack1 == null || stack1 === false ? stack1 : stack1.cancel)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</button>\n    <button class=\"btn btn-primary jsStorePay\">"

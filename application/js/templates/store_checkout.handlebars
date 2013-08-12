@@ -1,6 +1,6 @@
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3>{{header}}</h3>
+    <h3>{{lang.checkout}}</h3>
 </div>
 <div class="modal-body">
     {{#if error}}
@@ -8,7 +8,7 @@
             {{lang.cant_afford}}<br />
         </div>
     {{else}}
-        <p>{{lang.want_to_buy}} <img src="{$url}application/images/icons/lightning.png" align="absmiddle" /> {{vp_sum}} VP</p>
+        <p>{{lang.want_to_buy}} <img src="{{url}}application/images/icons/lightning.png" align="absmiddle" /> {{vp_sum}} VP</p>
     {{/if}}
 </div>
 <div class="modal-footer">

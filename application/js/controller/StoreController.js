@@ -78,8 +78,10 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
                     itemid: button.data("itemid"),
                     icon: button.data("icon"),
                     name: button.data("name"),
+                    count: 1,
                     character: Controller.activeChar.name,
-                    charGuid: Controller.activeChar.id,
+                    charGuid: Controller.activeChar.guid,
+                    uniqueKey: button.data("id")+"-"+Controller.activeChar.guid,
                     realm: Controller.activeChar.realm.id,
                     type: "vp"
                 };
@@ -107,9 +109,11 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
                 var newCart = [];
 
                 var cart = Controller.shoppingCart;
+                var cartItem;
                 for(var n in cart){
                     if (cart.hasOwnProperty(n)) {
-                        if(n != removeKey){
+                        cartItem = cart[n];
+                        if(cartItem.uniqueKey != removeKey){
                             newCart.push(cart[n]);
                         }
                     }
@@ -142,7 +146,7 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
                 }
 
                 var modalHtml = modalTemplate({
-                    header: '',
+                    url: Config.URL,
                     error: hasError,
                     vp_sum: sumPrice,
                     lang: mapStatic.lang.store
@@ -160,15 +164,17 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
 
                 event.preventDefault();
 
-                var button = $(event.target).parent().parent();
+                var modal = $("#modalCheckout");
+                var modalBody = modal.find(".modal-body");
+                var modalFooter = modal.find(".modal-footer");
 
-                if(button.hasClass("disabled")){
+                if(modal.hasClass("disabled")){
                     return;
                 }
 
-                button
-                    .addClass("disabled")
-                    .html("<span><span>"+mapStatic.lang.loading+"</span></span>");
+                modal.addClass("disabled");
+                modalBody.hide();
+                modalBody.html("<h3>"+mapStatic.lang.loading+"</h3>");
 
                 var cartList = JSON.stringify(Controller.shoppingCart);
 
@@ -178,10 +184,8 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
                     },
                     function(data){
 
-                        // Close the modal
-                        $("#modalCheckout").modal("hide")
-
                         if(data.type == "error"){
+                            modal.modal("hide")
                             var template = Controller.getTemplate("alert");
                             var alertHtml = template({
                                 type: "danger",
@@ -191,11 +195,25 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
 
                         }
                         else if(data.type == "success"){
-                            $("#store").fadeOut(150);
-                            $("#checkout").html(data.content).fadeIn(150);
+                            modal.modal("hide")
+                            var template = Controller.getTemplate("alert");
+                            var alertHtml = template({
+                                type: "success",
+                                message: data.msg
+                            });
+                            $("#checkout").html(alertHtml).fadeIn(150);
+                            $("#store_realms, #cart").fadeOut(300);
+                        }
+                        else{
+                            modal.html(data);
                         }
                     }, "json");
             });
+
+        },
+
+
+        clickRemoveItem: function(button){
 
         },
 
@@ -206,14 +224,11 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
 
         addToCart: function(itemObject){
             this.updateActiveChar();
-            itemObject.count = 1;
-            itemObject.wrapperKey = this.shoppingCart.length;
             this.shoppingCart.push(itemObject);
 
             var compiledTemplate = this.getTemplate('store_article');
 
             var itemHTML = compiledTemplate({
-                wrapper_key: itemObject.id+"-"+this.activeChar.guid,
                 item: itemObject,
                 realm: this.activeChar.realm,
                 recipient: this.activeChar.name,
@@ -277,7 +292,7 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
                 if (cart.hasOwnProperty(n)) {
                     cartItem = cart[n];
                     // Realm needs no check because the storeEntryId is unique for each realm
-                    if(cartItem.id == itemObject.id && cartItem.character == itemObject.character){
+                    if(cartItem.uniqueKey == itemObject.uniqueKey){
                         return true;
                     }
                 }
@@ -294,16 +309,16 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
         increaseCount: function(itemObject){
 
             var cartItem;
+            var cart = this.shoppingCart;
 
-            for(var n in this.shoppingCart){
-                if (this.shoppingCart.hasOwnProperty(n)) {
-                    cartItem = this.shoppingCart[n];
+            for(var n in cart){
+                if (cart.hasOwnProperty(n)) {
+                    cartItem = cart[n];
                     // Realm needs no check because the storeEntryId is unique for each realm
-                    if(cartItem.id == itemObject.id && cartItem.character == itemObject.character){
+                    if(cartItem.uniqueKey == itemObject.uniqueKey){
 
-                        this.shoppingCart[n].count++;
-                        $("#cart-quantity-"+this.shoppingCart[n].wrapper_key+" span").html("x"+this.shoppingCart[n].count);
-
+                        cartItem.count++;
+                        $("#cart-quantity-"+cartItem.uniqueKey+" span").html("x"+cartItem.count);
                         return true;
                     }
                 }
