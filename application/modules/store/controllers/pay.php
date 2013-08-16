@@ -97,6 +97,9 @@ class Pay extends MX_Controller
 		{
 
             $storeItem = $items[$item['id']];
+            $recipientCharGuid = $item['charGuid'];
+
+            $charDb = $this->realms->getRealm($storeItem['realm'])->getCharacters();
 
 			// Is it a query or command?
 			if(empty($storeItem['query']) && empty($storeItem['command']))
@@ -107,18 +110,18 @@ class Pay extends MX_Controller
 				}
 
 				// Make sure the character exists
-				if(!$this->realms->getRealm($storeItem['realm'])->getCharacters()->characterExists($item['character'])){
-                    $this->show_error(lang("error_character_exists", "store"));
+				if(!$charDb->characterExists($recipientCharGuid)){
+                    $this->show_error(str_replace('{0}', $item['character'], lang("error_character_exists", 'store')));
 				}
 
 				// Make sure the character belongs to this account
-				if(!$this->realms->getRealm($storeItem['realm'])->getCharacters()->characterBelongsToAccount($item['character'], $this->user->getId())){
+				if(!$charDb->characterBelongsToAccount($recipientCharGuid, $this->user->getId())){
                     $this->show_error(lang("error_character_not_mine", "store"));
 				}
 
 				// Make sure the character array exists in the realm array
-				if(!isset($realmItems[$storeItem['realm']][$item['character']])){
-					$realmItems[$storeItem['realm']][$item['character']] = array();
+				if(!isset($realmItems[$storeItem['realm']][$recipientCharGuid])){
+					$realmItems[$storeItem['realm']][$recipientCharGuid] = array();
 				}
 				
 				// Check for multiple items
@@ -131,14 +134,14 @@ class Pay extends MX_Controller
 						// Add them individually to the array
                         $itemCount = $item['count'];
                         while($itemCount-- >= 0){
-                            array_push($realmItems[$storeItem['realm']][$item['character']], array('id' => $id));
+                            array_push($realmItems[$storeItem['realm']][$recipientCharGuid], array('id' => $id));
                         }
 					}
 				}
 				else{
                     $itemCount = $item['count'];
                     while($itemCount-- >= 0){
-    					array_push($realmItems[$storeItem['realm']][$item['character']], array('id' => $storeItem['itemid']));
+    					array_push($realmItems[$storeItem['realm']][$recipientCharGuid], array('id' => $storeItem['itemid']));
                     }
 				}
 			}
@@ -155,19 +158,19 @@ class Pay extends MX_Controller
 			}
 		}
 
-		// Let the user pay before we start sending any items!
+        // Let the user pay before we start sending any items!
 		$this->subtractPoints();
 
 		$this->store_model->logOrder($this->vp, $this->dp, $cart);
 
-		foreach($cart as $item)
-		{
-			// Is it a query?
+        foreach($cart as $item){
+            // Is it a query?
 			if(!empty($items[$item['id']]['query']))
 			{
                 $itemCount = $item['count'];
                 while($itemCount-- >= 0){
-                    $this->handleQuery($items[$item['id']]['query'], $items[$item['id']]['query_database'], (isset($item['character']) ? $item['character'] : false), $items[$item['id']]['realm']);
+                    debug("handle query", $item);
+                    $this->handleQuery($items[$item['id']]['query'], $items[$item['id']]['query_database'], (isset($item['charGuid']) ? $item['character'] : false), $items[$item['id']]['realm']);
                 }
             }
 			// Or a command?
@@ -178,7 +181,7 @@ class Pay extends MX_Controller
 				foreach($commands as $command)
 				{
 					$command = preg_replace("/\{ACCOUNT\}/", $this->external_account_model->getUsername(), $command);
-					$command = preg_replace("/\{CHARACTER\}/", (isset($item['character']) ? $this->realms->getRealm($items[$item['id']]['realm'])-> getCharacters()->getNameByGuid($item['character']) : false), $command);
+					$command = preg_replace("/\{CHARACTER\}/", (isset($item['charGuid']) ? $this->realms->getRealm($items[$item['id']]['realm'])-> getCharacters()->getNameByGuid($item['charGuid']) : false), $command);
 
                     $itemCount = $item['count'];
                     while($itemCount-- >= 0){
@@ -191,15 +194,18 @@ class Pay extends MX_Controller
 		// Loop through all realms
 		foreach($realmItems as $realm => $characters)
 		{
-			// Loop through all characters
+
+            // Loop through all characters
 			foreach($characters as $character => $items)
 			{
+                //debug("realmItems", $items);
 				$characterName = $this->realms->getRealm($realm)->getCharacters()->getConnection()->query(query("get_charactername_by_guid"), array($character));
 				$characterName = $characterName->result_array();
 				
 				$this->realms->getRealm($realm)->getEmulator()->sendItems($characterName[0]['name'], $this->config->item("store_subject"), $this->config->item("store_body"), $items);
 			}
 		}
+        //debug("items done");
 		
 		$this->store_model->completeOrder();
 

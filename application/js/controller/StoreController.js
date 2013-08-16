@@ -173,8 +173,8 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
                 }
 
                 modal.addClass("disabled");
-                modalBody.hide();
-                modalBody.html("<h3>"+mapStatic.lang.loading+"</h3>");
+                modalFooter.hide();
+                modalBody.html("<h3>"+mapStatic.lang.loading+"</h3>"+'<br><img src="/application/themes/shattered/images/uber-loading.gif">');
 
                 var cartList = JSON.stringify(Controller.shoppingCart);
 
@@ -184,8 +184,10 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
                     },
                     function(data){
 
+                        modal.modal("hide")
+                        modal.removeClass("disabled");
+
                         if(data.type == "error"){
-                            modal.modal("hide")
                             var template = Controller.getTemplate("alert");
                             var alertHtml = template({
                                 type: "danger",
@@ -207,7 +209,12 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
                         else{
                             modal.html(data);
                         }
-                    }, "json");
+                    }, "json")
+                    .fail(function(data) {
+                        modal.modal("hide")
+                        modal.removeClass("disabled");
+                        $("#checkout").html(data.responseText).fadeIn(150);
+                    });
             });
 
         },
