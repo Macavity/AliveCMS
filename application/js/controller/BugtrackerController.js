@@ -1,5 +1,5 @@
 
-define(['./BaseController', 'wiki', 'wiki_related'], function (BaseController, Wiki, WikiRelated) {
+define(['./BaseController', 'modules/wiki', 'modules/wiki_related'], function (BaseController, Wiki, WikiRelated) {
 
     var BugtrackerController = BaseController.extend({
         init: function(){

@@ -98,6 +98,11 @@ class Bugtracker extends MX_Controller{
         foreach($baseProjects as $l0key => $l0project){
 
             //$projectChoices[$l0key] = $l0project["title"];
+            debug("Level 0", $l0project);
+            $l0all = $l0project['counts']['all'];
+            $l0done = $l0project['counts']['done'];
+            $l0open = $l0project['counts']['open'];
+            $l1projects = array();
 
             if(!empty($projectsByParent[$l0key])){
 
@@ -107,6 +112,13 @@ class Bugtracker extends MX_Controller{
                 // Foreach level 1 Project of this Level 1 project
                 foreach($l1projects as $l1key => $l1project){
 
+                    debug("L1",$l1project);
+
+                    $l1all = $l1project['counts']['all'];
+                    $l1done = $l1project['counts']['done'];
+                    $l1open = $l1project['counts']['open'];
+                    $l2projects = array();
+
                     if(!empty($projectsByParent[$l1key])){
 
                         // Level 2 Projects
@@ -114,19 +126,36 @@ class Bugtracker extends MX_Controller{
 
                         foreach($l2projects as $l2key => $l2project){
                             // Add "done" and "all" counts to the Level-1
-                            $l1project["counts"]["done"] += $l2project["counts"]["done"];
-                            $l1project["counts"]["all"] += $l2project["counts"]["all"];
+                            $l1done += $l2project["counts"]["done"];
+                            $l1all += $l2project["counts"]["all"];
+                            $l1open += $l2project["counts"]["open"];
                         }
 
                         // Save L2 back to L1 stack
                         $l1projects[$l1key]["projects"] = $l2projects;
                     }
 
+                    $l1projects[$l1key]['projects'] = $l2projects;
+                    $l1projects[$l1key]['counts']['all'] = $l1all;
+                    $l1projects[$l1key]['counts']['done'] = $l1done;
+                    $l1projects[$l1key]['counts']['open'] = $l1open;
+                    if($l1all > 0){
+                        //debug("L1 ".$l1project['title'], "$l1done/$l1all");
+                        $l1projects[$l1key]['counts']['percentage']['done'] = round($l1done/$l1all*100);
+                    }
+
                     // Add "done" and "all" counts to the L0
-                    $l0project["counts"]["done"] += $l1project["counts"]["done"];
-                    $l0project["counts"]["all"] += $l1project["counts"]["all"];
+                    $l0done += $l1projects[$l1key]["counts"]["done"];
+                    $l0open += $l1projects[$l1key]["counts"]["open"];
+                    $l0all += $l1projects[$l1key]["counts"]["all"];
 
 
+                }
+                $baseProjects[$l0key]['counts']['done'] = $l0done;
+                $baseProjects[$l0key]['counts']['all'] = $l0all;
+                $baseProjects[$l0key]['counts']['open'] = $l0open;
+                if($l0all > 0){
+                    $baseProjects[$l0key]['counts']['percentage']['done'] = round($l0done/$l0all*100);
                 }
 
                 // Save L1 back to L0 stack (Base)
