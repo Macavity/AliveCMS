@@ -3,25 +3,17 @@
  * Bugtracker Init file
  */
 
-requirejs.config({
-    baseUrl: '/application/js',
+require(['static'], function(){
 
-    // Disable internal caching of the files (development only)
-    //urlArgs: "bust=" + (new Date()).getTime(),
-    urlArgs: "rev=617.3",
+    require([
+            'controller/BugtrackerController'
+        ],
+        function (BugtrackerController) {
+            $(function () {
+                debug.debug("js/bugtracker");
+                var controller = new BugtrackerController();
+            });
+        }
+    );
 
-    paths: {
-    }
 });
-
-require([
-        'static',
-        'controller/BugtrackerController'
-    ],
-    function (static, BugtrackerController) {
-        $(function () {
-            debug.debug("js/bugtracker");
-            var controller = new BugtrackerController();
-        });
-    }
-);

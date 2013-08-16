@@ -102,7 +102,7 @@ var Router = {
 					// Change the content
 					$("#content_ajax").html(data.content);
 					
-					Tooltip.refresh();
+					FusionTooltip.refresh();
 
 					// Change the title
 					if(data.title.length > 0)

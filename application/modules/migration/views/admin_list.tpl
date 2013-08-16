@@ -96,27 +96,29 @@
     </div>
 </section>
 <script type="text/javascript">
-    require([
-        'static',
-        'controller/AdminController',
-        'tooltip'
-    ],
-            function (static, AdminController, Tooltip) {
+    require(['/application/js/static'], function(){
+        require([
+            'controller/AdminController',
+            'tooltip'
+        ],
+                function (AdminController, Tooltip) {
+                    $(function () {
+                        debug.debug("js/migration_admin");
 
-                $(function () {
-                    debug.debug("js/migration_admin");
+                        var controller = new AdminController();
 
-                    var controller = new AdminController();
+                        var totalResults = $("#totalResults").val();
 
-                    controller.initWiki('migrations', {
-                        paging: true,
-                        results: 100,
-                        totalResults: {$count},
-                        column: 1,
-                        method: 'numeric',
-                        type: 'desc'
+                        controller.initWiki('loot', {
+                            paging: true,
+                            results: 100,
+                            totalResults: {$count},
+                            column: 1,
+                            method: 'numeric',
+                            type: 'desc'
+                        });
+
                     });
-
                 });
-            });
+    });
 </script>

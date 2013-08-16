@@ -60,7 +60,7 @@
                 baseUrl: '/application/js',
 
                 // Disable internal caching of the files (development only)
-                urlArgs: "rev=617.2",
+                urlArgs: "rev=617.4",
 
                 paths: {
                 }

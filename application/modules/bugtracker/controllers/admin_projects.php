@@ -68,7 +68,7 @@ class Admin_Projects extends MX_Controller
                     if(!empty($projectsByParent[$key])){
                         $subsubs = $projectsByParent[$key];
                     }
-                    
+
                     $subProjects[$key]["projects"] = $subsubs;
 
                     $projectChoices[$key] = $project["title"].": ".$subProject["title"];
