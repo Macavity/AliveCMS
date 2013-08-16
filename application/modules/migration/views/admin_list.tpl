@@ -96,7 +96,7 @@
     </div>
 </section>
 <script type="text/javascript">
-    require(['/application/js/static'], function(){
+    require(['/application/js/static.js'], function(){
         require([
             'controller/AdminController',
             'tooltip'
@@ -109,7 +109,7 @@
 
                         var totalResults = $("#totalResults").val();
 
-                        controller.initWiki('loot', {
+                        controller.initWiki('migrations', {
                             paging: true,
                             results: 100,
                             totalResults: {$count},

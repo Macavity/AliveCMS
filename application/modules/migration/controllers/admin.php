@@ -442,22 +442,23 @@ class Admin extends CI_Controller {
         /**
          * Other Characters
          */
-        $realmCharacters = $this->user->getCharacters($migration['account_id']);
-
         $charactersData = array();
 
-        foreach($realmCharacters as $realmRow){
-            foreach($realmRow['characters'] as $charRow){
+        foreach($this->realms->getRealms() as $realmRow){
+            $realmCharacters = $realmRow->getCharacters()->getCharactersByAccount($migration['account_id']);
+
+            foreach($realmCharacters as $charRow){
                 $charactersData[] = array(
                     'guid' => $charRow['guid'],
                     'name' => $charRow['name'],
                     'level' => $charRow['level'],
                     'class' => $charRow['class'],
                     'class_label' => $this->realms->getClass($charRow['class'], $charRow['gender']),
-                    'realm' => $realmRow['realmName'],
+                    'realm' => $realmRow->getName(),
                 );
             }
         }
+
 
         //debug($characters);
 

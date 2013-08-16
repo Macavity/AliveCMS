@@ -465,7 +465,7 @@ class User
 			}
 			else //Get the characters for the specified realm
 			{
-				$realm = $this->realms->getRealm($realmId);
+				$realm = $this->CI->realms->getRealm($realmId);
 
 				$character = $realm->getCharacters();
 					

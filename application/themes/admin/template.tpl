@@ -56,17 +56,6 @@
 				});
 			});
 
-            requirejs.config({
-                baseUrl: '/application/js',
-
-                // Disable internal caching of the files (development only)
-                urlArgs: "rev=617.4",
-
-                paths: {
-                }
-            });
-
-
         </script>
 
 		<!--[if IE]>
