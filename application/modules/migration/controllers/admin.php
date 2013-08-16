@@ -118,6 +118,8 @@ class Admin extends CI_Controller {
             return;
         }
 
+        $migration['account_name'] = $this->user->getUsername($migration['account_id']);
+
         /**
          * @var Integer
          */
@@ -419,23 +421,45 @@ class Admin extends CI_Controller {
         if($faction == FACTION_HORDE){
             $migration['factions'][67] = array(
                 'label' => $this->migration_model->getFactionLabel(469),
-                'standing' => $this->migration_model->calcHordeRep($migration['factions']),
+                'standing' => $this->migration_model->calcHordeRep($migration['reputations']),
             );
             $migration['factions'][1052] = array(
                 'label' => $this->migration_model->getFactionLabel(1052),
-                'standing' => $this->migration_model->calcHordeWotlkRep($migration['factions']),
+                'standing' => $this->migration_model->calcHordeWotlkRep($migration['reputations']),
             );
         }
         else{
             $migration['factions'][469] = array(
                 'label' => $this->migration_model->getFactionLabel(469),
-                'standing' => $this->migration_model->calcAllianceRep($migration['factions']),
+                'standing' => $this->migration_model->calcAllianceRep($migration['reputations']),
             );
             $migration['factions'][1037] = array(
                 'label' => $this->migration_model->getFactionLabel(1037),
-                'standing' => $this->migration_model->calcAllianceWotlkRep($migration['factions']),
+                'standing' => $this->migration_model->calcAllianceWotlkRep($migration['reputations']),
             );
         }
+
+        /**
+         * Other Characters
+         */
+        $realmCharacters = $this->user->getCharacters($migration['account_id']);
+
+        $charactersData = array();
+
+        foreach($realmCharacters as $realmRow){
+            foreach($realmRow['characters'] as $charRow){
+                $charactersData[] = array(
+                    'guid' => $charRow['guid'],
+                    'name' => $charRow['name'],
+                    'level' => $charRow['level'],
+                    'class' => $charRow['class'],
+                    'class_label' => $this->realms->getClass($charRow['class'], $charRow['gender']),
+                    'realm' => $realmRow['realmName'],
+                );
+            }
+        }
+
+        //debug($characters);
 
         /**
          * Migration completed?
@@ -468,6 +492,7 @@ class Admin extends CI_Controller {
             'migration_count' => count($accountMigrations),
             'other_migrations' => $otherMigrations,
             'gm_account_name' => $this->user->getUsername(),
+            'characters' => $charactersData,
             'message' => $message,
         );
 

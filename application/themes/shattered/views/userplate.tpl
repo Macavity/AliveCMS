@@ -16,7 +16,7 @@
         <div class="meta">
             <div class="player-name">{$nickname}</div>
             <div class="character">
-                <a class="character-name context-link" rel="np" href="{$activeChar.url}" data-tooltip="Charakter wechseln" data-tooltip-options="{literal}{&quot;location&quot;: &quot;topCenter&quot;}{/literal}">
+                <a id="selected-character" class="character-name context-link" data-realmid="{$activeChar.realmId}" data-realmname="{$activeChar.realmName}" data-charid="{$activeChar.guid}" data-name="{$activeChar.name}" href="{$activeChar.url}" data-tooltip="Charakter wechseln" data-tooltip-options="{literal}{&quot;location&quot;: &quot;topCenter&quot;}{/literal}">
                     {$activeChar.name}
                     <span class="arrow"></span>
                 </a>

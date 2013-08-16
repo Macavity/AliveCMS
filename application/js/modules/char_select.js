@@ -85,8 +85,15 @@ define(['modules/core', 'modules/toggle', 'modules/input', 'modules/tooltip'], f
                     else*/
                         CharSelect.replace(content);
 
-                    // TODO: Check necessity
-                    $("#vote-active-char").html($(".context .context-user strong").html());
+                    /**
+                     * Store Name updates
+                     * @type {*|jQuery|HTMLElement}
+                     */
+                    /*var activeChar = $("#selected-character");
+
+                    if(activeChar.length != 0){
+                        $("#cart_items .item-nick").html(activeChar.data("name")+" @ "+activeChar.data("realmname"));
+                    }*/
                 }
             });
             return;

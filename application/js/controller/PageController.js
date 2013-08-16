@@ -8,10 +8,6 @@ define(['./BaseController'], function (BaseController) {
             debug.debug("PageController.initialize");
         },
 
-        initWiki: function(){
-
-        },
-
         getTemplate: function(templateName){
             return Handlebars.templates[templateName];
         }

@@ -4,7 +4,7 @@ class Store_model extends CI_Model
 {
 	public function getItems($realm)
 	{
-		$this->db->select('*')->from('store_items')->where(array('realm' => $realm))->order_by('group,id', 'ASC');
+		$this->db->select('*')->from('store_items')->where(array('realm' => $realm))->order_by('group,vp_price', 'ASC');
 		$query = $this->db->get();
 		
 		if($query->num_rows() > 0)

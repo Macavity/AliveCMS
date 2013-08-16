@@ -108,8 +108,17 @@
   }
 
   /* Comments */
-  #content .content-top {
-    background: url("../images/wiki/zone/index-bg.jpg") 0 0 no-repeat;
+  #content{
+    .content-top {
+      background: url("../images/wiki/zone/index-bg.jpg") 0 0 no-repeat;
+    }
+
+    .contents-wrapper,
+    .body-wrapper,
+    .bg-body {
+      background: none;
+    }
+
   }
 
   .bugtracker-actions {

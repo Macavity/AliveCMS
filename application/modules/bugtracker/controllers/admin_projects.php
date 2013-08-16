@@ -56,23 +56,27 @@ class Admin_Projects extends MX_Controller
         foreach($baseProjects as $projectId => $project){
             $projectChoices[$projectId] = $project["title"];
 
+            $subProjects = array();
+
             if(!empty($projectsByParent[$projectId])){
                 $subProjects = $projectsByParent[$projectId];
 
                 foreach($subProjects as $key => $subProject){
+
+                    $subsubs = array();
+
                     if(!empty($projectsByParent[$key])){
                         $subsubs = $projectsByParent[$key];
-
-                        $subProjects[$key]["projects"] = $subsubs;
                     }
+
+                    $subProjects[$key]["projects"] = $subsubs;
 
                     $projectChoices[$key] = $project["title"].": ".$subProject["title"];
 
                 }
 
-                $baseProjects[$projectId]["projects"] = $subProjects;
-
             }
+            $baseProjects[$projectId]["projects"] = $subProjects;
 
         }
 
@@ -205,8 +209,10 @@ class Admin_Projects extends MX_Controller
             }
         }
 
+        $data['matpath'] = $this->project_model->getMaterializedPath($id);
+
         if($output["state"] != "error"){
-            $this->project_model->update($id, $data);
+            $this->project_model->edit($id, $data);
             $output["message"] = "Das Projekt wurde erfolgreich bearbeitet.";
         }
 

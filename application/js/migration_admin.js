@@ -3,38 +3,28 @@
  * News Init file
  */
 
-requirejs.config({
-    baseUrl: '/application/js',
+require(['static'], function(){
+    require([
+            'controller/AdminController',
+            'tooltip'
+        ],
+        function (AdminController, Tooltip) {
+            $(function () {
+                debug.debug("js/migration_admin");
 
-    // Disable internal caching of the files (development only)
-    //urlArgs: "bust=" + (new Date()).getTime(),
-    urlArgs: "rev=617.2",
+                var controller = new AdminController();
 
-    paths: {
-    }
+                var totalResults = $("#totalResults").val();
+
+                controller.initWiki('loot', {
+                    paging: true,
+                    totalResults: totalResults,
+                    column: 1,
+                    method: 'default',
+                    type: 'desc'
+                });
+
+            });
+        });
 });
 
-require([
-    'static',
-    'controller/AdminController',
-    'tooltip'
-],
-    function (static, AdminController, Tooltip) {
-
-        $(function () {
-            debug.debug("js/migration_admin");
-
-            var controller = new AdminController();
-
-            var totalResults = $("#totalResults").val();
-
-            controller.initWiki('loot', {
-                paging: true,
-                totalResults: totalResults,
-                column: 1,
-                method: 'default',
-                type: 'desc'
-            });
-
-        });
-    });

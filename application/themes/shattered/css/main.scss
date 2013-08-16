@@ -19,6 +19,8 @@
  */
 @import "../../../css/bootstrap.min.css";
 
+@import "bootstrap_correction";
+
 @import "common"; /* vorher layout-fixed */
 @import "layout";
 
@@ -38,6 +40,10 @@
 
 // Wiki Styles
 @import "wiki";
+
+@import "item";
+
+@import "store";
 
 // Game Info Pages
 @import "game";

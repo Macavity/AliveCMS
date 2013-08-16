@@ -138,6 +138,45 @@ class Project_Model extends CI_Model {
         }
     }
 
+    public function getMaterializedPath($projectId, $parent = -1){
+
+        if($parent === -1){
+            if($projectRow = $this->getProjectById($projectId)){
+                $parent = $projectRow['parent'];
+            }
+            else{
+                return "error";
+            }
+        }
+
+        $path = array($projectId);
+
+        while($parentRow = $this->getProjectById($parent)){
+            $path[] = $parentRow['id'];
+            $parent = $parentRow['parent'];
+        }
+
+        //debug($path);
+
+        sort($path);
+
+        return implode(".",$path);
+
+
+    }
+
+    private function getProjectById($projectId, $select = '*'){
+        if(empty($projectId))
+            return false;
+
+        $query = $this->db->select($select)->from('bugtracker_projects')->where('id', $projectId)->get();
+        if($query->num_rows() > 0){
+            $row = $query->row_array();
+            return $row;
+        }
+        return false;
+    }
+
     /**
      * Set the order of a project
      * @param $id

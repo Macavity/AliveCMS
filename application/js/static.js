@@ -5,6 +5,17 @@
 // except for 'app' ones, which are in a sibling
 // directory.
 
+requirejs.config({
+    baseUrl: '/application/js',
+
+    // Disable internal caching of the files (development only)
+    //urlArgs: "bust=" + (new Date()).getTime(),
+    urlArgs: "rev=617.4",
+
+    paths: {
+    }
+});
+
 var mapStatic = {
 
     urls: {
@@ -28,7 +39,14 @@ var mapStatic = {
     lang: {
         first: 'Erster',
         last: 'Letzter',
-        loading: 'Lade…'
+        loading: 'Lade…',
+        store: {
+            checkout: "Einkauf bestätigen",
+            buy: "Kaufen",
+            cancel: "Abbrechen",
+            cant_afford: "Du kannst dir dies nicht leisten!",
+            want_to_buy: "Bist Du dir Sicher das Du diese Gegenstände kaufen möchtest?"
+        }
     },
 
     /**

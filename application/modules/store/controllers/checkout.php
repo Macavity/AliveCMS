@@ -20,97 +20,103 @@ class Checkout extends MX_Controller
 	/**
 	 * Main method to serve the checkout action
 	 */
-	public function index()
-	{
-		$cart = $this->input->post("cart");
+	public function index(){
+        $message = array();
+
+        $cart = $this->input->post("cart");
+        $cart = json_decode($cart, true);
+
 
 		// Make sure they sent us a cart object
-		if(!$cart)
-		{
-			die("Please provide a cart object");
-		}
-
-		try
-		{
-			// Decode the JSON object
-			$cart = json_decode($cart, true);
-		}
-		catch(Exception $error)
-		{
-			die("Please provide a valid cart object");
+		if(!$cart){
+            $this->show_error('Ungültiger Aufruf.');
 		}
 
 		// Make sure they don't submit an empty array
-		if(count($cart) == 0)
-		{
-			die("Your cart can't be empty");
+		if(count($cart) == 0){
+            $this->show_error('Dein Einkaufswagen enthält nichts.');
 		}
 
-		$items = array();
-		$realms = array();
+        $activeRealmId = $this->user->getActiveRealmId();
 
-		// Load all items
-		foreach($cart as $item)
-		{
-			// Load the item
-			$items[$item['id']] = $this->store_model->getItem($item['id']);
+        $items = array();
+        $realms = array();
 
-			// Make sure the item exists
-			if($items[$item['id']] != false)
-			{
-				$this->count++;
+        // Load all items
+        foreach($cart as $item){
 
-				// Keep track of how much it costs
-				if($item['type'] == "vp" && !empty($items[$item['id']]['vp_price']))
-				{
-					$this->vp += $items[$item['id']]['vp_price'];
-				}
-				elseif($item['type'] == "dp" && !empty($items[$item['id']]['dp_price']))
-				{
-					$this->dp += $items[$item['id']]['dp_price'];
-				}
-				else
-				{
-					die(lang("free_items", "store"));
-				}
-			}
+            // Load the item
+            $items[$item['id']] = $this->store_model->getItem($item['id']);
 
-			// Put it in the realm array
-			if(!isset($realms[$items[$item['id']]['realm']]))
-			{
-				$realms[$items[$item['id']]['realm']] = array(
-					'name' => $this->realms->getRealm($items[$item['id']]['realm'])->getName(),
-					'items' => array(),
-					'characters' => $this->realms->getRealm($items[$item['id']]['realm'])->getCharacters()->getCharactersByAccount(),
-				);
-			}
+            $itemCount = abs($item['count']);
 
-			array_push($realms[$items[$item['id']]['realm']]['items'], $items[$item['id']]);
-		}
+            // Make sure the item exists
+            if($items[$item['id']] != false){
+                $this->count++;
 
-		// Make sure the user can afford it
-		if(!$this->canAfford())
-		{		
-			$output = $this->template->loadPage("checkout_error.tpl");
 
-			die($output);
-		}
+                // Keep track of how much it costs
+                if($item['type'] == "vp" && !empty($items[$item['id']]['vp_price'])){
+                    $this->vp += $items[$item['id']]['vp_price'] * $itemCount;
+                }
+                elseif($item['type'] == "dp" && !empty($items[$item['id']]['dp_price'])){
+                    $this->dp += $items[$item['id']]['dp_price'] * $itemCount;
+                }
+                else{
+                    $this->show_error(lang("free_items", "store"));
+                }
+            }
 
-		// Prepare the data
-		$data = array(
-			'realms' => $realms,
-			'url' => $this->template->page_url,
-			'vp' => $this->vp,
-			'dp' => $this->dp,
-			'count' => $this->count
-		);
+            // Put it in the realm array
+            if(!isset($realms[$items[$item['id']]['realm']]))
+            {
+                $realms[$items[$item['id']]['realm']] = array(
+                    'name' => $this->realms->getRealm($activeRealmId)->getName(),
+                    'items' => array(),
+                    'characters' => $this->realms->getRealm($activeRealmId)->getCharacters()->getCharactersByAccount(),
+                );
+            }
 
-		// Load the checkout view
-		$output = $this->template->loadPage("checkout.tpl", $data);
+            array_push($realms[$items[$item['id']]['realm']]['items'], $items[$item['id']]);
+        }
 
-		// Output the content
-		die($output);
+        // Make sure the user can afford it
+        if(!$this->canAfford()){
+            $output = $this->template->loadPage("checkout_error.tpl");
+
+            $this->template->handleJsonOutput(array(
+                'type' => 'success',
+                'content' => $output,
+            ));
+        }
+
+        // Prepare the data
+        $data = array(
+            'realms' => $realms,
+            'url' => $this->template->page_url,
+            'vp' => $this->vp,
+            'dp' => $this->dp,
+            'count' => $this->count
+        );
+
+        // Load the checkout view
+        $output = $this->template->loadPage("checkout.tpl", $data);
+
+        // Output the content
+        $this->template->handleJsonOutput(array(
+            'type' => 'success',
+            'content' => $output,
+        ));
 	}
+
+    private function show_error($message){
+        $message = array(
+            'type' => 'error',
+            'msg' => $message,
+        );
+        $this->template->handleJsonOutput($message);
+        die();
+    }
 
 	/**
 	 * Check if the user can afford what he's trying to buy

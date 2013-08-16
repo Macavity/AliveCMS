@@ -216,7 +216,7 @@ module.exports = function(grunt) {
          */
         shell: {
             handlebars: {
-                command: 'handlebars js/templates/ > js/templates.js'
+                command: 'handlebars application/js/templates/ > application/js/templates.js'
             }
         },
 
