@@ -354,7 +354,7 @@ class Characters_model
 		$this->connect();
 		
 		$query = $this->db->query("SELECT COUNT(*) as `total` FROM ".table('characters', $this->realmId)." WHERE ".column("characters", "guid", false, $this->realmId)."=?", array($id));
-		
+
 		if($this->db->_error_message())
 		{
 			die($this->db->_error_message());

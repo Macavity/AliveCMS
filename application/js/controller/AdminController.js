@@ -10,7 +10,7 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
 
         initWiki: function(wrapperId, options){
             debug.debug("AdminController.initWiki");
-            Wiki.related[wrapperId] = new WikiRelated(wrapperId, options);
+            Wiki.related[wrapperId] = new WikiRelated(wrapperId, options, Wiki);
         }
 
     });
