@@ -8,7 +8,7 @@ requirejs.config({
 
     // Disable internal caching of the files (development only)
     //urlArgs: "bust=" + (new Date()).getTime(),
-    urlArgs: "rev=617.2",
+    urlArgs: "rev=617.3",
 
     paths: {
     }
