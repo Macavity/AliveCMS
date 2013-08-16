@@ -232,7 +232,7 @@ class Migration_Model extends CI_Model {
 
         $sum = 0;
         foreach($array as $key){
-            $sum += isset($reputations[$key]['standing']) ? $reputations[$key]['standing'] : 0;
+            $sum += isset($reputations[$key], $reputations[$key]['standing']) ? $reputations[$key]['standing'] : 0;
         }
 
         return round($sum/5);
@@ -243,7 +243,7 @@ class Migration_Model extends CI_Model {
 
         $sum = 0;
         foreach($array as $key){
-            $sum += isset($reputations[$key]['standing']) ? $reputations[$key]['standing'] : 0;
+            $sum += isset($reputations[$key], $reputations[$key]['standing']) ? $reputations[$key]['standing'] : 0;
         }
 
         return round($sum/4);
@@ -254,7 +254,7 @@ class Migration_Model extends CI_Model {
 
         $sum = 0;
         foreach($array as $key){
-            $sum += isset($reputations[$key]['standing']) ? $reputations[$key]['standing'] : 0;
+            $sum += isset($reputations[$key], $reputations[$key]['standing']) ? $reputations[$key]['standing'] : 0;
         }
 
         return round($sum/5);
@@ -265,7 +265,7 @@ class Migration_Model extends CI_Model {
 
         $sum = 0;
         foreach($array as $key){
-            $sum += isset($reputations[$key]['standing']) ? $reputations[$key]['standing'] : 0;
+            $sum += isset($reputations[$key], $reputations[$key]['standing']) ? $reputations[$key]['standing'] : 0;
         }
 
         return round($sum/4);
@@ -683,7 +683,7 @@ class Migration_Model extends CI_Model {
     }
 
     public function getFactionLabel($factionId){
-        return $this->factionsAll["$factionId"];
+        return (isset($this->factionsAll["$factionId"])) ? $this->factionsAll["$factionId"] : "";
     }
 
     public function getReputationStates(){

@@ -59,7 +59,7 @@ class Migration extends MX_Controller
 
         $this->load->model("migration_model");
 
-        $this->template->enable_profiler(TRUE);
+        //$this->template->enable_profiler(TRUE);
 
         
         $this->CI = &get_instance();
