@@ -10,7 +10,6 @@ require(['static'], function(){
         ],
         function (BugtrackerController) {
             $(function () {
-                debug.debug("js/bugtracker");
                 var controller = new BugtrackerController();
             });
         }

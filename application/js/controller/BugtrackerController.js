@@ -20,15 +20,19 @@ define(['./BaseController', 'modules/wiki', 'modules/wiki_related'], function (B
 
                 var bugTable = Wiki;
 
-                bugTable.pageUrl = '/bugtracker/';
-                bugTable.related.loot = new WikiRelated('loot', {
+                bugTable.pageUrl = '/bugtracker/buglist/';
+                bugTable.related.buglist = new WikiRelated('buglist', {
                     paging: true,
                     totalResults: buglist.data("rowcount"),
-                    column: 4,
+                    column: 5,
                     method: 'date',
                     type: 'desc'
-                });
+                }, bugTable);
 
+                var activeTab = $(".filter-tabs .tab-active");
+                if(activeTab.length){
+                    activeTab.click();
+                }
             }
 
         }
