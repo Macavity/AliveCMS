@@ -58,8 +58,108 @@ body {
   .header-plate {
     position: relative;
     height: 93px;
+    /* own style */
+    @if($ownStyle){
+      @include roundAllCorners(5px);
+      height: 85px;
+      background-color: #2f120a;
+      border: 1px solid #7f4128;
+    }
+  }
+  .user-plate {
+    color: #fff; width: 355px; height: 84px; position: absolute; right: 3px; bottom: 1px;
+
+    .user-meta {
+      padding-left: 20px; position: absolute; left: 0; top: 68px; z-index: 3; float: left;
+      &.meta-empty { padding-left: 85px; padding-top: 6px; }
+      &.meta-login { padding-left: 85px; padding-top: 6px; top: 63px; padding-right: 10px; }
+    }
+    .character { position: relative; }
+
+    .player-name,
+    .guild-name { display: block; text-shadow: 1px 1px 1px black; font-weight: bold; }
+
+    .player-name { color: #b0d715; font-weight: bold; line-height: 100%; margin-bottom: 2px; }
+    .character-name { line-height: 100%; font-weight: bold; font-size: 24px; margin: 0; padding-right: 15px; background-position: 100% 10px; letter-spacing: -0.0em; text-shadow: 1px 1px 1px black; letter-spacing: -0.05em; }
+    .context-link { background:none; }
+    .character-name.context-open,
+    .character-name:hover { color: white; }
+    .character-name .arrow {
+      background: url("../images/layout/cms/char-arrow.png") 0 3px no-repeat; display: inline-block; width: 11px; height: 15px; }
+    .character-name:hover .arrow { background-position: 0 -145px; }
+
+    .card-character {
+      width: 326px; height: 84px; padding:0 0 0 30px; display: block; color: #EEE; font-size: 14px;
+      background: url("../images/layout/charcard-neutral.jpg") 0 0 no-repeat;
+      position: absolute; bottom:0px; right: -4px; text-overflow: ellipsis; line-height: 1.4em;
+      strong { color: #ffb100; }
+      .login-msg { display:block; float:left; width:210px; margin-top:12px;  text-shadow:1px 1px 1px #555 }
+      .wow-login-key {
+        display:block;
+        position:absolute; right:50px; top:31px;
+        width:50px; height:42px;
+        background:url(../images/layout/key.png) no-repeat }
+    }
+    a.card-character:hover { color: #fff; background-position: 0 -84px; }
+    a.card-character:hover strong { color: white; }
+    .card-character .card-portrait { width:58px; height:58px; display:block; float:right; border:1px solid #c3ff00;
+      background:url(../images/layout/avatar-neutral.jpg) 50% 50% no-repeat; margin-top:7px; margin-right:21px }
+    .meta-wrapper { position:relative; width:240px; left:30px; top:10px }
+    .meta-alliance .player-name { color: #5fb8eb; }
+    .meta-alliance .character-name:hover { color: white; text-shadow: 1px 1px 1px black, 0 0 15px #409aff, 0 0 5px #409aff; }
+    .meta-horde .player-name { color: #eb1212; }
+    .meta-horde .character-name:hover { color: white; text-shadow: 1px 1px 1px black, 0 0 15px #c64040, 0 0 5px #c64040; }
+
+    .card-character.plate-alliance { background-image:url(../images/layout/charcard-alliance.jpg) }
+    .card-character.plate-alliance .card-portrait { border-color:#00bbf6 }
+    .card-character.plate-alliance .profile-link:hover .card-portrait { border-color:#00c5f7 }
+
+    .card-character.plate-horde { background-image:url(../images/layout/charcard-horde.jpg) }
+    .card-character.plate-horde .card-portrait { border-color:#e23739 }
+    .card-character.plate-horde .profile-link:hover .card-portrait { border-color:#e63f41 }
+    .ui-context { top: 30px }
+    .ui-context a { color: #00B6FF; }
+    .ui-context a:hover { color: #fff; }
+    .card-overlay { width: 343px; height: 15px; background: url("../images/layout/card-overlay.png"); position: absolute; bottom: 0; right: 2px; }
+    a.profile-link,
+    a.profile-link .hover { display: block; width: 200px; height: 125px; }
+    a.profile-link { position: absolute; bottom: 0; right: 2px; }
+    a.profile-link .hover { background: url("../images/layout/card-model-hover.png") no-repeat; opacity: 0; -webkit-transition: opacity 0.1s linear; -o-transition: all 0.1s linear; -moz-transition: opacity 0.1s linear; transition: opacity 0.1s linear; }
+    #header .user-plate.plate-horde a.profile-link .hover { background-position: right top; }
+    a.profile-link:hover .hover { opacity: 1; }
+
+    &.plate-nochars { background: url("../images/layout/no-chars.gif") -3px 103% no-repeat }
+    &.plate-nochars .user-meta { padding: 15px 165px 0 20px; }
+
+    &.plate-alliance { background: url("../images/layout/card-alliance.gif") -3px 103% no-repeat }
+    &.plate-alliance .player-name { color: #5fb8eb; }
+    &.plate-alliance .character-name:hover { color: white; text-shadow: 1px 1px 1px black, 0 0 15px #409aff, 0 0 5px #409aff; }
+
+    &.plate-horde { background: url("../images/layout/card-horde.gif") -3px 103% no-repeat }
+    &.plate-horde .player-name { color: #eb1212; }
+    &.plate-horde .character-name:hover { color: white; text-shadow: 1px 1px 1px black, 0 0 15px #c64040, 0 0 5px #c64040; }
+
   }
 }
+
+@if($ownStyle){
+  #header{
+    .header-plate {
+      @include roundAllCorners(5px);
+      height: 85px;
+      background-color: #2f120a;
+      border: 1px solid #7f4128;
+    }
+    .user-plate {
+      .card-character.plate-alliance{
+        background: #0f5bb9;
+        width: 324px;
+        margin: 0px 1px 0px 0px;
+      }
+    }
+  }
+}
+
 
 #search-bar {
   position: absolute;
@@ -352,86 +452,7 @@ body {
 #menu li.menu-services a.active { background-position: -520px -130px !important }
 #menu li.menu-services a span { background-position: -520px -13px }
 
-#header {
-  .header-plate {
-    height: 93px; position: relative;
-  }
-  .user-plate {
-    color: #fff; width: 355px; height: 84px; position: absolute; right: 3px; bottom: 1px;
 
-    .user-meta {
-      padding-left: 20px; position: absolute; left: 0; top: 68px; z-index: 3; float: left;
-      &.meta-empty { padding-left: 85px; padding-top: 6px; }
-      &.meta-login { padding-left: 85px; padding-top: 6px; top: 63px; padding-right: 10px; }
-    }
-    .character { position: relative; }
-
-    .player-name,
-    .guild-name { display: block; text-shadow: 1px 1px 1px black; font-weight: bold; }
-
-    .player-name { color: #b0d715; font-weight: bold; line-height: 100%; margin-bottom: 2px; }
-    .character-name { line-height: 100%; font-weight: bold; font-size: 24px; margin: 0; padding-right: 15px; background-position: 100% 10px; letter-spacing: -0.0em; text-shadow: 1px 1px 1px black; letter-spacing: -0.05em; }
-    .context-link { background:none; }
-    .character-name.context-open,
-    .character-name:hover { color: white; }
-    .character-name .arrow {
-      background: url("../images/layout/cms/char-arrow.png") 0 3px no-repeat; display: inline-block; width: 11px; height: 15px; }
-    .character-name:hover .arrow { background-position: 0 -145px; }
-
-    .card-character {
-      width: 326px; height: 84px; padding:0 0 0 30px; display: block; color: #EEE; font-size: 14px;
-      background: url("../images/layout/charcard-neutral.jpg") 0 0 no-repeat;
-      position: absolute; bottom:0px; right: -4px; text-overflow: ellipsis; line-height: 1.4em;
-      strong { color: #ffb100; }
-      .login-msg { display:block; float:left; width:210px; margin-top:12px;  text-shadow:1px 1px 1px #555 }
-      .wow-login-key {
-        display:block;
-        position:absolute; right:50px; top:31px;
-        width:50px; height:42px;
-        background:url(../images/layout/key.png) no-repeat }
-    }
-    a.card-character:hover { color: #fff; background-position: 0 -84px; }
-    a.card-character:hover strong { color: white; }
-    .card-character .card-portrait { width:58px; height:58px; display:block; float:right; border:1px solid #c3ff00;
-      background:url(../images/layout/avatar-neutral.jpg) 50% 50% no-repeat; margin-top:7px; margin-right:21px }
-    .meta-wrapper { position:relative; width:240px; left:30px; top:10px }
-    .meta-alliance .player-name { color: #5fb8eb; }
-    .meta-alliance .character-name:hover { color: white; text-shadow: 1px 1px 1px black, 0 0 15px #409aff, 0 0 5px #409aff; }
-    .meta-horde .player-name { color: #eb1212; }
-    .meta-horde .character-name:hover { color: white; text-shadow: 1px 1px 1px black, 0 0 15px #c64040, 0 0 5px #c64040; }
-
-    .card-character.plate-alliance { background-image:url(../images/layout/charcard-alliance.jpg) }
-    .card-character.plate-alliance .card-portrait { border-color:#00bbf6 }
-    .card-character.plate-alliance .profile-link:hover .card-portrait { border-color:#00c5f7 }
-
-    .card-character.plate-horde { background-image:url(../images/layout/charcard-horde.jpg) }
-    .card-character.plate-horde .card-portrait { border-color:#e23739 }
-    .card-character.plate-horde .profile-link:hover .card-portrait { border-color:#e63f41 }
-    .ui-context { top: 30px }
-    .ui-context a { color: #00B6FF; }
-    .ui-context a:hover { color: #fff; }
-    .card-overlay { width: 343px; height: 15px; background: url("../images/layout/card-overlay.png"); position: absolute; bottom: 0; right: 2px; }
-    a.profile-link,
-    a.profile-link .hover { display: block; width: 200px; height: 125px; }
-    a.profile-link { position: absolute; bottom: 0; right: 2px; }
-    a.profile-link .hover { background: url("../images/layout/card-model-hover.png") no-repeat; opacity: 0; -webkit-transition: opacity 0.1s linear; -o-transition: all 0.1s linear; -moz-transition: opacity 0.1s linear; transition: opacity 0.1s linear; }
-    #header .user-plate.plate-horde a.profile-link .hover { background-position: right top; }
-    a.profile-link:hover .hover { opacity: 1; }
-
-    &.plate-nochars { background: url("../images/layout/no-chars.gif") -3px 103% no-repeat }
-    &.plate-nochars .user-meta { padding: 15px 165px 0 20px; }
-
-    &.plate-alliance { background: url("../images/layout/card-alliance.gif") -3px 103% no-repeat }
-    &.plate-alliance .player-name { color: #5fb8eb; }
-    &.plate-alliance .character-name:hover { color: white; text-shadow: 1px 1px 1px black, 0 0 15px #409aff, 0 0 5px #409aff; }
-
-    &.plate-horde { background: url("../images/layout/card-horde.gif") -3px 103% no-repeat }
-    &.plate-horde .player-name { color: #eb1212; }
-    &.plate-horde .character-name:hover { color: white; text-shadow: 1px 1px 1px black, 0 0 15px #c64040, 0 0 5px #c64040; }
-
-  }
-
-}
 
 .ie6 {
   #header{
@@ -1923,30 +1944,6 @@ a.ui-button.imgbutton span {
   }
 }
 
-.button2-next span {
-  background-image: url("../images/buttons/button-2-next.png");
-  line-height: 26px;
-  padding-left: 16px;
-  span {
-    padding-right: 27px;
-    margin: 0;
-    font-size: 11px;
-    text-transform: none;
-  }
-}
-
-.button2-previous span {
-  background-image: url("../images/buttons/button-2-previous.png");
-  line-height: 26px;
-  padding-right: 14px !important;
-  span {
-    padding-left: 1px;
-    margin: 0;
-    font-size: 11px;
-    text-transform: none;
-  }
-}
-
 .button2 span, .button3 span {
   padding: 0 0 0 13px;
   height: 30px;
@@ -1969,6 +1966,30 @@ a.ui-button.imgbutton span {
   }
   &.disabled span, &.processing span {
     color: #953203;
+  }
+}
+
+.button2-next span {
+  background-image: url("../images/buttons/button-2-next.png");
+  line-height: 26px;
+  padding-left: 16px;
+  span {
+    padding-right: 27px;
+    margin: 0;
+    font-size: 11px;
+    text-transform: none;
+  }
+}
+
+.button2-previous span {
+  background-image: url("../images/buttons/button-2-previous.png");
+  line-height: 26px;
+  padding-right: 14px !important;
+  span {
+    padding-left: 1px;
+    margin: 0;
+    font-size: 11px;
+    text-transform: none;
   }
 }
 
