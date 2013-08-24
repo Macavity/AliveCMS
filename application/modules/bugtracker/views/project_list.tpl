@@ -8,11 +8,12 @@
       {/if}
     </div>
     <div class="span10">
-      <h2 data-toggle="collapse" data-parent="#bt-project-{$project.id}" href="#bt-project-list-{$project.id}">
-        {$project.title}
-      </h2>
+        <h2 data-toggle="collapse" data-parent="#bt-project-{$project.id}" href="#bt-project-list-{$project.id}">
+            <i class="icon-white icon-minus"></i>
+            {$project.title}
+        </h2>
       {if $project.counts.all > 0}
-        <span>Tickets: <a href="{$url}bugtracker/buglist/{$project.id}/open">{$project.counts.open} offen</a> (Gesamt: {$project.counts.all})</span>
+        <span>Tickets: <a href="{$url}bugtracker/buglist/{$project.id}/">{$project.counts.open} offen</a> (Gesamt: {$project.counts.all})</span>
       {/if}
     </div>
   </header>
@@ -21,6 +22,8 @@
         <div class="progress">
           {if $project.counts.done > 0}
             <div class="bar bar-success" style="width: {$project.counts.percentage.done}%;">{$project.counts.percentage.done}%</div>
+          {else}
+              0%
           {/if}
         </div>
     </div>
@@ -36,12 +39,14 @@
           </h3>
           {if $sub.counts.all > 0}
               <div class="row">
-                Tickets: <a href="{$url}bugtracker/buglist/{$sub.id}/open">{$sub.counts.open} offen</a> (Gesamt: {$sub.counts.all})
+                Tickets: <a href="{$url}bugtracker/buglist/{$sub.id}/">{$sub.counts.open} offen</a> (Gesamt: {$sub.counts.all})
               </div>
               <div class="row">
                 <div class="progress">
                   {if $sub.counts.done > 0}
                     <div class="bar bar-success" style="width: {$sub.counts.percentage.done}%;">{$sub.counts.percentage.done}%</div>
+                  {else}
+                      0%
                   {/if}
                 </div>
               </div>
@@ -55,12 +60,14 @@
                       </label>
                       {if $subsub.counts.all > 0}
                           <div class="row">
-                            Tickets: <a href="{$url}bugtracker/buglist/{$subsub.id}/open">{$subsub.counts.open} offen</a> (Gesamt: {$subsub.counts.all})
+                            Tickets: <a href="{$url}bugtracker/buglist/{$subsub.id}/">{$subsub.counts.open} offen</a> (Gesamt: {$subsub.counts.all})
                           </div>
                           <div class="row">
                             <div class="progress">
                               {if $subsub.counts.done > 0}
                                 <div class="bar bar-success" style="width: {$subsub.counts.percentage.done}%;">{$subsub.counts.percentage.done}%</div>
+                              {else}
+                                  0%
                               {/if}
                             </div>
                           </div>

@@ -1,49 +1,57 @@
 
-.project-list {
+#main .right .box #tabs{
+
+  .project-list {
 
 
-  li {
+    li {
 
-    &:nth-child(odd){
-      background-color: transparent;
+      background: #e6e6e6;
+
+      &:hover {
+        background-color: #dadada;
+      }
+
+      label {
+        position: relative;
+        display: inline-block;
+        border: 0px solid transparent;
+
+        clear: both;
+
+        width: auto;
+        margin: 5px;
+      }
+
+      a {
+        float: right;
+        margin: 5px;
+        font-size: 12px;
+        font-weight: normal;
+      }
+
+
+
     }
 
-    label {
-      position: relative;
-      display: inline-block;
-      border: 0px solid transparent;
+    ul.sub-projects {
+      margin-left: 20px;
 
-      clear: both;
+      li{
 
-      width: 620px;
-      margin: 0px 0px 0px 0px;
-    }
+      }
 
-    a {
-      width: 200px;
+      .level-1:before{
+        content: "-";
+      }
+      .level-2:before{
+        content: "--";
+      }
+
+
     }
 
   }
-
-
-
-  ul.sub-projects {
-    margin-left: 20px;
-
-    li{
-
-    }
-
-    .level-1:before{
-      content: "-";
-    }
-    .level-2:before{
-      content: "--";
-    }
-
-
-  }
-
 }
 
 .table{

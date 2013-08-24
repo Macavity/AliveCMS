@@ -45,24 +45,6 @@ class Project_Model extends CI_Model {
     }
 
     /**
-     * Looks for a project based on its ID
-     * Returns the FIRST result only.
-     * @param $id
-     */
-    public function findProjectById($id){
-        $this->db->select('*')->from('bugtracker_projects')->where('id', $id);
-        $query = $this->db->get();
-
-        if($query->num_rows() > 0){
-            $result = $query->result_array();
-            return $result[0];
-        }
-        else {
-            return FALSE;
-        }
-    }
-
-    /**
      * Looks for a project based on its Title
      * Can be used to check for duplicates for example
      * Returns the FIRST result only.
@@ -84,11 +66,20 @@ class Project_Model extends CI_Model {
     public function getAllProjectData($projectId, $project = array()){
 
         if(empty($project)){
-            $project = $this->findProjectById($projectId);
+            $project = $this->getProjectById($projectId);
         }
 
+        $children = $this->project_model->getSubProjectIds($projectId);
 
-        $project["counts"] = $this->getProjectBugStateCounts($projectId);
+        if($children){
+            $searchFor = array_merge(array($projectId), $children);
+            $project["counts"] = $this->getProjectBugStateCounts($searchFor);
+        }
+        else{
+            $project["counts"] = $this->getProjectBugStateCounts($projectId);
+        }
+        debug($project);
+
 
         return $project;
     }
@@ -96,13 +87,8 @@ class Project_Model extends CI_Model {
     public function getProjectBugStateCounts($projectId){
 
         $countStates = $this->bug_model->getBugCountByProject($projectId);
-        //debug($countStates);
 
-        $countStates[BUGSTATE_DONE] *= 1;
-        $countStates[BUGSTATE_ACTIVE] *= 1;
-        $countStates[BUGSTATE_OPEN] *= 1;
-
-        $countStates["all"] = $countStates[BUGSTATE_DONE] + $countStates[BUGSTATE_ACTIVE] + $countStates[BUGSTATE_OPEN];
+        $countStates["all"] = $countStates[BUGSTATE_ALL];
 
         if($countStates["all"] > 0){
             $countStates["percentage"][BUGSTATE_DONE] = round(($countStates[BUGSTATE_DONE]/$countStates["all"])*100);
@@ -149,10 +135,12 @@ class Project_Model extends CI_Model {
             }
         }
 
-        $path = array($projectId);
+        $stringProjectId = str_pad($projectId, 4, "0", STR_PAD_LEFT);
+
+        $path = array($stringProjectId);
 
         while($parentRow = $this->getProjectById($parent)){
-            $path[] = $parentRow['id'];
+            $path[] = str_pad($parentRow['id'], 4, "0", STR_PAD_LEFT);
             $parent = $parentRow['parent'];
         }
 
@@ -165,7 +153,14 @@ class Project_Model extends CI_Model {
 
     }
 
-    private function getProjectById($projectId, $select = '*'){
+    /**
+     * Looks for a project based on its ID
+     * Returns the FIRST result only.
+     * @param integer $projectId
+     * @param string $select
+     * @return bool
+     */
+    public function getProjectById($projectId, $select = '*'){
         if(empty($projectId))
             return false;
 
@@ -174,7 +169,7 @@ class Project_Model extends CI_Model {
             $row = $query->row_array();
             return $row;
         }
-        return false;
+        return FALSE;
     }
 
     /**
@@ -188,5 +183,41 @@ class Project_Model extends CI_Model {
         $this->db->update('bugtracker_projects', array(
             "order" => $order
         ));
+    }
+
+    /**
+     * Find all sub projects of a provided project id
+     * @param $projectId
+     * @return bool|array
+     */
+    public function getSubProjects($projectId){
+
+        if(empty($projectId) || !is_numeric($projectId)){
+            return FALSE;
+        }
+
+        $searchId = str_pad($projectId, 4, "0", STR_PAD_LEFT);
+        $query = $this->db
+            ->select('id, title')
+            ->like('matpath', $searchId)
+            ->from('bugtracker_projects')
+            ->get();
+
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+
+        return FALSE;
+    }
+
+    public function getSubProjectIds($projectId){
+        $subProjects = $this->getSubProjects($projectId);
+        $subProjectIds = array();
+        if($subProjects){
+            foreach($subProjects as $sub){
+                $subProjectIds[] = $sub['id'];
+            }
+        }
+        return $subProjectIds;
     }
 }

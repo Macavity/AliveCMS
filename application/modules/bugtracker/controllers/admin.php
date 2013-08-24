@@ -39,7 +39,7 @@ class Admin extends MX_Controller
         // Change the title
         $this->administrator->setTitle($this->mainTitle);
 
-        $project = $this->project_model->findProjectById($projectId);
+        $project = $this->project_model->getProjectById($projectId);
 
         if(!$project){
             show_error("Projekt $projectId nicht gefunden");
@@ -108,10 +108,17 @@ class Admin extends MX_Controller
     public function import(){
 
         requirePermission("canEditProjects");
+        echo 'Sollte keine "Abgeschlossen"-meldung kommen wurde das Zeitlimit überschritten, in diesem Fall bitte die Seite nochmal laden. Bereits importierte Datensätze werden dabei übersprungen.';
 
         $this->bug_model->importOldBugs();
+        echo "<br>Alle alten Bugs wurden importiert.<hr>";
 
-        $this->index();
+        $this->bug_model->importOldComments();
+        echo "<br>Alle alten Kommentare wurden importiert.<hr>";
+
+        echo "<hr><b>Abgeschlossen</b><hr>";
+
+        return;
 
     }
 
@@ -168,7 +175,7 @@ class Admin extends MX_Controller
             die();
         }
 
-        $project = $this->project_model->findProjectById($id);
+        $project = $this->project_model->getProjectById($id);
 
         if(!$project)
         {

@@ -1,5 +1,6 @@
 
 <div class="bugtracker-actions">
+    <a href="{site_url('bugtracker/create')}" class="ui-button button2 button2-previous"><span><span>Kategorienliste</span></span></a>&nbsp;
   {if hasPermission("canCreateBugs")}
     <a href="{site_url('bugtracker/create')}" class="ui-button button2"><span><span>Neuen Bug eintragen</span></span></a>&nbsp;
   {/if}
@@ -10,16 +11,16 @@
     <div class="related">
         <span class="clear"><!-- --></span> 
 
-		<div class="related-content" id="related-loot">
+		<div class="related-content" id="related-buglist">
 			<div class="filters inline">
 				<div class="keyword">
                     <span class="view"></span> 
                     <span class="reset" style="display: none"></span>
-					<input id="filter-name-loot" type="text" class="input filter-name" data-filter="row" maxlength="25" title="Filter..." value="Filter..." />
+					<input id="filter-name-buglist" type="text" class="input filter-name" data-filter="row" maxlength="25" title="Filter..." value="Filter..." />
 				</div>
 				<div class="filter-tabs"> 
-					<a href="javascript:;" data-filter="column" data-column="0" data-value="" data-name="type" class="tab-active"> Alle </a> 
-					<a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="1"> Offen </a>
+					<a href="javascript:;" data-filter="column" data-column="0" data-value="" data-name="type"> Alle </a>
+					<a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="1" class="tab-active"> Offen </a>
 					<a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="2"> In Bearbeitung </a>
 					<a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="9"> Erledigt </a>
 					<a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="3"> Abgewiesen </a> 
@@ -40,8 +41,9 @@
 					<thead>
 						<tr>
 							<th><a href="javascript:;" class="sort-link numeric"><span class="arrow">Status</span></a></th>
-							<th class="align-center"><a href="javascript:;" class="sort-link numeric"><span class="arrow">BugID</span></a></th>
-							<th class="align-center"><a href="javascript:;" class="sort-link"><span class="arrow">Typ</span></a></th>
+							<th><a href="javascript:;" class="sort-link numeric"><span class="arrow">BugID</span></a></th>
+                            <th><a href="javascript:;" class="sort-link numeric"><span class="arrow">P</span></a></th>
+							<th><a href="javascript:;" class="sort-link"><span class="arrow">Kategorie</span></a></th>
 							<th><a href="javascript:;" class="sort-link"><span class="arrow">Titel</span></a></th>
 							<th><a href="javascript:;" class="sort-link"><span class="arrow">Letzte Änderung</span></a></th>
 						</tr>
@@ -50,7 +52,12 @@
 					{foreach from=$bugRows key=i item=bug}
 						<tr class="{$bug.css} {cycle values="row1,row2"}">
 							<td data-raw="{$bug.bug_state}">&nbsp;</td>
-							<td class="align-center" data-raw="{$bug.id}"><a href="/bugtracker/bug/{$bug.id}">#{$bug.id}</a></td>
+							<td data-raw="{$bug.id}">
+                                <a href="/bugtracker/bug/{$bug.id}">#{$bug.id}</a>
+                            </td>
+                            <td data-raw="{$bug.priority}">
+                                <i class="icon {$bug.priorityClass}" data-tooltip="{$bug.priorityLabel}"></i>
+                            </td>
 							<td>{$bug.type_string}</td>
 							<td data-raw="{$bug.title}">{$bug.title}</td>
 							<td data-raw="{$bug.changedSort}"><span data-tooltip="Eintragung am {$bug.createdDate}">{$bug.changedDate}</span></td>
@@ -70,12 +77,6 @@
                 </div>
 			</div>
 		</div>	
-<!--
-		<script type="text/javascript" src="{$js_path}wiki.js?v2"></script>
-		<script type="text/javascript" src="{$js_path}zone.js"></script>
-		<script type="text/javascript" src="{$js_path}table.js"></script>
-		<script type="text/javascript" src="{$js_path}filter.js"></script>
-		<script type="text/javascript" src="{$js_path}lightbox.js"></script>-->
-		
+
   </div> <!-- /related -->
 </div>

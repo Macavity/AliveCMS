@@ -131,7 +131,7 @@ class Admin_Bugs extends MX_Controller
             die();
         }
 
-        $project = $this->project_model->findProjectById($id);
+        $project = $this->project_model->getProjectById($id);
 
         if(!$project)
         {
