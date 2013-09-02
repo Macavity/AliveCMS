@@ -142,12 +142,12 @@ define(['modules/core'], function(Core){
             var map = this.overwrites;
 
             if (cfg.key && map[cfg.key]) {
-                cfg.frameWidth 		= map[cfg.key][0];
-                cfg.frameHeight		= map[cfg.key][0];
-                cfg.totalFrames 	= map[cfg.key][1];
-                cfg.sequenceWidth 	= map[cfg.key][0] * map[cfg.key][1];
-                cfg.xOffset 		= map[cfg.key][2] || 0;
-                cfg.yOffset 		= map[cfg.key][3] || 0;
+                cfg.frameWidth      = map[cfg.key][0];
+                cfg.frameHeight     = map[cfg.key][0];
+                cfg.totalFrames     = map[cfg.key][1];
+                cfg.sequenceWidth   = map[cfg.key][0] * map[cfg.key][1];
+                cfg.xOffset         = map[cfg.key][2] || 0;
+                cfg.yOffset         = map[cfg.key][3] || 0;
             }
 
             // Get frame position
