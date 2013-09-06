@@ -254,6 +254,7 @@ class Bugtracker extends MX_Controller{
             $row['priorityClass'] = $this->bug_model->getPriorityCssClass($row['priority']);
             $row['priorityLabel'] = $this->bug_model->getPriorityLabel($row['priority']);
 
+
             switch($row['bug_state']){
                 case BUGSTATE_DONE:
                     $row['css'] = 'done';
@@ -310,35 +311,40 @@ class Bugtracker extends MX_Controller{
             return;
         }
 
-        $this->template->setTitle('Bug #'.$bugId);
-        $this->template->setSectionTitle('Bug #'.$bugId.' '.htmlentities($bug['title'], ENT_QUOTES, 'UTF-8'));
+        /*
+         * Title
+         */
+        $title = htmlentities($bug['title'], ENT_QUOTES, 'UTF-8');
 
+        $this->template->setTitle('Bug #'.$bugId);
+        $this->template->setSectionTitle('Bug #'.$bugId.' '.$title);
+
+        /**
+         * Project
+         */
+        $project = $bug['project'];
+
+        $matpath = explode('.', $bug['matpath']);
+        $baseProjectId = $matpath[0]*1;
+
+        foreach($matpath as $pathId){
+            $pathId *= 1;
+            $pathProject = $this->project_model->getProjectById($pathId, 'id,title');
+
+            // Add Breadcrumb
+            $this->template->addBreadcrumb($pathProject['title'], site_url('bugtracker/buglist/'.$pathProject['id']));
+        }
+
+        // Last Breadcrumb for the actual Bug
         $this->template->addBreadcrumb('Bug #'.$bugId, site_url('bugtracker/bug/'.$bugId));
 
         /*
-         * Base Data
+         * Description
          */
-
-        $class = $bug['class'];
-        $title = htmlentities($bug['title'], ENT_QUOTES, 'UTF-8');
         $desc = $bug['desc'];
-        $state = $bug['bug_state'];
-        $complete = str_replace('%','',$bug['complete']);
-        $complete .= '%';
-        $by = $bug['by'];
-        $date = $bug['date'];
-        $date2 = $bug['date2'];
-        $link = (substr_count($bug['link'], 'Hier den') > 0) ? '' : $bug['link'];
-        $links = array();
-        $createdDetail = '';
-        $changedDetail = '';
-        $accountComments = array();
-
-        /**
-         * Log of all actions
-         * @type {Array}
-         */
-        $bugLog = array();
+        // Find links in the description
+        $desc = htmlentities($desc);
+        $desc = makeWowheadLinks($desc);
 
         /**
          * Similar Bugs
@@ -347,40 +353,75 @@ class Bugtracker extends MX_Controller{
         $similarBugs = array();
 
         /*
-         * Link
+         * Links
          */
-        if(!empty($link)){
-            if(preg_match('@http://(de|www|old).wowhead.com/\??([^=]+)=(\d+).*@i', $link, $matches)){
-                $links = array();
-                debug('link matches',$matches);
-                $links[] = '<a href="http://de.wowhead.com/'.$matches[2].'='.$matches[3].'" target="_blank">WoWHead</a>';
-                if( $matches[2] == 'zone' ){
-                    $links[] = '<a href="http://portal.wow-alive.de/game/zone/'.$matches[3].'" target="_blank" data-zone="'.$matches[3].'">Alive</a>';
+        $links = json_decode($bug['link'], true);
+
+        $bugLinks = array();
+
+        $openwowPrefix = $this->project_model->getOpenwowPrefix($baseProjectId);
+
+        foreach($links as $link){
+            if(empty($link) || substr_count($link, 'Hier den') > 0){
+                continue;
+            }
+
+            if(preg_match('@http://(de|www|old|wotlk|cata).(wowhead|openwow|buffed).(com|de)/\??([^=]+)=(\d+).*@i', $link, $matches)){
+
+                $linkType = $matches[4];
+                $linkId = $matches[5];
+
+                $search = $linkType.'='.$linkId;
+                $searchLabel = ucfirst($linkType).': '.$linkId;
+
+                // Wowhead
+                $bugLinks[] = array(
+                    'url' => 'http://de.wowhead.com/'.$linkType.'='.$linkId,
+                    'label' => '[DE] Wowhead - '.$searchLabel,
+                );
+
+                // Openwow
+                $bugLinks[] = array(
+                    'url' => 'http://'.$openwowPrefix.'.openwow.com/'.$linkType.'='.$linkId,
+                    'label' => '['.strtoupper($openwowPrefix).'] Openwow - '.$searchLabel,
+                );
+
+                // Alive
+                if( $linkType == 'zone' ){
+                    $bugLinks[] = array(
+                        'url' => 'http://portal.wow-alive.de/game/zone/'.$linkId,
+                        'label' => 'Alive - '.$searchLabel,
+                    );
                 }
-                if( $matches[2] == 'item' ){
-                    $links[] = '<a href="http://portal.wow-alive.de/item/'.$matches[3].'" target="_blank" data-item="'.$matches[3].'">Alive</a>';
+                if( $linkType == 'item' ){
+                    $bugLinks[] = array(
+                        'url' => 'http://portal.wow-alive.de/item/'.$linkId,
+                        'label' => 'Alive - '.$searchLabel,
+                    );
                 }
+
+                // Similar Bugs for this link
+                $linkSimilarBugs = $this->bug_model->findSimilarBugs($search, $bugId);
+
+                foreach($linkSimilarBugs as $sim){
+                    $similarBugs[] = array(
+                        'url' => '/bugtracker/bug/'.$sim['id'],
+                        'label' => 'Bug #'.$sim['id'].' - '.htmlentities($sim['title']),
+                    );
+                }
+            }
+            else{
+                $bugLinks[] = array(
+                    'url' => $link,
+                    'label' => $link,
+                );
             }
         }
 
-        // Find other bugs to the same link
-        $search = str_replace('http://','', $link);
-        $search = str_replace('de.wowhead.com/','',$search);
-        $search = str_replace('www.wowhead.com/','',$search);
-        $search = str_replace('old.wowhead.com/','',$search);
-
-        $similarBugs = $this->bug_model->findSimilarBugs($search, $bugId);
-
-        if(!empty($link)){
-            foreach($similarBugs as $row){
-                $otherBugs[] = '<a href="/bugtracker/bug/'.$row['id'].'/" target="_blank">'.htmlentities($row['title']).'</a>';
-            }
-        }
-
-        // Find links in the description
-        $desc = htmlentities($desc);
-        $desc = makeWowheadLinks($desc);
-
+        /*
+         * Bug State
+         */
+        $state = $bug['bug_state'];
 
         switch($state){
             case BUGSTATE_DONE:
@@ -392,16 +433,47 @@ class Bugtracker extends MX_Controller{
                 $cssState = 'color-q0'; break;
         }
 
+        $stateLabel = $this->bug_model->getStateLabel($state);
+
+        /*
+         * Bug Priority
+         */
+        $priority = $bug['priority'];
+        $priorityLabel = $this->bug_model->getPriorityLabel($priority);
+        $priorityClass = $this->bug_model->getPriorityCssClass($priority);
+
+        /*
+         * Dates
+         */
+        $createdDate = $bug['createdDate'];
+        $changedDate = $bug['changedDate'];
+
+        /**
+         * Time difference since creation
+         */
+        $createdDetail = '';
         if($bug['createdTimestamp'] > 0){
-            $createdDetail = sec_to_dhms(time()-$bug['createdTimestamp'], true);
+            $createdDetail = sec_to_dhms( time() - $bug['createdTimestamp'], true);
             if(!empty($createdDetail))
                 $createdDetail = 'vor '.$createdDetail;
         }
+
+        /**
+         * Time difference since last change
+         */
+        $changedDetail = '';
         if($bug['changedTimestamp'] > 0){
-            $changedDetail = sec_to_dhms(time()-$bug['changedTimestamp'], true);
+            $changedDetail = sec_to_dhms( time() - $bug['changedTimestamp'], true);
             if(!empty($changedDetail))
                 $changedDetail = 'vor '.$changedDetail;
         }
+
+        /**
+         * Log of all actions
+         * @type {Array}
+         */
+        $bugLog = array();
+        $accountComments = array();
 
         if(!empty($bug['posterData'])){
             $posterData = json_decode($bug['posterData']);
@@ -422,36 +494,24 @@ class Bugtracker extends MX_Controller{
 
         $commentRows = $this->bug_model->getBugComments($bugId);
 
-        $counter = 1;
+        $commentCounter = 1;
         //$rowclass = 'row1';
 
         foreach($commentRows as $i => $row){
             $actionLog = array();
 
-            //$rowclass = cycle($rowclass, array('row1', 'row2'));
-            //$commentRows[$i]['css-row'] = $rowclass;
-
-            $commentRows[$i]['id'] = $row['id'];
-            $commentRows[$i]['n'] = $counter++;
-            $commentRows[$i]['gm'] = false;
-            $commentRows[$i]['avatar'] = '';
-            $commentRows[$i]['action'] = '';
-            $commentRows[$i]['lastEdit'] = '';
-            $commentRows[$i]['name'] = htmlentities($row['name']);
-            $commentRows[$i]['text'] = nl2br(makeWowheadLinks(htmlentities($row['text'])));
-            $commentRows[$i]['date'] = ($row['timestamp'] > 60) ? 'vor '.sec_to_dhms(time()-$row['timestamp'],true):'';
-            $commentRows[$i]['canEditThisComment'] = hasPermission('canEditComments');
+            $commentPoster = json_decode($row['posterData']);
 
             // State changes
             if(!empty($row['action'])){
                 $actions = json_decode($row['action']);
                 if(isset($actions->state)){
-                    $actionLog[] = 'Status => '.$actions->state;
+                    $actionLog[] = 'Status => '.$this->bug_model->getStateLabel($actions->state);
                 }
             }
             // Content changes
-            if(!empty($row['actions'])){
-                $actions = json_decode($row['actions']);
+            if(!empty($row['changedActions'])){
+                $actions = json_decode($row['changedActions']);
                 $lastEdit = '';
                 foreach($actions as $action){
                     if($action->action == 'change'){
@@ -463,38 +523,69 @@ class Bugtracker extends MX_Controller{
                     $actionLog[] = $lastEdit;
                 }
             }
-            $commentRows[$i]['action'] = implode('<br/>', $actionLog);
 
-            if(!empty($row['posterData'])){
-                $posterData = json_decode($row['posterData']);
+            if($row['posterAccountId'] == $this->user->getId() || hasPermission('canEditComments')){
+                $canEditThisComment = true;
+            }
+            else{
+                $canEditThisComment = false;
+            }
+            $commentRow = array(
+                'id' => $row['id'],
+                'n' => $commentCounter++,
+                'isStaff' => false,
+                'posterDetails' => false,
+                'avatar' => false,
+                'action' => $actionLog,
+                'lastEdit' => '',
+                'text' => nl2br(makeWowheadLinks(htmlentities($row['text'], ENT_QUOTES, 'UTF-8'))),
+                'createdDetail' => ($row['createdTimestamp'] > 0) ? 'vor '.sec_to_dhms(time()-$row['createdTimestamp'],true):'',
+                'canEditThisComment' => $canEditThisComment,
+            );
+
+            $posterData = json_decode($row['posterData']);
+
+            if(isset($posterData->class)){
 
                 if(empty($posterData->realmId)){
                     $posterData->realmId = 1;
                 }
 
-                $commentRows[$i]['details'] = true;
-                $commentRows[$i]['avatar'] = $this->realms->formatAvatarPath(array(
+                $commentRow['avatar'] = $this->realms->formatAvatarPath(array(
                     'class' => $posterData->class,
                     'race' => $posterData->race,
                     'gender' => $posterData->gender,
                     'level' => $posterData->level
                 ));
-                $commentRows[$i]['char_url'] = $this->realms->getArmoryUrl($posterData->name, $posterData->realmId);
-                $commentRows[$i]['char_class'] = $posterData->class;
+
+                $commentRow['posterDetails'] = true;
+                $commentRow['char_url'] = $this->realms->getArmoryUrl($posterData->name, $posterData->realmId);
+                $commentRow['char_class'] = $posterData->class;
             }
 
-            if(!empty($row['posterAccountId'])){
+            if(isset($posterData->name)){
+                $commentRow['name'] = $posterData->name;
+            }
+
+            // Comment By GameMaster
+            if($posterData->gm){
+                $commentRow['isStaff'] = true;
+            }
+            elseif(!empty($row['posterAccountId'])){
 
                 $rank = $this->external_account_model->getRank($row['posterAccountId']);
 
                 if($rank){
-                    $commentRows[$i]['gm'] = true;
+                    $commentRow['isStaff'] = true;
                 }
             }
+            //debug($commentRow);
 
-            $bugLog[$row['timestamp']] = $commentRows[$i];
+            $bugLog[$row['createdTimestamp']] = $commentRow;
 
         }
+
+        //debug($bugLog);
 
         // Combine Actions and Comments (later)
         $bugActionLog = array();
@@ -538,26 +629,29 @@ class Bugtracker extends MX_Controller{
             'bugId' => $bugId,
             'bugStates' => $this->bug_model->getBugStates(),
             'typeString' => '',
+
             'title' => $title,
-            'cssState' => $cssState,
+
             'state' => $state,
             'stateLabel' => $this->bug_model->getStateLabel($state),
-            'class' => '',
+            'cssState' => $cssState,
 
+            'priority' => $priority,
+            'priorityLabel' => $priorityLabel,
+            'priorityClass' => $priorityClass,
+
+            'createdDate' => $createdDate,
             'createdDetail' => $createdDetail,
-            'date' => $date,
-            'date2' => $date2,
+            'changedDate' => $changedDate,
             'changedDetail' => $changedDetail,
-            'complete' => $complete,
-            'links' => $links,
+            'links' => $bugLinks,
             'bugPoster' => $bugPoster,
             'desc' => nl2br($desc),
             'similarBugs' => $similarBugs,
+
+            'bugLog' => $bugLog,
+
             'activeCharacter' => $activeCharacter,
-            /*'state' => $asd,
-            'state' => $asd,
-            'state' => $asd,
-            'state' => $asd,*/
         );
 
         $out = $this->template->loadPage('bug_detail.tpl', $page_data);
@@ -672,6 +766,71 @@ class Bugtracker extends MX_Controller{
         
         $this->template->view($out, $this->css);
     }
-    
+
+    public function add_comment(){
+        $bugId = $this->input->post('bug', true);
+        $newState = $this->input->post('change-state', true);
+        $commentText = $this->input->post('detail', true);
+
+        $bug = $this->bug_model->getBug($bugId);
+
+        if($bug){
+
+            if($bug['bug_state'] != $newState && hasPermission('canEditBugs')){
+                $action = array(
+                    'state' => $newState
+                );
+                $this->bug_model->updateState($bugId, $newState);
+            }
+            else{
+                $action = '';
+            }
+
+            $this->bug_model->createComment($bugId, $commentText, $action);
+
+            $this->bug($bugId);
+        }
+        else{
+            show_error('Der Bug #'.$bugId.' wurde nicht gefunden.');
+        }
+        return;
+
+    }
+
+    public function edit_comment(){
+
+        $json = array();
+        $action = $this->input->post('action', true);
+        $commentId = $this->input->post('comment', true);
+
+        $comment = $this->bug_model->getComment($commentId, 'posterAccountId, text, changedActions');
+
+        if($comment != false){
+
+            if($this->user->getId() == $comment->posterAccountId || hasPermission('canEditComments')){
+                if($action == "get"){
+                    $json['text'] = $comment->text;
+                }
+                if($action == "edit"){
+                    $newText = $this->input->post('content');
+
+                    $this->bug_model->updateComment($commentId, $comment->changedActions, $newText);
+
+                    $json['text'] = nl2br($newText);
+                    $json['username'] = ucfirst($this->user->getNickname());
+                }
+            }
+            else{
+                $json['msg'] = "Du hast keine Berechtigung dies zu tun.";
+            }
+
+        }
+        else{
+            $json['msg'] = "Der Kommentar wurde nicht gefunden.";
+        }
+
+        $this->template->handleJsonOutput($json);
+    }
+
 }
     

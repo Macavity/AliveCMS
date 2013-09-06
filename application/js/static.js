@@ -40,6 +40,7 @@ var mapStatic = {
         first: 'Erster',
         last: 'Letzter',
         loading: 'Lade…',
+        save: 'Speichern',
         bugtracker: {
             deleteLink: 'Entfernen',
             attention: 'Achtung!',

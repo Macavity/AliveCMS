@@ -271,4 +271,26 @@ class Project_Model extends CI_Model {
         }
         return $subProjectIds;
     }
+
+    public function getRealmByProject($baseProjectId){
+        $realmId = 1;
+        if($baseProjectId == 1){
+            $realmId = 1;
+        }
+        elseif($baseProjectId == 2){
+            $realmId = 2;
+        }
+        return $realmId;
+    }
+
+    public function getOpenwowPrefix($realmId){
+        $prefix = 1;
+        if($realmId == 1){
+            $prefix = 'wotlk';
+        }
+        elseif($realmId == 2){
+            $prefix = 'cata';
+        }
+        return $prefix;
+    }
 }

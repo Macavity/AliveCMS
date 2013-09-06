@@ -46,8 +46,13 @@ if( ! function_exists("sec_to_dhms") ){
         $minutes = intval(($sec / 60) % 60);
         $seconds = intval($sec % 60);
         $string = array();
+        if($days > 365){
+            $years = floor($days / 365);
+            $days = $days % 365;
+            $string[] = ($years == 1) ? $years.' Jahr' : $years.' Jahre';
+        }
         if($days > 0)
-            $string[] = $days." Tage";
+            $string[] = ($days == 1) ? $days.' Tag' : $days.' Tage';
         if($hours > 0)
             $string[] = $hours." Std.";
         if($minutes > 0)

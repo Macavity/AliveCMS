@@ -94,6 +94,7 @@
                 "canPrioritize": true,
 
                 "canEditBugs": true,
+                "canEditComments": true,
                 "canCloseBugs": true,
 
                 "canCreateProjects": true,

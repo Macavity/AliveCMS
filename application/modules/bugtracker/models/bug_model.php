@@ -141,7 +141,7 @@ class Bug_model extends CI_Model
         $matpath = str_pad($projectId, 4, '0', STR_PAD_LEFT);
         $sql = '
 SELECT
-	be.id, be.bug_state, be.project, be.priority, be.title, be.createdDate, be.changedDate, be.changedTimestamp,
+	be.id, be.bug_state, be.project, be.priority, be.title, be.createdDate, be.changedDate, be.changedTimestamp, be.posterData,
 	cm.posterData as cmPosterData, cm.changedDate as cmChangedDate, cm.changedTimestamp as cmChangedTimestamp
 FROM
 	bugtracker_entries AS be
@@ -164,45 +164,84 @@ ORDER BY
 
                 $lastChange = $row['changedDate'];
 
+                $posterData = json_decode($row['posterData'], true);
+
+                $by = array(
+                    'type' => 'created',
+                    'name' => (isset($posterData['name'])) ? $posterData['name']: '',
+                    'gm' => (isset($posterData['gm']) && (bool) $posterData['gm']) ? true : false,
+                );
+
                 // Has a comment
                 if(!empty($row['cmChangedDate']) && $row['cmChangedDate'] > 0){
-
-                    $posterData = json_decode($row['cmPosterData'], true);
+                    $cmPosterData = json_decode($row['cmPosterData'], true);
 
                     if($row['cmChangedTimestamp'] > $row['changedTimestamp']){
                         $lastChange = $row['cmChangedTimestamp'];
+                        $by = array(
+                            'type' => 'commented',
+                            'name' => $cmPosterData['name'],
+                            'gm' => (isset($cmPosterData['gm']) && $cmPosterData['gm']) ? true : false,
+                        );
+                        /*if($row['id'] == 224){
+                            debug("comment is fresher!", $lastChange);
+                        }*/
                     }
 
                     $comment = array(
                         'changedDate' => $row['cmChangedDate'],
                         'changedTimestamp' => $row['cmChangedTimestamp'],
-                        'gm' => (bool) $posterData['gm'],
-                        'name' => $posterData['name'],
-                        'class' => $posterData['class'],
+                        'gm' => (isset($cmPosterData['gm']) && $cmPosterData['gm']) ? true : false,
+                        'name' => $cmPosterData['name'],
+                        'class' => (!empty($cmPosterData['class'])) ? $cmPosterData['class'] : '',
                     );
+
+                    /*if($row['id'] == 224){
+                        debug("comment",$comment);
+                    }*/
                 }
                 unset($row['cmChangedDate'], $row['cmChangedTimestamp'], $row['cmPosterData']);
 
                 // Not in list yet?
                 if(empty($bugs[$row['id']])){
-
                     $bugs[$row['id']] = $row;
                     $bugs[$row['id']]['lastChange'] = $lastChange;
+                    $bugs[$row['id']]['by'] = $by;
                     $bugs[$row['id']]['lastComment'] = $comment;
-
+                    $bugs[$row['id']]['commentCount'] = (count($comment)) ? 1 : 0;
+                    /*if($row['id'] == 224){
+                        debug("row", $row);
+                        debug("first appearance",$bugs[$row['id']]);
+                    }*/
                 }
                 // Is in list but we got another comment to check
                 elseif(count($comment) > 0){
+                    $bugs[$row['id']]['commentCount']++;
+
                     // Has no comment listed yet?
                     if(count($bugs[$row['id']]['lastComment']) == 0){
                         $bugs[$row['id']]['lastChange'] = $lastChange;
+                        $bugs[$row['id']]['by'] = $by;
                         $bugs[$row['id']]['lastComment'] = $comment;
+
+                        /*if($row['id'] == 224){
+                            debug("first appearance with comment",$bugs[$row['id']]);
+                        }*/
                     }
                     // but this comment was more recent?
                     elseif($bugs[$row['id']]['lastComment']['changedTimestamp'] < $comment['changedTimestamp']){
                         $bugs[$row['id']]['lastChange'] = $lastChange;
+                        $bugs[$row['id']]['by'] = $by;
                         $bugs[$row['id']]['lastComment'] = $comment;
+                        /*if($row['id'] == 224){
+                            debug("another appearance",$bugs[$row['id']]);
+                        }*/
                     }
+                }
+
+                if($bugs[$row['id']]['lastChange'] > 0){
+                    $bugs[$row['id']]['changedDate'] = strftime("%d.%m.%Y %H:%M:%S", (int) $bugs[$row['id']]['lastChange']);
+                    $bugs[$row['id']]['changedTimestamp'] = (int) $bugs[$row['id']]['lastChange'];
                 }
             }
 
@@ -433,11 +472,49 @@ ORDER BY
                 $changedTimestamp = $row['changedTimestamp'];
 
                 if(!empty($changedTimestamp) && $changedTimestamp != 0){
-                    $changedDate = strftime("%d.%m.%Y", $changedTimestamp);
+                    $changedDate = strftime("%d.%m.%Y %H:%M:%S", $changedTimestamp);
                 }
                 else{
                     $changedTimestamp = $row['timestamp'];
-                    $changedDate = strftime("%d.%m.%Y", $row['timestamp']);
+                    $changedDate = strftime("%d.%m.%Y %H:%M:%S", $row['timestamp']);
+                }
+
+                $posterData = json_decode($row['posterData'],true);
+
+                if(empty($posterData['name'])){
+                    echo " PosterData Empty: ".$posterData;
+                    $posterData = array(
+                        'name' => $row['name'],
+                    );
+                }
+
+                if(!empty($row['action'])){
+                    $action = json_decode($row['action'], true);
+
+                    if(isset($action['state'])){
+                        switch($action['state']){
+                            case 'Offen':
+                                $action['state'] = BUGSTATE_OPEN;
+                                break;
+                            case 'Bearbeitung':
+                                $action['state'] = BUGSTATE_ACTIVE;
+                                break;
+                            case 'Workaround':
+                                $action['state'] = BUGSTATE_WORKAROUND;
+                                break;
+                            case 'Erledigt':
+                                $action['state'] = BUGSTATE_DONE;
+                                break;
+                            case 'Abgewiesen':
+                                $action['state'] = BUGSTATE_REJECTED;
+                                break;
+                        }
+                        $row['action'] = json_encode($action);
+                    }
+                    else{
+                        $row['action'] = "";
+                    }
+
                 }
 
                 $data = array(
@@ -447,9 +524,9 @@ ORDER BY
                     'action' => $row['action'],
                     'changedActions' => $row['actions'],
                     'posterAccountId' => $row['posterAccountId'],
-                    'posterData' => $row['posterData'],
+                    'posterData' => json_encode($posterData),
                     'createdTimestamp' => $row['timestamp'],
-                    'createdDate' => strftime("%d.%m.%Y", $row['timestamp']),
+                    'createdDate' => strftime("%d.%m.%Y %H:%M:%S", $row['timestamp']),
                     'changedTimestamp' => $changedTimestamp,
                     'changedDate' => $changedDate,
 
@@ -577,6 +654,43 @@ ORDER BY
         return $this->db->insert_id();
     }
 
+    public function createComment($bugId, $commentText, $action){
+
+        $realmName = $this->realms->getRealm($this->user->getActiveRealmId())->getName();
+        $activeChar = $this->user->getActiveCharacterData();
+
+        $posterData = array(
+            'name' => $activeChar['name'],
+            'account' => $activeChar['account'],
+            'level' => $activeChar['level'],
+            'race' => $activeChar['race'],
+            'gender' => $activeChar['gender'],
+            'class' => $activeChar['class'],
+            'realmName' => $realmName,
+            'gm' => $this->user->isStaff(),
+        );
+
+        $data = array(
+            'bug_entry' => $bugId,
+            'text' => $commentText,
+            'action' => json_encode($action),
+
+            'posterData' => json_encode($posterData),
+            'posterAccountId' => $this->user->getId(),
+
+            'createdDate' => strftime("%d.%m.%Y %H:%M:%S"),
+            'createdTimestamp' => time(),
+
+            'changedDate' => strftime("%d.%m.%Y %H:%M:%S"),
+            'changedTimestamp' => time(),
+        );
+
+        $this->db->insert('bugtracker_comments', $data);
+
+        return $this->db->insert_id();
+
+    }
+
     public function update($id, $headline, $identifier, $rank_needed, $top_category, $content)
     {
         $data = array(
@@ -591,6 +705,16 @@ ORDER BY
         $this->db->update('bugs', $data);
     }
 
+    public function updateState($bugId, $newState)
+    {
+        $data = array(
+            'bug_state' => $newState,
+        );
+
+        $this->db->where('id', $bugId);
+        $this->db->update('bugtracker_entries', $data);
+    }
+
     public function updateMatPathByProject($projectId, $matpath){
         $data = array(
             'matpath' => $matpath,
@@ -599,6 +723,32 @@ ORDER BY
         $this->db
             ->where('project', $projectId)
             ->update('bugtracker_entries', $data);
+
+    }
+
+    public function updateComment($commentId, $commentActions, $newCommentText){
+
+        if(!empty($commentActions) && !is_array($commentActions)){
+            $commentActions = json_decode($commentActions,true);
+        }
+        $commentActions[] = array(
+            "action" => "change",
+            "user" => $this->user->getId(),
+            "name" => $this->user->getNickname(),
+            "gm" => $this->user->isStaff(),
+            "ts" => time(),
+        );
+
+        $data = array(
+            'text' => $newCommentText,
+            'changedActions' => json_encode($commentActions),
+            'changedTimestamp' => time(),
+            'changedDate' => strftime("%d.%m.%Y %H:%M:%S", time()),
+        );
+
+        $this->db
+            ->where('id', $commentId)
+            ->update('bugtracker_comments', $data);
 
     }
 
@@ -629,7 +779,7 @@ ORDER BY
         if($query->num_rows() > 0){
             return $query->result_array();
         }
-        return false;
+        return array();
     }
 
     /**
@@ -675,6 +825,19 @@ ORDER BY
             case BUGPRIORITY_BLOCKER:
                 return $this->priorityLabels[$priority];
                 break;
+        }
+    }
+
+    public function getComment($commentId, $select = '*'){
+        $query = $this->db->select($select)
+            ->from('bugtracker_comments')
+            ->where('id', $commentId)
+            ->get();
+        if($query->num_rows() > 0){
+            return $query->row();
+        }
+        else{
+            return false;
         }
     }
 

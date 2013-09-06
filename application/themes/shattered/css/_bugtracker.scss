@@ -2,6 +2,10 @@
 
 .module-bugtracker {
 
+  #content .section-title {
+    width: auto;
+  }
+
   .bugtracker-project {
 
     max-resolution: 40px;
@@ -185,6 +189,7 @@
       font-size: 18px;
       font-weight: normal;
     }
+
     .comment-cm {
       float: right;
       text-align: right;
@@ -249,6 +254,17 @@
       box-shadow: 0 0 10px #000;
     }
     .blizzard {
+      background: #0d1a24;
+      .content {
+        color: #008cc6;
+      }
+      .user{
+        .time{
+          a {
+            color:#3d5365;
+          }
+        }
+      }
       .context-link {
         color: #FFF;
       }

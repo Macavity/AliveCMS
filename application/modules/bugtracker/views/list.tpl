@@ -59,8 +59,26 @@
                                 <i class="icon {$bug.priorityClass}" data-tooltip="{$bug.priorityLabel}"></i>
                             </td>
 							<td>{$bug.type_string}</td>
-							<td data-raw="{$bug.title}">{$bug.title}</td>
-							<td data-raw="{$bug.changedSort}"><span data-tooltip="Eintragung am {$bug.createdDate}">{$bug.changedDate}</span></td>
+							<td data-raw="{$bug.title}">
+                                {$bug.title}
+                                {if $bug.commentCount > 0}
+                                    <span class="comments-link">{$bug.commentCount}</span>
+                                {/if}
+                            </td>
+							<td data-raw="{$bug.changedSort}"><span data-tooltip="{strip}
+                                    {if $bug.by}
+                                        {if $bug.by.type == "created"}
+                                            Eintragung am {$bug.createdDate} von {if $bug.by.gm}&lt;span class=&quot;employee&quot;/&gt;{/if}{$bug.by.name}
+                                        {elseif $bug.by.type == "commented"}
+                                            Eintragung am {$bug.createdDate},&lt;br&gt;
+                                            Letzter Kommentar von {if $bug.by.gm}&lt;span class=&quot;employee&quot;/&gt;{/if}{$bug.by.name}
+                                        {/if}
+
+                                    {else}
+                                    Eintragung am {$bug.createdDate}
+                                    {/if}
+                                {/strip}">{$bug.changedDate}</span>
+                            </td>
 						</tr>
 					{/foreach}
 					</tbody>

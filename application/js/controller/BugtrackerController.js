@@ -56,7 +56,7 @@ define(['./BaseController', 'modules/wiki', 'modules/wiki_related', 'modules/toa
             var _jq = $;
             var Controller = this;
 
-            if(_jq("#bugtrackerCreateForm")){
+            if(_jq("#bugtrackerCreateForm").length > 0){
 
                 /**
                  * Category Change - Show/Hide Form Wrappers
@@ -111,6 +111,97 @@ define(['./BaseController', 'modules/wiki', 'modules/wiki_related', 'modules/toa
                         Controller.eventClickSubmit(event.target);
                     });
             }
+
+            _jq("#content_ajax")
+                .on("click", ".jsEditComment", function(event){
+                    event.preventDefault();
+                    Controller.eventClickEditComment(event.target);
+                })
+                .on("click", ".jsSubmitEditComment", function(event){
+                    event.preventDefault();
+                    Controller.eventClickSubmitEditComment(event.target);
+                });
+        },
+
+        eventClickEditComment: function(target){
+
+            var _jq = $;
+            var Controller = this;
+
+            var button = $(target);
+
+            while(!button.is("button")){
+                button = button.parent();
+            }
+
+            var commentId = button.data("comment");
+            $.ajax({
+                url: "/bugtracker/edit_comment/",
+                type: 'POST',
+                data: {
+                    csrf_token_name: Config.CSRF,
+                    action: "get",
+                    comment: commentId
+                },
+                dataType: "json",
+                success: function(data){
+
+                    if(typeof data.msg != "undefined"){
+                        Toast.show(data.msg);
+                    }
+                    if(typeof data.text != "undefined"){
+                        var bug = $("#bug-id").val();
+                        var template = Controller.getTemplate("bugtracker_edit_comment");
+                        var html = template({
+                            id: commentId,
+                            content: data.text,
+                            lang: mapStatic.lang
+                        });
+
+                        _jq("#comment-content-"+commentId).html(html);
+                    }
+                }
+            });
+
+        },
+
+        eventClickSubmitEditComment: function(target){
+
+            var _jq = $;
+            var Controller = this;
+
+            var button = $(target);
+
+            while(!button.is("button")){
+                button = button.parent();
+            }
+
+            var commentId = button.data("comment");
+
+            var newContent = _jq("#comment-edit-textarea-"+commentId).val();
+
+            $.ajax({
+                url: "/bugtracker/edit_comment/",
+                type: 'POST',
+                data: {
+                    csrf_token_name: Config.CSRF,
+                    action: "edit",
+                    comment: commentId,
+                    content: newContent
+                },
+                dataType: "json",
+                success: function(data){
+
+                    if(typeof data.msg != "undefined"){
+                        Toast.show(data.msg);
+                    }
+                    if(typeof data.text != "undefined"){
+                        _jq("#comment-content-"+commentId).html(data.text);
+                        _jq("#comment-content-"+commentId).parent().append().html('<span class="action-log"><span class="time">Gerade bearbeitet worden von '+data.username+'</span></span><br>');
+                    }
+                }
+            });
+
         },
 
         eventClickDeleteLink: function(target){

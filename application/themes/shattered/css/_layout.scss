@@ -1536,6 +1536,14 @@ a.comments-link {
   display: block;
   float: left;
 }
+
+.comments-link{
+  background: -16px -15px;
+  background-image:url(../images/layout/cms/blog_icons.gif);
+  padding-left: 17px;
+  margin-left: 8px;
+}
+
 .by-line a.comments-link {
   line-height: 1.2em;
   float: none;
@@ -1675,7 +1683,7 @@ a.comments-link {
 }
 .service-welcome .employee,
 span.employee {
-  display: inline-block; vertical-align: middle; width: 27px; height: 32px;
+  display: inline-block; vertical-align: middle; width: 27px; height: 10px;
   background: url("../images/icons/employee.png") no-repeat center center; /* TODO */
 }
 
