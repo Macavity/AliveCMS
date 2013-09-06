@@ -265,7 +265,17 @@ sup {
 
 .align-center {text-align: center;}
 
-/* reusable icons */
+.ajax-loading {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: url("../images/ajax-loader.gif") left center no-repeat;
+  vertical-align: middle;
+}
+
+/**
+ * WoW Icons
+ */
 .icon-wowhead	{ padding-left: 20px; background: url("../images/icons/wowhead.png") left center no-repeat; }
 .icon-gold		{ padding-right: 15px; background: url("../images/icons/gold.gif") right center no-repeat; }
 .icon-silver	{ padding-right: 15px; padding-left: 3px; background: url("../images/icons/silver.gif") right center no-repeat; }
@@ -273,22 +283,54 @@ sup {
 .icon-rss       { background: url("../images/icons/rss.gif") left center no-repeat; }
 .icon-next      { background: url("../images/icons/next.gif") 0 0 no-repeat; }
 .icon-next:hover{ background-position:0 -18px; }
+
+/* Roles */
 .icon-dps,
 .icon-healer,
 .icon-tank {
-  float: right; width: 16px; height: 16px; background: url("../images/icons/roles.png") no-repeat;
+  float: right;
+  width: 16px;
+  height: 16px;
+  background: url("../images/icons/roles.png") no-repeat;
 }
-.icon-dps    {
-  background-position: 0 0;
-}
+.icon-dps    {  background-position: 0 0; }
 .icon-healer { background-position: -16px 0; }
 .icon-tank   { background-position: -32px 0; }
-.icon-heroic-skull { height: 12px; width: 10px; display: inline-block; background: url("../images/icons/heroic.gif") 50% 50% no-repeat; margin-left: 5px; }
-.icon-daily-quest { padding-left: 10px; background: url("../images/icons/daily.gif") 0 50% no-repeat; margin-left: 6px; }
+
+.icon-heroic-skull {
+  display: inline-block;
+  margin-left: 5px;
+  width: 10px;
+  height: 12px;
+  background: url("../images/icons/heroic.gif") 50% 50% no-repeat;
+}
+
+.icon-daily-quest {
+  margin-left: 6px;
+  padding-left: 10px;
+  background: url("../images/icons/daily.gif") 0 50% no-repeat;
+}
 .icon-faction-0,
-.icon-faction-1 { height: 15px; width: 15px; display: inline-block; vertical-align: middle; margin-left: 6px; background: url("../images/icons/alliance.png") left center no-repeat; }
-.icon-faction-1 { background: url("../images/icons/horde.png") left center no-repeat; }
-.icon-achievement-points { padding-left: 11px; background: url("../images/icons/achievements.gif") left center no-repeat; margin-left: 4px; }
+.icon-faction-1{
+  display: inline-block;
+  margin-left: 6px;
+  width: 15px;
+  height: 15px;
+  background: url("../images/icons/alliance.png") left center no-repeat !important;
+  vertical-align: middle;
+  &.pre-icon{
+    margin-left: 0px;
+    margin-right: 6px;
+  }
+}
+.icon-faction-1 {
+  background: url("../images/icons/horde.png") left center no-repeat !important;
+}
+.icon-achievement-points {
+  margin-left: 4px;
+  padding-left: 11px;
+  background: url("../images/icons/achievements.gif") left center no-repeat;
+}
 
 /* framed icons */
 .icon-frame { display: inline-block; overflow: hidden; padding: 1px; background-color: #000; background-position: 1px 1px; background-repeat: no-repeat; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; border: 1px solid #434445; border-bottom-color: #2f3032; border-top-color: #b1b2b4; }

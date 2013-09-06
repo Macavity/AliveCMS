@@ -9,7 +9,7 @@ class Project_Model extends CI_Model {
     public function getProjects()
     {
         $this->db->select('*')->from('bugtracker_projects')
-            ->order_by('parent', 'asc')
+            ->order_by('matpath', 'asc')
             ->order_by('order', 'asc');
         $query = $this->db->get();
 
@@ -20,6 +20,57 @@ class Project_Model extends CI_Model {
             $baseProjects = $query->result_array();
         }
         return $baseProjects;
+    }
+
+    /**
+     * @param array|null $allProjects
+     * @return array
+     */
+    public function getProjectTree($allProjects = NULL){
+        if($allProjects == NULL || !is_array($allProjects)){
+            $this->db
+                ->select('id,parent,matpath,title')
+                ->from('bugtracker_projects')
+                ->order_by('matpath', 'asc');
+            $query = $this->db->get();
+            if($query->num_rows() > 0){
+                $allProjects = $query->result_array();
+            }
+            else{
+                return array();
+            }
+        }
+
+        $projectTree = array();
+
+        foreach($allProjects as $project){
+
+            $rowPath = explode(".", $project['matpath']);
+            $project['prefix'] = '';
+            $project['children'] = array();
+
+            if(count($rowPath) == 1){
+                $projectTree[$project['id']] = $project;
+            }
+            elseif(count($rowPath) == 2){
+                $project['prefix'] = '- ';
+                $projectTree[$rowPath[0]*1]['children'][$project['id']] = $project;
+            }
+            elseif(count($rowPath) == 3){
+                $project['prefix'] = '-- ';
+                $projectTree[$rowPath[0]*1]['children'][$rowPath[1]*1]['children'][$project['id']] = $project;
+            }
+            elseif(count($rowPath) == 4){
+                $project['prefix'] = '--- ';
+                $projectTree[$rowPath[0]*1]['children'][$rowPath[1]*1]['children'][$rowPath[2]*1]['children'][$project['id']] = $project;
+            }
+        }
+
+        return $projectTree;
+    }
+
+    private function addChild($proje){
+
     }
 
     /**

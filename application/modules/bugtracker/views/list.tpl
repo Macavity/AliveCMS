@@ -1,6 +1,6 @@
 
 <div class="bugtracker-actions">
-    <a href="{site_url('bugtracker/create')}" class="ui-button button2 button2-previous"><span><span>Kategorienliste</span></span></a>&nbsp;
+    <a href="{site_url('bugtracker/index')}" class="ui-button button2 button2-previous"><span><span>Kategorienliste</span></span></a>&nbsp;
   {if hasPermission("canCreateBugs")}
     <a href="{site_url('bugtracker/create')}" class="ui-button button2"><span><span>Neuen Bug eintragen</span></span></a>&nbsp;
   {/if}

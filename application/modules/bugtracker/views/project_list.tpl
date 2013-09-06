@@ -1,3 +1,8 @@
+<div class="bugtracker-actions">
+    {if hasPermission("canCreateBugs")}
+        <a href="{site_url('bugtracker/create')}" class="ui-button button2"><span><span>Neuen Bug eintragen</span></span></a>&nbsp;
+    {/if}
+</div>
 
 {foreach from=$projects item=project}
 <section id="bt-project-{$project.id}" class="bugtracker-project">

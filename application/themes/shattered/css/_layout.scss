@@ -1908,12 +1908,17 @@ a.ui-button.imgbutton span {
 
 /* Buttons */
 
-.ui-button span, .ui-cancel span {
-  line-height: 38px;
+.ui-button,
+.ui-cancel{
+  span {
+    line-height: 38px;
+  }
 }
 
-.ui-button span {
-  font-family: Arial, sans-serif;
+.ui-button{
+  span {
+    font-family: Arial, sans-serif;
+  }
 }
 
 .button1 {
@@ -1928,31 +1933,47 @@ a.ui-button.imgbutton span {
   &.disabled span, &.processing span {
     color: #953203;
   }
-}
+  &.button1-next {
+    span {
+      background-image: url("../images/buttons/button-1-next.png");
+      span {
+        padding-right: 40px;
+      }
+    }
+  }
 
-.button1-next span {
-  background-image: url("../images/buttons/button-1-next.png");
-  span {
-    padding-right: 40px;
+  &.button1-previous{
+    span {
+      background-image: url("../images/buttons/button-1-previous.png");
+      span {
+        padding-left: 12px;
+      }
+    }
   }
 }
 
-.button1-previous span {
-  background-image: url("../images/buttons/button-1-previous.png");
-  span {
-    padding-left: 12px;
+
+
+.button2,
+.button3{
+  span{
+    padding: 0 0 0 13px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 11px;
+
+    &.hover,
+    &:hover{
+      span {
+        color: #fff;
+      }
+    }
+
+    span {
+      padding: 0 13px 0 0;
+    }
   }
-}
 
-.button2 span, .button3 span {
-  padding: 0 0 0 13px;
-  height: 30px;
-  line-height: 30px;
-  font-size: 11px;
-}
-
-.button2 span span, .button3 span span {
-  padding: 0 13px 0 0;
 }
 
 .button2 {
@@ -1961,11 +1982,12 @@ a.ui-button.imgbutton span {
     background-repeat: no-repeat;
     color: #ffae00;
   }
-  &.hover span, &:hover span {
-    color: #fff;
-  }
-  &.disabled span, &.processing span {
-    color: #953203;
+
+  &.disabled,
+  &.processing{
+    span {
+      color: #953203;
+    }
   }
 }
 
@@ -1981,15 +2003,17 @@ a.ui-button.imgbutton span {
   }
 }
 
-.button2-previous span {
-  background-image: url("../images/buttons/button-2-previous.png");
-  line-height: 26px;
-  padding-right: 14px !important;
+.button2-previous{
   span {
-    padding-left: 1px;
-    margin: 0;
-    font-size: 11px;
-    text-transform: none;
+    background-image: url("../images/buttons/button-2-previous.png");
+    line-height: 29px;
+    padding-left: 20px !important;
+    span {
+      padding-left: 3px !important;
+      margin: 0;
+      font-size: 11px;
+      text-transform: none;
+    }
   }
 }
 
@@ -1998,9 +2022,6 @@ a.ui-button.imgbutton span {
     background-image: url("../images/buttons/button-3.gif");
     background-repeat: no-repeat;
     color: #00B4FF;
-  }
-  &.hover span, &:hover span {
-    color: #fff;
   }
   &.disabled span, &.processing span {
     color: #b1bac3;

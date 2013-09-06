@@ -155,11 +155,10 @@ class Bugtracker extends MX_Controller{
                 /*$baseProjects[$l0key]['counts']['done'] = $l0done;
                 $baseProjects[$l0key]['counts']['all'] = $l0all;
                 $baseProjects[$l0key]['counts']['open'] = $l0open;*/
-                if($l0all > 0){
-                    $all = $l0project['counts']['all'];
-                    $done = $l0project['counts']['all'] - $l0project['counts'][BUGSTATE_OPEN] - $l0project['counts'][BUGSTATE_ACTIVE];
-                    $baseProjects[$l0key]['counts']['percentage']['done'] = round($done/$all*100);
-                }
+                $all = $l0project['counts']['all'];
+                $done = $l0project['counts']['done'];
+                $baseProjects[$l0key]['counts']['percentage']['done'] = round($done/$all*100);
+
 
                 // Save L1 back to L0 stack (Base)
                 $baseProjects[$l0key]['projects'] = $l1projects;
@@ -239,7 +238,9 @@ class Bugtracker extends MX_Controller{
             }
         }
 
-        $bugRows = $this->bug_model->getBugsByProject($searchProjects, 'none');
+        $this->template->enable_profiler(true);
+
+        $bugRows = $this->bug_model->getBugsByProject($projectId, 'none');
 
         foreach($bugRows as $i => $row){
             $row['title'] = htmlentities($row['title'], ENT_QUOTES, 'UTF-8');
@@ -559,7 +560,7 @@ class Bugtracker extends MX_Controller{
             'state' => $asd,*/
         );
 
-        $out = $this->template->loadPage('detail.tpl', $page_data);
+        $out = $this->template->loadPage('bug_detail.tpl', $page_data);
 
         $this->template->view($out, $this->css);
     }
@@ -568,20 +569,106 @@ class Bugtracker extends MX_Controller{
 
         requirePermission('canCreateBugs');
 
+        // Helper
+        $this->load->helper('form');
+
+        /**
+         * Post Form
+         */
+        $formData = array(
+            'project' => '',
+            'title' => '',
+            'desc' => '',
+            'priority' => BUGPRIORITY_MINOR,
+            'links' => array(),
+        );
+
+        foreach($formData as $fieldName => $defaultValue){
+            $postData = $this->input->post($fieldName);
+
+            if($fieldName == 'priority' && !hasPermission("canPrioritize")){
+                continue;
+            }
+
+            if(!empty($postData)){
+                $formData[$fieldName] = $postData;
+            }
+        }
+        //debug("formData", $formData);
+
+        if(!empty($formData['project']) && !empty($formData['title']) && !empty($formData['desc'])){
+            $newBugId = $this->bug_model->create($formData['project'], $formData['priority'], $formData['title'], $formData['desc'], $formData['links']);
+
+            if($newBugId){
+                // Show Detail Page of the newly created Bug
+                $this->bug($newBugId);
+                return;
+            }
+        }
+
+        /**
+         * Title & Breadcrumbs
+         */
         $this->template->setTitle($this->moduleTitle);
         $this->template->setSectionTitle('Neuen Bug eintragen');
         $this->template->addBreadcrumb('Neuen Bug eintragen', site_url('bugtracker/create'));
-        
-        $this->load->helper('form');
-        
+
+
+        /**
+         * Bug Categories
+         */
+        $projectTree = $this->project_model->getProjectTree();
+
+        $baseProjects = array();
+        $projectPaths = array();
+
+        foreach($projectTree as $baseRow){
+            $projectPaths[$baseRow['id']] = explode('.',$baseRow['matpath']);
+            $children = array();
+
+            foreach($baseRow['children'] as $child1){
+                $projectPaths[$child1['id']] = explode('.', $child1['matpath']);
+                $children[$child1['id']] = $child1['prefix'].$child1['title'];
+
+                foreach($child1['children'] as $child2){
+                    $projectPaths[$child2['id']] = explode('.', $child2['matpath']);
+                    $children[$child2['id']] = $child2['prefix'].$child2['title'];
+
+                    foreach($child2['children'] as $child3){
+                        $projectPaths[$child3['id']] = explode('.', $child3['matpath']);
+                        $children[$child3['id']] = $child3['prefix'].$child3['title'];
+                    }
+                }
+            }
+
+            $baseProjects[$baseRow['id']] = array(
+                'title' => $baseRow['prefix'].$baseRow['title'],
+                'children' => $children,
+            );
+        }
+
+        $idTypes = array(
+            'quest' => 'Quest',
+            'npc' => 'NPC',
+            'zone' => 'Dungeon/Raid/Zone',
+        );
+
+        $bugPriorities = $this->bug_model->getPrioritiesWithLabel();
+
         $page_data = array(
-            'module' => 'bugtracker', 
+            'module' => 'bugtracker',
+            'form_attributes' => array('class' => 'form-horizontal', 'id' => 'bugtrackerCreateForm'),
             'js_path' => $this->template->js_path,
             'image_path' => $this->template->image_path,
-            'bugTypes' => $this->bugTypes,
+            'baseProjects' => $baseProjects,
+            'idTypes' => $idTypes,
+            'projectPaths' => $projectPaths,
+            'bugLinks' => array(),
+            'bugPriorities' => $bugPriorities,
+            'post' => $formData,
         );
         
-        $out = $this->template->loadPage('create.tpl', $page_data);
+        $out = $this->template->loadPage('bug_create.tpl', $page_data);
         
         $this->template->view($out, $this->css);
     }

@@ -28,11 +28,11 @@ class Zone_model extends CI_Model {
     var $zone_data = array();
     var $npc_data = array();
 
-    function __construct(){
+    public function __construct(){
         $this->loadZoneData();
     }
 
-    function getZone($zoneName){
+    public function getZone($zoneName){
 
         $this->db->select("*")->from("game_zone_template");
 
@@ -89,7 +89,35 @@ class Zone_model extends CI_Model {
 
     }
 
-    function loadZoneDetails(){
+    public function searchForZoneByName($term){
+        $query = $this->db->select("id, name_de_de, partySize")
+            ->from("game_zone_template")
+            ->like('name_de_de', $term)
+            ->order_by('name_de_de ASC, partySize ASC')
+            ->get();
+
+        if($query->num_rows() > 0){
+            $results = $query->result_array();
+
+            $zones = array();
+
+            foreach($results as $row){
+                $zones[$row['id']] = array(
+                    'value' => $row['id'],
+                    'label' => $row['name_de_de']
+                );
+            }
+
+            return $zones;
+        }
+        else {
+            return array();
+        }
+
+
+    }
+
+    public function loadZoneDetails(){
 
         for($i = 1; $i <= 10; $i++){
 
