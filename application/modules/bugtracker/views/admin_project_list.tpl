@@ -21,7 +21,7 @@
                 {/foreach}
             </ul>
             {foreach from=$projects item=project}
-                <div id="project-tab-{$project.id}">
+                <div id="project-tab-{$project.id}" class="project-list">
                     <a href="{$url}bugtracker/admin_projects/edit/{$project.id}" data-tip="Bearbeiten">
                         <img src="{$url}application/themes/admin/images/icons/black16x16/ic_edit.png" />
                         Hauptprojekt bearbeiten
@@ -32,11 +32,19 @@
                             {foreach from=$project.projects item=sub}
                                 <li class="ui-state-default">
                                     <label><i class="icon-flag icon"></i> {$sub.title}</label>
+                                    <a href="{$url}bugtracker/admin_projects/edit/{$sub.id}" data-tip="Bearbeiten">
+                                        <img src="{$url}application/themes/admin/images/icons/black16x16/ic_edit.png" />
+                                         Bearbeiten
+                                    </a>
                                     {if $sub.projects}
                                         <ul id="sortable-{$sub.id}" class="subsortable">
                                             {foreach from=$sub.projects item=sub2}
                                                 <li class="ui-state-default">
                                                     <label><i class="icon-tag icon"></i> {$sub2.title}</label>
+                                                    <a href="{$url}bugtracker/admin_projects/edit/{$sub2.id}" data-tip="Bearbeiten">
+                                                        <img src="{$url}application/themes/admin/images/icons/black16x16/ic_edit.png" />
+                                                        Bearbeiten
+                                                    </a>
                                                 </li>
                                             {/foreach}
                                         </ul>

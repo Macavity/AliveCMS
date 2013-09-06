@@ -52,7 +52,7 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
                             trigger: 'manual'
                         })
                         .popover('show');
-                    setTimeout(function(){button.popover('destroy')}, 4000);
+                    setTimeout(function(){ button.popover('destroy'); }, 4000);
                     return;
                 }
 
@@ -68,7 +68,7 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
                             trigger: 'manual'
                         })
                         .popover('show');
-                    setTimeout(function(){button.popover('destroy')}, 4000);
+                    setTimeout(function(){ button.popover('destroy'); }, 4000);
                     return;
                 }
 
@@ -184,12 +184,15 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
                     },
                     function(data){
 
-                        modal.modal("hide")
+                        modal.modal("hide");
                         modal.removeClass("disabled");
 
+                        var template = null;
+                        var alertHtml = '';
+
                         if(data.type == "error"){
-                            var template = Controller.getTemplate("alert");
-                            var alertHtml = template({
+                            template = Controller.getTemplate("alert");
+                            alertHtml = template({
                                 type: "danger",
                                 message: data.msg
                             });
@@ -197,9 +200,9 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
 
                         }
                         else if(data.type == "success"){
-                            modal.modal("hide")
-                            var template = Controller.getTemplate("alert");
-                            var alertHtml = template({
+                            modal.modal("hide");
+                            template = Controller.getTemplate("alert");
+                            alertHtml = template({
                                 type: "success",
                                 message: data.msg
                             });
@@ -211,7 +214,7 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
                         }
                     }, "json")
                     .fail(function(data) {
-                        modal.modal("hide")
+                        modal.modal("hide");
                         modal.removeClass("disabled");
                         $("#checkout").html(data.responseText).fadeIn(150);
                     });
@@ -249,7 +252,7 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
         updateActiveChar: function(){
             var activeChar = $("#selected-character");
 
-            if(activeChar.length != 0){
+            if(activeChar.length !== 0){
                 this.activeChar = {
                     name: activeChar.data("name"),
                     guid: activeChar.data("charid"),

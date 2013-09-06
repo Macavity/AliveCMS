@@ -1,5 +1,5 @@
 
-define(function(){
+define(['modules/app', 'modules/toggle'], function(App, Toggle){
 
 
     /**

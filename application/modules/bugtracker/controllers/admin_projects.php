@@ -6,8 +6,8 @@
 class Admin_Projects extends MX_Controller
 {
 
-    var $jsPath = "modules/bugtracker/js/bugtracker_admin.js";
-    var $mainTitle = "Bugtracker";
+    var $jsPath = 'modules/bugtracker/js/bugtracker_admin.js';
+    var $mainTitle = 'Bugtracker';
 
 	public function __construct()
 	{
@@ -15,15 +15,19 @@ class Admin_Projects extends MX_Controller
 		$this->load->library('administrator');
 		$this->load->model('project_model');
 
+        if(false){
+            $this->project_model = new Project_Model();
+        }
+
 		parent::__construct();
 
-		requirePermission("canEditProjects");
+		requirePermission('canEditProjects');
 	}
 
 	public function index()
 	{
 		// Change the title
-		$this->administrator->setTitle("Bugtracker Projekte");
+		$this->administrator->setTitle('Bugtracker Projekte');
 
         $projectList = $this->project_model->getProjects();
         $projectCount = count($projectList);
@@ -33,11 +37,11 @@ class Admin_Projects extends MX_Controller
         $projectsByParent = array();
 
         foreach($projectList as $project){
-            if($project["parent"] != 0){
-                $projectsByParent[$project["parent"]][$project["id"]] = $project;
+            if($project['parent'] != 0){
+                $projectsByParent[$project['parent']][$project['id']] = $project;
             }
             else{
-                $baseProjects[$project["id"]] = $project;
+                $baseProjects[$project['id']] = $project;
             }
         }
 
@@ -48,13 +52,13 @@ class Admin_Projects extends MX_Controller
         foreach($projectsByParent as $parent => $subProjects){
 
             foreach($subProjects as $key => $project){
-                $projectsByParent[$project["parent"]][] = $project;
+                $projectsByParent[$project['parent']][] = $project;
             }
 
         }*/
 
         foreach($baseProjects as $projectId => $project){
-            $projectChoices[$projectId] = $project["title"];
+            $projectChoices[$projectId] = $project['title'];
 
             $subProjects = array();
 
@@ -69,14 +73,14 @@ class Admin_Projects extends MX_Controller
                         $subsubs = $projectsByParent[$key];
                     }
 
-                    $subProjects[$key]["projects"] = $subsubs;
+                    $subProjects[$key]['projects'] = $subsubs;
 
-                    $projectChoices[$key] = $project["title"].": ".$subProject["title"];
+                    $projectChoices[$key] = $project['title'].': '.$subProject['title'];
 
                 }
 
             }
-            $baseProjects[$projectId]["projects"] = $subProjects;
+            $baseProjects[$projectId]['projects'] = $subProjects;
 
         }
 
@@ -89,7 +93,7 @@ class Admin_Projects extends MX_Controller
         );
 
 		// Load my view
-		$output = $this->template->loadPage("admin_project_list.tpl", $templateData);
+		$output = $this->template->loadPage('admin_project_list.tpl', $templateData);
 
 		// Put my view in the main box with a headline
 		$content = $this->administrator->box('Bugtracker', $output);
@@ -102,32 +106,32 @@ class Admin_Projects extends MX_Controller
      */
     public function create()
     {
-        requirePermission("canCreateProjects");
+        requirePermission('canCreateProjects');
 
         $data = array(
-            "title" => $this->input->post("projectTitle"),
-            "description" => $this->input->post("projectDesc"),
-            "parent" => $this->input->post("projectParent"),
+            'title' => $this->input->post('projectTitle'),
+            'description' => $this->input->post('projectDesc'),
+            'parent' => $this->input->post('projectParent'),
         );
 
         $output = array(
-            "state" => "success",
-            "message" => "",
-            "debug" => print_r($data, true),
+            'state' => 'success',
+            'message' => '',
+            'debug' => print_r($data, true),
         );
 
-        if(empty($data["title"]))
+        if(empty($data['title']))
         {
-            $output["state"] = "error";
-            $output["message"] = "Bitte tragen einen Namen für diese Kategorie ein!";
+            $output['state'] = 'error';
+            $output['message'] = 'Bitte tragen einen Namen für diese Kategorie ein!';
         }
 
 
-        if($output["state"] != "error"){
+        if($output['state'] != 'error'){
             $id = $this->project_model->add($data);
-            $output["message"] = "Das Projekt wurde erfolgreich hinzugefügt.";
+            $output['message'] = 'Das Projekt wurde erfolgreich hinzugefügt.';
 
-            $this->logger->createLog('Created Bugtracker Project', "(".$id.") ".$data['title']);
+            $this->logger->createLog('Created Bugtracker Project', '('.$id.') '.$data['title']);
         }
 
         $this->outputJson($output);
@@ -138,34 +142,69 @@ class Admin_Projects extends MX_Controller
 	 * Load the page to edit the item with the given id.
 	 * @param bool $id
 	 */
-	public function edit($id = false)
+	public function edit($editProjectId = false)
 	{
 		// Check for the permission
-		requirePermission("canEditProjects");
+		requirePermission('canEditProjects');
 
-		if(!is_numeric($id) || !$id)
+		if(!is_numeric($editProjectId) || !$editProjectId)
 		{
 			die();
 		}
+		$editProject = $this->project_model->getProjectById($editProjectId);
 
-		$project = $this->project_model->findProjectById($id);
+        if(!$editProject){
+            show_error('Dieses Projekt wurde nicht gefunden.');
+            return;
+        }
 
-		if(!$project)
-		{
-			show_error("Dieses Projekt wurde nicht gefunden.");
-			die();
-		}
+        $projectList = $this->project_model->getProjects();
+
+        /**
+         * List of all Level 0-1 Projects,
+         * only these can have sub projects
+         */
+        $projectChoices = array();
+
+        // Level 0 Projects
+        $baseProjects = array();
+
+        // Level > 0 Projects
+        $projectsByParent = array();
+
+        foreach($projectList as $project){
+            if($project['parent'] != 0){
+                $projectsByParent[$project['parent']][$project['id']] = $project;
+            }
+            else{
+                $baseProjects[$project['id']] = $project;
+            }
+        }
+
+        foreach($baseProjects as $projectId => $project){
+            $projectChoices[$projectId] = $project['title'];
+
+            if(!empty($projectsByParent[$projectId])){
+                $subProjects = $projectsByParent[$projectId];
+
+                foreach($subProjects as $key => $subProject){
+                    $projectChoices[$key] = $project['title'].': '.$subProject['title'];
+                }
+            }
+        }
+
 
 		// Change the title
-		$this->administrator->setTitle($project['title']);
+		$this->administrator->setTitle($editProject['title']);
 
 		$data = array(
 			'url' => $this->template->page_url,
-			'project' => $project,
+			'project' => $editProject,
+            'projectChoices' => $projectChoices,
 		);
 
 		// Load my view
-		$output = $this->template->loadPage("admin_edit_project.tpl", $data);
+		$output = $this->template->loadPage('admin_edit_project.tpl', $data);
 
 		// Put my view in the main box with a headline
 		$content = $this->administrator->box('<a href="'.$this->template->page_url.'bugtracker/admin_projects/">Bugtracker Projekte</a> &rarr; '.$project['title'], $output);
@@ -181,43 +220,43 @@ class Admin_Projects extends MX_Controller
 	public function save($id = false)
 	{
 		// Check for the permission
-		requirePermission("canEditProjects");
+		requirePermission('canEditProjects');
 
-		if(!$id || !is_numeric($id))
-		{
-			die();
+		if(!$id || !is_numeric($id)){
+			return;
 		}
 
         $data = array(
-            "title" => $this->input->post("projectTitle"),
-            "description" => $this->input->post("projectDesc"),
+            'title' => $this->input->post('projectTitle'),
+            'description' => $this->input->post('projectDesc'),
+            'parent' => $this->input->post('projectParent'),
         );
 
         $output = array(
-            "state" => "success",
-            "message" => "",
-            "debug" => print_r($data, true),
+            'state' => 'success',
+            'message' => '',
+            'debug' => print_r($data, true),
         );
 
-        foreach($data as $value)
-        {
-            /* All fields are mandatory */
-            if(empty($value))
-            {
-                $output["state"] = "error";
-                $output["message"] = "Bitte fülle alle Felder aus!";
-            }
+        if(empty($data['title'])){
+            $output['state'] = 'error';
+            $output['message'] = 'Bitte fülle alle Felder aus!';
         }
+
 
         $data['matpath'] = $this->project_model->getMaterializedPath($id);
 
-        if($output["state"] != "error"){
+        if($output['state'] != 'error'){
             $this->project_model->edit($id, $data);
-            $output["message"] = "Das Projekt wurde erfolgreich bearbeitet.";
+            $output['message'] = 'Das Projekt wurde erfolgreich bearbeitet.';
         }
 
+        // Update MatPath of all Bugs of this project
+
+
+
 		// Add log
-		$this->logger->createLog('Edited Bugtracker Project', "(".$id.") ".$data['title']);
+		$this->logger->createLog('Edited Bugtracker Project', '('.$id.') '.$data['title']);
 
 		$this->plugins->onEditItem($id, $data);
 
@@ -227,7 +266,7 @@ class Admin_Projects extends MX_Controller
 	public function delete($id = false)
 	{
 		// Check for the permission
-		requirePermission("canRemoveProjects");
+		requirePermission('canRemoveProjects');
 
 		if(!$id || !is_numeric($id))
 		{
@@ -241,7 +280,7 @@ class Admin_Projects extends MX_Controller
 
 		$this->plugins->onDeleteItem($id);
 
-        $this->outputJson(array("state" => "success"));
+        $this->outputJson(array('state' => 'success'));
 	}
 
 }

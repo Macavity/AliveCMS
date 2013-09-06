@@ -1,7 +1,14 @@
-define(
-    ['modules/core', 'modules/page', 'modules/char_select', 'modules/login', 'modules/tooltip', 'modules/wow'],
+define([
+    'modules/core',
+    'modules/page',
+    'modules/char_select',
+    'modules/login',
+    'modules/tooltip',
+    'modules/wow',
+    'modules/explore'
+],
 
-    function (Core, Page, CharSelect, Login, Tooltip, Wow) {
+    function (Core, Page, CharSelect, Login, Tooltip, Wow, Explore) {
 
     var BaseController = Class.extend({
 
@@ -15,7 +22,6 @@ define(
 
             /*
              Input.initialize();
-             Explore.initialize();
              Flash.initialize();
              Locale.initialize();
              */
@@ -24,6 +30,7 @@ define(
             Core.initialize();
             CharSelect.initialize();
             Wow.initialize();
+            Explore.initialize();
 
             // Set data-tooltip binds globally
             //

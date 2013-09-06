@@ -40,6 +40,15 @@ var mapStatic = {
         first: 'Erster',
         last: 'Letzter',
         loading: 'Lade…',
+        save: 'Speichern',
+        bugtracker: {
+            deleteLink: 'Entfernen',
+            attention: 'Achtung!',
+            alright: 'Alles in Ordnung',
+            similarBugsExist: 'Es gibt dazu schon Bug Reports:',
+            noSimilarBugs: 'Keine anderen Bug Reports gefunden.',
+            errorProject: 'Bitte wähle zuerst aus welche Kategorie der Bug hat.'
+        },
         store: {
             checkout: "Einkauf bestätigen",
             buy: "Kaufen",

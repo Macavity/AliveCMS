@@ -388,6 +388,7 @@ class CI_Output {
 		{
 			foreach ($this->headers as $header)
 			{
+                log_message('debug', 'Set Header: '.$header[0].' '.$header[1]);
 				@header($header[0], $header[1]);
 			}
 		}

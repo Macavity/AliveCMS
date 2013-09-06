@@ -20,7 +20,7 @@ define(function(){
             });
         }
 
-    }
+    };
 
     $(function() {
         Item.initialize();

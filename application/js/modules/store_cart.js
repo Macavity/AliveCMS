@@ -1,4 +1,4 @@
-
+/*jshint -W041, -W083*/
 
 define(function(){
     var Cart = {
@@ -59,7 +59,7 @@ define(function(){
                     }
                     else
                     {
-                        itemCount = parseInt(countField.html().replace("x ", "")) + 1;
+                        itemCount = parseInt(countField.html().replace("x ", ""),10) + 1;
                     }
 
                     countField.html("x " + itemCount);
@@ -108,12 +108,12 @@ define(function(){
          */
         isInCart: function(id, priceType)
         {
-            for(i in this.items)
+            for(var i in this.items)
             {
                 try
                 {
-                    if(id == this.items[i].id
-                        && priceType == this.items[i].priceType)
+                    if(id == this.items[i].id &&
+                        priceType == this.items[i].priceType)
                     {
                         return i;
                     }
@@ -135,14 +135,14 @@ define(function(){
         remove: function(id, countId)
         {
             var priceType;
+            var itemCount = 0;
 
             try
             {
-                var itemCount;
 
                 if($("#cart_item_count_" + countId).html().length != 0)
                 {
-                    itemCount = parseInt($("#cart_item_count_" + countId).html().replace("x ", ""));
+                    itemCount = parseInt($("#cart_item_count_" + countId).html().replace("x ", ""),10);
                 }
                 else
                 {
@@ -171,8 +171,8 @@ define(function(){
             {
                 for(n in Store.Cart.list)
                 {
-                    if(Store.Cart.list[n].id == id
-                        && (Store.Cart.list[n].type == priceType || typeof priceType == "undefined"))
+                    if(Store.Cart.list[n].id == id &&
+                        (Store.Cart.list[n].type == priceType || typeof priceType == "undefined"))
                     {
                         this.list.splice(n, 1);
                     }
@@ -238,21 +238,21 @@ define(function(){
             {
                 $("[data-id]").attr("data-available", "1");
 
-                for(i in Store.Cart.list)
+                for(var i in Store.Cart.list)
                 {
                     if(typeof Store.Cart.list[i].character != "undefined")
                     {
-                        delete Store.Cart.list[i]["character"];
+                        delete Store.Cart.list[i].character;
                     }
 
                     $("[data-id=\"" + Store.Cart.list[i].id + "\"]").each(function()
                     {
-                        if($(this).attr("data-available") == "1"
-                            && typeof Store.Cart.list[i].character == "undefined")
+                        if($(this).attr("data-available") == "1" &&
+                            typeof Store.Cart.list[i].character == "undefined")
                         {
                             $(this).attr("data-available", "0");
                             Store.Cart.list[i].character = $(this).val();
-                            console.log(Store.Cart.list[i].character)
+                            console.log(Store.Cart.list[i].character);
                         }
                     });
                 }
@@ -281,7 +281,7 @@ define(function(){
                                 });
                             });
                         });
-                    })
+                    });
                 });
             });
         },

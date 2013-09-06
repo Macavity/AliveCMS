@@ -54,15 +54,18 @@ class User
 	 */
 	public function setUserDetails($username, $sha_pass_hash)
 	{
+        log_message('debug', 'User::setUserDetails ('.$username.')');
 		$check = $this->CI->external_account_model->initialize($username);
 		
 		if(!$check)
 		{
+            log_message('debug', 'User::setUserDetails Check failed');
 			return 1;
 		}
 		elseif(strtoupper($this->CI->external_account_model->getShaPassHash()) == strtoupper($sha_pass_hash))
 		{
 			// Load the internal values (vp, dp etc.)
+            log_message('debug', 'User::setUserDetails Check succeeded');
 			$this->CI->internal_user_model->initialize($this->CI->external_account_model->getId());
 
 			$userdata = array(

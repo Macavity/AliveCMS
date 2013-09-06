@@ -104,11 +104,7 @@ define(['./BaseController', 'modules/tooltip'], function (BaseController, Toolti
 
                             if(itemFaction !== ""){
 
-                                if(selectedRace == 2
-                                    || selectedRace == 5
-                                    || selectedRace == 6
-                                    || selectedRace == 8
-                                    || selectedRace == 10){
+                                if(selectedRace == 2 || selectedRace == 5 || selectedRace == 6 || selectedRace == 8 || selectedRace == 10){
                                     selectedFaction = 1;
                                 }
 

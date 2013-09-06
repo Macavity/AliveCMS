@@ -1473,27 +1473,33 @@ footer .divider2 {
 }
 
 /* druid */
-.project-list li:nth-child(odd) {
-  background-color: transparent;
+#main .right .box #tabs .project-list li {
+  background: #e6e6e6;
 }
-.project-list li label {
+#main .right .box #tabs .project-list li:hover {
+  background-color: #dadada;
+}
+#main .right .box #tabs .project-list li label {
   position: relative;
   display: inline-block;
   border: 0px solid transparent;
   clear: both;
-  width: 620px;
-  margin: 0px 0px 0px 0px;
+  width: auto;
+  margin: 5px;
 }
-.project-list li a {
-  width: 200px;
+#main .right .box #tabs .project-list li a {
+  float: right;
+  margin: 5px;
+  font-size: 12px;
+  font-weight: normal;
 }
-.project-list ul.sub-projects {
+#main .right .box #tabs .project-list ul.sub-projects {
   margin-left: 20px;
 }
-.project-list ul.sub-projects .level-1:before {
+#main .right .box #tabs .project-list ul.sub-projects .level-1:before {
   content: "-";
 }
-.project-list ul.sub-projects .level-2:before {
+#main .right .box #tabs .project-list ul.sub-projects .level-2:before {
   content: "--";
 }
 
@@ -1658,8 +1664,6 @@ footer .divider2 {
   line-height: 1.3;
   padding: 0;
   margin: 0;
-}
-#main .right .box #tabs li:nth-child(odd) {
   background-color: #f6f6f6;
 }
 #main .right .box #tabs li label {

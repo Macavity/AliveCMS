@@ -374,6 +374,7 @@ if ( ! function_exists('set_status_header'))
 {
 	function set_status_header($code = 200, $text = '')
 	{
+        log_message('debug', 'Function set_status_header ('.$code.', '.$text.')');
 		$stati = array(
 							200	=> 'OK',
 							201	=> 'Created',
@@ -435,14 +436,17 @@ if ( ! function_exists('set_status_header'))
 
 		if (substr(php_sapi_name(), 0, 3) == 'cgi')
 		{
+            log_message('debug', 'Header: Status '.$code.' '.$text);
 			header("Status: {$code} {$text}", TRUE);
 		}
 		elseif ($server_protocol == 'HTTP/1.1' OR $server_protocol == 'HTTP/1.0')
 		{
+            log_message('debug', 'Header Status: '.$server_protocol.' '.$code.' '.$text);
 			header($server_protocol." {$code} {$text}", TRUE, $code);
 		}
 		else
 		{
+            log_message('debug', 'Header Status: HTTP/1.1'.$code.' '.$text);
 			header("HTTP/1.1 {$code} {$text}", TRUE, $code);
 		}
 	}
