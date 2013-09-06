@@ -1,0 +1,6 @@
+<div class="alert alert-danger">
+    <strong>{{lang.attention}}</strong> {{lang.similarBugsExist}}
+    {{#each results}}
+        <br><a href="/bugtracker/bug/{{id}}" target="_blank"> Bug #{{id}} - {{title}}</a>
+    {{/each}}
+</div>
