@@ -331,7 +331,7 @@ class Admin extends MX_Controller
 		
 		curl_close($c);
 
-		if($response == "2")
+		if($response == "2" && false)
 		{
 			// Do nasty stuff
 			$message_content = '<?php
