@@ -26,7 +26,7 @@
     <div class="row">
         <div class="progress">
           {if $project.counts.done > 0}
-            <div class="bar bar-success" style="width: {max($project.counts.percentage.done,1)}%;">{$project.counts.percentage.done}%</div>
+            <div data-tooltip="{$project.counts.done} erledigt" class="bar bar-success" style="width: {max($project.counts.percentage.done,1)}%;">{$project.counts.percentage.done}%</div>
           {else}
               0%
           {/if}
@@ -52,7 +52,7 @@
               <div class="row">
                 <div class="progress">
                   {if $sub.counts.done > 0}
-                    <div class="bar bar-success" style="width: {$sub.counts.percentage.done}%;">{$sub.counts.percentage.done}%</div>
+                    <div data-tooltip="{$sub.counts.done} erledigt" class="bar bar-success" style="width: {$sub.counts.percentage.done}%;">{$sub.counts.percentage.done}%</div>
                   {else}
                       0%
                   {/if}
@@ -76,7 +76,7 @@
                           <div class="row">
                             <div class="progress">
                               {if $subsub.counts.done > 0}
-                                <div class="bar bar-success" style="width: {$subsub.counts.percentage.done}%;">{$subsub.counts.percentage.done}%</div>
+                                <div data-tooltip="{$subsub.counts.done} erledigt" class="bar bar-success" style="width: {$subsub.counts.percentage.done}%;">{$subsub.counts.percentage.done}%</div>
                               {else}
                                   0%
                               {/if}
