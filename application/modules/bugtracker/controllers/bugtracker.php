@@ -59,12 +59,14 @@ class Bugtracker extends MX_Controller{
             $projectData = $this->project_model->getAllProjectData($l0key, $l0project);
 
             $l0project['counts'] = array(
-                'open' => $projectData['counts'][BUGSTATE_OPEN]+$projectData['counts'][BUGSTATE_ACTIVE],
+                'open' => $projectData['counts'][BUGSTATE_OPEN],
+                'active' => $projectData['counts'][BUGSTATE_ACTIVE],
                 'done' => $projectData['counts'][BUGSTATE_DONE],
                 'all' => $projectData['counts']['all'],
                 'percentage' => array(
-                    'done' => $projectData['counts']['percentage'][BUGSTATE_DONE]
-                )
+                    'done' => $projectData['counts']['percentage'][BUGSTATE_DONE],
+                    'active' => $projectData['counts']['percentage'][BUGSTATE_ACTIVE],
+                ),
             );
 
             // Icons
@@ -157,7 +159,7 @@ class Bugtracker extends MX_Controller{
                 $baseProjects[$l0key]['counts']['open'] = $l0open;*/
                 $all = $l0project['counts']['all'];
                 $done = $l0project['counts']['done'];
-                $baseProjects[$l0key]['counts']['percentage']['done'] = ($all > 0) ? round($done/$all*100) : 100;
+                //$baseProjects[$l0key]['counts']['percentage']['done'] = ($all > 0) ? round($done/$all*100) : 100;
 
 
                 // Save L1 back to L0 stack (Base)

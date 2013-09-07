@@ -143,8 +143,8 @@ class Project_Model extends CI_Model {
 
         if($countStates["all"] > 0){
             $countStates["percentage"][BUGSTATE_DONE] = round(($countStates[BUGSTATE_DONE]/$countStates["all"])*100);
-            $countStates["percentage"][BUGSTATE_ACTIVE] = round(($countStates[BUGSTATE_DONE]/$countStates["all"])*100);
-            $countStates["percentage"][BUGSTATE_OPEN] = round(($countStates[BUGSTATE_DONE]/$countStates["all"])*100);
+            $countStates["percentage"][BUGSTATE_ACTIVE] = round(($countStates[BUGSTATE_ACTIVE]/$countStates["all"])*100);
+            $countStates["percentage"][BUGSTATE_OPEN] = round(($countStates[BUGSTATE_OPEN]/$countStates["all"])*100);
         }
         else{
             $countStates["percentage"][BUGSTATE_DONE] = 0;
