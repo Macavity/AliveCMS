@@ -157,7 +157,7 @@ class Bugtracker extends MX_Controller{
                 $baseProjects[$l0key]['counts']['open'] = $l0open;*/
                 $all = $l0project['counts']['all'];
                 $done = $l0project['counts']['done'];
-                $baseProjects[$l0key]['counts']['percentage']['done'] = round($done/$all*100);
+                $baseProjects[$l0key]['counts']['percentage']['done'] = ($all > 0) ? round($done/$all*100) : 100;
 
 
                 // Save L1 back to L0 stack (Base)
@@ -343,7 +343,7 @@ class Bugtracker extends MX_Controller{
          */
         $desc = $bug['desc'];
         // Find links in the description
-        $desc = htmlentities($desc);
+        $desc = htmlentities($desc, ENT_QUOTES, 'UTF-8');
         $desc = makeWowheadLinks($desc);
 
         /**

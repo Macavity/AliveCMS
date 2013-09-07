@@ -129,7 +129,7 @@ class Project_Model extends CI_Model {
         else{
             $project["counts"] = $this->getProjectBugStateCounts($projectId);
         }
-        debug($project);
+        //debug($project);
 
 
         return $project;
