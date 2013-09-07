@@ -37,7 +37,7 @@
 
     Die Raten der Server von denen ihr kommt bestimmen die Leistungen die euch zustehen, hier die Übersichten:<br>
     <br>
-    <a href="javascript:$('#9mal').toggle();"><u>Dein alter Server hat bis zu 9mal höhere Erfahrungsraten als normal.</u></a><br>
+    <a href="#" onclick="javascript:$('#9mal').toggle(); return false;"><u>Dein alter Server hat bis zu 9mal höhere Erfahrungsraten als normal.</u></a><br>
     <blockquote id="9mal" style="display:none; text-indent:10px;">
         Ihr bekommt folgendes Transferiert:<br>
         <br>
@@ -55,7 +55,7 @@
         10 Randomplätze: Hier könnt ihr alles angeben was ihr gerne mit rüber nehmen wollt und mit einem Screen belegt habt. Sollten hier Rüstungsteile eingetragen werden dürfen sie das Itemlvl 200 auch nicht überschreiten.
     </blockquote>
     <br>
-    <a href="javascript:$('#5mal').toggle();"><u>Dein alter Server hat bis zu 5mal höhere Erfahrungsraten als normal.</u></a><br>
+    <a href="#" onclick="javascript:$('#5mal').toggle(); return false;"><u>Dein alter Server hat bis zu 5mal höhere Erfahrungsraten als normal.</u></a><br>
     <blockquote id="5mal" style="display:none;"><br>
         Ihr bekommt folgendes Transferiert:<br>
         <br>
@@ -74,7 +74,7 @@
 
     </blockquote>
     <br>
-    <a href="javascript:$('#3mal').toggle();"><u>Dein alter Server hat bis zu 3mal höhere Erfahrungsraten als normal.</u></a><br>
+    <a href="#" onclick="javascript:$('#3mal').toggle(); return false;"><u>Dein alter Server hat bis zu 3mal höhere Erfahrungsraten als normal.</u></a><br>
     <blockquote id="3mal" style="display:none;"><br>
         Ihr bekommt folgendes Transferiert:<br>
         <br>
@@ -93,7 +93,7 @@
 
     </blockquote>
     <br>
-    <a href="javascript:$('#normal').toggle();"><u>Dein alter Server hat normale Erfahrungsraten oder du kommst sogar von einem offiziellen Server.</u></a><br>
+    <a href="#" onclick="javascript:$('#normal').toggle(); return false;"><u>Dein alter Server hat normale Erfahrungsraten oder du kommst sogar von einem offiziellen Server.</u></a><br>
     <blockquote id="normal" style="display:none;"><br>
         Ihr bekommt folgendes Transferiert:<br>
         <br>
@@ -117,7 +117,7 @@
     <br>
     Hier die wichtigsten Transfer-Fragen.<br>
     <br>
-    <a href="javascript:$('#todesritter').toggle();"><u>Was muss ich beachten wenn ich einen Todesritter auf Alive transferieren möchte?</u></a><br>
+    <a href="#" onclick="javascript:$('#todesritter').toggle(); return false;"><u>Was muss ich beachten wenn ich einen Todesritter auf Alive transferieren möchte?</u></a><br>
     <blockquote id="todesritter" style="display: none;"><br>
         Wenn du gerne deinen Todesritter zu uns transferieren möchtest musst du zu aller erst einen <u>Todesritter bei uns neu erstellen und mit ihm durch sein Startgebiet questen.</u>
         Aufgrund seiner Story hängt er, bis er zu der Hauptstadt seiner Fraktion kommt und somit ein Teil dieser wird, in einer völlig anderen Phase und wir können ihm leider kein Equip oder ähnliches geben.
@@ -127,7 +127,7 @@
 
     </blockquote>
     <br>
-    <a href="javascript:$('#screenshots').toggle();"><u>Wie geb ich euch de Screenshots von meinem Charakter?</u></a><br>
+    <a href="#" onclick="javascript:$('#screenshots').toggle(); return false;"><u>Wie geb ich euch de Screenshots von meinem Charakter?</u></a><br>
     <blockquote id="screenshots" style="display:none;"><br>
         Wie geb ich euch de Screenshots von meinem Charakter?<br>
         <br>
@@ -144,12 +144,12 @@
         <a target="_blank" href="http://www.file-upload.net/">http://www.file-upload.net/</a>
     </blockquote>
     <br>
-    <a href="javascript:$('#youtube').toggle();"><u>Wie suche ich die IDs für das Formular heraus?</u></a><br>
+    <a href="#" onclick="javascript:$('#youtube').toggle(); return false;"><u>Wie suche ich die IDs für das Formular heraus?</u></a><br>
     <blockquote id="youtube" style="display:none;"><br>
         <object width="560" height="315"><param name="movie" value="http://www.youtube-nocookie.com/v/aLL2Y5-X3Hc?version=3&amp;hl=de_DE&amp;rel=0"><param name="allowFullScreen" value="true"><param name="allowscriptaccess" value="always"><embed src="http://www.youtube-nocookie.com/v/aLL2Y5-X3Hc?version=3&amp;hl=de_DE&amp;rel=0" type="application/x-shockwave-flash" width="560" height="315" allowscriptaccess="always" allowfullscreen="true"></object>
     </blockquote>
     <br>
-    <a href="javascript:$('#offi').toggle();"><u>Du kommst vom offizellen Server, hast deinen Acc aber auf Eis gelegt</u></a><br>
+    <a href="#" onclick="javascript:$('#offi').toggle(); return false;"><u>Du kommst vom offizellen Server, hast deinen Acc aber auf Eis gelegt</u></a><br>
     <blockquote id="offi" style="display:none;"><br>
         Wenn du in deinen Acc vom Offi nicht mehr rein kommst und dementsprechend auch keine Screenshots mehr machen kannst gibt es hier zwei möglichkeiten:<br>
         <br>
