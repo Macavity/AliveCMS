@@ -168,7 +168,8 @@ class Bugtracker extends MX_Controller{
 
         }
 
-        //debug('base', $baseProjects);
+        // Recent Changes
+
 
 
         // Prepare my data
@@ -177,6 +178,7 @@ class Bugtracker extends MX_Controller{
             'projects' => $baseProjects,
             'projectCount' => $projectCount,
             'projectChoices' => $projectChoices,
+            'recentChanges' => array(),
         );
 
         // Load my view

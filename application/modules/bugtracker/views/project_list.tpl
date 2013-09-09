@@ -4,6 +4,31 @@
     {/if}
 </div><br>
 
+
+
+<div id="recentChanges" class="table">
+  <table>
+    <tbody>
+    {foreach from=$recentChanges key=i item=row}
+      <tr class="{cycle values="row1,row2"}">
+        <td>{$row.dateDifference}</td>
+        <td><i class="icon {$bug.priorityClass}" data-tooltip="{$bug.priorityLabel}"></i></td>
+        <td><a href="/bugtracker/bug/{$bug.id}">#{$bug.id}</a></td>
+        <td><a href="/bugtracker/bug/{$bug.id}">{$bug.title}</a></td>
+        <td></td>
+        <td>{$bug.type_string}</td>
+        <td>
+          {$bug.title}
+          {if $bug.commentCount > 0}
+            <span class="comments-link">{$bug.commentCount}</span>
+          {/if}
+        </td>
+      </tr>
+    {/foreach}
+    </tbody>
+  </table>
+</div>
+
 {foreach from=$projects item=project}
 <section id="bt-project-{$project.id}" class="bugtracker-project">
   <header class="row">

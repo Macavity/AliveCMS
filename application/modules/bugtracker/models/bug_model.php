@@ -103,6 +103,7 @@ class Bug_model extends CI_Model
 
     /**
      * Get all bugs
+     * @deprecated
      * @param $projectId string
      * @return bool
      */
@@ -125,6 +126,25 @@ class Bug_model extends CI_Model
             return $result;
         }
         else 
+        {
+            return false;
+        }
+    }
+
+    public function getRecentChanges($limit = 10){
+        $this->db->select('id, priority, matpath, bug_state, title, createdDate, createdTimestamp, changedDate, changedTimestamp');
+
+        $this->db->from($this->tableName)->order_by('id', 'desc');
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
+            $result = $query->result_array();
+
+            return $result;
+        }
+        else
         {
             return false;
         }
