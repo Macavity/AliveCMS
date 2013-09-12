@@ -630,22 +630,11 @@ ORDER BY
 
         $activeChar = $this->user->getActiveCharacterData();
 
-        $realmName = $this->realms->getRealm($this->user->getActiveRealmId())->getName();
-
         if($activeChar == false){
             return false;
         }
 
-        $posterData = array(
-            'name' => $activeChar['name'],
-            'account' => $activeChar['account'],
-            'level' => $activeChar['level'],
-            'race' => $activeChar['race'],
-            'gender' => $activeChar['gender'],
-            'class' => $activeChar['class'],
-            'realmName' => $realmName,
-            'gm' => $this->user->isGm(),
-        );
+        $posterData = $this->user->getCharacterData($this->user->getActiveRealmId(), $activeChar, $this->user->isGm());
 
         $matPath = $this->project_model->getMaterializedPath($project);
 
@@ -676,19 +665,10 @@ ORDER BY
 
     public function createComment($bugId, $commentText, $action){
 
-        $realmName = $this->realms->getRealm($this->user->getActiveRealmId())->getName();
         $activeChar = $this->user->getActiveCharacterData();
 
-        $posterData = array(
-            'name' => $activeChar['name'],
-            'account' => $activeChar['account'],
-            'level' => $activeChar['level'],
-            'race' => $activeChar['race'],
-            'gender' => $activeChar['gender'],
-            'class' => $activeChar['class'],
-            'realmName' => $realmName,
-            'gm' => $this->user->isStaff(),
-        );
+        // Gather Poster Data of current user
+        $posterData = $this->user->getCharacterData($this->user->getActiveRealmId(), $activeChar, $this->user->isStaff());
 
         $data = array(
             'bug_entry' => $bugId,
@@ -711,18 +691,92 @@ ORDER BY
 
     }
 
-    public function update($id, $headline, $identifier, $rank_needed, $top_category, $content)
+    public function update($bugId, $project, $priority, $bugState, $title, $desc, $links)
     {
-        $data = array(
-            'name' => $headline,
-            'identifier' => $identifier,
-            'rank_needed' => $rank_needed,
-            'top_category' => $top_category,
-            'content' => $content
+        requirePermission("canEditBugs");
+
+        $activeChar = $this->user->getActiveCharacterData();
+
+
+        if($activeChar == false){
+            return false;
+        }
+
+        // The current data
+        $bug = $this->getBug($bugId);
+
+        $action = array(
+            'change' => true,
         );
 
-        $this->db->where('id', $id);
-        $this->db->update('bugs', $data);
+        $data = array(
+            'changedDate' => strftime("%d.%m.%Y %H:%M:%S"),
+            'changedTimestamp' => time(),
+        );
+
+        if($project != $bug['project']){
+            $action['project'] = array(
+                'old' => $bug['project'],
+                'new' => $project,
+            );
+
+            // Calculate matPath in case the project changed
+            $matPath = $this->project_model->getMaterializedPath($project);
+
+            $data['project'] = $project;
+            $data['matpath'] = $matPath;
+        }
+
+        if($priority != $bug['priority']){
+            $action['priority'] = array(
+                'old' => $bug['priority'],
+                'new' => $priority,
+            );
+            $data['priority'] = $priority;
+        }
+
+        if($bugState != $bug['bug_state']){
+            $action['state'] = array(
+                'old' => $bug['bug_state'],
+                'new' => $bugState,
+            );
+            $data['bug_state'] = $bugState;
+        }
+
+        if($title != $bug['title']){
+            $action['title'] = array(
+                'old' => $bug['title'],
+                'new' => $title,
+            );
+            $data['title'] = $title;
+        }
+
+        if($desc != $bug['desc']){
+            $action['desc'] = array(
+                'old' => $bug['desc'],
+                'new' => $desc,
+            );
+            $data['desc'] = $desc;
+        }
+
+        $links = json_encode($links);
+        if($links != $bug['link']){
+            $action['link'] = array(
+                'old' => $bug['link'],
+                'new' => $links,
+            );
+            $data['link'] = $links;
+        }
+
+        $this->db->where('id', $bugId);
+        $this->db->update($this->tableName, $data);
+
+        /*
+         * Create new comment
+         */
+        $this->createComment($bugId, "", $action);
+
+        return true;
     }
 
     public function updateState($bugId, $newState)

@@ -223,6 +223,17 @@ class Project_Model extends CI_Model {
         return FALSE;
     }
 
+    public function getProjectTitle($projectId){
+        if(empty($projectId))
+            return false;
+
+        $row = $this->getProjectById($projectId, 'title');
+
+        if($row){
+            return $row['title'];
+        }
+    }
+
     /**
      * Set the order of a project
      * @param $id

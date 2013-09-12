@@ -721,4 +721,23 @@ class User
         $this->CI->session->set_userdata('activeRealm', $charRealm);
 
     }
+
+    public function getCharacterData($realmId, $character, $isGm){
+
+        $realmName = $this->CI->realms->getRealm($realmId)->getName();
+
+        $posterData = array(
+            'name' => $character['name'],
+            'account' => $character['account'],
+            'level' => $character['level'],
+            'race' => $character['race'],
+            'gender' => $character['gender'],
+            'class' => $character['class'],
+            'realmId' => $realmId,
+            'realmName' => $realmName,
+            'gm' => $isGm,
+        );
+
+        return $posterData;
+    }
 }
