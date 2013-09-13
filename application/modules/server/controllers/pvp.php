@@ -76,17 +76,16 @@ class Pvp extends MX_Controller
         }
 
         // Find all characters
-        debug($arenaTeams);
-
         $charRows = $charDb->query("
         	SELECT characters.guid, characters.name, characters.class, arena_team_member.arenaTeamId, arena_team_member.seasonGames
 		    FROM characters JOIN arena_team_member ON(arena_team_member.guid = characters.guid)
 		    WHERE arenaTeamId IN(".implode(", ", array_keys($arenaTeams)).") ORDER BY arena_team_member.seasonGames DESC;");
 
-        debug($charDb);
+        //debug("Query Char Rows: ", $charDb->last_query());
 
-        foreach($charRows->row_array() as $charRow){
+        foreach($charRows->result_array() as $charRow){
             $teamId = $charRow["arenaTeamId"];
+
             $team = $arenaTeams[$teamId];
 
             if(!isset($team["members"]))
@@ -108,7 +107,7 @@ class Pvp extends MX_Controller
             ->limit(20)
             ->get();
         $i = 1;
-        foreach($charRows->row_array() as $row)
+        foreach($charRows->result_array() as $row)
         {
             $row["css"] = "row".(($i % 2)+1);
             $row['classLabel'] = $this->realms->getClass($row['class']);
@@ -124,7 +123,7 @@ class Pvp extends MX_Controller
             ->limit(20)
             ->get();
         $i = 1;
-        foreach($charRows->row_array() as $row)
+        foreach($charRows->result_array() as $row)
         {
             $row["css"] = "row".(($i % 2)+1);
             $row['classLabel'] = $this->realms->getClass($row['class']);
@@ -132,18 +131,34 @@ class Pvp extends MX_Controller
             $i++;
         }
 
+        //debug("Arena Teams", $arenaTeams);
+        //debug("Teams", $teams);
+
+        $realms = $this->realms->getRealms();
+        $allRealms = array();
+
+        foreach($realms as $key => $realm){
+            $allRealms[$key] = $realm->getName();
+        }
+
+        /*
+         * Output of the template
+         */
+        $this->template->hideSidebar();
 
         $pageData = array(
             'pvpModes' => $pvpModes,
             'teams' => $teams,
             'arenaTeams' => $arenaTeams,
             'activeRealmId' => $activeRealmId,
-            'realms' => $this->realms->getRealms(),
+            'allRealms' => $allRealms,
+            'hordeKillers' => $hordeKillers,
+            'allianceKillers' => $allianceKillers,
         );
 
         $out = $this->template->loadPage("pvp_index.tpl", $pageData);
 
-        $this->template->view($out, $this->pageData["extra_css"]);
+        $this->template->view($out);
     }
 
 
