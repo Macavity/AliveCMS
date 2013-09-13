@@ -233,14 +233,22 @@ define(['./BaseController', 'modules/wiki', 'modules/wiki_related', 'modules/toa
             var _jq = $;
             var Controller = this;
 
+            var button = $(target);
+
+            if(!button.is("button")){
+                button = button.parent();
+            }
+
+            var targetId = button.data("target");
+
             Controller.otherLinkCounter++;
 
-            var link = _jq("#form-other-link").val().replace("http://","");
+            var link = _jq("#"+targetId).val().replace("http://","");
 
             Controller.addLinkToList("other-link-"+Controller.otherLinkCounter, "http://"+link);
 
             // Empty link text field
-            _jq(".jsAddOtherLink").val("");
+            _jq(".jsAddOtherLink").focusout().val("");
         },
 
         eventClickSubmit: function(target){
@@ -273,14 +281,29 @@ define(['./BaseController', 'modules/wiki', 'modules/wiki_related', 'modules/toa
 
             // Refresh Controller.category
             var category = Controller.getCategory();
+            var topCategory = Controller.getTopCategory(category);
 
-            if(category > 0){
+            if(topCategory == 3){
+                debug.debug("Website Bug");
+                // First show all generic fields
+                _jq(".jsProjectFirst").show();
+
+                // Hide specific
+                _jq("#alert-project").hide();
+                _jq(".jsServerOnly").hide();
+
+                // Highest priority, show website only again
+                _jq(".jsWebsiteOnly").show();
+            }
+            else if(category > 0){
                 debug.debug("Show jsProjectFirst Wrappers");
 
                 var realmId = Controller.setRealmByCategory();
 
                 _jq("#alert-project").hide();
+                _jq(".jsWebsiteOnly").hide();
                 _jq(".jsProjectFirst").show();
+                _jq(".jsServerOnly").show();
 
                 if(realmId == 1 || realmId == 2){
                     _jq("#ac-search-wrapper").show();

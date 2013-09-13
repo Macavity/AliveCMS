@@ -67,3 +67,33 @@ if( ! function_exists("sec_to_dhms") ){
         return $string;
     }
 }
+
+if( ! function_exists("icon_class") ){
+
+    function icon_class($class, $tooltip = true){
+        if($tooltip){
+
+            static $CI;
+
+            if(!$CI){
+                $CI = &get_instance();
+            }
+
+            $classLabel = $CI->realms->getClass($class);
+
+            $output = '
+	<span class="icon-frame frame-18" data-tooltip="'.$classLabel.'">
+		<img src="/application/images/icons/18/class_'.$class.'.jpg" height="18" width="18">
+	</span>';
+
+        }
+        else{
+            $output = '
+	<span class="icon-frame frame-18">
+		<img src="/application/images/icons/18/class_'.$class.'.jpg" height="18" width="18">
+	</span>';
+        }
+
+        return $output;
+    }
+}

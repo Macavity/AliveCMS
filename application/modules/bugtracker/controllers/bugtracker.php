@@ -59,12 +59,14 @@ class Bugtracker extends MX_Controller{
             $projectData = $this->project_model->getAllProjectData($l0key, $l0project);
 
             $l0project['counts'] = array(
-                'open' => $projectData['counts'][BUGSTATE_OPEN]+$projectData['counts'][BUGSTATE_ACTIVE],
+                'open' => $projectData['counts'][BUGSTATE_OPEN],
+                'active' => $projectData['counts'][BUGSTATE_ACTIVE],
                 'done' => $projectData['counts'][BUGSTATE_DONE],
                 'all' => $projectData['counts']['all'],
                 'percentage' => array(
-                    'done' => $projectData['counts']['percentage'][BUGSTATE_DONE]
-                )
+                    'done' => $projectData['counts']['percentage'][BUGSTATE_DONE],
+                    'active' => $projectData['counts']['percentage'][BUGSTATE_ACTIVE],
+                ),
             );
 
             // Icons
@@ -157,7 +159,7 @@ class Bugtracker extends MX_Controller{
                 $baseProjects[$l0key]['counts']['open'] = $l0open;*/
                 $all = $l0project['counts']['all'];
                 $done = $l0project['counts']['done'];
-                $baseProjects[$l0key]['counts']['percentage']['done'] = round($done/$all*100);
+                //$baseProjects[$l0key]['counts']['percentage']['done'] = ($all > 0) ? round($done/$all*100) : 100;
 
 
                 // Save L1 back to L0 stack (Base)
@@ -166,7 +168,8 @@ class Bugtracker extends MX_Controller{
 
         }
 
-        //debug('base', $baseProjects);
+        // Recent Changes
+
 
 
         // Prepare my data
@@ -175,6 +178,7 @@ class Bugtracker extends MX_Controller{
             'projects' => $baseProjects,
             'projectCount' => $projectCount,
             'projectChoices' => $projectChoices,
+            'recentChanges' => array(),
         );
 
         // Load my view
@@ -227,16 +231,14 @@ class Bugtracker extends MX_Controller{
 
         while(count($projectPath)){
             $currentBreadcrumb = array_pop($projectPath)*1;
-            if($currentBreadcrumb == $projectId){
-                $this->template->addBreadcrumb($project['title']);
-            }
-            else{
+            if($currentBreadcrumb != $projectId){
                 $currentParent = $this->project_model->getProjectById($currentBreadcrumb, 'id,title');
                 if($currentParent){
                     $this->template->addBreadcrumb($currentParent['title'], site_url('bugtracker/buglist/'.$currentParent['id']));
                 }
             }
         }
+        $this->template->addBreadcrumb($project['title'], site_url('bugtracker/buglist/'.$projectId));
 
         $this->template->enable_profiler(true);
 
@@ -343,7 +345,7 @@ class Bugtracker extends MX_Controller{
          */
         $desc = $bug['desc'];
         // Find links in the description
-        $desc = htmlentities($desc);
+        $desc = htmlentities($desc, ENT_QUOTES, 'UTF-8');
         $desc = makeWowheadLinks($desc);
 
         /**
@@ -361,62 +363,66 @@ class Bugtracker extends MX_Controller{
 
         $openwowPrefix = $this->project_model->getOpenwowPrefix($baseProjectId);
 
-        foreach($links as $link){
-            if(empty($link) || substr_count($link, 'Hier den') > 0){
-                continue;
-            }
+        if(is_array($links)){
 
-            if(preg_match('@http://(de|www|old|wotlk|cata).(wowhead|openwow|buffed).(com|de)/\??([^=]+)=(\d+).*@i', $link, $matches)){
+            foreach($links as $link){
+                if(empty($link) || substr_count($link, 'Hier den') > 0){
+                    continue;
+                }
 
-                $linkType = $matches[4];
-                $linkId = $matches[5];
+                if(preg_match('@http://(de|www|old|wotlk|cata).(wowhead|openwow|buffed).(com|de)/\??([^=]+)=(\d+).*@i', $link, $matches)){
 
-                $search = $linkType.'='.$linkId;
-                $searchLabel = ucfirst($linkType).': '.$linkId;
+                    $linkType = $matches[4];
+                    $linkId = $matches[5];
 
-                // Wowhead
-                $bugLinks[] = array(
-                    'url' => 'http://de.wowhead.com/'.$linkType.'='.$linkId,
-                    'label' => '[DE] Wowhead - '.$searchLabel,
-                );
+                    $search = $linkType.'='.$linkId;
+                    $searchLabel = ucfirst($linkType).': '.$linkId;
 
-                // Openwow
-                $bugLinks[] = array(
-                    'url' => 'http://'.$openwowPrefix.'.openwow.com/'.$linkType.'='.$linkId,
-                    'label' => '['.strtoupper($openwowPrefix).'] Openwow - '.$searchLabel,
-                );
-
-                // Alive
-                if( $linkType == 'zone' ){
+                    // Wowhead
                     $bugLinks[] = array(
-                        'url' => 'http://portal.wow-alive.de/game/zone/'.$linkId,
-                        'label' => 'Alive - '.$searchLabel,
+                        'url' => 'http://de.wowhead.com/'.$linkType.'='.$linkId,
+                        'label' => '[DE] Wowhead - '.$searchLabel,
                     );
-                }
-                if( $linkType == 'item' ){
+
+                    // Openwow
                     $bugLinks[] = array(
-                        'url' => 'http://portal.wow-alive.de/item/'.$linkId,
-                        'label' => 'Alive - '.$searchLabel,
+                        'url' => 'http://'.$openwowPrefix.'.openwow.com/'.$linkType.'='.$linkId,
+                        'label' => '['.strtoupper($openwowPrefix).'] Openwow - '.$searchLabel,
+                    );
+
+                    // Alive
+                    if( $linkType == 'zone' ){
+                        $bugLinks[] = array(
+                            'url' => 'http://portal.wow-alive.de/game/zone/'.$linkId,
+                            'label' => 'Alive - '.$searchLabel,
+                        );
+                    }
+                    if( $linkType == 'item' ){
+                        $bugLinks[] = array(
+                            'url' => 'http://portal.wow-alive.de/item/'.$linkId,
+                            'label' => 'Alive - '.$searchLabel,
+                        );
+                    }
+
+                    // Similar Bugs for this link
+                    $linkSimilarBugs = $this->bug_model->findSimilarBugs($search, $bugId);
+
+                    foreach($linkSimilarBugs as $sim){
+                        $similarBugs[] = array(
+                            'url' => '/bugtracker/bug/'.$sim['id'],
+                            'label' => 'Bug #'.$sim['id'].' - '.htmlentities($sim['title']),
+                        );
+                    }
+                }
+                else{
+                    $bugLinks[] = array(
+                        'url' => $link,
+                        'label' => $link,
                     );
                 }
-
-                // Similar Bugs for this link
-                $linkSimilarBugs = $this->bug_model->findSimilarBugs($search, $bugId);
-
-                foreach($linkSimilarBugs as $sim){
-                    $similarBugs[] = array(
-                        'url' => '/bugtracker/bug/'.$sim['id'],
-                        'label' => 'Bug #'.$sim['id'].' - '.htmlentities($sim['title']),
-                    );
-                }
-            }
-            else{
-                $bugLinks[] = array(
-                    'url' => $link,
-                    'label' => $link,
-                );
             }
         }
+
 
         /*
          * Bug State
@@ -507,6 +513,27 @@ class Bugtracker extends MX_Controller{
                 $actions = json_decode($row['action']);
                 if(isset($actions->state)){
                     $actionLog[] = 'Status => '.$this->bug_model->getStateLabel($actions->state);
+                }
+                if(isset($actions->change) && $actions->change){
+
+                    if(!empty($actions->project)){
+                        $actionLog[] = 'Verschoben nach '.$this->project_model->getProjectTitle($actions->project->new).'.';
+                    }
+                    if(!empty($actions->title)){
+                        $actionLog[] = 'Titel bearbeitet.';
+                    }
+                    if(!empty($actions->desc)){
+                        $actionLog[] = 'Beschreibung bearbeitet.';
+                    }
+                    if(!empty($actions->link)){
+                        $actionLog[] = 'Links bearbeitet.';
+                    }
+                    if(!empty($actions->priority)){
+                        $actionLog[] = 'Priorität: '.$this->bug_model->getPriorityLabel($actions->priority->old).' => '.$this->bug_model->getPriorityLabel($actions->priority->new);
+                    }
+                    if(!empty($actions->state)){
+                        $actionLog[] = 'Status: '.$this->bug_model->getStateLabel($actions->state->old).' => '.$this->bug_model->getStateLabel($actions->state->new);
+                    }
                 }
             }
             // Content changes
@@ -764,6 +791,137 @@ class Bugtracker extends MX_Controller{
         
         $out = $this->template->loadPage('bug_create.tpl', $page_data);
         
+        $this->template->view($out, $this->css);
+    }
+
+    /**
+     * Edit an existing Bug Entry
+     * @param $bugId
+     */
+    public function edit($bugId = ""){
+        requirePermission("canEditBugs");
+
+        if(empty($bugId)){
+            $bugId = $this->input->post("bugId");
+            if(empty($bugId)){
+                show_error("Ungültiger Aufruf.");
+                return;
+            }
+        }
+
+        if(!is_numeric($bugId) || !$bugId){
+            show_error("Ungültiger Aufruf.");
+            return;
+        }
+
+        $bug = $this->bug_model->getBug($bugId);
+
+        if(!$bug){
+            show_error("Dieser Bug existiert nicht.");
+            return;
+        }
+
+        // Helper
+        $this->load->helper('form');
+
+        /**
+         * Post Form
+         */
+        $formData = array(
+            'bugId' => null,
+            'project' => $bug['project'],
+            'state' => $bug['bug_state'],
+            'title' => $bug['title'],
+            'desc' => $bug['desc'],
+            'priority' => $bug['priority'],
+            'links' => json_decode($bug['link'],true),
+        );
+
+        foreach($formData as $fieldName => $defaultValue){
+            $postData = $this->input->post($fieldName);
+
+            if(!empty($postData)){
+                $formData[$fieldName] = $postData;
+            }
+        }
+        debug("formData", $formData);
+
+        if(!empty($formData['bugId']) && !empty($formData['project']) && !empty($formData['title']) && !empty($formData['desc'])){
+            $bugUpdate = $this->bug_model->update($bugId, $formData['project'], $formData['priority'], $formData['state'], $formData['title'], $formData['desc'], $formData['links']);
+
+            if($bugUpdate){
+                // Show Detail Page of the newly created Bug
+                redirect('bugtracker/bug/'.$bugId);
+                return;
+            }
+        }
+
+        /**
+         * Title & Breadcrumbs
+         */
+        $this->template->setTitle($this->moduleTitle);
+        $this->template->setSectionTitle('Bug #'.$bugId.' bearbeiten');
+        $this->template->addBreadcrumb('Bug #'.$bugId.' bearbeiten', site_url('bugtracker/edit/'.$bugId));
+
+
+        /**
+         * Bug Categories
+         */
+        $projectTree = $this->project_model->getProjectTree();
+
+        $baseProjects = array();
+        $projectPaths = array();
+
+        foreach($projectTree as $baseRow){
+            $projectPaths[$baseRow['id']] = explode('.',$baseRow['matpath']);
+            $children = array();
+
+            foreach($baseRow['children'] as $child1){
+                $projectPaths[$child1['id']] = explode('.', $child1['matpath']);
+                $children[$child1['id']] = $child1['prefix'].$child1['title'];
+
+                foreach($child1['children'] as $child2){
+                    $projectPaths[$child2['id']] = explode('.', $child2['matpath']);
+                    $children[$child2['id']] = $child2['prefix'].$child2['title'];
+
+                    foreach($child2['children'] as $child3){
+                        $projectPaths[$child3['id']] = explode('.', $child3['matpath']);
+                        $children[$child3['id']] = $child3['prefix'].$child3['title'];
+                    }
+                }
+            }
+
+            $baseProjects[$baseRow['id']] = array(
+                'title' => $baseRow['prefix'].$baseRow['title'],
+                'children' => $children,
+            );
+        }
+
+        $idTypes = array(
+            'quest' => 'Quest',
+            'npc' => 'NPC',
+            'zone' => 'Dungeon/Raid/Zone',
+        );
+
+        $bugPriorities = $this->bug_model->getPrioritiesWithLabel();
+
+        $page_data = array(
+            'module' => 'bugtracker',
+            'form_attributes' => array('class' => 'form-horizontal', 'id' => 'bugtrackerCreateForm'),
+            'js_path' => $this->template->js_path,
+            'image_path' => $this->template->image_path,
+            'baseProjects' => $baseProjects,
+            'idTypes' => $idTypes,
+            'projectPaths' => $projectPaths,
+            'bugId' => $bugId,
+            'bugLinks' => array(),
+            'bugPriorities' => $bugPriorities,
+            'bugStates' => $this->bug_model->getBugStates(),
+            'post' => $formData,
+        );
+
+        $out = $this->template->loadPage('bug_edit.tpl', $page_data);
+
         $this->template->view($out, $this->css);
     }
 

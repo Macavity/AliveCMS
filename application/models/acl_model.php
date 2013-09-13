@@ -82,7 +82,7 @@ class Acl_model extends CI_Model
 	}
 
 	/**
-	 * Get the permission value for the player group
+	 * Get the permission value for tdefault_player_grouphe player group
 	 * @param String $permissionName
 	 * @param String $moduleName
 	 * @return Boolean
@@ -102,12 +102,33 @@ class Acl_model extends CI_Model
 
 		$query = $this->db->get("acl_roles_permissions arp, acl_group_roles agr");
 
+
 		if($query->num_rows())
 		{
 			$row = $query->result_array();
 
 			$result = $row[0]['value'];
 		}
+
+        $roles = $this->getRolesByGroupId($groupId, $moduleName);
+
+        if($roles)
+        {
+            foreach($roles as $role)
+            {
+                if($this->acl->manifestExists($moduleName) == false){
+                    continue;
+                }
+
+                // Give it another try with manifest defined roles
+                $manifest = $this->acl->getManifestRole($role['role_name'], $moduleName);
+
+                if($manifest && array_key_exists($permissionName, $manifest['permissions']))
+                {
+                    $result = $manifest['permissions'][$permissionName];
+                }
+            }
+        }
 
 		return $result;
 	}
@@ -124,6 +145,8 @@ class Acl_model extends CI_Model
 	{
 		// Try to find via default player group
 		$result = $this->hasPermissionPlayer($permissionName, $moduleName);
+
+        //debug("$userId hasPermissionPlayer $moduleName/$permissionName", $result);
 
 		// Try to find via the account's groups' roles
 		$this->db->select("arp.value");

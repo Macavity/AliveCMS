@@ -29,91 +29,10 @@ class Admin_Bugs extends MX_Controller
     }
 
     /**
-     * Startseite, zeigt alle Projekte und von jedem Projekt die Beschreibung und Anzahl der Bugs
+     * not used
      */
     public function index()
     {
-        // Change the title
-        $this->administrator->setTitle($this->mainTitle);
-
-        $projects = $this->project_model->getProjects(true);
-        $projectCount = count($projects);
-
-        foreach($projects as $key => $project){
-
-            $countBugs = $this->bug_model->getBugCountByProject($project["id"]);
-
-            $project["done_tickets"] = $countBugs[BUGSTATE_DONE] * 1;
-            $project["open_tickets"] = $countBugs[BUGSTATE_OPEN] * 1;
-            $project["all_tickets"] = $countBugs[BUGSTATE_DONE] + $countBugs[BUGSTATE_OPEN] + $countBugs[BUGSTATE_ACTIVE];
-
-            $project["percentage"] = ($project["all_tickets"] > 0) ? round($project["done_tickets"]/$project["all_tickets"])*100 : 0;
-            //debug($project);
-
-            // Update Original array element
-            $projects[$key] = $project;
-        }
-
-
-        // Prepare my data
-        $templateData = array(
-            'url' => $this->template->page_url,
-            'projects' => $projects,
-            'projectCount' => $projectCount,
-        );
-
-        // Load my view
-        $output = $this->template->loadPage("admin_bugs_index.tpl", $templateData);
-
-        // Put my view in the main box with a headline
-        $content = $this->administrator->box('Bugtracker', $output);
-
-        $this->administrator->view($content, false, $this->jsPath);
-    }
-
-    public function import(){
-        $this->bug_model->importOldBugs();
-
-        $this->index();
-
-    }
-
-    /**
-     * Create new Bugtracker project
-     */
-    public function create()
-    {
-        requirePermission("canCreateProjects");
-
-        $data = array(
-            "title" => $this->input->post("projectTitle"),
-            "description" => $this->input->post("projectDesc"),
-        );
-
-        $output = array(
-            "state" => "success",
-            "message" => "",
-            "debug" => print_r($data, true),
-        );
-
-        foreach($data as $value)
-        {
-            /* All fields are mandatory */
-            if(empty($value))
-            {
-                $output["state"] = "error";
-                $output["message"] = "Bitte fülle alle Felder aus!";
-            }
-        }
-
-        if($output["state"] != "error"){
-            $id = $this->project_model->add($data);
-            $output["message"] = "Das Projekt wurde erfolgreich hinzugefügt.";
-        }
-
-        $this->logger->createLog('Created Bugtracker Project', "(".$id.") ".$data['title']);
-
-        $this->outputJson($output);
 
     }
 
@@ -124,18 +43,18 @@ class Admin_Bugs extends MX_Controller
     public function edit($id = false)
     {
         // Check for the permission
-        requirePermission("canEditProjects");
+        requirePermission("canEditBugs");
 
         if(!is_numeric($id) || !$id)
         {
             die();
         }
 
-        $project = $this->project_model->getProjectById($id);
+        $bug = $this->bug_model->getBug($id);
 
-        if(!$project)
+        if(!$bug)
         {
-            show_error("Dieses Projekt wurde nicht gefunden.");
+            show_error("Dieser Bug existiert nicht.");
             die();
         }
 

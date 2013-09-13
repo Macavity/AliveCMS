@@ -70,7 +70,7 @@
 
     <div id="alert-project" class="alert alert-danger span11">Bitte wähle zuerst eine Kategorie aus.</div>
 
-    <fieldset id="ac-search-wrapper" class="span11 jsProjectFirst">
+    <fieldset id="ac-search-wrapper" class="span11 jsServerOnly jsProjectFirst">
         <legend>Bitte füge wenigstens einen OpenWoW-Link hinzu.</legend><br>
 
         <div class="alert alert-info">Openwow hat getrennte Unterseiten für WotLK und Cataclysm mit den korrekten Daten zu diesen Zeiten. Dagegen sind die meisten anderen Fan-Sites (wowhead, buffed,..) auf dem aktuellen Stand von World of Warcraft.</div>
@@ -98,10 +98,25 @@
                 <div class="input-prepend input-append">
                     <span class="add-on">http://</span>
                     <input type="text" id="form-other-link" name="other-link" size="50" value="" class="input-xlarge"/>
-                    <button class="btn jsAddOtherLink" type="button">Hinzufügen</button>
+                    <button class="btn jsAddOtherLink" type="button" data-target="form-other-link">Hinzufügen</button>
                 </div>
             </div>
         </div>
+    </fieldset>
+
+    <fieldset class="span11 jsWebsiteOnly jsProjectFirst">
+      <legend>Du kannst einen Link zu einer der betroffenen Seiten hinzufügen.</legend>
+
+      <div class="control-group">
+        <label class="control-label" for="form-other-link">Link hinzufügen</label>
+        <div class="controls">
+          <div class="input-prepend input-append">
+            <span class="add-on">http://</span>
+            <input type="text" id="form-website-link" name="other-link" size="50" value="" class="input-xlarge"/>
+            <button class="btn jsAddOtherLink" type="button" data-target="form-website-link">Hinzufügen</button>
+          </div>
+        </div>
+      </div>
     </fieldset>
 
     <div id="form-link-wrapper" class="control-group jsProjectFirst">

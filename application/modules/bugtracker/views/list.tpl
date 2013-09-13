@@ -53,32 +53,33 @@
 						<tr class="{$bug.css} {cycle values="row1,row2"}">
 							<td data-raw="{$bug.bug_state}">&nbsp;</td>
 							<td data-raw="{$bug.id}">
-                                <a href="/bugtracker/bug/{$bug.id}">#{$bug.id}</a>
-                            </td>
-                            <td data-raw="{$bug.priority}">
-                                <i class="icon {$bug.priorityClass}" data-tooltip="{$bug.priorityLabel}"></i>
-                            </td>
-							<td>{$bug.type_string}</td>
+                <a href="/bugtracker/bug/{$bug.id}">#{$bug.id}</a>
+              </td>
+              <td data-raw="{$bug.priority}">
+                <i class="icon {$bug.priorityClass}" data-tooltip="{$bug.priorityLabel}"></i>
+              </td>
+							<td><a href="/bugtracker/buglist/{$bug.project}">{$bug.type_string}</a></td>
 							<td data-raw="{$bug.title}">
-                                {$bug.title}
-                                {if $bug.commentCount > 0}
-                                    <span class="comments-link">{$bug.commentCount}</span>
-                                {/if}
-                            </td>
-							<td data-raw="{$bug.changedSort}"><span data-tooltip="{strip}
-                                    {if $bug.by}
-                                        {if $bug.by.type == "created"}
-                                            Eintragung am {$bug.createdDate} von {if $bug.by.gm}&lt;span class=&quot;employee&quot;/&gt;{/if}{$bug.by.name}
-                                        {elseif $bug.by.type == "commented"}
-                                            Eintragung am {$bug.createdDate},&lt;br&gt;
-                                            Letzter Kommentar von {if $bug.by.gm}&lt;span class=&quot;employee&quot;/&gt;{/if}{$bug.by.name}
-                                        {/if}
+                <a href="/bugtracker/bug/{$bug.id}">{$bug.title}</a>
+                {if $bug.commentCount > 0}
+                  <span class="comments-link">{$bug.commentCount}</span>
+                {/if}
+              </td>
+							<td data-raw="{$bug.changedSort}">
+                <span data-tooltip="{strip}
+                    {if $bug.by}
+                        {if $bug.by.type == "created"}
+                            Eintragung am {$bug.createdDate} von {if $bug.by.gm}&lt;span class=&quot;employee&quot;/&gt;{/if}{$bug.by.name}
+                        {elseif $bug.by.type == "commented"}
+                            Eintragung am {$bug.createdDate},&lt;br&gt;
+                            Letzter Kommentar von {if $bug.by.gm}&lt;span class=&quot;employee&quot;/&gt;{/if}{$bug.by.name}
+                        {/if}
 
-                                    {else}
-                                    Eintragung am {$bug.createdDate}
-                                    {/if}
-                                {/strip}">{$bug.changedDate}</span>
-                            </td>
+                    {else}
+                    Eintragung am {$bug.createdDate}
+                    {/if}
+                {/strip}">{$bug.changedDate}</span>
+              </td>
 						</tr>
 					{/foreach}
 					</tbody>

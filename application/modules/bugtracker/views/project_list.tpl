@@ -4,6 +4,31 @@
     {/if}
 </div><br>
 
+
+
+<div id="recentChanges" class="table">
+  <table>
+    <tbody>
+    {foreach from=$recentChanges key=i item=row}
+      <tr class="{cycle values="row1,row2"}">
+        <td>{$row.dateDifference}</td>
+        <td><i class="icon {$bug.priorityClass}" data-tooltip="{$bug.priorityLabel}"></i></td>
+        <td><a href="/bugtracker/bug/{$bug.id}">#{$bug.id}</a></td>
+        <td><a href="/bugtracker/bug/{$bug.id}">{$bug.title}</a></td>
+        <td></td>
+        <td>{$bug.type_string}</td>
+        <td>
+          {$bug.title}
+          {if $bug.commentCount > 0}
+            <span class="comments-link">{$bug.commentCount}</span>
+          {/if}
+        </td>
+      </tr>
+    {/foreach}
+    </tbody>
+  </table>
+</div>
+
 {foreach from=$projects item=project}
 <section id="bt-project-{$project.id}" class="bugtracker-project">
   <header class="row">
@@ -26,9 +51,12 @@
     <div class="row">
         <div class="progress">
           {if $project.counts.done > 0}
-            <div class="bar bar-success" style="width: {$project.counts.percentage.done}%;">{$project.counts.percentage.done}%</div>
+            <div data-tooltip="{$project.counts.done} erledigt" class="bar bar-success" style="width: {max($project.counts.percentage.done,1)}%;">{$project.counts.percentage.done}%</div>
           {else}
               0%
+          {/if}
+          {if $project.counts.active > 0}
+            <div data-tooltip="{$project.counts.active} in Arbeit" class="bar bar-warning" style="width: {max($project.counts.percentage.active,1)}%;"></div>
           {/if}
         </div>
     </div>
@@ -49,9 +77,12 @@
               <div class="row">
                 <div class="progress">
                   {if $sub.counts.done > 0}
-                    <div class="bar bar-success" style="width: {$sub.counts.percentage.done}%;">{$sub.counts.percentage.done}%</div>
+                    <div data-tooltip="{$sub.counts.done} erledigt" class="bar bar-success" style="width: {$sub.counts.percentage.done}%;">{$sub.counts.percentage.done}%</div>
                   {else}
                       0%
+                  {/if}
+                  {if $sub.counts.active > 0}
+                    <div data-tooltip="{$sub.counts.active} in Arbeit" class="bar bar-warning" style="width: {max($sub.counts.percentage.active,1)}%;"></div>
                   {/if}
                 </div>
               </div>
@@ -70,9 +101,12 @@
                           <div class="row">
                             <div class="progress">
                               {if $subsub.counts.done > 0}
-                                <div class="bar bar-success" style="width: {$subsub.counts.percentage.done}%;">{$subsub.counts.percentage.done}%</div>
+                                <div data-tooltip="{$subsub.counts.done} erledigt" class="bar bar-success" style="width: {$subsub.counts.percentage.done}%;">{$subsub.counts.percentage.done}%</div>
                               {else}
                                   0%
+                              {/if}
+                              {if $subsub.counts.active > 0}
+                                <div data-tooltip="{$subsub.counts.active} in Arbeit" class="bar bar-warning" style="width: {max($subsub.counts.percentage.active,1)}%;"></div>
                               {/if}
                             </div>
                           </div>

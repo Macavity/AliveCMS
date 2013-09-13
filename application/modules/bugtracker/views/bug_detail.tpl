@@ -17,7 +17,7 @@
 {if $canEditBugs}
 <div class="row">
     <div class="span2 offset1">
-        <a href="/bugtracker/admin/edit/{$bugId}" class="ui-button button2"><span><span>Bug-Report bearbeiten</span></span></a>
+        <a href="/bugtracker/edit/{$bugId}" class="ui-button button2"><span><span>Bug-Report bearbeiten</span></span></a>
     </div>
 </div><br>
 {/if}

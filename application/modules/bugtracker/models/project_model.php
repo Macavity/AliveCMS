@@ -129,7 +129,7 @@ class Project_Model extends CI_Model {
         else{
             $project["counts"] = $this->getProjectBugStateCounts($projectId);
         }
-        debug($project);
+        //debug($project);
 
 
         return $project;
@@ -143,8 +143,8 @@ class Project_Model extends CI_Model {
 
         if($countStates["all"] > 0){
             $countStates["percentage"][BUGSTATE_DONE] = round(($countStates[BUGSTATE_DONE]/$countStates["all"])*100);
-            $countStates["percentage"][BUGSTATE_ACTIVE] = round(($countStates[BUGSTATE_DONE]/$countStates["all"])*100);
-            $countStates["percentage"][BUGSTATE_OPEN] = round(($countStates[BUGSTATE_DONE]/$countStates["all"])*100);
+            $countStates["percentage"][BUGSTATE_ACTIVE] = round(($countStates[BUGSTATE_ACTIVE]/$countStates["all"])*100);
+            $countStates["percentage"][BUGSTATE_OPEN] = round(($countStates[BUGSTATE_OPEN]/$countStates["all"])*100);
         }
         else{
             $countStates["percentage"][BUGSTATE_DONE] = 0;
@@ -221,6 +221,17 @@ class Project_Model extends CI_Model {
             return $row;
         }
         return FALSE;
+    }
+
+    public function getProjectTitle($projectId){
+        if(empty($projectId))
+            return false;
+
+        $row = $this->getProjectById($projectId, 'title');
+
+        if($row){
+            return $row['title'];
+        }
     }
 
     /**

@@ -1,0 +1,748 @@
+#pvp-index{
+
+  #content .content-top, #game-character #content .content-top {
+    background: url("/templates/Shattered-World/images/layout/content-topbot.jpg") no-repeat;
+  }
+
+  #content .content-header .tab-menu {
+    padding-top: 10px;
+  }
+
+  .table {
+    font: normal 12px / 1.5 Arial, Verdana, sans-serif;
+  }
+
+  .win {
+    color: #2dd300;
+  }
+
+  .loss {
+    color: #db0000;
+  }
+
+  .rating {
+    color: #9E3403;
+    font: bold 12px / 100% "Arial Black", Arial, Verdana, sans-serif;
+  }
+
+  .arrow-up, .arrow-down, .arrow-new {
+    width: 10px;
+    height: 11px;
+    margin-left: 5px;
+    display: inline-block;
+    background: url("http://portal.wow-alive.de/templates/Shattered-World/images/icons/arrow-up-down.gif") no-repeat;
+  }
+
+  .arrow-down {
+    background-position: 0 -15px;
+  }
+
+  .arrow-new {
+    background-position: 0 -30px;
+  }
+
+  .no-results {
+    padding: 25px;
+    text-align: center;
+    color: #C09A67;
+  }
+
+  .percent {
+    color: #71401F;
+  }
+
+  .view-all {
+    text-align: right;
+    padding: 5px;
+  }
+
+  .table .ranking {
+    width: 50px;
+    text-align: center;
+  }
+
+  /* elements */
+
+  .pvp {
+    min-height: 900px;
+  }
+
+  .pvp-left {
+    float: left;
+    width: 230px;
+    position: relative;
+    .slide-container, .dynamic-menu {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200px;
+      margin: 0 10px 0 20px;
+      padding-bottom: 1px;
+      background: url("http://portal.wow-alive.de/templates/Shattered-World/images/sidebar-menu-sep.gif") 0 100% no-repeat;
+      font-size: 13px;
+    }
+  }
+
+  .pvp-right {
+    float: right;
+    width: 760px;
+    background: url("http://portal.wow-alive.de/templates/Shattered-World/images/pvp/section-bg.png") no-repeat;
+  }
+
+  /* ladders */
+
+  .pvp-ladder {
+    .ladder-title {
+      padding: 20px 20px 10px 20px;
+      span {
+        color: #855B47;
+      }
+      .category {
+        font-size: 26px;
+      }
+    }
+    .player-icons {
+      float: right;
+      margin-left: 5px;
+    }
+  }
+
+  #pvp-filters {
+    padding: 0 20px;
+    background: none;
+    position: relative;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    .filter.checkbox label {
+      display: inline-block;
+    }
+    #current-filters {
+      padding-bottom: 15px;
+      span {
+        img {
+          vertical-align: middle;
+        }
+        a {
+          vertical-align: middle;
+          margin: 0 10px 2px 2px;
+          width: 12px;
+          height: 12px;
+          display: inline-block;
+          background: url("http://forum.wow-alive.de/static-wow/images/icons/cross-small.gif") no-repeat;
+        }
+      }
+      strong {
+        color: #F5EBD1;
+      }
+    }
+  }
+
+  #filter-buttons {
+    padding-bottom: 10px;
+    text-align: center;
+    a {
+      margin: 0 10px;
+    }
+  }
+
+  #filter-rating-min, #filter-rating-max {
+    width: 40px;
+  }
+
+  #filter-team {
+    width: 200px;
+  }
+
+  #filter-bg, #filter-faction {
+    width: 115px;
+  }
+
+  #filter-player {
+    width: 125px;
+  }
+
+  #filter-realm {
+    width: 150px;
+  }
+
+  #team-composition {
+    p {
+      margin: 0 0 10px 0;
+    }
+    .filter {
+      margin-right: 10px;
+      padding-right: 17px;
+      position: relative;
+    }
+    .spec, .class {
+      width: 115px;
+    }
+    .spec {
+      margin-top: 2px;
+    }
+    .remove {
+      display: inline-block;
+      position: absolute;
+      top: 5px;
+      right: 0;
+      width: 12px;
+      height: 12px;
+      background: url("http://forum.wow-alive.de/static-wow/images/icons/cross-small.gif") no-repeat;
+    }
+    #comp-base {
+      padding: 0;
+      .remove {
+        display: none;
+      }
+    }
+    #comp-add {
+      margin-left: 10px;
+    }
+  }
+
+  #player-spec .class-spec {
+    width: 20%;
+    margin: 0 0 15px 0;
+    label {
+      display: inline-block;
+    }
+    .spec {
+      padding-left: 10px;
+      input {
+        vertical-align: top;
+      }
+      label {
+        width: 110px;
+      }
+    }
+    .all-spec {
+      input {
+        vertical-align: top;
+      }
+      label {
+        font-weight: bold;
+        width: 115px;
+      }
+    }
+  }
+
+  /* summary */
+
+  .pvp-summary {
+    .pvp-right {
+      padding: 20px;
+      width: 720px;
+    }
+    .category {
+      margin-bottom: 15px;
+    }
+    .top-title .category {
+      margin-right: 15px;
+      display: inline-block;
+    }
+    .column {
+      margin-left: 7px;
+      float: left;
+      width: 235px;
+      background: url("http://portal.wow-alive.de/templates/Shattered-World/images/pvp/top-team.jpg") no-repeat;
+      &.first-child, &:first-child {
+        margin: 0;
+      }
+      h2 {
+        height: 50px;
+        padding: 13px 0 0 15px;
+        border-bottom: 1px solid #180b06;
+        a {
+          color: #682b05;
+          font: bold 36px / 100% "Arial Black", Arial, Verdana, sans-serif;
+          letter-spacing: -2px;
+          &:hover {
+            color: #fff;
+          }
+        }
+      }
+      ul {
+        li {
+          height: 93px;
+          padding: 15px 15px 0 40px;
+          position: relative;
+          border-top: 1px solid #60270e;
+          border-bottom: 1px solid #1a0b04;
+        }
+        .name {
+          font-size: 14px;
+          word-wrap: break-word;
+        }
+        .ranking {
+          color: #682b05;
+          position: absolute;
+          top: 15px;
+          left: 15px;
+          font-size: 22px;
+          line-height: 100%;
+        }
+        .realm {
+          color: #71401F;
+          padding-bottom: 3px;
+        }
+        .members {
+          padding-top: 2px;
+        }
+        .rating-realm {
+          margin: 3px 0;
+          vertical-align: middle;
+        }
+        .first .ranking {
+          font-size: 36px;
+          left: 10px;
+        }
+        .second {
+          .ranking {
+            font-size: 28px;
+            left: 12px;
+          }
+          border-top: 1px solid #4a200e;
+        }
+        .third {
+          border-top: 1px solid #3b1d0e;
+        }
+      }
+      table {
+        width: 100%;
+        td {
+          padding: 5px;
+        }
+      }
+      .all {
+        padding: 6px 10px;
+        font-size: 10px;
+        display: block;
+        text-align: right;
+        border-top: 1px solid #2a180e;
+      }
+    }
+  }
+
+  /* columns */
+
+  .popular {
+    .column-left {
+      width: 375px;
+      float: left;
+      margin-bottom: 25px;
+    }
+    .column-right {
+      width: 320px;
+      float: right;
+      margin-bottom: 25px;
+    }
+    .category {
+      font-size: 20px;
+      border-bottom: 2px solid #40200d;
+      padding-bottom: 6px;
+    }
+  }
+
+  /* top teams/bgs */
+
+  .top-teams {
+    margin-bottom: 25px;
+  }
+
+  .top-bgs .table tr td {
+    padding: 5px;
+  }
+
+  /* class specs */
+
+  .class-specs li {
+    padding: 5px;
+    height: 20px;
+    border-bottom: 1px solid #2a180e;
+    .class {
+      display: inline-block;
+      width: 145px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .tree {
+      display: inline-block;
+      width: 145px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 125px;
+    }
+    .percent {
+      float: right;
+    }
+    .icon-frame, img {
+      vertical-align: middle;
+    }
+  }
+
+  /* team comps */
+
+  .team-comps .comp {
+    float: left;
+    padding-left: 5px;
+    border-left: 1px solid #2a180e;
+    h3 {
+      margin-top: 5px;
+      text-align: center;
+      color: #682b05;
+      font-size: 16px;
+      color: #fff;
+    }
+    li {
+      padding: 0 0 0 5px;
+      height: 30px;
+      line-height: 30px;
+      margin-bottom: 1px;
+      .percent {
+        margin-left: 5px;
+      }
+      img {
+        vertical-align: middle;
+      }
+    }
+    &.first-child, &:first-child {
+      margin: 0;
+      border: none;
+    }
+    &.comp-2v2 {
+      width: 90px;
+    }
+    &.comp-3v3 {
+      width: 115px;
+    }
+    &.comp-5v5 {
+      width: 150px;
+    }
+  }
+
+  /* recent topics */
+
+  .recent-topics {
+    li {
+      padding: 6px;
+      border-bottom: 1px solid #2E2218;
+      .title {
+        display: block;
+        font-weight: bold;
+      }
+      .desc {
+        color: #71401F;
+        font-size: 11px;
+      }
+      .forum {
+        color: #7E3406;
+      }
+      a:hover {
+        color: #fff;
+      }
+    }
+    &.loading {
+      background: url("http://forum.wow-alive.de/static-wow/images/loaders/canvas-loader.gif") 50% 50% no-repeat;
+      padding: 50px;
+    }
+  }
+
+  .arenateam-gameswonlost {
+    color: #C09A67 !important;
+    white-space: nowrap;
+  }
+
+  .arenateam-percent {
+    color: #C09A67 !important;
+    white-space: nowrap;
+    padding-left: 6px;
+  }
+
+  .arenateam-rating {
+    color: #9E3403;
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  /* ie */
+
+  .ie .pvp-summary .top-title .category {
+    display: inline;
+    float: left;
+  }
+
+  .ie7 .class-specs li .icon-frame {
+    margin-right: 5px;
+  }
+
+  /* weekly best */
+
+  .pvp-weekly-best {
+    font-size: 22px;
+    line-height: 20px;
+    padding-bottom: 20px;
+    .rating {
+      font-size: 30px;
+      color: #9E3403;
+      font-family: 'Arial Black', Arial, sans-serif;
+      font-weight: bold;
+    }
+  }
+
+  /* tabs */
+
+  .pvp-tabs {
+    margin-bottom: 15px;
+    .tab {
+      z-index: 0;
+      float: left;
+      cursor: pointer;
+      display: block;
+      width: 150px;
+      height: 134px;
+      color: #c09a67;
+      padding: 20px 10px 0 20px;
+      margin-left: 4px;
+      background: url("/templates/Shattered-World/images/character/pvp/tab.png") -180px 0 no-repeat;
+      position: relative;
+      &:hover {
+        background-position: -360px 0;
+      }
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+    .tab-selected {
+      background-position: 0 0 !important;
+      cursor: default;
+      .type, .ratings {
+        cursor: text;
+      }
+    }
+    .tab-disabled {
+      cursor: default;
+      background-position: -540px 0 !important;
+    }
+    .type {
+      color: #26180f;
+      font-size: 36px;
+      font-family: "Arial Black", Arial, Verdana, sans-serif;
+      line-height: 1em;
+      font-weight: bold;
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 2;
+      letter-spacing: -0.1em;
+    }
+    .tab:hover .type, .tab-selected .type {
+      color: #fff;
+    }
+    .tab-disabled .type {
+      color: #26180f !important;
+    }
+  }
+
+  #pvp-tab-bgs .type {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    letter-spacing: -1px;
+  }
+
+  .pvp-tabs .ratings {
+    position: absolute;
+    left: 20px;
+    bottom: 15px;
+    z-index: 2;
+    li {
+      clear: both;
+      line-height: 25px;
+      span {
+        float: left;
+      }
+    }
+    .value {
+      font-size: 15px;
+      color: #953203;
+      font-family: 'Arial Black', Verdana, Arial, sans-serif;
+      font-weight: bold;
+    }
+    .name {
+      margin-left: 5px;
+    }
+    .rank {
+      color: #FEF092;
+      font-size: 13px;
+      font-weight: bold;
+      .unranked {
+        color: #71401F;
+        font-size: 12px;
+        font-style: italic;
+        font-weight: normal;
+      }
+    }
+  }
+
+  /* rated battlegrounds */
+
+  .pvp-bgs {
+    padding-top: 10px;
+  }
+
+  /* team stats */
+
+  .arenateam-stats {
+    background-color: rgba(0, 0, 0, 0.15);
+    padding: 10px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+  }
+
+  html.ie .arenateam-stats {
+    background: #160c07;
+  }
+
+  .arenateam-stats {
+    table {
+      width: 100%;
+    }
+    th, td {
+      padding: 5px 3px;
+    }
+    th {
+      color: white;
+      vertical-align: bottom;
+      padding-top: 2px;
+      .align-center span {
+        text-align: center;
+      }
+    }
+    .team-name {
+      font-size: 18px;
+      letter-spacing: -1px;
+    }
+  }
+
+  /* team roster */
+
+  .pvp-roster {
+    padding-top: 30px;
+    .ui-dropdown {
+      float: right;
+      width: 115px;
+    }
+  }
+
+  /* simple flag */
+
+  .arenateam-flag-simple {
+    left: 52px;
+    top: 0;
+  }
+
+  .profile-section {
+    position: relative;
+  }
+
+  .conquest-points {
+    position: absolute;
+    width: 60%;
+    text-align: right;
+    right: 20px;
+    top: -35px;
+    .calculator .icon {
+      display: inline-block;
+      width: 14px;
+      height: 15px;
+      vertical-align: top;
+      background: url("/images/character/talent-calculator/icons.gif") -200px 0 no-repeat;
+    }
+  }
+
+  .ie6 .pvp-tabs .tab {
+    background-image: url("/templates/Shattered-World/images/character/pvp/tab.gif");
+  }
+
+  /* arena team stats */
+
+  .arenateam-stats {
+    .week {
+      color: #FEF092;
+      font-weight: bold;
+    }
+    .season {
+      font-weight: normal;
+    }
+  }
+
+  /* arena team roster */
+
+  .arenateam-roster {
+    padding-top: 10px;
+    .character-talents {
+      float: right;
+    }
+    .leader {
+      margin-left: 5px;
+      display: inline-block;
+      width: 14px;
+      height: 9px;
+      background: url("/templates/Shattered-World/images/pvp/leader.gif") no-repeat;
+    }
+  }
+
+  /* arena team shared */
+
+  .arenateam-rating {
+    color: #9E3403;
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  .arenateam-gameswon {
+    color: #00FF00;
+  }
+
+  .arenateam-gameslost {
+    color: red;
+  }
+
+  .arenateam-gameswonlost {
+    color: #C09A67 !important;
+    white-space: nowrap;
+  }
+
+  .arenateam-percent {
+    color: #C09A67 !important;
+    white-space: nowrap;
+    padding-left: 6px;
+  }
+
+  .arrow-up, .arrow-down, .arrow-new {
+    width: 10px;
+    height: 11px;
+    display: inline-block;
+    vertical-align: middle;
+    background: url("../../images/icons/arrow-up-down.gif") no-repeat;
+  }
+
+  .arrow-down {
+    background-position: 0 -15px;
+  }
+
+  .arrow-new {
+    background-position: 0 -30px;
+  }
+
+  .ie6 {
+    .arrow-up, .arrow-down, .arrow-new {
+      vertical-align: bottom;
+      margin: 7px 0 -7px 0;
+    }
+  }
+}
