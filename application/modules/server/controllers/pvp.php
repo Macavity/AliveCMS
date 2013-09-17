@@ -161,5 +161,24 @@ class Pvp extends MX_Controller
         $this->template->view($out);
     }
 
+    public function arena($mode, $realmId){
+
+        if(empty($mode) || empty($realmId)){
+            redirect('server/pvp');
+        }
+
+        $this->load->model('pvp_ladder_model');
+        $this->pvp_ladder_model = new Pvp_ladder_model();
+
+    }
+
+    public function honor($realmId){
+
+        if(empty($realmId)){
+            redirect('server/pvp');
+        }
+
+    }
+
 
 }
