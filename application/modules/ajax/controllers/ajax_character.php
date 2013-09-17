@@ -17,6 +17,11 @@
 
             $this->load->model("armory_model");
             $this->load->config("wow_constants");
+
+            if(false){
+                $this->armory_model = new Armory_model();
+                $this->template = new Template();
+            }
         }
         
         /*
@@ -27,8 +32,6 @@
              $char = utf8_decode(urldecode($characterName));
 
              $this->setChar($realm, $characterName);
-
-             $this->armory_model = new Armory_model();
 
              $this->armory_model->setRealm($this->realmId);
              $this->armory_model->setId($this->characterGuid);
