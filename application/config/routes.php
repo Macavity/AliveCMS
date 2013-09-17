@@ -83,5 +83,9 @@ $route['bugtracker/admin/(:any)/(:num)'] = "bugtracker/admin/$1/$2";
 // Vote
 $route['vote/callback/(:any)'] = "vote/callback/index/$1";
 
+// API/AJAX
+$route['ajax/character/(:any)'] = "ajax/ajax_character/index/$1";
+
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
