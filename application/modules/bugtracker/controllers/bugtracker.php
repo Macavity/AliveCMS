@@ -171,10 +171,12 @@ class Bugtracker extends MX_Controller{
         // Recent Changes
 
 
+        $permCanCreateBugs = hasPermission('canCreateBugs');
 
         // Prepare my data
         $templateData = array(
             'url' => $this->template->page_url,
+            'permCanCreateBugs' => $permCanCreateBugs,
             'projects' => $baseProjects,
             'projectCount' => $projectCount,
             'projectChoices' => $projectChoices,
@@ -278,8 +280,11 @@ class Bugtracker extends MX_Controller{
 
         }
 
+        $permCanCreateBugs = hasPermission('canCreateBugs');
+
         $page_data = array(
             'module' => 'bugtracker',
+            'permCanCreateBugs' => $permCanCreateBugs,
             'bugRows' => $bugRows,
             'rowCount' => count($bugRows),
             'rowMax' => min($bugRows,50),
