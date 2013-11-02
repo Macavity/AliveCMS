@@ -5,8 +5,8 @@
         private $realmId;
         private $realmName;
 
-        private $char;
-        private $character;
+        private $characterName;
+        private $characterGuid;
         private $CharacterJsonData = array();
         
         private $items;
@@ -17,29 +17,33 @@
 
             $this->load->model("armory_model");
             $this->load->config("wow_constants");
+
+            if(false){
+                $this->armory_model = new Armory_model();
+                $this->template = new Template();
+            }
         }
         
         /*
          * Initialize
          */
-         public function index($realm = false, $char = false)
+         public function index($realm = false, $characterName = false)
          {
-             $char = utf8_decode(urldecode($char));
-             $this->setChar($realm, $char);
-             
-             if($this->armory_model->characterExists())
+             $char = utf8_decode(urldecode($characterName));
+
+             $this->setChar($realm, $characterName);
+
+             $this->armory_model->setRealm($this->realmId);
+             $this->armory_model->setId($this->characterGuid);
+
+             $char = $this->armory_model->getCharacter();
+
+             //debug("Char", $char);
+
+             if($char["level"] > "0" && $char["level"] < "81")
              {
-                 $char = $this->armory_model->getCharacter();
-                 if($char["level"] > "0" && $char["level"] < "81")
-                 {
-                     $stats = $this->getCharJson();               
-                     echo $stats;
-                 }
-                 else
-                 {
-                     $this->getError(ERROR_CHARACTER_NOT_FOUND);
-                 }
-                 
+                 $stats = $this->getCharJson();
+                 $this->template->handleJsonOutput($stats);
              }
              else
              {
@@ -61,31 +65,40 @@
              * @type Integer
              */
             $realmId = -1;
-            
+
             if(is_string($realmName) && is_string($char))
             {
                 foreach($this->realms->getRealms() as $realmRow)
                 {
-                    if($realmRow->Getname() == $realmName)
+                    //echo "<br>".$realmRow->getName()." =? ".$realmName;
+                    if($realmRow->getName() == $realmName)
                     {
-                         $validRealm = TRUE;
-                         $realmId = $realmRow->GetId();
+                        $realmId = $realmRow->getId();
+                        //debug("Valid Realm",$realmId);
+                        $validRealm = TRUE;
                     }
                 }
+            }
+            else{
+                $this->getError(ERROR_REALM_NOT_FOUND);
             }
              
             if($validRealm){
                 
                 $realm = $this->realms->getRealm($realmId);
                 $charDb = $realm->getCharacters();
-                
-                // Nur wenn es den Charakter tatsächlich gibt werden die Informationen gespeichert
-                if($this->character = $charDb->getGuidByName($char)){
-                        
+
+                $characterGuid = $charDb->getGuidByName($char);
+
+                //debug("char",$characterGuid);
+
+                if($characterGuid > 0){
+                    //debug("Character found");
+                    $this->characterName = $char;
+                    $this->characterGuid = $characterGuid;
+
                     $this->realmName = $realmName;
                     $this->realmId = $realmId;
-                    $this->armory_model->setRealm($this->realmId);
-                    $this->armory_model->setId($this->character);
                 }
                 else{
                     $this->getError(ERROR_CHARACTER_NOT_FOUND);
@@ -95,7 +108,8 @@
             else{
                 $this->getError(ERROR_REALM_NOT_FOUND);
             }
-             
+
+            return true;
         }
          
         /*
@@ -375,6 +389,6 @@
                    ),
                );
                
-               return json_encode($CharacterJsonData);
+               return $CharacterJsonData;
            }
     }        

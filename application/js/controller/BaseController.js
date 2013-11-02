@@ -5,10 +5,11 @@ define([
     'modules/login',
     'modules/tooltip',
     'modules/wow',
-    'modules/explore'
+    'modules/explore',
+    'modules/dynamic_menu'
 ],
 
-    function (Core, Page, CharSelect, Login, Tooltip, Wow, Explore) {
+    function (Core, Page, CharSelect, Login, Tooltip, Wow, Explore, DynamicMenu) {
 
     var BaseController = Class.extend({
 
@@ -19,6 +20,7 @@ define([
             this.initUserplate();
 
             this.initFormBehaviour();
+            this.initDynamicMenu();
 
             /*
              Input.initialize();
@@ -63,6 +65,16 @@ define([
             });
         },
 
+        initDynamicMenu: function(){
+            var _jq = $;
+
+            var dynamicMenues = _jq(".dynamic-menu");
+            if(dynamicMenues.length > 0){
+                dynamicMenues.each(function(){
+                    var menu = new DynamicMenu(_jq(this));
+                });
+            }
+        },
 
         initTS3Viewer: function(){
             debug.debug("Base.initTS3Viewer");

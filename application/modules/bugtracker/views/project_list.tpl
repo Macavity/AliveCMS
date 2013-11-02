@@ -1,5 +1,5 @@
 <div class="bugtracker-actions">
-    {if hasPermission("canCreateBugs")}
+    {if $permCanCreateBugs}
         <a href="{site_url('bugtracker/create')}" class="ui-button button2"><span><span>Neuen Bug eintragen</span></span></a>&nbsp;
     {/if}
 </div><br>

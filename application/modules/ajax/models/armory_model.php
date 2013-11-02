@@ -4,8 +4,9 @@ class Armory_model extends CI_Model
 {
     public $realm;
     private $connection;
-    private $id;
+    private $characterGuid;
     private $realmId;
+    private $charDb = null;
     private $professions;
 
     public function __construct()
@@ -17,7 +18,7 @@ class Armory_model extends CI_Model
      */
     public function setId($id)
     {
-        $this->id = $id;
+        $this->characterGuid = $id;
     }
 
     /**
@@ -34,7 +35,6 @@ class Armory_model extends CI_Model
      */
     public function connect()
     {
-        $this->realm->getCharacters()->connect();
         $this->connection = $this->realm->getCharacters()->getConnection();
     }
 
@@ -45,7 +45,10 @@ class Armory_model extends CI_Model
     {
         $this->connect();
 
-        $query = $this->connection->query("SELECT COUNT(*) AS total FROM ".table("characters", $this->realmId)." WHERE ".column("characters", "guid", false, $this->realmId)."= ?", array($this->id));
+        $realmId = $this->realmId;
+        $characterGuid = $this->characterGuid;
+
+        $query = $this->connection->query("SELECT COUNT(*) AS total FROM ".table("characters", $realmId)." WHERE ".column("characters", "guid", false, $realmId)."= ?", array($characterGuid));
         $row = $query->result_array();
 
         if($row[0]['total'] > 0)
@@ -65,7 +68,10 @@ class Armory_model extends CI_Model
     {
         $this->connect();
 
-        $query = $this->connection->query(query('get_character', $this->realmId), array($this->id));
+        $realmId = $this->realmId;
+        $characterGuid = $this->characterGuid;
+
+        $query = $this->connection->query(query('get_character', $realmId), array($characterGuid));
         
         if($query && $query->num_rows() > 0)
         {
@@ -93,7 +99,10 @@ class Armory_model extends CI_Model
     {
         $this->connect();
 
-        $query = $this->connection->query("SELECT ".allColumns("character_stats", $this->realmId)." FROM ".table("character_stats", $this->realmId)." WHERE ".column("character_stats", "guid", false, $this->realmId)."= ?", array($this->id));
+        $realmId = $this->realmId;
+        $characterGuid = $this->characterGuid;
+
+        $query = $this->connection->query("SELECT ".allColumns("character_stats", $realmId)." FROM ".table("character_stats", $realmId)." WHERE ".column("character_stats", "guid", false, $realmId)."= ?", array($characterGuid));
 
         if($query && $query->num_rows() > 0)
         {
@@ -113,7 +122,7 @@ class Armory_model extends CI_Model
     public function getProfessions()
     {
         $this->connect();
-        $query = $this->connection->query("SELECT * FROM character_skills WHERE guid = ? AND skill IN (164, 165, 171, 182, 186, 197, 202, 333, 393, 755, 773)", array($this->id));
+        $query = $this->connection->query("SELECT * FROM character_skills WHERE guid = ? AND skill IN (164, 165, 171, 182, 186, 197, 202, 333, 393, 755, 773)", array($this->characterGuid));
 
         if($query && $query->num_rows() > 1)
         {
@@ -214,7 +223,7 @@ class Armory_model extends CI_Model
     {
         $this->connect();
 
-        $query = $this->connection->query(query("get_inventory_item", $this->realmId), array($this->id));
+        $query = $this->connection->query(query("get_inventory_item", $this->realmId), array($this->characterGuid));
 
         if($query && $query->num_rows() > 0)
         {
@@ -232,7 +241,7 @@ class Armory_model extends CI_Model
     {
         $this->connect();
 
-        $query = $this->connection->query("SELECT ".column("guild_member", "guildid", true, $this->realmId)." FROM ".table("guild_member", $this->realmId)." WHERE ".column("guild_member", "guid", false, $this->realmId)."= ?", array($this->id));
+        $query = $this->connection->query("SELECT ".column("guild_member", "guildid", true, $this->realmId)." FROM ".table("guild_member", $this->realmId)." WHERE ".column("guild_member", "guid", false, $this->realmId)."= ?", array($this->characterGuid));
 
         if($this->connection->_error_message())
         {
@@ -247,7 +256,7 @@ class Armory_model extends CI_Model
         }
         else
         {
-            $query2 = $this->connection->query("SELECT ".column("guild", "guildid", true, $this->realmId)." FROM ".table("guild", $this->realmId)." WHERE ".column("guild", "leaderguid", false, $this->realmId)."= ?", array($this->id));
+            $query2 = $this->connection->query("SELECT ".column("guild", "guildid", true, $this->realmId)." FROM ".table("guild", $this->realmId)." WHERE ".column("guild", "leaderguid", false, $this->realmId)."= ?", array($this->characterGuid));
 
             if($this->connection->_error_message())
             {

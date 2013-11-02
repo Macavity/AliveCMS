@@ -91,6 +91,9 @@ class Acl_model extends CI_Model
 	{
 		$result = null;
 
+        if($moduleName == "bugtracker"){
+            debug("$permissionName");
+        }
 		$groupId = $this->config->item('default_player_group');
 
 		$this->db->select("arp.value");
@@ -110,7 +113,11 @@ class Acl_model extends CI_Model
 			$result = $row[0]['value'];
 		}
 
-        $roles = $this->getRolesByGroupId($groupId, $moduleName);
+        $roles = $this->getGroupRoles($groupId, $moduleName);
+
+        if($moduleName == "bugtracker"){
+            debug("Roles", $roles);
+        }
 
         if($roles)
         {
@@ -146,7 +153,10 @@ class Acl_model extends CI_Model
 		// Try to find via default player group
 		$result = $this->hasPermissionPlayer($permissionName, $moduleName);
 
-        //debug("$userId hasPermissionPlayer $moduleName/$permissionName", $result);
+
+        if($moduleName == "bugtracker"){
+            debug("$userId hasPermissionPlayer $moduleName/$permissionName", $result);
+        }
 
 		// Try to find via the account's groups' roles
 		$this->db->select("arp.value");
@@ -554,6 +564,10 @@ class Acl_model extends CI_Model
 		$this->db->where("agr.role_name = ar.name");
 		$query = $this->db->get('acl_group_roles agr, acl_roles ar');
 
+        if($moduleName == 'bugtracker'){
+            debug("getRolesByGroupId", $this->db->last_query());
+        }
+
 		if($query->num_rows() > 0)
 		{
 			$result = $query->result_array();
@@ -565,6 +579,28 @@ class Acl_model extends CI_Model
 			return false;
 		}
 	}
+
+    public function getGroupRoles($groupId, $moduleName){
+        $this->db->select("role_name");
+        $this->db->where("group_id", $groupId);
+
+        if($moduleName){
+            $this->db->where("module", $moduleName);
+        }
+
+        $query = $this->db->get('acl_group_roles');
+
+        if($query->num_rows() > 0)
+        {
+            $result = $query->result_array();
+
+            return $result;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
 	/**
 	 * Get the database roles for a module
