@@ -1,5 +1,5 @@
 
-define(function(){
+define(['modules/core', 'modules/page'], function(Core, Page){
 
     /**
      * Creates a full page blackout.
