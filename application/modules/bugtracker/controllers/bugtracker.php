@@ -869,8 +869,9 @@ class Bugtracker extends MX_Controller{
             $bugUpdate = $this->bug_model->update($bugId, $formData['project'], $formData['priority'], $formData['state'], $formData['title'], $formData['desc'], $formData['links']);
 
             if($bugUpdate){
-                // Show Detail Page of the newly created Bug
-                redirect('bugtracker/bug/'.$bugId);
+                // Show the Bug Page
+                $this->bug($bugId);
+
                 return;
             }
         }
