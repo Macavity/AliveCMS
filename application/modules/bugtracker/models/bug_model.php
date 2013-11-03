@@ -161,7 +161,7 @@ class Bug_model extends CI_Model
         $matpath = str_pad($projectId, 4, '0', STR_PAD_LEFT);
         $sql = '
 SELECT
-	be.id, be.bug_state, be.project, be.priority, be.title, be.createdDate, be.changedDate, be.changedTimestamp, be.posterData,
+	be.id, be.bug_state, be.project, be.priority, be.title, be.createdDate, be.createdTimestamp, be.changedDate, be.changedTimestamp, be.posterData, be.link,
 	cm.posterData as cmPosterData, cm.changedDate as cmChangedDate, cm.changedTimestamp as cmChangedTimestamp
 FROM
 	bugtracker_entries AS be
@@ -203,9 +203,6 @@ ORDER BY
                             'name' => $cmPosterData['name'],
                             'gm' => (isset($cmPosterData['gm']) && $cmPosterData['gm']) ? true : false,
                         );
-                        /*if($row['id'] == 224){
-                            debug("comment is fresher!", $lastChange);
-                        }*/
                     }
 
                     $comment = array(
@@ -215,12 +212,10 @@ ORDER BY
                         'name' => $cmPosterData['name'],
                         'class' => (!empty($cmPosterData['class'])) ? $cmPosterData['class'] : '',
                     );
-
-                    /*if($row['id'] == 224){
-                        debug("comment",$comment);
-                    }*/
                 }
                 unset($row['cmChangedDate'], $row['cmChangedTimestamp'], $row['cmPosterData']);
+
+
 
                 // Not in list yet?
                 if(empty($bugs[$row['id']])){
@@ -229,10 +224,8 @@ ORDER BY
                     $bugs[$row['id']]['by'] = $by;
                     $bugs[$row['id']]['lastComment'] = $comment;
                     $bugs[$row['id']]['commentCount'] = (count($comment)) ? 1 : 0;
-                    /*if($row['id'] == 224){
-                        debug("row", $row);
-                        debug("first appearance",$bugs[$row['id']]);
-                    }*/
+                    // debug("row", $row);
+                    // debug("first appearance",$bugs[$row['id']]);
                 }
                 // Is in list but we got another comment to check
                 elseif(count($comment) > 0){
@@ -244,24 +237,32 @@ ORDER BY
                         $bugs[$row['id']]['by'] = $by;
                         $bugs[$row['id']]['lastComment'] = $comment;
 
-                        /*if($row['id'] == 224){
-                            debug("first appearance with comment",$bugs[$row['id']]);
-                        }*/
+                        // debug("first appearance with comment",$bugs[$row['id']]);
                     }
                     // but this comment was more recent?
                     elseif($bugs[$row['id']]['lastComment']['changedTimestamp'] < $comment['changedTimestamp']){
                         $bugs[$row['id']]['lastChange'] = $lastChange;
                         $bugs[$row['id']]['by'] = $by;
                         $bugs[$row['id']]['lastComment'] = $comment;
-                        /*if($row['id'] == 224){
-                            debug("another appearance",$bugs[$row['id']]);
-                        }*/
+                        //debug("another appearance",$bugs[$row['id']]);
                     }
                 }
 
-                if($bugs[$row['id']]['lastChange'] > 0){
+                if($bugs[$row['id']]['lastChange'] > 0 && ($bugs[$row['id']]['lastChange']*1 == intval($bugs[$row['id']]['lastChange']))){
                     $bugs[$row['id']]['changedDate'] = strftime("%d.%m.%Y %H:%M:%S", (int) $bugs[$row['id']]['lastChange']);
                     $bugs[$row['id']]['changedTimestamp'] = (int) $bugs[$row['id']]['lastChange'];
+                }
+
+                if(empty($bugs[$row['id']]['lastChange'])){
+                    $bugs[$row['id']]['lastChange'] = $row['createdDate'];
+                }
+
+                if(empty($bugs[$row['id']]['changedDate'])){
+                    $bugs[$row['id']]['changedDate'] = $row['createdDate'];
+                }
+
+                if(empty($bugs[$row['id']]['changedTimestamp'])){
+                    $bugs[$row['id']]['changedTimestamp'] = $row['createdTimestamp'];
                 }
             }
 

@@ -251,13 +251,25 @@ class Bugtracker extends MX_Controller{
 
             $row['css'] = '';
 
-            $row['changedSort'] = strftime('%Y-%m-%d', $row['changedTimestamp']);
+            $row['changedSort'] = $row['changedTimestamp'];
 
             $row['type_string'] = $projects[$row['project']]['title'];
 
             $row['priorityClass'] = $this->bug_model->getPriorityCssClass($row['priority']);
             $row['priorityLabel'] = $this->bug_model->getPriorityLabel($row['priority']);
 
+            $searchIds = array();
+
+            if(!empty($row['link'])){
+                $links = json_decode($row['link'], true);
+                foreach($links as $link){
+                    if(preg_match("/(quest|npc|spell|object)\=(\d+)/i", $link, $matches)){
+                        $searchIds[] = $matches[1].':'.$matches[2];
+                    }
+                }
+            }
+
+            $row['search_id'] = implode("|", $searchIds);
 
             switch($row['bug_state']){
                 case BUGSTATE_DONE:
@@ -275,6 +287,8 @@ class Bugtracker extends MX_Controller{
                     $row['status'] = 0;
                     break;
             }
+
+            //debug("row", $row);
 
             $bugRows[$i] = $row;
 

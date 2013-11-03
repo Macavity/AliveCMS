@@ -40,7 +40,7 @@ define(['./BaseController', 'modules/wiki', 'modules/wiki_related', 'modules/toa
                     paging: true,
                     totalResults: buglist.data("rowcount"),
                     column: 5,
-                    method: 'date',
+                    method: 'numeric',
                     type: 'desc'
                 }, bugTable);
 
