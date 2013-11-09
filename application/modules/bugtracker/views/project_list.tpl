@@ -39,7 +39,7 @@
     </div>
     <div class="span10">
         <h2 data-toggle="collapse" data-parent="#bt-project-{$project.id}" href="#bt-project-list-{$project.id}">
-            <i class="icon-white icon-minus"></i>
+            <i class="icon-white icon-plus"></i>
             {$project.title}
         </h2>
       {if $project.counts.all > 0}
@@ -63,7 +63,7 @@
   {/if}
 
   {if $project.projects}
-    <div id="bt-project-list-{$project.id}" class="project-list collapse in">
+    <div id="bt-project-list-{$project.id}" class="project-list collapse">
       {foreach from=$project.projects item=sub}
         <div class="project-level-1">
           <h3>
