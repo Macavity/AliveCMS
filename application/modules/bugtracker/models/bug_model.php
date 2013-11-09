@@ -141,10 +141,88 @@ class Bug_model extends CI_Model
      * @return bool
      */
     public function getRecentChanges($projectId = 0, $limit = 10){
-        //$results = $this->getBugEntries($projectId);
 
+        /**
+         * Recently created Bugs
+         */
         $recentCreations = $this->getLastBugEntries($projectId, $limit);
+
+        foreach($recentCreations as $i => $row){
+            $row['title'] = htmlentities($row['title'], ENT_QUOTES, 'UTF-8');
+
+            $row['css'] = '';
+
+            $row['date'] = strftime("%d.%m", $row['createdTimestamp']);
+
+            $row['priorityClass'] = $this->bug_model->getPriorityCssClass($row['priority']);
+            $row['priorityLabel'] = $this->bug_model->getPriorityLabel($row['priority']);
+
+            switch($row['bug_state']){
+                case BUGSTATE_DONE:
+                    $row['css'] = 'done';
+                    break;
+                case BUGSTATE_ACTIVE:
+                    $row['css'] = 'inprogress';
+                    break;
+                case BUGSTATE_REJECTED:
+                    $row['css'] = 'disabled';
+                    break;
+                case BUGSTATE_OPEN:
+                default:
+                    $row['css'] = 'fresh';
+                    break;
+            }
+
+            $posterData = json_decode($row['posterData']);
+
+            $row['by'] = array(
+                'type' => 'created',
+                'name' => (isset($posterData->name)) ? $posterData->name: '',
+                'gm' => (isset($posterData->gm) && (bool) $posterData->gm) ? true : false,
+            );
+
+            $recentCreations[$i] = $row;
+        }
+
+
+        /**
+         * Recently commented Bugs
+         */
         $recentComments = $this->getLastBugComments($projectId, $limit);
+
+        foreach($recentComments as $i => $row){
+            $row['title'] = htmlentities($row['title'], ENT_QUOTES, 'UTF-8');
+
+            $row['css'] = '';
+
+            $row['date'] = strftime("%d.%m", $row['createdTimestamp']);
+
+            switch($row['bug_state']){
+                case BUGSTATE_DONE:
+                    $row['css'] = 'done';
+                    break;
+                case BUGSTATE_ACTIVE:
+                    $row['css'] = 'inprogress';
+                    break;
+                case BUGSTATE_REJECTED:
+                    $row['css'] = 'disabled';
+                    break;
+                case BUGSTATE_OPEN:
+                default:
+                    $row['css'] = 'fresh';
+                    break;
+            }
+
+            $posterData = json_decode($row['posterData']);
+
+            $row['by'] = array(
+                'type' => 'created',
+                'name' => (isset($posterData->name)) ? $posterData->name: '',
+                'gm' => (isset($posterData->gm) && (bool) $posterData->gm) ? true : false,
+            );
+
+            $recentComments[$i] = $row;
+        }
 
         return array(
             BUGTRACKER_ENTRY_CREATION => $recentCreations,

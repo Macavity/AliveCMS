@@ -4,30 +4,36 @@
     {/if}
 </div><br>
 
-
-
-<div id="recentChanges" class="table">
-    <ul id="recentComments">
-        {foreach from=$recentComments key=i item=comment}
-        <li class="{cycle values="row1,row2"}">
-            <a href="/bugtracker/bug/{$comment.bug_entry}" class="{$comment.css}">#{$comment.bug_entry} {$comment.title}</a>
-            <span data-tooltip="{strip}
-                {if $comment.by.gm}&lt;span class=&quot;employee&quot;/&gt;{/if}{$comment.by.name}
-            {/strip}">{$comment.changedDate}</span>
-        </li>
-        {/foreach}
-    </ul>
-    <ul id="recentCreations">
-        {foreach from=$recentCreations key=i item=bug}
-        <li class="{cycle values="row1,row2"}">
-            <a href="/bugtracker/bug/{$bug.id}" class="{$bug.css}"><i class="icon {$bug.priorityClass}" data-tooltip="{$bug.priorityLabel}"></i> #{$bug.id} {$bug.title}</a>
-            <span data-tooltip="{strip}
-                {if $bug.by.gm}&lt;span class=&quot;employee&quot;/&gt;{/if}{$bug.by.name}
-            {/strip}">{$bug.changedDate}</span>
-        </li>
-        {/foreach}
-    </ul>
-</div>
+<div id="recentChanges">
+    <div id="recentCreations">
+        {if $recentCreations}
+            <h3>Neue Bugs</h3>
+            <ul>
+                {foreach from=$recentCreations key=i item=bug}
+                    <li class="{cycle values="row1,row2"}">
+                        {$bug.date}
+                        <a href="/bugtracker/bug/{$bug.id}" class="{$bug.css}"><i class="icon {$bug.priorityClass}" data-tooltip="{$bug.priorityLabel}"></i> #{$bug.id} {$bug.title}</a>
+                        {if $bug.by.gm}<span class="employee"/></span>{/if}{$bug.by.name}
+                    </li>
+                {/foreach}
+            </ul>
+        {/if}
+    </div>
+    <div id="recentComments">
+        {if $recentComments}
+            <h3>Neue Kommentare</h3>
+            <ul>
+                {foreach from=$recentComments key=i item=comment}
+                    <li class="{cycle values="row1,row2"}">
+                        {$comment.date}
+                        <a href="/bugtracker/bug/{$comment.bug_entry}" class="{$comment.css}">#{$comment.bug_entry} {$comment.title}</a>
+                        {if $comment.by.gm}<span class="employee"></span>{/if}{$comment.by.name}
+                    </li>
+                {/foreach}
+            </ul>
+        {/if}
+    </div>
+</div><br>
 
 {foreach from=$projects item=project}
 <section id="bt-project-{$project.id}" class="bugtracker-project">

@@ -174,84 +174,8 @@ class Bugtracker extends MX_Controller{
          */
         $recentChanges = $this->bug_model->getRecentChanges(0, 10);
 
-        debug("recent", $recentChanges);
-
         $recentCreations = (isset($recentChanges[BUGTRACKER_ENTRY_CREATION])) ? $recentChanges[BUGTRACKER_ENTRY_CREATION] : array();
-        $recentCommented = (isset($recentChanges[BUGTRACKER_ENTRY_COMMENT])) ? $recentChanges[BUGTRACKER_ENTRY_COMMENT] : array();
-
-        /**
-         * Recently created Bugs
-         */
-        foreach($recentCreations as $i => $row){
-            $row['title'] = htmlentities($row['title'], ENT_QUOTES, 'UTF-8');
-
-            $row['css'] = '';
-
-            $row['priorityClass'] = $this->bug_model->getPriorityCssClass($row['priority']);
-            $row['priorityLabel'] = $this->bug_model->getPriorityLabel($row['priority']);
-
-            switch($row['bug_state']){
-                case BUGSTATE_DONE:
-                    $row['css'] = 'done';
-                    break;
-                case BUGSTATE_ACTIVE:
-                    $row['css'] = 'inprogress';
-                    break;
-                case BUGSTATE_REJECTED:
-                    $row['css'] = 'disabled';
-                    break;
-                case BUGSTATE_OPEN:
-                default:
-                    $row['css'] = 'fresh';
-                    break;
-            }
-
-            $posterData = json_decode($row['posterData']);
-
-            $row['by'] = array(
-                'type' => 'created',
-                'name' => (isset($posterData->name)) ? $posterData->name: '',
-                'gm' => (isset($posterData->gm) && (bool) $posterData->gm) ? true : false,
-            );
-
-            $recentCreations[$i] = $row;
-        }
-
-        /**
-         * Recently commented Bugs
-         */
-        foreach($recentCommented as $i => $row){
-            $row['title'] = htmlentities($row['title'], ENT_QUOTES, 'UTF-8');
-
-            $row['css'] = '';
-
-            switch($row['bug_state']){
-                case BUGSTATE_DONE:
-                    $row['css'] = 'done';
-                    break;
-                case BUGSTATE_ACTIVE:
-                    $row['css'] = 'inprogress';
-                    break;
-                case BUGSTATE_REJECTED:
-                    $row['css'] = 'disabled';
-                    break;
-                case BUGSTATE_OPEN:
-                default:
-                    $row['css'] = 'fresh';
-                    break;
-            }
-
-            $posterData = json_decode($row['posterData']);
-
-            $row['by'] = array(
-                'type' => 'created',
-                'name' => (isset($posterData->name)) ? $posterData->name: '',
-                'gm' => (isset($posterData->gm) && (bool) $posterData->gm) ? true : false,
-            );
-
-            $recentCommented[$i] = $row;
-        }
-
+        $recentComments = (isset($recentChanges[BUGTRACKER_ENTRY_COMMENT])) ? $recentChanges[BUGTRACKER_ENTRY_COMMENT] : array();
 
         $permCanCreateBugs = hasPermission('canCreateBugs');
 
@@ -263,7 +187,7 @@ class Bugtracker extends MX_Controller{
             'projectCount' => $projectCount,
             'projectChoices' => $projectChoices,
             'recentCreations' => $recentCreations,
-            'recentComments' => $recentCommented,
+            'recentComments' => $recentComments,
         );
 
         // Load my view
@@ -380,10 +304,10 @@ class Bugtracker extends MX_Controller{
         /**
          * Recent Changes Overview
          */
-        $recentChanges = array();
+        $recentChanges = $this->bug_model->getRecentChanges($projectId, 5);
 
-
-
+        $recentCreations = (isset($recentChanges[BUGTRACKER_ENTRY_CREATION])) ? $recentChanges[BUGTRACKER_ENTRY_CREATION] : array();
+        $recentComments = (isset($recentChanges[BUGTRACKER_ENTRY_COMMENT])) ? $recentChanges[BUGTRACKER_ENTRY_COMMENT] : array();
 
         // Permissions
         $permCanCreateBugs = hasPermission('canCreateBugs');
@@ -391,7 +315,8 @@ class Bugtracker extends MX_Controller{
         $page_data = array(
             'module' => 'bugtracker',
             'permCanCreateBugs' => $permCanCreateBugs,
-            'recentChanges' => $recentChanges,
+            'recentCreations' => $recentCreations,
+            'recentComments' => $recentComments,
             'bugRows' => $bugRows,
             'rowCount' => count($bugRows),
             'rowMax' => min($bugRows,50),
