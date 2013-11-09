@@ -13,6 +13,9 @@ define('BUGSTATE_WORKAROUND', 4);
 define('BUGSTATE_DONE', 9);
 define('BUGSTATE_ALL', 10);
 
+define('BUGTRACKER_ENTRY_CREATION', 1);
+define('BUGTRACKER_ENTRY_COMMENT', 2);
+
 define('BUGTYPE_GENERIC',       100);
 define('BUGTYPE_GENERIC_ITEM',  101);
 define('BUGTYPE_GENERIC_NPC',   102);
@@ -42,6 +45,7 @@ define('BUGTYPE_PVP',           800);
 class Bug_model extends CI_Model
 {
     var $tableName = 'bugtracker_entries';
+    var $tableNameComments = 'bugtracker_comments';
 
     var $defaultProject = 1;
     var $defaultHomepageProject = 3;
@@ -131,23 +135,22 @@ class Bug_model extends CI_Model
         }
     }
 
-    public function getRecentChanges($limit = 10){
-        $this->db->select('id, priority, matpath, bug_state, title, createdDate, createdTimestamp, changedDate, changedTimestamp');
+    /**
+     * Find all Bugs that were recently changed, commented or created
+     * @param int $limit
+     * @return bool
+     */
+    public function getRecentChanges($projectId = 0, $limit = 10){
+        //$results = $this->getBugEntries($projectId);
 
-        $this->db->from($this->tableName)->order_by('id', 'desc');
+        $recentCreations = $this->getLastBugEntries($projectId, $limit);
+        $recentComments = $this->getLastBugComments($projectId, $limit);
 
-        $query = $this->db->get();
+        return array(
+            BUGTRACKER_ENTRY_CREATION => $recentCreations,
+            BUGTRACKER_ENTRY_COMMENT => $recentComments,
+        );
 
-        if($query->num_rows() > 0)
-        {
-            $result = $query->result_array();
-
-            return $result;
-        }
-        else
-        {
-            return false;
-        }
     }
 
     /**
@@ -158,24 +161,9 @@ class Bug_model extends CI_Model
      */
     public function getBugsByProject($projectId, $restriction = 'normal'){
 
-        $matpath = str_pad($projectId, 4, '0', STR_PAD_LEFT);
-        $sql = '
-SELECT
-	be.id, be.bug_state, be.project, be.priority, be.title, be.createdDate, be.createdTimestamp, be.changedDate, be.changedTimestamp, be.posterData, be.link,
-	cm.posterData as cmPosterData, cm.changedDate as cmChangedDate, cm.changedTimestamp as cmChangedTimestamp
-FROM
-	bugtracker_entries AS be
-	LEFT JOIN bugtracker_comments AS cm ON be.id = cm.bug_entry
-WHERE
-	matpath like "%'.$matpath.'%"
-ORDER BY
-	cm.changedTimestamp DESC, be.changedTimestamp DESC';
+        $results = $this->getBugEntries($projectId);
 
-        // Execute the query
-        $query = $this->db->query($sql);
-
-        if($query->num_rows() > 0){
-            $results = $query->result_array();
+        if(count($results)){
 
             $bugs = array();
 
@@ -271,6 +259,105 @@ ORDER BY
         else{
             return array();
         }
+    }
+
+    /**
+     * Return Base Information for all entries of a given project or all projects
+     * @param int $projectId
+     * @return array
+     */
+    private function getBugEntries($projectId = 0){
+
+        $whereMatPath = ($projectId == 0) ? '%' : '%'.str_pad($projectId, 4, '0', STR_PAD_LEFT).'%';
+
+        $sql = '
+SELECT
+	be.id, be.bug_state, be.project, be.priority, be.title, be.createdDate, be.createdTimestamp, be.changedDate, be.changedTimestamp, be.posterData, be.link,
+	cm.posterData as cmPosterData, cm.changedDate as cmChangedDate, cm.changedTimestamp as cmChangedTimestamp
+FROM
+	bugtracker_entries AS be
+	LEFT JOIN bugtracker_comments AS cm ON be.id = cm.bug_entry
+WHERE
+	matpath like "'.$whereMatPath.'"
+ORDER BY
+	cm.changedTimestamp DESC, be.changedTimestamp DESC';
+
+        // Execute the query
+        $query = $this->db->query($sql);
+
+        if($query->num_rows() > 0)
+        {
+            $results = $query->result_array();
+
+            return $results;
+        }
+        else
+        {
+            return array();
+        }
+
+    }
+
+    /**
+     * Return Base Information for all entries of a given project or all projects
+     * @param int $projectId
+     * @return array
+     */
+    private function getLastBugEntries($projectId = 0, $limit = 10){
+
+        $whereMatPath = ($projectId == 0) ? '' : str_pad($projectId, 4, '0', STR_PAD_LEFT);
+
+        $query = $this->db->select('*')
+            ->like('matpath', $whereMatPath)
+            ->order_by('createdTimestamp', 'desc')
+            ->limit($limit)
+            ->from($this->tableName)->get();
+
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+        else
+        {
+            return array();
+        }
+
+    }
+
+    /**
+     * Return Base Information for all entries of a given project or all projects
+     * @param int $projectId
+     * @return array
+     */
+    private function getLastBugComments($projectId = 0, $limit = 10){
+
+        $whereMatPath = ($projectId == 0) ? '%' : '%'.str_pad($projectId, 4, '0', STR_PAD_LEFT).'%';
+
+        $sql = '
+            SELECT
+                cm.*,
+                be.matpath, be.title, be.bug_state
+            FROM
+                bugtracker_comments AS cm
+                LEFT JOIN bugtracker_entries AS be ON be.id = cm.bug_entry
+            WHERE
+                be.matpath like "'.$whereMatPath.'"
+            GROUP BY
+                cm.bug_entry
+            ORDER BY
+                cm.changedTimestamp DESC
+            LIMIT 0, '.$limit.';';
+
+        // Execute the query
+        $query = $this->db->query($sql);
+
+        if($query->num_rows() > 0){
+            return $query->result_array();
+        }
+        else
+        {
+            return array();
+        }
+
     }
 
     public function importOldBugs(){

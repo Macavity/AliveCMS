@@ -7,26 +7,26 @@
 
 
 <div id="recentChanges" class="table">
-  <table>
-    <tbody>
-    {foreach from=$recentChanges key=i item=row}
-      <tr class="{cycle values="row1,row2"}">
-        <td>{$row.dateDifference}</td>
-        <td><i class="icon {$bug.priorityClass}" data-tooltip="{$bug.priorityLabel}"></i></td>
-        <td><a href="/bugtracker/bug/{$bug.id}">#{$bug.id}</a></td>
-        <td><a href="/bugtracker/bug/{$bug.id}">{$bug.title}</a></td>
-        <td></td>
-        <td>{$bug.type_string}</td>
-        <td>
-          {$bug.title}
-          {if $bug.commentCount > 0}
-            <span class="comments-link">{$bug.commentCount}</span>
-          {/if}
-        </td>
-      </tr>
-    {/foreach}
-    </tbody>
-  </table>
+    <ul id="recentComments">
+        {foreach from=$recentComments key=i item=comment}
+        <li class="{cycle values="row1,row2"}">
+            <a href="/bugtracker/bug/{$comment.bug_entry}" class="{$comment.css}">#{$comment.bug_entry} {$comment.title}</a>
+            <span data-tooltip="{strip}
+                {if $comment.by.gm}&lt;span class=&quot;employee&quot;/&gt;{/if}{$comment.by.name}
+            {/strip}">{$comment.changedDate}</span>
+        </li>
+        {/foreach}
+    </ul>
+    <ul id="recentCreations">
+        {foreach from=$recentCreations key=i item=bug}
+        <li class="{cycle values="row1,row2"}">
+            <a href="/bugtracker/bug/{$bug.id}" class="{$bug.css}"><i class="icon {$bug.priorityClass}" data-tooltip="{$bug.priorityLabel}"></i> #{$bug.id} {$bug.title}</a>
+            <span data-tooltip="{strip}
+                {if $bug.by.gm}&lt;span class=&quot;employee&quot;/&gt;{/if}{$bug.by.name}
+            {/strip}">{$bug.changedDate}</span>
+        </li>
+        {/foreach}
+    </ul>
 </div>
 
 {foreach from=$projects item=project}
