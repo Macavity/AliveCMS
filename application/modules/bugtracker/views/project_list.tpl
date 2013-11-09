@@ -4,30 +4,36 @@
     {/if}
 </div><br>
 
-
-
-<div id="recentChanges" class="table">
-  <table>
-    <tbody>
-    {foreach from=$recentChanges key=i item=row}
-      <tr class="{cycle values="row1,row2"}">
-        <td>{$row.dateDifference}</td>
-        <td><i class="icon {$bug.priorityClass}" data-tooltip="{$bug.priorityLabel}"></i></td>
-        <td><a href="/bugtracker/bug/{$bug.id}">#{$bug.id}</a></td>
-        <td><a href="/bugtracker/bug/{$bug.id}">{$bug.title}</a></td>
-        <td></td>
-        <td>{$bug.type_string}</td>
-        <td>
-          {$bug.title}
-          {if $bug.commentCount > 0}
-            <span class="comments-link">{$bug.commentCount}</span>
-          {/if}
-        </td>
-      </tr>
-    {/foreach}
-    </tbody>
-  </table>
-</div>
+<div id="recentChanges">
+    <div id="recentCreations">
+        {if $recentCreations}
+            <h3>Neue Bugs</h3>
+            <ul>
+                {foreach from=$recentCreations key=i item=bug}
+                    <li class="{cycle values="row1,row2"}">
+                        {$bug.date}
+                        <a href="/bugtracker/bug/{$bug.id}" class="{$bug.css}"><i class="icon {$bug.priorityClass}" data-tooltip="{$bug.priorityLabel}"></i> #{$bug.id} {$bug.title}</a>
+                        {if $bug.by.gm}<span class="employee"/></span>{/if}{$bug.by.name}
+                    </li>
+                {/foreach}
+            </ul>
+        {/if}
+    </div>
+    <div id="recentComments">
+        {if $recentComments}
+            <h3>Neue Kommentare</h3>
+            <ul>
+                {foreach from=$recentComments key=i item=comment}
+                    <li class="{cycle values="row1,row2"}">
+                        {$comment.date}
+                        <a href="/bugtracker/bug/{$comment.bug_entry}" class="{$comment.css}">#{$comment.bug_entry} {$comment.title}</a>
+                        {if $comment.by.gm}<span class="employee"></span>{/if}{$comment.by.name}
+                    </li>
+                {/foreach}
+            </ul>
+        {/if}
+    </div>
+</div><br>
 
 {foreach from=$projects item=project}
 <section id="bt-project-{$project.id}" class="bugtracker-project">
@@ -39,7 +45,7 @@
     </div>
     <div class="span10">
         <h2 data-toggle="collapse" data-parent="#bt-project-{$project.id}" href="#bt-project-list-{$project.id}">
-            <i class="icon-white icon-minus"></i>
+            <i class="icon-white icon-plus"></i>
             {$project.title}
         </h2>
       {if $project.counts.all > 0}
@@ -63,7 +69,7 @@
   {/if}
 
   {if $project.projects}
-    <div id="bt-project-list-{$project.id}" class="project-list collapse in">
+    <div id="bt-project-list-{$project.id}" class="project-list collapse">
       {foreach from=$project.projects item=sub}
         <div class="project-level-1">
           <h3>

@@ -168,8 +168,14 @@ class Bugtracker extends MX_Controller{
 
         }
 
-        // Recent Changes
 
+        /**
+         * Recent Changes Overview
+         */
+        $recentChanges = $this->bug_model->getRecentChanges(0, 10);
+
+        $recentCreations = (isset($recentChanges[BUGTRACKER_ENTRY_CREATION])) ? $recentChanges[BUGTRACKER_ENTRY_CREATION] : array();
+        $recentComments = (isset($recentChanges[BUGTRACKER_ENTRY_COMMENT])) ? $recentChanges[BUGTRACKER_ENTRY_COMMENT] : array();
 
         $permCanCreateBugs = hasPermission('canCreateBugs');
 
@@ -180,7 +186,8 @@ class Bugtracker extends MX_Controller{
             'projects' => $baseProjects,
             'projectCount' => $projectCount,
             'projectChoices' => $projectChoices,
-            'recentChanges' => array(),
+            'recentCreations' => $recentCreations,
+            'recentComments' => $recentComments,
         );
 
         // Load my view
@@ -251,13 +258,25 @@ class Bugtracker extends MX_Controller{
 
             $row['css'] = '';
 
-            $row['changedSort'] = strftime('%Y-%m-%d', $row['changedTimestamp']);
+            $row['changedSort'] = $row['changedTimestamp'];
 
             $row['type_string'] = $projects[$row['project']]['title'];
 
             $row['priorityClass'] = $this->bug_model->getPriorityCssClass($row['priority']);
             $row['priorityLabel'] = $this->bug_model->getPriorityLabel($row['priority']);
 
+            $searchIds = array();
+
+            if(!empty($row['link'])){
+                $links = json_decode($row['link'], true);
+                foreach($links as $link){
+                    if(preg_match("/(quest|npc|spell|object)\=(\d+)/i", $link, $matches)){
+                        $searchIds[] = $matches[1].':'.$matches[2];
+                    }
+                }
+            }
+
+            $row['search_id'] = implode("|", $searchIds);
 
             switch($row['bug_state']){
                 case BUGSTATE_DONE:
@@ -276,15 +295,28 @@ class Bugtracker extends MX_Controller{
                     break;
             }
 
+            //debug("row", $row);
+
             $bugRows[$i] = $row;
 
         }
 
+        /**
+         * Recent Changes Overview
+         */
+        $recentChanges = $this->bug_model->getRecentChanges($projectId, 5);
+
+        $recentCreations = (isset($recentChanges[BUGTRACKER_ENTRY_CREATION])) ? $recentChanges[BUGTRACKER_ENTRY_CREATION] : array();
+        $recentComments = (isset($recentChanges[BUGTRACKER_ENTRY_COMMENT])) ? $recentChanges[BUGTRACKER_ENTRY_COMMENT] : array();
+
+        // Permissions
         $permCanCreateBugs = hasPermission('canCreateBugs');
 
         $page_data = array(
             'module' => 'bugtracker',
             'permCanCreateBugs' => $permCanCreateBugs,
+            'recentCreations' => $recentCreations,
+            'recentComments' => $recentComments,
             'bugRows' => $bugRows,
             'rowCount' => count($bugRows),
             'rowMax' => min($bugRows,50),
@@ -855,8 +887,9 @@ class Bugtracker extends MX_Controller{
             $bugUpdate = $this->bug_model->update($bugId, $formData['project'], $formData['priority'], $formData['state'], $formData['title'], $formData['desc'], $formData['links']);
 
             if($bugUpdate){
-                // Show Detail Page of the newly created Bug
-                redirect('bugtracker/bug/'.$bugId);
+                // Show the Bug Page
+                $this->bug($bugId);
+
                 return;
             }
         }

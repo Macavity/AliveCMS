@@ -505,6 +505,27 @@
   }
   .wiki .related { background: none; }
 
+  #recentChanges {
+    clear: both;
+    width: 980px;
+    height: 260px;
+    margin: 0px 20px;
+  }
+
+  #recentComments,
+  #recentCreations {
+    float: left;
+    width: 480px;
+  }
+
+  #recentComments {
+    border: 0px solid red;
+  }
+
+  #recentCreations {
+    border: 0px solid blue;
+  }
+
 }
 
 .icon{
@@ -533,4 +554,10 @@
     background-position: center center;
   }
 
+}
+
+#bugtracker-buglist.module-bugtracker {
+  #recentChanges {
+    height: 100px;
+  }
 }
