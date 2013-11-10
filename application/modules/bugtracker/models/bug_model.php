@@ -148,6 +148,9 @@ class Bug_model extends CI_Model
         $recentCreations = $this->getLastBugEntries($projectId, $limit);
 
         foreach($recentCreations as $i => $row){
+            if(strlen($row['title']) > 40){
+                $row['title'] = substr($row['title'], 0, 40).'..';
+            }
             $row['title'] = htmlentities($row['title'], ENT_QUOTES, 'UTF-8');
 
             $row['css'] = '';
@@ -191,6 +194,9 @@ class Bug_model extends CI_Model
         $recentComments = $this->getLastBugComments($projectId, $limit);
 
         foreach($recentComments as $i => $row){
+            if(strlen($row['title']) > 40){
+                $row['title'] = substr($row['title'], 0, 40).'..';
+            }
             $row['title'] = htmlentities($row['title'], ENT_QUOTES, 'UTF-8');
 
             $row['css'] = '';
