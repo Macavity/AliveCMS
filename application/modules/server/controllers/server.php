@@ -45,7 +45,7 @@ class Server extends MX_Controller
 
     }
     
-    public function index($page = "index")
+    public function index()
     {
         // Site Title
         $this->template->setTitle("Der Server");

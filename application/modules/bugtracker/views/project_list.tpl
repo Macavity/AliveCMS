@@ -11,8 +11,9 @@
             <ul>
                 {foreach from=$recentCreations key=i item=bug}
                     <li class="{cycle values="row1,row2"}">
+                        <span class="{$bug.css}"></span>
                         {$bug.date}
-                        <a href="/bugtracker/bug/{$bug.id}" class="{$bug.css}"><i class="icon {$bug.priorityClass}" data-tooltip="{$bug.priorityLabel}"></i> #{$bug.id} {$bug.title}</a>
+                        <a href="/bugtracker/bug/{$bug.id}"><i class="icon {$bug.priorityClass}" data-tooltip="{$bug.priorityLabel}"></i> #{$bug.id} {$bug.title}</a>
                         {if $bug.by.gm}<span class="employee"/></span>{/if}{$bug.by.name}
                     </li>
                 {/foreach}
@@ -25,8 +26,9 @@
             <ul>
                 {foreach from=$recentComments key=i item=comment}
                     <li class="{cycle values="row1,row2"}">
+                        <span class="{$bug.css}"></span>
                         {$comment.date}
-                        <a href="/bugtracker/bug/{$comment.bug_entry}" class="{$comment.css}">#{$comment.bug_entry} {$comment.title}</a>
+                        <a href="/bugtracker/bug/{$comment.bug_entry}">#{$comment.bug_entry} {$comment.title}</a>
                         {if $comment.by.gm}<span class="employee"></span>{/if}{$comment.by.name}
                     </li>
                 {/foreach}

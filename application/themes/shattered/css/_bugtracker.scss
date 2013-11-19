@@ -1,4 +1,7 @@
 
+$bugtrackerColorFresh: #F60;
+$bugtrackerColorDone: #0C0;
+$bugtrackerColorDisabled: #C00;
 
 .module-bugtracker {
 
@@ -475,19 +478,19 @@
   .table tbody tr.fresh:hover td:first-child,
   .inprogress td:first-child,
   .table tbody tr.inprogress:hover td:first-child{
-    background-color:#F60;
+    background-color:$bugtrackerColorFresh;
     padding:0px;
   }
 
   .done td:first-child,
   tbody tr.done:hover td:first-child{
-    background-color:#0C0;
+    background-color: $bugtrackerColorDone;
     padding:0px;
   }
 
   .disabled td:first-child,
   tbody .disabled td:first-child{
-    background-color:#C00;
+    background-color: $bugtrackerColorDisabled;
     padding:0px;
   }
 
@@ -508,8 +511,57 @@
   #recentChanges {
     clear: both;
     width: 980px;
-    height: 260px;
+    height: 290px;
     margin: 0px 20px;
+
+    li > a {
+      display: inline-block;
+      width: 300px;
+      height: 17px;
+      line-height: 26px;
+    }
+
+    li > span {
+
+      &.fresh,
+      &.inprogress,
+      &.done,
+      &.disabled {
+        display: inline-block;
+        width: 5px;
+        height: 10px;
+      }
+
+      &.fresh,
+      &.inprogress{
+        background-color: $bugtrackerColorFresh;
+      }
+
+      &.disabled {
+        background-color: $bugtrackerColorDisabled;
+      }
+
+      &.done {
+        background-color: $bugtrackerColorDone;
+      }
+    }
+
+    .row1, .row2 {
+      color: #F5EBD1;
+      padding: 0px 10px;
+    }
+
+    .row2 {
+      background-color: #231207;
+      border-top: 1px solid #30190B;
+    }
+
+    .row1 {
+      background: #2B1507;
+      border-top: 1px solid #31190A;
+    }
+
+
   }
 
   #recentComments,
