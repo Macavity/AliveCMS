@@ -91,6 +91,42 @@
   }
 }
 
+.module-server_changelog {
+  #content {
+    .bg-body,
+    .body-wrapper,
+    .contents-wrapper {
+      background: none;
+    }
+    .content-top {
+      background: url("http://forum.wow-alive.de/static-wow/images/layout/content-top.jpg") 0 0 no-repeat;
+    }
+
+    .services-content {
+      .sub-title {
+        margin: 10px 0px;
+        span {
+          color: #f0e29a;
+          text-transform: uppercase;
+          letter-spacing: -0.5px;
+          font-size: 14px;
+        }
+      }
+      p {
+        padding: 0px 20px 0px 20px;
+      }
+    }
+
+    .related {
+      .tab-content {
+        padding: 5px 20px;
+      }
+    }
+
+  }
+
+}
+
 #server-index {
   #content {
     .content-top {

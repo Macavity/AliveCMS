@@ -162,5 +162,56 @@ class Server extends MX_Controller
         //$this->pageData["sumPlayers"] = count($characters);
         
     }
+
+    public function realmstatus(){
+        // Site Title
+        $this->template->setTitle("Der Server");
+
+        // Breadcrumb
+        $this->template->addBreadcrumb("Server", site_url(array("server")));
+
+        $realms = $this->realms->getRealms();
+
+        $realmData = array();
+
+        foreach($realms as $realm){
+
+            $values = array(
+                "gm" => $realm->getOnline("gm"),
+                "horde" => $realm->getOnline("horde"),
+                "alliance" => $realm->getOnline("alliance"),
+            );
+
+            foreach($values as $key => $value){
+                $values[$key] = intval($value);
+            }
+
+            $emulator = $realm->getEmulatorType();
+
+            $cssClass = '';
+
+            if(substr_count($emulator, 'trinity') > 0){
+                $cssClass = 'color-ex2';
+            }
+
+            $realmData[] = array(
+                "name" => $realm->getName(),
+                "isOnline" => (bool) $realm->isOnline(),
+                'playerOnline' => $realm->getOnline(),
+                'uptimeDHMS' => sec_to_dhms($realm->get),
+                'cssClass' => $cssClass,
+                'type' => '',
+            );
+        }
+
+        // Prepare data
+        $this->pageData['realmData'] = $realmData;
+
+
+        $out = $this->template->loadPage("realmstatus.tpl", $this->pageData);
+
+        $this->template->view($out, $this->pageData["extra_css"]);
+
+    }
     
 }

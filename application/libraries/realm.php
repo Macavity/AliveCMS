@@ -15,6 +15,7 @@ class Realm
 	private $name;
 	private $playerCap;
 	private $config;
+    private $uptime;
 
 	// Objects
 	private $CI;
@@ -249,6 +250,31 @@ class Realm
 	{
 		return $this->playerCap;
 	}
+
+    public function getUptime(){
+
+        $cacheId = 'realm_uptime_'.$this->getId();
+
+        $uptime = $this->cache->get($cacheId);
+
+        if($uptime === false || $this->isOnline() == false){
+            $this->db
+                ->select('starttime')
+                ->where('realmid', $this->getId())
+                ->order_by('starttime', 'desc')
+                ->limit(1)
+                ->from('uptime');
+
+            $query = $this->db->get();
+
+            if($query->num_rows() > 0){
+                $uptime = $query->row()->starttime;
+                $this->cache->save($cacheId, $uptime, 60*60*24);
+                return $uptime;
+            }
+        }
+        return 0;
+    }
 	
 	public function getWorld()
 	{
@@ -264,6 +290,10 @@ class Realm
 	{
 		return $this->emulator;
 	}
+
+    public function getEmulatorType(){
+        return $this->config['emulator'];
+    }
 
 	/**
 	 * Check if the realm is up and running
