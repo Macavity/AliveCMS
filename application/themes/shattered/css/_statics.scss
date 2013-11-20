@@ -121,10 +121,10 @@ $colorExpCata: #ff7c0a;
 
 /* wow item quality */
 .wow-item-0, .wow-item-0 a { color: #9d9d9d !important; } /* poor (gray) */
-.wow-item-1, .wow-item-1 a { color: #ffffff !important; } /* common (white) */
-.wow-item-2, .wow-item-2 a { color: #1eff00 !important; } /* uncommon (green) */
-.wow-item-3, .wow-item-3 a { color: #0081ff !important; } /* rare (blue) */
-.wow-item-4, .wow-item-4 a { color: #c600ff !important; } /* epic (purple) */
-.wow-item-5, .wow-item-5 a { color: #ff8000 !important; } /* legendary (orange) */
-.wow-item-6, .wow-item-6 a { color: #e5cc80 !important; } /* artifact (gold) */
-.wow-item-7, .wow-item-7 a { color: #e5cc80 !important; } /* heirloom (gold) */
+.wow-item-1, .wow-item-1 a { color: $colorCommon !important; } /* common (white) */
+.wow-item-2, .wow-item-2 a { color: $colorUncommon !important; } /* uncommon (green) */
+.wow-item-3, .wow-item-3 a { color: $colorRare !important; } /* rare (blue) */
+.wow-item-4, .wow-item-4 a { color: $colorEpic !important; } /* epic (purple) */
+.wow-item-5, .wow-item-5 a { color: $colorLegendary !important; } /* legendary (orange) */
+.wow-item-6, .wow-item-6 a { color: $colorArtifact !important; } /* artifact (gold) */
+.wow-item-7, .wow-item-7 a { color: $colorArtifact !important; } /* heirloom (gold) */

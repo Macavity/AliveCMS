@@ -283,72 +283,7 @@
       }
     }
   }
-  .related {
-    margin-top: 30px;
-    background: url("/application/themes/shattered/images/wiki/tab-bg.jpg") 0 44px repeat-x;
-    .data-options-top .data-options {
-      background: none;
-      margin: 5px 0;
-    }
-    .data-options {
-      padding: 0 15px;
-    }
-    .tabs {
-      display: block;
-      margin-bottom: -1px;
-      padding: 0 15px;
-      li {
-        height: 45px;
-        display: inline-block;
-        margin-right: 5px;
-        a {
-          display: inline-block;
-          height: 45px;
-          line-height: 45px;
-          color: #c09a67;
-          background: #35190f url("/application/themes/shattered/images/wiki/tab.jpg") 0 -90px repeat-x;
-          em {
-            font-style: normal;
-          }
-          span {
-            display: block;
-            background: url("/application/themes/shattered/images/wiki/tab.jpg") 0 0 no-repeat;
-            span {
-              height: 45px;
-              padding: 0 20px;
-              background-position: 100% -45px;
-            }
-          }
-          &:hover {
-            color: #fff;
-            background-color: #48281b;
-            background-position: 0 -225px;
-            span {
-              background-position: 0 -135px;
-              span {
-                background-position: 100% -180px;
-              }
-            }
-          }
-          &.tab-active {
-            color: #fff;
-            font-weight: bold;
-            background-color: #611f04;
-            background-position: 0 -360px;
-            span {
-              background-position: 0 -270px;
-              span {
-                background-position: 100% -315px;
-              }
-            }
-          }
-        }
-      }
-      &.tabs-small li a span span {
-        padding: 0 10px;
-      }
-    }
-  }
+
   .grid-view {
     padding: 0 25px;
   }
@@ -491,25 +426,77 @@
   }
 }
 
-/* info */
+.related {
+  margin-top: 30px;
+  background: url("/application/themes/shattered/images/wiki/tab-bg.jpg") 0 44px repeat-x;
+  .data-options-top .data-options {
+    background: none;
+    margin: 5px 0;
+  }
+  .data-options {
+    padding: 0 15px;
+  }
+  /*
+  Tabs
+ */
+  .tabs {
+    display: block;
+    margin-bottom: -1px;
+    padding: 0 15px;
+    li {
+      height: 45px;
+      display: inline-block;
+      margin-right: 5px;
+      a {
+        display: inline-block;
+        height: 45px;
+        line-height: 45px;
+        color: #c09a67;
+        background: #35190f url("/application/themes/shattered/images/wiki/tab.jpg") 0 -90px repeat-x;
+        em {
+          font-style: normal;
+        }
+        span {
+          display: block;
+          background: url("/application/themes/shattered/images/wiki/tab.jpg") 0 0 no-repeat;
+          span {
+            height: 45px;
+            padding: 0 20px;
+            background-position: 100% -45px;
+          }
+        }
+        &:hover {
+          color: #fff;
+          background-color: #48281b;
+          background-position: 0 -225px;
+          span {
+            background-position: 0 -135px;
+            span {
+              background-position: 100% -180px;
+            }
+          }
+        }
+        &.tab-active {
+          color: #fff;
+          font-weight: bold;
+          background-color: #611f04;
+          background-position: 0 -360px;
+          span {
+            background-position: 0 -270px;
+            span {
+              background-position: 100% -315px;
+            }
+          }
+        }
+      }
+    }
+    &.tabs-small li a span span {
+      padding: 0 10px;
+    }
+  }
+}
 
-/* title */
 
-/* box / panel */
-
-/* directory */
-
-/* directory - nav */
-
-/* directory - groups */
-
-/* related */
-
-/* grid */
-
-/* related - paging */
-
-/* related - filters */
 
 #related-content.loading {
   padding: 100px 50px;

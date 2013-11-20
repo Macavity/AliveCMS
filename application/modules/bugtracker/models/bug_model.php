@@ -135,6 +135,28 @@ class Bug_model extends CI_Model
         }
     }
 
+    public function getClosedBugs($projectId = 0, $yearRestriction = 0){
+
+        $whereMatPath = ($projectId == 0) ? '' : str_pad($projectId, 4, '0', STR_PAD_LEFT);
+
+        $this->db->select('id, title, changedTimestamp, changedDate, createdTimestamp, createdDate, bug_state')
+            ->where_in('bug_state', array(BUGSTATE_DONE, BUGSTATE_REJECTED, BUGSTATE_WORKAROUND))
+            ->like('matpath', $whereMatPath)
+            ->from($this->tableName)
+            ->order_by('changedTimestamp', 'desc');
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0){
+            $result = $query->result_array();
+
+            return $result;
+        }
+        else{
+            return array();
+        }
+    }
+
     /**
      * Find all Bugs that were recently changed, commented or created
      * @param int $limit
@@ -621,6 +643,10 @@ ORDER BY
                     $date = new DateTime($dateArray[2].'-'.$dateArray[1].'-'.$dateArray[0]);
                     $dateChangedTS = $date->getTimestamp();
                 }
+                elseif(in_array($state, array(BUGSTATE_DONE, BUGSTATE_WORKAROUND, BUGSTATE_REJECTED))){
+                    $dateChanged = $dateCreated;
+                    $dateChangedTS = $dateCreatedTS;
+                }
 
                 $data = array(
                     'id' => $row['id'],
@@ -1060,6 +1086,21 @@ ORDER BY
 
     public function getStateLabel($type){
         return (empty($this->availableBugStates[$type])) ? '' : $this->availableBugStates[$type];
+    }
+
+    public function getStateColorClass($type){
+        switch($type){
+            case BUGSTATE_OPEN:
+                return 'wow-item-1';    // White
+            case BUGSTATE_REJECTED:
+                return 'wow-item-0';    // Grey
+            case BUGSTATE_DONE:
+                return 'wow-item-2';    // Green
+            case BUGSTATE_WORKAROUND:
+                return 'wow-exp-0';     // Orange
+            case BUGSTATE_ACTIVE:
+                return 'wow-item-1';
+        }
     }
 
     public function getPriorityLabel($priority){
