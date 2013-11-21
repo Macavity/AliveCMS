@@ -1,4 +1,19 @@
 
+/*
+ * Backgrounds
+ */
+
+#server-realmstatus,
+.module-server_changelog {
+  #content .content-top{
+    @extend .defaultContentTop;
+  }
+}
+
+.module-server #content .content-top {
+  @extend .wikiContentTop;
+}
+
 .module-server {
   .sidebar-module .content-block {
     width: 100%;
@@ -97,9 +112,6 @@
     .body-wrapper,
     .contents-wrapper {
       background: none;
-    }
-    .content-top {
-      background: url("http://forum.wow-alive.de/static-wow/images/layout/content-top.jpg") 0 0 no-repeat;
     }
 
     .services-content {

@@ -219,6 +219,11 @@ body {
  * Content
  */
 
+.defaultContentTop {
+  background: url("../images/layout/content-top.jpg") 0 0 no-repeat;
+
+}
+
 #content {
   background-color: #1A0F08 !important;
   padding: 0;
@@ -234,7 +239,7 @@ body {
     }
   }
   .content-top {
-    background: url("../images/layout/content-top.jpg") 0 0 no-repeat;
+    @extend .defaultContentTop;
   }
   .content-trail {
     height: 30px;

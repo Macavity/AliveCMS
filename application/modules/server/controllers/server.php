@@ -165,10 +165,11 @@ class Server extends MX_Controller
 
     public function realmstatus(){
         // Site Title
-        $this->template->setTitle("Der Server");
+        $this->template->setTitle("Realmstatus");
+        $this->template->setSectionTitle("Realmstatus");
 
         // Breadcrumb
-        $this->template->addBreadcrumb("Server", site_url(array("server")));
+        $this->template->addBreadcrumb("Realmstatus", site_url("server/realmstatus"));
 
         $realms = $this->realms->getRealms();
 
@@ -198,7 +199,7 @@ class Server extends MX_Controller
                 "name" => $realm->getName(),
                 "isOnline" => (bool) $realm->isOnline(),
                 'playerOnline' => $realm->getOnline(),
-                'uptimeDHMS' => sec_to_dhms($realm->get),
+                'uptimeDHMS' => sec_to_dhms($realm->getUptime()),
                 'cssClass' => $cssClass,
                 'type' => '',
             );

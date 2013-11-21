@@ -35,16 +35,20 @@
 // Account
 @import "account";
 
+
+/**
+ * Wiki Styles
+ */
+@import "wiki";
+
 // Server
 @import "server";
 @import "pvp";
 
-
-// Wiki Styles
-@import "wiki";
-
+// Items
 @import "item";
 
+// Store
 @import "store";
 
 // Game Info Pages

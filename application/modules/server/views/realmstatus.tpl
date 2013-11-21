@@ -7,7 +7,7 @@
       <th align="center" nowrap="nowrap" width="120">{lang('server_type','server')}</th>
       <th align="center" nowrap="nowrap" width="120">{lang('online_player','server')}</th>
     </tr>
-    {foreach $realms as $realm_id => $realm}
+    {foreach $realmData as $realm_id => $realm}
     <tr class="{cycle values='row1,row2'}">
       <td align="center">
         {if $realm.isOnline}
@@ -17,9 +17,7 @@
         {/if}
       </td>
       <td width="168" align="center" nowrap="nowrap">
-        {if $realm.uptime != 0}
-          sec_to_dhms($realm['uptime'],true); 
-        {/if}
+        {$realm.uptimeDHMS}
       </td>
       <td width="802" class="{$realm.cssClass}">
         {$realm.name}
@@ -28,7 +26,7 @@
         {$realm.type}
       </td>
       <td align="center">
-        {$realm.player_online} / {$realm->getCap()}
+        {$realm.playerOnline}
       </td>
     </tr>
     {/foreach}
