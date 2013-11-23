@@ -76,6 +76,22 @@ $route['server/howtoplay'] = "page/index/howtoplay";
 $route['server/changelog'] = "server/server_changelog";
 $route['server/(:any)'] = "server/$1";
 
+// PVP Ranking
+
+    // Honor Ranking
+    // 1: Realmname
+    $route['pvp/honor/(:any)'] = "pvp/honor_list/$1";
+    // Arena Team Detail
+    // 1: Realm, 2: Size, 3: Teamname
+    $route['pvp/arena-team/(:any)/(2v2|3v3|5v5)/(:any)'] = "pvp/arena_team/$1/$2/$3";
+
+    // Arena Team Ranking
+    // 1: Realm, 2: Size
+    $route['pvp/arena-list/(:any)/(2v2|3v3|5v5)'] = "pvp/arena_list/$1/$2";
+
+    // Wildcard
+    $route['pvp/(:any)'] = "pvp/index/$1";
+
 // Bugtracker
 $route['bugtracker/admin/(:any)/(:num)'] = "bugtracker/admin/$1/$2";
 

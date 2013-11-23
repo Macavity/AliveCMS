@@ -70,6 +70,7 @@ define([
 
             var dynamicMenues = _jq(".dynamic-menu");
             if(dynamicMenues.length > 0){
+                debug.debug("BaseController.initDynamicMenu")
                 dynamicMenues.each(function(){
                     var menu = new DynamicMenu(_jq(this));
                 });

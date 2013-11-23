@@ -342,7 +342,8 @@ body {
 
 
 /* main sidebar navigation list */
-.dynamic-menu {
+.dynamic-menu,
+.sidebar-menu {
   margin: 0 10px 0 20px; padding-bottom: 1px; background: url("../images/sidebar-menu-sep.gif") 0 100% no-repeat; font-size:13px;
 
   li {

@@ -1,8 +1,16 @@
+
+.module-pvp {
+  #content .content-top {
+    backgroud: url("../images/pvp/bg_content_top.jpg") no-repeat;
+  }
+}
+
 #pvp-index{
 
-  #content .content-top, #game-character #content .content-top {
+  /*#content .content-top,
+  #game-character #content .content-top {
     background: url("/templates/Shattered-World/images/layout/content-topbot.jpg") no-repeat;
-  }
+  }*/
 
   #content .content-header .tab-menu {
     padding-top: 10px;
@@ -30,7 +38,7 @@
     height: 11px;
     margin-left: 5px;
     display: inline-block;
-    background: url("http://portal.wow-alive.de/templates/Shattered-World/images/icons/arrow-up-down.gif") no-repeat;
+    background: url("../images/icons/arrow-up-down.gif") no-repeat;
   }
 
   .arrow-down {
@@ -71,14 +79,16 @@
     float: left;
     width: 230px;
     position: relative;
-    .slide-container, .dynamic-menu {
+    .slide-container,
+    .dynamic-menu,
+    .sidebar-menu {
       position: absolute;
       top: 0;
       left: 0;
       width: 200px;
       margin: 0 10px 0 20px;
       padding-bottom: 1px;
-      background: url("http://portal.wow-alive.de/templates/Shattered-World/images/sidebar-menu-sep.gif") 0 100% no-repeat;
+      background: url("../images/sidebar-menu-sep.gif") 0 100% no-repeat;
       font-size: 13px;
     }
   }
@@ -86,7 +96,7 @@
   .pvp-right {
     float: right;
     width: 760px;
-    background: url("http://portal.wow-alive.de/templates/Shattered-World/images/pvp/section-bg.png") no-repeat;
+    background: url("../images/pvp/section-bg.png") no-repeat;
   }
 
   /* ladders */
@@ -129,7 +139,7 @@
           width: 12px;
           height: 12px;
           display: inline-block;
-          background: url("http://forum.wow-alive.de/static-wow/images/icons/cross-small.gif") no-repeat;
+          background: url("../images/icons/cross-small.gif") no-repeat;
         }
       }
       strong {
@@ -188,7 +198,7 @@
       right: 0;
       width: 12px;
       height: 12px;
-      background: url("http://forum.wow-alive.de/static-wow/images/icons/cross-small.gif") no-repeat;
+      background: url("../images/icons/cross-small.gif") no-repeat;
     }
     #comp-base {
       padding: 0;
@@ -245,7 +255,7 @@
       margin-left: 7px;
       float: left;
       width: 235px;
-      background: url("http://portal.wow-alive.de/templates/Shattered-World/images/pvp/top-team.jpg") no-repeat;
+      background: url("../images/pvp/top-team.jpg") no-repeat;
       &.first-child, &:first-child {
         margin: 0;
       }
@@ -445,7 +455,7 @@
       }
     }
     &.loading {
-      background: url("http://forum.wow-alive.de/static-wow/images/loaders/canvas-loader.gif") 50% 50% no-repeat;
+      background: url("../images/loaders/canvas-loader.gif") 50% 50% no-repeat;
       padding: 50px;
     }
   }
@@ -493,8 +503,7 @@
     }
   }
 
-  /* tabs */
-
+  /* Armory Page */
   .pvp-tabs {
     margin-bottom: 15px;
     .tab {
@@ -507,7 +516,7 @@
       color: #c09a67;
       padding: 20px 10px 0 20px;
       margin-left: 4px;
-      background: url("/templates/Shattered-World/images/character/pvp/tab.png") -180px 0 no-repeat;
+      background: url("../character/pvp/tab.png") -180px 0 no-repeat;
       position: relative;
       &:hover {
         background-position: -360px 0;
@@ -659,12 +668,12 @@
       width: 14px;
       height: 15px;
       vertical-align: top;
-      background: url("/images/character/talent-calculator/icons.gif") -200px 0 no-repeat;
+      background: url("../images/tool/talent-calculator/icons.gif") -200px 0 no-repeat;
     }
   }
 
   .ie6 .pvp-tabs .tab {
-    background-image: url("/templates/Shattered-World/images/character/pvp/tab.gif");
+    background-image: url("../character/pvp/tab.gif");
   }
 
   /* arena team stats */
@@ -691,7 +700,7 @@
       display: inline-block;
       width: 14px;
       height: 9px;
-      background: url("/templates/Shattered-World/images/pvp/leader.gif") no-repeat;
+      background: url("../images/pvp/leader.gif") no-repeat;
     }
   }
 
@@ -728,7 +737,7 @@
     height: 11px;
     display: inline-block;
     vertical-align: middle;
-    background: url("../../images/icons/arrow-up-down.gif") no-repeat;
+    background: url("../images/icons/arrow-up-down.gif") no-repeat;
   }
 
   .arrow-down {
