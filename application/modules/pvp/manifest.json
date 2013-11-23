@@ -1,0 +1,11 @@
+{
+    "name": "PVP Statistics",
+    "description": "Detailed PVP Statistics",
+
+    "author": {
+        "name": "Macavity",
+        "website": "http://www.wow-alive.de/"
+    },
+
+    "enabled": true
+}
