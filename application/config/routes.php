@@ -89,6 +89,8 @@ $route['server/(:any)'] = "server/$1";
     // 1: Realm, 2: Size
     $route['pvp/arena-list/(:any)/(2v2|3v3|5v5)'] = "pvp/arena_list/$1/$2";
 
+    $route['pvp/summary/(:any)'] = "pvp/index/$1";
+
     // Wildcard
     $route['pvp/(:any)'] = "pvp/index/$1";
 

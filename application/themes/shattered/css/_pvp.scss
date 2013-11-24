@@ -38,6 +38,14 @@
 
   .table {
     font: normal 12px / 1.5 Arial, Verdana, sans-serif;
+
+    thead th {
+      padding: 0;
+      white-space: nowrap;
+      span {
+        padding-left: 10px;
+      }
+    }
   }
 
   .win {
@@ -750,12 +758,13 @@
   }
 }
 
-#pvp-index{
+.pvp-ladder {
 
-  /*#content .content-top,
-  #game-character #content .content-top {
-    background: url("/templates/Shattered-World/images/layout/content-topbot.jpg") no-repeat;
-  }*/
+  .top-title {
+    padding: 20px 20px 10px 20px;
 
-
+    .category {
+      font-size: 26px;
+    }
+  }
 }

@@ -20,6 +20,8 @@ class Pvp extends MX_Controller
 
     private $shownRealmName = "";
 
+    private $shownArenaSize = 0
+;
     private $allRealms = array();
 
     private $currentAction = "summary";
@@ -33,7 +35,7 @@ class Pvp extends MX_Controller
         $this->theme_path = base_url().APPPATH.$this->template->theme_path;
 
         $this->template->addBreadcrumb("Server", site_url(array("server")));
-        $this->template->addBreadcrumb("PVP", site_url(array("pvp_ranking")));
+        $this->template->addBreadcrumb("PVP", site_url(array("pvp")));
 
         $this->pvpModes = array(
             PVP_ARENA_SIZE_2 => '2v2',
@@ -46,6 +48,18 @@ class Pvp extends MX_Controller
             2 => 'second',
             3 => 'third',
         );
+
+        /*
+         * Cache Configuration
+         */
+        $this->useCaching = TRUE;
+        $this->cacheDuration = CACHE_DURATION_1_DAY;
+
+        /**
+         * Configs
+         */
+        $this->maxHonorableKillers = 100;
+        $this->maxHonorableKillersInSummary = 20;
 
         /**
          * Array of Realmnames
@@ -67,13 +81,7 @@ class Pvp extends MX_Controller
      */
     public function index($realmName = "")
     {
-
-        // Site Title
-        $this->template->setTitle("Spieler gegen Spieler");
-
         $this->currentAction = "summary";
-
-        $maxDisplayHonorChars = 20; // Only top 40 in stats
 
         $arenaChars = array();
 
@@ -84,71 +92,88 @@ class Pvp extends MX_Controller
             '3v3' => array(),
             '5v5' => array(),
         );
-        $allianceKillers = $hordeKillers = array();
 
-        /**
-         * Array of Realmnames
-         * @type array
+        /*
+         * Get the Realm
          */
-        $shownRealmId = 1;
-
-        foreach($this->allRealms as $key => $realm){
-            if(!empty($realmName) && $realmName == $realmName->getName()){
-                $shownRealmId = $key;
-            }
+        if(empty($realmName)){
+            $this->shownRealmId = 1;
         }
-
-        if(empty($realmName) && $this->user->getActiveRealmId() != 0){
-            $shownRealmId = $this->user->getActiveRealmId();
+        else{
+            $this->shownRealmId = $this->getRealmIdByName($realmName);
         }
+        debug($this->shownRealmId);
+        debug($realmName);
+
+        $realm = $this->realms->getRealm($this->shownRealmId);
+        $this->shownRealmName = $realm->getName();
 
         /**
          * Make Name of the Realm accessible for all member functions
          */
-        $this->shownRealmName = $this->allRealms[$shownRealmId];
+        $this->shownRealmName = $this->allRealms[$this->shownRealmId];
+
+        // Site Title
+        $this->template->setTitle("{$this->shownRealmName} PvP");
+        $this->template->addBreadcrumb("{$this->shownRealmName} Zusammenfassung", site_url(array('pvp', 'summary', $this->shownRealmName)));
 
         /**
-         * Database Connection to the active realm characters database
-         * @type Character_model
+         * Cache Data
          */
-        $this->dbChar = $this->getRealmCharacterConnection($shownRealmId);
+        $cacheId = 'pvp_summary-'.$this->shownRealmName;
 
-        $topData = $this->getTopArenaTeams(3);
+        $cacheData = $this->cache->get($cacheId);
 
-        $arenaTeams = $topData['arenaTeams'];
-        $modeTeams = $topData['modeTeams'];
+        if($this->useCaching && $cacheData){
+            $out = $cacheData;
+        }
+        else{
 
-        $arenaTeams = $this->populateArenaTeamCharacters($arenaTeams);
+            /**
+             * Database Connection to the active realm characters database
+             * @type Character_model
+             */
+            $this->dbChar = $this->getRealmCharacterConnection($this->shownRealmId);
 
-        // Top 20 Kills - Alliance characters
-        $allianceKillers = $this->getTopHonorableKillCharacters(FACTION_ALLIANCE, $maxDisplayHonorChars);
+            $topData = $this->getTopArenaTeams(3);
 
-        // Top 20 Kills - Horde characters
-        $hordeKillers = $this->getTopHonorableKillCharacters(FACTION_HORDE, $maxDisplayHonorChars);
+            $arenaTeams = $topData['arenaTeams'];
+            $modeTeams = $topData['modeTeams'];
 
-        /*
-         * Get the PVP Sidebar
-         */
-        $pvpSidebar = $this->getPvpSidebar();
+            $arenaTeams = $this->populateArenaTeamCharacters($arenaTeams);
 
-        /*
-         * Output of the template
-         */
+            // Top 20 Kills - Alliance characters
+            $allianceKillers = $this->getTopHonorableKillCharacters(FACTION_ALLIANCE, $this->maxHonorableKillersInSummary);
+
+            // Top 20 Kills - Horde characters
+            $hordeKillers = $this->getTopHonorableKillCharacters(FACTION_HORDE, $this->maxHonorableKillersInSummary);
+
+            /*
+             * Get the PVP Sidebar
+             */
+            $pvpSidebar = $this->getPvpSidebar();
+
+            /*
+             * Generate Output of the template
+             */
+            $pageData = array(
+                'pvpSidebar' => $pvpSidebar,
+                'pvpModes' => $this->pvpModes,
+                'modeTeams' => $modeTeams,
+                'arenaTeams' => $arenaTeams,
+                'shownRealmId' => $this->shownRealmId,
+                'shownRealmName' => $this->shownRealmName,
+                'allRealms' => $this->allRealms,
+                'hordeKillers' => $hordeKillers,
+                'allianceKillers' => $allianceKillers,
+            );
+
+            $out = $this->template->loadPage("pvp_index.tpl", $pageData);
+
+            $this->cache->save($cacheId, $out, $this->cacheDuration);
+        }
+
         $this->template->hideSidebar();
-
-        $pageData = array(
-            'pvpSidebar' => $pvpSidebar,
-            'pvpModes' => $this->pvpModes,
-            'modeTeams' => $modeTeams,
-            'arenaTeams' => $arenaTeams,
-            'shownRealmId' => $shownRealmId,
-            'shownRealmName' => $this->shownRealmName,
-            'allRealms' => $this->allRealms,
-            'hordeKillers' => $hordeKillers,
-            'allianceKillers' => $allianceKillers,
-        );
-
-        $out = $this->template->loadPage("pvp_index.tpl", $pageData);
 
         $this->template->view($out);
     }
@@ -162,97 +187,187 @@ class Pvp extends MX_Controller
         exit;
     }
 
-
+    /**
+     * Get the Top Honorable Killers of both factions
+     * @param $realmName
+     */
     public function honor_list($realmName){
 
-        $realmId = $this->getRealmIdByName($realmName);
+        $this->currentAction = "honor-list";
 
-        if(empty($arenaSize) || empty($realmName) || $realmId === FALSE){
-            redirect('pvp_stats');
+        $this->shownRealmId = $this->getRealmIdByName($realmName);
+
+        if(empty($realmName) || $this->shownRealmId === FALSE){
+            redirect('pvp');
+            exit;
         }
 
+        $maxShownCharacters = 100;
+
+        /*
+         * Get the Realm
+         */
+        $realm = $this->realms->getRealm($this->shownRealmId);
+        $this->shownRealmName = $realm->getName();
+
+        // Site Title
+        $this->template->setTitle("{$this->shownRealmName} Ehrenhafte Tötungen");
+        $this->template->addBreadcrumb($this->shownRealmName, site_url(array('pvp','summary', $this->shownRealmName)));
+        $this->template->addBreadcrumb("Ehrenhafte Tötungen", site_url(array('pvp','honor-list', $this->shownRealmName)));
+
+        /**
+         * Cache Data
+         */
+        $cacheId = 'pvp_honor_list-'.$this->shownRealmName.'-'.$this->shownArenaSize;
+
+        $cacheData = $this->cache->get($cacheId);
+
+        if($this->useCaching && $cacheData){
+            $out = $cacheData;
+        }
+        else{
+            /**
+             * Database Connection to the active realm characters database
+             * @class Character_model
+             */
+            $this->dbChar = $this->getRealmCharacterConnection($this->shownRealmId);
+
+            // Top 20 Kills - Alliance characters
+            $allianceKillers = $this->getTopHonorableKillCharacters(FACTION_ALLIANCE, $this->maxHonorableKillers);
+
+            // Top 20 Kills - Horde characters
+            $hordeKillers = $this->getTopHonorableKillCharacters(FACTION_HORDE, $this->maxHonorableKillers);
+
+            /**
+             * Get the PVP Sidebar
+             * @type String
+             */
+            $pvpSidebar = $this->getPvpSidebar();
+
+            /*
+             * Generate Output of the template
+             */
+            $pageData = array(
+                'pvpSidebar' => $pvpSidebar,
+                'pvpModes' => $this->pvpModes,
+                'shownRealmId' => $this->shownRealmId,
+                'shownRealmName' => $this->shownRealmName,
+                'allRealms' => $this->allRealms,
+                'hordeKillers' => $hordeKillers,
+                'allianceKillers' => $allianceKillers,
+            );
+
+            $out = $this->template->loadPage("honor_list.tpl", $pageData);
+
+            $this->cache->save($cacheId, $out, $this->cacheDuration);
+        }
+
+        $this->template->hideSidebar();
+
+        $this->template->view($out);
     }
 
     /**
      * Get a list of all Teams of the given Realm ordered by their ranking
      *
-     * @param $realmName
-     * @param $arenaSize
+     * @param String $realmName
+     * @param Integer $arenaSize
      */
     public function arena_list($realmName, $arenaSize){
 
-        $shownRealmId = $this->getRealmIdByName($realmName);
+        $this->currentAction = "arena-list";
 
-        if(empty($arenaSize) || empty($realmName) || $shownRealmId === FALSE){
-            redirect('pvp_stats');
+        $this->shownRealmId = $this->getRealmIdByName($realmName);
+
+        if(empty($arenaSize) || empty($realmName) || $this->shownRealmId === FALSE){
+            redirect('pvp');
+            exit;
         }
 
-        $maxDisplayChars = 50;
+        $shownPerPage = 50;
 
         /*
          * Get the Realm
          */
-        $realm = $this->realms->getRealm($shownRealmId);
+        $realm = $this->realms->getRealm($this->shownRealmId);
         $this->shownRealmName = $realm->getName();
-
-        /**
-         * Database Connection to the active realm characters database
-         * @type Character_model
-         */
-        $this->dbChar = $this->getRealmCharacterConnection($shownRealmId);
 
         /*
          * Determine Arena Team Size
          */
-        $shownArenaSize = PVP_ARENA_SIZE_2;
-        $shownArenaSizeLabel = "";
+        $this->shownArenaSize = PVP_ARENA_SIZE_2;
 
         foreach($this->pvpModes as $modeKey => $modeName){
             if($arenaSize == $modeKey || $arenaSize == $modeName){
-                $shownArenaSize = $modeKey;
+                $this->shownArenaSize = $modeKey;
             }
         }
 
-        $shownArenaSizeLabel = $this->pvpModes[$shownArenaSize];
+        $shownArenaSizeLabel = $this->pvpModes[$this->shownArenaSize];
 
         // Site Title
-        $this->template->setTitle($realmName." ".$shownArenaSizeLabel." Arena Teams");
-        $this->template->setSectionTitle($realmName." ".$shownArenaSizeLabel." Arena Teams");
+        $this->template->setTitle("{$this->shownRealmName} {$shownArenaSizeLabel} Arena Teams");
+        $this->template->addBreadcrumb($this->shownRealmName, site_url(array('pvp','summary', $this->shownRealmName)));
+        $this->template->addBreadcrumb("{$shownArenaSizeLabel} Arena Teams", site_url(array('pvp','arena-list', $this->shownRealmName, $shownArenaSizeLabel)));
 
-        /*
-         * Get the Arena Teams
+        /**
+         * Cache Data
          */
-        $topData = $this->getTopArenaTeams(3, $shownArenaSize);
+        $cacheId = 'pvp_arena_list-'.$this->shownRealmName.'-'.$this->shownArenaSize;
 
-        $arenaTeams = $topData['arenaTeams'];
-        $modeTeams = $topData['modeTeams'];
+        $cacheData = $this->cache->get($cacheId);
 
-        /*
-         * Get the PVP Sidebar
-         */
-        $pvpSidebar = $this->getPvpSidebar();
+        if($this->useCaching && $cacheData){
+            $out = $cacheData;
+        }
+        else{
+            /**
+             * Database Connection to the active realm characters database
+             * @class Character_model
+             */
+            $this->dbChar = $this->getRealmCharacterConnection($this->shownRealmId);
 
-        /*
-         * Output of the template
-         */
+            /*
+             * Get the Arena Teams
+             */
+            $topData = $this->getTopArenaTeams(0, $this->shownArenaSize);
+
+            $arenaTeams = $topData['arenaTeams'];
+            $modeTeams = $topData['modeTeams'];
+
+            /**
+             * Get the PVP Sidebar
+             * @type String
+             */
+            $pvpSidebar = $this->getPvpSidebar();
+
+            /*
+             * Generate Output of the template
+             */
+            $pageData = array(
+                'pvpSidebar' => $pvpSidebar,
+                'pvpModes' => $this->pvpModes,
+                'modeTeams' => $modeTeams,
+                'arenaTeams' => $arenaTeams,
+                'shownArenaSize' => $this->shownArenaSize,
+                'shownArenaSizeLabel' => $shownArenaSizeLabel,
+                'shownRealmId' => $this->shownRealmId,
+                'shownRealmName' => $this->shownRealmName,
+                'allRealms' => $this->allRealms,
+                'arenaTeamCount' => count($arenaTeams),
+                'arenaTeamFirst' => count($arenaTeams) ? 1 : 0,
+                'arenaTeamLast' => min($shownPerPage, count($arenaTeams)),
+                'shownPerPage' => $shownPerPage,
+            );
+
+            $out = $this->template->loadPage("arena_list.tpl", $pageData);
+
+            $this->cache->save($cacheId, $out, $this->cacheDuration);
+        }
+
         $this->template->hideSidebar();
 
-        $pageData = array(
-            'pvpSidebar' => $pvpSidebar,
-            'pvpModes' => $this->pvpModes,
-            'modeTeams' => $modeTeams,
-            'arenaTeams' => $arenaTeams,
-            'shownArenaSize' => $shownArenaSize,
-            'shownArenaSizeLabel' => $shownArenaSizeLabel,
-            'shownRealmId' => $shownRealmId,
-            'shownRealmName' => $this->shownRealmName,
-            'allRealms' => $this->allRealms,
-        );
-
-        $out = $this->template->loadPage("arena_list.tpl", $pageData);
-
         $this->template->view($out);
-
 
     }
 
@@ -268,6 +383,7 @@ class Pvp extends MX_Controller
             'action' => $this->currentAction,
             'pvpModes' => $this->pvpModes,
             'allRealms' => $this->allRealms,
+            'shownArenaSize' => $this->shownArenaSize,
             'shownRealmId' => $this->shownRealmId,
             'shownRealmName' => $this->shownRealmName,
         ));
@@ -366,8 +482,6 @@ class Pvp extends MX_Controller
 
             $query = $this->dbChar->query($sql);
 
-            debug($this->dbChar);
-
             if($query->num_rows() > 0){
 
                 $i = 1;
@@ -376,7 +490,7 @@ class Pvp extends MX_Controller
                     $row['factionLabel'] = ($row['faction'] == FACTION_HORDE) ? "Horde" : "Allianz";
 
                     $row['rank'] = $i;
-                    $row['css_rank'] = $this->standingsClasses[$i];
+                    $row['css_rank'] = ($i <= 3) ? $this->standingsClasses[$i] : '';
 
                     $arenaTeams[$row['arenaTeamId']] = $row;
                     $modeTeams[$modeName][$i] = $row['arenaTeamId'];

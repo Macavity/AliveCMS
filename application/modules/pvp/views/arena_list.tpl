@@ -1,30 +1,36 @@
+<div class="content-header">
+    <h2 class="header ">PvP: {$shownRealmName}</h2>
+    <span class="clear"><!-- --></span>
+</div>
+
 <div class="pvp pvp-ladder">
   <div class="pvp-right">
-    <div class="ladder-title">
-      <h3 class="category">Arena Teams {$shownArenaSize}</h3>
-    </div>
+      <div class="top-title">
+          <h3 class="category ">{$shownArenaSizeLabel} Arena Teams</h3>
+          <span class="clear"><!-- --></span>
+      </div>
 
     <div id="ladders">
       <div class="table-options data-options ">
         <div class="option">
           <ul class="ui-pagination"></ul>
         </div>
-        Zeige <strong class="results-start">{$firstTeamNumber}</strong>–<strong class="results-end">{$lastTeamNumber}</strong>
-        von <strong class="results-total">{$sumTeams}</strong> Ergebnissen
+        Zeige <strong class="results-start">{$arenaTeamFirst}</strong>–<strong class="results-end">{$arenaTeamLast}</strong>
+        von <strong class="results-total">{$arenaTeamCount}</strong> Ergebnissen
         <span class="clear"><!-- --></span>
       </div>
 
-      <div class="table ">
+      <div class="table">
         <table>
           <thead>
           <tr>
-            <th><span class="sort-tab"><span> # </span></span></th>
-            <th><span class="sort-tab"><span> Team </span></span></th>
-            <th><span class="sort-tab"><span> Realm </span></span></th>
-            <th><span class="sort-tab"><span> Fraktion </span></span></th>
-            <th><span class="sort-tab"><span> Siege </span></span></th>
-            <th><span class="sort-tab"><span> Niederlagen </span></span></th>
-            <th><span class="sort-tab"><span> Wertung </span></span></th>
+            <th><a class="sort-link numeric"><span class="arrow">#</span></a></th>
+            <th><a class="sort-link"><span class="arrow"> Team </span></a></th>
+            <th><a class="sort-link"><span class="arrow"> Realm </span></a></th>
+            <th><a class="sort-link"><span class="arrow"> Fraktion </span></a></th>
+            <th><a class="sort-link numeric"><span class="arrow"> Siege </span></a></th>
+            <th><a class="sort-link numeric"><span class="arrow"> Niederlagen </span></a></th>
+            <th><a class="sort-link numeric"><span class="arrow"> Wertung </span></a></th>
           </tr>
           </thead>
           <tbody>
@@ -79,9 +85,9 @@
         <div class="option">
           <ul class="ui-pagination"></ul>
         </div>
-        Zeige <strong class="results-start">{$firstTeamNumber}</strong>–<strong class="results-end">{$lastTeamNumber}</strong>
-        von <strong class="results-total">{$sumTeams}</strong> Ergebnissen
-        <span class="clear"><!-- --></span>
+          Zeige <strong class="results-start">{$arenaTeamFirst}</strong>–<strong class="results-end">{$arenaTeamLast}</strong>
+          von <strong class="results-total">{$arenaTeamCount}</strong> Ergebnissen
+          <span class="clear"><!-- --></span>
       </div>
     </div> <!-- /.ladders -->
   </div>
@@ -92,3 +98,32 @@
 
   <span class="clear"><!-- --></span>
 </div>
+<script type="text/javascript" language="javascript">
+    require([
+        'static',
+        'modules/wiki',
+        'modules/wiki_related',
+        'modules/table',
+        'modules/filter',
+        'modules/zone'
+    ],
+            function (static, Wiki, WikiRelated, Table, Filter, Zone) {
+
+                $(function () {
+                    debug.debug("/pvp/arena-list");
+
+                    new Table($("#ladders"), {
+                        totalResults: {$arenaTeamCount},
+                        paging: true,
+                        perPage: {$shownPerPage},
+                        column: 0,
+                        method: 'numeric',
+                        type: 'asc'
+
+                    });
+
+                });
+            });
+
+
+</script>
