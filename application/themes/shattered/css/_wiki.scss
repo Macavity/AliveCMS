@@ -1,10 +1,12 @@
 
-.module-page,
-.module-server {
-  #content .content-top {
-    background: url("/application/themes/shattered/images/wiki/zone/index-bg.jpg") 0 0 no-repeat;
-  }
+.wikiContentTop {
+  background: url("/application/themes/shattered/images/wiki/zone/index-bg.jpg") 0 0 no-repeat;
+}
 
+.module-page {
+  #content .content-top {
+    @extend .wikiContentTop;
+  }
 }
 
 .reagent {

@@ -310,6 +310,30 @@ class Cms_model extends CI_Model
 		return null;
 	}
 
+    /**
+     * Get all uptime timestamps from all realms
+     */
+    public function getRealmUptime($realmId){
+
+        $connection = $this->load->database("account", true);
+
+        $connection
+            ->select('starttime')
+            ->where('realmid', $realmId)
+            ->order_by('starttime', 'desc')
+            ->limit(1)
+            ->from('uptime');
+
+        $query = $connection->get();
+
+        if($query->num_rows() > 0){
+            $uptime = $query->row()->starttime;
+            return $uptime;
+        }
+
+        return FALSE;
+    }
+
 	/**
 	 * Get the amount of unread messages
 	 * @return Int

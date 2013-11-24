@@ -4,7 +4,6 @@ define(function(){
     /**
      * Enables an unordered list to slide left/right to display multiple tiers of child menus.
      *
-     * @copyright   2010, Blizzard Entertainment, Inc
      * @class       DynamicMenu
      * @requires    Core
      */
@@ -86,6 +85,7 @@ define(function(){
         bindSlides: function(menu) {
             menu.find('li.has-submenu a:first-child').unbind().bind('click', { menu: this }, function(e) {
                 e.preventDefault();
+                debug.debug("submenu clicked")
                 e.data.menu.goForward(this);
             });
 

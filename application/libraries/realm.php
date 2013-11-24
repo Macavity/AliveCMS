@@ -28,6 +28,9 @@ class Realm
 	private $onlineFaction;
 	private $isOnline;
 
+    // Database
+    private $db;
+
 	/**
 	 * Initialize the realm
 	 * @param Int $id
@@ -255,21 +258,11 @@ class Realm
 
         $cacheId = 'realm_uptime_'.$this->getId();
 
-        $uptime = $this->cache->get($cacheId);
+        $uptime = $this->CI->cache->get($cacheId);
 
         if($uptime === false || $this->isOnline() == false){
-            $this->db
-                ->select('starttime')
-                ->where('realmid', $this->getId())
-                ->order_by('starttime', 'desc')
-                ->limit(1)
-                ->from('uptime');
-
-            $query = $this->db->get();
-
-            if($query->num_rows() > 0){
-                $uptime = $query->row()->starttime;
-                $this->cache->save($cacheId, $uptime, 60*60*24);
+            $uptime = $this->CI->cms_model->getRealmUptime($this->getId());
+            if($uptime){
                 return $uptime;
             }
         }
