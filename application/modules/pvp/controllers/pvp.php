@@ -22,6 +22,8 @@ class Pvp extends MX_Controller
 
     private $allRealms = array();
 
+    private $currentAction = "summary";
+
     public function __construct()
     {
         parent::__construct();
@@ -69,7 +71,9 @@ class Pvp extends MX_Controller
         // Site Title
         $this->template->setTitle("Spieler gegen Spieler");
 
-        $max_display_chars = 40; // Only top 40 in stats
+        $this->currentAction = "summary";
+
+        $maxDisplayHonorChars = 20; // Only top 40 in stats
 
         $arenaChars = array();
 
@@ -101,9 +105,7 @@ class Pvp extends MX_Controller
         /**
          * Make Name of the Realm accessible for all member functions
          */
-        $this->shownRealmName = $allRealms[$shownRealmId];
-
-
+        $this->shownRealmName = $this->allRealms[$shownRealmId];
 
         /**
          * Database Connection to the active realm characters database
@@ -116,15 +118,18 @@ class Pvp extends MX_Controller
         $arenaTeams = $topData['arenaTeams'];
         $modeTeams = $topData['modeTeams'];
 
-        debug($modeTeams);
-
         $arenaTeams = $this->populateArenaTeamCharacters($arenaTeams);
 
         // Top 20 Kills - Alliance characters
-        $allianceKillers = $this->getTopHonorableKillCharacters(FACTION_ALLIANCE, 20);
+        $allianceKillers = $this->getTopHonorableKillCharacters(FACTION_ALLIANCE, $maxDisplayHonorChars);
 
         // Top 20 Kills - Horde characters
-        $hordeKillers = $this->getTopHonorableKillCharacters(FACTION_HORDE, 20);
+        $hordeKillers = $this->getTopHonorableKillCharacters(FACTION_HORDE, $maxDisplayHonorChars);
+
+        /*
+         * Get the PVP Sidebar
+         */
+        $pvpSidebar = $this->getPvpSidebar();
 
         /*
          * Output of the template
@@ -132,12 +137,13 @@ class Pvp extends MX_Controller
         $this->template->hideSidebar();
 
         $pageData = array(
+            'pvpSidebar' => $pvpSidebar,
             'pvpModes' => $this->pvpModes,
             'modeTeams' => $modeTeams,
             'arenaTeams' => $arenaTeams,
             'shownRealmId' => $shownRealmId,
             'shownRealmName' => $this->shownRealmName,
-            'allRealms' => $allRealms,
+            'allRealms' => $this->allRealms,
             'hordeKillers' => $hordeKillers,
             'allianceKillers' => $allianceKillers,
         );
@@ -167,14 +173,85 @@ class Pvp extends MX_Controller
 
     }
 
+    /**
+     * Get a list of all Teams of the given Realm ordered by their ranking
+     *
+     * @param $realmName
+     * @param $arenaSize
+     */
     public function arena_list($realmName, $arenaSize){
 
-        $realmId = $this->getRealmIdByName($realmName);
+        $shownRealmId = $this->getRealmIdByName($realmName);
 
-        if(empty($arenaSize) || empty($realmName) || $realmId === FALSE){
+        if(empty($arenaSize) || empty($realmName) || $shownRealmId === FALSE){
             redirect('pvp_stats');
         }
 
+        $maxDisplayChars = 50;
+
+        /*
+         * Get the Realm
+         */
+        $realm = $this->realms->getRealm($shownRealmId);
+        $this->shownRealmName = $realm->getName();
+
+        /**
+         * Database Connection to the active realm characters database
+         * @type Character_model
+         */
+        $this->dbChar = $this->getRealmCharacterConnection($shownRealmId);
+
+        /*
+         * Determine Arena Team Size
+         */
+        $shownArenaSize = PVP_ARENA_SIZE_2;
+        $shownArenaSizeLabel = "";
+
+        foreach($this->pvpModes as $modeKey => $modeName){
+            if($arenaSize == $modeKey || $arenaSize == $modeName){
+                $shownArenaSize = $modeKey;
+            }
+        }
+
+        $shownArenaSizeLabel = $this->pvpModes[$shownArenaSize];
+
+        // Site Title
+        $this->template->setTitle($realmName." ".$shownArenaSizeLabel." Arena Teams");
+        $this->template->setSectionTitle($realmName." ".$shownArenaSizeLabel." Arena Teams");
+
+        /*
+         * Get the Arena Teams
+         */
+        $topData = $this->getTopArenaTeams(3, $shownArenaSize);
+
+        $arenaTeams = $topData['arenaTeams'];
+        $modeTeams = $topData['modeTeams'];
+
+        /*
+         * Get the PVP Sidebar
+         */
+        $pvpSidebar = $this->getPvpSidebar();
+
+        /*
+         * Output of the template
+         */
+        $this->template->hideSidebar();
+
+        $pageData = array(
+            'pvpSidebar' => $pvpSidebar,
+            'pvpModes' => $this->pvpModes,
+            'modeTeams' => $modeTeams,
+            'arenaTeams' => $arenaTeams,
+            'shownArenaSize' => $shownArenaSize,
+            'shownArenaSizeLabel' => $shownArenaSizeLabel,
+            'shownRealmId' => $shownRealmId,
+            'shownRealmName' => $this->shownRealmName,
+            'allRealms' => $this->allRealms,
+        );
+
+        $out = $this->template->loadPage("arena_list.tpl", $pageData);
+
+        $this->template->view($out);
 
 
     }
@@ -184,6 +261,16 @@ class Pvp extends MX_Controller
         if(empty($realmName) || empty($arenaSize) || empty($teamName)){
             redirect('pvp_stats');
         }
+    }
+
+    private function getPvpSidebar(){
+        return $this->template->loadPage('pvp_sidebar.tpl', array(
+            'action' => $this->currentAction,
+            'pvpModes' => $this->pvpModes,
+            'allRealms' => $this->allRealms,
+            'shownRealmId' => $this->shownRealmId,
+            'shownRealmName' => $this->shownRealmName,
+        ));
     }
 
     /**
@@ -242,32 +329,65 @@ class Pvp extends MX_Controller
     /**
      * Get the top teams of a given Size
      *
-     * @param int $limit
+     * @param int  $limit
+     * @param bool|array|integer $arenaSizes
      *
      * @return array
      */
-    private function getTopArenaTeams($limit = 3){
+    private function getTopArenaTeams($limit = 3, $arenaSizes = FALSE){
         $arenaTeams = array();
         $modeTeams = array();
 
-        foreach($this->pvpModes as $modeKey => $modeName){
-            $query = $this->dbChar->query('
-              SELECT arenaTeamId, arena_team.name, arena_team.type, arena_team.captainGUID, arena_team.rating, characters.race
+        if($arenaSizes === FALSE){
+            $arenaSizes = $this->pvpModes;
+        }
+
+        if(!is_array($arenaSizes) && in_array($arenaSizes, array_keys($this->pvpModes))){
+            $arenaSizes = array(
+                $arenaSizes => $this->pvpModes[$arenaSizes]
+            );
+        }
+
+        foreach($arenaSizes as $modeKey => $modeName){
+
+            $sql = '
+              SELECT
+                arenaTeamId,
+                arena_team.name, arena_team.type, arena_team.captainGUID, arena_team.rating,
+                arena_team.seasonGames, arena_team.seasonWins,
+                characters.race
               FROM arena_team JOIN characters ON(captainGUID = characters.guid)
               WHERE TYPE = '.$modeKey.'
-              ORDER BY rating DESC LIMIT 0,3');
+              ORDER BY rating DESC';
 
-            $i = 1;
-            foreach($query->result_array() as $row){
-                $row['faction'] = $this->realms->getFaction($row['race']);
-                $row['factionLabel'] = ($row['faction'] == FACTION_HORDE) ? "Horde" : "Allianz";
-
-                $row['css_rank'] = $this->standingsClasses[$i];
-
-                $arenaTeams[$row['arenaTeamId']] = $row;
-                $modeTeams[$modeName][$i] = $row['arenaTeamId'];
-                $i++;
+            if($limit > 0){
+                $sql .= ' LIMIT 0,'.$limit;
             }
+
+            $query = $this->dbChar->query($sql);
+
+            debug($this->dbChar);
+
+            if($query->num_rows() > 0){
+
+                $i = 1;
+                foreach($query->result_array() as $row){
+                    $row['faction'] = $this->realms->getFaction($row['race']);
+                    $row['factionLabel'] = ($row['faction'] == FACTION_HORDE) ? "Horde" : "Allianz";
+
+                    $row['rank'] = $i;
+                    $row['css_rank'] = $this->standingsClasses[$i];
+
+                    $arenaTeams[$row['arenaTeamId']] = $row;
+                    $modeTeams[$modeName][$i] = $row['arenaTeamId'];
+                    $i++;
+                }
+            }
+            else{
+                debug("No results");
+                debug($query);
+            }
+
         }
 
         return array(

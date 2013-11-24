@@ -348,6 +348,7 @@ body {
 
   li {
     padding-top: 1px; background: url("../images/sidebar-menu-sep.gif") 0 0 no-repeat; white-space: nowrap;
+    position: relative;
 
     &.item-active {
       a {
@@ -372,6 +373,19 @@ body {
       a .arrow { padding-right: 10px; font-style: normal; vertical-align: middle; background: url("../images/sidebar-menu-arrows.png") 2px -91px no-repeat; padding-left: 18px; }
       &:hover a .arrow { background-position: 2px -141px; }
     }
+
+    &.sidebar-sub {
+      padding-left: 10px;
+
+      &:before {
+        content: "- ";
+        position: absolute;
+        top: 4px;
+        left: 4px;
+      }
+    }
+
+
 
     .dynamic-menu { display: none }
   }

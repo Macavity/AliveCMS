@@ -97,3 +97,18 @@ if( ! function_exists("icon_class") ){
         return $output;
     }
 }
+
+if( ! function_exists("icon_faction") ){
+
+    function icon_faction($faction, $tooltip = true){
+
+        $label = ($faction == FACTION_ALLIANCE) ? lang('Alliance', 'pvp') : lang('Horde', 'pvp');
+
+        $output = '
+	<span class="icon-frame frame-18" data-tooltip="'.$label.'">
+		<img src="/application/images/icons/18/faction_'.$faction.'.jpg" alt="" width="18" height="18" />
+	</span>';
+
+        return $output;
+    }
+}

@@ -123,11 +123,21 @@ module.exports = function(grunt) {
             }
         },
 
-        uglify: {
-            alive: {
-                files: {
-
-                }
+        jade: {
+            compile: {
+                options: {
+                    data: {
+                        debug: false
+                    },
+                    pretty: true
+                },
+                files: [ {
+                    cwd: "application/modules/pvp/views",
+                    src: "*.jade",
+                    dest: "application/modules/pvp/views",
+                    expand: true,
+                    ext: ".tpl"
+                } ]
             }
         },
 
@@ -250,6 +260,13 @@ module.exports = function(grunt) {
                 tasks: ['jshint','concat:libs']
             },
 
+            jade: {
+                files: [
+                    'application/modules/**/*.jade'
+                ],
+                tasks: ['jade:compile']
+            },
+
             templates: {
                 files: [
                     'application/js/templates/*.handlebars'
@@ -272,6 +289,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
+
+    // Jade Template Compilation
+    grunt.loadNpmTasks('grunt-contrib-jade');
 
     grunt.loadNpmTasks('grunt-shell');
 

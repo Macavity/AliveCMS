@@ -450,25 +450,7 @@
   </div> <!-- /.pvp-right -->
 
   <div class="pvp-left">
-    <ul class="sidebar-menu" id="menu-pvp">
-      {foreach $allRealms as $realmId => $realmName}
-        <li class="{if $realmId == $shownRealmId} item-active{/if}">
-          <a href="{site_url("pvp/summary/{$realmName}")}"><span class="arrow">{$realmName}</span></a>
-        </li>
-        {foreach $pvpModes as $mode}
-          <li>
-            <a href="{$url}pvp/arena-list/{$realmName}/{$mode}">
-              <span class="arrow">{$mode}</span>
-            </a>
-          </li>
-        {/foreach}
-        <li class="has-submenu">
-          <a href="{$url}pvp/honor/{$realmName}">
-            <span class="arrow">Ehrenhafte Kills</span>
-          </a>
-        </li>
-      {/foreach}
-    </ul>
+    {$pvpSidebar}
   </div>
   <span class="clear"><!-- --></span>
 </div>
