@@ -51,7 +51,7 @@
             {/foreach}
           </ul>
 
-          <a href="{$url}pvp/arena/{$shownRealmName}/{$mode}" class="all">{$mode}-Ladder einsehen </a>
+          <a href="{$url}pvp/arena-list/{$shownRealmName}/{$mode}" class="all">{$mode}-Ladder einsehen </a>
         </div>
       {/foreach}
       <span class="clear"><!-- --></span>
@@ -116,7 +116,7 @@
           </table>
         </div>
         <div class="view-all">
-          <a href="{$url}pvp/honor/{$shownRealmId}">Zeige volle Liste</a>
+          <a href="{$url}pvp/honor/{$shownRealmName}">Zeige volle Liste</a>
         </div>
       </div>
     </div>

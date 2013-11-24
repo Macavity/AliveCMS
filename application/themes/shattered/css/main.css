@@ -9650,20 +9650,29 @@ a:hover .boss-portrait {
 .module-pvp .table {
   font: normal 12px / 1.5 Arial, Verdana, sans-serif;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\0000343}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\0000342}}
+.module-pvp .table thead th {
+  padding: 0;
+  white-space: nowrap;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\0000345}}
+.module-pvp .table thead th span {
+  padding-left: 10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\0000351}}
 .module-pvp .win {
   color: #2dd300;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\0000347}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\0000355}}
 .module-pvp .loss {
   color: #db0000;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\0000351}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\0000359}}
 .module-pvp .rating {
   color: #9E3403;
   font: bold 12px / 100% "Arial Black", Arial, Verdana, sans-serif;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\0000356}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\0000364}}
 .module-pvp .arrow-up, .module-pvp .arrow-down, .module-pvp .arrow-new {
   width: 10px;
   height: 11px;
@@ -9671,52 +9680,52 @@ a:hover .boss-portrait {
   display: inline-block;
   background: url("../images/icons/arrow-up-down.gif") no-repeat;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\0000364}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\0000372}}
 .module-pvp .arrow-down {
   background-position: 0 -15px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\0000368}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\0000376}}
 .module-pvp .arrow-new {
   background-position: 0 -30px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\0000372}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\0000380}}
 .module-pvp .no-results {
   padding: 25px;
   text-align: center;
   color: #C09A67;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\0000386}}
 .module-pvp .percent {
   color: #71401F;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\0000382}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\0000390}}
 .module-pvp .view-all {
   text-align: right;
   padding: 5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\0000387}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\0000395}}
 .module-pvp .table .ranking {
   width: 50px;
   text-align: center;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\0000399}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003107}}
 .module-pvp .pvp-ladder .ladder-title {
   padding: 20px 20px 10px 20px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003101}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003109}}
 .module-pvp .pvp-ladder .ladder-title span {
   color: #855B47;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003104}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003112}}
 .module-pvp .pvp-ladder .ladder-title .category {
   font-size: 26px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003108}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003116}}
 .module-pvp .pvp-ladder .player-icons {
   float: right;
   margin-left: 5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003114}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003122}}
 .module-pvp #pvp-filters {
   padding: 0 20px;
   background: none;
@@ -9725,19 +9734,19 @@ a:hover .boss-portrait {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003121}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003129}}
 .module-pvp #pvp-filters .filter.checkbox label {
   display: inline-block;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003124}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003132}}
 .module-pvp #pvp-filters #current-filters {
   padding-bottom: 15px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003127}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003135}}
 .module-pvp #pvp-filters #current-filters span img {
   vertical-align: middle;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003130}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003138}}
 .module-pvp #pvp-filters #current-filters span a {
   vertical-align: middle;
   margin: 0 10px 2px 2px;
@@ -9746,58 +9755,58 @@ a:hover .boss-portrait {
   display: inline-block;
   background: url("../images/icons/cross-small.gif") no-repeat;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003139}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003147}}
 .module-pvp #pvp-filters #current-filters strong {
   color: #F5EBD1;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003145}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003153}}
 .module-pvp #filter-buttons {
   padding-bottom: 10px;
   text-align: center;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003148}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003156}}
 .module-pvp #filter-buttons a {
   margin: 0 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003153}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003161}}
 .module-pvp #filter-rating-min, .module-pvp #filter-rating-max {
   width: 40px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003157}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003165}}
 .module-pvp #filter-team {
   width: 200px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003161}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003169}}
 .module-pvp #filter-bg, .module-pvp #filter-faction {
   width: 115px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003165}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003173}}
 .module-pvp #filter-player {
   width: 125px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003169}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003177}}
 .module-pvp #filter-realm {
   width: 150px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003174}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003182}}
 .module-pvp #team-composition p {
   margin: 0 0 10px 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003177}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003185}}
 .module-pvp #team-composition .filter {
   margin-right: 10px;
   padding-right: 17px;
   position: relative;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003182}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003190}}
 .module-pvp #team-composition .spec, .module-pvp #team-composition .class {
   width: 115px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003185}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003193}}
 .module-pvp #team-composition .spec {
   margin-top: 2px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003188}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003196}}
 .module-pvp #team-composition .remove {
   display: inline-block;
   position: absolute;
@@ -9807,90 +9816,90 @@ a:hover .boss-portrait {
   height: 12px;
   background: url("../images/icons/cross-small.gif") no-repeat;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003197}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003205}}
 .module-pvp #team-composition #comp-base {
   padding: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003199}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003207}}
 .module-pvp #team-composition #comp-base .remove {
   display: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003203}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003211}}
 .module-pvp #team-composition #comp-add {
   margin-left: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003208}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003216}}
 .module-pvp #player-spec .class-spec {
   width: 20%;
   margin: 0 0 15px 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003211}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003219}}
 .module-pvp #player-spec .class-spec label {
   display: inline-block;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003214}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003222}}
 .module-pvp #player-spec .class-spec .spec {
   padding-left: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003216}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003224}}
 .module-pvp #player-spec .class-spec .spec input {
   vertical-align: top;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003219}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003227}}
 .module-pvp #player-spec .class-spec .spec label {
   width: 110px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003224}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003232}}
 .module-pvp #player-spec .class-spec .all-spec input {
   vertical-align: top;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003227}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003235}}
 .module-pvp #player-spec .class-spec .all-spec label {
   font-weight: bold;
   width: 115px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003237}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003245}}
 .module-pvp .pvp-summary .pvp-right {
   padding: 20px;
   width: 720px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003241}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003249}}
 .module-pvp .pvp-summary .category {
   margin-bottom: 15px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003244}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003252}}
 .module-pvp .pvp-summary .top-title .category {
   margin-right: 15px;
   display: inline-block;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003248}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003256}}
 .module-pvp .pvp-summary .column {
   margin-left: 7px;
   float: left;
   width: 235px;
   background: url("../images/pvp/top-team.jpg") no-repeat;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003253}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003261}}
 .module-pvp .pvp-summary .column.first-child, .module-pvp .pvp-summary .column:first-child {
   margin: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003256}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003264}}
 .module-pvp .pvp-summary .column h2 {
   height: 50px;
   padding: 13px 0 0 15px;
   border-bottom: 1px solid #180b06;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003260}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003268}}
 .module-pvp .pvp-summary .column h2 a {
   color: #682b05;
   font: bold 36px / 100% "Arial Black", Arial, Verdana, sans-serif;
   letter-spacing: -2px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003264}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003272}}
 .module-pvp .pvp-summary .column h2 a:hover {
   color: #fff;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003270}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003278}}
 .module-pvp .pvp-summary .column ul li {
   height: 93px;
   padding: 15px 15px 0 40px;
@@ -9898,12 +9907,12 @@ a:hover .boss-portrait {
   border-top: 1px solid #60270e;
   border-bottom: 1px solid #1a0b04;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003277}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003285}}
 .module-pvp .pvp-summary .column ul .name {
   font-size: 14px;
   word-wrap: break-word;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003281}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003289}}
 .module-pvp .pvp-summary .column ul .ranking {
   color: #682b05;
   position: absolute;
@@ -9912,47 +9921,47 @@ a:hover .boss-portrait {
   font-size: 22px;
   line-height: 100%;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003289}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003297}}
 .module-pvp .pvp-summary .column ul .realm {
   color: #71401F;
   padding-bottom: 3px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003293}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003301}}
 .module-pvp .pvp-summary .column ul .members {
   padding-top: 2px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003296}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003304}}
 .module-pvp .pvp-summary .column ul .rating-realm {
   margin: 3px 0;
   vertical-align: middle;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003300}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003308}}
 .module-pvp .pvp-summary .column ul .first .ranking {
   font-size: 36px;
   left: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003304}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003312}}
 .module-pvp .pvp-summary .column ul .second {
   border-top: 1px solid #4a200e;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003305}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003313}}
 .module-pvp .pvp-summary .column ul .second .ranking {
   font-size: 28px;
   left: 12px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003311}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003319}}
 .module-pvp .pvp-summary .column ul .third {
   border-top: 1px solid #3b1d0e;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003315}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003323}}
 .module-pvp .pvp-summary .column table {
   width: 100%;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003317}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003325}}
 .module-pvp .pvp-summary .column table td {
   padding: 5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003321}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003329}}
 .module-pvp .pvp-summary .column .all {
   padding: 6px 10px;
   font-size: 10px;
@@ -9960,39 +9969,39 @@ a:hover .boss-portrait {
   text-align: right;
   border-top: 1px solid #2a180e;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003334}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003342}}
 .module-pvp .popular .column-left {
   width: 375px;
   float: left;
   margin-bottom: 25px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003339}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003347}}
 .module-pvp .popular .column-right {
   width: 320px;
   float: right;
   margin-bottom: 25px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003344}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003352}}
 .module-pvp .popular .category {
   font-size: 20px;
   border-bottom: 2px solid #40200d;
   padding-bottom: 6px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003353}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003361}}
 .module-pvp .top-teams {
   margin-bottom: 25px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003357}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003365}}
 .module-pvp .top-bgs .table tr td {
   padding: 5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003363}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003371}}
 .module-pvp .class-specs li {
   padding: 5px;
   height: 20px;
   border-bottom: 1px solid #2a180e;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003367}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003375}}
 .module-pvp .class-specs li .class {
   display: inline-block;
   width: 145px;
@@ -10000,7 +10009,7 @@ a:hover .boss-portrait {
   overflow: hidden;
   white-space: nowrap;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003374}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003382}}
 .module-pvp .class-specs li .tree {
   display: inline-block;
   width: 145px;
@@ -10009,21 +10018,21 @@ a:hover .boss-portrait {
   white-space: nowrap;
   width: 125px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003382}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003390}}
 .module-pvp .class-specs li .percent {
   float: right;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003385}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003393}}
 .module-pvp .class-specs li .icon-frame, .module-pvp .class-specs li img {
   vertical-align: middle;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003392}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003400}}
 .module-pvp .team-comps .comp {
   float: left;
   padding-left: 5px;
   border-left: 1px solid #2a180e;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003396}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003404}}
 .module-pvp .team-comps .comp h3 {
   margin-top: 5px;
   text-align: center;
@@ -10031,111 +10040,111 @@ a:hover .boss-portrait {
   font-size: 16px;
   color: #fff;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003403}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003411}}
 .module-pvp .team-comps .comp li {
   padding: 0 0 0 5px;
   height: 30px;
   line-height: 30px;
   margin-bottom: 1px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003408}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003416}}
 .module-pvp .team-comps .comp li .percent {
   margin-left: 5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003411}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003419}}
 .module-pvp .team-comps .comp li img {
   vertical-align: middle;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003415}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003423}}
 .module-pvp .team-comps .comp.first-child, .module-pvp .team-comps .comp:first-child {
   margin: 0;
   border: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003419}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003427}}
 .module-pvp .team-comps .comp.comp-2v2 {
   width: 90px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003422}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003430}}
 .module-pvp .team-comps .comp.comp-3v3 {
   width: 115px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003425}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003433}}
 .module-pvp .team-comps .comp.comp-5v5 {
   width: 150px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003433}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003441}}
 .module-pvp .recent-topics li {
   padding: 6px;
   border-bottom: 1px solid #2E2218;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003436}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003444}}
 .module-pvp .recent-topics li .title {
   display: block;
   font-weight: bold;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003440}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003448}}
 .module-pvp .recent-topics li .desc {
   color: #71401F;
   font-size: 11px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003444}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003452}}
 .module-pvp .recent-topics li .forum {
   color: #7E3406;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003447}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003455}}
 .module-pvp .recent-topics li a:hover {
   color: #fff;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003451}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003459}}
 .module-pvp .recent-topics.loading {
   background: url("../images/loaders/canvas-loader.gif") 50% 50% no-repeat;
   padding: 50px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003457}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003465}}
 .module-pvp .arenateam-gameswonlost {
   color: #C09A67 !important;
   white-space: nowrap;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003462}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003470}}
 .module-pvp .arenateam-percent {
   color: #C09A67 !important;
   white-space: nowrap;
   padding-left: 6px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003468}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003476}}
 .module-pvp .arenateam-rating {
   color: #9E3403;
   font-family: 'Arial Black', Arial, sans-serif;
   font-weight: bold;
   font-size: 12px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003477}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003485}}
 .module-pvp .ie .pvp-summary .top-title .category {
   display: inline;
   float: left;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003482}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003490}}
 .module-pvp .ie7 .class-specs li .icon-frame {
   margin-right: 5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003488}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003496}}
 .module-pvp .pvp-weekly-best {
   font-size: 22px;
   line-height: 20px;
   padding-bottom: 20px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003492}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003500}}
 .module-pvp .pvp-weekly-best .rating {
   font-size: 30px;
   color: #9E3403;
   font-family: 'Arial Black', Arial, sans-serif;
   font-weight: bold;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003501}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003509}}
 .module-pvp .pvp-tabs {
   margin-bottom: 15px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003503}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003511}}
 .module-pvp .pvp-tabs .tab {
   z-index: 0;
   float: left;
@@ -10149,29 +10158,29 @@ a:hover .boss-portrait {
   background: url("../character/pvp/tab.png") -180px 0 no-repeat;
   position: relative;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003515}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003523}}
 .module-pvp .pvp-tabs .tab:hover {
   background-position: -360px 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003518}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003526}}
 .module-pvp .pvp-tabs .tab:first-child {
   margin-left: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003522}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003530}}
 .module-pvp .pvp-tabs .tab-selected {
   background-position: 0 0 !important;
   cursor: default;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003525}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003533}}
 .module-pvp .pvp-tabs .tab-selected .type, .module-pvp .pvp-tabs .tab-selected .ratings {
   cursor: text;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003529}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003537}}
 .module-pvp .pvp-tabs .tab-disabled {
   cursor: default;
   background-position: -540px 0 !important;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003533}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003541}}
 .module-pvp .pvp-tabs .type {
   color: #26180f;
   font-size: 36px;
@@ -10183,65 +10192,65 @@ a:hover .boss-portrait {
   z-index: 2;
   letter-spacing: -0.1em;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003544}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003552}}
 .module-pvp .pvp-tabs .tab:hover .type, .module-pvp .pvp-tabs .tab-selected .type {
   color: #fff;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003547}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003555}}
 .module-pvp .pvp-tabs .tab-disabled .type {
   color: #26180f !important;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003552}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003560}}
 .module-pvp #pvp-tab-bgs .type {
   font-family: Arial, sans-serif;
   font-size: 20px;
   letter-spacing: -1px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003558}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003566}}
 .module-pvp .pvp-tabs .ratings {
   position: absolute;
   left: 20px;
   bottom: 15px;
   z-index: 2;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003563}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003571}}
 .module-pvp .pvp-tabs .ratings li {
   clear: both;
   line-height: 25px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003566}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003574}}
 .module-pvp .pvp-tabs .ratings li span {
   float: left;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003570}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003578}}
 .module-pvp .pvp-tabs .ratings .value {
   font-size: 15px;
   color: #953203;
   font-family: 'Arial Black', Verdana, Arial, sans-serif;
   font-weight: bold;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003576}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003584}}
 .module-pvp .pvp-tabs .ratings .name {
   margin-left: 5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003579}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003587}}
 .module-pvp .pvp-tabs .ratings .rank {
   color: #FEF092;
   font-size: 13px;
   font-weight: bold;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003583}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003591}}
 .module-pvp .pvp-tabs .ratings .rank .unranked {
   color: #71401F;
   font-size: 12px;
   font-style: italic;
   font-weight: normal;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003594}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003602}}
 .module-pvp .pvp-bgs {
   padding-top: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003600}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003608}}
 .module-pvp .arenateam-stats {
   background-color: rgba(0, 0, 0, 0.15);
   padding: 10px;
@@ -10249,52 +10258,52 @@ a:hover .boss-portrait {
   -webkit-border-radius: 4px;
   border-radius: 4px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003608}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003616}}
 .module-pvp html.ie .arenateam-stats {
   background: #160c07;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003613}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003621}}
 .module-pvp .arenateam-stats table {
   width: 100%;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003616}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003624}}
 .module-pvp .arenateam-stats th, .module-pvp .arenateam-stats td {
   padding: 5px 3px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003619}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003627}}
 .module-pvp .arenateam-stats th {
   color: white;
   vertical-align: bottom;
   padding-top: 2px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003623}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003631}}
 .module-pvp .arenateam-stats th .align-center span {
   text-align: center;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003627}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003635}}
 .module-pvp .arenateam-stats .team-name {
   font-size: 18px;
   letter-spacing: -1px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003635}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003643}}
 .module-pvp .pvp-roster {
   padding-top: 30px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003637}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003645}}
 .module-pvp .pvp-roster .ui-dropdown {
   float: right;
   width: 115px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003645}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003653}}
 .module-pvp .arenateam-flag-simple {
   left: 52px;
   top: 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003650}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003658}}
 .module-pvp .profile-section {
   position: relative;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003654}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003662}}
 .module-pvp .conquest-points {
   position: absolute;
   width: 60%;
@@ -10302,7 +10311,7 @@ a:hover .boss-portrait {
   right: 20px;
   top: -35px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003660}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003668}}
 .module-pvp .conquest-points .calculator .icon {
   display: inline-block;
   width: 14px;
@@ -10310,28 +10319,28 @@ a:hover .boss-portrait {
   vertical-align: top;
   background: url("../images/tool/talent-calculator/icons.gif") -200px 0 no-repeat;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003669}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003677}}
 .module-pvp .ie6 .pvp-tabs .tab {
   background-image: url("../character/pvp/tab.gif");
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003676}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003684}}
 .module-pvp .arenateam-stats .week {
   color: #FEF092;
   font-weight: bold;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003680}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003688}}
 .module-pvp .arenateam-stats .season {
   font-weight: normal;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003687}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003695}}
 .module-pvp .arenateam-roster {
   padding-top: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003689}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003697}}
 .module-pvp .arenateam-roster .character-talents {
   float: right;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003692}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003700}}
 .module-pvp .arenateam-roster .leader {
   margin-left: 5px;
   display: inline-block;
@@ -10339,33 +10348,33 @@ a:hover .boss-portrait {
   height: 9px;
   background: url("../images/pvp/leader.gif") no-repeat;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003703}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003711}}
 .module-pvp .arenateam-rating {
   color: #9E3403;
   font-family: 'Arial Black', Arial, sans-serif;
   font-weight: bold;
   font-size: 12px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003710}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003718}}
 .module-pvp .arenateam-gameswon {
   color: #00FF00;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003714}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003722}}
 .module-pvp .arenateam-gameslost {
   color: red;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003718}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003726}}
 .module-pvp .arenateam-gameswonlost {
   color: #C09A67 !important;
   white-space: nowrap;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003723}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003731}}
 .module-pvp .arenateam-percent {
   color: #C09A67 !important;
   white-space: nowrap;
   padding-left: 6px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003729}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003737}}
 .module-pvp .arrow-up, .module-pvp .arrow-down, .module-pvp .arrow-new {
   width: 10px;
   height: 11px;
@@ -10373,26 +10382,27 @@ a:hover .boss-portrait {
   vertical-align: middle;
   background: url("../images/icons/arrow-up-down.gif") no-repeat;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003737}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003745}}
 .module-pvp .arrow-down {
   background-position: 0 -15px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003741}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003749}}
 .module-pvp .arrow-new {
   background-position: 0 -30px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003746}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003754}}
 .module-pvp .ie6 .arrow-up, .module-pvp .ie6 .arrow-down, .module-pvp .ie6 .arrow-new {
   vertical-align: bottom;
   margin: 7px 0 -7px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003753}}
-#pvp-index {
-  /*#content .content-top,
-  #game-character #content .content-top {
-    background: url("/templates/Shattered-World/images/layout/content-topbot.jpg") no-repeat;
-  }*/
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003763}}
+.pvp-ladder .top-title {
+  padding: 20px 20px 10px 20px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_pvp\.scss}line{font-family:\00003766}}
+.pvp-ladder .top-title .category {
+  font-size: 26px;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/dev\/application\/themes\/shattered\/css\/_item\.scss}line{font-family:\000033}}
