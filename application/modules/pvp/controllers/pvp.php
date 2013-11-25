@@ -397,10 +397,11 @@ class Pvp extends MX_Controller
         /*
          * Get the Arena Team
          */
-        $arenaTeamId = $this->getArenaTeamId($teamName);
+        $arenaTeamId = $this->getArenaTeamId(urldecode($teamName));
 
         if($arenaTeamId == 0){
-            redirect('pvp');
+            debug("team $teamName not found");
+            $this->index();
             exit;
         }
 
@@ -482,7 +483,7 @@ class Pvp extends MX_Controller
             $arenaTeam['seasonPercentage'] = round(($arenaTeam['seasonWins'] / $arenaTeam['seasonGames']) * 100, 2);
 
             $arenaTeam['factionLabel'] = ($arenaTeam['faction'] == FACTION_ALLIANCE) ? lang('Alliance', 'pvp') : lang('Horde', 'pvp');
-            $arenaTeam['factionCss'] = $this->realms->getFactionString($arenaTeam['faction']);
+            $arenaTeam['factionCss'] = ($arenaTeam['faction'] == FACTION_ALLIANCE) ? 'alliance' : 'horde';
 
             /**
              * Get the PVP Sidebar

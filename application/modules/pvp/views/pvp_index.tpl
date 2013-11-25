@@ -34,7 +34,7 @@
               <li class="{$arenaTeams[$teamId].css_rank}">
                 <span class="ranking">{$rank}</span>
                 <div class="name">
-                  <a href="{$url}pvp/arena-team/{$shownRealmName}/{$mode}/{$arenaTeams[$teamId].name}">{$arenaTeams[$teamId].name}</a>
+                  <a href="{site_url(array('pvp','arena-team', $shownRealmName, $mode, $arenaTeams[$teamId].name))}">{$arenaTeams[$teamId].name}</a>
                 </div>
                 <div class="rating-realm">
                   <span class="rating">{$arenaTeams[$teamId].rating}</span>
@@ -42,7 +42,7 @@
                 </div>
                 <div class="members">
                   {foreach from=$arenaTeams[$teamId].members item=player}
-                    <a href="/character/{$shownRealmName}/{$player.name}/">
+                    <a href="/character/{urlencode($shownRealmName)}/{urlencode($player.name)}/">
                       {icon_class($player.class, false)}
                     </a>
                   {/foreach}

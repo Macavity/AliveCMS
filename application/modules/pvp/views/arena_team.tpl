@@ -10,7 +10,7 @@
     .summary-roster .category { padding: 0 15px; }
     .summary-roster .ui-dropdown { float: right; margin-right: 15px; width: 115px; }
 </style>
-<script type="text/javascript" src="/js/arena-flags.js"></script>
+<script type="text/javascript" src="/application/js/modules/arena_flags.js"></script>
 
 <div class="profile-wrapper profile-wrapper-{$arenaTeam.factionCss}">
 
@@ -21,21 +21,9 @@
     
                     <div class="profile-info-anchor">
                         <div class="arenateam-flag">
-    
                             <canvas id="arenateam-flag" width="240" height="240" style="display: inline; ">
                                 <div class="arenateam-flag-default"></div>
                             </canvas>
-                            <script type="text/javascript">
-                            //<![CDATA[
-                                $(document).ready(function() {
-                                    var flag = new ArenaFlag('arenateam-flag', {
-                                        'bg': [ 2, '{$arenaTeam.backgroundColor}' ],
-                                        'border': [ 22, '{$arenaTeam.borderColor}' ],
-                                        'emblem': [ {$arenaTeam.emblemStyle}, '{$arenaTeam.emblemColor}' ]
-                                    });
-                                });
-                            //]]>
-                            </script>
                         </div>
     
                         <div class="profile-info profile-arenateam-info">
@@ -45,7 +33,7 @@
     
                             <div class="under-name">
                                 <span class="teamsize">{$shownArenaSizeLabel}</span>
-                                <span class="faction">{$arenaTeam.factionLabel}</span>
+                                <span>{$arenaTeam.factionLabel}</span>
                                 Arenateam<span class="comma">,</span>
                                 <span class="realm tip" id="profile-info-realm">
                                     <a href="{site_url("pvp","arena-list", $shownRealmName, $shownArenaSizeLabel)}" class="realm tip" id="profile-info-realm">Norgannon</a>
@@ -256,3 +244,21 @@
     </div>
     <span class="clear"><!-- --></span>
 </div>
+<script type="text/javascript" language="javascript">
+    require([
+        'static',
+        'modules/Core'
+    ],
+            function (static, Core) {
+                $(document).ready(function() {
+                    var flagConfig = {
+                        'bg': [ 2, '{$arenaTeam.backgroundColor}' ],
+                        'border': [ 22, '{$arenaTeam.borderColor}' ],
+                        'emblem': [ {$arenaTeam.emblemStyle}, '{$arenaTeam.emblemColor}' ]
+                    };
+                    var flag = new ArenaFlag('arenateam-flag', flagConfig, false, Core);
+                });
+            });
+
+
+</script>
