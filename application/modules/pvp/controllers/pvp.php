@@ -18,13 +18,13 @@ class Pvp extends MX_Controller
 
     private $shownRealmId = 1;
 
-    private $shownRealmName = "";
+    private $shownRealmName = '';
 
     private $shownArenaSize = 0
 ;
     private $allRealms = array();
 
-    private $currentAction = "summary";
+    private $currentAction = 'summary';
 
     public function __construct()
     {
@@ -34,8 +34,8 @@ class Pvp extends MX_Controller
 
         $this->theme_path = base_url().APPPATH.$this->template->theme_path;
 
-        $this->template->addBreadcrumb("Server", site_url(array("server")));
-        $this->template->addBreadcrumb("PVP", site_url(array("pvp")));
+        $this->template->addBreadcrumb('Server', site_url(array('server')));
+        $this->template->addBreadcrumb('PVP', site_url(array('pvp')));
 
         $this->pvpModes = array(
             PVP_ARENA_SIZE_2 => '2v2',
@@ -52,7 +52,7 @@ class Pvp extends MX_Controller
         /*
          * Cache Configuration
          */
-        $this->useCaching = TRUE;
+        $this->useCaching = FALSE;
         $this->cacheDuration = CACHE_DURATION_1_DAY;
 
         /**
@@ -79,9 +79,9 @@ class Pvp extends MX_Controller
      *
      * @param $realmName
      */
-    public function index($realmName = "")
+    public function index($realmName = '')
     {
-        $this->currentAction = "summary";
+        $this->currentAction = 'summary';
 
         $arenaChars = array();
 
@@ -168,7 +168,7 @@ class Pvp extends MX_Controller
                 'allianceKillers' => $allianceKillers,
             );
 
-            $out = $this->template->loadPage("pvp_index.tpl", $pageData);
+            $out = $this->template->loadPage('pvp_index.tpl', $pageData);
 
             $this->cache->save($cacheId, $out, $this->cacheDuration);
         }
@@ -193,7 +193,7 @@ class Pvp extends MX_Controller
      */
     public function honor_list($realmName){
 
-        $this->currentAction = "honor-list";
+        $this->currentAction = 'honor-list';
 
         $this->shownRealmId = $this->getRealmIdByName($realmName);
 
@@ -213,7 +213,7 @@ class Pvp extends MX_Controller
         // Site Title
         $this->template->setTitle("{$this->shownRealmName} Ehrenhafte Tötungen");
         $this->template->addBreadcrumb($this->shownRealmName, site_url(array('pvp','summary', $this->shownRealmName)));
-        $this->template->addBreadcrumb("Ehrenhafte Tötungen", site_url(array('pvp','honor-list', $this->shownRealmName)));
+        $this->template->addBreadcrumb('Ehrenhafte Tötungen', site_url(array('pvp','honor-list', $this->shownRealmName)));
 
         /**
          * Cache Data
@@ -257,7 +257,7 @@ class Pvp extends MX_Controller
                 'allianceKillers' => $allianceKillers,
             );
 
-            $out = $this->template->loadPage("honor_list.tpl", $pageData);
+            $out = $this->template->loadPage('honor_list.tpl', $pageData);
 
             $this->cache->save($cacheId, $out, $this->cacheDuration);
         }
@@ -275,7 +275,7 @@ class Pvp extends MX_Controller
      */
     public function arena_list($realmName, $arenaSize){
 
-        $this->currentAction = "arena-list";
+        $this->currentAction = 'arena-list';
 
         $this->shownRealmId = $this->getRealmIdByName($realmName);
 
@@ -360,7 +360,7 @@ class Pvp extends MX_Controller
                 'shownPerPage' => $shownPerPage,
             );
 
-            $out = $this->template->loadPage("arena_list.tpl", $pageData);
+            $out = $this->template->loadPage('arena_list.tpl', $pageData);
 
             $this->cache->save($cacheId, $out, $this->cacheDuration);
         }
@@ -373,9 +373,185 @@ class Pvp extends MX_Controller
 
     public function arena_team($realmName, $arenaSize, $teamName){
 
-        if(empty($realmName) || empty($arenaSize) || empty($teamName)){
-            redirect('pvp_stats');
+        $this->currentAction = 'arena-team';
+
+        $this->shownRealmId = $this->getRealmIdByName($realmName);
+
+        if(empty($realmName) || $this->shownRealmId === FALSE){
+            redirect('pvp');
+            exit;
         }
+
+        /*
+         * Get the Realm
+         */
+        $realm = $this->realms->getRealm($this->shownRealmId);
+        $this->shownRealmName = $realm->getName();
+
+        /**
+         * Database Connection to the active realm characters database
+         * @class Character_model
+         */
+        $this->dbChar = $this->getRealmCharacterConnection($this->shownRealmId);
+
+        /*
+         * Get the Arena Team
+         */
+        $arenaTeamId = $this->getArenaTeamId($teamName);
+
+        if($arenaTeamId == 0){
+            redirect('pvp');
+            exit;
+        }
+
+        /**
+         * Cache Data
+         */
+        $cacheId = 'pvp_arena_team-'.$this->shownRealmName.'-'.$arenaTeamId;
+
+        $cacheData = $this->cache->get($cacheId);
+
+        if($this->useCaching && $cacheData){
+            $out = $cacheData;
+        }
+        else{
+
+            $arenaTeam = $this->getArenaTeam($arenaTeamId, $arenaSize);
+            $arenaTeamName = $arenaTeam['name'];
+
+            $this->shownArenaSize = $arenaTeam['type'];
+            $shownArenaSizeLabel = $this->pvpModes[$this->shownArenaSize];
+
+            // Load cached ranking
+            $cacheQuery = $this->db
+                ->select('*')
+                ->where('id', $arenaTeamId)
+                ->from('pvp_arenateam_cache')
+                ->get();
+
+            $arenaTeam['rank'] = 0;
+            $arenaTeam['lastweek_rank'] = 0;
+
+            if($cacheQuery->num_rows() > 0){
+                $cacheRow = $cacheQuery->row_array();
+
+                $arenaTeam['rank'] = $cacheRow['rank'];
+                $arenaTeam['lastweek_rank'] = $cacheRow['lastweek_rank'];
+                $arenaTeam['rankPage'] = ceil($arenaTeam['rank']/50);
+            }
+
+            // Emblem
+            $arenaTeam['backgroundColor'] = dechex($arenaTeam['backgroundColor']);
+            $arenaTeam['borderColor'] = dechex($arenaTeam['borderColor']);
+            $arenaTeam['emblemColor'] = dechex($arenaTeam['emblemColor']);
+
+            // Find the Members
+            $arenaTeam = $this->populateArenaTeam($arenaTeam);
+
+            foreach($arenaTeam['members'] as $i => $row){
+
+                $arenaTeam['faction'] = $this->realms->getFaction($row['race']);
+
+                $row['weekLosses'] = 0;
+                $row['weekPercentage'] = 0;
+                $row['weekAttendance'] = 0;
+
+                $row['seasonLosses'] = 0;
+                $row['seasonPercentage'] = 0;
+                $row['seasonAttendance'] = 0;
+
+                if($row['weekGames'] > 0){
+                    $row['weekLosses'] = $row['weekGames'] - $row['weekWins'];
+                    $row['weekPercentage'] = round(($row['weekWins'] / $row['weekGames']) * 100, 2);
+                    $row['weekAttendance'] = round(($row['weekGames'] / $arenaTeam['weekGames']) * 100, 2);
+                }
+
+                if($row['seasonGames']){
+                    $row['seasonLosses'] = $row['seasonGames'] - $row['seasonWins'];
+                    $row['seasonPercentage'] = round(($row['seasonWins'] / $row['seasonGames']) * 100, 2);
+                    $row['seasonAttendance'] = round(($row['seasonGames'] / $arenaTeam['seasonGames']) * 100, 2);
+                }
+
+                $arenaTeam['members'][$i] = $row;
+            }
+
+            $arenaTeam['weekLosses'] = $arenaTeam['weekGames'] - $arenaTeam['weekWins'];
+            $arenaTeam['weekPercentage'] = ($arenaTeam['weekGames'] > 0) ? round(($arenaTeam['weekWins'] / $arenaTeam['weekGames']) * 100, 2) : 0;
+
+            $arenaTeam['seasonLosses'] = $arenaTeam['seasonGames'] - $arenaTeam['seasonWins'];
+            $arenaTeam['seasonPercentage'] = round(($arenaTeam['seasonWins'] / $arenaTeam['seasonGames']) * 100, 2);
+
+            $arenaTeam['factionLabel'] = ($arenaTeam['faction'] == FACTION_ALLIANCE) ? lang('Alliance', 'pvp') : lang('Horde', 'pvp');
+            $arenaTeam['factionCss'] = $this->realms->getFactionString($arenaTeam['faction']);
+
+            /**
+             * Get the PVP Sidebar
+             * @type String
+             */
+            $pvpSidebar = $this->getPvpSidebar();
+
+            /*
+             * Generate Output of the template
+             */
+            $pageData = array(
+                'arenaTeam' => $arenaTeam,
+                'pvpSidebar' => $pvpSidebar,
+                'pvpModes' => $this->pvpModes,
+                'shownRealmId' => $this->shownRealmId,
+                'shownRealmName' => $this->shownRealmName,
+                'shownArenaSize' => $this->shownArenaSize,
+                'shownArenaSizeLabel' => $shownArenaSizeLabel,
+                'allRealms' => $this->allRealms,
+            );
+
+            $out = $this->template->loadPage('arena_team.tpl', $pageData);
+
+            $this->cache->save($cacheId, $out, $this->cacheDuration);
+        }
+
+        // Site Title
+        $this->template->setTitle("{$arenaTeamName} @ {$this->shownRealmName}");
+        $this->template->addBreadcrumb($this->shownRealmName, site_url(array('pvp','summary', $this->shownRealmName)));
+        $this->template->addBreadcrumb($shownArenaSizeLabel, site_url(array('pvp','arena-list', $this->shownRealmName, $shownArenaSizeLabel)));
+        $this->template->addBreadcrumb($arenaTeamName, site_url(array('pvp','arena-team', $this->shownRealmName, $shownArenaSizeLabel, $arenaTeamName)));
+
+        $this->template->hideSidebar();
+
+        $this->template->view($out);
+    }
+
+    private function getArenaTeam($teamId){
+
+        $query = $this->dbChar
+            ->select('*')
+            ->where('arenaTeamId', $teamId)
+            ->from('arena_team')
+            ->get();
+
+        if($query->num_rows() > 0){
+            return $query->row_array();
+        }
+        else{
+            return FALSE;
+        }
+    }
+
+    /**
+     * Find an arena team with a given name
+     * @param $teamName
+     * @return int
+     */
+    private function getArenaTeamId($teamName){
+        $query = $this->dbChar
+            ->select('arenaTeamId')
+            ->like('name', $teamName)
+            ->from('arena_team')
+            ->get();
+
+        if($query->num_rows() > 0){
+            return $query->row()->arenaTeamId;
+        }
+        return 0;
     }
 
     private function getPvpSidebar(){
@@ -487,7 +663,7 @@ class Pvp extends MX_Controller
                 $i = 1;
                 foreach($query->result_array() as $row){
                     $row['faction'] = $this->realms->getFaction($row['race']);
-                    $row['factionLabel'] = ($row['faction'] == FACTION_HORDE) ? "Horde" : "Allianz";
+                    $row['factionLabel'] = ($row['faction'] == FACTION_HORDE) ? 'Horde' : 'Allianz';
 
                     $row['rank'] = $i;
                     $row['css_rank'] = ($i <= 3) ? $this->standingsClasses[$i] : '';
@@ -498,7 +674,7 @@ class Pvp extends MX_Controller
                 }
             }
             else{
-                debug("No results");
+                debug('No results');
                 debug($query);
             }
 
@@ -522,14 +698,25 @@ class Pvp extends MX_Controller
 
         $arenaTeamIds = array_keys($arenaTeams);
 
-        // Find all characters that are part of one of the teams
-
         $dbChar = $this->getRealmCharacterConnection($this->shownRealmId);
 
-        $query = $dbChar->query("
-        	SELECT characters.guid, characters.name, characters.class, arena_team_member.arenaTeamId, arena_team_member.seasonGames
+        // Find all characters that are part of one of the teams
+        $query = $dbChar->query('
+        	SELECT
+        	    characters.guid,
+        	    characters.name,
+        	    characters.class,
+        	    characters.level,
+        	    characters.race,
+        	    characters.gender,
+        	    arena_team_member.arenaTeamId,
+        	    arena_team_member.weekGames,
+        	    arena_team_member.weekWins,
+        	    arena_team_member.seasonGames,
+        	    arena_team_member.seasonWins,
+        	    arena_team_member.personalRating
 		    FROM characters JOIN arena_team_member ON(arena_team_member.guid = characters.guid)
-		    WHERE arenaTeamId IN(".implode(", ", $arenaTeamIds).") ORDER BY arena_team_member.seasonGames DESC;");
+		    WHERE arenaTeamId IN('.implode(', ', $arenaTeamIds).') ORDER BY arena_team_member.seasonGames DESC;');
 
         if ($query->num_rows() > 0){
             foreach($query->result_array() as $charRow){
@@ -549,6 +736,14 @@ class Pvp extends MX_Controller
         }
 
         return $arenaTeams;
+    }
+
+    private function populateArenaTeam($team){
+        $arenaTeams = array(
+            $team['arenaTeamId'] => $team
+        );
+        $arenaTeams = $this->populateArenaTeamCharacters($arenaTeams);
+        return $arenaTeams[$team['arenaTeamId']];
     }
 
 
