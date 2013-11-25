@@ -112,3 +112,24 @@ if( ! function_exists("icon_faction") ){
         return $output;
     }
 }
+
+if( ! function_exists("icon_race") ){
+
+    function icon_race($raceId, $gender){
+
+        static $CI;
+
+        if(!$CI){
+            $CI = &get_instance();
+        }
+
+        $label = $CI->realms->getRace($raceId, $gender);
+
+        $output = '
+        <span class="icon-frame frame-18" data-tooltip="'.$label.'">
+		    <img src="/application/images/icons/18/race_'.$raceId.'_'.$gender.'.jpg" height="18" width="18">
+	    </span>';
+
+        return $output;
+    }
+}

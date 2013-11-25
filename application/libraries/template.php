@@ -523,7 +523,7 @@ class Template
 
             if(!$activeCharFound && count($charList) > 0){
 
-                debug("0er", $charList[0]);
+                //debug("0er", $charList[0]);
                 $this->CI->user->setActiveCharacter($charList[0]["guid"], $charList[0]["realmId"]);
                 $activeCharFound = true;
                 $activeChar = $charList[0];
