@@ -1,6 +1,6 @@
 {
   "name": "WoW-Alive-CMS",
-  "version": "6.1.7-5",
+  "version": "6.1.7-6",
   "description": "FusionCMS (6.1.7) modified for WoW Alive",
   "main": "application/js/main.js",
   "scripts": {

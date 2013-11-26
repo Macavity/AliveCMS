@@ -269,9 +269,15 @@ class Bugtracker extends MX_Controller{
 
             if(!empty($row['link'])){
                 $links = json_decode($row['link'], true);
-                foreach($links as $link){
-                    if(preg_match("/(quest|npc|spell|object)\=(\d+)/i", $link, $matches)){
-                        $searchIds[] = $matches[1].':'.$matches[2];
+
+                if(!is_array($links)){
+                    debug("Field is not correctly formatted: links", $row['link']);
+                }
+                else{
+                    foreach($links as $link){
+                        if(preg_match("/(quest|npc|spell|object)\=(\d+)/i", $link, $matches)){
+                            $searchIds[] = $matches[1].':'.$matches[2];
+                        }
                     }
                 }
             }

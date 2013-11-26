@@ -52,7 +52,7 @@ class Pvp extends MX_Controller
         /*
          * Cache Configuration
          */
-        $this->useCaching = FALSE;
+        $this->useCaching = TRUE;
         $this->cacheDuration = CACHE_DURATION_1_DAY;
 
         /**

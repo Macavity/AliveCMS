@@ -108,7 +108,9 @@ class Bug_model extends CI_Model
     /**
      * Get all bugs
      * @deprecated
-     * @param $projectId string
+     *
+     * @param int|string $projectId string
+     *
      * @return bool
      */
     public function getBugs($projectId = 0)
@@ -159,7 +161,10 @@ class Bug_model extends CI_Model
 
     /**
      * Find all Bugs that were recently changed, commented or created
+     *
+     * @param int $projectId
      * @param int $limit
+     *
      * @return bool
      */
     public function getRecentChanges($projectId = 0, $limit = 10){
@@ -406,7 +411,10 @@ ORDER BY
 
     /**
      * Return Base Information for all entries of a given project or all projects
+     *
      * @param int $projectId
+     * @param int $limit
+     *
      * @return array
      */
     private function getLastBugEntries($projectId = 0, $limit = 10){
@@ -431,7 +439,10 @@ ORDER BY
 
     /**
      * Return Base Information for all entries of a given project or all projects
+     *
      * @param int $projectId
+     * @param int $limit
+     *
      * @return array
      */
     private function getLastBugComments($projectId = 0, $limit = 10){
@@ -450,7 +461,7 @@ ORDER BY
             GROUP BY
                 cm.bug_entry
             ORDER BY
-                cm.changedTimestamp DESC
+                max(cm.createdTimestamp) DESC
             LIMIT 0, '.$limit.';';
 
         // Execute the query
