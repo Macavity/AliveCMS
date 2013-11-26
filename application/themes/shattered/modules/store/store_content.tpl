@@ -33,7 +33,7 @@
             {foreach from=$groups item=group}
                 {foreach from=$group.items item=item}
                 <tr class="{cycle values="row1,row2"}">
-                    <td data-raw="{$item.itemid}"><a href="/item/{$realm_id}/{$item.itemid}" class="item-link"><span class="icon-frame frame-36" style="background-image: url(/application/themes/shattered/images/icons/36/{$item.icon}.jpg);"></span></a></td>
+                    <td data-raw="{$item.itemid}"><a href="/item/{$realm_id}/{$item.itemid}" class="item-link" target="_blank"><span class="icon-frame frame-36" style="background-image: url(/application/themes/shattered/images/icons/36/{$item.icon}.jpg);"></span></a></td>
                     <td class="align-center color-q{$item.quality}" data-raw="{$item.name}"><strong>{$item.name}</strong></td>
                     <td data-raw="{$group.id}">{$group.name}</td>
                     <td data-raw="{$item.vp_price}">

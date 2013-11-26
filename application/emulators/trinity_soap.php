@@ -425,7 +425,7 @@ class Trinity_soap implements Emulator
   		}
   		catch (Exception $e)
   		{
-			die("Something went wrong! An administrator has been noticed and will send your order as soon as possible.<br /><br /><b>Error:</b> <br />".$e->getMessage());
+			die(lang('error_send_not_possible', 'store')."<br /><br /><b>".lang('error','store').":</b> <br />".$e->getMessage());
 		}
 	}
 }

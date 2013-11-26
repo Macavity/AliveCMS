@@ -33,6 +33,9 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
 
             var Controller = this;
 
+            /**
+             * Cart - Put Item in the Cart
+             */
             $("#related-content").on("click", ".jsPutToCart", function(event){
                 debug.debug("jsPutToCart Event");
 
@@ -158,7 +161,9 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
             });
 
             /**
-             * Store - Buy
+             * Store - Confirm Buy
+             *
+             * found in store_checkout.handlebars
              */
             $("#store_wrapper").on("click", ".jsStorePay", function(event){
 
