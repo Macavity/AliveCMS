@@ -9,11 +9,11 @@
 |	http://codeigniter.com/user_guide/general/hooks.html
 |
 */
-$hook['pre_controller'][] = array(
+$hook['pre_system'][] = array(
     'class'    => '',
     'function' => 'fix_cf_ip',
-    'filename' => 'cloudflare_ip.php',
-    'filepath' => 'hooks'
+    'filename' => 'cloudflare.php',
+    'filepath' => 'hooks/cloudflare'
 );
 
 

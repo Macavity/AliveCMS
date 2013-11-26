@@ -104,13 +104,13 @@
 		<!-- Top bar -->
 		<header>
 			<div class="center_1020">
-				<a href="{$url}" class="logo"></a>
+                <a href="{$url}admin/" class="logo"></a>
 
-				<!-- Top menu -->
+                <!-- Top menu -->
 				<aside class="right">
 					<nav>
-						<a href="{$url}ucp" data-hasevent="1">
-							<div class="icon logout"></div>
+                        <a target="_blank" href="{$url}ucp" data-hasevent="1">
+                            <div class="icon logout"></div>
 							Go back
 						</a>
 
@@ -179,16 +179,16 @@
 				<aside id="logo"><a href="#" class="logo"></a></aside>
 				<div class="divider"></div>
 				<aside id="links">
-					<a href="http://fusion.raxezdev.com/" target="_blank">FusionHub</a>
-					<a href="http://fusion.raxezdev.com/modules" target="_blank">Modules</a>
-					<a href="http://fusion.raxezdev.com/themes" target="_blank">Themes</a>
-					<a href="http://fusion.raxezdev.com/support" target="_blank">Support</a>
+					<a href="http://www.fusion-hub.com" target="_blank">FusionHub</a>
+					<a href="http://www.fusion-hub.com/modules" target="_blank">Modules</a>
+					<a href="http://www.fusion-hub.com/themes" target="_blank">Themes</a>
+					<a href="http://www.fusion-hub.com/support" target="_blank">Support</a>
 				</aside>
 				<div class="divider"></div>
-				<aside id="twitter">
-					<h1>Follow us on Twitter!</h1>
-					<div id="twitter_icon"></div>
-					<a href="http://twitter.com/FusionHub" target="_blank">@FusionHub</a>
+				<aside id="facebook">
+					<h1>Like us on Facebook!</h1>
+					<div id="fb_icon"></div>
+					<a href="http://facebook.com/HeroicForge" target="_blank">HeroicForge</a>
 				</aside>
 				<div class="divider"></div>
 				<aside id="html5">

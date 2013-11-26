@@ -103,8 +103,9 @@ var Router = {
 					$("#content_ajax").html(data.content);
 					
 					FusionTooltip.refresh();
+                    UI.dropdown.initialize();
 
-					// Change the title
+                    // Change the title
 					if(data.title.length > 0)
 					{
 						$("title").html(data.title +  " FusionCMS");
