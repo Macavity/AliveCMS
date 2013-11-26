@@ -18,15 +18,15 @@
 	<input type="text" id="email" name="email" value="{$external_details.email}" {if !hasPermission("editAccounts")}disabled="disabled"{/if}/>
 
 	<label for="group">Website user group</label>
-    <div style="background-color: #fff;border-radius: 5px;padding: 5px 10px;border: 1px solid #ccc;">Please assign groups at <a href="{$url}admin/aclmanager/groups">the group manager</a></div>
+	<div style="background-color: #fff;border-radius: 5px;padding: 5px 10px;border: 1px solid #ccc;">Please assign groups at <a href="{$url}admin/aclmanager/groups">the group manager</a></div>
 
-    <label for="password">Change password</label>
+	<label for="password">Change password</label>
 	<input type="text" id="password" name="password" placeholder="Enter a new password" {if !hasPermission("editAccounts")}disabled="disabled"{/if}/>
 
 	<label for="gm_level">GM level</label>
-    <input type="text" id="gm_level" name="gm_level" value="{if !$access_id.gmlevel}0{else}{$access_id.gmlevel}{/if}" {if !hasPermission("editAccounts")}disabled="disabled"{/if}/>
+	<input type="text" id="gm_level" name="gm_level" value="{if !$access_id.gmlevel}0{else}{$access_id.gmlevel}{/if}" {if !hasPermission("editAccounts")}disabled="disabled"{/if}/>
 
-    <label for="expansion">Expansion</label>
+	<label for="expansion">Expansion</label>
 	<select id="expansion" name="expansion" {if !hasPermission("editAccounts")}disabled="disabled"{/if}>
 		{foreach from=$expansions key=id item=expansion}
 			<option value="{$id}" {if $external_details.expansion == $id}selected{/if}>{$expansion}</option>

@@ -1,7 +1,3 @@
-<style>
-
-</style>
-
 <section class="box big" id="main_item">
 	<h2>
 		<img src="{$url}application/themes/admin/images/icons/black16x16/ic_tag.png"/>
@@ -27,7 +23,6 @@
 				<table width="100%">
 					<tr>
 						<td width="5%"><img style="opacity:1;" src="https://wow.zamimg.com/images/wow/icons/small/{$item.icon}.jpg" /></td>
-                        <td><strong>{$item.count}</strong></td>
 						<td width="30%" data-tip="{$item.description}"><b class="q{$item.quality}">{character_limiter($item.name, 20)}</b></td>
 						<td width="20%" {if array_key_exists("title", $item) && $item.title}class="item_group"{/if}>
 							{if array_key_exists("title", $item) && array_key_exists("orderNumber", $item) && $item.title}
@@ -231,16 +226,13 @@
 	<form onSubmit="Items.create(this); return false" id="item_form">
 
 		<label for="name">Name (only required for multiple items)</label>
-		<input type="text" class="input-xxlarge" name="name" id="name" placeholder="Will be added automatically if you only specify one item ID" />
+		<input type="text" name="name" id="name" placeholder="Will be added automatically if you only specify one item ID" />
 
 		<label for="itemid">Item ID (tip: separate ids with , (comma) to add multiple as one)</label>
-		<input type="text" class="input-xxlarge" name="itemid" id="itemid" placeholder="12345" />
-
-        <label for="itemid">Item Count</label>
-        <input type="text" class="input-xxlarge" name="count" id="count" placeholder="1" />
+		<input type="text" name="itemid" id="itemid" placeholder="12345" />
 
 		<label for="description">Description (very short; displayed below item name)</label>
-		<input type="text" class="input-xxlarge" name="description" id="description" placeholder="For example, 'Head (Plate)'" />
+		<input type="text" name="description" id="description" placeholder="For example, 'Head (Plate)'" />
 
 		<label for="realm">Realm</label>
 		<select name="realm" id="realm">
@@ -259,16 +251,16 @@
 
 		<div class="vp_price">
 			<label for="vpCost">VP price</label>
-			<input type="text" class="input-xxlarge" name="vpCost" id="vpCost" value="0"/>
+			<input type="text" name="vpCost" id="vpCost" value="0"/>
 		</div>
 
 		<div class="dp_price">
 			<label for="dpCost">DP price</label>
-			<input type="text" class="input-xxlarge" name="dpCost" id="dpCost" value="0"/>
+			<input type="text" name="dpCost" id="dpCost" value="0"/>
 		</div>
 
 		<label for="icon">Icon name</label>
-		<input type="text" class="input-xxlarge" name="icon" id="icon" placeholder="Will be added automatically if you leave empty, and only specify one item ID" />
+		<input type="text" name="icon" id="icon" placeholder="Will be added automatically if you leave empty, and only specify one item ID" />
 
 		<input type="submit" value="Submit item" />
 	</form>
