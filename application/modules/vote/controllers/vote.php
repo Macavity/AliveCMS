@@ -82,11 +82,11 @@ class Vote extends MX_Controller
 			if($vote_site['api_enabled'])
 			{
 				$custom_callback_url = $this->formatCallbackUrl($vote_site['vote_url'], $vote_site);
-		
-				if($this->input->post("isFirefoxHerpDerp"))
-				{
-					die($custom_callback_url);
-				}
+
+                if($this->input->post("isFirefoxHerpDerp"))
+                {
+                    die($custom_callback_url);
+                }
 
 				redirect($custom_callback_url);
 			}

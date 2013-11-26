@@ -53,37 +53,37 @@ class Postback_paypal extends MX_Controller
 	 */
 	public function index()
 	{
-		// Read the post from PayPal system and add 'cmd'
-		$req = 'cmd=_notify-validate';
-		
-		// Create our request string
-		foreach($_POST as $key => $value)
-		{
-			$value = urlencode(stripslashes($value));
-			$req .= "&$key=$value";
-		}
-		
-		if($this->config_paypal['sandbox']) 
-		{
-			$loc = 'ssl://www.sandbox.paypal.com';
-			$host = 'www.sandbox.paypal.com';
-		} 
-		else 
-		{
-			$loc = 'ssl://www.paypal.com';
-			$host = 'www.paypal.com';
-		}
-		
-		// Define our request headers
-		$header = "POST /cgi-bin/webscr HTTP/1.0\r\n";
-		$header .= "Host: www.paypal.com\r\n";
-		$header .= "Content-Type: application/x-www-form-urlencoded\r\n";
-		$header .= "Content-Length: " . strlen($req) . "\r\n\r\n";
-		
-		// Connect to the PayPal servers, timeout of 30seconds due to delay
-		$fp = fsockopen($loc, 443, $errno, $errstr, 30);
+        // Create our request string
+        $req = '';
+        if($this->config_paypal['sandbox'])
+            $req = 'https://www.sandbox.paypal.com';
+        else
+            $req = 'https://www.paypal.com';
+        $req .= '/cgi-bin/webscr?';
 
-		// Gather the values we need
+        foreach($_POST AS $key => $value)
+        {
+            if( @get_magic_quotes_gpc() )
+                $value = stripslashes($value);
+
+            $values[] = "$key" . "=" . urlencode($value);
+        }
+        $req .= @implode("&", $values);
+
+        // add paypal cmd variable
+        $req .= "&cmd=_notify-validate";
+
+        $ch = curl_init();
+        curl_setopt ($ch, CURLOPT_URL, $req);
+        curl_setopt ($ch, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible; FusionCMS; PayPal IPN Postback)");
+        curl_setopt ($ch, CURLOPT_HEADER, 1);
+        curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt ($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt ($ch, CURLOPT_TIMEOUT, 120);
+        $res = curl_exec ($ch);
+        curl_close($ch);
+
+        // Gather the values we need
 		$this->custom = $this->input->post('custom');
 		$this->payment_status = $this->input->post('payment_status');
 		$this->payment_amount = $this->input->post('mc_gross');
@@ -109,24 +109,13 @@ class Postback_paypal extends MX_Controller
 		$error_count = 0;
 		$error = "";
 
-		if(!$fp)
+		if(!$res)
 		{
 			//HTTP ERROR, Could not connect to paypal.
 			$error = 'Http error happened, could not connect to paypal.';
 		}
 		else
 		{
-			fputs($fp, $header . $req);
-			
-			$res = "";
-
-			// Loop through the response
-			while(!feof($fp))
-			{
-				$res .= fgets($fp, 1024);
-			}
-
-
 			if($this->debug)
 			{
 				$res = "DEBUG ONLY RESPONSE THAT MAKES THIS PAYMENT BECOME VERIFIED";
@@ -149,10 +138,10 @@ class Postback_paypal extends MX_Controller
 				}
 
 				// Make sure the payment has not already been processed
-				if($this->transactionExists($this->txn_id))
-				{
-					$error .= "Payment has already been processed";
-					$error_count++;
+                if($this->transactionExists($this->txn_id) && $this->transactionIsAlreadyValidated($this->txn_id))
+                {
+                    $error .= "Payment has already been processed<br />";
+                    $error_count++;
 				}
 
 				// Make sure payment status is completed
@@ -214,9 +203,9 @@ class Postback_paypal extends MX_Controller
 				"pending_reason" => $this->pending_reason
 			);
 
-			$this->db->insert("paypal_logs", $data);
+            $this->plugins->onDonationPostback($data['user_id'], $validated, $data['payment_amount'], $this->getDpAmount());
 
-			$this->plugins->onDonationPostback($data['user_id'], $data['payment_amount'], $this->getDpAmount());
+            $this->db->insert("paypal_logs", $data);
 
 			die();
 		}
@@ -269,6 +258,25 @@ class Postback_paypal extends MX_Controller
 			return false;
 		}
 	}
+
+    /**
+     * Check if a transaction is already validated
+     * @param String $txn_id
+     * @return Boolean
+     */
+    private function transactionIsAlreadyValidated($txn_id)
+    {
+        $query = $this->db->query("SELECT COUNT(*) AS `total` FROM paypal_logs WHERE validated = 1 AND txn_id=?", array($txn_id));
+
+        if($query->num_rows() > 0)
+        {
+            $row = $query->result_array();
+
+            return ($row[0]['total'] > 0);
+        }
+
+        return false;
+    }
 
 	private function updateMonthlyIncome()
 	{

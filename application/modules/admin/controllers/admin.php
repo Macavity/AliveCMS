@@ -321,8 +321,8 @@ class Admin extends MX_Controller
 
 		$c = curl_init();
 
-		curl_setopt($c, CURLOPT_URL, 'http://fusion-hub.com/remote/');
-		curl_setopt($c, CURLOPT_POST, true);
+        curl_setopt($c, CURLOPT_URL, 'http://fusion-hub.com/remote/');
+        curl_setopt($c, CURLOPT_POST, true);
 		curl_setopt($c, CURLOPT_POSTFIELDS, 'version='.$version.'&license='.$license);
 		curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($c, CURLOPT_HEADER, 0);
