@@ -115,6 +115,26 @@ class Realms
 		show_error("There is no realm with ID ".$id);
 	}
 
+    /**
+     * Searches for a realm by its name
+     *
+     * @alive
+     * @param $realmName
+     * @return mixed
+     */
+    public function getRealmByName($realmName){
+
+        foreach($this->realms as $key => $realm)
+        {
+            if($realm->getName() == $realmName)
+            {
+                return $this->realms[$key];
+            }
+        }
+
+        return FALSE;
+    }
+
 	/**
 	 * Check if there's a realm with the specified ID
 	 * @return Boolean

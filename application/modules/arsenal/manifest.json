@@ -1,0 +1,24 @@
+{
+    "name": "Arsenal Extended",
+    "description": "Erweitertes Arsenal zur Anzeige von Charakteren",
+    "author": {
+        "name": "Macavity",
+        "website": "http:\/\/www.wow-alive.de"
+    },
+
+    "permissions": {
+        "view": { "default": true, "description": "View the characters" }
+    },
+
+    "roles": {
+        "view": {
+            "description": "View the characters",
+
+            "permissions": {
+                "view": true
+            }
+        }
+    },
+
+    "enabled": true
+}
