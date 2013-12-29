@@ -1,27 +1,56 @@
 <?php
 
-class Character extends MX_Controller
+/**
+ * @property Internal_User_model internal_user_model
+ * @property CI_Cache $cache
+ * @property CI_Config $config
+ * @property Template $template
+ */
+class Arsenal extends MX_Controller
 {
+    /**
+     * @var bool
+     */
     private $canCache;
+
 
     private $js;
     private $css;
-    private $id;
-    private $realm;
+
+    private $realmId;
     private $realmName;
 
+    private $account;
+    private $accountId;
+    private $accountName;
+
+    private $id;
+
     private $name;
+
     private $class;
     private $className;
+
     private $race;
     private $raceName;
+
     private $level;
-    private $accountId;
-    private $account;
+
+    private $guildId;
+    private $guildName;
+
+
     private $gender;
 
     private $stats;
+
+    private $pvpStats;
+
+    private $secondBar;
+    private $secondBarValue;
+
     private $items;
+    private $character;
 
     function __construct()
     {
@@ -29,266 +58,38 @@ class Character extends MX_Controller
 
         requirePermission("view");
 
-        // Set JS and CSS paths
-        $this->js = "modules/character/js/character.js";
-        $this->css = "modules/character/css/character.css";
 
-        $this->load->model("armory_model");
+        if(false){
+            $this->arsenal_model = new Arsenal_model();
+            $this->load = new CI_Loader();
+        }
 
-        $this->canCache = true;
+        $this->load->model('arsenal_model');
+
+        $this->canCache = false;
         $this->items = array();
     }
 
     /**
      * Initialize
+     * @param bool|String $realm
+     * @param bool|String $characterName
+     * @param string $detail
      */
-    public function index($realm = false, $characterName = false)
+    public function index($realm = false, $characterName = false, $detail = "simple")
     {
+        $this->arsenal_model->initialize($realm, $characterName);
 
-        if(is_numeric($realm)){
-            $this->realms = new Realms();
-            $this->realms->getRealmByName($realm);
-        }
+        $this->id = $this->arsenal_model->getCharacterGUID();
 
+        $this->realmId = $this->arsenal_model->realm->getId();
+        $this->realmName = $this->arsenal_model->realm->getName();
 
-        if(!is_numeric($characterName))
-        {
-            $characterName = ucfirst($characterName);
-            $characterName = $this->realms->getRealm($realm)->getCharacters()->getGuidByName($characterName);
-        }
+        $cacheId = "arsenal_character_".$this->arsenal_model->realm->getId()."_".$this->arsenal_model->getCharacterGUID()."_".getLang();
 
-        $this->setId($realm, $characterName);
+        $cache = $this->cache->get($cacheId);
 
-        if($this->id != false)
-        {
-            $this->getProfile();
-        }
-        else
-        {
-            $this->getError();
-        }
-    }
-
-    public function getItem($id = false)
-    {
-        if($id != false)
-        {
-            $cache = $this->cache->get("items/item_".$this->realm."_".$id);
-
-            if($cache !== false)
-            {
-                $cache2 = $this->cache->get("items/display_".$cache['displayid']);
-
-                if($cache2 != false)
-                {
-                    return "<a href='" . $this->template->page_url . "item/" . $this->realm . "/" . $id . "' rel='item=".$id."' data-realm='".$this->realm."'></a><img src='https://wow.zamimg.com/images/wow/icons/large/".$cache2.".jpg' />";
-                }
-                else
-                {
-                    return "<a href='" . $this->template->page_url . "item/" . $this->realm . "/" . $id . "' rel='item=".$id."' data-realm='".$this->realm."'></a><img src='https://wow.zamimg.com/images/wow/icons/large/inv_misc_questionmark.jpg' />";
-                }
-            }
-            else
-            {
-                $this->canCache = false;
-                return $this->template->loadPage("icon_ajax.tpl", array('id' => $id, 'realm' => $this->realm, 'url' => $this->template->page_url));
-            }
-        }
-    }
-
-    /**
-     * Determinate which Id to assign
-     */
-    public function setId($realm, $id)
-    {
-
-        // Check if valid X-Y format
-        if(is_numeric($realm)
-            && is_numeric($id))
-        {
-            $this->realm = $realm;
-            $this->id = $id;
-
-            $this->armory_model->setRealm($this->realm);
-            $this->armory_model->setId($this->id);
-        }
-        else
-        {
-            $this->realm = false;
-            $this->id = false;
-        }
-    }
-
-    /**
-     * Get character info
-     */
-    private function getInfo()
-    {
-        $character_data = $this->armory_model->getCharacter();
-
-        if($this->realms->getRealm($this->realm)->getEmulator()->hasStats())
-        {
-            $character_stats = $this->armory_model->getStats();
-        }
-        else
-        {
-            $character_stats = array('maxhealth' => lang("unknown", "character"));
-        }
-
-        $this->pvp = array(
-            'kills' => (array_key_exists("totalKills", $character_data)) ? $character_data['totalKills'] : false,
-            'honor' => (array_key_exists("totalHonorPoints", $character_data)) ? $character_data['totalHonorPoints'] : false,
-            'arena' => (array_key_exists("arenaPoints", $character_data)) ? $character_data['arenaPoints'] : false
-        );
-
-        // Assign the character data as real variables
-        foreach($character_data as $key=>$value)
-        {
-            $this->$key = $value;
-        }
-
-        // Assign the character stats
-        $this->stats = $character_stats;
-
-        // Get the account username
-        $this->accountName = $this->internal_user_model->getNickname($this->account);
-
-        $this->guild = $this->armory_model->getGuild();
-        $this->guildName = $this->armory_model->getGuildName($this->guild);
-
-        if(in_array($this->race, array(4,10)))
-        {
-            if($this->race == 4)
-            {
-                $this->raceName = "Night elf";
-            }
-            else
-            {
-                $this->raceName = "Blood elf";
-            }
-        }
-        else
-        {
-            $this->raceName = $this->armory_model->realms->getRace($this->race);
-        }
-
-        $this->className = $this->armory_model->realms->getClass($this->class);
-        $this->realmName = $this->armory_model->realm->getName();
-
-        if($this->realms->getRealm($this->realm)->getEmulator()->hasStats())
-        {
-            // Find out which power field to use
-            switch($this->className)
-            {
-                default:
-                    $this->secondBar = "mana";
-                    $this->secondBarValue = $this->stats['maxpower1'];
-                    break;
-
-                case "Warrior":
-                    $this->secondBar = "rage";
-                    $this->secondBarValue = $this->stats['maxpower2'];
-                    break;
-
-                case "Hunter":
-                    $this->secondBar = "focus";
-                    $this->secondBarValue = $this->stats['maxpower3'];
-                    break;
-
-                case "Deathknight":
-                    $this->secondBar = "runic";
-                    $this->secondBarValue = $this->stats['maxpower7'];
-                    break;
-            }
-        }
-        else
-        {
-            $this->secondBar = "mana";
-            $this->secondBarValue = lang("unknown", "character");
-        }
-
-        // Load the items
-        $items = $this->armory_model->getItems();
-
-        // Item slots
-        $slots = array(
-            0 => "head",
-            1 => "neck",
-            2 => "shoulders",
-            3 => "body",
-            4 => "chest",
-            5 => "waist",
-            6 => "legs",
-            7 => "feet",
-            8 => "wrists",
-            9 => "hands",
-            10 => "finger1",
-            11 => "finger2",
-            12 => "trinket1",
-            13 => "trinket2",
-            14 => "back",
-            15 => "mainhand",
-            16 => "offhand",
-            17 => "ranged",
-            18 => "tabard"
-        );
-
-        if(is_array($items))
-        {
-            // Loop through to assign the items
-            foreach($items as $item)
-            {
-                $this->items[$slots[$item['slot']]] = $this->getItem($item['itemEntry']);
-            }
-        }
-
-        // Loop through to make sure none are empty
-        foreach($slots as $key=>$value)
-        {
-            if(!array_key_exists($value, $this->items))
-            {
-                switch($value)
-                {
-                    default: $image = $value; break;
-                    case "trinket1": $image = "trinket"; break;
-                    case "trinket2": $image = "trinket"; break;
-                    case "finger1": $image = "finger"; break;
-                    case "finger2": $image = "finger"; break;
-                    case "back": $image = "chest"; break;
-                }
-
-                $this->items[$value] = "<div class='item'><img src='".$this->template->page_url."application/images/armory/default/".$image.".gif' /></div>";
-            }
-        }
-    }
-
-    private function getBackground()
-    {
-        switch($this->raceName)
-        {
-            default: return "shattrath"; break;
-            case "Human": return "stormwind"; break;
-            case "Blood elf": return "silvermoon"; break;
-            case "Night elf": return "darnassus"; break;
-            case "Dwarf": return "ironforge"; break;
-            case "Gnome": return "ironforge"; break;
-            case "Orc": return "orgrimmar"; break;
-            case "Draenei": return "theexodar"; break;
-            case "Tauren": return "thunderbluff"; break;
-            case "Undead": return "undercity"; break;
-            case "Troll": return "orgrimmar"; break;
-        }
-    }
-
-    /**
-     * Load the profile
-     * @return String
-     */
-    private function getProfile()
-    {
-        $cache = $this->cache->get("character_".$this->realm."_".$this->id."_".getLang());
-
-        if($cache !== false)
+        if($this->canCache && $cache !== false)
         {
             $this->template->setTitle($cache['name']);
             $this->template->setDescription($cache['description']);
@@ -298,10 +99,16 @@ class Character extends MX_Controller
         }
         else
         {
-            if($this->armory_model->characterExists())
+            if($this->arsenal_model->characterExists())
             {
-                // Load all items and info
-                $this->getInfo();
+                $this->character = new Arsenal_Character_model($this->id, $this->arsenal_model->realm);
+
+                $this->character->loadBaseData($detail);
+
+                $talent_data = $this->character->GetTalentData();
+                $activeSpec = $this->character->GetActiveSpec();
+                $char->BuildCharacter();
+
 
                 $this->template->setTitle($this->name);
 
@@ -313,30 +120,42 @@ class Character extends MX_Controller
                 );
 
                 $charData = array(
-                    "name" => $this->name,
-                    "race" => $this->race,
-                    "class" => $this->class,
-                    "level" => $this->level,
-                    "gender" => $this->gender,
-                    "items" => $this->items,
-                    "guild" => $this->guild,
-                    "guildName" => $this->guildName,
-                    "pvp" => $this->pvp,
                     "url" => $this->template->page_url,
-                    "raceName" => $this->raceName,
-                    "className" => $this->className,
+                    "charUrl" => $this->getCharacterUrl(),
+
+                    "name" => $this->name,
+                    "realmId" => $this->realmId,
                     "realmName" => $this->realmName,
-                    "avatar" => $this->armory_model->realms->formatAvatarPath($avatarArray),
+
+                    "gender" => $this->gender,
+                    "race" => $this->race,
+                    "faction" => $this->arsenal_model->realms->getFactionString($this->race),
+                    "raceName" => $this->raceName,
+                    "class" => $this->class,
+                    "className" => $this->className,
+                    "level" => $this->level,
+
+                    "items" => $this->items,
+                    "itemLevel" => $this->arsenal_model->getItemLevel(),
+                    "itemLevelEquipped" => $this->arsenal_model->getItemLevelEquipped(),
+                    "pvp" => $this->pvpStats,
+
+                    "guild" => $this->guildId,
+                    "guildName" => $this->guildName,
+
+
+                    "avatar" => $this->arsenal_model->realms->formatAvatarPath($avatarArray),
                     "stats" => $this->stats,
+
                     "secondBar" => $this->secondBar,
                     "secondBarValue" => $this->secondBarValue,
+
                     "bg" => $this->getBackground(),
-                    "realmId" => $this->realm,
                     "fcms_tooltip" => $this->config->item("use_fcms_tooltip"),
-                    "has_stats" => $this->realms->getRealm($this->realm)->getEmulator()->hasStats()
+                    "has_stats" => $this->arsenal_model->realms->getRealm($this->realmId)->getEmulator()->hasStats()
                 );
 
-                $character = $this->template->loadPage("character.tpl", $charData);
+                $character = $this->template->loadPage("character_profile.tpl", $charData);
 
                 $data = array(
                     "module" => "default",
@@ -363,11 +182,57 @@ class Character extends MX_Controller
             if($this->canCache)
             {
                 // Cache for 30 min
-                $this->cache->save("character_".$this->realm."_".$this->id."_".getLang(), array('page' => $page, 'name' => $this->name, 'keywords' => $keywords, 'description' => $description), 60*30);
+                $this->cache->save($cacheId, array('page' => $page, 'name' => $this->name, 'keywords' => $keywords, 'description' => $description), 60*30);
             }
         }
 
         $this->template->view($page, $this->css, $this->js);
+
+    }
+
+    public function getItem($id = false)
+    {
+        if($id != false)
+        {
+            $cache = $this->cache->get("items/item_".$this->realmId."_".$id);
+
+            if($cache !== false)
+            {
+                $cache2 = $this->cache->get("items/display_".$cache['displayid']);
+
+                if($cache2 != false)
+                {
+                    return "<a href='" . $this->template->page_url . "item/" . $this->realmId . "/" . $id . "' rel='item=".$id."' data-realm='".$this->realmId."'></a><img src='https://wow.zamimg.com/images/wow/icons/large/".$cache2.".jpg' />";
+                }
+                else
+                {
+                    return "<a href='" . $this->template->page_url . "item/" . $this->realmId . "/" . $id . "' rel='item=".$id."' data-realm='".$this->realmId."'></a><img src='https://wow.zamimg.com/images/wow/icons/large/inv_misc_questionmark.jpg' />";
+                }
+            }
+            else
+            {
+                $this->canCache = false;
+                return $this->template->loadPage("icon_ajax.tpl", array('id' => $id, 'realm' => $this->realmId, 'url' => $this->template->page_url));
+            }
+        }
+    }
+
+    private function getBackground()
+    {
+        switch($this->raceName)
+        {
+            default: return "shattrath"; break;
+            case "Human": return "stormwind"; break;
+            case "Blood elf": return "silvermoon"; break;
+            case "Night elf": return "darnassus"; break;
+            case "Dwarf": return "ironforge"; break;
+            case "Gnome": return "ironforge"; break;
+            case "Orc": return "orgrimmar"; break;
+            case "Draenei": return "theexodar"; break;
+            case "Tauren": return "thunderbluff"; break;
+            case "Undead": return "undercity"; break;
+            case "Troll": return "orgrimmar"; break;
+        }
     }
 
     /**
@@ -394,4 +259,10 @@ class Character extends MX_Controller
             $this->template->view($page);
         }
     }
+
+    public function getCharacterUrl()
+    {
+        return site_url("/arsenal/".$this->arsenal_model->realm->getName()."/".urlencode($this->name));
+    }
+
 }
