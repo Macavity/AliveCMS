@@ -122,11 +122,13 @@ class Realms
      * @param $realmName
      * @return mixed
      */
-    public function getRealmByName($realmName){
+    public function getRealmByName($realmName)
+    {
 
         foreach($this->realms as $key => $realm)
         {
-            if($realm->getName() == $realmName)
+            $compareName = $realm->getName();
+            if($compareName == $realmName || strtolower($compareName) == strtolower($realmName))
             {
                 return $this->realms[$key];
             }

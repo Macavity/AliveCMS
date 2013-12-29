@@ -216,6 +216,8 @@ class Characters_model
 	{
 		$this->connect();
 
+        $name = ucfirst(strtolower($name));
+
 		$query = $this->db->query("SELECT ".column("characters", "guid", true, $this->realmId)." FROM ".table('characters', $this->realmId)." WHERE ".column("characters", "name", false, $this->realmId)."=?", array($name));
 
 		if($this->db->_error_message())
