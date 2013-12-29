@@ -169,7 +169,7 @@ class Pay extends MX_Controller
 			{
                 $itemCount = $item['count'];
                 while($itemCount-- >= 0){
-                    debug("handle query", $item);
+                    //debug("handle query", $item);
                     $this->handleQuery($items[$item['id']]['query'], $items[$item['id']]['query_database'], (isset($item['charGuid']) ? $item['character'] : false), $items[$item['id']]['realm']);
                 }
             }

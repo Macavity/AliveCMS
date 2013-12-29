@@ -5,7 +5,7 @@
  * @author Jesper Lindström
  * @author Xavier Geerinck
  * @author Elliott Robbins
- * @link http://raxezdev.com/fusioncms
+ * @link http://fusion-hub.com
  */
 
 class Characters_model
@@ -215,6 +215,8 @@ class Characters_model
 	public function getGuidByName($name)
 	{
 		$this->connect();
+
+        $name = ucfirst(strtolower($name));
 
 		$query = $this->db->query("SELECT ".column("characters", "guid", true, $this->realmId)." FROM ".table('characters', $this->realmId)." WHERE ".column("characters", "name", false, $this->realmId)."=?", array($name));
 

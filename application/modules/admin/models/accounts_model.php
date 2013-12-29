@@ -54,8 +54,23 @@ class Accounts_model extends CI_Model
 			return false;
 		}
 	}
-	
-	public function getAccessId($userId = 0)
+
+    public function getById($id = 0)
+    {
+        $query = $this->connection->query("SELECT ".allColumns("account")." FROM ".table("account")." WHERE ".column("account", "id")." = ?", array($id));
+
+        if($query->num_rows() > 0)
+        {
+            $result = $query->result_array();
+            return $result[0];
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function getAccessId($userId = 0)
 	{
 		$query = $this->connection->query("SELECT ".column("account_access", "gmlevel", true)." FROM ".table("account_access")." WHERE ".column("account", "id")." = ?", array($userId));
 		

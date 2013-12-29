@@ -1,7 +1,7 @@
 {
   "name": "WoW-Alive-CMS",
-  "version": "6.1.7-6",
-  "description": "FusionCMS (6.1.7) modified for WoW Alive",
+  "version": "6.2.0-170",
+  "description": "FusionCMS (6.2.0) modified for WoW Alive",
   "main": "application/js/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

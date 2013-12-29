@@ -5,7 +5,8 @@
  * @author Jesper Lindström
  * @author Xavier Geerinck
  * @author Elliott Robbins
- * @link http://raxezdev.com/fusioncms
+ * @author Marvin Wichmann
+ * @link http://fusion-hub.com
  */
 
 class Realms
@@ -22,6 +23,8 @@ class Realms
 	private $zones;
 	private $hordeRaces;
 	private $allianceRaces;
+
+	private $defaultEmulator = "trinity_soap";
 
 	public function __construct()
 	{
@@ -43,11 +46,7 @@ class Realms
 		
 		$realms = $this->CI->cms_model->getRealms();
 
-		if($realms == false)
-		{
-			show_error("Please add at least one realm to the `realms` table!");
-		}
-		else
+		if($realms != false)
 		{
 			foreach($realms as $realm)
 			{
@@ -115,6 +114,28 @@ class Realms
 
 		show_error("There is no realm with ID ".$id);
 	}
+
+    /**
+     * Searches for a realm by its name
+     *
+     * @alive
+     * @param $realmName
+     * @return mixed
+     */
+    public function getRealmByName($realmName)
+    {
+
+        foreach($this->realms as $key => $realm)
+        {
+            $compareName = $realm->getName();
+            if($compareName == $realmName || strtolower($compareName) == strtolower($realmName))
+            {
+                return $this->realms[$key];
+            }
+        }
+
+        return FALSE;
+    }
 
 	/**
 	 * Check if there's a realm with the specified ID
@@ -377,7 +398,28 @@ class Realms
 	 */
 	public function getEmulator()
 	{
-		return $this->realms[0]->getEmulator();
+		if ($this->realms)
+		{
+			return $this->realms[0]->getEmulator();
+		}
+
+		// Make sure the emulator is installed
+		if(file_exists('application/emulators/'.$this->defaultEmulator.'.php'))
+		{
+			require_once('application/emulators/'.$this->defaultEmulator.'.php');
+		}
+		else
+		{
+			show_error("The entered emulator (".$this->defaultEmulator.") doesn't exist in application/emulators/");
+		}
+
+		$config = array();
+		$config['id'] = 1;
+
+		// Initialize the objects
+		$emulator = new $this->defaultEmulator($config);
+
+		return $emulator;
 	}
 
 	/**
