@@ -11,6 +11,7 @@
         "view": {"default": true, "description": "Darf die Transferanleitung ansehen"},
 
         "canMigrateCharacter": {"default": false, "description": "Darf den Transfervorgang nutzen"},
+        "canCopyCharacter": {"default": false, "description": "Darf den Kopiervorgang nutzen"},
         "canEditMigration": {"default": false, "description": "Transfer-GameMaster"},
         "canAdministrate": {"default": false, "description": "Kann Transfer Konfiguration bearbeiten"},
         "canImportArchive": {"default": false, "description": "Kann alte Transferdaten importieren"}
@@ -54,7 +55,8 @@
             "description": "Kann das Transferformular benutzen",
 
             "permissions": {
-                "canMigrateCharacter": true
+                "canMigrateCharacter": true,
+                "canCopyCharacter": true
             }
         },
 

@@ -1,6 +1,6 @@
 <?php
 
-class Bugtracker extends MX_Controller{
+class Bugtracker extends MY_Controller{
     
     private $css = array();
     private $moduleTitle = 'Bugtracker';

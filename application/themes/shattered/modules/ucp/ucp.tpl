@@ -82,37 +82,44 @@
 
     <div class="main-services">
       {if hasPermission('view', "vote") && $config['vote']}
-        <a href="{$url}{$config.vote}" class="main-services-banner left-bnr" style="background-image:url('{$image_path}/boxes/thumb-wallpaper.jpg');">
+        <a href="{$url}{$config.vote}" class="main-services-banner left-bnr" style="background-image:url('{$image_path}boxes/thumb-wallpaper.jpg');">
         <div class="panel">
           <span class="wrapper">
             <span class="banner-title">Voten</span>
-            <span class="banner-desc">Vote f&uuml;r ALive damit mehr Spieler auf den Server kommen und die Gemeinde weiter w&auml;t.</span>
+            <span class="banner-desc">Vote f&uuml;r ALive damit mehr Spieler auf den Server kommen und die Gemeinde weiter w&auml;chst.</span>
           </span>
         </div>
         </a>
       {/if}
 
-      {if hasPermission('view', "store") && $config['store']}
-        <a href="{$url}{$config.store}" class="main-services-banner right-bnr" style="background-image:url('{$image_path}/boxes/thumb-main-services-5.jpg');">
+      {*if hasPermission('view', "store") && $config['store']}
+        <a href="{$url}{$config.store}" class="main-services-banner right-bnr" style="background-image:url('{$image_path}boxes/thumb-main-services-5.jpg');">
           <span class="banner-title">Vote Shop</span>
           <span class="banner-desc">Besuche den Alive Vote Shop und wirf einen Blick auf die M&ouml;glichkeiten die wir anbieten.</span>
         </a>
-      {/if}
+      {/if*}
 
       {if hasPermission('canUpdateAccountSettings', 'ucp') && $config['settings']}
         <a href="{$url}{$config.settings}" class="main-services-banner left-bnr"
-        style="background-image:url('{$image_path}/boxes/thumb-main-services-1.jpg');">
+        style="background-image:url('{$image_path}boxes/thumb-main-services-1.jpg');">
           <span class="banner-title">Accountverwaltung</span>
           <span class="banner-desc">Hier kannst du einstellen welche Charaktere f&uuml;r andere Forenbenutzer sichtbar sein sollen.</span>
         </a>
       {/if}
 
       {if hasPermission("canMigrateCharacter", "migration")}
-        <a href="{$url}migration" class="main-services-banner right-bnr" style="background-image:url('{$image_path}/boxes/thumb-main-content-2.jpg');" >
+        <a href="{$url}migration" class="main-services-banner right-bnr" style="background-image:url('{$image_path}boxes/thumb-main-content-2.jpg');" >
           <span class="banner-title">Transferantrag</span>
-          <span class="banner-desc">Details und Informationen wie du deinen bisherigen Charakter auf unseren Server &uuml;n kannst.</span>
+          <span class="banner-desc">Details und Informationen wie du deinen bisherigen Charakter auf unseren Server &uuml;bernehmen kannst.</span>
         </a>
       {/if}
+
+        {if hasPermission("canCopyCharacter", "migration")}
+            <a href="{$url}migration/realmcopy" class="main-services-banner right-bnr" style="background-image:url('{$image_path}boxes/thumb-main-content-1.jpg');" >
+                <span class="banner-title">Charakterkopie auf Cata</span>
+                <span class="banner-desc">Formular um deine Wotlk-Charaktere auf unseren Cata-Realm zu kopieren.</span>
+            </a>
+        {/if}
 
       <span class="clear"><!-- --></span>
     </div>

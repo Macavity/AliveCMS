@@ -6,7 +6,10 @@ define("MIGRATION_STATUS_DONE", 3);
 define("MIGRATION_STATUS_DECLINED", 4);
 define("MIGRATION_STATUS_LEGACY", 5);
 
-class Migration_Model extends CI_Model {
+/**
+ * Class Migration_Model
+ */
+class Migration_Model extends MY_Model {
 
     var $tableName = "migration_entries";
 

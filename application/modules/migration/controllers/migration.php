@@ -1,39 +1,23 @@
 <?php
-/*
 
-Config
-- Wieviele Migrations pro Account?
-
-
-1. Statische Seite mit der Anleitung
-    -> Link zum Formular
-2. Formularseite (migration/formular)
-    permission: canCreateMigrations
-
-3. Listenansicht für GMs
-    permission: canEditMigrations
-
-
+/**
+ * Class Migration
+ *
+ * @property Migration_model $migration_model
+ * @property Realmcopy_model $realmcopy
  */
-
-class Migration extends MX_Controller
+class Migration extends MY_Controller
 {
     
     private $cacheActive = FALSE;
     private $cacheId = "";
-    private $CI;
     
     private $theme_path = "";
     private $style_path = "";
     private $image_path = "";
-    private $templateFile = "";
-    
-    private $pageTitle = "";
-    //private $realms = array();
 
     private $races = array();
     private $classes = array();
-
 
 
     /**
@@ -48,22 +32,14 @@ class Migration extends MX_Controller
         
         parent::__construct();
 
-        if(false){
-            $this->template = new Template();
-            $this->migration_model = new Migration_Model();
-            $this->user = new User();
-        }
-
         $this->load->helper(array('url','form'));
         $this->load->config('migration_config');
 
         $this->load->model("migration_model");
+        $this->load->model('realmcopy_model', 'realmcopy');
 
         //$this->template->enable_profiler(TRUE);
 
-        
-        $this->CI = &get_instance();
-        
         $this->theme_path = base_url().APPPATH.$this->template->theme_path;
         $this->style_path = $this->theme_path."css/";
         $this->image_path = $this->theme_path."images/";
@@ -77,8 +53,11 @@ class Migration extends MX_Controller
         ));
 
     }
-    
-    public function index($page = "index")
+
+    /**
+     * Transferanleitung
+     */
+    public function index()
     {
         //debug("Server ($page)");
         $this->template->addBreadcrumb("Transferanleitung", site_url(array("migration", "index")));
@@ -90,6 +69,61 @@ class Migration extends MX_Controller
         $out = $this->template->loadPage("migration_index.tpl");
             
         $this->template->view($out);
+    }
+
+    /**
+     * Realmkopie - Liste
+     */
+    public function realmcopy()
+    {
+        $this->template->addBreadcrumb("Realmkopie", site_url(array("migration", 'realmcopy')));
+
+        if(hasPermission("canCopyCharacter") == FALSE){
+            $this->denied("norights");
+            exit;
+        }
+
+        $this->template->addBreadcrumb('Charakterliste', site_url(array('migration', 'realmcopy')));
+
+        $realmChars = $this->realmcopy->getRealmCharacters($this->user->getId());
+
+        $templateData = array(
+            'realmChars' => $realmChars,
+            'theme_path' => base_url().APPPATH.$this->template->theme_path,
+        );
+
+        $out = $this->template->loadPage("realmcopy_list.tpl", $templateData);
+
+        $this->template->view($out);
+
+    }
+
+    public function copy($guid)
+    {
+        $this->template->addBreadcrumb("Realmkopie", site_url(array("migration", 'realmcopy')));
+
+        if(hasPermission("canCopyCharacter") == FALSE){
+            $this->denied("norights");
+            exit;
+        }
+
+        $this->template->addBreadcrumb('Charakterkopie');
+
+        $sourceGuid = $guid;
+
+        $targetRealm = 2;
+
+        /**
+         * Character Infos
+         *
+         * Gold
+         * Taschen
+         * Items
+         * Erfolge
+         * Mounts, Pets
+         *
+         */
+
     }
 
     public function denied($reason = "")
