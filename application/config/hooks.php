@@ -9,6 +9,12 @@
 |	http://codeigniter.com/user_guide/general/hooks.html
 |
 */
+$hook['pre_system'][] = array(
+    'class'    => '',
+    'function' => 'fix_cf_ip',
+    'filename' => 'cloudflare.php',
+    'filepath' => 'hooks/cloudflare'
+);
 
 
 

@@ -73,11 +73,38 @@ $route['admin/edit/(:any)'] = "admin/edit/index/$1";
 
 // Server
 $route['server/howtoplay'] = "page/index/howtoplay";
-$route['server/(:any)'] = "server/index/$1";
+$route['server/changelog'] = "server/server_changelog";
+$route['server/(:any)'] = "server/$1";
 
+// PVP Ranking
+
+    // Honor Ranking
+    // 1: Realmname
+    $route['pvp/honor/(:any)'] = "pvp/honor_list/$1";
+    // Arena Team Detail
+    // 1: Realm, 2: Size, 3: Teamname
+    $route['pvp/arena-team/(:any)/(2v2|3v3|5v5)/(:any)'] = "pvp/arena_team/$1/$2/$3";
+
+    // Arena Team Ranking
+    // 1: Realm, 2: Size
+    $route['pvp/arena-list/(:any)/(2v2|3v3|5v5)'] = "pvp/arena_list/$1/$2";
+
+    $route['pvp/summary/(:any)'] = "pvp/index/$1";
+
+    // Wildcard
+    $route['pvp/(:any)'] = "pvp/index/$1";
+
+// Bugtracker
+$route['bugtracker/admin/(:any)/(:num)'] = "bugtracker/admin/$1/$2";
+
+// Game Info
 
 // Vote
 $route['vote/callback/(:any)'] = "vote/callback/index/$1";
+
+// API/AJAX
+$route['ajax/character/(:any)'] = "ajax/ajax_character/index/$1";
+
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

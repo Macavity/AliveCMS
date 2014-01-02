@@ -3,7 +3,7 @@
  * @package FusionCMS
  * @version 6.1
  * @author Jesper Lindström
- * @link http://raxezdev.com/fusioncms
+ * @link http://fusion-hub.com
  */
 
 function MultiLanguageInput(field)
@@ -104,7 +104,7 @@ function MultiLanguageInput(field)
 			field.val(JSON.stringify(data));
 		});
 
-		var flag = '<div style="position:absolute;margin-top:11px;margin-left:10px;font-weight:bold;font-size:12px;">' + language + '</div>';
+		var flag = '<div style="position:absolute;margin-left:10px;font-weight:bold;font-size:12px;">' + language + '</div>';
 
 		return [flag, newField];
 	};

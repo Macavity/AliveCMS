@@ -80,48 +80,64 @@
                         </div>
                         <span class="clear"><!-- --></span>
                     {elseif $show_sidebar}
-                        {if !empty($section_title)}
-                        <div class="top-banner">
-                            <div class="section-title">
-                                <span>{$section_title}</span>
+                        <div id="blog-wrapper">
+                            <div class="left-col">
+                                <div id="blog">
+                                    <div class="blog-inner">
+                                        {if !empty($section_title)}
+                                            <h3 class="blog-title">{$section_title}</h3>
+                                            <div class="byline"><!-- --></div>
+                                        {/if}
+                                        <div class="detail">
+                                            {$page}
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="clear"><!-- --></span>
+                            </div>
+
+                            <div class="right-col">
+                              <!-- Sidebar -->
+                              {foreach from=$sideboxes item=sidebox}
+                                <div id="{$sidebox.css_id}" class="sidebar-module">
+                                  <div class="sidebar-title">
+                                    <h3>{$sidebox.name}</h3>
+                                  </div>
+                                  <span class="clear"><!-- --></span>
+                                  {$sidebox.data}
+                                  <span class="clear"><!-- --></span>
+                                </div>
+                              {/foreach}
+                              <span class="clear"><!-- --></span>
                             </div>
                             <span class="clear"><!-- --></span>
                         </div>
-                        <div class="bg-body">
-                            <div class="body-wrapper">
-                                <div class="contents-wrapper">
-                        {/if}
-                        <div class="left-col">
-                            {$slider}
-                            {$page}
-                            <span class="clear"><!-- --></span>
-                        </div> 
-                        <div class="right-col">
-                          <!-- Sidebar -->
-                          {foreach from=$sideboxes item=sidebox}
-                            <div id="{$sidebox.css_id}" class="sidebar-module">
-                              <div class="sidebar-title">
-                                <h3>{$sidebox.name}</h3>
-                              </div>
-                              <span class="clear"><!-- --></span>
-                              {$sidebox.data}
-                              <span class="clear"><!-- --></span>
-                            </div>
-                          {/foreach}
+                    {else}
+                      {$slider}
+
+                      {if !empty($section_title)}
+                        <div class="top-banner">
+                          <div class="section-title">
+                            <span>{$section_title}</span>
+                          </div>
                           <span class="clear"><!-- --></span>
                         </div>
-                        <span class="clear"><!-- --></span>
-                        {if !empty($topheader)}
-                                </div><!-- /.contents-wrapper -->
-                                <span class="clear"><!-- --></span>
-                            </div><!-- /.body-wrapper -->
+                        <div class="bg-body">
+                          <div class="body-wrapper">
+                            <div class="contents-wrapper">
+                      {/if}
+
+                      {$page}
+
+                      {if !empty($section_title)}
+                            </div><!-- /.contents-wrapper -->
                             <span class="clear"><!-- --></span>
+                          </div><!-- /.body-wrapper -->
+                          <span class="clear"><!-- --></span>
                         </div><!-- /.bg-body -->
                         <span class="clear"><!-- --></span>
-                        {/if}
-                    {else}
-                            {$slider}
-                            {$page}
+                      {/if}
+
                     {/if}
                     </div> <!-- /content-bot -->
                 </div> <!-- /content-top -->
@@ -436,13 +452,6 @@
 <script type="text/javascript" src="/application/third_party/jquery.pngfix.pack.js"></script>
 <script type="text/javascript">$('.png-fix').pngFix();</script>
 <![endif]-->
-<!--
-<script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/third-party/jquery-ui-1.8.6.custom.min.js?v15"></script>
-<script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/overlay.js?v15"></script>
-<script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/search.js?v15"></script>
-<script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/third-party/jquery.mousewheel.min.js?v15"></script>
-<script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/third-party/jquery.tinyscrollbar.min.js?v15"></script>
--->
 {if not empty($refreshCacheItems)}
 <script type="text/javascript">
 var _urls = [
@@ -468,5 +477,6 @@ $(document).ready(function() {
 </script>
 {/if}
 
+        {$profiler}
     </body>
 </html>

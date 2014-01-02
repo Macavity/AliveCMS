@@ -1,0 +1,83 @@
+.ui-tooltip {
+  border: 1px solid #353837;
+  color: #fff;
+  background-color: rgba(15, 15, 15, 0.9);
+  padding: 10px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: #000 0 0 15px;
+  -webkit-box-shadow: #000 0 0 15px;
+  box-shadow: #000 0 0 15px;
+  font-size: 12px;
+  position: absolute;
+  z-index: 1000;
+  width: auto;
+  height: auto;
+  max-width: 300px;
+  h3 {
+    font-size: 16px;
+    font-weight: normal;
+  }
+  li {
+    clear: both;
+  }
+  .float-right {
+    padding-left: 30px;
+  }
+  .frame-36 {
+    position: absolute;
+    left: -56px;
+    top: -10px;
+  }
+  .frame-56 {
+    position: absolute;
+    left: -75px;
+    top: -10px;
+  }
+  .tooltip-content {
+    position: relative;
+    width: auto;
+    height: auto;
+  }
+  .tooltip-list {
+    /*margin-top: 10px;*/
+  }
+  ul {
+    /*margin-top: 10px;*/
+    li {
+      margin: 1px 0;
+    }
+  }
+  .tooltip-list {
+    li {
+      margin: 1px 0;
+    }
+    .icon-frame {
+      float: left;
+      margin-right: 5px;
+    }
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  td {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* title of the tooltip */
+
+.tooltip-frame {
+  background: transparent;
+  border: none;
+  display: none;
+  height: 0;
+  position: absolute;
+  z-index: 999;
+  width: auto;
+  height: auto;
+  max-width: 300px;
+}

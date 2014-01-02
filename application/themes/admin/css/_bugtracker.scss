@@ -1,0 +1,75 @@
+
+#main .right .box #tabs{
+
+  .project-list {
+
+
+    li {
+
+      background: #e6e6e6;
+
+      &:hover {
+        background-color: #dadada;
+      }
+
+      label {
+        position: relative;
+        display: inline-block;
+        border: 0px solid transparent;
+
+        clear: both;
+
+        width: auto;
+        margin: 5px;
+      }
+
+      a {
+        float: right;
+        margin: 5px;
+        font-size: 12px;
+        font-weight: normal;
+      }
+
+
+
+    }
+
+    ul.sub-projects {
+      margin-left: 20px;
+
+      li{
+
+      }
+
+      .level-1:before{
+        content: "-";
+      }
+      .level-2:before{
+        content: "--";
+      }
+
+
+    }
+
+  }
+}
+
+.table{
+  .inprogress td:first-child,
+  .inprogress:hover td:first-child{
+    background-color:#F60;
+    padding:0px;
+  }
+
+  .done td:first-child,
+  .done:hover td:first-child{
+    background-color:#0C0;
+    padding:0px;
+  }
+  .deleted td:first-child,
+  .deleted:hover td:first-child{
+    background-color:#C00;
+    padding:0px;
+  }
+
+}

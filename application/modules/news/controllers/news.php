@@ -54,6 +54,7 @@ class News extends MX_Controller
         }
 
         $this->template->hideBreadcrumbs();
+        $this->template->setJsAction("news");
 
         /*
 			foreach($this->plugins->getNews() as $plugin=>$data)

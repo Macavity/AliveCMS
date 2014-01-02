@@ -1,0 +1,11 @@
+<section class="box big" id="bug_projects_{{id}}" style="display:none;">
+    <h2><a href="#" onClick="Bugtracker.showPage('main');" data-tip="Zurück">Zurück</a> {{title}}</h2>
+    <div class="form">
+        <label for="displayName">Titel</label>
+        <input type="text" name="projectTitle" id="projectTitle" />
+
+        <label for="displayName">Beschreibung</label>
+        <input type="text" name="projectDesc" id="projectDesc" />
+        <input type="button" value="Projekt erstellen" onclick="Bugtracker.createProject(this);" />
+    </div>
+</section>

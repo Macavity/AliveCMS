@@ -15,12 +15,14 @@
 $lang['item_store'] = "Item store";
 $lang['cant_afford'] = "You can't afford this!";
 $lang['go_back'] = "Go back";
+$lang['error'] = 'Error';
 $lang['error_offline'] = "We're sorry but the realm we were trying to contact appears to be offline. Your points have been restored. Please try again later.";
 $lang['error_character'] = "We can't send you the items as you don't have a character. Your points have been restored.";
 $lang['error_character_exists'] = "The entered character does not exist.";
 $lang['error_character_not_mine'] = "The entered character does not belong to you.";
 $lang['error_character_not_offline'] = "The entered character is not offline. Please log the character out of game and try again.";
 $lang['error_no_console'] = "We're sorry, but the realm this item was designed for doesn't support console commands. Please report this to an administrator.";
+$lang['error_send_not_possible'] = "Something went wrong! An administrator has been noticed and will send your order as soon as possible.";
 $lang['checkout'] = "Checkout";
 $lang['buying'] = "You are buying";
 $lang['total_of'] = "for a total of";

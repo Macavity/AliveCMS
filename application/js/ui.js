@@ -3,7 +3,7 @@
  * @version 6.X
  * @author Jesper Lindström
  * @author Xavier Geernick
- * @link http://raxezdev.com/fusioncms
+ * @link http://fusion-hub.com
  */
 
 function UI()
@@ -27,9 +27,12 @@ function UI()
 
 		// Give older browsers some html5-placeholder love!
 		$('input[placeholder], textarea[placeholder]').placeholder();
+		
+		// Initialize dropdown panels
+		UI.dropdown.initialize();
 
-		// Enable tooltip
-		Tooltip.initialize();
+		// Enable FusionTooltip
+		//FusionTooltip.initialize();
 	}
 
 	/**
@@ -210,12 +213,42 @@ function UI()
 		// Change the indicator
 		document.getElementById(indicator).innerHTML = length + " / " + max;
 	}
+	
+	/**
+	 * Creates a expandable box
+	 */
+	this.dropdown = {
+		initialize: function()
+		{
+			$(document).ready(function() {
+				UI.dropdown.create('.dropdown');
+			});
+		},
+		
+		create: function(element)
+		{
+			$(element)
+				.not('[data-dropdown-initialized]')
+				.attr('data-dropdown-initialized', 'true')
+				.children('h3')
+				.bind('click', function() 
+				{
+					$(this).next('div').slideToggle(200, function() {
+
+						if ($(this).is(':visible'))
+							$(this).parent('.dropdown').addClass('active');
+						else
+							$(this).parent('.dropdown').removeClass('active');
+					});
+				});
+		}
+	}
 }
 
 /**
- * Tooltip related functions
+ * FusionTooltip related functions
  */
-function Tooltip()
+function FusionTooltip()
 {
 	/**
 	 * Add event-listeners
@@ -227,12 +260,6 @@ function Tooltip()
 
 		// Add mouse-over event listeners
 		this.addEvents();
-
-		// Add mouse listener
-		$(document).mousemove(function(e)
-		{
-			Tooltip.move(e.pageX, e.pageY);
-		});
 	}
 
 	/**
@@ -247,18 +274,29 @@ function Tooltip()
 		// Re-add
 		this.addEvents();
 	}
-
+	
+	/**
+	 * Adds mouseover events to all elements
+	 * that should show a tooltip.
+	 */
 	this.addEvents = function()
 	{
+		Tooltip.addEvents.handleMouseMove = function(e)
+		{
+			Tooltip.move(e.pageX, e.pageY);
+		}
+		
 		// Add mouse-over event listeners
 		$("[data-tip]").hover(
 			function()
 			{
+				$(document).bind('mousemove', Tooltip.addEvents.handleMouseMove);
 				Tooltip.show($(this).attr("data-tip"));
 			},
 			function()
 			{
 				$("#tooltip").hide();
+				$(document).unbind('mousemove', Tooltip.addEvents.handleMouseMove);
 			}
 		);
 
@@ -267,16 +305,18 @@ function Tooltip()
 			$("[rel]").hover(
 				function()
 				{
+					$(document).bind('mousemove', Tooltip.addEvents.handleMouseMove);
 					if(/^item=[0-9]*$/.test($(this).attr("rel")))
 					{
-						Tooltip.Item.get(this, function(data)
+                        FusionTooltip.Item.get(this, function(data)
 						{
-							Tooltip.show(data);
+                            FusionTooltip.show(data);
 						});
 					}
 				},
 				function()
 				{
+					$(document).unbind('mousemove', Tooltip.addEvents.handleMouseMove);
 					$("#tooltip").hide();
 				}
 			);
@@ -336,7 +376,7 @@ function Tooltip()
 	 		var obj = $(element);
 	 		var realm = obj.attr("data-realm");
 	 		var id = obj.attr("rel").replace("item=", "");
-	 		Tooltip.Item.currentId = id;
+            FusionTooltip.Item.currentId = id;
 
 	 		if(id in this.cache)
 	 		{
@@ -344,7 +384,7 @@ function Tooltip()
 	 		}
 	 		else
 	 		{
-	 			var cache = Tooltip.Item.CacheObj.get("item_" + realm + "_" + id + "_" + Config.language);
+	 			var cache = FusionTooltip.Item.CacheObj.get("item_" + realm + "_" + id + "_" + Config.language);
 
 		 		if(cache !== false)
 		 		{
@@ -357,11 +397,11 @@ function Tooltip()
 			 		$.get(Config.URL + "tooltip/" + realm + "/" + id, function(data)
 			 		{
 			 			// Cache it this visit
-			 			Tooltip.Item.cache[id] = data;
-			 			Tooltip.Item.CacheObj.save("item_" + realm + "_" + id  + "_" + Config.language, data);
+                        FusionTooltip.Item.cache[id] = data;
+                        FusionTooltip.Item.CacheObj.save("item_" + realm + "_" + id  + "_" + Config.language, data);
 
 			 			// Make sure it's still visible
-			 			if($("#tooltip").is(":visible") && Tooltip.Item.currentId == id)
+			 			if($("#tooltip").is(":visible") && FusionTooltip.Item.currentId == id)
 			 			{
 			 				callback(data);
 			 			}
@@ -429,4 +469,4 @@ function Tooltip()
 }
 
 var UI = new UI();
-var Tooltip = new Tooltip();
+var FusionTooltip = new FusionTooltip();

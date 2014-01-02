@@ -321,8 +321,8 @@ class Admin extends MX_Controller
 
 		$c = curl_init();
 
-		curl_setopt($c, CURLOPT_URL, 'http://fusion-hub.com/remote/');
-		curl_setopt($c, CURLOPT_POST, true);
+        curl_setopt($c, CURLOPT_URL, 'http://fusion-hub.com/remote/');
+        curl_setopt($c, CURLOPT_POST, true);
 		curl_setopt($c, CURLOPT_POSTFIELDS, 'version='.$version.'&license='.$license);
 		curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($c, CURLOPT_HEADER, 0);
@@ -331,7 +331,7 @@ class Admin extends MX_Controller
 		
 		curl_close($c);
 
-		if($response == "2")
+		if($response == "2" && false)
 		{
 			// Do nasty stuff
 			$message_content = '<?php
@@ -341,7 +341,7 @@ class Admin extends MX_Controller
  * @version 6.0
  * @author Jesper Lindström
  * @author Xavier Geerinck
- * @link http://raxezdev.com/fusioncms
+ * @link http://fusion-hub.com
  */
 
 /*
@@ -371,7 +371,7 @@ $config["message_headline_size"] = 56;
 | Message text
 |--------------------------------------------------------------------------
 */
-$config["message_text"] = "This copy of FusionCMS has been terminated due to illegal usage. If you actually own a legit copy, please contact us at <a href=\"http://fusion-hub.com/\" style=\"text-decoration:none;color:white;\">fusion.raxezdev.com</a>";';
+$config["message_text"] = "This copy of FusionCMS has been terminated due to illegal usage. If you actually own a legit copy, please contact us at <a href=\"http://fusion-hub.com/\" style=\"text-decoration:none;color:white;\">fusion-hub.com</a>";';
 
 			$message_file = fopen("application/config/message.php", "w");
 			fwrite($message_file, $message_content);
@@ -381,6 +381,7 @@ $config["message_text"] = "This copy of FusionCMS has been terminated due to ill
 			$this->input->set_cookie("fcms_username", false);
 			$this->input->set_cookie("fcms_password", false);
 			
+			$this->load->helper('cookie');
 			delete_cookie("fcms_username");
 			delete_cookie("fcms_password");
 

@@ -5,7 +5,7 @@
  * @author Jesper Lindström
  * @author Xavier Geerinck
  * @author Elliott Robbins
- * @link http://raxezdev.com/fusioncms
+ * @link http://fusion-hub.com
  */
 
 class External_account_model extends CI_Model
@@ -524,4 +524,7 @@ class External_account_model extends CI_Model
 	{
 		return $this->expansion;
 	}
+
+
+
 }

@@ -6,7 +6,7 @@
 	</p>
 </div>
 <div class="main-game-contents">
-	<a href="/server/pvp" class="main-content-banner left-bnr bnr03" style="background-image:url('{$theme_path}images/boxes/thumb-main-content-2.jpg');">
+	<a href="/pvp" class="main-content-banner left-bnr bnr03" style="background-image:url('{$theme_path}images/boxes/thumb-main-content-2.jpg');">
         <span class="banner-title">Spieler gegen Spieler</span>
         <span class="banner-desc">Schau dir die Arena-Ladders der Season an.</span>
 	</a>

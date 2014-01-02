@@ -5,7 +5,7 @@
  * @author Jesper Lindström
  * @author Xavier Geerinck
  * @author Elliott Robbins
- * @link http://raxezdev.com/fusioncms
+ * @link http://fusion-hub.com
  */
 
 class Language
@@ -243,6 +243,7 @@ class Language
 			array_push($this->requestedFiles, $file);
 		}
 
+
 		// Look in the shared directory
 		if(file_exists("application/language/".$language."/".$file.".php"))
 		{
@@ -251,10 +252,10 @@ class Language
 
 		// Look in the module directory
 		elseif(is_dir("application/modules/".$this->CI->template->module_name."/language/")
-		&& is_dir("application/modules/".$this->CI->template->module_name."/language/".$language)
-		&& file_exists(is_dir("application/modules/".$this->CI->template->module_name."/language/".$file.".php")))
+		    && is_dir("application/modules/".$this->CI->template->module_name."/language/".$language)
+		    && file_exists("application/modules/".$this->CI->template->module_name."/language/".$language.'/'.$file.".php"))
 		{
-			$path = "application/modules/".$this->CI->template->module_name."/language/".$file.".php";
+			$path = "application/modules/".$this->CI->template->module_name."/language/".$language.'/'.$file.".php";
 		}
 
 		// No language file was found, and this is the default language

@@ -5,7 +5,8 @@
  * @author Jesper Lindström
  * @author Xavier Geerinck
  * @author Elliott Robbins
- * @link http://raxezdev.com/fusioncms
+ * @author Marvin Wichmann
+ * @link http://fusion-hub.com
  */
 
 class Realms
@@ -22,6 +23,8 @@ class Realms
 	private $zones;
 	private $hordeRaces;
 	private $allianceRaces;
+
+	private $defaultEmulator = "trinity_soap";
 
 	public function __construct()
 	{
@@ -43,11 +46,7 @@ class Realms
 		
 		$realms = $this->CI->cms_model->getRealms();
 
-		if($realms == false)
-		{
-			show_error("Please add at least one realm to the `realms` table!");
-		}
-		else
+		if($realms != false)
 		{
 			foreach($realms as $realm)
 			{
@@ -116,6 +115,28 @@ class Realms
 		show_error("There is no realm with ID ".$id);
 	}
 
+    /**
+     * Searches for a realm by its name
+     *
+     * @alive
+     * @param $realmName
+     * @return mixed
+     */
+    public function getRealmByName($realmName)
+    {
+
+        foreach($this->realms as $key => $realm)
+        {
+            $compareName = $realm->getName();
+            if($compareName == $realmName || strtolower($compareName) == strtolower($realmName))
+            {
+                return $this->realms[$key];
+            }
+        }
+
+        return FALSE;
+    }
+
 	/**
 	 * Check if there's a realm with the specified ID
 	 * @return Boolean
@@ -167,7 +188,8 @@ class Realms
 
 		$this->races_en = $this->CI->config->item('races_en');
 		$this->classes_en = $this->CI->config->item('classes_en');
-	}
+
+    }
 
 	/**
 	 * Load the wow_zones config and populate the zones array
@@ -179,7 +201,7 @@ class Realms
 		$this->zones = $this->CI->config->item('zones');
 	}
 
-	/**
+    /**
 	 * Get the alliance race IDs
 	 * @return Array
 	 */
@@ -221,13 +243,21 @@ class Realms
         return (in_array($race, $this->hordeRaces) ? "horde" : "alliance");
     }
 
+    public function getFaction($race){
+        if(!count($this->hordeRaces)){
+            $this->loadConstants();
+        }
+        return (in_array($race, $this->hordeRaces) ? FACTION_HORDE : FACTION_ALLIANCE);
+    }
+
 
     /**
 	 * Get the name of a race
+     * @alive
 	 * @param Int $id
 	 * @return String
 	 */
-	public function getRace($id)
+	public function getRace($id, $gender = 0)
 	{
 		if(!count($this->races))
 		{
@@ -236,20 +266,26 @@ class Realms
 
 		if(array_key_exists($id, $this->races))
 		{
-			return $this->races[$id];
+            $label = $this->races[$id];
+
+            if(is_string($label)){
+                return $label;
+            }
+            else if(is_array($label)){
+                return $label[$gender];
+            }
+            return $this->races[$id];
 		}
-		else
-		{
-			return "Unknown";
-		}
+		return "Unknown";
 	}
 
 	/**
 	 * Get the name of a class
+     * @alive
 	 * @param Int $id
 	 * @return String
 	 */
-	public function getClass($id)
+	public function getClass($id, $gender = 0)
 	{
 		if(!count($this->classes))
 		{
@@ -258,13 +294,82 @@ class Realms
 
 		if(array_key_exists($id, $this->classes))
 		{
-			return $this->classes[$id];
-		}
-		else
-		{
-			return "Unknown";
-		}
+            $label = $this->classes[$id];
+
+            if(is_string($label)){
+                return $label;
+            }
+            else if(is_array($label)){
+                return $label[$gender];
+            }
+        }
+		return "Unknown";
 	}
+
+    /**
+     * Goes through a bitmask of AllowableRaces
+     * Returns zero if the mask is empty of all races are active
+     * @param $mask
+     * @return array|int
+     */
+    public function getAllowableRaces($mask){
+
+        //debug($mask);
+        $mask &= 0x7FF;
+        //debug($mask);
+
+        // Return zero if for all class (or for none)
+        if($mask == 0x7FF || $mask == 0) {
+            return array("mask" => $mask);
+        }
+
+        if(!count($this->races_en)){
+            $this->loadConstants();
+        }
+
+        $i = 1;
+        $raceMask = array();
+
+        while($mask) {
+            if($mask & 1) {
+                $raceMask[] = $i;
+            }
+            $mask >>= 1;
+            $i++;
+        }
+        return $raceMask;
+    }
+
+    /**
+     * Goes through a bitmask of AllowableClasses
+     * Returns zero if the mask is empty of all classes are active
+     * @param $mask
+     * @return array|int
+     */
+    public function getAllowableClasses($mask){
+        $mask &= 0x5FF;
+
+        // Return zero if for all class (or for none)
+        if($mask == 0x5FF || $mask == 0) {
+            return array("none");
+        }
+
+        if(!count($this->classes_en)){
+            $this->loadConstants();
+        }
+
+        $i = 1;
+        $classMask = array();
+
+        while($mask) {
+            if($mask & 1) {
+                $classMask[] = $i;
+            }
+            $mask>>=1;
+            $i++;
+        }
+        return $classMask;
+    }
 
 	/**
 	 * Get the zone name by zone ID
@@ -293,7 +398,28 @@ class Realms
 	 */
 	public function getEmulator()
 	{
-		return $this->realms[0]->getEmulator();
+		if ($this->realms)
+		{
+			return $this->realms[0]->getEmulator();
+		}
+
+		// Make sure the emulator is installed
+		if(file_exists('application/emulators/'.$this->defaultEmulator.'.php'))
+		{
+			require_once('application/emulators/'.$this->defaultEmulator.'.php');
+		}
+		else
+		{
+			show_error("The entered emulator (".$this->defaultEmulator.") doesn't exist in application/emulators/");
+		}
+
+		$config = array();
+		$config['id'] = 1;
+
+		// Initialize the objects
+		$emulator = new $this->defaultEmulator($config);
+
+		return $emulator;
 	}
 
 	/**
@@ -323,11 +449,6 @@ class Realms
 	 */
 	public function formatAvatarPath($character)
 	{
-		if(!count($this->races_en))
-		{
-			$this->loadConstants();
-		}
-
 		$class = $character['class'];
 		$race = $character['race'];
 
@@ -357,4 +478,16 @@ class Realms
 			return $file;
 		}
 	}
+
+    /**
+     * Get the link to the detail page of a certain character
+     * @alive
+     * @param $character
+     * @return string
+     */
+    public function getArmoryUrl($characterName, $realmId = 1){
+
+        $string = "character/".$realmId."/".$characterName;
+        return $string;
+    }
 }

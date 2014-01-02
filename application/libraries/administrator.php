@@ -5,7 +5,7 @@
  * @author Jesper Lindström
  * @author Xavier Geerinck
  * @author Elliott Robbins
- * @link http://raxezdev.com/fusioncms
+ * @link http://fusion-hub.com
  */
 
 class Administrator
@@ -263,7 +263,7 @@ class Administrator
 	 * @param String $css Full path to your css file
 	 * @param String $js Full path to your js file
 	 */
-	public function view($content, $css = false, $js = false)
+	public function view($content, $css = false, $js = false, $requireJs = false)
 	{
 		if($this->CI->input->is_ajax_request() && isset($_GET['is_json_ajax']) && $_GET['is_json_ajax'] == 1)
 		{
@@ -284,6 +284,7 @@ class Administrator
 			"menu" => $this->menu,
 			"title" => $this->title,
 			"extra_js" => $js,
+            "require_js" => $requireJs,
 			"extra_css" => $css,
 			"nickname" => $this->CI->user->getNickname(),
 			"current_page" => $this->currentPage,

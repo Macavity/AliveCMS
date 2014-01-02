@@ -220,8 +220,8 @@ class CI_Migration {
 	{
 		if ( ! $migrations = $this->find_migrations())
 		{
-			$this->_error_string = $this->line->lang('migration_none_found');
-			return false;
+            $this->_error_string = $this->lang->line('migration_none_found');
+            return false;
 		}
 
 		$last_migration = basename(end($migrations));

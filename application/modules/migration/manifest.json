@@ -1,0 +1,87 @@
+{
+    "name": "Character Migration",
+    "description": "Adds the ability to migrate characters from other Servers",
+
+    "author": {
+        "name": "Macavity",
+        "website": "http://www.wow-alive.de/"
+    },
+
+    "permissions": {
+        "view": {"default": true, "description": "Darf die Transferanleitung ansehen"},
+
+        "canMigrateCharacter": {"default": false, "description": "Darf den Transfervorgang nutzen"},
+        "canCopyCharacter": {"default": false, "description": "Darf den Kopiervorgang nutzen"},
+        "canEditMigration": {"default": false, "description": "Transfer-GameMaster"},
+        "canAdministrate": {"default": false, "description": "Kann Transfer Konfiguration bearbeiten"},
+        "canImportArchive": {"default": false, "description": "Kann alte Transferdaten importieren"}
+    },
+    "admin": [
+        {
+            "text": "Transfere",
+            "icon": "share",
+            "links": [
+                {
+                    "text": "Norganon",
+                    "icon": "tag",
+                    "controller": "admin/index/1",
+                    "requirePermission": "canEditMigration"
+                },
+                {
+                    "text": "Cata",
+                    "icon": "tag",
+                    "controller": "admin/index/2",
+                    "requirePermission": "canEditMigration"
+                },
+                {
+                    "text": "Cache erneuern",
+                    "icon": "tag",
+                    "controller": "admin/cache",
+                    "requirePermission": "canAdministrate"
+                }
+            ]
+        }
+    ],
+
+    "roles": {
+        "view": {
+            "description": "Darf die Transferanleitung ansehen",
+            "permissions": {
+                "view": true
+            }
+        },
+
+        "create": {
+            "description": "Kann das Transferformular benutzen",
+
+            "permissions": {
+                "canMigrateCharacter": true,
+                "canCopyCharacter": true
+            }
+        },
+
+        "moderate": {
+            "description": "Transfer-GameMaster <em>Admin-Tool<em>",
+            "dangerLevel": 2,
+
+            "permissions": {
+                "canEditMigration": true
+            }
+        },
+
+        "administrate": {
+            "description": "Kann die Transferkonfiguration bearbeiten und alte Transfere importieren <em>Admin-Tool<em>",
+            "dangerLevel": 3,
+
+            "permissions": {
+                "canEditMigration": true,
+                "canAdministrate": true,
+                "canImportArchive": true
+            }
+        }
+    },
+
+    "enabled": true
+
+
+}

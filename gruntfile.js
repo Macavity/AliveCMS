@@ -10,19 +10,39 @@ module.exports = function(grunt) {
          */
         jshint: {
             options: {
+
+                force: true,
+
+                // Enforcing
+                curly: false,
+                browser: true,
+                eqeqeq: false,
+
+                // Relaxing
+                eqnull: true,
+                scripturl: true,
+
                 ignores: [
+                    // Generated files
+                    'application/js/alive.js',
                     'application/js/templates.js',
                     'application/js/hb.js',
                     'application/js/libs.js',
+
+                    // Fusion Files
                     'application/js/ui.js',
                     'application/js/require.js',
                     'application/js/json2.js',
-                    'application/js/html5shiv.js',
-                    'application/js/flux.min.js',
                     'application/js/router.js',
                     'application/js/fusioneditor.js',
+
+                    'application/js/html5shiv.js',
+                    'application/js/flux.min.js',
                     'application/js/language.js',
                     'application/js/wz_tooltip.js',
+                    'application/js/misc.js',
+                    'application/js/prototypes.js',
+
                     'application/js/libs/**/*.js',
                     'application/js/themes/**/*.js',
                     'application/js/tiny_mce/**/*.js'
@@ -31,7 +51,10 @@ module.exports = function(grunt) {
 
             files: [
                 'gruntfile.js',
-                'application/js/**/*.js'
+                'application/js/modules/*.js',
+                'application/js/controller/*.js',
+                'application/js/main.js',
+                'application/js/news.js'
                 //'application/themes/shattered/js/**/*.js'
             ]
         },
@@ -70,12 +93,12 @@ module.exports = function(grunt) {
             /*
              * Task to create bundle for deployment on test or production server
              */
-            dist: {
+            admin: {
                 options: {
-                    style: "compressed"
+                    style: "expanded"
                 },
                 files: {
-                    'application/themes/shattered/css/main.css': 'application/themes/shattered/css/main.scss'
+                    'application/themes/admin/css/main.css': 'application/themes/admin/css/main.scss'
                     /*
                      * Every page specific scss file has to be entered here
                      */
@@ -100,14 +123,21 @@ module.exports = function(grunt) {
             }
         },
 
-        uglify: {
-            sideboard: {
-                files: {
-                    'application/js/sideboard.min.js': [
-                        'js/wz_tooltip.js',
-                        'src/input2.js'
-                    ]
-                }
+        jade: {
+            compile: {
+                options: {
+                    data: {
+                        debug: false
+                    },
+                    pretty: true
+                },
+                files: [ {
+                    cwd: "application/modules/pvp/views",
+                    src: "*.jade",
+                    dest: "application/modules/pvp/views",
+                    expand: true,
+                    ext: ".tpl"
+                } ]
             }
         },
 
@@ -129,25 +159,57 @@ module.exports = function(grunt) {
             // Already minimized libraries
             libs: {
                 src: [
+                    // JQuery
                     'application/js/libs/jquery/jquery.min.js',
                     'application/js/libs/jquery/jquery-ui-1.10.3.custom.min.js',
                     "application/js/libs/jquery/jquery.placeholder.min.js",
-                    "application/js/libs/jquery/jquery.sort.js",
+                    "application/js/libs/jquery/jquery.sort.min.js",
                     "application/js/libs/jquery/jquery.transit.min.js",
+
+                    // Bootstrap
+                    "application/js/libs/bootstrap/bootstrap.min.js",
+
+
+                    // Modernizr
                     'application/js/libs/modernizr/modernizr-min.js',
+
+                    // Debug Library
                     'application/js/libs/debug/javascript-debug.js',
+                    'application/js/libs/debug/debug.dev.js',
                     'application/js/libs/swfobject/swfobject.js',
-                    'application/js/require.js',
-                    'application/js/router.js',
-                    'application/js/ui.js',
-                    'application/js/fusioneditor.js',
+
+                    //'application/js/require/require.js',
+
+                    // Flux Slider
                     'application/js/flux.min.js',
+
+                    // Fusion Libraries
+                    'application/js/fusioneditor.js',
                     'application/js/language.js',
+                    //'application/js/ui.js',
+                    //'application/js/router.js',
+
+                    // Some miscalenous functions
                     'application/js/misc.js',
-                    'application/js/wz_tooltip.js', /* used for teamspeak sideboard */
-                    'application/js/libs/debug/debug.dev.js'
+
+                    // Some prototype overwrites
+                    'application/js/prototypes.js',
+
+                    // Used by TS Viewer
+                    //'application/js/wz_tooltip.js'
                 ],
                 dest: 'application/js/libs.js'
+            },
+
+
+
+            alive: {
+                src: [
+                    'application/js/libs/alive/core.js',
+                    'application/js/libs/alive/wow.js',
+                    'application/js/libs/alive/tooltip.js'
+                ],
+                dest: 'application/js/alive.js'
             },
 
             common: {
@@ -164,7 +226,7 @@ module.exports = function(grunt) {
          */
         shell: {
             handlebars: {
-                command: 'handlebars js/templates/ > js/templates.js'
+                command: 'handlebars application/js/templates/ > application/js/templates.js'
             }
         },
 
@@ -178,10 +240,17 @@ module.exports = function(grunt) {
                 ],
                 tasks: ['sass:dev']
             },
+            cssAdmin: {
+                files: [
+                    'application/themes/admin/css/**/*.scss'
+                ],
+                tasks: ['sass:admin']
+            },
 
             js: {
                 files: [
                     'application/js/libs/**/*.js',
+                    'application/js/modules/**/*.js',
                     'application/js/controller/**/*.js',
                     'application/js/misc.js',
                     'application/js/static.js',
@@ -189,6 +258,13 @@ module.exports = function(grunt) {
                     'gruntfile.js'
                 ],
                 tasks: ['jshint','concat:libs']
+            },
+
+            jade: {
+                files: [
+                    'application/modules/**/*.jade'
+                ],
+                tasks: ['jade:compile']
             },
 
             templates: {
@@ -214,11 +290,15 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
+    // Jade Template Compilation
+    grunt.loadNpmTasks('grunt-contrib-jade');
+
     grunt.loadNpmTasks('grunt-shell');
 
     // Used during development
     grunt.registerTask('default', [
         "jshint",
+        'sass:admin',
         'sass:dev',
         'shell:handlebars',
         'concat:libs',

@@ -3,42 +3,19 @@
  * News Init file
  */
 
-requirejs.config({
-    baseUrl: '/application/js',
+require(['static'], function(){
+    require([
+            'controller/NewsController',
+            'tooltip'
+        ],
+        function (NewsController, Tooltip) {
+            $(function () {
+                debug.debug("js/news");
 
-    // Disable internal caching of the files (development only)
-    //urlArgs: "bust=" + (new Date()).getTime(),
-    urlArgs: "rev=617.1",
+                var controller = new NewsController();
 
-    paths: {
-    }
+            });
+        }
+    );
 });
 
-require([
-        'static',
-        'controller/NewsController',
-        'libs/alive/core',
-        'libs/alive/slideshow',
-        'libs/alive/login'
-    ],
-    function (static, controller, Core) {
-
-    $(function () {
-
-        debug.debug("asdas");
-        controller.init();
-
-        controller.initSlideshow();
-
-        /*
-         Core.staticUrl = 'http://forum.wow-alive.de/static-wow';
-         Core.baseUrl = 'http://cms.wow-alive.de';
-         Core.cdnUrl = 'http://cms.wow-alive.de';
-         Core.project = 'wow';
-         Core.locale = 'de-de';
-         Core.buildRegion = 'eu';
-         Core.loggedIn = false;
-         */
-
-    });
-});

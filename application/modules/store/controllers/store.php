@@ -13,10 +13,13 @@ class Store extends MX_Controller
 		$this->user->userArea();
 
 		$this->load->model("store_model");
+        $this->load->model("items_model");
 
 		$this->load->config('store');
 
 		requirePermission("view");
+
+        $this->template->hideSidebar();
 	}
 
 	public function index()
@@ -40,6 +43,7 @@ class Store extends MX_Controller
 			'vp' => $this->user->getVp(),
 			'dp' => $this->user->getDp(),
 			'data' => $this->getData(),
+            'selected_realm' => $this->user->getActiveRealmId(),
 			'minimize' => $this->config->item('minimize_groups_by_default')
 		);
 
@@ -50,8 +54,64 @@ class Store extends MX_Controller
 		$page = $this->template->box("<span style='cursor:pointer;' onClick='window.location=\"".$this->template->page_url."ucp\"'>".lang("ucp")."</span> &rarr; ".lang("item_store", "store"), $content);
 
 		// Output the content
-		$this->template->view($page, "modules/store/css/store.css", "modules/store/js/store.js");
+		$this->template->view($page);
 	}
+
+    public function realm($realmId){
+        requirePermission("view");
+
+        $storeData = $this->getData();
+        $realm = NULL;
+
+        foreach($storeData as $realmKey => $realmData){
+            if($realmId == $realmKey){
+                $realm = $realmData;
+            }
+        }
+
+        if($realm == NULL){
+            die('Realm not found.');
+        }
+
+        $items = $this->store_model->getItems($realmId);
+        $groupData = array();
+        $count = 0;
+
+        foreach($items as $row){
+            $count++;
+            if(!isset($groupData[$row['group']])){
+                $groupData[$row['group']] = array(
+                    'id' => $row['group'],
+                    'name' => $this->store_model->getGroupTitle($row['group']),
+                    'items' => array(),
+                );
+            }
+
+            $this->items_model->getSizedIcon($row['icon'], 36);
+
+            $groupData[$row['group']]['items'][$row['id']] = array(
+                'id' => $row['id'],
+                'name' => $row['name'],
+                'itemid' => $row['itemid'],
+                'quality' => $row['quality'],
+                'icon' => $row['icon'],
+                'vp_price' => $row['vp_price'],
+            );
+        }
+
+        // Gather the template data
+        $templateData = array(
+            'realm_id' => $realmId,
+            'groups' => $groupData,
+            'count' => $count,
+        );
+
+        // Load the content
+        $content = $this->template->loadPage("store_content.tpl", $templateData);
+
+        echo $content;
+        die();
+    }
 
 	/**
 	 * Get all realms, item groups and items and format them nicely in an array

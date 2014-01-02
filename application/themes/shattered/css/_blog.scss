@@ -1,0 +1,44 @@
+
+#blog-wrapper {
+  background: url("../images/homepage/shadow.png") repeat-y;
+
+  .left-col {
+    width: 646px;
+    margin: 0px;
+
+    #blog {
+      background: 50% 0 no-repeat;
+      background-image: url("../images/layout/cms/blog_bg.jpg");
+      padding: 50px 25px 0 25px;
+      word-wrap: break-word;
+      min-height: 450px;
+
+      h3.blog-title {
+        font-size: 24px;
+        color: #fdeea4;
+        font-weight: bold;
+        letter-spacing: -1px;
+        word-wrap: break-word;
+      }
+      .by-line, .byline {
+        color: #855b47;
+      }
+      .byline {
+        font-size: 11px;
+        line-height: 24px;
+      }
+
+      .detail {
+        padding: 20px 0;
+      }
+    }
+  }
+  .right-col {
+    margin: 20px 13px 20px 0;
+    width: 305px;
+    float: right;
+    padding: 10px;
+    line-height: 1.5em;
+    border-radius: 10px;
+  }
+}

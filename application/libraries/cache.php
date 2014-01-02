@@ -5,8 +5,14 @@
  * @author Jesper Lindström
  * @author Xavier Geerinck
  * @author Elliott Robbins
- * @link http://raxezdev.com/fusioncms
+ * @link http://fusion-hub.com
  */
+
+define('CACHE_DURATION_1_MIN', 60);
+define('CACHE_DURATION_1_HOUR', CACHE_DURATION_1_MIN * 60);
+define('CACHE_DURATION_1_DAY', CACHE_DURATION_1_HOUR * 24);
+define('CACHE_DURATION_1_WEEK', CACHE_DURATION_1_DAY * 7);
+define('CACHE_DURATION_1_MONTH', CACHE_DURATION_1_DAY * 30);
 
 class Cache
 {
@@ -142,8 +148,9 @@ class Cache
 	 * Cache data
 	 * @param String $name
 	 * @param Mixed $data
-	 * @param Int $expiration In seconds
-	 */
+	 * @param Int $expiration In seconds, default: 1 year
+     * @return bool
+     */
 	public function save($name, $data, $expiration = 31536000)
 	{
 		// If cache is turned off

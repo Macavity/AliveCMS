@@ -4,7 +4,7 @@ class Items_model extends CI_Model
 {
 	public function getItems()
 	{
-		$query = $this->db->query("SELECT i.*, g.title FROM store_items i, store_groups g WHERE g.id = i.group ORDER BY `group` ASC");
+		$query = $this->db->query("SELECT i.*, g.title, g.orderNumber FROM store_items i, store_groups g WHERE g.id = i.group ORDER BY `group` ASC");
 
 		if($query->num_rows() > 0)
 		{
@@ -113,4 +113,18 @@ class Items_model extends CI_Model
 			return false;
 		}
 	}
+
+    public function getSizedIcon($icon,$size = 56){
+        $url = 'http://media.blizzard.com/wow/icons/'.$size.'/'.$icon.'.jpg';
+        $localUrl = $_SERVER['DOCUMENT_ROOT'].'/application/themes/shattered/images/icons/'.$size.'/'.$icon.".jpg";
+
+        if(file_exists($localUrl)){
+            return;
+        }
+
+        $contents = file_get_contents($url);
+        if(strlen($contents) > 0){
+            file_put_contents($localUrl, $contents);
+        }
+    }
 }

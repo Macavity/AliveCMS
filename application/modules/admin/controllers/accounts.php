@@ -23,7 +23,8 @@ class Accounts extends MX_Controller
 		// Prepare my data
 		$data = array(
 			'url' => $this->template->page_url,
-		);
+            'auto' => false
+        );
 
 		// Load my view
 		$output = $this->template->loadPage("accounts/accounts_search.tpl", $data);
@@ -34,14 +35,49 @@ class Accounts extends MX_Controller
 		// Output my content. The method accepts the same arguments as template->view
 		$this->administrator->view($content, false, "modules/admin/js/accounts.js");
 	}
-	
-	public function search()
-	{
-		$value = $this->input->post('value');
-		$data = false;
-		
-		if(preg_match("/^[a-zA-Z0-9]*$/", $value) && strlen($value) > 3 && strlen($value) < 15)
-		{
+
+    public function get($id)
+    {
+        if(!is_numeric($id))
+        {
+            die('<span>No such account</span>');
+        }
+
+        $data = $this->accounts_model->getById($id);
+        if($data)
+        {
+            $page_data = array(
+                "data" => $data,
+                "auto" => true
+            );
+
+            // Load my view
+            $output = $this->template->loadPage("accounts/accounts_search.tpl", $page_data);
+
+            // Put my view in the main box with a headline
+            $content = $this->administrator->box('Accounts', $output);
+
+            // Output my content. The method accepts the same arguments as template->view
+            $this->administrator->view($content, false, "modules/admin/js/accounts.js");
+        }
+        else
+        {
+            die('<span>No such account</span>');
+        }
+    }
+
+    public function search($data = false)
+    {
+        $value = false;
+        if(!$this->input->post('auto'))
+            $value = $this->input->post('value');
+
+        if($data != false && is_numeric($data))
+        {
+            $data = $this->accounts_model->getById($data);
+        }
+        elseif(preg_match("/^[a-zA-Z0-9]*$/", $value) && strlen($value) > 3 && strlen($value) < 15)
+        {
 			//It's a username
 			$data = $this->accounts_model->getByUsername($value);
 		}
@@ -97,6 +133,7 @@ class Accounts extends MX_Controller
 				{
 					$modules[$module]['name'] = (array_key_exists("name", $manifest)) ? $manifest['name'] : $module;
 					$modules[$module]['manifest'] = (array_key_exists("permissions", $manifest)) ? $manifest['permissions'] : false;
+					$modules[$module]['folderName'] = $module;
 				}
 			}
 		}
@@ -150,7 +187,7 @@ class Accounts extends MX_Controller
 		
 		if(!$external_account_data[column("account", "email")] || !$internal_account_data["nickname"])
 		{
-			die("UI.alert('The fields can\'t be empty')");
+			die("UI.alert('The following fields can\'t be empty: [email]')");
 		}
 
 		$this->accounts_model->save($id, $external_account_data, $external_account_access_data, $internal_account_data);

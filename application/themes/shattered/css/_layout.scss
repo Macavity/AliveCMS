@@ -2,6 +2,8 @@
 /* 02. LAYOUT
 /* *********************************************************************************** */
 
+@import "statics";
+
 html { min-width: 1006px; }
 
 /*
@@ -56,8 +58,108 @@ body {
   .header-plate {
     position: relative;
     height: 93px;
+    /* own style */
+    @if($ownStyle){
+      @include roundAllCorners(5px);
+      height: 85px;
+      background-color: #2f120a;
+      border: 1px solid #7f4128;
+    }
+  }
+  .user-plate {
+    color: #fff; width: 355px; height: 84px; position: absolute; right: 3px; bottom: 1px;
+
+    .user-meta {
+      padding-left: 20px; position: absolute; left: 0; top: 68px; z-index: 3; float: left;
+      &.meta-empty { padding-left: 85px; padding-top: 6px; }
+      &.meta-login { padding-left: 85px; padding-top: 6px; top: 63px; padding-right: 10px; }
+    }
+    .character { position: relative; }
+
+    .player-name,
+    .guild-name { display: block; text-shadow: 1px 1px 1px black; font-weight: bold; }
+
+    .player-name { color: #b0d715; font-weight: bold; line-height: 100%; margin-bottom: 2px; }
+    .character-name { line-height: 100%; font-weight: bold; font-size: 24px; margin: 0; padding-right: 15px; background-position: 100% 10px; letter-spacing: -0.0em; text-shadow: 1px 1px 1px black; letter-spacing: -0.05em; }
+    .context-link { background:none; }
+    .character-name.context-open,
+    .character-name:hover { color: white; }
+    .character-name .arrow {
+      background: url("../images/layout/cms/char-arrow.png") 0 3px no-repeat; display: inline-block; width: 11px; height: 15px; }
+    .character-name:hover .arrow { background-position: 0 -145px; }
+
+    .card-character {
+      width: 326px; height: 84px; padding:0 0 0 30px; display: block; color: #EEE; font-size: 14px;
+      background: url("../images/layout/charcard-neutral.jpg") 0 0 no-repeat;
+      position: absolute; bottom:0px; right: -4px; text-overflow: ellipsis; line-height: 1.4em;
+      strong { color: #ffb100; }
+      .login-msg { display:block; float:left; width:210px; margin-top:12px;  text-shadow:1px 1px 1px #555 }
+      .wow-login-key {
+        display:block;
+        position:absolute; right:50px; top:31px;
+        width:50px; height:42px;
+        background:url(../images/layout/key.png) no-repeat }
+    }
+    a.card-character:hover { color: #fff; background-position: 0 -84px; }
+    a.card-character:hover strong { color: white; }
+    .card-character .card-portrait { width:58px; height:58px; display:block; float:right; border:1px solid #c3ff00;
+      background:url(../images/layout/avatar-neutral.jpg) 50% 50% no-repeat; margin-top:7px; margin-right:21px }
+    .meta-wrapper { position:relative; width:240px; left:30px; top:10px }
+    .meta-alliance .player-name { color: #5fb8eb; }
+    .meta-alliance .character-name:hover { color: white; text-shadow: 1px 1px 1px black, 0 0 15px #409aff, 0 0 5px #409aff; }
+    .meta-horde .player-name { color: #eb1212; }
+    .meta-horde .character-name:hover { color: white; text-shadow: 1px 1px 1px black, 0 0 15px #c64040, 0 0 5px #c64040; }
+
+    .card-character.plate-alliance { background-image:url(../images/layout/charcard-alliance.jpg) }
+    .card-character.plate-alliance .card-portrait { border-color:#00bbf6 }
+    .card-character.plate-alliance .profile-link:hover .card-portrait { border-color:#00c5f7 }
+
+    .card-character.plate-horde { background-image:url(../images/layout/charcard-horde.jpg) }
+    .card-character.plate-horde .card-portrait { border-color:#e23739 }
+    .card-character.plate-horde .profile-link:hover .card-portrait { border-color:#e63f41 }
+    .ui-context { top: 30px }
+    .ui-context a { color: #00B6FF; }
+    .ui-context a:hover { color: #fff; }
+    .card-overlay { width: 343px; height: 15px; background: url("../images/layout/card-overlay.png"); position: absolute; bottom: 0; right: 2px; }
+    a.profile-link,
+    a.profile-link .hover { display: block; width: 200px; height: 125px; }
+    a.profile-link { position: absolute; bottom: 0; right: 2px; }
+    a.profile-link .hover { background: url("../images/layout/card-model-hover.png") no-repeat; opacity: 0; -webkit-transition: opacity 0.1s linear; -o-transition: all 0.1s linear; -moz-transition: opacity 0.1s linear; transition: opacity 0.1s linear; }
+    #header .user-plate.plate-horde a.profile-link .hover { background-position: right top; }
+    a.profile-link:hover .hover { opacity: 1; }
+
+    &.plate-nochars { background: url("../images/layout/no-chars.gif") -3px 103% no-repeat }
+    &.plate-nochars .user-meta { padding: 15px 165px 0 20px; }
+
+    &.plate-alliance { background: url("../images/layout/card-alliance.gif") -3px 103% no-repeat }
+    &.plate-alliance .player-name { color: #5fb8eb; }
+    &.plate-alliance .character-name:hover { color: white; text-shadow: 1px 1px 1px black, 0 0 15px #409aff, 0 0 5px #409aff; }
+
+    &.plate-horde { background: url("../images/layout/card-horde.gif") -3px 103% no-repeat }
+    &.plate-horde .player-name { color: #eb1212; }
+    &.plate-horde .character-name:hover { color: white; text-shadow: 1px 1px 1px black, 0 0 15px #c64040, 0 0 5px #c64040; }
+
   }
 }
+
+@if($ownStyle){
+  #header{
+    .header-plate {
+      @include roundAllCorners(5px);
+      height: 85px;
+      background-color: #2f120a;
+      border: 1px solid #7f4128;
+    }
+    .user-plate {
+      .card-character.plate-alliance{
+        background: #0f5bb9;
+        width: 324px;
+        margin: 0px 1px 0px 0px;
+      }
+    }
+  }
+}
+
 
 #search-bar {
   position: absolute;
@@ -66,6 +168,7 @@ body {
   z-index: 5;
 }
 #search-form {
+  /*
   float: right;
   width: 336px;
   background: white;
@@ -75,7 +178,7 @@ body {
   border-radius: 5px;
   -moz-box-shadow: 0 0 10px #361005;
   -webkit-box-shadow: 0 0 10px #361005;
-  box-shadow: 0 0 10px #361005;
+  box-shadow: 0 0 10px #361005;*/
 }
 #search-button {
   border: none;
@@ -91,10 +194,15 @@ body {
 }
 /* search */
 #search-field {
-  color: #707070; width: 315px; padding: 3px; border: none; background: transparent;
+  width: 315px;
+  /*
+  color: #707070;
+  padding: 3px;
+  border: none;
+  background: transparent;
 
   &.active,
-  &:focus { font-weight: bold; }
+  &:focus { font-weight: bold; }*/
 }
 
 /*
@@ -111,6 +219,11 @@ body {
  * Content
  */
 
+.defaultContentTop {
+  background: url("../images/layout/content-top.jpg") 0 0 no-repeat;
+
+}
+
 #content {
   background-color: #1A0F08 !important;
   padding: 0;
@@ -126,7 +239,7 @@ body {
     }
   }
   .content-top {
-    background: url("../images/layout/content-top.jpg") 0 0 no-repeat;
+    @extend .defaultContentTop;
   }
   .content-trail {
     height: 30px;
@@ -139,6 +252,57 @@ body {
     background: url("../images/layout/content-bot.jpg") 0 100% no-repeat;
     min-height: 570px;
   }
+
+  .left-col {
+    width: 617px;
+    float: left;
+    margin-left: 30px;
+  }
+
+  .right-col {
+    width: 345px;
+    float: left;
+
+    .sidebar-module {
+      width: 307px;
+      margin: 0 0 32px 21px;
+
+      .sub-title {
+        border-bottom: 2px solid #552B12;
+        padding-bottom: 6px;
+
+        span {
+          color: #f0e29a;
+          text-transform: uppercase;
+          letter-spacing: -0.5px;
+          font-size: 14px;
+        }
+      }
+
+      ul {
+        margin-top: 10px;
+        li {
+          padding: 1px 0;
+          a {
+            line-height: 24px;
+            display: block;
+            width: 100%;
+
+            &:hover {
+              border-radius:5px;
+              -moz-border-radius:5px;
+              -webkit-border-radius:5px;
+              background-color:#3f1806;
+            }
+
+            span {
+              margin-left: 46px;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 .body-wrapper {
@@ -149,12 +313,42 @@ body {
   margin-right: 10px;
 }
 
+/**
+ * Sidebar + Section Title
+ */
+#content{
+  .bg-body {
+    width: 100%;
+    background: url("../images/community/bg-community-body2.jpg") 0 0 repeat-y;
+  }
+  .body-wrapper {
+    width: 100%;
+    background: url("../images/community/bg-community-body3.jpg") 0 100% no-repeat;
+    padding-bottom: 30px;
+    margin-left: 0px;
+    margin-top: 0px;
+    margin-right: 0px;
+  }
+  .contents-wrapper {
+    width: 100%;
+    background: url("../images/community/bg-community-body1.jpg") 0 0 no-repeat;
+    min-height: 698px;
+    #content_ajax {
+      margin-top: 30px;
+      margin-right: 10px;
+    }
+  }
+}
+
+
 /* main sidebar navigation list */
-.dynamic-menu {
+.dynamic-menu,
+.sidebar-menu {
   margin: 0 10px 0 20px; padding-bottom: 1px; background: url("../images/sidebar-menu-sep.gif") 0 100% no-repeat; font-size:13px;
 
   li {
     padding-top: 1px; background: url("../images/sidebar-menu-sep.gif") 0 0 no-repeat; white-space: nowrap;
+    position: relative;
 
     &.item-active {
       a {
@@ -179,6 +373,19 @@ body {
       a .arrow { padding-right: 10px; font-style: normal; vertical-align: middle; background: url("../images/sidebar-menu-arrows.png") 2px -91px no-repeat; padding-left: 18px; }
       &:hover a .arrow { background-position: 2px -141px; }
     }
+
+    &.sidebar-sub {
+      padding-left: 10px;
+
+      &:before {
+        content: "- ";
+        position: absolute;
+        top: 4px;
+        left: 4px;
+      }
+    }
+
+
 
     .dynamic-menu { display: none }
   }
@@ -265,86 +472,7 @@ body {
 #menu li.menu-services a.active { background-position: -520px -130px !important }
 #menu li.menu-services a span { background-position: -520px -13px }
 
-#header {
-  .header-plate {
-    height: 93px; position: relative;
-  }
-  .user-plate {
-    color: #fff; width: 355px; height: 84px; position: absolute; right: 3px; bottom: 1px;
 
-    .user-meta {
-      padding-left: 20px; position: absolute; left: 0; top: 68px; z-index: 3; float: left;
-      &.meta-empty { padding-left: 85px; padding-top: 6px; }
-      &.meta-login { padding-left: 85px; padding-top: 6px; top: 63px; padding-right: 10px; }
-    }
-    .character { position: relative; }
-
-    .player-name,
-    .guild-name { display: block; text-shadow: 1px 1px 1px black; font-weight: bold; }
-
-    .player-name { color: #b0d715; font-weight: bold; line-height: 100%; margin-bottom: 2px; }
-    .character-name { line-height: 100%; font-weight: bold; font-size: 24px; margin: 0; padding-right: 15px; background-position: 100% 10px; letter-spacing: -0.0em; text-shadow: 1px 1px 1px black; letter-spacing: -0.05em; }
-    .context-link { background:none; }
-    .character-name.context-open,
-    .character-name:hover { color: white; }
-    .character-name .arrow {
-      background: url("../images/layout/cms/char-arrow.png") 0 3px no-repeat; display: inline-block; width: 11px; height: 15px; }
-    .character-name:hover .arrow { background-position: 0 -145px; }
-
-    .card-character {
-      width: 326px; height: 84px; padding:0 0 0 30px; display: block; color: #EEE; font-size: 14px;
-      background: url("../images/layout/charcard-neutral.jpg") 0 0 no-repeat;
-      position: absolute; bottom:0px; right: -4px; text-overflow: ellipsis; line-height: 1.4em;
-      strong { color: #ffb100; }
-      .login-msg { display:block; float:left; width:210px; margin-top:12px;  text-shadow:1px 1px 1px #555 }
-      .wow-login-key {
-        display:block;
-        position:absolute; right:50px; top:31px;
-        width:50px; height:42px;
-        background:url(../images/layout/key.png) no-repeat }
-    }
-    a.card-character:hover { color: #fff; background-position: 0 -84px; }
-    a.card-character:hover strong { color: white; }
-    .card-character .card-portrait { width:58px; height:58px; display:block; float:right; border:1px solid #c3ff00;
-      background:url(../images/layout/avatar-neutral.jpg) 50% 50% no-repeat; margin-top:7px; margin-right:21px }
-    .meta-wrapper { position:relative; width:240px; left:30px; top:10px }
-    .meta-alliance .player-name { color: #5fb8eb; }
-    .meta-alliance .character-name:hover { color: white; text-shadow: 1px 1px 1px black, 0 0 15px #409aff, 0 0 5px #409aff; }
-    .meta-horde .player-name { color: #eb1212; }
-    .meta-horde .character-name:hover { color: white; text-shadow: 1px 1px 1px black, 0 0 15px #c64040, 0 0 5px #c64040; }
-
-    .card-character.plate-alliance { background-image:url(../images/layout/charcard-alliance.jpg) }
-    .card-character.plate-alliance .card-portrait { border-color:#00bbf6 }
-    .card-character.plate-alliance .profile-link:hover .card-portrait { border-color:#00c5f7 }
-
-    .card-character.plate-horde { background-image:url(../images/layout/charcard-horde.jpg) }
-    .card-character.plate-horde .card-portrait { border-color:#e23739 }
-    .card-character.plate-horde .profile-link:hover .card-portrait { border-color:#e63f41 }
-    .ui-context { top: 30px }
-    .ui-context a { color: #00B6FF; }
-    .ui-context a:hover { color: #fff; }
-    .card-overlay { width: 343px; height: 15px; background: url("../images/layout/card-overlay.png"); position: absolute; bottom: 0; right: 2px; }
-    a.profile-link,
-    a.profile-link .hover { display: block; width: 200px; height: 125px; }
-    a.profile-link { position: absolute; bottom: 0; right: 2px; }
-    a.profile-link .hover { background: url("../images/layout/card-model-hover.png") no-repeat; opacity: 0; -webkit-transition: opacity 0.1s linear; -o-transition: all 0.1s linear; -moz-transition: opacity 0.1s linear; transition: opacity 0.1s linear; }
-    #header .user-plate.plate-horde a.profile-link .hover { background-position: right top; }
-    a.profile-link:hover .hover { opacity: 1; }
-
-    &.plate-nochars { background: url("../images/layout/no-chars.gif") -3px 103% no-repeat }
-    &.plate-nochars .user-meta { padding: 15px 165px 0 20px; }
-
-    &.plate-alliance { background: url("../images/layout/card-alliance.gif") -3px 103% no-repeat }
-    &.plate-alliance .player-name { color: #5fb8eb; }
-    &.plate-alliance .character-name:hover { color: white; text-shadow: 1px 1px 1px black, 0 0 15px #409aff, 0 0 5px #409aff; }
-
-    &.plate-horde { background: url("../images/layout/card-horde.gif") -3px 103% no-repeat }
-    &.plate-horde .player-name { color: #eb1212; }
-    &.plate-horde .character-name:hover { color: white; text-shadow: 1px 1px 1px black, 0 0 15px #c64040, 0 0 5px #c64040; }
-
-  }
-
-}
 
 .ie6 {
   #header{
@@ -1066,8 +1194,15 @@ tr {
         background-image: url("../images/icons/context.gif");
         background-repeat: no-repeat;
         font-weight: bold;
+        width: auto;
       }
+
+      [class^="icon-"], [class*=" icon-"]{
+        background-image: url("../images/icons/context.gif");
+      }
+
       .icon-profile {
+        background-image: url("../images/icons/context.gif");
         background-position: 0 0;
       }
       .icon-posts {
@@ -1197,6 +1332,17 @@ tr {
 
   #right {
     margin: 0px 13px 20px 0;
+  }
+
+  .sidebar-module {
+    ul {
+      a {
+        &:hover {
+          background: none;
+
+        }
+      }
+    }
   }
 }
 
@@ -1410,6 +1556,14 @@ a.comments-link {
   display: block;
   float: left;
 }
+
+.comments-link{
+  background: -16px -15px;
+  background-image:url(../images/layout/cms/blog_icons.gif);
+  padding-left: 17px;
+  margin-left: 8px;
+}
+
 .by-line a.comments-link {
   line-height: 1.2em;
   float: none;
@@ -1549,7 +1703,7 @@ a.comments-link {
 }
 .service-welcome .employee,
 span.employee {
-  display: inline-block; vertical-align: middle; width: 27px; height: 32px;
+  display: inline-block; vertical-align: middle; width: 27px; height: 10px;
   background: url("../images/icons/employee.png") no-repeat center center; /* TODO */
 }
 
@@ -1663,6 +1817,41 @@ span.employee {
 }
 
 /* buttons */
+$btnLight:  #692303;
+$btnDark:   #3f0d07;
+/*
+.btn {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #faa732;
+  *background-color: #f89406;
+  background-image: -moz-linear-gradient(top, $btnLight, $btnDark);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from($btnLight), to($btnDark));
+  background-image: -webkit-linear-gradient(top, $btnLight, $btnDark);
+  background-image: -o-linear-gradient(top, $btnLight, $btnDark);
+  background-image: linear-gradient(to bottom, $btnLight, $btnDark);
+  background-repeat: repeat-x;
+  border-color: #f89406 #f89406 #ad6704;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff692303', endColorstr='#ff3f0d07', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.btn:hover,
+.btn:focus,
+.btn:active,
+.btn.active,
+.btn.disabled,
+.btn[disabled] {
+  color: #ffffff;
+  background-color: #f89406;
+  *background-color: #df8505;
+}
+
+.btn:active,
+.btn.active {
+  background-color: #c67605 \9;
+}*/
 
 button::-moz-focus-inner {
   padding: 0;
@@ -1747,12 +1936,17 @@ a.ui-button.imgbutton span {
 
 /* Buttons */
 
-.ui-button span, .ui-cancel span {
-  line-height: 38px;
+.ui-button,
+.ui-cancel{
+  span {
+    line-height: 38px;
+  }
 }
 
-.ui-button span {
-  font-family: Arial, sans-serif;
+.ui-button{
+  span {
+    font-family: Arial, sans-serif;
+  }
 }
 
 .button1 {
@@ -1767,19 +1961,61 @@ a.ui-button.imgbutton span {
   &.disabled span, &.processing span {
     color: #953203;
   }
-}
+  &.button1-next {
+    span {
+      background-image: url("../images/buttons/button-1-next.png");
+      span {
+        padding-right: 40px;
+      }
+    }
+  }
 
-.button1-next span {
-  background-image: url("../images/buttons/button-1-next.png");
-  span {
-    padding-right: 40px;
+  &.button1-previous{
+    span {
+      background-image: url("../images/buttons/button-1-previous.png");
+      span {
+        padding-left: 12px;
+      }
+    }
   }
 }
 
-.button1-previous span {
-  background-image: url("../images/buttons/button-1-previous.png");
+
+
+.button2,
+.button3{
+  span{
+    padding: 0 0 0 13px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 11px;
+
+    &.hover,
+    &:hover{
+      span {
+        color: #fff;
+      }
+    }
+
+    span {
+      padding: 0 13px 0 0;
+    }
+  }
+
+}
+
+.button2 {
   span {
-    padding-left: 12px;
+    background-image: url("../images/buttons/button-2.png");
+    background-repeat: no-repeat;
+    color: #ffae00;
+  }
+
+  &.disabled,
+  &.processing{
+    span {
+      color: #953203;
+    }
   }
 }
 
@@ -1795,40 +2031,17 @@ a.ui-button.imgbutton span {
   }
 }
 
-.button2-previous span {
-  background-image: url("../images/buttons/button-2-previous.png");
-  line-height: 26px;
-  padding-right: 14px !important;
+.button2-previous{
   span {
-    padding-left: 1px;
-    margin: 0;
-    font-size: 11px;
-    text-transform: none;
-  }
-}
-
-.button2 span, .button3 span {
-  padding: 0 0 0 13px;
-  height: 30px;
-  line-height: 30px;
-  font-size: 11px;
-}
-
-.button2 span span, .button3 span span {
-  padding: 0 13px 0 0;
-}
-
-.button2 {
-  span {
-    background-image: url("../images/buttons/button-2.png");
-    background-repeat: no-repeat;
-    color: #ffae00;
-  }
-  &.hover span, &:hover span {
-    color: #fff;
-  }
-  &.disabled span, &.processing span {
-    color: #953203;
+    background-image: url("../images/buttons/button-2-previous.png");
+    line-height: 29px;
+    padding-left: 20px !important;
+    span {
+      padding-left: 3px !important;
+      margin: 0;
+      font-size: 11px;
+      text-transform: none;
+    }
   }
 }
 
@@ -1837,9 +2050,6 @@ a.ui-button.imgbutton span {
     background-image: url("../images/buttons/button-3.gif");
     background-repeat: no-repeat;
     color: #00B4FF;
-  }
-  &.hover span, &:hover span {
-    color: #fff;
   }
   &.disabled span, &.processing span {
     color: #b1bac3;
@@ -2401,6 +2611,12 @@ div {
   }
 }
 
+.formEndLink {
+  position: static;
+  bottom: 20px;
+  display: none;
+}
+
 /* shadows */
 
 .drop-shadow {
@@ -2464,8 +2680,8 @@ div {
     font: 12px / 1.5 Arial, Verdana, sans-serif;
   }
   &.checkbox {
-    vertical-align: bottom;
-    background-color: none;
+    /*vertical-align: bottom;
+    background-color: none;*/
   }
 }
 
@@ -2656,7 +2872,7 @@ div {
     font-weight: normal;
   }
   strong {
-    color: #feba02;
+    color: $orange;
   }
 }
 
@@ -2725,6 +2941,52 @@ div {
 
 /* form */
 
+#content {
+  legend {
+    color: $orange;
+  }
+  .input-append .add-on,
+  .input-prepend .add-on{
+    color: #333;
+  }
+
+  a[data-toggle=collapse]{
+    color: white;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: block;
+
+    i.icon{
+      background-image: url("/application/images/glyphicons-halflings-white.png");
+      background-position: -433px -96px;
+      width: 14px;
+      height: 14px;
+      display: inline-block;
+      position: relative;
+      top: 2px;
+
+    }
+
+    &.collapsed {
+      i.icon{
+        background-position: -408px -96px;
+      }
+    }
+  }
+
+}
+
+fieldset .control-group.error{
+  margin-left:0px;
+}
+
+.alert-info {
+  a {
+    color: #08c;
+  }
+}
+
 #login-embedded {
   .input {
     background: white url("../images/layout/input-bg-white.gif") repeat-x;
@@ -2750,31 +3012,30 @@ div {
   }
 }
 
-#embedded-login .input.disabled, .input[disabled="disabled"] {
+#embedded-login{
+  h1{
+    line-height: 20px;
+  }
+  .label {
+    display: block;
+    padding-bottom: 2px;
+    font-size: 11px;
+    text-transform: uppercase;
+    background: none;
+    text-shadow: none;
+    border-width: 0px;
+    margin: 0px;
+  }
+  .input {
+    width: 343px;
+  }
+}
+
+#embedded-login .input.disabled,
+.input[disabled="disabled"] {
   background: #e3e3e3;
   color: #b6b6b6;
   border-color: #c0c0c0;
-}
-
-#embedded-login .label {
-  display: block;
-  padding-bottom: 2px;
-  font-size: 11px;
-  text-transform: uppercase;
-}
-
-#login-embedded #embedded-login .label {
-  color: #68727b;
-}
-
-#embedded-login .input {
-  width: 343px;
-}
-
-#login-embedded #embedded-login #remember-me {
-  float: right;
-  display: block;
-  vertical-align: middle;
 }
 
 #embedded-close {
@@ -2782,6 +3043,16 @@ div {
 }
 
 #login-embedded {
+  #embedded-login {
+    #remember-me {
+      float: right;
+      display: block;
+      vertical-align: middle;
+    }
+    .label {
+      color: #68727b;
+    }
+  }
   #embedded-close {
     width: 10px;
     height: 10px;
@@ -2799,6 +3070,7 @@ div {
     }
   }
 }
+
 
 /* overlay */
 
@@ -2887,7 +3159,6 @@ div {
   li {
     padding: 2px 0 0 20px;
     margin-bottom: 7px;
-    background: url("../images/icons/help-icons.gif") 0 0 no-repeat;
     &.icon-pass {
       background-position: 2px 3px;
     }

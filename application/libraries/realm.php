@@ -5,7 +5,7 @@
  * @author Jesper Lindström
  * @author Xavier Geerinck
  * @author Elliott Robbins
- * @link http://raxezdev.com/fusioncms
+ * @link http://fusion-hub.com
  */
 
 class Realm
@@ -15,6 +15,7 @@ class Realm
 	private $name;
 	private $playerCap;
 	private $config;
+    private $uptime;
 
 	// Objects
 	private $CI;
@@ -26,6 +27,9 @@ class Realm
 	private $online;
 	private $onlineFaction;
 	private $isOnline;
+
+    // Database
+    private $db;
 
 	/**
 	 * Initialize the realm
@@ -249,6 +253,21 @@ class Realm
 	{
 		return $this->playerCap;
 	}
+
+    public function getUptime(){
+
+        $cacheId = 'realm_uptime_'.$this->getId();
+
+        $uptime = $this->CI->cache->get($cacheId);
+
+        if($uptime === false || $this->isOnline() == false){
+            $uptime = $this->CI->cms_model->getRealmUptime($this->getId());
+            if($uptime){
+                return $uptime;
+            }
+        }
+        return 0;
+    }
 	
 	public function getWorld()
 	{
@@ -264,6 +283,10 @@ class Realm
 	{
 		return $this->emulator;
 	}
+
+    public function getEmulatorType(){
+        return $this->config['emulator'];
+    }
 
 	/**
 	 * Check if the realm is up and running

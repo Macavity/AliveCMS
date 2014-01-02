@@ -1,116 +1,112 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-    <head>
-      <title>{$title}</title>
-      <link href="{$favicon}" type="image/x-icon" rel="shortcut icon" />
-        
-        
-      <!-- CSS -->
-      <link rel="stylesheet" href="{$style_path}main.css" type="text/css" />
-      {if $extra_css}<link rel="stylesheet" href="{$path}{$extra_css}" type="text/css" />{/if}
-        <!-- / CSS Stylesheet -->
-        
-        <!-- Search engine related -->
-        <meta name="description" content="{$description}" />
-        <meta name="keywords" content="{$keywords}" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
-        
-        <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        
-        <!-- TODO compile scripts -->
-      <script type="text/javascript" src="{$path}js/libs.js"></script>
-      {if $controller == 'news'}
-        <script type="text/javascript" src="{$path}js/news.js"></script>
-      {else}
-        <script type="text/javascript" src="{$path}js/main.js"></script>
-      {/if}
+<head>
+  <title>{$title}</title>
+  <link href="{$favicon}" type="image/x-icon" rel="shortcut icon" />
 
-      <!--
 
-      <script data-main="/application/js/main" src="/application/js/libs/require/require.js"></script>
-      <script type="text/javascript" src="{$js_path}wow.js"></script>
-      <script type="text/javascript" src="{$js_path}login.js"></script>
-      <script type="text/javascript" src="{$js_path}tooltip.js"></script>
-      -->
-        <script type="text/javascript">
+  <!-- CSS -->
+  <link rel="stylesheet" href="{$style_path}main.css" type="text/css" />
+  {if $extra_css}<link rel="stylesheet" href="{$path}{$extra_css}" type="text/css" />{/if}
+  <!-- / CSS Stylesheet -->
 
-            var Config = {
-                URL: "{$url}",            
-                image_path: "{$image_path}",
-                CSRF: getCookie('csrf_cookie_name'),
+  <!-- Search engine related -->
+  <meta name="description" content="{$description}" />
+  <meta name="keywords" content="{$keywords}" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
-                UseFusionTooltip: {if $use_fcms_tooltip}1{else}0{/if},
+  <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-                Slider: {
-                    interval: {$slider_interval},
-                    effect: "{$slider_style}",
-                    id: "{$slider_id}"
-                },
-                
-                voteReminder: {if $vote_reminder}1{else}0{/if},
+  <!-- TODO compile scripts -->
+  <script type="text/javascript" src="{$path}js/libs.js"></script>
+  <script type="text/javascript" src="{$path}js/hb.js"></script>
 
-                Theme: {
-                    next: "{$slider.next}",
-                    previous: "{$slider.previous}"
-                }
-            };
+  {if $js_action}
+    <script type="text/javascript" src="{$path}js/libs/require/require.js" data-main="{$path}js/{$js_action}"></script>
+  {else}
+    <script type="text/javascript" src="{$path}js/libs/require/require.js" data-main="{$path}js/main"></script>
+  {/if}
 
-            var scripts = [
-                {if $extra_js},"{$path}{$extra_js}"{/if}
-            ];
+  <script type="text/javascript">
 
-            if(typeof JSON == "undefined")
-            {
-                scripts.push("{$path}js/json2.js");
-            }
+    var Config = {
+      URL: "{$url}",
+      image_path: "{$image_path}",
+      CSRF: getCookie('csrf_cookie_name'),
 
-            require(scripts, function()
-            {
-              $(document).ready(function()
-              {
-                {if $client_language}
-                Language.set("{addslashes($client_language)}");
-                {/if}
+      UseFusionTooltip: {if $use_fcms_tooltip}1{else}0{/if},
 
-                UI.initialize();
+      Slider: {
+        interval: {$slider_interval},
+        effect: "{$slider_style}",
+        id: "{$slider_id}"
+      },
 
-                {if $extra_css}
-                Router.loadedCSS.push("{$extra_css}");
-                {/if}
+      voteReminder: {if $vote_reminder}1{else}0{/if},
 
-                {if $extra_js}
-                Router.loadedJS.push("{$extra_js}");
-                {/if}
-              });
-            });
-        </script>
+      Theme: {
+        next: "{$slider.next}",
+        previous: "{$slider.previous}"
+      }
+    };
 
-        {if $analytics}
-          <script type="text/javascript">
-            // Google Analytics
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', '{$analytics}']);
-            _gaq.push(['_trackPageview']);
+    var scripts = [
+      {if $extra_js},"{$path}{$extra_js}"{/if}
+    ];
 
-            (function() {
-              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
+    if(typeof JSON == "undefined")
+    {
+      scripts.push("{$path}js/json2.js");
+    }
 
-          </script>
+    require(scripts, function()
+    {
+      $(document).ready(function()
+      {
+        {if $client_language}
+        Language.set("{addslashes($client_language)}");
         {/if}
-        <!--[if IE 6]>
-        <script type="text/javascript">
-          //<![CDATA[
+
+        //UI.initialize();
+
+        {if $extra_css}
+        //Router.loadedCSS.push("{$extra_css}");
+        {/if}
+
+        {if $extra_js}
+        //Router.loadedJS.push("{$extra_js}");
+        {/if}
+      });
+    });
+  </script>
+
+  {if $analytics}
+    <script type="text/javascript">
+      // Google Analytics
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', '{$analytics}']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+  {/if}
+  <!--[if IE 6]>
+  <script type="text/javascript">
+    //<![CDATA[
             try { document.execCommand('BackgroundImageCache', false, true) } catch(e) {}
-          //]]>
-        </script>
-        <![endif]-->
+    //]]>
+  </script>
+  <![endif]-->
 
-        <!-- TS Viewer Sideboard -->
-        <script type="text/javascript" src="http://static.tsviewer.com/short_expire/js/ts3viewer_loader.js"></script>
-        <!-- /TS Viewer Sideboard -->
+  <!-- TS Viewer Sideboard -->
+<!--
+<script type="text/javascript" src="http://static.tsviewer.com/short_expire/js/ts3viewer_loader.js"></script>
+-->  <!-- /TS Viewer Sideboard -->
 
-    </head>
+</head>

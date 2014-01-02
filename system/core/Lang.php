@@ -82,9 +82,9 @@ class CI_Lang {
 
 		if ($idiom == '')
 		{
-			$deft_lang = 'english';
-			$idiom = 'english';
-		}
+            $deft_lang = ( ! isset($config['language'])) ? 'english' : $config['language'];
+            $idiom = ($deft_lang == '') ? 'english' : $deft_lang;
+        }
 
 		// Determine where the language file is and load it
 		if ($alt_path != '' && file_exists($alt_path.'language/'.$idiom.'/'.$langfile))

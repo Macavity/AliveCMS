@@ -5,7 +5,7 @@
  * @author Jesper Lindström
  * @author Xavier Geerinck
  * @author Elliott Robbins
- * @link http://raxezdev.com/fusioncms
+ * @link http://fusion-hub.com
  */
 
 class User
@@ -54,15 +54,18 @@ class User
 	 */
 	public function setUserDetails($username, $sha_pass_hash)
 	{
+        log_message('debug', 'User::setUserDetails ('.$username.')');
 		$check = $this->CI->external_account_model->initialize($username);
 		
 		if(!$check)
 		{
+            log_message('debug', 'User::setUserDetails Check failed');
 			return 1;
 		}
 		elseif(strtoupper($this->CI->external_account_model->getShaPassHash()) == strtoupper($sha_pass_hash))
 		{
 			// Load the internal values (vp, dp etc.)
+            log_message('debug', 'User::setUserDetails Check succeeded');
 			$this->CI->internal_user_model->initialize($this->CI->external_account_model->getId());
 
 			$userdata = array(
@@ -465,7 +468,7 @@ class User
 			}
 			else //Get the characters for the specified realm
 			{
-				$realm = $this->realms->getRealm($realmId);
+				$realm = $this->CI->realms->getRealm($realmId);
 
 				$character = $realm->getCharacters();
 					
@@ -485,6 +488,23 @@ class User
 			return false;
 		}
 	}
+
+    public function getActiveCharacterData(){
+
+        if(!$this->online || $this->activeCharacterGUID == 0 || $this->activeRealmId == 0){
+            return false;
+        }
+
+        $realm = $this->CI->realms->getRealm($this->activeRealmId);
+
+        if($realm){
+            $characterDb = $realm->getCharacters();
+
+            $character = $characterDb->getCharacterByGuid($this->activeCharacterGUID);
+
+            return $character;
+        }
+    }
 
 	/**
 	 * Get the userId from the current User or the given Username
@@ -700,5 +720,24 @@ class User
         $this->CI->session->set_userdata('activeChar', $charGUID);
         $this->CI->session->set_userdata('activeRealm', $charRealm);
 
+    }
+
+    public function getCharacterData($realmId, $character, $isGm){
+
+        $realmName = $this->CI->realms->getRealm($realmId)->getName();
+
+        $posterData = array(
+            'name' => $character['name'],
+            'account' => $character['account'],
+            'level' => $character['level'],
+            'race' => $character['race'],
+            'gender' => $character['gender'],
+            'class' => $character['class'],
+            'realmId' => $realmId,
+            'realmName' => $realmName,
+            'gm' => $isGm,
+        );
+
+        return $posterData;
     }
 }

@@ -1,37 +1,80 @@
-define(function () {
+define([
+    'modules/core',
+    'modules/page',
+    'modules/char_select',
+    'modules/login',
+    'modules/tooltip',
+    'modules/wow',
+    'modules/explore',
+    'modules/dynamic_menu'
+],
 
-    /**
-     * @constructor
-     * @param id
-     */
-    function controllerBase(id) {
-        debug.debug("controllerBase: "+id);
-        this.id = id;
+    function (Core, Page, CharSelect, Login, Tooltip, Wow, Explore, DynamicMenu) {
 
-        this.initTS3Viewer();
+    var BaseController = Class.extend({
 
-        this.initUserplate();
+        init: function(){
+            debug.debug("BaseController.init");
 
-        /*
-         Page.initialize();
-         Input.initialize();
-         Explore.initialize();
-         Flash.initialize();
-         Locale.initialize();
-         CharSelect.initialize();*/
-        Core.initialize();
+            this.initTS3Viewer();
+            this.initUserplate();
 
-        return this;
-    }
+            this.initFormBehaviour();
+            this.initDynamicMenu();
 
-    controllerBase.prototype = {
+            /*
+             Input.initialize();
+             Flash.initialize();
+             Locale.initialize();
+             */
+
+            Page.initialize();
+            Core.initialize();
+            CharSelect.initialize();
+            Wow.initialize();
+            Explore.initialize();
+
+            // Set data-tooltip binds globally
+            //
+
+        },
 
         initUserplate: function(){
             $(".plate-logged-out").on("click",function(e){
                 e.preventDefault();
-                Login = require("libs/alive/login");
                 Login.open();
             });
+        },
+
+        initFormBehaviour: function(){
+            debug.debug("BaseController.initFormBehaviour");
+
+            // Shortcuts cachen
+            var _jq = $;
+
+            _jq("[data-toggle=buttons-radio] .btn").each(function(){
+                _jq(this).bind('click', function(){
+                    var object = _jq(this);
+                    if(object.data("target")){
+                        object.parent().parent().find('[name="'+object.data("target")+'"]').val(object.val());
+                    }
+                    else{
+                        object.parent().parent().find("input.hidden").value = object.val();
+                    }
+                });
+            });
+        },
+
+        initDynamicMenu: function(){
+            var _jq = $;
+
+            var dynamicMenues = _jq(".dynamic-menu");
+            if(dynamicMenues.length > 0){
+                debug.debug("BaseController.initDynamicMenu")
+                dynamicMenues.each(function(){
+                    var menu = new DynamicMenu(_jq(this));
+                });
+            }
         },
 
         initTS3Viewer: function(){
@@ -101,7 +144,7 @@ define(function () {
             return Handlebars.templates[templateName];
         }
 
-    };
+    });
 
-    return controllerBase;
+    return BaseController;
 });

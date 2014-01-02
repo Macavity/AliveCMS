@@ -7,45 +7,13 @@
 
 		<link rel="shortcut icon" href="{$url}application/themes/admin/images/favicon.png" />
 		<link rel="stylesheet" href="{$url}application/themes/admin/css/main.css" type="text/css" />
+        <!--<link rel="stylesheet" href="{$url}application/css/jquery-ui.css" type="text/css" />-->
 		{if $extra_css}<link rel="stylesheet" href="{$url}application/{$extra_css}" type="text/css" />{/if}
 
 		<script src="{if $cdn}//html5shiv.googlecode.com/svn/trunk/html5.js{else}{$url}application/js/html5shiv.js{/if}"></script>
-		<script type="text/javascript" src="{if $cdn}https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js{else}{$url}application/js/jquery.min.js{/if}"></script>
-
-    <script type="text/javascript" src="{$url}application/js/function_debug.js"></script>
-    <script type="text/javascript" src="{$url}application/js/function_console.js"></script>
-    <script type="text/javascript" src="{$url}application/js/debug.dev.js"></script>
+        <script type="text/javascript" src="{$url}application/js/libs.js"></script>
 
 		<script type="text/javascript">
-		
-			if(!window.console)
-			{
-				var console = {
-				
-					log: function()
-					{
-						// Prevent stupid browsers from doing stupid things
-					}
-				};
-			}
-
-			function getCookie(c_name)
-			{
-				var i, x, y, ARRcookies = document.cookie.split(";");
-
-				for(i = 0; i < ARRcookies.length;i++)
-				{
-					x = ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
-					y = ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
-					x = x.replace(/^\s+|\s+$/g,"");
-					
-					if(x == c_name)
-					{
-						return unescape(y);
-					}
-				}
-			}
-
 			var Config = {
 				URL: "{$url}",
 				CSRF: getCookie('csrf_cookie_name'),
@@ -56,13 +24,17 @@
 		</script>
 
 		<script src="{$url}application/themes/admin/js/router.js" type="text/javascript"></script>
-		<script src="{$url}application/js/require.js" type="text/javascript" ></script>
-		
+        {if $require_js}
+            <script type="text/javascript" src="/application/js/libs/require/require.js" data-main="/application/js/{$require_js}"></script>
+        {else}
+            <script src="{$url}application/js/libs/require/require.js" type="text/javascript" ></script>
+        {/if}
+
 		<script type="text/javascript">
 
 			var scripts = [
-				"{$url}application/js/jquery.placeholder.min.js",
-				"{$url}application/js/jquery.transit.min.js",
+				"{$url}application/js/libs/jquery/jquery.placeholder.min.js",
+				"{$url}application/js/libs/jquery/jquery.transit.min.js",
 				"{$url}application/js/ui.js",
 				"{$url}application/js/fusioneditor.js"
 				{if $extra_js},"{$url}application/{$extra_js}"{/if}
@@ -84,7 +56,7 @@
 				});
 			});
 
-		</script>
+        </script>
 
 		<!--[if IE]>
 			<style type="text/css">
@@ -132,13 +104,13 @@
 		<!-- Top bar -->
 		<header>
 			<div class="center_1020">
-				<a href="#" class="logo"></a>
+                <a href="{$url}admin/" class="logo"></a>
 
-				<!-- Top menu -->
+                <!-- Top menu -->
 				<aside class="right">
 					<nav>
-						<a href="{$url}ucp" data-hasevent="1">
-							<div class="icon logout"></div>
+                        <a target="_blank" href="{$url}ucp" data-hasevent="1">
+                            <div class="icon logout"></div>
 							Go back
 						</a>
 
@@ -207,16 +179,16 @@
 				<aside id="logo"><a href="#" class="logo"></a></aside>
 				<div class="divider"></div>
 				<aside id="links">
-					<a href="http://fusion.raxezdev.com/" target="_blank">FusionHub</a>
-					<a href="http://fusion.raxezdev.com/modules" target="_blank">Modules</a>
-					<a href="http://fusion.raxezdev.com/themes" target="_blank">Themes</a>
-					<a href="http://fusion.raxezdev.com/support" target="_blank">Support</a>
+					<a href="http://www.fusion-hub.com" target="_blank">FusionHub</a>
+					<a href="http://www.fusion-hub.com/modules" target="_blank">Modules</a>
+					<a href="http://www.fusion-hub.com/themes" target="_blank">Themes</a>
+					<a href="http://www.fusion-hub.com/support" target="_blank">Support</a>
 				</aside>
 				<div class="divider"></div>
-				<aside id="twitter">
-					<h1>Follow us on Twitter!</h1>
-					<div id="twitter_icon"></div>
-					<a href="http://twitter.com/FusionHub" target="_blank">@FusionHub</a>
+				<aside id="facebook">
+					<h1>Like us on Facebook!</h1>
+					<div id="fb_icon"></div>
+					<a href="http://facebook.com/HeroicForge" target="_blank">HeroicForge</a>
 				</aside>
 				<div class="divider"></div>
 				<aside id="html5">
@@ -228,5 +200,6 @@
 				<div class="clear"></div>
 			</div>
 		</footer>
-	</body>
+
+    </body>
 </html>

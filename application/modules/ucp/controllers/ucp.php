@@ -29,7 +29,8 @@ class Ucp extends MX_Controller
 				"characters" => $this->realms->getTotalCharacters(),
 				"realms" => $this->realms->getRealms(),
 				"url" => $this->template->page_url,
-				"realmObj" => $this->realms
+                "image_path" => $this->template->image_path,    /* @alive */
+				"realmObj" => $this->realms,
 			);
 
 			$characters = $this->template->loadPage("ucp_characters.tpl", $characters_data);
@@ -60,7 +61,12 @@ class Ucp extends MX_Controller
 				"teleport" => $this->config->item('ucp_teleport'),
 				"admin" => $this->config->item('ucp_admin'),
 				"gm" => $this->config->item('ucp_gm')
-			)
+			),
+
+            /**
+             * @alive
+             */
+            "image_path" => $this->template->image_path,
 		);
 
 		$this->template->view($this->template->loadPage("page.tpl", array(
@@ -69,4 +75,46 @@ class Ucp extends MX_Controller
 			"content" => $this->template->loadPage("ucp.tpl", $data)
 		)), "modules/ucp/css/ucp.css");
 	}
+
+    /**
+     * Changes the active character
+     * used via ajax
+     * @alive
+     */
+    public function changeCharacter(){
+        // Login required and ajax request
+        if(!$this->input->is_ajax_request() || !$this->user->isOnline()){
+            redirect("ucp");
+        }
+
+        $newGUID = $this->input->post("index");
+        $newRealm = $this->input->post("realm");
+        $xsToken = $this->input->post("xstoken");
+        $error = "";
+
+        if($this->realms->realmExists($newRealm)){
+            $realmCharDb = $this->realms->getRealm($newRealm)->getCharacters();
+
+            if($realmCharDb->characterBelongsToAccount($newGUID, $this->user->getId())){
+                $this->user->setActiveCharacter($newGUID, $newRealm);
+            }
+        }
+        else{
+            $error = "Realm nicht gefunden";
+        }
+
+        $content = $this->template->getUserplate();
+
+        // Damit wir später .find benutzen können muss der Content in einem Oberelement liegen.
+        $content = "<div>".$content."</div>";
+
+        $array = array(
+            "content" => $content,
+            "guid" => $newGUID,
+            "error" => $error,
+        );
+
+        $this->outputJson($array);
+    }
+
 }

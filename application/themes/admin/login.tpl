@@ -9,7 +9,7 @@
 		<link rel="stylesheet" href="{$url}application/themes/admin/css/login.css" type="text/css" />
 
 		<script src="{if $cdn}//html5shiv.googlecode.com/svn/trunk/html5.js{else}{$url}application/js/html5shiv.js{/if}"></script>
-		<script type="text/javascript" src="{if $cdn}https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js{else}{$url}application/js/jquery.min.js{/if}"></script>
+		<script type="text/javascript" src="{if $cdn}https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js{else}{$url}application/js/libs/jquery/jquery.min.js{/if}"></script>
 
 		<script type="text/javascript">
 			function getCookie(c_name)
@@ -35,12 +35,12 @@
 			};
 		</script>
 
-		<script src="{$url}application/js/require.js" type="text/javascript" ></script>
+		<script src="{$url}application/js/libs/require/require.js" type="text/javascript" ></script>
 		<script type="text/javascript">
 
 			var scripts = [
-				"{$url}application/js/jquery.placeholder.min.js",
-				"{$url}application/js/jquery.transit.min.js",
+				"{$url}application/js/libs/jquery/jquery.placeholder.min.js",
+				"{$url}application/js/libs/jquery/jquery.transit.min.js",
 				"{$url}application/themes/admin/js/login.js"
 			];
 
@@ -57,7 +57,7 @@
 				<!-- Top bar -->
 				<header>
 					<div class="center_1020">
-						<a href="#" class="logo"></a>
+						<a href="{$url}" class="logo"></a>
 
 						<!-- Top menu -->
 						<aside class="right">
@@ -95,10 +95,10 @@
 				<aside id="logo"><a href="#" class="logo"></a></aside>
 				<div class="divider"></div>
 				<aside id="links">
-					<a href="http://fusion.raxezdev.com/" target="_blank">FusionHub</a>
-					<a href="http://fusion.raxezdev.com/modules" target="_blank">Modules</a>
-					<a href="http://fusion.raxezdev.com/themes" target="_blank">Themes</a>
-					<a href="http://fusion.raxezdev.com/support" target="_blank">Support</a>
+					<a href="http://fusion-hub.com/" target="_blank">FusionHub</a>
+					<a href="http://fusion-hub.com/modules" target="_blank">Modules</a>
+					<a href="http://fusion-hub.com/themes" target="_blank">Themes</a>
+					<a href="http://fusion-hub.com/support" target="_blank">Support</a>
 				</aside>
 				<div class="divider"></div>
 				<aside id="twitter">

@@ -5,7 +5,7 @@
  * @author Jesper Lindström
  * @author Xavier Geerinck
  * @author Elliott Robbins
- * @link http://raxezdev.com/fusioncms
+ * @link http://fusion-hub.com
  */
 
 class Characters_model
@@ -71,6 +71,32 @@ class Characters_model
 			return false;
 		}
 	}
+
+    /**
+     * Get a specific character by its guid
+     * @alive
+     * @param $guid
+     * @param string $fields
+     * @return bool
+     */
+    public function getCharacterByGUID($guid, $fields = "*"){
+
+        // Make sure we're connected
+        $this->connect();
+
+        $this->db->select($fields)->from(table('characters', $this->realmId))->where("guid", $guid);
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0){
+            $results = $query->result_array();
+            return $results[0];
+        }
+        else
+        {
+            return false;
+        }
+
+    }
 
 	/**
 	 * Get the online players
@@ -189,6 +215,8 @@ class Characters_model
 	public function getGuidByName($name)
 	{
 		$this->connect();
+
+        $name = ucfirst(strtolower($name));
 
 		$query = $this->db->query("SELECT ".column("characters", "guid", true, $this->realmId)." FROM ".table('characters', $this->realmId)." WHERE ".column("characters", "name", false, $this->realmId)."=?", array($name));
 
@@ -328,7 +356,7 @@ class Characters_model
 		$this->connect();
 		
 		$query = $this->db->query("SELECT COUNT(*) as `total` FROM ".table('characters', $this->realmId)." WHERE ".column("characters", "guid", false, $this->realmId)."=?", array($id));
-		
+
 		if($this->db->_error_message())
 		{
 			die($this->db->_error_message());
@@ -352,6 +380,28 @@ class Characters_model
 			return false;
 		}
 	}
+
+    /**
+     * Move a character to a different account
+     * @alive
+     * @param $charGuid
+     * @param $newAccount
+     * @param $realmId
+     */
+    public function moveCharacterToAccount($charGuid, $newAccount, $realmId){
+        $this->connect();
+
+        if(empty($charGuid) || empty($newAccount) || empty($realmId)){
+            return false;
+        }
+
+        $this->db->where('guid', $charGuid)
+            ->update(table('characters', $this->realmId), array(
+                "account" => $newAccount
+            ));
+
+        return true;
+    }
 
 	/**
 	* Check if a character belongs to the specified account

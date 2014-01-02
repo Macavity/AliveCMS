@@ -55,7 +55,8 @@ class MX_Router extends CI_Router
 		$base_url .= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
 
 		/* no controller found */
-		header("Location: ".$base_url."error");
+		//header("Location: ".$base_url."error");
+        die();
 	}
 	
 	/** Locate the controller **/

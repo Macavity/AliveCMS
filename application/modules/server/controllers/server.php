@@ -38,147 +38,181 @@ class Server extends MX_Controller
         $this->pageData = array_merge($this->pageData, array(
             "theme_path" => $this->theme_path,
             "module" => "server",
-            "extra_css" => array($this->style_path."server.css"),
+            "extra_css" => "",
         ));
+
+        $this->template->addBreadcrumb("Server", site_url(array("server")));
 
     }
     
-    public function index($page = "index")
+    public function index()
     {
-        //debug("Server ($page)");
-        
-        /**
-         * Identifier for the cache
-         * @type {String}
-         */
-        $this->cacheId = "server_".$page;
-        
-        $cache = $this->cache->get($this->cacheId);
+        // Site Title
+        $this->template->setTitle("Der Server");
 
-        if($this->cacheActive && $cache !== false)
-        {
-            $this->user->requireRank($cache['rank']);
+        // Template File
+        $this->templateFile = "server.tpl";
 
-            $this->template->setTitle($cache['title']);
-            $out = $cache['content'];
-        }
-        else
-        {
-            $this->template->addBreadcrumb("Server", site_url(array("server")));
-            
-            switch($page){
-                
-                case "howtoplay":
-                    $this->pageTitle = "Online Spielerliste";
-                    $this->template->addBreadcrumb("Spieler Online", site_url(array("server", $page)));
-                    $this->templateFile = "server.tpl";
-                    break;
-                
-                case "playersonline":
-                    $this->pageTitle = "Online Spielerliste";
-                    $this->template->addBreadcrumb("Spieler Online", site_url(array("server", $page)));
-                    $this->templateFile = "playersonline.tpl";
-                    $this->playersonline();
-                    $this->pageData["extra_css"][] = $this->style_path."wiki.css";
-                    $this->template->hideSidebar();
-                    break;
-                
-                case "playermap":
-                    $this->pageTitle = "Spielerkarte";
-                    $this->template->addBreadcrumb("Online Spielerkarte", site_url(array("server", $page)));
-                    $this->templateFile = "playermap.tpl";
-                    $this->template->hideSidebar();
-                    break;
-                
-                
-                default:
-                    $this->pageTitle = "Der Server";
-                    $this->templateFile = "server.tpl";
-                    $this->pageData["extra_css"][] = $this->style_path."server-index.css";
-            }
-            
-            // save the generated content to the cache
-            /*$this->cache->save($this->cacheId, array(
-                "title" => $this->pageTitle, 
-                "content" => $this->out, 
-                "rank" => $page_content['rank_needed']
-            ));*/
-            
-        }
-        
-        // Set the page title
-        $this->template->setTitle($this->pageTitle);
-        
-        $out = $this->template->loadPage($this->templateFile, $this->pageData);
+        $out = $this->template->loadPage("server.tpl", $this->pageData);
             
         $this->template->view($out, $this->pageData["extra_css"]);
     }
-    
-    private function howtoplay(){
-        $page_content = $this->cms_model->getPage($page);
+
+    public function playermap()
+    {
+        // Section Title
+        $this->template->setTitle("Online Spielerkarte");
+
+        // Breadcrumb
+        $this->template->addBreadcrumb("Spielerkarte", site_url(array("server", "playermap")));
+
+        // Hide Sidebar
+        $this->template->hideSidebar();
+
+        $out = $this->template->loadPage("playermap.tpl", $this->pageData);
+        $this->template->view($out, $this->pageData["extra_css"]);
+    }
+
+    public function playersonline()
+    {
+
+        $this->cacheId = "server_playersonline";
+
+        $cache = $this->cache->get($this->cacheId);
+
+        // Section Title
+        $this->template->setTitle("Online Spielerliste");
+
+        // Breadcrumb
+        $this->template->addBreadcrumb("Spieler Online", site_url(array("server", "playeronline")));
+
+        // Hide Sidebar
+        $this->template->hideSidebar();
+
+        if($this->cacheActive && $cache !== false){
+            $out = $cache['content'];
+        }
+        else{
+            $realmData = array();
+
+            $realms = $this->realms->getRealms();
+
+            foreach($realms as $realm){
+                if($realm->isOnline()){
+
+                    $realmCharacters = $realm->getCharacters()->getOnlinePlayers();
+
+                    $onlineCharData = array();
+
+                    if($realmCharacters != false){
+
+                        foreach($realmCharacters as $char){
+
+                            $zone = $this->realms->getZone($char["zone"]);
+
+                            $classes = "class-".$char["class"]." zone-".$char["zone"];
+
+                            if($char["level"] > 79){
+                                $classes .= " is-80";
+                            }
+
+                            $className = $this->realms->getClass($char["class"], $char["gender"]);
+
+                            $onlineCharData[] = array(
+                                "name" => $char["name"],
+                                "class" => $char["class"],
+                                "race" => $char["race"],
+                                "gender" => $char["gender"],
+                                "level" => $char["level"],
+                                "zone" => $zone,
+                                "css" => $classes,
+                                "class_name" => $className,
+                            );
+
+                        }
+                    }
+
+                    $onlineCount = $realm->getOnline();
+
+                    $realmData[] = array(
+                        "id" => $realm->getId(),
+                        "name" => $realm->getName(),
+                        "count" => $onlineCount,
+                        "characters" => $onlineCharData,
+                        "shownCount" => ($onlineCount > 50) ? 50 : $onlineCount,
+                    );
+
+                }
+            }
+
+            $this->pageData["realms"] = $realmData;
+
+            $out = $this->template->loadPage("playersonline.tpl", $this->pageData);
+
+            // save the generated content to the cache
+            /*$this->cache->save($this->cacheId, array(
+                "title" => $this->pageTitle,
+                "content" => $this->out,
+                "rank" => $page_content['rank_needed']
+            ));*/
+        }
+        $this->template->view($out, $this->pageData["extra_css"]);
+
+
+        //$this->pageData["sumPlayers"] = count($characters);
         
     }
-    
-    private function playersonline(){
-        //SELECT guid, name, race, class, gender, level, zone  FROM `characters` WHERE `online`='1' AND (NOT `extra_flags` & 1 AND NOT `extra_flags` & 16) ORDER BY `name`
-        
-        //debug("realms", $this->realms);
 
-        $realmData = array();
+    public function realmstatus(){
+        // Site Title
+        $this->template->setTitle("Realmstatus");
+        $this->template->setSectionTitle("Realmstatus");
+
+        // Breadcrumb
+        $this->template->addBreadcrumb("Realmstatus", site_url("server/realmstatus"));
 
         $realms = $this->realms->getRealms();
 
+        $realmData = array();
+
         foreach($realms as $realm){
-            if($realm->isOnline()){
 
-                $realmCharacters = $realm->getCharacters()->getOnlinePlayers();
+            $values = array(
+                "gm" => $realm->getOnline("gm"),
+                "horde" => $realm->getOnline("horde"),
+                "alliance" => $realm->getOnline("alliance"),
+            );
 
-                $onlineCharData = array();
-
-                if($realmCharacters != false){
-
-                    foreach($realmCharacters as $char){
-
-                        $zone = $this->realms->getZone($char["zone"]);
-
-                        $classes = "class-".$char["class"]." zone-".$char["zone"];
-
-                        if($char["level"] > 79){
-                            $classes .= " is-80";
-                        }
-
-                        $className = $this->realms->getClass($char["class"], $char["gender"]);
-
-                        $onlineCharData[] = array(
-                            "name" => $char["name"],
-                            "class" => $char["class"],
-                            "race" => $char["race"],
-                            "gender" => $char["gender"],
-                            "level" => $char["level"],
-                            "zone" => $zone,
-                            "css" => $classes,
-                            "class_name" => $className,
-                        );
-
-                    }
-                }
-
-                $onlineCount = $realm->getOnline();
-
-                $realmData[] = array(
-                    "id" => $realm->getId(),
-                    "name" => $realm->getName(),
-                    "count" => $onlineCount,
-                    "characters" => $onlineCharData,
-                    "shownCount" => ($onlineCount > 50) ? 50 : $onlineCount,
-                );
-
+            foreach($values as $key => $value){
+                $values[$key] = intval($value);
             }
+
+            $emulator = $realm->getEmulatorType();
+
+            $cssClass = '';
+
+            if(substr_count($emulator, 'trinity') > 0){
+                $cssClass = 'color-ex2';
+            }
+
+            $realmData[] = array(
+                "name" => $realm->getName(),
+                "isOnline" => (bool) $realm->isOnline(),
+                'playerOnline' => $realm->getOnline(),
+                'uptimeDHMS' => sec_to_dhms($realm->getUptime()),
+                'cssClass' => $cssClass,
+                'type' => '',
+            );
         }
-        
-        $this->pageData["realms"] = $realmData;
-        //$this->pageData["sumPlayers"] = count($characters);
-        
+
+        // Prepare data
+        $this->pageData['realmData'] = $realmData;
+
+
+        $out = $this->template->loadPage("realmstatus.tpl", $this->pageData);
+
+        $this->template->view($out, $this->pageData["extra_css"]);
+
     }
     
 }

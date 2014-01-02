@@ -1,10 +1,109 @@
 {
     "name": "Bugtracker",
-    "description": "Simple Bugtracker with basic functionality",
+    "description": "WoW Alive Bugtracker",
 
     "author": {
         "name": "Macavity",
         "website": "http://www.wow-alive.de"
+    },
+
+    "permissions": {
+        "view": {"default": true, "description": "Kann den Bug Tracker ansehen."},
+
+        "canCreateBugs": {"default": false, "description": "Kann neue Bug Tickets erstellen."},
+        "canPrioritize": {"default": false, "description": "Kann bei Tickets die Priorität angeben."},
+        "canEditBugs": {"default": false, "description": "Kann Bug Tickets bearbeiten."},
+        "canRemoveBugs": {"default": false, "description": "Bugs entfernen"},
+        "canReopenBugs": {"default": false, "description": "Kann Erledigte Bug Tickets wieder öffnen."},
+        "canEditComments": {"default": false, "description": "Kann Bug Kommentare von anderen Usern bearbeiten"},
+
+        "canCreateProjects": {"default": false, "description": "Bugs eintragen"},
+        "canEditProjects": {"default": false, "description": "Bugs bearbeiten"},
+        "canRemoveProjects": {"default": false, "description": "Bugs entfernen"}
+
+    },
+
+    "admin": [
+        {
+            "text": "Bugtracker",
+            "icon": "share",
+            "links": [
+                {
+                    "text": "Projekte",
+                    "icon": "tag",
+                    "controller": "admin_projects",
+                    "requirePermission": "canEditProjects"
+                },
+
+                {
+                    "text": "Bugs",
+                    "icon": "tag",
+                    "controller": "admin_bugs",
+                    "requirePermission": "canEditBugs"
+                }
+            ]
+        }
+    ],
+
+    "roles": {
+        "view": {
+            "description": "View the Bug lists",
+            "permissions": {
+                "view": true
+            }
+        },
+
+        "create": {
+            "description": "Kann Bugs erstellen und kommentieren",
+
+            "permissions": {
+                "canCreateBugs": true,
+                "canCommentBugs": true
+            }
+        },
+
+        "tester": {
+            "description": "Kann Bugs wieder öffnen",
+            "dangerLevel": 1,
+
+            "permissions": {
+                "canReopenBugs": true,
+                "canPrioritize": true
+            }
+        },
+
+        "manage": {
+            "description": "Kann Bugs bearbeiten. <em>Admin-Tool<em>",
+            "dangerLevel": 2,
+
+            "permissions": {
+                "canReopenBugs": true,
+                "canPrioritize": true,
+
+                "canEditBugs": true,
+                "canCloseBugs": true
+            }
+        },
+
+        "administrate": {
+            "description": "Kann Projekte und Bugs bearbeiten und entfernen <em>Admin-Tool<em>",
+            "dangerLevel": 3,
+
+            "permissions": {
+                "canReopenBugs": true,
+                "canPrioritize": true,
+
+                "canEditBugs": true,
+                "canEditComments": true,
+                "canCloseBugs": true,
+
+                "canCreateProjects": true,
+                "canEditProjects": true,
+                "canRemoveProjects": true,
+
+                "canRemoveBugs": true
+            }
+        }
     },
     
     "enabled": true

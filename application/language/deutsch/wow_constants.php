@@ -5,9 +5,7 @@
  * otherwise you'll confuse people who expect to see them in English
  */
  
- /* translated by Rydik from http://sunrise-aion.com */
-
-/*$config["races"] = array(
+$lang['races'] = array(
     RACE_HUMAN      => "Mensch",
     RACE_DWARF      =>  array("Zwerg", "Zwerg"),
     RACE_NIGHTELF   =>  array("Nachtelf", "Nachtelf"),
@@ -21,7 +19,7 @@
     RACE_BLOODELF   =>  array("Blutelf", "Blutelf"),
 );
 
-$config["classes"] = array(
+$lang['classes'] = array(
     CLASS_WARRIOR      =>  array("Krieger", "Kriegerin"),
     CLASS_PALADIN      =>  array("Paladin", "Paladin"),
     CLASS_HUNTER       =>  array("J&auml;ger", "J&auml;gerin"),
@@ -32,33 +30,4 @@ $config["classes"] = array(
     CLASS_MAGE         =>  array("Magier", "Magierin"),
     CLASS_WARLOCK      =>  array("Hexenmeister", "Hexenmeisterin"),
     CLASS_DRUID        =>  array("Druide", "Druidin"),
-);*/
-
-
-$lang['races'] = array(
-	1 => "Menschen",
-	2 => "Orcs",
-	3 => "Zwerge",
-	4 => "Nachtelfen",
-	5 => "Untote",
-	6 => "Tauren",
-	7 => "Gnome",
-	8 => "Troll",
-	9 => "Goblin",
-	10 => "Blutelf",
-	11 => "Draenei",
-	22 => "Worgen"
-);
-
-$lang['classes'] = array(
-	1 => "Krieger",
-	2 => "Paladin",
-	3 => "Jäger",
-	4 => "Schurke",
-	5 => "Priester",
-	6 => "Todesritter",
-	7 => "Schamane",
-	8 => "Magier",
-	9 => "Hexenmeister",
-	11 => "Druide"
 );

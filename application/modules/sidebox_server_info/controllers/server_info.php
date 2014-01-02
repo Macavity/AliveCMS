@@ -21,10 +21,10 @@ class Server_Info extends MX_Controller implements Sidebox{
         $isOnline = $realms[0]->isOnline();
         
         if($isOnline){
-            $this->overwriteDisplayName = 'Server Information: <span class="status-icon up">Online</span>';
+            $this->overwriteDisplayName = 'Server Information: <span class="up">Online</span>';
         }
         else{
-            $this->overwriteDisplayName = 'Server Information: <span class="status-icon">Offline</span>';
+            $this->overwriteDisplayName = 'Server Information: <span class="down">Offline</span>';
         }
 
         $connection = $this->load->database("account", true);
@@ -45,7 +45,7 @@ class Server_Info extends MX_Controller implements Sidebox{
         $maxPlayers = 0;
         $uptime = $this->cache->get("realm_uptime_".$realms[0]->getId());
 
-        if($uptime === false || $realms[0]->isOffline()){
+        if($uptime === false || $realms[0]->isOnline() == false){
             $result = $connection->query("SELECT starttime FROM `uptime` WHERE realmid=? ORDER BY starttime DESC LIMIT 1;", array(
                 $realms[0]->getId()
             ));

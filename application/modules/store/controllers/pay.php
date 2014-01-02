@@ -26,177 +26,153 @@ class Pay extends MX_Controller
 	public function index()
 	{
 		$cart = $this->input->post("data");
+        $cart = json_decode($cart, true);
 
-		// Make sure they sent us a cart object
-		if(!$cart)
-		{
-			die("Please provide a cart object");
+        // Make sure they sent us a cart object
+		if(!$cart){
+			$this->show_error("Please provide a cart object");
 		}
 
-		try
-		{
-			// Decode the JSON object
-			$cart = json_decode($cart, true);
-		}
-		catch(Exception $error)
-		{
-			die("Please provide a valid cart object");
-		}
-		
 		// Make sure they don't submit an empty array
-		if(count($cart) == 0)
-		{
-			die(lang("empty_cart", "store"));
+		if(count($cart) == 0){
+            $this->show_error(lang("empty_cart", "store"));
 		}
 
 		$items = array();
 
 		// Load all items
-		foreach($cart as $item)
-		{
+		foreach($cart as $item){
+
+            if(empty($item['id'])){
+                continue;
+            }
+
 			// Load the item
 			$items[$item['id']] = $this->store_model->getItem($item['id']);
 
 			// Make sure the item exists
-			if($items[$item['id']] != false && in_array($item['type'], array('vp', 'dp')))
-			{
+			if($items[$item['id']] != false && in_array($item['type'], array('vp', 'dp'))){
+
 				// Keep track of how much it costs
-				if($item['type'] == "vp" && !empty($items[$item['id']]['vp_price']))
-				{
+				if($item['type'] == "vp" && !empty($items[$item['id']]['vp_price'])){
 					$this->vp += $items[$item['id']]['vp_price'];
 				}
-				elseif($item['type'] == "dp" && !empty($items[$item['id']]['dp_price']))
-				{
+				elseif($item['type'] == "dp" && !empty($items[$item['id']]['dp_price'])){
 					$this->dp += $items[$item['id']]['dp_price'];
 				}
-				else
-				{
-					die(lang("free_items", "store"));
+				else{
+                    $this->show_error(lang("free_items", "store"));
 				}
 			}
-			else
-			{
-				die('Invalid item');
+			else{
+                $this->show_error('Der Einkaufswagen enthält ungültige Items');
 			}
 		}
 
 		// Make sure the user can afford it
-		if(!$this->canAfford())
-		{		
-			$output = $this->template->loadPage("checkout_error.tpl", array('link' => true, 'url' => $this->template->page_url));
-
-			die($output);
+		if(!$this->canAfford()){
+            $this->show_error(lang("cant_afford", "store"));
 		}
 
 		// An array to hold all items in a sub-array for each realm
 		$realmItems = array();
 
-		// Make sure all realms are online
-		foreach($cart as $item)
-		{
+        // Make sure all realms are online
+		foreach($cart as $item){
+
 			$realm = $this->realms->getRealm($items[$item['id']]['realm']);
 
 			// Create a realm item array if it doesn't exist
-			if(!isset($realmItems[$realm->getId()]))
-			{
+			if(!isset($realmItems[$realm->getId()])){
 				$realmItems[$realm->getId()] = array();
 			}
 
-			if(!$realm->isOnline(true))
-			{
-				$data = array('type' => 'offline', 'url' => $this->template->page_url);
-				$output = $this->template->loadPage("failure.tpl", $data);
-
-				die($output);
+			if(!$realm->isOnline(true)){
+				$this->show_error(lang("error_offline", "store"));
 			}
 		}
 
 		// Send all items
 		foreach($cart as $item)
 		{
+
+            $storeItem = $items[$item['id']];
+            $recipientCharGuid = $item['charGuid'];
+
+            $charDb = $this->realms->getRealm($storeItem['realm'])->getCharacters();
+
 			// Is it a query or command?
-			if(empty($items[$item['id']]['query']) && empty($items[$item['id']]['command']))
+			if(empty($storeItem['query']) && empty($storeItem['command']))
 			{
 				// Make sure they enter a character
-				if(!isset($item['character']))
-				{
-					$output = $this->template->loadPage("failure.tpl", array('type' => 'character', 'url' => $this->template->page_url));
-
-					die($output);
+				if(!isset($item['character'])){
+                    $this->show_error(lang("error_character", "store"));
 				}
 
 				// Make sure the character exists
-				if(!$this->realms->getRealm($items[$item['id']]['realm'])->getCharacters()->characterExists($item['character']))
-				{
-					$output = $this->template->loadPage("failure.tpl", array('type' => 'character_exists', 'url' => $this->template->page_url));
-
-					die($output);
+				if(!$charDb->characterExists($recipientCharGuid)){
+                    $this->show_error(str_replace('{0}', $item['character'], lang("error_character_exists", 'store')));
 				}
 
 				// Make sure the character belongs to this account
-				if(!$this->realms->getRealm($items[$item['id']]['realm'])->getCharacters()->characterBelongsToAccount($item['character'], $this->user->getId()))
-				{
-					$output = $this->template->loadPage("failure.tpl", array('type' => 'character_not_mine', 'url' => $this->template->page_url));
-
-					die($output);
+				if(!$charDb->characterBelongsToAccount($recipientCharGuid, $this->user->getId())){
+                    $this->show_error(lang("error_character_not_mine", "store"));
 				}
 
 				// Make sure the character array exists in the realm array
-				if(!isset($realmItems[$items[$item['id']]['realm']][$item['character']]))
-				{
-					$realmItems[$items[$item['id']]['realm']][$item['character']] = array();
+				if(!isset($realmItems[$storeItem['realm']][$recipientCharGuid])){
+					$realmItems[$storeItem['realm']][$recipientCharGuid] = array();
 				}
 				
 				// Check for multiple items
-				if(preg_match("/,/", $items[$item['id']]['itemid']))
-				{
+				if(preg_match("/,/", $storeItem['itemid'])){
 					// Split it per item ID
-					$temp = explode(",", $items[$item['id']]['itemid']);
+					$temp = explode(",", $storeItem['itemid']);
 
 					// Loop through the item IDs
-					foreach($temp as $id)
-					{
+					foreach($temp as $id){
 						// Add them individually to the array
-						array_push($realmItems[$items[$item['id']]['realm']][$item['character']], array('id' => $id));
+                        $itemCount = $item['count'];
+                        while($itemCount-- >= 0){
+                            array_push($realmItems[$storeItem['realm']][$recipientCharGuid], array('id' => $id));
+                        }
 					}
 				}
-				else
-				{
-					array_push($realmItems[$items[$item['id']]['realm']][$item['character']], array('id' => $items[$item['id']]['itemid']));
+				else{
+                    $itemCount = $item['count'];
+                    while($itemCount-- >= 0){
+    					array_push($realmItems[$storeItem['realm']][$recipientCharGuid], array('id' => $storeItem['itemid']));
+                    }
 				}
 			}
-			else if(!empty($items[$item['id']]['command']))
-			{
+			else if(!empty($storeItem['command'])){
 				// Make sure the realm actually supports console commands
-				if(!$this->realms->getRealm($items[$item['id']]['realm'])->getEmulator()->hasConsole())
-				{
-					$output = $this->template->loadPage("failure.tpl", array('type' => 'no_console', 'url' => $this->template->page_url));
-
-					die($output);
+				if(!$this->realms->getRealm($storeItem['realm'])->getEmulator()->hasConsole()){
+                    $this->show_error(lang("error_no_console", "store"));
 				}
 			}
 
 			// Make sure the character is offline, if this item requires it
-			if($items[$item['id']]['require_character_offline'] && $this->realms->getRealm($items[$item['id']]['realm'])->getCharacters()->isOnline($item['character']))
-			{
-				$output = $this->template->loadPage("failure.tpl", array('type' => 'character_not_offline', 'url' => $this->template->page_url));
-
-				die($output);
+			if($storeItem['require_character_offline'] && $this->realms->getRealm($storeItem['realm'])->getCharacters()->isOnline($item['character'])){
+                $this->show_error(lang("error_character_not_offline", "store"));
 			}
 		}
 
-		// Let the user pay before we start sending any items!
+        // Let the user pay before we start sending any items!
 		$this->subtractPoints();
 
 		$this->store_model->logOrder($this->vp, $this->dp, $cart);
 
-		foreach($cart as $item)
-		{
-			// Is it a query?
+        foreach($cart as $item){
+            // Is it a query?
 			if(!empty($items[$item['id']]['query']))
 			{
-				$this->handleQuery($items[$item['id']]['query'], $items[$item['id']]['query_database'], (isset($item['character']) ? $item['character'] : false), $items[$item['id']]['realm']);
-			}
+                $itemCount = $item['count'];
+                while($itemCount-- >= 0){
+                    //debug("handle query", $item);
+                    $this->handleQuery($items[$item['id']]['query'], $items[$item['id']]['query_database'], (isset($item['charGuid']) ? $item['character'] : false), $items[$item['id']]['realm']);
+                }
+            }
 			// Or a command?
 			else if(!empty($items[$item['id']]['command']))
 			{
@@ -205,36 +181,53 @@ class Pay extends MX_Controller
 				foreach($commands as $command)
 				{
 					$command = preg_replace("/\{ACCOUNT\}/", $this->external_account_model->getUsername(), $command);
-					$command = preg_replace("/\{CHARACTER\}/", (isset($item['character']) ? $this->realms->getRealm($items[$item['id']]['realm'])-> getCharacters()->getNameByGuid($item['character']) : false), $command);
+					$command = preg_replace("/\{CHARACTER\}/", (isset($item['charGuid']) ? $this->realms->getRealm($items[$item['id']]['realm'])-> getCharacters()->getNameByGuid($item['charGuid']) : false), $command);
 
-					$this->realms->getRealm($items[$item['id']]['realm'])->getEmulator()->sendCommand($command);
-				}
+                    $itemCount = $item['count'];
+                    while($itemCount-- >= 0){
+                        $this->realms->getRealm($items[$item['id']]['realm'])->getEmulator()->sendCommand($command);
+			     	}
+                }
 			}
 		}
 
 		// Loop through all realms
 		foreach($realmItems as $realm => $characters)
 		{
-			// Loop through all characters
+
+            // Loop through all characters
 			foreach($characters as $character => $items)
 			{
+                //debug("realmItems", $items);
 				$characterName = $this->realms->getRealm($realm)->getCharacters()->getConnection()->query(query("get_charactername_by_guid"), array($character));
 				$characterName = $characterName->result_array();
 				
 				$this->realms->getRealm($realm)->getEmulator()->sendItems($characterName[0]['name'], $this->config->item("store_subject"), $this->config->item("store_body"), $items);
 			}
 		}
+        //debug("items done");
 		
-		// Load the checkout view
-		$output = $this->template->loadPage("success.tpl", array('url' => $this->template->page_url, 'message' => $this->config->item('success_message')));
-
 		$this->store_model->completeOrder();
 
 		$this->plugins->onCompleteOrder($cart);
 
 		// Output the content
-		die($output);
+        $message = array(
+            'type' => 'success',
+            'msg' => $this->config->item('success_message'),
+        );
+        $this->template->handleJsonOutput($message);
+		return;
 	}
+
+    private function show_error($message){
+        $message = array(
+            'type' => 'error',
+            'msg' => $message,
+        );
+        $this->template->handleJsonOutput($message);
+        die();
+    }
 
 	/**
 	 * Update the user's VP and DP
@@ -317,7 +310,17 @@ class Pay extends MX_Controller
 			$query = preg_replace("/\{CHARACTER\}/", "?", $query);
 			$query = preg_replace("/\{REALM\}/", "?", $query);
 
-			$db->query($query, $data);
+            if ($query != ''){
+                // Disable the CI DB Debug
+                $db->db_debug = false;
+
+                $query = $db->query($query, $data);
+
+                if($db->_error_message())
+                {
+                    die($db->_error_message());
+                }
+            }
 		}
 	}
 

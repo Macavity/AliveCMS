@@ -2,14 +2,14 @@
 <div id="slideshow">
     <div class="container">
       {foreach from=$slider item=slide name=slider}
-        <div class="slide" id="slide-{$smarty.foreach.slider.index}" style="background-image: url('{$slide.image}'); {if !$smarty.foreach.slider.first}display: none;{/if}" data-image="{$slide.image}" data-desc="{$slide.text}" data-title="{$slide.title}" data-url="{$slide.link}">
+        <div class="slide" id="slide-{$smarty.foreach.slider.index}" style="background-image: url('{$slide.image}'); {if !$smarty.foreach.slider.first}display: none;{/if}" data-image="{$slide.image}" data-index="{$smarty.foreach.slider.index}" data-desc="{$slide.text}" data-title="{$slide.title}" data-url="{$slide.link}">
         </div>
       {/foreach}
      </div>
         
      <div class="paging">
       {foreach from=$slider item=image name=slider}
-        <a href="javascript:;" id="paging-{$smarty.foreach.slider.index}" onclick="Slideshow.jump({$smarty.foreach.slider.index}, this);" onmouseover="Slideshow.preview({$smarty.foreach.slider.index});" class="current"></a>
+        <a href="javascript:;" id="paging-{$smarty.foreach.slider.index}" data-index="{$smarty.foreach.slider.index}" class="current"></a>
       {/foreach}
      </div>
         

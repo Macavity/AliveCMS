@@ -10,7 +10,7 @@
  | |  | |_| \__ \ | (_) | | | | |____| |  | |____) |
  |_|   \__,_|___/_|\___/|_| |_|\_____|_|  |_|_____/ 
 
- fusion.raxezdev.com
+ www.fusion-hub.com
 
 -->
 
@@ -35,9 +35,9 @@
 		
 		<!-- Load scripts -->
 		<script src="{if $cdn}//html5shiv.googlecode.com/svn/trunk/html5.js{else}{$path}js/html5shiv.js{/if}"></script>
-		<script type="text/javascript" src="{if $cdn}https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js{else}{$path}js/jquery.min.js{/if}"></script>
+		<script type="text/javascript" src="{if $cdn}https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js{else}{$path}js/libs/jquery/jquery.min.js{/if}"></script>
 		<script type="text/javascript" src="{$path}js/router.js"></script>
-		<script type="text/javascript" src="{$path}js/require.js"></script>
+		<script type="text/javascript" src="{$path}js/libss/require/require.js"></script>
 		<script type="text/javascript">
 
 			if(!window.console)
@@ -103,9 +103,9 @@
 				"{$path}js/ui.js",
 				"{$path}js/fusioneditor.js",
 				"{$path}js/flux.min.js",
-				"{$path}js/jquery.placeholder.min.js",
-				"{$path}js/jquery.sort.js",
-				"{$path}js/jquery.transit.min.js",
+				"{$path}js/libs/jquery/jquery.placeholder.min.js",
+				"{$path}js/jquery/jquery.sort.js",
+				"{$path}js/jquery/jquery.transit.min.js",
 				"{$path}js/language.js",
 				{if $extra_js},"{$path}{$extra_js}"{/if}
 			];

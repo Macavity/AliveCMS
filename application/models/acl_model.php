@@ -5,7 +5,7 @@
  * @author Jesper Lindström
  * @author Xavier Geerinck
  * @author Elliott Robbins
- * @link http://raxezdev.com/fusioncms
+ * @link http://fusion-hub.com
  */
 
 class Acl_model extends CI_Model
@@ -82,7 +82,7 @@ class Acl_model extends CI_Model
 	}
 
 	/**
-	 * Get the permission value for the player group
+	 * Get the permission value for tdefault_player_grouphe player group
 	 * @param String $permissionName
 	 * @param String $moduleName
 	 * @return Boolean
@@ -91,6 +91,9 @@ class Acl_model extends CI_Model
 	{
 		$result = null;
 
+        if($moduleName == "bugtracker"){
+            debug("$permissionName");
+        }
 		$groupId = $this->config->item('default_player_group');
 
 		$this->db->select("arp.value");
@@ -102,12 +105,37 @@ class Acl_model extends CI_Model
 
 		$query = $this->db->get("acl_roles_permissions arp, acl_group_roles agr");
 
+
 		if($query->num_rows())
 		{
 			$row = $query->result_array();
 
 			$result = $row[0]['value'];
 		}
+
+        $roles = $this->getGroupRoles($groupId, $moduleName);
+
+        if($moduleName == "bugtracker"){
+            debug("Roles", $roles);
+        }
+
+        if($roles)
+        {
+            foreach($roles as $role)
+            {
+                if($this->acl->manifestExists($moduleName) == false){
+                    continue;
+                }
+
+                // Give it another try with manifest defined roles
+                $manifest = $this->acl->getManifestRole($role['role_name'], $moduleName);
+
+                if($manifest && array_key_exists($permissionName, $manifest['permissions']))
+                {
+                    $result = $manifest['permissions'][$permissionName];
+                }
+            }
+        }
 
 		return $result;
 	}
@@ -124,6 +152,11 @@ class Acl_model extends CI_Model
 	{
 		// Try to find via default player group
 		$result = $this->hasPermissionPlayer($permissionName, $moduleName);
+
+
+        if($moduleName == "bugtracker"){
+            debug("$userId hasPermissionPlayer $moduleName/$permissionName", $result);
+        }
 
 		// Try to find via the account's groups' roles
 		$this->db->select("arp.value");
@@ -531,6 +564,10 @@ class Acl_model extends CI_Model
 		$this->db->where("agr.role_name = ar.name");
 		$query = $this->db->get('acl_group_roles agr, acl_roles ar');
 
+        if($moduleName == 'bugtracker'){
+            debug("getRolesByGroupId", $this->db->last_query());
+        }
+
 		if($query->num_rows() > 0)
 		{
 			$result = $query->result_array();
@@ -542,6 +579,28 @@ class Acl_model extends CI_Model
 			return false;
 		}
 	}
+
+    public function getGroupRoles($groupId, $moduleName){
+        $this->db->select("role_name");
+        $this->db->where("group_id", $groupId);
+
+        if($moduleName){
+            $this->db->where("module", $moduleName);
+        }
+
+        $query = $this->db->get('acl_group_roles');
+
+        if($query->num_rows() > 0)
+        {
+            $result = $query->result_array();
+
+            return $result;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
 	/**
 	 * Get the database roles for a module

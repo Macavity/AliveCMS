@@ -4,3 +4,5 @@ application/cache
 application/logs
 database.php
 .sass-cache
+application/themes/shattered/images/items
+shattered

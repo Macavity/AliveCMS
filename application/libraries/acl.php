@@ -5,7 +5,7 @@
  * @author Jesper Lindström
  * @author Xavier Geerinck
  * @author Elliott Robbins
- * @link http://raxezdev.com/fusioncms
+ * @link http://fusion-hub.com
  */
 
 class Acl
@@ -100,6 +100,7 @@ class Acl
 		&& array_key_exists($permissionName, $this->runtimeCache[$moduleName])
 		&& array_key_exists($userId, $this->runtimeCache[$moduleName][$permissionName]))
 		{
+            //debug("cached permission");
 			return $this->runtimeCache[$moduleName][$permissionName][$userId];
 		}
 		else
@@ -202,4 +203,11 @@ class Acl
 		$this->modules[$moduleName]['permissions'] = (array_key_exists("permissions", $manifest)) ? $manifest['permissions'] : array();
 		$this->modules[$moduleName]['roles'] = (array_key_exists("roles", $manifest)) ? $manifest['roles'] : array();
 	}
+
+    public function manifestExists($moduleName){
+        if(file_exists("application/modules/".$moduleName."/manifest.json")){
+            return true;
+        }
+        return false;
+    }
 }

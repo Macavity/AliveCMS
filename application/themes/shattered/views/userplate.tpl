@@ -10,27 +10,27 @@
 {else}
 <div class="user-plate ajax-update">
     <a id="user-plate" class="card-character plate-{$factionString}" rel="np" href="{$activeChar.url}">
-        <span class="card-portrait" style="background-image:url({$url}{$activeChar.avatarUrl})"></span>
+        <span class="card-portrait" style="background-image:url(/{$activeChar.avatarUrl})"></span>
     </a>
     <div class="meta-wrapper meta-{$factionString}">
         <div class="meta">
             <div class="player-name">{$nickname}</div>
             <div class="character">
-                <a class="character-name context-link" rel="np" href="{$activeChar.url}" data-tooltip="Charakter wechseln" data-tooltip-options="{literal}{&quot;location&quot;: &quot;topCenter&quot;}{/literal}">
+                <a id="selected-character" class="character-name context-link" data-realmid="{$activeChar.realmId}" data-realmname="{$activeChar.realmName}" data-charid="{$activeChar.guid}" data-name="{$activeChar.name}" href="{$activeChar.url}" data-tooltip="Charakter wechseln" data-tooltip-options="{literal}{&quot;location&quot;: &quot;topCenter&quot;}{/literal}">
                     {$activeChar.name}
                     <span class="arrow"></span>
                 </a>
                 <div id="context-1" class="ui-context character-select">
                     <div class="context">
-                        <a href="javascript:;" class="close" onclick="return CharSelect.close(this);"></a>
+                        <a href="javascript:;" class="close"></a>
                         <div class="context-user">
                             <strong>{$activeChar.name}</strong>
                             <br />
                             <span class="realm up">{$activeChar.realmName}</span>
                         </div>
                         <div class="context-links">
-                            <a href="{$activeChar.url}" title="Profil" rel="np" class="icon-profile link-first">
-                                Profil
+                            <a href="{$activeChar.url}" title="Profil" rel="np" class="icn-profile link-first">
+                              Profil
                             </a>
                             <a href="/" title="Meine Beiträge ansehen" rel="np" class="icon-posts"><!--  --></a>
                             <a href="/server/auction/alliance/" title="Auktionen einsehen" rel="np" class="icon-auctions"><!--  --></a>
@@ -47,7 +47,7 @@
                                     <span class="realm up">{$activeChar.realmName}</span>
                                 </a>
                                 {foreach from=$charList item=charRow name=charList}
-                                <a href="{$charRow.url}" onclick="CharSelect.pin({$charRow.guid}, {$charRow.realmId}, this); return false;" class="char" rel="np">
+                                <a href="{$charRow.url}" class="char" rel="np" data-guid="{$charRow.guid}" data-realm="{$charRow.realmId}">
                                     <span class="pin"></span>
                                     <span class="name">{$charRow.name}</span>
                                     <span class="class wow-class-{$charRow.class}">{$charRow.level} {$charRow.raceString} {$charRow.classString}</span>

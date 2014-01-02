@@ -1,0 +1,27 @@
+
+
+.q  { color: #ffd100 }
+.q0 { color: #9d9d9d }
+.q1 { color: #000 }
+.q2 { color: #1eff00 }
+.q3 { color: #0070dd }
+.q4 { color: #a335ee }
+.q5 { color: #ff8000 }
+.q6 { color: #e5cc80 }
+.q7 { color: #e5cc80 }
+.q8 { color: #ffff98 }
+.q9 { color: #71D5FF }
+.q10 { color: #ffd100 }
+
+@import "general";
+
+@import "bugtracker";
+
+/**
+ * Twitter Bootstrap
+ */
+@import "../../../css/bootstrap.min.css";
+
+@import "bootstrap_correction";
+
+@import "tooltip";

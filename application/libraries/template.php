@@ -28,6 +28,13 @@ class Template
 	public $module_name;
 
     /**
+     * Determines wether profiler is enabled
+     * @var bool
+     * @access 	protected
+     */
+    protected $enable_profiler = FALSE;
+
+    /**
      * Controls if a specific page should display a sidebar
      * @alive
      * @var bool
@@ -54,6 +61,7 @@ class Template
      */
     private $breadcrumbs = array();
 
+    private $shownMethod = null;
 
     /**
      * Path to JS folder
@@ -61,6 +69,12 @@ class Template
      * @var string
      */
     public $js_path;
+
+    /**
+     * Used for the RequireJS call
+     * @var {String}
+     */
+    public $js_action;
 
 	/**
 	 * Get the CI instance and create the paths
@@ -82,6 +96,7 @@ class Template
         $this->page_url = ($this->CI->config->item('rewrite')) ? base_url() : base_url().'index.php/';
 		$this->loadManifest();
 		$this->title = "";
+        $this->js_action = "main";
 
 		if(!defined("pageURL"))
 		{
@@ -195,6 +210,7 @@ class Template
 		//Load the sideboxes
 		$sideboxes = $this->loadSideboxes();
 
+        //debug("sideboxes", $sideboxes);
 
 		$header = $this->getHeader($css, $js);
 		$modals = $this->getModals();
@@ -231,7 +247,7 @@ class Template
             $breadCrumbs = $this->CI->smarty->view(APPPATH.$this->theme_path."views/breadcrumbs.tpl", $data, true);
         }
 
-        debug("show bc", $this->showBreadcrumbs);
+        //debug("show bc", $this->showBreadcrumbs);
 
         /**
          * Template specific slider?
@@ -247,6 +263,19 @@ class Template
         }
         else{
             $slider = $this->getSlider();
+        }
+
+        /**
+         *
+         */
+        if($this->enable_profiler == TRUE){
+
+            $this->CI->load->library("profiler");
+
+            $profiler = $this->CI->profiler->run();
+        }
+        else{
+            $profiler = "";
         }
 
         $url = $this->CI->router->fetch_class();
@@ -279,7 +308,7 @@ class Template
              * @alive
              */
             "controller" => $controller,
-            "method" => $method,
+            "method" => ($this->shownMethod == null) ? $this->CI->router->method : $this->shownMethod,
 
             "section_title" => $this->sectionTitle,
             "js_path" => $this->js_path,
@@ -289,6 +318,7 @@ class Template
             "user_name" => $this->CI->user->getNickname(),
             "is_staff" => $this->CI->user->isStaff(),
 
+            "profiler" => $profiler,
         );
 
 		// Load the main template
@@ -316,7 +346,14 @@ class Template
 		return json_encode($array);
 	}
 
-	/**
+    /**
+     * Generates a json formatted output
+     */
+    public function handleJsonOutput($json){
+            die(json_encode($json));
+    }
+
+    /**
 	 * Display the global announcement message
 	 */
 	private function handleAnnouncement()
@@ -395,10 +432,11 @@ class Template
              * @alive
              */
             "controller" => $this->CI->router->class,
-            "method" => $this->CI->router->method,
+            "method" => ($this->shownMethod == null) ? $this->CI->router->method : $this->shownMethod,
             "stage" => $this->CI->config->item("deployment_stage"),
 
             "js_path" => $this->js_path,
+            "js_action" => $this->js_action,
 
             "server_name" => $this->CI->config->item('server_name'),
 		);
@@ -430,6 +468,7 @@ class Template
             "isOnline" => $this->CI->user->isOnline(),
             "charList" => array(),
             "nickname" => $this->CI->user->getNickname(),
+
         );
 
         if($this->CI->user->isOnline()){
@@ -447,24 +486,27 @@ class Template
 
             //debug("realmChars", $realmChars);
             $activeChar = $this->CI->user->getActiveCharacter();
-            debug("activeGuid", $activeChar);
+            //debug("activeGuid", $activeChar);
 
             $n = 0;
+
+            $knownGuilds = array();
 
             foreach($realmChars as $realmRow){
 
                 $realmId = $realmRow["realmId"];
-                $realmName = "Norganon";
+                $realmName = $realmRow["realmName"];
 
                 foreach($realmRow["characters"] as $charRow){
 
+
                     $charRow["realmId"] = $realmId;
                     $charRow["realmName"] = $realmName;
-                    $charRow["url"] = "/characters/".strtolower($realmName)."/".$charRow["name"]."/";
+                    $charRow["url"] = "/character/".$realmId."/".$charRow["name"]."/";
                     $charRow["hasGuild"] = FALSE;
 
                     $charRow["classString"] = $this->CI->realms->getClass($charRow["class"], $charRow["gender"]);
-                    $charRow["raceString"] = $this->CI->realms->getRace($charRow["class"], $charRow["gender"]);
+                    $charRow["raceString"] = $this->CI->realms->getRace($charRow["race"], $charRow["gender"]);
 
                     if($charRow["guid"] == $activeChar && $realmId == $this->CI->user->getActiveRealmId()){
                         $activeCharFound = TRUE;
@@ -474,13 +516,14 @@ class Template
                         $charList[$n] = $charRow;
                         $n++;
                     }
+                    //debug("char", $charRow);
                 }
 
             }
 
             if(!$activeCharFound && count($charList) > 0){
 
-                debug("0er", $charList[0]);
+                //debug("0er", $charList[0]);
                 $this->CI->user->setActiveCharacter($charList[0]["guid"], $charList[0]["realmId"]);
                 $activeCharFound = true;
                 $activeChar = $charList[0];
@@ -512,7 +555,7 @@ class Template
             $data["charList"] = $charList;
 
         }
-        debug("isOnline", $data["isOnline"]);
+        //debug("isOnline", $data["isOnline"]);
         return $this->CI->smarty->view($this->theme_path."views/userplate.tpl", $data, true);
 
     }
@@ -547,10 +590,13 @@ class Template
         /**
          * @alive
          */
+        $module = $this->getModuleName();
         $controller = $this->CI->router->class;
         $method = $this->CI->router->method;
 
-        $sideboxes_db = $this->CI->cms_model->getSideboxes($controller, $method);
+        //debug("$controller - $method", $this->getModuleName());
+
+        $sideboxes_db = $this->CI->cms_model->getSideboxes($module, $controller, $method);
 
 		// If we got sideboxes
 		if($sideboxes_db)
@@ -734,7 +780,7 @@ class Template
 
         foreach($slides_arr as $key=>$image)
 		{
-			if(!preg_match("/http:\/\//i", $image['link']) || !preg_match("/https:\/\//i", $image['link']))
+            if(!preg_match('|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $image['link']))
 			{
 				$slides_arr[$key]['link'] = $this->page_url . $image['link'];
 			}
@@ -858,6 +904,20 @@ class Template
 
 		return $text;
 	}
+
+
+    /**
+     * Enable/disable Profiler
+     * @access	public
+     * @param	bool
+     * @return	void
+     */
+    function enable_profiler($val = TRUE)
+    {
+        $this->enable_profiler = (is_bool($val)) ? $val : TRUE;
+
+        return $this;
+    }
 
 	/**
 	 * Format time as "XX days/hours/minutes/seconds"
@@ -1023,6 +1083,20 @@ class Template
      */
     public function setSectionTitle($header){
         $this->sectionTitle = $header;
+    }
+
+    public function setMethod($method){
+        debug("set method", $method);
+        $this->shownMethod = $method;
+    }
+
+    /**
+     * Sets the js_action variable
+     * @alive
+     * @param $jsAction
+     */
+    public function setJsAction($jsAction){
+        $this->js_action = $jsAction;
     }
 
 

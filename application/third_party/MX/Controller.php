@@ -97,7 +97,7 @@ class MX_Controller
 		// Does the module got the correct version?
 		if(!CI::$APP->template->compareVersions($module['min_required_version'], CI::$APP->config->item('FusionCMSVersion')))
 		{
-			show_error("The module <b>".strtolower($moduleName)."</b> requires FusionCMS v".$module['min_required_version'].", please update at fusion.raxezdev.com");
+			show_error("The module <b>".strtolower($moduleName)."</b> requires FusionCMS v".$module['min_required_version'].", please update at fusion-hub.com");
 		}
 
 		/* copy a loader instance and initialize */
@@ -123,13 +123,29 @@ class MX_Controller
 
 			if($username && $password)
 			{
+                log_message('debug', "Username $username, PW: $password");
 				$check = CI::$APP->user->setUserDetails($username, $password);
+                log_message('debug', 'Login Check: '.print_r($check, true));
 
-				if($check == 0)
+                /*
+                 * I don't see why a logged in user should get redirected to the news page.. (Macavity)
+                 */
+				/*if($check == 0)
 				{
 					redirect('news');
-				}
+				}*/
 			}
 		}
 	}
+
+    /**
+     * Generates a json formatted output
+     * @alive
+     */
+    public function outputJson($json){
+        //ob_end_clean();
+        $this->output->set_content_type('application/json')->set_output(json_encode($json));
+        //return json_encode($json);
+    }
+
 }

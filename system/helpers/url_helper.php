@@ -530,6 +530,7 @@ if ( ! function_exists('redirect'))
 {
 	function redirect($uri = '', $method = 'location', $http_response_code = 302)
 	{
+        log_message('debug', 'Function redirect ('.$uri.', '.$method.','.$http_response_code.')');
 		if ( ! preg_match('#^https?://#i', $uri))
 		{
 			$uri = site_url($uri);
@@ -537,9 +538,13 @@ if ( ! function_exists('redirect'))
 
 		switch($method)
 		{
-			case 'refresh'	: header("Refresh:0;url=".$uri);
+			case 'refresh'	:
+                log_message('debug', 'Refresh: '.$uri.')');
+                header("Refresh:0;url=".$uri);
 				break;
-			default			: header("Location: ".$uri, TRUE, $http_response_code);
+			default			:
+                log_message('debug', 'Redirect: '.$uri.')');
+                header("Location: ".$uri, TRUE, $http_response_code);
 				break;
 		}
 		exit;
