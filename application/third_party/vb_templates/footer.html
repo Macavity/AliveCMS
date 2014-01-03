@@ -1,0 +1,237 @@
+$ad_location[ad_footer_start]
+
+</div> <!-- /content-bot -->
+</div> <!-- /content-top -->
+</div> <!-- /content -->
+<!-- /content area table -->
+
+<div id="footer">
+    <div id="sitemap">
+        <div class="column">
+            <h3 class="bnet">
+                <a href="http://www.wow-alive.de/" tabindex="100">Alive</a>
+            </h3>
+            <ul>
+                <li><a href="http://cms.wow-alive.de/vote/">Voten!</a></li>
+                <li><a href="http://cms.wow-alive.de/server/rules/">Serverregeln</a></li>
+                <li><a href="http://cms.wow-alive.de/">Portal</a></li>
+                <li><a href="http://forum.wow-alive.de/">Forum</a></li>
+                <li><a href="http://cms.wow-alive.de/armory/">Arsenal</a></li>
+                <li><a href="http://forum.wow-alive.de/showgroups.php">Das Alive Team</a></li>
+            </ul>
+        </div>
+        <div class="column">
+            <h3 class="games">
+                <a href="http://cms.wow-alive.de/ucp/" tabindex="100">Spiel Account</a>
+            </h3>
+            <ul>
+                <li><a href="http://cms.wow-alive.de/register/" tabindex="100">Account erstellen</a></li>
+                <li><a href="http://portal.wow-alive.de/migration/">Transfer</a></li>
+                <li><a href="http://portal.wow-alive.de/server/howtoplay/">Installationsanleitung</a></li>
+                <li><a href="http://arsenal.wow-alive.de/talent-calc.php">Talentrechner</a></li>
+            </ul>
+        </div>
+        <div class="column">
+            <h3 class="account">
+                <a href="http://portal.wow-alive.de/account/manage/" tabindex="100">Accounts</a>
+            </h3>
+            <ul>
+                <li><a href="http://portal.wow-alive.de/account/register/" tabindex="100">Spiel Account erstellen</a></li>
+                <li><a href="http://portal.wow-alive.de/account/manage/">Spiel Account verwalten</a></li>
+                <li><a href="http://forum.wow-alive.de/usercp.php">Forum Account verwalten</a></li>
+                <li><a href="http://portal.wow-alive.de/community/item/">Item Shop</a></li>
+            </ul>
+        </div>
+        <div class="column">
+            <h3 class="support">Support</h3>
+            <ul>
+                <li><a href="http://forum.wow-alive.de/showgroups.php">Das Alive Team</a></li>
+                <li><a href="http://portal.wow-alive.de/community/bugtracker/">Bugtracker</a></li>
+                <li><a href="http://portal.wow-alive.de/server/realmstatus/">Realmstatus</a></li>
+                <li><a href="https://twitter.com/#!/erd_geist" target="_blank">Twitter</a></li>
+            </ul>
+        </div>
+        <div id="copyright">
+            &copy;2012 Blizzard Entertainment, Inc. Alle Rechte vorbehalten
+            <if condition="$show['contactus']"><a href="$vboptions[contactuslink]" rel="nofollow" accesskey="9">$vbphrase[contact_us]</a></if>
+            <if condition="$vboptions['hometitle']"><a href="$vboptions[homeurl]">$vboptions[hometitle]</a></if>
+            <if condition="$show['admincplink']"><a href="$admincpdir/index.php$session[sessionurl_q]">$vbphrase[admin]</a></if>
+            <if condition="$show['modcplink']"><a href="$modcpdir/index.php$session[sessionurl_q]">$vbphrase[mod]</a></if>
+            <if condition="$vboptions['archiveenabled']"><a href="archive/index.php">$vbphrase[archive]</a></if>
+
+            <if condition="$show['quickchooser']">
+                <form action="$vboptions[forumhome].php" method="get" style="clear:$stylevar[left]">
+                    <select name="styleid" onchange="switch_id(this, 'style')">
+                        <optgroup label="$vbphrase[quick_style_chooser]">
+                            $quickchooserbits
+                        </optgroup>
+                    </select>
+                </form>
+            </if>
+            <div class="smallfont">
+                <strong>
+                    $template_hook[footer_links]
+                    <if condition="$vboptions[privacyurl]"><a href="$vboptions[privacyurl]">$vbphrase[privacy_statement]</a> -</if>
+                    <if condition="$vboptions[tosurl]"><a href="$vboptions[tosurl]">$vbphrase[terms_of_service]</a> -</if>
+                    <a href="#top" onclick="self.scrollTo(0, 0); return false;">$vbphrase[top]</a>
+                </strong>
+            </div>
+        </div>
+        <div id="international">
+            <if condition="$show['languagechooser']">
+                <select name="langid" onchange="switch_id(this, 'lang')">
+                    <optgroup label="$vbphrase[quick_language_chooser]">
+                        $languagechooserbits
+                    </optgroup>
+                </select>
+            </if>
+        </div>
+        <div id="legal">
+            <div class="smallfont" align="center">
+                <!-- Do not remove this copyright notice -->
+                $vbphrase[powered_by_vbulletin]
+                <!-- Do not remove this copyright notice -->
+            </div>
+
+            <div class="smallfont" align="center">
+                <!-- Do not remove cronimage or your scheduled tasks will cease to function -->
+                $cronimage
+                <!-- Do not remove cronimage or your scheduled tasks will cease to function -->
+
+                $vboptions[copyrighttext]
+            </div>
+            <div id="blizzard" class="png-fix">&nbsp;
+            </div>
+            <div class="smallfont" align="center">$vbphrase[all_times_are_gmt_x_time_now_is_y]</div>
+            <span class="clear"><!-- --></span>
+        </div>
+    </div>
+</div> <!-- footer -->
+
+
+<div id="warnings-wrapper">
+    <!--[if lt IE 8]>
+    <div id="browser-warning" class="warning warning-red">
+        <div class="warning-inner2">
+            Sie benutzen eine veraltete Browserversion.<br />
+            <a href="http://www.mozilla.org/de/firefox">Aktualisieren Sie Ihren Browser</a>.
+            <a href="#close" class="warning-close" onclick="App.closeWarning('#browser-warning', 'browserWarning'); return false;"></a>
+        </div>
+    </div>
+    <![endif]-->
+    <!--[if lte IE 8]>
+    <script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/third-party/CFInstall.min.js?v15"></script>
+    <script type="text/javascript">
+        //<![CDATA[
+$(function() {
+	var age = 365 * 24 * 60 * 60 * 1000;
+	var src = 'https://www.google.com/chromeframe/?hl=de-DE';
+	if ('http:' == document.location.protocol) {
+		src = 'http://www.google.com/chromeframe/?hl=de-DE';
+	}
+	document.cookie = "disableGCFCheck=0;path=/;max-age="+age;
+	$('#chrome-frame-link').bind({
+		'click': function() {
+			App.closeWarning('#browser-warning');
+			CFInstall.check({
+				mode: 'overlay',
+				url: src
+			});
+			return false;
+		}
+	});
+});
+//]]>
+</script>
+<![endif]-->
+
+    <noscript>
+        <div id="javascript-warning" class="warning warning-red">
+            <div class="warning-inner2">
+                Javascript muss aktiviert sein, um diese Seite nutzen zu k&ouml;nnen!
+            </div>
+        </div>
+    </noscript>
+</div> <!-- /warnings -->
+</div> <!-- /wrapper -->
+
+
+$ad_location[ad_footer_end]
+
+<script type="text/javascript">
+    //<![CDATA[
+    var xsToken = '';
+    var Msg = {
+        ui: {
+            submit: 'Abschicken',
+            cancel: 'Abbrechen',
+            reset: 'Zurücksetzen',
+            viewInGallery: 'Zur Galerie',
+            loading: 'Lade…',
+            unexpectedError: 'Ein Fehler ist aufgetreten',
+            fansiteFind: 'Finde dies auf…',
+            fansiteFindType: 'Finde {0} auf…',
+            fansiteNone: 'Keine Fanseiten verfügbar.'
+        }
+    };
+    //]]>
+</script>
+<script type="text/javascript">
+    friendData = [<if condition="$cata_friend_data">$cata_friend_data</if>];
+    $( function() {
+        Search.init('/ta/lookup');
+    });
+</script>
+<!--[if lt IE 8]> <script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/third-party/jquery.pngFix.pack.js?v15"></script>
+<script type="text/javascript">$('.png-fix').pngFix();</script>
+<![endif]-->
+<script type="text/javascript" src="http://cms.wow-alive.de/templates/Shattered-World/js/filter.js?v15"></script>
+<script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/table.js?v15"></script>
+
+<script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/third-party/jquery-ui-1.8.6.custom.min.js?v15"></script>
+<script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/overlay.js?v15"></script>
+<script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/search.js?v15"></script>
+<script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/third-party/jquery.mousewheel.min.js?v15"></script>
+<script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/third-party/jquery.tinyscrollbar.min.js?v15"></script>
+<if condition="$show['never-ever']">
+    <script type="text/javascript">
+        //<![CDATA[
+        /*	Core.load("http://forum.wow-alive.de/static-wow/local-common/js/third-party/jquery-ui-1.8.6.custom.min.js?v15");
+         Core.load("http://forum.wow-alive.de/static-wow/local-common/js/overlay.js?v15");
+         Core.load("http://forum.wow-alive.de/static-wow/local-common/js/search.js?v15");
+         Core.load("http://forum.wow-alive.de/static-wow/local-common/js/third-party/jquery.mousewheel.min.js?v15");
+         Core.load("http://forum.wow-alive.de/static-wow/local-common/js/third-party/jquery.tinyscrollbar.min.js?v15");
+         Core.load("http://forum.wow-alive.de/static-wow/local-common/js/login.js?v15", false, function() {
+         Login.embeddedUrl = 'https://eu.battle.net/login/login.frag';
+         });
+         */
+        //]]>
+    </script>
+</if>
+
+<if condition="$show['dst_correction']">
+    <!-- auto DST correction code -->
+    <form action="profile.php?do=dst" method="post" name="dstform">
+        <input type="hidden" name="s" value="$session[sessionhash]" />
+        <input type="hidden" name="securitytoken" value="$bbuserinfo[securitytoken]" />
+        <input type="hidden" name="do" value="dst" />
+    </form>
+    <script type="text/javascript">
+        <!--
+        var tzOffset = $bbuserinfo[timezoneoffset] + $bbuserinfo[dstonoff];
+        var utcOffset = new Date().getTimezoneOffset() / 60;
+        if (Math.abs(tzOffset + utcOffset) == 1)
+        {	// Dst offset is 1 so its changed
+            document.forms.dstform.submit();
+        }
+        //-->
+    </script>
+    <!-- / auto DST correction code -->
+
+</if>
+<script type="text/javascript">
+    <!--
+    // Main vBulletin Javascript Initialization
+    vBulletin_init();
+    //-->
+</script>

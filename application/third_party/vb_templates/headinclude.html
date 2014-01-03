@@ -1,0 +1,108 @@
+<base href="http://forum.wow-alive.de" />
+<meta http-equiv="Content-Type" content="text/html; charset=$stylevar[charset]" />
+<meta name="generator" content="vBulletin $vboptions[templateversion]" />
+<if condition="$show['threadinfo']">
+    <meta name="keywords" content="<if condition="$threadinfo['taglist']">$threadinfo[taglist], </if>$threadinfo[prefix_plain_html] $threadinfo[title], $vboptions[keywords]" />
+<meta name="description" content="<if condition="$pagenumber>1"><phrase 1="$pagenumber">$vbphrase[page_x]</phrase>-</if>$threadinfo[prefix_plain_html] $threadinfo[title] $foruminfo[title_clean]" />
+<else /><if condition="$show['foruminfo']">
+    <meta name="keywords" content="$foruminfo[title_clean], $vboptions[keywords]" />
+    <meta name="description" content="<if condition="$pagenumber>1"><phrase 1="$pagenumber">$vbphrase[page_x]</phrase>-</if>$foruminfo[description_clean]" />
+<else />
+<meta name="keywords" content="$vboptions[keywords]" />
+<meta name="description" content="$vboptions[description]" />
+</if></if>
+
+<!-- CSS Stylesheet -->
+$style[css]
+<if condition="is_browser('opera') AND !is_browser('opera', '8.0.1')">
+    <style type="text/css" id="vbulletin_opera8fix_css">
+        ul, ol { padding-$stylevar[left]:20px; }
+    </style>
+</if>
+<if condition="$show['editor_css']">
+    $editor_css
+</if>
+<link href="http://forum.wow-alive.de/static-wow/local-common/images/favicons/wow.ico" type="image/x-icon" rel="icon" />
+<link href="http://forum.wow-alive.de/static-wow/local-common/images/favicons/wow.ico" type="image/x-icon" rel="shortcut icon" />
+<link rel="stylesheet" type="text/css" href="http://forum.wow-alive.de/static-wow/local-common/css/common.css" />
+<!--[if IE]><link rel="stylesheet" type="text/css" href="http://forum.wow-alive.de/static-wow/local-common/css/common-ie.css" /><![endif]>
+<!--[if IE 6]><link rel="stylesheet" type="text/css" href="http://forum.wow-alive.de/static-wow/local-common/css/common-ie6.css" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" type="text/css" href="http://forum.wow-alive.de/static-wow/local-common/css/common-ie7.css" /><![endif]-->
+<link rel="stylesheet" type="text/css" href="http://forum.wow-alive.de/static-wow/css/wow.css" />
+<link rel="stylesheet" type="text/css" href="http://forum.wow-alive.de/static-wow/css/pvp/pvp.css" />
+<link rel="stylesheet" type="text/css" href="http://forum.wow-alive.de/static-wow/local-common/css/cms/forums.css?v15" />
+<link rel="stylesheet" type="text/css" media="all" href="http://forum.wow-alive.de/static-wow/local-common/css/cms/cms-common.css?v15" />
+<link rel="stylesheet" type="text/css" media="all" href="http://forum.wow-alive.de/static-wow/css/cms.css?v4" />
+
+<!--[if IE]><link rel="stylesheet" type="text/css" href="http://forum.wow-alive.de/static-wow/css/wow-ie.css" /><![endif]-->
+<!--[if IE 6]><link rel="stylesheet" type="text/css" href="http://forum.wow-alive.de/static-wow/css/wow-ie6.css" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" type="text/css" href="http://forum.wow-alive.de/static-wow/css/wow-ie7.css" /><![endif]-->
+<link rel="stylesheet" type="text/css" href="http://forum.wow-alive.de/static-wow/local-common/css/locale/de-de.css" />
+<link rel="stylesheet" type="text/css" href="http://forum.wow-alive.de/css/cata/de-de.css" />
+<link rel="stylesheet" type="text/css" href="http://forum.wow-alive.de/css/sideboard.css" />
+<!-- / CSS Stylesheet -->
+
+<script type="text/javascript" src="$stylevar[yuipath]/yahoo-dom-event/yahoo-dom-event.js?v=$vboptions[simpleversion]"></script>
+<script type="text/javascript" src="$stylevar[yuipath]/connection/connection-min.js?v=$vboptions[simpleversion]"></script>
+<script type="text/javascript">
+    <!--
+    var SESSIONURL = "$session[sessionurl_js]";
+    var SECURITYTOKEN = "$bbuserinfo[securitytoken]";
+    var IMGDIR_MISC = "$stylevar[imgdir_misc]";
+    var vb_disable_ajax = parseInt("$vboptions[disable_ajax]", 10);
+    // -->
+</script>
+<script type="text/javascript" src="clientscript/vbulletin_global.js?v=$vboptions[simpleversion]"></script>
+<if condition="$show['popups']"><script type="text/javascript" src="clientscript/vbulletin_menu.js?v=$vboptions[simpleversion]"></script></if>
+
+<if condition="$vboptions['externalrss']">
+    <link rel="alternate" type="application/rss+xml" title="$vboptions[bbtitle] RSS Feed" href="external.php?type=RSS2" />
+    <if condition="$show['foruminfo'] OR $show['threadinfo']">
+        <link rel="alternate" type="application/rss+xml" title="$vboptions[bbtitle] - $foruminfo[title_clean] - RSS Feed" href="external.php?type=RSS2&amp;forumids=$foruminfo[forumid]" />
+    </if>
+</if>
+
+<script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/third-party/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="http://portal.wow-alive.de/templates/Shattered-World/js/core.js?v15"></script>
+<script type="text/javascript" src="http://portal.wow-alive.de/templates/Shattered-World/js/wow.js?v16"></script>
+<script type="text/javascript" src="http://portal.wow-alive.de/templates/Shattered-World/js/tooltip.js?v15"></script>
+<!--[if IE 6]>
+<script type="text/javascript">
+    //<![CDATA[
+    try { document.execCommand('BackgroundImageCache', false, true) } catch(e) {}
+  //]]>
+</script>
+<![endif]-->
+<script type="text/javascript">
+    //<![CDATA[
+    Core.staticUrl = '/static-wow';
+    Core.baseUrl = 'http://cms.wow-alive.de';
+    Core.project = 'wow';
+    Core.locale = 'de-de';
+    Core.buildRegion = 'eu';
+    Core.loggedIn = false;
+    //]]>
+</script>
+<script type="text/javascript">
+    var registered_popups = new Array();
+    function register_popup(name_link){
+
+        name_link = "#"+name_link;
+        name_div = name_link+"_menu";
+
+        if($(name_link) && $(name_div)){
+            registered_popups.push(name_div);
+        }
+        $(name_link+" a").click(function(){
+            var p = $(name_link).position();
+            if(p){
+                for(n in registered_popups){ if(registered_popups[n] != name_div) $(registered_popups[n]).hide(); }
+                $(name_div).css("position","absolute").css("top",p.top).css("left", p.left+150).show();
+            }
+        });
+    }
+</script>
+<script type="text/javascript" src="/js/wz_tooltip.js"></script>
+<script type="text/javascript" src="http://static.tsviewer.com/short_expire/js/ts3viewer_loader.js"></script>
+<script type="text/javascript" src="http://cms.wow-alive.de/application/js/sideboard.js"></script>
+<script type="text/javascript" src="http://static.wowhead.com/widgets/power.js"></script>
