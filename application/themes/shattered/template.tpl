@@ -163,7 +163,7 @@
             </h3>
             <ul>
                 <li><a href="/vote">Voten!</a></li>
-                <li><a href="/rules">Serverregeln</a></li>
+                <li><a href="/server/rules">Serverregeln</a></li>
                 <li><a href="/news">Portal</a></li>
                 <li><a href="http://forum.wow-alive.de/">Forum</a></li>
                 <li><a href="/armory">Arsenal</a></li>

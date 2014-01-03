@@ -586,7 +586,7 @@ class User
 	 */
 	public function getVp()
 	{
-		if($this->vp === false)
+		if($this->vp === false || $this->vp === -1)
 		{
 			$this->vp = $this->CI->internal_user_model->getVp();
 		}

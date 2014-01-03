@@ -10,7 +10,10 @@
 
 class External_account_model extends CI_Model
 {
-	private $connection;
+    /**
+     * @var CI_DB_active_record
+     */
+    private $connection;
 	private $id;
 	private $username;
 	private $sha_pass_hash;
@@ -30,7 +33,7 @@ class External_account_model extends CI_Model
 		if($this->user->getOnline())
 		{
 			$this->initialize();
-		}
+        }
 		else
 		{
 			$this->id = 0;
@@ -524,6 +527,30 @@ class External_account_model extends CI_Model
 	{
 		return $this->expansion;
 	}
+
+    /**
+     * @alive
+     *
+     * @param $accountId
+     *
+     * @return int
+     */
+    public function getOldVotePoints($accountId)
+    {
+        $this->connect();
+
+        $this->connection->select('*')->from('voting_points')->where('id', $accountId);
+
+        $query = $this->connection->get();
+
+        if($query->num_rows() > 0)
+        {
+            $result = $query->result_array();
+            return $result[0]['points'];
+        }
+
+        return 0;
+    }
 
 
 
