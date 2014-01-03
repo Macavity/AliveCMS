@@ -34,29 +34,23 @@
         <h1 id="logo"><a href="$vboptions[forumhome].php$session[sessionurl_q]">World of Warcraft Alive</a></h1>
         <div class="header-plate">
             <ul id="menu">
-                <!-- eigentlich müsste hier die var navcustomlinks rein.. -->
                 <li class="menu-home">
-                    <a href="http://portal.wow-alive.de/"><span>Hauptseite</span></a>
+                    <a href="http://cms.wow-alive.de/"><span>Hauptseite</span></a>
                 </li>
                 <li class="menu-game">
-                    <a href="http://portal.wow-alive.de/game/"><span>Spiel</span></a>
+                    <a href="http://cms.wow-alive.de/game/"><span>Spiel</span></a>
                 </li>
                 <li class="menu-community">
-                    <a href="http://portal.wow-alive.de/server/"><span>Server</span></a>
+                    <a href="http://cms.wow-alive.de/server/"><span>Server</span></a>
                 </li>
                 <li class="menu-media">
-                    <a href="http://portal.wow-alive.de/account/"><span>Account</span></a>
+                    <a href="http://cms.wow-alive.de/ucp/"><span>Account</span></a>
                 </li>
                 <li class="menu-forums">
                     <a href="http://forum.wow-alive.de/forum.php"><span>Foren</span></a>
                 </li>
                 <li class="menu-services">
-                    <if condition="$game_acc_connected && $game_can_vote">
-                        <span class="sb_passive_count sb_passive_1n" style="left:75px; top:-5px;">!!!</span>
-                        <a href="http://portal.wow-alive.de/community/vote"><span>Voten</span></a>
-                        <else />
-                        <a href="http://portal.wow-alive.de/community/item"><span>Vote Shop</span></a>
-                    </if>
+                    <a href="http://cms.wow-alive.de/vote"><span>Voten</span></a>
                 </li>
             </ul>
             <if condition="$show['member']">

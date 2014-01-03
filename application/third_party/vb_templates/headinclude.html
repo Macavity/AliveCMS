@@ -63,9 +63,6 @@ $style[css]
 </if>
 
 <script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/third-party/jquery-1.4.4.min.js"></script>
-<script type="text/javascript" src="http://portal.wow-alive.de/templates/Shattered-World/js/core.js?v15"></script>
-<script type="text/javascript" src="http://portal.wow-alive.de/templates/Shattered-World/js/wow.js?v16"></script>
-<script type="text/javascript" src="http://portal.wow-alive.de/templates/Shattered-World/js/tooltip.js?v15"></script>
 <!--[if IE 6]>
 <script type="text/javascript">
     //<![CDATA[
@@ -73,16 +70,6 @@ $style[css]
   //]]>
 </script>
 <![endif]-->
-<script type="text/javascript">
-    //<![CDATA[
-    Core.staticUrl = '/static-wow';
-    Core.baseUrl = 'http://cms.wow-alive.de';
-    Core.project = 'wow';
-    Core.locale = 'de-de';
-    Core.buildRegion = 'eu';
-    Core.loggedIn = false;
-    //]]>
-</script>
 <script type="text/javascript">
     var registered_popups = new Array();
     function register_popup(name_link){
@@ -102,7 +89,10 @@ $style[css]
         });
     }
 </script>
-<script type="text/javascript" src="/js/wz_tooltip.js"></script>
 <script type="text/javascript" src="http://static.tsviewer.com/short_expire/js/ts3viewer_loader.js"></script>
 <script type="text/javascript" src="http://cms.wow-alive.de/application/js/sideboard.js"></script>
 <script type="text/javascript" src="http://static.wowhead.com/widgets/power.js"></script>
+
+<!-- Portal Integration -->
+<script type="text/javascript" src="http://cms.wow-alive.de/application/js/libs.js"></script>
+<script type="text/javascript" src="http://cms.wow-alive.de/application/js/libs/require/require.js" data-main="http://cms.wow-alive.de/application/js/main"></script>

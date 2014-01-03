@@ -26,33 +26,32 @@ $ad_location[ad_footer_start]
             </h3>
             <ul>
                 <li><a href="http://cms.wow-alive.de/register/" tabindex="100">Account erstellen</a></li>
-                <li><a href="http://portal.wow-alive.de/migration/">Transfer</a></li>
-                <li><a href="http://portal.wow-alive.de/server/howtoplay/">Installationsanleitung</a></li>
-                <li><a href="http://arsenal.wow-alive.de/talent-calc.php">Talentrechner</a></li>
+                <li><a href="http://cms.wow-alive.de/migration/">Transfer</a></li>
+                <li><a href="http://cms.wow-alive.de/server/howtoplay/">Installationsanleitung</a></li>
             </ul>
         </div>
         <div class="column">
             <h3 class="account">
-                <a href="http://portal.wow-alive.de/account/manage/" tabindex="100">Accounts</a>
+                <a href="http://cms.wow-alive.de/ucp/" tabindex="100">Accounts</a>
             </h3>
             <ul>
-                <li><a href="http://portal.wow-alive.de/account/register/" tabindex="100">Spiel Account erstellen</a></li>
-                <li><a href="http://portal.wow-alive.de/account/manage/">Spiel Account verwalten</a></li>
+                <li><a href="http://cms.wow-alive.de/register/" tabindex="100">Spiel Account erstellen</a></li>
+                <li><a href="http://cms.wow-alive.de/ucp/">Spiel Account verwalten</a></li>
                 <li><a href="http://forum.wow-alive.de/usercp.php">Forum Account verwalten</a></li>
-                <li><a href="http://portal.wow-alive.de/community/item/">Item Shop</a></li>
+                <li><a href="http://cms.wow-alive.de/store/">Item Shop</a></li>
             </ul>
         </div>
         <div class="column">
             <h3 class="support">Support</h3>
             <ul>
                 <li><a href="http://forum.wow-alive.de/showgroups.php">Das Alive Team</a></li>
-                <li><a href="http://portal.wow-alive.de/community/bugtracker/">Bugtracker</a></li>
-                <li><a href="http://portal.wow-alive.de/server/realmstatus/">Realmstatus</a></li>
+                <li><a href="http://cms.wow-alive.de/bugtracker/">Bugtracker</a></li>
+                <li><a href="http://cms.wow-alive.de/server/realmstatus/">Realmstatus</a></li>
                 <li><a href="https://twitter.com/#!/erd_geist" target="_blank">Twitter</a></li>
             </ul>
         </div>
         <div id="copyright">
-            &copy;2012 Blizzard Entertainment, Inc. Alle Rechte vorbehalten
+            &copy;2014 Blizzard Entertainment, Inc. Alle Rechte vorbehalten
             <if condition="$show['contactus']"><a href="$vboptions[contactuslink]" rel="nofollow" accesskey="9">$vbphrase[contact_us]</a></if>
             <if condition="$vboptions['hometitle']"><a href="$vboptions[homeurl]">$vboptions[hometitle]</a></if>
             <if condition="$show['admincplink']"><a href="$admincpdir/index.php$session[sessionurl_q]">$vbphrase[admin]</a></if>
@@ -185,29 +184,12 @@ $ad_location[ad_footer_end]
 <!--[if lt IE 8]> <script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/third-party/jquery.pngFix.pack.js?v15"></script>
 <script type="text/javascript">$('.png-fix').pngFix();</script>
 <![endif]-->
-<script type="text/javascript" src="http://cms.wow-alive.de/templates/Shattered-World/js/filter.js?v15"></script>
-<script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/table.js?v15"></script>
 
 <script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/third-party/jquery-ui-1.8.6.custom.min.js?v15"></script>
 <script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/overlay.js?v15"></script>
 <script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/search.js?v15"></script>
 <script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/third-party/jquery.mousewheel.min.js?v15"></script>
 <script type="text/javascript" src="http://forum.wow-alive.de/static-wow/local-common/js/third-party/jquery.tinyscrollbar.min.js?v15"></script>
-<if condition="$show['never-ever']">
-    <script type="text/javascript">
-        //<![CDATA[
-        /*	Core.load("http://forum.wow-alive.de/static-wow/local-common/js/third-party/jquery-ui-1.8.6.custom.min.js?v15");
-         Core.load("http://forum.wow-alive.de/static-wow/local-common/js/overlay.js?v15");
-         Core.load("http://forum.wow-alive.de/static-wow/local-common/js/search.js?v15");
-         Core.load("http://forum.wow-alive.de/static-wow/local-common/js/third-party/jquery.mousewheel.min.js?v15");
-         Core.load("http://forum.wow-alive.de/static-wow/local-common/js/third-party/jquery.tinyscrollbar.min.js?v15");
-         Core.load("http://forum.wow-alive.de/static-wow/local-common/js/login.js?v15", false, function() {
-         Login.embeddedUrl = 'https://eu.battle.net/login/login.frag';
-         });
-         */
-        //]]>
-    </script>
-</if>
 
 <if condition="$show['dst_correction']">
     <!-- auto DST correction code -->
