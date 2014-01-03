@@ -64,7 +64,7 @@
                                 <span class="clear"><!-- --></span>
                             </div>
                             <div id="right">
-                            {foreach from=$sideboxes item=sidebox}
+                              {foreach from=$sideboxes item=sidebox}
                                 <div id="{$sidebox.css_id}" class="sidebar-module">
                                     <div class="sidebar-title">
                                         <h3>{$sidebox.name}</h3>
@@ -73,8 +73,19 @@
                                     {$sidebox.data}
                                     <span class="clear"><!-- --></span>
                                 </div>
-                            {/foreach}
-                                <span class="clear"><!-- --></span>
+                              {/foreach}
+                              {if $show_external_more}
+                                <div class="sidebar-module" id="sidebar-forums">
+                                  <div class="sidebar-title">
+                                    <h3 class="title-forums"><a href="forum.php">Letzte Forendiskussionen</a></h3>
+                                  </div>
+
+                                  <div class="sidebar-content poptopic-list">
+                                    {$external_forum_posts|unescape}
+                                  </div>
+                                </div>
+                              {/if}
+                              <span class="clear"><!-- --></span>
                             </div>
                             <span class="clear"><!-- --></span>
                         </div>

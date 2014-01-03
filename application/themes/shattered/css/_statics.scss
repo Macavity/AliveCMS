@@ -26,6 +26,18 @@ $colorEpic:       #a335ee;
 $colorLegendary:  #e5cc80;
 $colorArtifact:   #e5cc80;
 
+/* Realm Status */
+$realmOffline:    #c83424;
+$realmOnline:     #a3c425;
+
+.realm-offline {
+  color: $realmOffline;
+}
+
+.realm-online {
+  color: $realmOnline;
+}
+
 .color-q0, .color-q0 a { color: $colorPoor !important; } /* poor (gray) */
 .color-q1, .color-q1 a { color: $colorCommon !important; } /* common (white) */
 .color-q2, .color-q2 a { color: $colorUncommon !important; } /* uncommon (green) */

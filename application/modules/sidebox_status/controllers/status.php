@@ -1,6 +1,6 @@
 <?php
 
-class Status extends MX_Controller
+class Status extends MY_Controller
 {
 	public function view()
 	{
@@ -26,7 +26,7 @@ class Status extends MX_Controller
             $realmData = array();
 
             foreach($realms as $realm){
-
+                /** @var Realm $realm */
                 $values = array(
                     "gm" => $realm->getOnline("gm"),
                     "horde" => $realm->getOnline("horde"),
@@ -48,7 +48,7 @@ class Status extends MX_Controller
                         $cssClass = '';
                 }
 
-                $realmData[] = array(
+                $realmData[$realm->getId()] = array(
                     "css" => $cssClass,
                     "online" => (bool) $realm->isOnline(),
                     "name" => $realm->getName(),

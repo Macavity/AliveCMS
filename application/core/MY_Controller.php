@@ -5,7 +5,10 @@
  *
  * @property    CI_Config   $config
  * @property    CI_Loader   $load
+ * @property    CI_URI      $uri
+ * @property
  *
+ * @property    Cache    $cache
  * @property    Template    $template
  * @property    Realms      $realms
  * @property    User        $user

@@ -55,8 +55,7 @@
             "description": "Kann das Transferformular benutzen",
 
             "permissions": {
-                "canMigrateCharacter": true,
-                "canCopyCharacter": true
+                "canMigrateCharacter": true
             }
         },
 
@@ -65,7 +64,8 @@
             "dangerLevel": 2,
 
             "permissions": {
-                "canEditMigration": true
+                "canEditMigration": true,
+                "canCopyCharacter": true
             }
         },
 
@@ -76,7 +76,8 @@
             "permissions": {
                 "canEditMigration": true,
                 "canAdministrate": true,
-                "canImportArchive": true
+                "canImportArchive": true,
+                "canCopyCharacter": true
             }
         }
     },
