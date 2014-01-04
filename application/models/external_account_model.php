@@ -61,8 +61,13 @@ class External_account_model extends CI_Model
 			$this->connection = $this->load->database("account", true);
 		}
 	}
-	
-	public function initialize($where = false)
+
+    /**
+     * @param bool|string $where
+     *
+     * @return bool
+     */
+    public function initialize($where = false)
 	{
 		$this->connect();
 
@@ -547,6 +552,30 @@ class External_account_model extends CI_Model
         {
             $result = $query->result_array();
             return $result[0]['points'];
+        }
+
+        return 0;
+    }
+
+    /**
+     * @alive
+     *
+     * @param $accountId
+     *
+     * @return int
+     */
+    public function getForumAccountId($accountId)
+    {
+        $this->connect();
+
+        $this->connection->select('*')->from('account_extend')->where('account_id', $accountId);
+
+        $query = $this->connection->get();
+
+        if($query->num_rows() > 0)
+        {
+            $result = $query->result_array();
+            return $result[0]['forum_account_id'];
         }
 
         return 0;

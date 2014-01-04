@@ -35,6 +35,12 @@ class Internal_user_model extends CI_Model
      */
     private $activeRealm = 0;
 
+    /**
+     * @alive
+     * @var int
+     */
+    private $forumAccountId = 0;
+
     public function __construct()
 	{
 		parent::__construct();
@@ -73,22 +79,29 @@ class Internal_user_model extends CI_Model
 
 		if($query->num_rows() > 0)
 		{
-			$result = $query->result_array();
-			
-			$this->vp = $result[0]['vp'];
-			$this->dp = $result[0]['dp'];
+			$result = $query->row_array();
+
+
+			$this->vp = $result['vp'];
+			$this->dp = $result['dp'];
+            $this->forumAccountId = $result['forum_account_id'];
 
             if($this->vp == -1)
             {
                 $this->importAliveVotePoints($id);
             }
 
-			$this->location = $result[0]['location'];
-			$this->nickname = $result[0]['nickname'];
-			$this->language = $result[0]['language'];
+            if($this->forumAccountId == 0)
+            {
+                $this->importForumAccountId($id);
+            }
 
-            $this->activeCharGUID = $result[0]['active_char_guid']; /* @alive */
-            $this->activeRealm = $result[0]['active_realm_id']; /* @alive */
+			$this->location = $result['location'];
+			$this->nickname = $result['nickname'];
+			$this->language = $result['language'];
+
+            $this->activeCharGUID = $result['active_char_guid']; /* @alive */
+            $this->activeRealm = $result['active_realm_id']; /* @alive */
 
         }
 		else 
@@ -107,18 +120,21 @@ class Internal_user_model extends CI_Model
         $this->location = "Unknown";
         $this->nickname = $this->external_account_model->getUsername();
 
+        $this->forumAccountId = $this->external_account_model->getForumAccountId($this->external_account_model->getId());
+
 		$array = array(
 			'id' => $this->external_account_model->getId(),
 			'vp' => $this->vp,
 			'dp' => $this->dp,
 			'location' => $this->location,
 			'nickname' => $this->nickname,
-			'language' => $this->config->item('language')
+			'language' => $this->config->item('language'),
+            'forum_account_id' => $this->forumAccountId,
 		);
 
 		$this->connection->insert("account_data", $array);
 
-	}
+    }
 
     /**
      * Imports the old voting_points to the new FusionCMS table
@@ -136,6 +152,24 @@ class Internal_user_model extends CI_Model
             ->update('account_data', $data);
 
         $this->vp = $oldPoints;
+    }
+
+    public function importForumAccountId($id)
+    {
+        $oldValue = $this->external_account_model->getForumAccountId($id);
+
+        if(empty($oldValue) || $oldValue < 0){
+            $oldValue = 0;
+        }
+
+        $data = array(
+            'forum_account_id' => $oldValue,
+        );
+        $this->connection
+            ->where('id', $id)
+            ->update('account_data', $data);
+
+        $this->forumAccountId = $oldValue;
     }
 	
 	public function nicknameExists($nickname)

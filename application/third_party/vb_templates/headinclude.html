@@ -24,6 +24,7 @@ $style[css]
 </if>
 <link href="http://forum.wow-alive.de/static-wow/local-common/images/favicons/wow.ico" type="image/x-icon" rel="icon" />
 <link href="http://forum.wow-alive.de/static-wow/local-common/images/favicons/wow.ico" type="image/x-icon" rel="shortcut icon" />
+<link rel="stylesheet" type="text/css" href="http://cms.wow-alive.de/application/themes/shattered/css/main.css" />
 <link rel="stylesheet" type="text/css" href="http://forum.wow-alive.de/static-wow/local-common/css/common.css" />
 <!--[if IE]><link rel="stylesheet" type="text/css" href="http://forum.wow-alive.de/static-wow/local-common/css/common-ie.css" /><![endif]>
 <!--[if IE 6]><link rel="stylesheet" type="text/css" href="http://forum.wow-alive.de/static-wow/local-common/css/common-ie6.css" /><![endif]-->
@@ -50,6 +51,10 @@ $style[css]
     var SECURITYTOKEN = "$bbuserinfo[securitytoken]";
     var IMGDIR_MISC = "$stylevar[imgdir_misc]";
     var vb_disable_ajax = parseInt("$vboptions[disable_ajax]", 10);
+    var vb_user_id = 0;
+    <if condition="$show['member']">
+        vb_user_id = $bbuserinfo[userid];
+    </if>
     // -->
 </script>
 <script type="text/javascript" src="clientscript/vbulletin_global.js?v=$vboptions[simpleversion]"></script>
@@ -94,5 +99,6 @@ $style[css]
 <script type="text/javascript" src="http://static.wowhead.com/widgets/power.js"></script>
 
 <!-- Portal Integration -->
+<script type="text/javascript" src="http://cms.wow-alive.de/application/js/hb.js"></script>
 <script type="text/javascript" src="http://cms.wow-alive.de/application/js/libs.js"></script>
-<script type="text/javascript" src="http://cms.wow-alive.de/application/js/libs/require/require.js" data-main="http://cms.wow-alive.de/application/js/main"></script>
+<script type="text/javascript" src="http://cms.wow-alive.de/application/js/libs/require/require.js" data-main="http://cms.wow-alive.de/application/js/extern"></script>

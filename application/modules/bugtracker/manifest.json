@@ -33,13 +33,6 @@
                     "icon": "tag",
                     "controller": "admin_projects",
                     "requirePermission": "canEditProjects"
-                },
-
-                {
-                    "text": "Bugs",
-                    "icon": "tag",
-                    "controller": "admin_bugs",
-                    "requirePermission": "canEditBugs"
                 }
             ]
         }

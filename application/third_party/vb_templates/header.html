@@ -56,7 +56,7 @@
             <if condition="$show['member']">
                 <!-- $chosen_char[bb] -->
                 <if condition="$chosen_char['css_class'] == 'nochars'">
-                    <div id="user-plate" class="user-plate plate-nochars ajax-update">
+                    <div class="user-plate plate-nochars ajax-update">
                         <div class="card-overlay"></div>
                         <a href="member.php?$session[sessionurl]u=$bbuserinfo[userid]" rel="np" class="profile-link">
                             <span class="hover"></span>
@@ -69,31 +69,8 @@
                             <div class="guild"></div>
                         </div>
                     </div>
-                    <else />
-                    <div id="user-plate" class="user-plate $chosen_char[css_class] ajax-update" style="background: url(http://forum.wow-alive.de/static-wow/images/2d/card/$chosen_char[race]-$chosen_char[gender].jpg) 0 100% no-repeat;">
-                        <div class="card-overlay"></div>
-                        <a href="$chosen_char[url]" rel="np" class="profile-link">
-                            <span class="hover"></span>
-                        </a>
-                        <div class="user-meta">
-                            <div class="player-name">
-                                <a href="member.php?$session[sessionurl]u=$bbuserinfo[userid]">
-                                    $bbuserinfo[username]
-                                </a>
-                            </div>
-                            <div class="character">
-                                <!--  class: context-link -->
-                                <a class="character-name" rel="np" href="$chosen_char[url]" target="_blank">$chosen_char[name]</a>
-                            </div> <!-- /character -->
-                            <div class="guild">
-                                <if condition="!empty($chosen_char[guild])">
-                                    <a class="guild-name" href="$chosen_char[guild_url]" target="_blank">
-                                        $chosen_char[guild]
-                                    </a>
-                                </if>
-                            </div>
-                        </div>
-                    </div>
+                <else />
+                    <div class="user-plate ajax-update"></div>
                 </if>
                 <else />
                 <div class="user-plate ajax-update">

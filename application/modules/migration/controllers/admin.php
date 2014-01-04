@@ -1,6 +1,10 @@
 <?php
 
-class Admin extends CI_Controller {
+/**
+ *
+ * @property Administrator $administrator
+ */
+class Admin extends MY_Controller {
 
     private $mainTitle = "Migrations";
 
@@ -19,7 +23,8 @@ class Admin extends CI_Controller {
 
     }
 
-    public function index($realmId = 1, $from = "-1"){
+    public function index($realmId = 1, $from = "-1")
+    {
         requirePermission("canEditMigration");
 
         // Change the title
@@ -47,7 +52,7 @@ class Admin extends CI_Controller {
 
                 if($cacheData === false){
                     // Renew the cache
-                    $this->cache_gen($realmId, $from-1, 1000, false);
+                    $this->cache_gen($realmId, $from, 1000, false);
                     $cacheData = $this->cache->get($cacheKey);
                 }
 
@@ -594,6 +599,9 @@ class Admin extends CI_Controller {
         //$realm = $this->realms->getRealm($realmId);
 
         $realFrom = $from - 1;
+        if($realFrom < 0){
+            $realFrom = 0;
+        }
 
         /**
          * Get the data

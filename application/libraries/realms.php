@@ -97,11 +97,14 @@ class Realms
 	{
 		return $this->realms;
 	}
-	
-	/**
-	 * Get one specific realm object
-	 * @return Object
-	 */
+
+    /**
+     * Get one specific realm object
+     *
+     * @param $id
+     *
+     * @return Realm
+     */
 	public function getRealm($id)
 	{
 		foreach($this->realms as $key => $realm)
