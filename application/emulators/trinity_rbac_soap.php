@@ -336,7 +336,7 @@ class Trinity_rbac_soap implements Emulator
 		$item_count = 0;
 		$item_stacks = array();
 
-		foreach($items as $i)
+        foreach($items as $i)
 		{
 			// Check if item has been added
 			if(array_key_exists($i['id'], $item_stacks))
@@ -367,7 +367,7 @@ class Trinity_rbac_soap implements Emulator
 			}
 		}
 
-		// Loop through all items
+        // Loop through all items
 		foreach($item_stacks as $item)
 		{
 			foreach($item['count'] as $count)
@@ -394,13 +394,13 @@ class Trinity_rbac_soap implements Emulator
 				$item_command[$mail_id] .= " ".$item['id'].":".$count;
 			}
 		}
-
+        
 		// Send all the queued mails
 		for($i = 0; $i <= $mail_id; $i++)
 		{
 			// .send item
 			$this->send("send items ".$character." \"".$subject."\" \"".$body."\"".$item_command[$i]);
-		}
+        }
 	}
 	
 	/**
@@ -412,7 +412,7 @@ class Trinity_rbac_soap implements Emulator
 	{
 		$client = new SoapClient(NULL,
 	  		array(
-	   			"location" => "http://".$this->config['hostname'].":".$this->config['console_port'],
+	   			"location" => "http://".$this->config['console_host'].":".$this->config['console_port'],
 	   			"uri" => "urn:TC",
 	   			'login' => $this->config['console_username'],
 	   			'password' => $this->config['console_password']
@@ -425,7 +425,8 @@ class Trinity_rbac_soap implements Emulator
   		}
   		catch (Exception $e)
   		{
-			die("Something went wrong! An administrator has been noticed and will send your order as soon as possible.<br /><br /><b>Error:</b> <br />".$e->getMessage());
+			die("Something went wrong! An administrator has been noticed and will send your order as soon as possible.<br /><br /><b>Error:</b> <br />"
+                .$e->getMessage()."<br>");
 		}
 	}
 }

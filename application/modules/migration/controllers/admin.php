@@ -41,10 +41,12 @@ class Admin extends MY_Controller {
 
         $cachedRows = "";
 
-        if($countAll > 1000){
+        if($countAll > 1000)
+        {
             $paketCount = floor($countAll / 1000);
 
-            for($i = 1; $i <= $paketCount; $i++){
+            for($i = 1; $i <= $paketCount; $i++)
+            {
                 $from = (($i - 1) * 1000)+1;
 
                 $cacheKey = $this->getCacheKey($realmId,$from - 1);

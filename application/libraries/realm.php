@@ -287,8 +287,11 @@ class Realm
         }
         return 0;
     }
-	
-	public function getWorld()
+
+    /**
+     * @return World_model
+     */
+    public function getWorld()
 	{
 		return $this->world;
 	}

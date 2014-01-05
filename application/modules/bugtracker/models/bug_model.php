@@ -10,6 +10,7 @@ define('BUGSTATE_OPEN', 1);
 define('BUGSTATE_ACTIVE', 2);
 define('BUGSTATE_REJECTED', 3);
 define('BUGSTATE_WORKAROUND', 4);
+define('BUGSTATE_CONFIRMED', 5);
 define('BUGSTATE_DONE', 9);
 define('BUGSTATE_ALL', 10);
 
@@ -42,7 +43,7 @@ define('BUGTYPE_ACHIEVEMENT',   700);
 define('BUGTYPE_PVP',           800);
 
 
-class Bug_model extends CI_Model
+class Bug_model extends MY_Model
 {
     var $tableName = 'bugtracker_entries';
     var $tableNameComments = 'bugtracker_comments';
@@ -67,6 +68,7 @@ class Bug_model extends CI_Model
 
         $this->availableBugStates = array(
             BUGSTATE_OPEN => 'Offen',
+            BUGSTATE_CONFIRMED => 'Bestätigt',
             BUGSTATE_ACTIVE => 'Bearbeitung',
             BUGSTATE_WORKAROUND => 'Workaround',
             BUGSTATE_DONE => 'Erledigt',
@@ -87,6 +89,16 @@ class Bug_model extends CI_Model
             BUGPRIORITY_CRITICAL => 'Kritisch',
             BUGPRIORITY_BLOCKER => 'Blocker',
         );
+    }
+
+    public function activateBugShit($realmId, $questId)
+    {
+        $realm = $this->realms->getRealm($realmId);
+
+        $worldDb = $realm->getWorld();
+
+
+
     }
 
     public function getBugStates(){

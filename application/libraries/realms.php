@@ -54,6 +54,7 @@ class Realms
 				$config = array(
 
 					// Console settings
+                    "console_host" => $realm['console_host'],
 					"console_username" => $realm['console_username'],
 					"console_password" => $realm['console_password'],
 					"console_port" => $realm['console_port'],

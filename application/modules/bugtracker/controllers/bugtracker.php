@@ -1,28 +1,35 @@
 <?php
 
+/**
+ * Class Bugtracker
+ *
+ * @property Bug_model  $bug_model
+ * @property Project_Model  $project_model
+ * @property External_account_model  $external_account_model
+ *
+ */
 class Bugtracker extends MY_Controller{
     
     private $css = array();
     private $moduleTitle = 'Bugtracker';
     private $modulePath = 'modules/bugtracker/';
+
+    private $bugshitCategories = array();
     
     public function __construct(){
         //Call the constructor of MX_Controller
         parent::__construct();
         
         requirePermission('view');
-
-        // Dummys
-        if(false){
-            $this->bug_model = new Bug_model();
-            $this->project_model = new Project_Model();
-            $this->template = new Template();
-            $this->external_account_model = new External_account_model();
-        }
         
         $this->load->model('bug_model');
         $this->load->model('project_model');
         $this->load->helper('string');
+
+        $this->load->config('bugtracker_config');
+
+        // F.I.X. B.U.G. S.H.I.T.
+        $this->bugshitCategories = $this->config->item('bugshit_categories');
 
         // Realm DB
         $this->connection = $this->external_account_model->getConnection();
@@ -99,13 +106,6 @@ class Bugtracker extends MY_Controller{
         // Level 0 Projects
         foreach($baseProjects as $l0key => $l0project){
 
-            //$projectChoices[$l0key] = $l0project['title'];
-            //debug('Level 0', $l0project);
-            /*$l0all = $l0project['counts']['all'];
-            $l0done = $l0project['counts']['done'];
-            $l0open = $l0project['counts']['open'];*/
-            $l1projects = array();
-
             if(!empty($projectsByParent[$l0key])){
 
                 // Level 1 Projects of this project
@@ -146,21 +146,7 @@ class Bugtracker extends MY_Controller{
                         $l1projects[$l1key]['counts']['percentage']['done'] = round($l1done/$l1all*100);
                     }
 
-                    // Add 'done' and 'all' counts to the L0
-                    /*$l0done += $l1projects[$l1key]['counts']['done'];
-                    $l0open += $l1projects[$l1key]['counts']['open'];
-                    $l0all += $l1projects[$l1key]['counts']['all'];*/
-
-
                 }
-
-                /*$baseProjects[$l0key]['counts']['done'] = $l0done;
-                $baseProjects[$l0key]['counts']['all'] = $l0all;
-                $baseProjects[$l0key]['counts']['open'] = $l0open;*/
-                $all = $l0project['counts']['all'];
-                $done = $l0project['counts']['done'];
-                //$baseProjects[$l0key]['counts']['percentage']['done'] = ($all > 0) ? round($done/$all*100) : 100;
-
 
                 // Save L1 back to L0 stack (Base)
                 $baseProjects[$l0key]['projects'] = $l1projects;
@@ -841,7 +827,8 @@ class Bugtracker extends MY_Controller{
      * Edit an existing Bug Entry
      * @param $bugId
      */
-    public function edit($bugId = ""){
+    public function edit($bugId = "")
+    {
         requirePermission("canEditBugs");
 
         if(empty($bugId)){
@@ -880,19 +867,28 @@ class Bugtracker extends MY_Controller{
             'links' => json_decode($bug['link'],true),
         );
 
-        foreach($formData as $fieldName => $defaultValue){
+        foreach($formData as $fieldName => $defaultValue)
+        {
             $postData = $this->input->post($fieldName);
 
-            if(!empty($postData)){
+            if(!empty($postData))
+            {
                 $formData[$fieldName] = $postData;
             }
         }
-        debug("formData", $formData);
+        //debug("formData", $formData);
 
-        if(!empty($formData['bugId']) && !empty($formData['project']) && !empty($formData['title']) && !empty($formData['desc'])){
+        if(!empty($formData['bugId']) && !empty($formData['project']) && !empty($formData['title']) && !empty($formData['desc']))
+        {
             $bugUpdate = $this->bug_model->update($bugId, $formData['project'], $formData['priority'], $formData['state'], $formData['title'], $formData['desc'], $formData['links']);
 
-            if($bugUpdate){
+            if($bugUpdate)
+            {
+
+                if(in_array($formData['project'], $this->bugshitCategories) && $formData['state'] == BUGSTATE_CONFIRMED)
+                {
+                }
+
                 // Show the Bug Page
                 $this->bug($bugId);
 

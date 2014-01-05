@@ -140,7 +140,7 @@ class Pay extends MX_Controller
 				}
 				else{
                     $itemCount = $item['count'];
-                    while($itemCount-- >= 0){
+                    while($itemCount-- > 0){
     					array_push($realmItems[$storeItem['realm']][$recipientCharGuid], array('id' => $storeItem['itemid']));
                     }
 				}
@@ -191,7 +191,7 @@ class Pay extends MX_Controller
 			}
 		}
 
-		// Loop through all realms
+        // Loop through all realms
 		foreach($realmItems as $realm => $characters)
 		{
 
