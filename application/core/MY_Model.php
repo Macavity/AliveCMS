@@ -5,8 +5,10 @@
  *
  * @property    CI_Loader               $load
  * @property    CI_DB_active_record     $db
- * @property    Template                $template
+ * @property    CI_Input                $input
+ * @property    Session              $session
  *
+ * @property    Template                $template
  * @property    Realms                  $realms
  * @property    User                    $user
  */

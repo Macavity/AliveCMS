@@ -122,6 +122,11 @@ class Internal_user_model extends CI_Model
 
         $this->forumAccountId = $this->external_account_model->getForumAccountId($this->external_account_model->getId());
 
+        if(empty($this->forumAccountId) || $this->forumAccountId == null)
+        {
+            $this->forumAccountId = 0;
+        }
+
 		$array = array(
 			'id' => $this->external_account_model->getId(),
 			'vp' => $this->vp,

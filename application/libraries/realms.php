@@ -91,7 +91,7 @@ class Realms
 	
 	/**
 	 * Get the realm objects
-	 * @return Array
+	 * @return Realm[]
 	 */
 	public function getRealms()
 	{
@@ -109,6 +109,7 @@ class Realms
 	{
 		foreach($this->realms as $key => $realm)
 		{
+            /** @var Realm $realm */
 			if($realm->getId() == $id)
 			{
 				return $this->realms[$key];

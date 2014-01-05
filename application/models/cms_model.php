@@ -8,9 +8,12 @@
  * @link http://fusion-hub.com
  */
 
-class Cms_model extends CI_Model
+class Cms_model extends MY_Model
 {
-	private $db;
+    /**
+     * @var CI_DB_active_record
+     */
+    private $db;
 
 	/**
 	 * Connect to the database
@@ -313,8 +316,9 @@ class Cms_model extends CI_Model
     /**
      * Get all uptime timestamps from all realms
      */
-    public function getRealmUptime($realmId){
-
+    public function getRealmUptime($realmId)
+    {
+        /** @var CI_DB_active_record $connection */
         $connection = $this->load->database("account", true);
 
         $connection
@@ -326,7 +330,8 @@ class Cms_model extends CI_Model
 
         $query = $connection->get();
 
-        if($query->num_rows() > 0){
+        if($query->num_rows() > 0)
+        {
             $uptime = $query->row()->starttime;
             return $uptime;
         }
