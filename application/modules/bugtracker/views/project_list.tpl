@@ -26,7 +26,7 @@
             <ul>
                 {foreach from=$recentComments key=i item=comment}
                     <li class="{cycle values="row1,row2"}">
-                        <span class="{$bug.css}"></span>
+                        <span class="{$comment.css}"></span>
                         {$comment.date}
                         <a href="/bugtracker/bug/{$comment.bug_entry}">#{$comment.bug_entry} {$comment.title}</a>
                         {if $comment.by.gm}<span class="employee"></span>{/if}{$comment.by.name}
