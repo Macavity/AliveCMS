@@ -6,7 +6,7 @@
  * @property    CI_Config   $config
  * @property    CI_Loader   $load
  * @property    CI_URI      $uri
- * @property
+ * @property    CI_Input    $input
  *
  * @property    Cache    $cache
  * @property    Template    $template

@@ -144,6 +144,22 @@ class Project_Model extends MY_Model {
         return $project;
     }
 
+    public function getRealmOfProject($projectId)
+    {
+        $baseProjectId = $this->getBaseProjectId($projectId);
+
+        $baseProject = $this->getProjectById($baseProjectId);
+
+        if(!empty($baseProject['realm_id']))
+        {
+            return $baseProject['realm_id'];
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public function getProjectBugStateCounts($projectId){
 
         $countStates = $this->bug_model->getBugCountByProject($projectId);
@@ -274,6 +290,40 @@ class Project_Model extends MY_Model {
     }
 
     /**
+     * Find the id of the base project of a given project id
+     *
+     * @param int   $projectId
+     * @param array $project
+     *
+     * @return mixed
+     */
+    public function getBaseProjectId($projectId, $project = array())
+    {
+        if(empty($project))
+        {
+            $project = $this->getProjectById($projectId);
+        }
+
+        $parent = $project['parent'];
+
+        if($parent == 0)
+        {
+            return $projectId;
+        }
+        else{
+            $matPath = $this->getMaterializedPath($projectId);
+
+            $pathArray = explode(".", $matPath);
+
+            $baseProject = $pathArray[0];
+
+            return $baseProject;
+
+        }
+
+    }
+
+    /**
      * Find all sub projects of a provided project id
      * @param $projectId
      * @return bool|array
@@ -311,7 +361,14 @@ class Project_Model extends MY_Model {
         return $subProjectIds;
     }
 
-    public function getRealmByProject($baseProjectId){
+    /**
+     * @deprecated Use getRealmOfProject
+     * @param $baseProjectId
+     *
+     * @return int
+     */
+    public function getRealmByProject($baseProjectId)
+    {
         $realmId = 1;
         if($baseProjectId == 1){
             $realmId = 1;
@@ -322,7 +379,8 @@ class Project_Model extends MY_Model {
         return $realmId;
     }
 
-    public function getOpenwowPrefix($realmId){
+    public function getOpenwowPrefix($realmId)
+    {
         $prefix = 1;
         if($realmId == 1){
             $prefix = 'wotlk';

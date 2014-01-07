@@ -381,4 +381,9 @@ class Realm
 			return false;
 		}
 	}
+
+    public function getArmoryLink($charName)
+    {
+        return '/characters/'.$this->id.'/'.$charName;
+    }
 }

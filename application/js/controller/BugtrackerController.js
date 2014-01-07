@@ -280,8 +280,11 @@ define(['./BaseController', 'modules/wiki', 'modules/wiki_related', 'modules/toa
             var Controller = this;
 
             // Refresh Controller.category
-            var category = Controller.getCategory();
-            var topCategory = Controller.getTopCategory(category);
+            var category = Controller.getCategory() * 1;
+            var topCategory = Controller.getTopCategory(category) * 1;
+
+            debug.debug("Category: "+category);
+            debug.debug("TopCategory: "+topCategory);
 
             if(topCategory == 3){
                 debug.debug("Website Bug");
@@ -300,10 +303,19 @@ define(['./BaseController', 'modules/wiki', 'modules/wiki_related', 'modules/toa
 
                 var realmId = Controller.setRealmByCategory();
 
+                _jq(".jsProjectFirst").show();
                 _jq("#alert-project").hide();
                 _jq(".jsWebsiteOnly").hide();
-                _jq(".jsProjectFirst").show();
                 _jq(".jsServerOnly").show();
+
+                if(_jq.inArray(category, fixBugShitCategories) > -1)
+                {
+                    _jq(".jsFixBugShitOnly").show();
+                }
+                else
+                {
+                    _jq(".jsFixBugShitOnly").hide();
+                }
 
                 if(realmId == 1 || realmId == 2){
                     _jq("#ac-search-wrapper").show();

@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * Class Realms
+ *
  * @package FusionCMS
  * @author Jesper Lindström
  * @author Xavier Geerinck
@@ -8,7 +10,6 @@
  * @author Marvin Wichmann
  * @link http://fusion-hub.com
  */
-
 class Realms
 {
 	// Objects

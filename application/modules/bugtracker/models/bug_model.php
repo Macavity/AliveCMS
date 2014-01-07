@@ -42,7 +42,11 @@ define('BUGTYPE_RAID',          600);
 define('BUGTYPE_ACHIEVEMENT',   700);
 define('BUGTYPE_PVP',           800);
 
-
+/**
+ * Class Bug_model
+ *
+ * @property FixBugShit_model $fbs_model
+ */
 class Bug_model extends MY_Model
 {
     var $tableName = 'bugtracker_entries';
@@ -912,12 +916,11 @@ ORDER BY
 
     }
 
-    public function update($bugId, $project, $priority, $bugState, $title, $desc, $links)
+    public function update($bugId, $project, $priority, $bugState, $title, $desc, $links, $autoCompleteQuests)
     {
         requirePermission("canEditBugs");
 
         $activeChar = $this->user->getActiveCharacterData();
-
 
         if($activeChar == false){
             return false;
@@ -978,6 +981,24 @@ ORDER BY
                 'new' => $desc,
             );
             $data['desc'] = $desc;
+        }
+
+        /*
+         * Autocomplete Quest Changes
+         */
+        if(count($autoCompleteQuests))
+        {
+            $this->load->model('fixbugshit_model', 'fbs_model');
+
+            foreach($autoCompleteQuests as $questId => $newValue)
+            {
+                $action['autocomplete'][$questId] = array(
+                    'new' => $newValue,
+                    'old' => ($newValue == 0) ? 2 : 0,
+                );
+
+                $this->fbs_model->updateQuestMethod($questId, $newValue);
+            }
         }
 
         $links = json_encode($links);
@@ -1063,7 +1084,7 @@ ORDER BY
 
     /**
      * @param $bugId
-     * @return bool
+     * @return array
      */
     public function getBugComments($bugId){
 
@@ -1108,6 +1129,12 @@ ORDER BY
     }
 
     public function getStateLabel($type){
+
+        if(empty($type))
+        {
+            return '';
+        }
+
         return (empty($this->availableBugStates[$type])) ? '' : $this->availableBugStates[$type];
     }
 
@@ -1138,6 +1165,12 @@ ORDER BY
         }
     }
 
+    /**
+     * @param        $commentId
+     * @param string $select
+     *
+     * @return bool|object
+     */
     public function getComment($commentId, $select = '*'){
         $query = $this->db->select($select)
             ->from('bugtracker_comments')

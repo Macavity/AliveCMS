@@ -6,17 +6,17 @@
  * @property Bug_model  $bug_model
  * @property Project_Model  $project_model
  * @property External_account_model  $external_account_model
+ * @property Realms $realms
  *
+ * @property FixBugShit_model $fbs_model
  */
 class Bugtracker extends MY_Controller{
     
     private $css = array();
     private $moduleTitle = 'Bugtracker';
-    private $modulePath = 'modules/bugtracker/';
 
-    private $bugshitCategories = array();
-    
-    public function __construct(){
+    public function __construct()
+    {
         //Call the constructor of MX_Controller
         parent::__construct();
         
@@ -24,12 +24,9 @@ class Bugtracker extends MY_Controller{
         
         $this->load->model('bug_model');
         $this->load->model('project_model');
+        $this->load->model('fixbugshit_model', 'fbs_model');
+
         $this->load->helper('string');
-
-        $this->load->config('bugtracker_config');
-
-        // F.I.X. B.U.G. S.H.I.T.
-        $this->bugshitCategories = $this->config->item('bugshit_categories');
 
         // Realm DB
         $this->connection = $this->external_account_model->getConnection();
@@ -46,7 +43,8 @@ class Bugtracker extends MY_Controller{
     /**
      * Shows all Bug Projects
      */
-    public function index(){
+    public function index()
+    {
         requirePermission('view');
 
         $this->template->setTitle($this->moduleTitle);
@@ -59,7 +57,8 @@ class Bugtracker extends MY_Controller{
         $projectsByParent = array();
 
 
-        foreach($projectList as $l0project){
+        foreach($projectList as $l0project)
+        {
 
             $l0key = $l0project['id'];
 
@@ -77,7 +76,8 @@ class Bugtracker extends MY_Controller{
             );
 
             // Icons
-            if(!empty($l0project['icon'])){
+            if(!empty($l0project['icon']))
+            {
                 $iconPath = $l0project['icon'];
                 if(substr_count($iconPath, 'patch') > 0){
                     $iconPath = 'images/icons/patch/'.$iconPath.'.jpg';
@@ -95,18 +95,22 @@ class Bugtracker extends MY_Controller{
                     : base_url().'themes/'.$this->template->theme.'/'.'images/icons/36/ability_creature_cursed_02.grey.jpg?'.$iconPath;
             }
 
-            if($l0project['parent'] != 0){
+            if($l0project['parent'] != 0)
+            {
                 $projectsByParent[$l0project['parent']][$l0project['id']] = $l0project;
             }
-            else{
+            else
+            {
                 $baseProjects[$l0project['id']] = $l0project;
             }
         }
 
         // Level 0 Projects
-        foreach($baseProjects as $l0key => $l0project){
+        foreach($baseProjects as $l0key => $l0project)
+        {
 
-            if(!empty($projectsByParent[$l0key])){
+            if(!empty($projectsByParent[$l0key]))
+            {
 
                 // Level 1 Projects of this project
                 $l1projects = $projectsByParent[$l0key];
@@ -126,7 +130,7 @@ class Bugtracker extends MY_Controller{
                         // Level 2 Projects
                         $l2projects = $projectsByParent[$l1key];
 
-                        foreach($l2projects as $l2key => $l2project){
+                        foreach($l2projects as $l2project){
                             // Add 'done' and 'all' counts to the Level-1
                             $l1done += $l2project['counts']['done'];
                             $l1all += $l2project['counts']['all'];
@@ -186,7 +190,8 @@ class Bugtracker extends MY_Controller{
      * Show all Bugs of a project
      * @param $projectId
      */
-    public function buglist($projectId){
+    public function buglist($projectId)
+    {
 
         requirePermission('view');
 
@@ -196,7 +201,7 @@ class Bugtracker extends MY_Controller{
             show_error("Das Bugtracker Projekt wurde nicht gefunden.");
             return;
         }
-        $searchProjects = array($projectId);
+        //$searchProjects = array($projectId);
 
         $this->template->setTitle($project['title']." - ".$this->moduleTitle);
         $this->template->setSectionTitle($this->moduleTitle.": ".$project['title']);
@@ -216,7 +221,7 @@ class Bugtracker extends MY_Controller{
                 $projects[$sub['id']] = $sub;
             }
 
-            $searchProjects = array_merge($searchProjects, $subProjectIds);
+            //$searchProjects = array_merge($searchProjects, $subProjectIds);
         }
 
         /*
@@ -326,7 +331,8 @@ class Bugtracker extends MY_Controller{
      * Show detail page for a bug
      * @param $bugId
      */
-    public function bug($bugId){
+    public function bug($bugId)
+    {
         requirePermission('view');
 
 
@@ -353,7 +359,7 @@ class Bugtracker extends MY_Controller{
         /**
          * Project
          */
-        $project = $bug['project'];
+        //$project = $bug['project'];
 
         $matpath = explode('.', $bug['matpath']);
         $baseProjectId = $matpath[0]*1;
@@ -463,9 +469,12 @@ class Bugtracker extends MY_Controller{
                 $cssState = 'color-q2'; break;
             case BUGSTATE_OPEN:
             case BUGSTATE_ACTIVE:
+            case BUGSTATE_CONFIRMED:
                 $cssState = 'color-q1'; break;
             case BUGSTATE_REJECTED:
                 $cssState = 'color-q0'; break;
+            default:
+                $cssState = "";
         }
 
         $stateLabel = $this->bug_model->getStateLabel($state);
@@ -482,6 +491,15 @@ class Bugtracker extends MY_Controller{
          */
         $createdDate = $bug['createdDate'];
         $changedDate = $bug['changedDate'];
+
+        /**
+         * F.I.X.B.U.G.S.H.I.T.
+         */
+        $this->fbs_model->initialize($bug);
+
+        $showFixBugShit = $this->fbs_model->getShowFieldset();
+        $fbsQuests = $this->fbs_model->getQuests();
+
 
         /**
          * Time difference since creation
@@ -508,7 +526,6 @@ class Bugtracker extends MY_Controller{
          * @type {Array}
          */
         $bugLog = array();
-        $accountComments = array();
 
         if(!empty($bug['posterData'])){
             $posterData = json_decode($bug['posterData']);
@@ -518,7 +535,7 @@ class Bugtracker extends MY_Controller{
                 'details' => true,
                 'name' => $posterData->name,
                 'class' => $posterData->class,
-                'url' => '',    // TODO Link zur Armory integrieren
+                'url' => $this->realms->getRealm($posterData->realmId)->getArmoryLink($posterData->name),
             );
         }
         else{
@@ -532,18 +549,21 @@ class Bugtracker extends MY_Controller{
         $commentCounter = 1;
         //$rowclass = 'row1';
 
-        foreach($commentRows as $i => $row){
+        foreach($commentRows as $row)
+        {
             $actionLog = array();
 
-            $commentPoster = json_decode($row['posterData']);
+            //$commentPoster = json_decode($row['posterData']);
 
             // State changes
             if(!empty($row['action'])){
                 $actions = json_decode($row['action']);
-                if(isset($actions->state)){
+                if(isset($actions->state) && !is_array($actions->state))
+                {
                     $actionLog[] = 'Status => '.$this->bug_model->getStateLabel($actions->state);
                 }
-                if(isset($actions->change) && $actions->change){
+                if(isset($actions->change) && $actions->change)
+                {
 
                     if(!empty($actions->project)){
                         $actionLog[] = 'Verschoben nach '.$this->project_model->getProjectTitle($actions->project->new).'.';
@@ -562,6 +582,14 @@ class Bugtracker extends MY_Controller{
                     }
                     if(!empty($actions->state)){
                         $actionLog[] = 'Status: '.$this->bug_model->getStateLabel($actions->state->old).' => '.$this->bug_model->getStateLabel($actions->state->new);
+                    }
+                    if(!empty($actions->autocomplete)){
+
+                        foreach($actions->autocomplete as $questId => $questMethod)
+                        {
+                            $actionLog[] = 'Quest '.$questId.': '.($questMethod->new == 0 ? 'Autocomplete' : 'Normal');
+                        }
+
                     }
                 }
             }
@@ -644,7 +672,7 @@ class Bugtracker extends MY_Controller{
         //debug($bugLog);
 
         // Combine Actions and Comments (later)
-        $bugActionLog = array();
+        //$bugActionLog = array();
 
         if(!empty($bug['actions'])){
             $actions = json_decode($bug['actions']);
@@ -689,12 +717,15 @@ class Bugtracker extends MY_Controller{
             'title' => $title,
 
             'state' => $state,
-            'stateLabel' => $this->bug_model->getStateLabel($state),
+            'stateLabel' => $stateLabel,
             'cssState' => $cssState,
 
             'priority' => $priority,
             'priorityLabel' => $priorityLabel,
             'priorityClass' => $priorityClass,
+
+            'showFixBugShit' => $showFixBugShit,
+            'fbsQuests' => $fbsQuests,
 
             'createdDate' => $createdDate,
             'createdDetail' => $createdDetail,
@@ -816,6 +847,7 @@ class Bugtracker extends MY_Controller{
             'bugLinks' => array(),
             'bugPriorities' => $bugPriorities,
             'post' => $formData,
+            'fbsCategories' => $this->fbs_model->getBugshitCategories(),
         );
         
         $out = $this->template->loadPage('bug_create.tpl', $page_data);
@@ -831,22 +863,26 @@ class Bugtracker extends MY_Controller{
     {
         requirePermission("canEditBugs");
 
-        if(empty($bugId)){
+        if(empty($bugId))
+        {
             $bugId = $this->input->post("bugId");
-            if(empty($bugId)){
+            if(empty($bugId))
+            {
                 show_error("Ungültiger Aufruf.");
                 return;
             }
         }
 
-        if(!is_numeric($bugId) || !$bugId){
+        if(!is_numeric($bugId) || !$bugId)
+        {
             show_error("Ungültiger Aufruf.");
             return;
         }
 
         $bug = $this->bug_model->getBug($bugId);
 
-        if(!$bug){
+        if(!$bug)
+        {
             show_error("Dieser Bug existiert nicht.");
             return;
         }
@@ -878,23 +914,56 @@ class Bugtracker extends MY_Controller{
         }
         //debug("formData", $formData);
 
+        /**
+         * FIXBUGSHIT
+         */
+        $this->fbs_model->initialize($bug);
+
+        $showFixBugShit = $this->fbs_model->getShowFieldset();
+
+        $fbsQuests = $this->fbs_model->getQuests();
+
+        $autoCompleteQuest = array();
+
+        if(count($fbsQuests))
+        {
+            foreach($fbsQuests as $fbsQuest)
+            {
+                $fbsQuestId = $fbsQuest['id'];
+
+                $postData = $this->input->post('fbs_quest_'.$fbsQuestId);
+
+                // Quest auf Autocomplete stellen
+                if($postData == "active" && $fbsQuest['isAutocomplete'] == false)
+                {
+                    $autoCompleteQuest[$fbsQuestId] = 0;
+                    $formData['state'] = BUGSTATE_CONFIRMED;
+                }
+                // Quest Autocomplete von Aktiv auf Inaktiv stellen
+                else if(empty($postData) && $fbsQuest['isAutocomplete'] == true)
+                {
+                    $autoCompleteQuest[$fbsQuestId] = 2;
+                    $formData['state'] = BUGSTATE_CONFIRMED;
+                }
+            }
+        }
+
+
+
         if(!empty($formData['bugId']) && !empty($formData['project']) && !empty($formData['title']) && !empty($formData['desc']))
         {
-            $bugUpdate = $this->bug_model->update($bugId, $formData['project'], $formData['priority'], $formData['state'], $formData['title'], $formData['desc'], $formData['links']);
+            $bugUpdate = $this->bug_model->update($bugId, $formData['project'], $formData['priority'], $formData['state'], $formData['title'], $formData['desc'], $formData['links'], $autoCompleteQuest);
 
             if($bugUpdate)
             {
-
-                if(in_array($formData['project'], $this->bugshitCategories) && $formData['state'] == BUGSTATE_CONFIRMED)
-                {
-                }
-
                 // Show the Bug Page
                 $this->bug($bugId);
 
                 return;
             }
         }
+
+
 
         /**
          * Title & Breadcrumbs
@@ -912,19 +981,23 @@ class Bugtracker extends MY_Controller{
         $baseProjects = array();
         $projectPaths = array();
 
-        foreach($projectTree as $baseRow){
+        foreach($projectTree as $baseRow)
+        {
             $projectPaths[$baseRow['id']] = explode('.',$baseRow['matpath']);
             $children = array();
 
-            foreach($baseRow['children'] as $child1){
+            foreach($baseRow['children'] as $child1)
+            {
                 $projectPaths[$child1['id']] = explode('.', $child1['matpath']);
                 $children[$child1['id']] = $child1['prefix'].$child1['title'];
 
-                foreach($child1['children'] as $child2){
+                foreach($child1['children'] as $child2)
+                {
                     $projectPaths[$child2['id']] = explode('.', $child2['matpath']);
                     $children[$child2['id']] = $child2['prefix'].$child2['title'];
 
-                    foreach($child2['children'] as $child3){
+                    foreach($child2['children'] as $child3)
+                    {
                         $projectPaths[$child3['id']] = explode('.', $child3['matpath']);
                         $children[$child3['id']] = $child3['prefix'].$child3['title'];
                     }
@@ -947,6 +1020,8 @@ class Bugtracker extends MY_Controller{
 
         $page_data = array(
             'module' => 'bugtracker',
+            'showFixBugShit' => $showFixBugShit,
+            'fbsQuests' => $this->fbs_model->getQuests(),
             'form_attributes' => array('class' => 'form-horizontal', 'id' => 'bugtrackerCreateForm'),
             'js_path' => $this->template->js_path,
             'image_path' => $this->template->image_path,

@@ -394,7 +394,7 @@ class Trinity_rbac_soap implements Emulator
 				$item_command[$mail_id] .= " ".$item['id'].":".$count;
 			}
 		}
-        
+
 		// Send all the queued mails
 		for($i = 0; $i <= $mail_id; $i++)
 		{
