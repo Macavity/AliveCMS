@@ -67,6 +67,7 @@ class Bugtracker extends MY_Controller{
             $l0project['counts'] = array(
                 'open' => $projectData['counts'][BUGSTATE_OPEN],
                 'active' => $projectData['counts'][BUGSTATE_ACTIVE],
+                'workaround' => $projectData['counts'][BUGSTATE_WORKAROUND],
                 'done' => $projectData['counts'][BUGSTATE_DONE],
                 'all' => $projectData['counts']['all'],
                 'percentage' => array(
@@ -74,6 +75,9 @@ class Bugtracker extends MY_Controller{
                     'active' => $projectData['counts']['percentage'][BUGSTATE_ACTIVE],
                 ),
             );
+
+            if($projectData['counts'][BUGSTATE_WORKAROUND] > 0)
+                debug("WA", $projectData['counts'][BUGSTATE_WORKAROUND]);
 
             // Icons
             if(!empty($l0project['icon']))
@@ -123,6 +127,7 @@ class Bugtracker extends MY_Controller{
                     $l1all = $l1project['counts']['all'];
                     $l1done = $l1project['counts']['done'];
                     $l1open = $l1project['counts']['open'];
+                    $l1wa = $l1project['counts']['workaround'];
                     $l2projects = array();
 
                     if(!empty($projectsByParent[$l1key])){
@@ -135,6 +140,7 @@ class Bugtracker extends MY_Controller{
                             $l1done += $l2project['counts']['done'];
                             $l1all += $l2project['counts']['all'];
                             $l1open += $l2project['counts']['open'];
+                            $l1wa += $l2project['counts']['workaround'];
                         }
 
                         // Save L2 back to L1 stack
@@ -145,6 +151,7 @@ class Bugtracker extends MY_Controller{
                     $l1projects[$l1key]['counts']['all'] = $l1all;
                     $l1projects[$l1key]['counts']['done'] = $l1done;
                     $l1projects[$l1key]['counts']['open'] = $l1open;
+                    $l1projects[$l1key]['counts']['workaround'] = $l1wa;
                     if($l1all > 0){
                         //debug('L1 '.$l1project['title'], '$l1done/$l1all');
                         $l1projects[$l1key]['counts']['percentage']['done'] = round($l1done/$l1all*100);
@@ -157,7 +164,7 @@ class Bugtracker extends MY_Controller{
             }
 
         }
-
+        //debug($baseProjects);
 
         /**
          * Recent Changes Overview
@@ -284,6 +291,11 @@ class Bugtracker extends MY_Controller{
                     break;
                 case BUGSTATE_REJECTED:
                     $row['css'] = 'disabled';
+                    break;
+                case BUGSTATE_WORKAROUND:
+                case BUGSTATE_CONFIRMED:
+                    $row['css'] = 'workaround';
+                    $row['bug_state'] = BUGSTATE_WORKAROUND;
                     break;
                 case BUGSTATE_OPEN:
                 default:

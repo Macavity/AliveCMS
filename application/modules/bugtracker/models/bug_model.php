@@ -820,8 +820,11 @@ ORDER BY
 
     /**
      * Count how many Bugs a project has
-     * @param $projectId
-     * @param int $type
+     *
+     * @param int      $projectId
+     * @param bool|int $type
+     *
+     * @return array|int
      */
     public function getBugCountByProject($projectId = 0, $type = FALSE){
 
@@ -852,12 +855,14 @@ ORDER BY
             $data[BUGSTATE_ACTIVE] = empty($data[BUGSTATE_ACTIVE]) ? 0 : $data[BUGSTATE_ACTIVE] * 1;
             $data[BUGSTATE_OPEN] = empty($data[BUGSTATE_OPEN]) ? 0 : $data[BUGSTATE_OPEN] * 1;
             $data[BUGSTATE_REJECTED] = empty($data[BUGSTATE_REJECTED]) ? 0 : $data[BUGSTATE_REJECTED] * 1;
+            $data[BUGSTATE_CONFIRMED] = empty($data[BUGSTATE_CONFIRMED]) ? 0 : $data[BUGSTATE_CONFIRMED] * 1;
             $data[BUGSTATE_WORKAROUND] = empty($data[BUGSTATE_WORKAROUND]) ? 0 : $data[BUGSTATE_WORKAROUND] * 1;
             $data[BUGSTATE_ALL] =
                 $data[BUGSTATE_DONE] +
                 $data[BUGSTATE_ACTIVE] +
                 $data[BUGSTATE_OPEN] +
                 $data[BUGSTATE_REJECTED] +
+                $data[BUGSTATE_CONFIRMED] +
                 $data[BUGSTATE_WORKAROUND];
 
             return $data;

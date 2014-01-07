@@ -167,14 +167,20 @@ class Project_Model extends MY_Model {
         $countStates["all"] = $countStates[BUGSTATE_ALL];
 
         if($countStates["all"] > 0){
-            $done = $countStates[BUGSTATE_DONE]+$countStates[BUGSTATE_REJECTED]+$countStates[BUGSTATE_WORKAROUND];
-            $countStates["percentage"][BUGSTATE_DONE] = round(($done/$countStates["all"])*100);
+            $countDone = $countStates[BUGSTATE_DONE]+$countStates[BUGSTATE_REJECTED];
+
+            $countWorkaround = $countStates[BUGSTATE_WORKAROUND] + $countStates[BUGSTATE_CONFIRMED];
+
+            $countStates["percentage"][BUGSTATE_DONE] = round(($countDone/$countStates["all"])*100);
             $countStates["percentage"][BUGSTATE_ACTIVE] = round(($countStates[BUGSTATE_ACTIVE]/$countStates["all"])*100);
+            $countStates["percentage"][BUGSTATE_WORKAROUND] = round(($countWorkaround/$countStates["all"])*100);
             $countStates["percentage"][BUGSTATE_OPEN] = round(($countStates[BUGSTATE_OPEN]/$countStates["all"])*100);
+
         }
         else{
             $countStates["percentage"][BUGSTATE_DONE] = 0;
             $countStates["percentage"][BUGSTATE_ACTIVE] = 0;
+            $countStates["percentage"][BUGSTATE_WORKAROUND] = 0;
             $countStates["percentage"][BUGSTATE_OPEN] = 0;
         }
 

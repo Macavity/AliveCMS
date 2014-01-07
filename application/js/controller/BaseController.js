@@ -70,7 +70,7 @@ define([
 
             var dynamicMenues = _jq(".dynamic-menu");
             if(dynamicMenues.length > 0){
-                debug.debug("BaseController.initDynamicMenu")
+                debug.debug("BaseController.initDynamicMenu");
                 dynamicMenues.each(function(){
                     var menu = new DynamicMenu(_jq(this));
                 });
@@ -79,6 +79,7 @@ define([
 
         initTS3Viewer: function(){
             debug.debug("Base.initTS3Viewer");
+
             $("#ts_button").mouseover(function(){ $("#sb_passive_large").addClass("sb_open"); });
             $("#ts_button").mouseout(function(){ $("#sb_passive_large").removeClass("sb_open"); });
             $("#ts_button").click(function(){
