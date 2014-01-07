@@ -63,9 +63,9 @@
           {else}
               0%
           {/if}
-          {if $project.counts.workaround > 0}
+          {*if $project.counts.workaround > 0}
             <div data-tooltip="{$project.counts.workaround} Workarounds" class="bar bar-info" style="width: {max($project.counts.percentage.workaround,1)}%;"></div>
-          {/if}
+          {/if*}
           {if $project.counts.active > 0}
             <div data-tooltip="{$project.counts.active} in Arbeit" class="bar bar-warning" style="width: {max($project.counts.percentage.active,1)}%;"></div>
           {/if}
