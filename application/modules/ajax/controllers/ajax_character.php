@@ -1,6 +1,13 @@
 <?php
-    class Ajax_character extends MX_Controller
-    {
+
+/**
+ * Class Ajax_character
+ *
+ * @property Forum_account_model $forum_account_model
+ * @property CI_Input $input
+ */
+class Ajax_character extends MY_Controller
+{
         private $realm;
         private $realmId;
         private $realmName;
@@ -50,12 +57,57 @@
                  $this->getError(ERROR_CHARACTER_NOT_FOUND);
              }
          }
-         
-         /**
-          * Realm Id und Charakter GUID an das armory model senden
-          * @param String $realmName Der vom Router übergebene Name des Realms 
-          * @param String $char Der vom Router übergebene Name des Charakters
-          */
+
+        public function userplate()
+        {
+            $data = array(
+            );
+
+            $forumAccountId = $this->input->post('user');
+
+            $this->load->model('forum_account_model');
+
+            if($this->forum_account_model->initialize($forumAccountId))
+            {
+                $realmId = $this->forum_account_model->getActiveRealmId();
+                $realm = $this->realms->getRealm($realmId);
+
+                $guid = $this->forum_account_model->getActiveCharGuid();
+                $accountId = $this->forum_account_model->getUserId();
+
+                $char = $realm->getCharacters()->getCharacterByGUID($guid);
+
+                $data = array(
+                    'id' => $accountId,
+                    'username' => $this->user->getNickname($accountId),
+                    'activeChar' => array(
+                        'name' => $char['name'],
+                        'race' => $char['race'],
+                        'class' => $char['class'],
+                        'gender' => $char['gender'],
+                        'level' => $char['level'],
+                        'avatarUrl' => base_url().$this->realms->formatAvatarPath($char),
+                        'factionString' => $this->realms->getFactionString($char['race']),
+                        'url' => 'http://cms.wow-alive.de/character/'.$realmId.'/'.urlencode($char['name']),
+                        'realmName' => $realm->getName(),
+                        'raceString' => $this->realms->getRace($char['race'], $char['gender']),
+                        'classString' => $this->realms->getClass($char['class'], $char['gender']),
+                        'hasGuild' => false,
+                    ),
+                );
+            }
+
+            $this->template->handleJsonOutput($data);
+        }
+
+        /**
+         * Realm Id und Charakter GUID an das armory model senden
+         *
+         * @param String $realmName Der vom Router übergebene Name des Realms
+         * @param String $char      Der vom Router übergebene Name des Charakters
+         *
+         * @return bool
+         */
         private function setChar($realmName, $char)
         {
             $validRealm = FALSE;

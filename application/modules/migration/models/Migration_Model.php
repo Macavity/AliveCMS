@@ -9,7 +9,7 @@ define("MIGRATION_STATUS_LEGACY", 5);
 /**
  * Class Migration_Model
  */
-class Migration_Model extends MY_Model {
+class Migration_model extends MY_Model {
 
     var $tableName = "migration_entries";
 
@@ -372,12 +372,12 @@ class Migration_Model extends MY_Model {
                     $state = MIGRATION_STATUS_DONE;
 
                     if(preg_match("/Erledigt von ([A-Za-z]+)(.*)/",$row->gm, $matches)){
-                        $array = explode(" ", $str, 2);
+                        $array = explode(" ", $row->gm, 2);
                         $actions["by"] = $matches[1];
                         $actions["reason"] = $matches[2];
                     }
                     else{
-                        $actions["by"] = $str;
+                        $actions["by"] = $row->gm;
                     }
                 }
                 elseif(substr_count($row->gm, "Ist in Bearbeitung") > 0){

@@ -92,7 +92,7 @@ class Acl_model extends CI_Model
 		$result = null;
 
         if($moduleName == "bugtracker"){
-            debug("$permissionName");
+            //debug("$permissionName");
         }
 		$groupId = $this->config->item('default_player_group');
 
@@ -116,7 +116,7 @@ class Acl_model extends CI_Model
         $roles = $this->getGroupRoles($groupId, $moduleName);
 
         if($moduleName == "bugtracker"){
-            debug("Roles", $roles);
+            //debug("Roles", $roles);
         }
 
         if($roles)
@@ -155,7 +155,7 @@ class Acl_model extends CI_Model
 
 
         if($moduleName == "bugtracker"){
-            debug("$userId hasPermissionPlayer $moduleName/$permissionName", $result);
+            //debug("$userId hasPermissionPlayer $moduleName/$permissionName", $result);
         }
 
 		// Try to find via the account's groups' roles
@@ -565,7 +565,7 @@ class Acl_model extends CI_Model
 		$query = $this->db->get('acl_group_roles agr, acl_roles ar');
 
         if($moduleName == 'bugtracker'){
-            debug("getRolesByGroupId", $this->db->last_query());
+            //debug("getRolesByGroupId", $this->db->last_query());
         }
 
 		if($query->num_rows() > 0)

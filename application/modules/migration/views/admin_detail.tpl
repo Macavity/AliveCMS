@@ -453,17 +453,22 @@
 
 </section>
 <script type="text/javascript">
+  require(['/application/js/static.js'], function(){
     require([
-        'static',
-        'controller/AdminController'
+      'controller/AdminController',
+      'tooltip'
     ],
-            function (static, AdminController) {
-                $(function () {
+            function (AdminController, Tooltip) {
+              $(function () {
+                debug.debug("js/migration_admin/detail");
 
-                    var controller = new AdminController();
+                var controller = new AdminController();
 
-                });
+
+              });
             });
+  });
+
 </script>
 
 

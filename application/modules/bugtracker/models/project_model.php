@@ -1,6 +1,10 @@
 <?php
 
-class Project_Model extends CI_Model {
+/**
+ * Class Project_Model
+ * @property Bug_model bug_model
+ */
+class Project_Model extends MY_Model {
 
     /**
      * Gets all projects
@@ -26,8 +30,10 @@ class Project_Model extends CI_Model {
      * @param array|null $allProjects
      * @return array
      */
-    public function getProjectTree($allProjects = NULL){
-        if($allProjects == NULL || !is_array($allProjects)){
+    public function getProjectTree($allProjects = NULL)
+    {
+        if($allProjects == NULL || !is_array($allProjects))
+        {
             $this->db
                 ->select('id,parent,matpath,title')
                 ->from('bugtracker_projects')
@@ -43,7 +49,8 @@ class Project_Model extends CI_Model {
 
         $projectTree = array();
 
-        foreach($allProjects as $project){
+        foreach($allProjects as $project)
+        {
 
             $rowPath = explode(".", $project['matpath']);
             $project['prefix'] = '';
@@ -69,14 +76,10 @@ class Project_Model extends CI_Model {
         return $projectTree;
     }
 
-    private function addChild($proje){
-
-    }
-
     /**
      * Adds a new project to the database
      * @param $data
-     * @return id of newly created project
+     * @return int Id of newly created project
      */
     public function add($data)
     {
@@ -99,7 +102,12 @@ class Project_Model extends CI_Model {
      * Looks for a project based on its Title
      * Can be used to check for duplicates for example
      * Returns the FIRST result only.
-     * @param $name
+     *
+     * @param $title
+     *
+     * @internal param $name
+     *
+     * @return bool
      */
     public function findProjectByTitle($title){
         $this->db->select('*')->from('bugtracker_projects')->where('title', $title);
@@ -114,13 +122,14 @@ class Project_Model extends CI_Model {
         }
     }
 
-    public function getAllProjectData($projectId, $project = array()){
+    public function getAllProjectData($projectId, $project = array())
+    {
 
         if(empty($project)){
             $project = $this->getProjectById($projectId);
         }
 
-        $children = $this->project_model->getSubProjectIds($projectId);
+        $children = $this->getSubProjectIds($projectId);
 
         if($children){
             $searchFor = array_merge(array($projectId), $children);
@@ -135,6 +144,22 @@ class Project_Model extends CI_Model {
         return $project;
     }
 
+    public function getRealmOfProject($projectId)
+    {
+        $baseProjectId = $this->getBaseProjectId($projectId);
+
+        $baseProject = $this->getProjectById($baseProjectId);
+
+        if(!empty($baseProject['realm_id']))
+        {
+            return $baseProject['realm_id'];
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public function getProjectBugStateCounts($projectId){
 
         $countStates = $this->bug_model->getBugCountByProject($projectId);
@@ -142,13 +167,20 @@ class Project_Model extends CI_Model {
         $countStates["all"] = $countStates[BUGSTATE_ALL];
 
         if($countStates["all"] > 0){
-            $countStates["percentage"][BUGSTATE_DONE] = round(($countStates[BUGSTATE_DONE]/$countStates["all"])*100);
+            $countDone = $countStates[BUGSTATE_DONE]+$countStates[BUGSTATE_REJECTED];
+
+            $countWorkaround = $countStates[BUGSTATE_WORKAROUND] + $countStates[BUGSTATE_CONFIRMED];
+
+            $countStates["percentage"][BUGSTATE_DONE] = round(($countDone/$countStates["all"])*100);
             $countStates["percentage"][BUGSTATE_ACTIVE] = round(($countStates[BUGSTATE_ACTIVE]/$countStates["all"])*100);
+            $countStates["percentage"][BUGSTATE_WORKAROUND] = round(($countWorkaround/$countStates["all"])*100);
             $countStates["percentage"][BUGSTATE_OPEN] = round(($countStates[BUGSTATE_OPEN]/$countStates["all"])*100);
+
         }
         else{
             $countStates["percentage"][BUGSTATE_DONE] = 0;
             $countStates["percentage"][BUGSTATE_ACTIVE] = 0;
+            $countStates["percentage"][BUGSTATE_WORKAROUND] = 0;
             $countStates["percentage"][BUGSTATE_OPEN] = 0;
         }
 
@@ -161,6 +193,7 @@ class Project_Model extends CI_Model {
      */
     public function getProjectsOrder()
     {
+        /** @var CI_DB_Result $query */
         $query = $this->db->select("order, id")->from('bugtracker_projects')->order_by('order', 'desc');
 
         if($query->num_rows() > 0)
@@ -215,23 +248,38 @@ class Project_Model extends CI_Model {
         if(empty($projectId))
             return false;
 
-        $query = $this->db->select($select)->from('bugtracker_projects')->where('id', $projectId)->get();
-        if($query->num_rows() > 0){
+        $this->db
+            ->select($select)
+            ->from('bugtracker_projects')
+            ->where('id', $projectId);
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
             $row = $query->row_array();
             return $row;
         }
         return FALSE;
     }
 
-    public function getProjectTitle($projectId){
+    /**
+     * @param $projectId
+     *
+     * @return bool|string
+     */
+    public function getProjectTitle($projectId)
+    {
         if(empty($projectId))
             return false;
 
         $row = $this->getProjectById($projectId, 'title');
 
-        if($row){
+        if($row)
+        {
             return $row['title'];
         }
+        return "";
     }
 
     /**
@@ -248,6 +296,40 @@ class Project_Model extends CI_Model {
     }
 
     /**
+     * Find the id of the base project of a given project id
+     *
+     * @param int   $projectId
+     * @param array $project
+     *
+     * @return mixed
+     */
+    public function getBaseProjectId($projectId, $project = array())
+    {
+        if(empty($project))
+        {
+            $project = $this->getProjectById($projectId);
+        }
+
+        $parent = $project['parent'];
+
+        if($parent == 0)
+        {
+            return $projectId;
+        }
+        else{
+            $matPath = $this->getMaterializedPath($projectId);
+
+            $pathArray = explode(".", $matPath);
+
+            $baseProject = $pathArray[0];
+
+            return $baseProject;
+
+        }
+
+    }
+
+    /**
      * Find all sub projects of a provided project id
      * @param $projectId
      * @return bool|array
@@ -259,11 +341,13 @@ class Project_Model extends CI_Model {
         }
 
         $searchId = str_pad($projectId, 4, "0", STR_PAD_LEFT);
-        $query = $this->db
+
+        $this->db
             ->select('id, title')
             ->like('matpath', $searchId)
-            ->from('bugtracker_projects')
-            ->get();
+            ->from('bugtracker_projects');
+
+        $query = $this->db->get();
 
         if($query->num_rows() > 0){
             return $query->result_array();
@@ -283,7 +367,14 @@ class Project_Model extends CI_Model {
         return $subProjectIds;
     }
 
-    public function getRealmByProject($baseProjectId){
+    /**
+     * @deprecated Use getRealmOfProject
+     * @param $baseProjectId
+     *
+     * @return int
+     */
+    public function getRealmByProject($baseProjectId)
+    {
         $realmId = 1;
         if($baseProjectId == 1){
             $realmId = 1;
@@ -294,7 +385,8 @@ class Project_Model extends CI_Model {
         return $realmId;
     }
 
-    public function getOpenwowPrefix($realmId){
+    public function getOpenwowPrefix($realmId)
+    {
         $prefix = 1;
         if($realmId == 1){
             $prefix = 'wotlk';

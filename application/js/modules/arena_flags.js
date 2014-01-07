@@ -1,4 +1,4 @@
-
+/*jshint -W004,-W084 */
 function ArenaFlag(canvas, flag, simple, Core) {
     var self = this,
         canvas = document.getElementById(canvas),
@@ -79,7 +79,7 @@ function ArenaFlag(canvas, flag, simple, Core) {
         context = canvas.getContext('2d');
 
         _loadImage(0);
-    }
+    };
 
     function _loadImage(count) {
         if (count >= _src.length) {
@@ -102,7 +102,7 @@ function ArenaFlag(canvas, flag, simple, Core) {
 
         _img[index].onload = function() {
             _oldCanvas.src = canvas.toDataURL('image/png');
-        }
+        };
 
         _oldCanvas.onload = function() {
             canvas.width = 1;
@@ -115,7 +115,7 @@ function ArenaFlag(canvas, flag, simple, Core) {
 
             _newCanvas.src = canvas.toDataURL('image/png');
             context.drawImage(_oldCanvas, 0, 0, _width, _height);
-        }
+        };
 
         _newCanvas.onload = function() {
             context.drawImage(_newCanvas, 0, 0, _width, _height);
@@ -125,7 +125,7 @@ function ArenaFlag(canvas, flag, simple, Core) {
             } else {
                 $(canvas).fadeIn(100);
             }
-        }
+        };
     }
 
     function _colorize(r, g, b) {

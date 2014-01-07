@@ -114,12 +114,12 @@
         </a>
       {/if}
 
-        {if hasPermission("canCopyCharacter", "migration")}
-            <a href="{$url}migration/realmcopy" class="main-services-banner right-bnr" style="background-image:url('{$image_path}boxes/thumb-main-content-1.jpg');" >
-                <span class="banner-title">Charakterkopie auf Cata</span>
-                <span class="banner-desc">Formular um deine Wotlk-Charaktere auf unseren Cata-Realm zu kopieren.</span>
-            </a>
-        {/if}
+      {if hasPermission("canCopyCharacter", "migration")}
+        <a href="{$url}migration/realmcopy" class="main-services-banner right-bnr" style="background-image:url('{$image_path}boxes/thumb-main-content-1.jpg');" >
+            <span class="banner-title">Charakterkopie auf Cata</span>
+            <span class="banner-desc">Formular um deine Wotlk-Charaktere auf unseren Cata-Realm zu kopieren.</span>
+        </a>
+      {/if}
 
       <span class="clear"><!-- --></span>
     </div>

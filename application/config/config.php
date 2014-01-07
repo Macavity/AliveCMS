@@ -306,7 +306,7 @@ $config['csrf_protection'] = TRUE;
 $config['csrf_token_name'] = 'csrf_token_name';
 $config['csrf_cookie_name'] = 'csrf_cookie_name';
 $config['csrf_expire'] = 7200;
-$config['csrf_ignore'] = array('donate');
+$config['csrf_ignore'] = array('donate', 'ajax');
 
 /*
 |--------------------------------------------------------------------------

@@ -16,6 +16,7 @@
         "canRemoveBugs": {"default": false, "description": "Bugs entfernen"},
         "canReopenBugs": {"default": false, "description": "Kann Erledigte Bug Tickets wieder öffnen."},
         "canEditComments": {"default": false, "description": "Kann Bug Kommentare von anderen Usern bearbeiten"},
+        "canConfirmBugs": { "default": false, "description": "Kann Bugs von Offen auf Bestätigt stellen." },
 
         "canCreateProjects": {"default": false, "description": "Bugs eintragen"},
         "canEditProjects": {"default": false, "description": "Bugs bearbeiten"},
@@ -33,13 +34,6 @@
                     "icon": "tag",
                     "controller": "admin_projects",
                     "requirePermission": "canEditProjects"
-                },
-
-                {
-                    "text": "Bugs",
-                    "icon": "tag",
-                    "controller": "admin_bugs",
-                    "requirePermission": "canEditBugs"
                 }
             ]
         }
@@ -68,6 +62,7 @@
 
             "permissions": {
                 "canReopenBugs": true,
+                "canConfirmBugs": true,
                 "canPrioritize": true
             }
         },
@@ -80,6 +75,7 @@
                 "canReopenBugs": true,
                 "canPrioritize": true,
 
+                "canConfirmBugs": true,
                 "canEditBugs": true,
                 "canCloseBugs": true
             }
@@ -93,6 +89,7 @@
                 "canReopenBugs": true,
                 "canPrioritize": true,
 
+                "canConfirmBugs": true,
                 "canEditBugs": true,
                 "canEditComments": true,
                 "canCloseBugs": true,

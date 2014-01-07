@@ -54,6 +54,7 @@
 					<a href="javascript:;" data-filter="column" data-column="0" data-value="" data-name="type"> Alle </a>
 					<a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="1" class="tab-active"> Offen </a>
 					<a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="2"> In Bearbeitung </a>
+          <a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="4"> Workaround </a>
 					<a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="9"> Erledigt </a>
 					<a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="3"> Abgewiesen </a> 
 				</div>
