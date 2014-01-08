@@ -202,7 +202,7 @@
             <label class="control-label">Level, Lerngeld und Taschen:</label>
             <div class="controls">
 <pre>
-.levelup {$migration.level}
+.levelup {$migration.level - 1}
 
 .modify money 2000000000
 .char customize
