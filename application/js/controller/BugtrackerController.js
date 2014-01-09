@@ -308,7 +308,7 @@ define(['./BaseController', 'modules/wiki', 'modules/wiki_related', 'modules/toa
                 _jq(".jsWebsiteOnly").hide();
                 _jq(".jsServerOnly").show();
 
-                if(_jq.inArray(category, fixBugShitCategories) > -1)
+                if( typeof fixBugShitCategories != "undefined" && _jq.inArray(category, fixBugShitCategories) > -1)
                 {
                     _jq(".jsFixBugShitOnly").show();
                 }
