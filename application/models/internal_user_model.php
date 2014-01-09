@@ -116,6 +116,16 @@ class Internal_user_model extends CI_Model
 	public function makeNew()
 	{
         $this->vp = $this->external_account_model->getOldVotePoints($this->external_account_model->getId());
+
+        /**
+         * Initial kriegt jeder neue Account 200 VP
+         * @alive
+         */
+        if($this->vp == 0)
+        {
+            $this->vp = $this->config->item('vote_points_for_new_users');
+        }
+
         $this->dp = 0;
         $this->location = "Unknown";
         $this->nickname = $this->external_account_model->getUsername();
