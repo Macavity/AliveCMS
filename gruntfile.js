@@ -115,7 +115,8 @@ module.exports = function(grunt) {
                     debugInfo: true
                 },
                 files: {
-                    'application/themes/shattered/css/main.css': 'application/themes/shattered/css/main.scss'
+                    'application/themes/shattered/css/main.css': 'application/themes/shattered/css/main.scss',
+                    'application/themes/shattered/css/forum.css': 'application/themes/shattered/css/forum.scss'
                     /*
                      * Every page specific scss file has to be entered here
                      */
