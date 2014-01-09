@@ -38,6 +38,10 @@ class Migration extends MY_Controller
         $this->load->model("migration_model");
         $this->load->model('realmcopy_model', 'realmcopy');
 
+        // Migration (The CI Module)
+        $this->load->library('migration');
+        $this->migration->current();
+
         //$this->template->enable_profiler(TRUE);
 
         $this->theme_path = base_url().APPPATH.$this->template->theme_path;
