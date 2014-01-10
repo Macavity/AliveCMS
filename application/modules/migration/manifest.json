@@ -64,8 +64,7 @@
             "dangerLevel": 2,
 
             "permissions": {
-                "canEditMigration": true,
-                "canCopyCharacter": true
+                "canEditMigration": true
             }
         },
 

@@ -1,5 +1,17 @@
 
-<p>Bedenke dass jeder Charakter nur einmal auf den Cata-Realm kopiert werden kann.</p>
+<p class="lead">
+  <strong>Vorgehensweise</strong>
+  <ol style="list-style: decimal">
+    <li>Logge dich auf dem Cata-Realm ein und erstelle einen neuen Charakter</li>
+    <li>Logge dich dann wieder aus und schließe World of Warcraft</li>
+    <li>Wähle hier auf der Homepage, rechts neben dem Hauptmenü den neuerstellten Charakter aus, damit markierst du den Ziel-Charakter</li>
+    <li>Klicke dann unten in der Liste auf den Charakter den du kopieren willst, beachte dass die Klasse des Ursprungs-Charakters zählt und der Ziel-Charakter größtenteils überschrieben wird.</li>
+  </ol>
+</p>
+
+<div class="alert alert-danger">
+  Jeder Ursprungs-Charakter kann nur einmal kopiert werden.
+</div>
 
 <div class="table">
     <table cellpadding="3" cellspacing="0" width="100%">
@@ -34,9 +46,9 @@
                     {$row.realmName}
                 </td>
                 <td align="center">
-                    <a href="{site_url('migration/copy/{$row.guid}')}" class="ui-button button1 button1-next float-right">
+                    <a href="{base_url()}migration/confirm_copy/{$row.realmId}/{$charGuid}" class="ui-button button1 button1-next float-right">
                         <span><span>Kopieren</span></span>
-                    </button>
+                    </a>
                 </td>
             </tr>
             {/foreach}
