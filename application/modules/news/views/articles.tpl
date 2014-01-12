@@ -34,3 +34,7 @@
 
 {/foreach}
 {$pagination}
+
+{if $show_external_more}
+  {$external_forum_posts}
+{/if}

@@ -11,3 +11,5 @@
 
 $config['vote_ip_lock'] = true;
 $config['delete_old_votes'] = true;
+
+$config['vote_points_for_new_users'] = 200;

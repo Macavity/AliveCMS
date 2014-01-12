@@ -133,7 +133,7 @@ class Pay extends MX_Controller
 					foreach($temp as $id){
 						// Add them individually to the array
                         $itemCount = $item['count'];
-                        while($itemCount-- >= 0){
+                        while($itemCount-- > 0){
                             array_push($realmItems[$storeItem['realm']][$recipientCharGuid], array('id' => $id));
                         }
 					}
@@ -168,7 +168,7 @@ class Pay extends MX_Controller
 			if(!empty($items[$item['id']]['query']))
 			{
                 $itemCount = $item['count'];
-                while($itemCount-- >= 0){
+                while($itemCount-- > 0){
                     //debug("handle query", $item);
                     $this->handleQuery($items[$item['id']]['query'], $items[$item['id']]['query_database'], (isset($item['charGuid']) ? $item['character'] : false), $items[$item['id']]['realm']);
                 }
@@ -184,7 +184,7 @@ class Pay extends MX_Controller
 					$command = preg_replace("/\{CHARACTER\}/", (isset($item['charGuid']) ? $this->realms->getRealm($items[$item['id']]['realm'])-> getCharacters()->getNameByGuid($item['charGuid']) : false), $command);
 
                     $itemCount = $item['count'];
-                    while($itemCount-- >= 0){
+                    while($itemCount-- > 0){
                         $this->realms->getRealm($items[$item['id']]['realm'])->getEmulator()->sendCommand($command);
 			     	}
                 }

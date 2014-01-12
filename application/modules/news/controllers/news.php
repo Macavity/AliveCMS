@@ -159,9 +159,9 @@ class News extends MY_Controller
 	{
 		// Get the cache
 		$cache = $this->cache->get("news_".$this->startIndex."_".getLang());
-		
+
 		// Check if cache is valid
-		if($cache !== false)
+		if($cache !== false && false)
 		{
 			$this->template->view($cache, "modules/news/css/news.css", "modules/news/js/ajax.js");
 		}
@@ -172,6 +172,8 @@ class News extends MY_Controller
              */
             $confExternalMore = $this->config->item("news_external_more");
 
+            $showExternalNews = (empty($confExternalMore) || empty($this->externalNewsString)) ? false : true;
+
             $content = $this->template->loadPage("articles.tpl", array(
 				"articles" => $this->news_articles,
 				'url' => $this->template->page_url,
@@ -180,7 +182,7 @@ class News extends MY_Controller
                 /**
                  * @alive
                  */
-                "show_external_more" => (empty($confExternalMore) || empty($this->externalNewsString)) ? false : true,
+                "show_external_more" => $showExternalNews,
                 "external_news_string" => $this->externalNewsString,
                 "external_more_url" => $this->config->item("news_external_more"),
                 "external_forum_posts" => $this->forumPostsString,

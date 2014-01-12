@@ -38,6 +38,10 @@ class Migration extends MY_Controller
         $this->load->model("migration_model");
         $this->load->model('realmcopy_model', 'realmcopy');
 
+        // Migration (The CI Module)
+        $this->load->library('migration');
+        $this->migration->current();
+
         //$this->template->enable_profiler(TRUE);
 
         $this->theme_path = base_url().APPPATH.$this->template->theme_path;
@@ -78,6 +82,9 @@ class Migration extends MY_Controller
     {
         $this->template->addBreadcrumb("Realmkopie", site_url(array("migration", 'realmcopy')));
 
+        $this->template->setTitle("Realmkopie");
+        $this->template->setSectionTitle("Realmkopie");
+
         if(hasPermission("canCopyCharacter") == FALSE){
             $this->denied("norights");
             exit;
@@ -98,16 +105,118 @@ class Migration extends MY_Controller
 
     }
 
-    public function copy($guid)
+    /**
+     * @param $sourceRealmId
+     * @param $sourceGuid
+     */
+    public function confirm_copy($sourceRealmId, $sourceGuid)
     {
         $this->template->addBreadcrumb("Realmkopie", site_url(array("migration", 'realmcopy')));
+
+        $targetRealmId = $this->user->getActiveRealmId();
+        $targetGuid = $this->user->getActiveCharacter();
+
+        // Check all requirements
+        $this->realmcopy_requirements($sourceRealmId, $sourceGuid, $targetRealmId, $targetGuid);
+
+        $this->template->setTitle("Realmkopie");
+        $this->template->setSectionTitle("Realmkopie");
+
+        $this->template->addBreadcrumb('Charakterliste', site_url(array('migration', 'realmcopy')));
+        $this->template->addBreadcrumb('Daten bestätigen');
+
+        $sourceRealm = $this->realms->getRealm($sourceRealmId);
+        $targetRealm = $this->realms->getRealm($this->user->getActiveRealmId());
+
+        $sourceCharacters = $sourceRealm->getCharacters();
+        $sourceChar = $sourceCharacters->getCharacterByGuid($sourceGuid, "name");
+
+        $targetCharacters = $targetRealm->getCharacters();
+        $targetChar = $targetCharacters->getCharacterByGuid($targetGuid, "name");
+
+        $templateData = array(
+            'sourceRealmName' => $sourceRealm->getName(),
+            'targetRealmName' => $targetRealm->getName(),
+
+            'sourceRealmExpansion' => $sourceRealm->getExpansion(),
+            'targetRealmExpansion' => $targetRealm->getExpansion(),
+
+            'sourceCharName' => $sourceChar['name'],
+            'targetCharName' => $targetChar['name'],
+
+            'sourceRealmId' => $sourceRealmId,
+            'sourceGuid' => $sourceGuid,
+
+            'theme_path' => base_url().APPPATH.$this->template->theme_path,
+        );
+
+        $out = $this->template->loadPage("realmcopy_confirm.tpl", $templateData);
+
+        $this->template->view($out);
+    }
+
+    private function realmcopy_requirements($sourceRealmId, $sourceGuid, $targetRealmId, $targetGuid)
+    {
 
         if(hasPermission("canCopyCharacter") == FALSE){
             $this->denied("norights");
             exit;
         }
 
-        $this->template->addBreadcrumb('Charakterkopie');
+        // Check Source Realm
+        if(!$this->realms->realmExists($sourceRealmId) || !in_array($sourceRealmId, $this->realmcopy->getValidSourceRealms()))
+        {
+            $this->denied("realmcopy_source_realm");
+        }
+
+        // Check Target Realm
+        $sourceRealm = $this->realms->getRealm($sourceRealmId);
+
+        if(!$this->realms->realmExists($targetRealmId) || !in_array($targetRealmId, $this->realmcopy->getValidTargetRealms()))
+        {
+            $this->denied("realmcopy_target_realm");
+        }
+
+        // Check Source Character Ownership
+        $sourceCharacters = $sourceRealm->getCharacters();
+
+        //Open the connection to the databases
+        $sourceCharacters->connect();
+
+        if(!$sourceCharacters->characterBelongsToAccount($sourceGuid, $this->user->getId()))
+        {
+            $this->denied("realmcopy_wrong_source_char");
+        }
+
+        // Check if target character is offline
+        $targetRealm = $this->realms->getRealm($targetRealmId);
+        $targetCharacters = $targetRealm->getCharacters();
+
+        if($targetCharacters->isOnline($targetGuid))
+        {
+            $this->denied("realmcopy_char_online");
+        }
+    }
+
+    /**
+     * @param $sourceRealmId
+     * @param $sourceGuid
+     */
+    public function copy($sourceRealmId, $sourceGuid)
+    {
+        $this->template->addBreadcrumb("Realmkopie", site_url(array("migration", 'realmcopy')));
+
+        $targetRealmId = $this->user->getActiveRealmId();
+        $targetGuid = $this->user->getActiveCharacter();
+
+        // Check all requirements
+        $this->realmcopy_requirements($sourceRealmId, $sourceGuid, $targetRealmId, $targetGuid);
+
+        $this->template->setTitle("Realmkopie");
+        $this->template->setSectionTitle("Realmkopie");
+
+        $this->template->addBreadcrumb('Charakterliste', site_url(array('migration', 'realmcopy')));
+        $this->template->addBreadcrumb('Realmkopie durchgeführt');
 
         $sourceGuid = $guid;
 
@@ -128,7 +237,7 @@ class Migration extends MY_Controller
 
     public function denied($reason = "")
     {
-        //debug("Server ($page)");
+        debug("Denied");
         $this->template->addBreadcrumb("Transfere gesperrt", site_url(array("migration", "denied")));
 
         // Set the page title

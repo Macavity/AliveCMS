@@ -1,13 +1,12 @@
 <?php
 
-header("Content-Type: text/xml;");
+$output_file = "/var/www/cms/application/third_party/flash/stalker/stats.xml";
 
-$output_file = "stats.xml";
-
-include($_SERVER['DOCUMENT_ROOT']."/application/config/database.php");
+include($_SERVER["/var/www/cms/application/config/database.php");
 
 
 $server = $db["account"]["hostname"];
+$port = $db["account"]["port"];
 
 $db_user = $db["account"]["username"];
 $db_passwd = $db["account"]["password"];
@@ -20,8 +19,8 @@ XML;
 /////// function block ///////
 
 // connect to mysql server
-function connectMySQL($HOST,$USER,$PASSWD) {
-    return mysql_connect($HOST,$USER,$PASSWD);
+function connectMySQL($HOST,$PORT,$USER,$PASSWD) {
+    return mysql_connect($HOST.":".$PORT,$USER,$PASSWD);
 }
 
 // connect connection to a database
@@ -30,8 +29,8 @@ function selectMySQLDB($DB,$CONN) {
 }
 
 // connect to character DB
-function connectCharDB($HOST,$USER,$PASSWD) {    
-    $connection = connectMySQL($HOST,$USER,$PASSWD);
+function connectCharDB($HOST,$PORT,$USER,$PASSWD) {    
+    $connection = connectMySQL($HOST,$PORT,$USER,$PASSWD);
     selectMySQLDB("live_char",$connection);
 }
 
@@ -47,7 +46,7 @@ function closeMySQL() {
 $xml_Tree = new SimpleXMLElement($base_XML);
 
 // open sql connection
-connectCharDB($server,$db_user,$db_passwd);
+connectCharDB($server,$port,$db_user,$db_passwd);
 
 $sql = "SELECT
             name,

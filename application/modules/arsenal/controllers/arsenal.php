@@ -5,6 +5,8 @@
  * @property CI_Cache $cache
  * @property CI_Config $config
  * @property Template $template
+ *
+ * @property Arsenal_Character_model $character
  */
 class Arsenal extends MX_Controller
 {
@@ -101,7 +103,9 @@ class Arsenal extends MX_Controller
         {
             if($this->arsenal_model->characterExists())
             {
-                $this->character = new Arsenal_Character_model($this->id, $this->arsenal_model->realm);
+                $this->load->model('Arsenal_Character_model', 'character');
+
+                $this->character->initialize($this->id, $this->arsenal_model->realm);
 
                 $this->character->loadBaseData($detail);
 

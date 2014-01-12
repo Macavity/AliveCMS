@@ -60,6 +60,9 @@ class Server extends MY_Controller
 
     public function playermap()
     {
+        // Update stats file
+        include("/var/www/cms/application/third_party/flash/stalker/stats.php");
+
         // Section Title
         $this->template->setTitle("Online Spielerkarte");
 

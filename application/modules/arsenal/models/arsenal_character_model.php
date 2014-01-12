@@ -260,6 +260,11 @@ class Arsenal_Character_model extends CI_Model {
 
     public function __construct($guid, $realmObject)
     {
+        parent::__construct();
+    }
+
+    public function initialize($guid, $realmObject)
+    {
         $this->guid = (int) $guid;
 
         $this->realm = $realmObject;

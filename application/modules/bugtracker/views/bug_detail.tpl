@@ -83,9 +83,11 @@
           <tr>
             <td>{$quest.id}</td>
             <td>
-              <label class="checkbox">
-                <input type="checkbox" value="active" name="fbs_quest_{$quest.id}" {if $quest.isAutocomplete}checked="checked"{/if}> Autocomplete aktiv
-              </label>
+              {if $quest.isAutocomplete}
+                <span class="workaround">Autocomplete aktiv</span>
+              {else}
+                Autocomplete Inaktiv
+              {/if}
             </td>
             <td>{$quest.title}</td>
           </tr>
