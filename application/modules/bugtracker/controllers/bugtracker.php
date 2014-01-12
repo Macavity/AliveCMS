@@ -543,11 +543,21 @@ class Bugtracker extends MY_Controller{
             $posterData = json_decode($bug['posterData']);
             //debug('posterData',$posterData);
 
+            if(!isset($posterData->realmId) && strtolower($posterData->realmName) == "Norgannon")
+            {
+                $posterData->realmId = 1;
+            }
+
+            if($this->realms->realmExists($posterData->realmId))
+            {
+                $posterData->url = $this->realms->getRealm($posterData->realmId)->getArmoryLink($posterData->name);
+            }
+
             $bugPoster = array(
                 'details' => true,
                 'name' => $posterData->name,
                 'class' => $posterData->class,
-                'url' => $this->realms->getRealm($posterData->realmId)->getArmoryLink($posterData->name),
+                'url' => $posterData->url,
             );
         }
         else{
