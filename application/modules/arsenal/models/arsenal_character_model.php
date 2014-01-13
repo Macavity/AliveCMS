@@ -1,5 +1,7 @@
 <?php
 
+require_once('arsenal_item_model.php');
+
 /**
  * Class Arsenal_Character_model
  * @property CI_Config $config
@@ -258,7 +260,12 @@ class Arsenal_Character_model extends CI_Model {
 
     private $mode = "simple";
 
-    public function __construct($guid, $realmObject)
+    private $error = array();
+
+    private $achievements = array();
+    private $equipment = array();
+
+    public function initialize($guid, $realmObject)
     {
         $this->guid = (int) $guid;
 
@@ -287,7 +294,8 @@ class Arsenal_Character_model extends CI_Model {
         
         $availableDetails = array("small","simple", "advanced");
         
-        if(!in_array($detail, $availableDetails)){
+        if(!in_array($detail, $availableDetails))
+        {
             $detail = "simple";
         }
 
@@ -323,30 +331,26 @@ class Arsenal_Character_model extends CI_Model {
         {
             $row = $query->row_array();
 
-            foreach($row as $key => $value){
+            foreach($row as $key => $value)
+            {
                 $this->$key = $value;
             }
+        }
+        else
+        {
+            $this->setError('character_not_found', __LINE__);
+            return false;
         }
 
         if($detail == "simple" || $detail == "advanced")
         {
             $this->loadGuildData();
 
-            $this->loadAchievementPoints();
+            // Achievements
+            $this->calcAchievementPoints();
 
             // Average item level
-            $itemlevel = $CHDB->select("
-				SELECT COUNT(it.entry) AS `count`, SUM(it.itemlevel) as `sum`
-					FROM live_char.item_instance ii
-						JOIN live_char.character_inventory bag ON (bag.item = ii.guid)
-						JOIN live_world.item_template it ON(ii.itemEntry = it.entry)
-					WHERE ii.owner_guid = ?d AND bag.bag=0 AND bag.slot < 18 AND bag.slot <> 3;", $this->guid);
-            if($itemlevel){
-                foreach($itemlevel as $ilRow){
-                    if($ilRow["sum"] > 0)
-                        $values["itemLevelEquipped"] = round($ilRow["sum"] / $ilRow["count"],1);
-                }
-            }
+            $this->calcItemLevel();
 
             if($cacheRow){
                 $values["itemLevel"] = max($values["itemLevelEquipped"],$cacheRow["itemLevel"]);
@@ -361,20 +365,81 @@ class Arsenal_Character_model extends CI_Model {
 
     }
 
+    /**
+     * @param $errorType
+     * @param $line
+     * @internal param array $error
+     */
+    public function setError($errorType, $line)
+    {
+        $this->error = array(
+            'type' => $errorType,
+            'line' => $line,
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function getError()
+    {
+        if(empty($this->error))
+        {
+            return false;
+        }
+        else
+        {
+            return $this->error;
+        }
+    }
+
     private function loadTalents()
     {
         $this->talentData = $this->CalculateCharacterTalents();
 
     }
 
-    private function loadAchievementPoints()
+    /**
+     * @return array
+     */
+    private function loadAchievements()
     {
+        if(!empty($this->achievements))
+        {
+            return $this->achievements;
+        }
+
         $this->connect();
 
-        $this->portalDb->query('
-				SELECT SUM(aa.points) as sum
-					FROM '.$this->realm->.'character_achievement ca JOIN armory_achievement aa ON(aa.id = ca.achievement)
-					WHERE ca.guid= '.$this->guid.';');
+        $this->charDb->select('*')
+            ->where('guid', $this->guid)
+            ->from('character_achievement');
+
+        $query = $this->charDb->get();
+
+        if($query->num_rows())
+        {
+            foreach($query->result_array as $row)
+            {
+                $this->achievements[$row['achievement']] = $row['date'];
+            }
+            return $this->achievements;
+        }
+        return array();
+
+    }
+
+    private function calcAchievementPoints()
+    {
+
+        $this->loadAchievements();
+
+        $achievementIds = array_keys($this->achievements);
+
+        $this->portalDb->select('SUM(aa.points) as sum')
+            ->where_in('id', $achievementIds)
+            ->from('arsenal_achievement');
+
         $query = $this->portalDb->get();
 
         if($query->num_rows())
@@ -382,10 +447,91 @@ class Arsenal_Character_model extends CI_Model {
             $row = $query->row_array();
             $this->achievementPoints = $row['sum'];
         }
+        return $this->achievementPoints;
     }
 
-    public function BuildCharacter(){
-        $this->LoadInventory($mode);
+    private function loadEquipment()
+    {
+        if(!empty($this->equipment))
+        {
+            return;
+        }
+
+        $this->connect();
+
+        $this->charDb->select('item, slot')
+            ->where('bag', 0)
+            ->where('slot', '<18')
+            ->where('slot', '<> 3')
+            ->where('guid', $this->guid)
+            ->from('character_inventory');
+
+        $query = $this->charDb->get();
+
+        $equipment = array();
+
+        if($query->num_rows())
+        {
+            $inventoryItems = $query->result_array();
+
+            $inventoryItemIds = array();
+
+            foreach($inventoryItems as $inventoryRow)
+            {
+                $equipment[$inventoryRow['item']] = array(
+                    'slot' => $inventoryRow['slot'],
+                );
+                $inventoryItemIds[] = $inventoryRow['item'];
+            }
+
+            $this->charDb->select('guid, itemEntry')
+                ->where_in('guid', $inventoryItemIds)
+                ->from('item_instance');
+
+            $query = $this->charDb->get();
+
+            if($query->num_rows())
+            {
+                $itemEntries = $query->result_array();
+
+                $world = $this->realm->getWorld();
+
+                foreach($itemEntries as $row)
+                {
+                    $item = $world->getItem($row['itemEntry']);
+
+                    if($item)
+                    {
+                        $equipment[$row['guid']]['item'] = new Arsenal_Item_model($this->realm, $item);
+                    }
+                }
+            }
+
+        }
+
+        $this->equipment = $equipment;
+    }
+
+    private function calcItemLevel()
+    {
+        $this->loadEquipment();
+
+        $itemCount = 0;
+        $itemLevelSum = 0;
+
+        foreach($this->equipment as $itemGuid => $itemRow)
+        {
+            $itemCount++;
+
+            /** @var Arsenal_Item_model $item */
+            $item = $itemRow['item'];
+
+            $itemLevelSum += $item->getItemLevel();
+        }
+
+        $this->itemLevelEquipped = round(($itemLevelSum / $itemCount),1);
+
+        return $this->itemLevelEquipped;
     }
 
     /**
@@ -616,7 +762,8 @@ class Arsenal_Character_model extends CI_Model {
         return true;
     }
 
-    function GetAchievementPoints(){
+    function getAchievementPoints()
+    {
         return $this->achievementPoints;
     }
 
@@ -882,7 +1029,7 @@ class Arsenal_Character_model extends CI_Model {
 
         $this->connect();
 
-        $this->portalDb->query('
+        $this->charDb->query('
 			SELECT
 				`guild_member`.`guildid` AS `guild_id`,
 				`guild`.`name` AS `guild_name`
@@ -890,14 +1037,14 @@ class Arsenal_Character_model extends CI_Model {
 				LEFT JOIN `guild` ON (`guild`.`guildid`=`guild_member`.`guildid`)
             WHERE `guild_member`.guid = '.$this->guid.';');
 
-        $query = $this->portalDb->get();
+        $query = $this->charDb->get();
 
         if($query->num_rows()){
 
             $row = $query->row_array();
 
-            $this->guildId = $row["guild_id"];
-            $this->guildName = $row["guild_name"];
+            $this->guildId = $row['guild_id'];
+            $this->guildName = $row['guild_name'];
 
 //            $this->raw["guild_id"] = $row["guild_id"];
 //            $this->raw["guild_name"] = $row["guild_name"];
