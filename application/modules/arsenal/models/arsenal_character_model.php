@@ -2,6 +2,12 @@
 
 require_once('arsenal_item_model.php');
 
+/*
+ * Different Ranking Types
+ */
+define('ARSENAL_RANKING_ITEMLEVEL', 1);
+define('ARSENAL_RANKING_ACHIEVEMENT', 2);
+
 /**
  * Class Arsenal_Character_model
  * @property CI_Config $config
@@ -265,6 +271,16 @@ class Arsenal_Character_model extends CI_Model {
     private $achievements = array();
     private $equipment = array();
 
+    /**
+     * @var Arsenal_Ranking_model
+     */
+    private $itemRanking;
+
+    /**
+     * @var Arsenal_Ranking_model
+     */
+    private $achRanking;
+
     public function initialize($guid, $realmObject)
     {
         parent::__construct();
@@ -357,15 +373,9 @@ class Arsenal_Character_model extends CI_Model {
             // Average item level
             $this->calcItemLevel();
 
-            if($cacheRow){
-                $values["itemLevel"] = max($values["itemLevelEquipped"],$cacheRow["itemLevel"]);
+            // Refresh Rankings
+            $this->refreshRankings();
 
-                $DataDB->query("UPDATE character_cache SET ?a WHERE guid = ?d AND type = ?d;", $values, $this->guid, CACHETYPE_TT_CHARACTER);
-            }
-            else{
-                $values["itemLevel"] = $values["itemLevelEquipped"];
-                $result = $DataDB->query("INSERT INTO character_cache (?#) VALUES (?a);", array_keys($values), array_values($values));
-            }
         }
 
     }
@@ -400,8 +410,7 @@ class Arsenal_Character_model extends CI_Model {
 
     private function loadTalents()
     {
-        $this->talentData = $this->CalculateCharacterTalents();
-
+        $this->talentData = $this->calcCharacterTalents();
     }
 
     /**
@@ -453,6 +462,21 @@ class Arsenal_Character_model extends CI_Model {
             $this->achievementPoints = $row['sum'];
         }
         return $this->achievementPoints;
+    }
+
+    private function loadRanking($type)
+    {
+        $ranking = new Arsenal_Ranking_model($type, $this->guid);
+
+        if($type == ARSENAL_RANKING_ACHIEVEMENT)
+        {
+            $this->achRanking = $ranking;
+        }
+        elseif($type == ARSENAL_RANKING_ITEMLEVEL)
+        {
+            $this->itemRanking = $ranking;
+        }
+
     }
 
     private function loadEquipment()
@@ -592,7 +616,7 @@ class Arsenal_Character_model extends CI_Model {
             );
 
             // Talents
-            $this->talentData = $this->CalculateCharacterTalents();
+            $this->talentData = $this->calcCharacterTalents();
 
             if(!is_array($this->talentData)){
                 $this->talentData = array(0 => array());
@@ -854,7 +878,7 @@ class Arsenal_Character_model extends CI_Model {
      * @access   public
      * @return   Array
      **/
-    public function GetTalentData() {
+    public function getTalentData() {
         return $this->talentData;
     }
 
@@ -1540,31 +1564,34 @@ class Arsenal_Character_model extends CI_Model {
      * @param    int $tab_count = -1
      * @return   array
      **/
-    public function GetTalentTab($tab_count = -1) {
-        if(!$this->class) {
-            //Armory::Log()->writeError('%s : player class not defined', __METHOD__);
-            return false;
-        }
+    public function getTalentTab($tab_count = -1)
+    {
+
         $talentTabId = array(
-            1  => array(161, 164, 163), // Warior
-            2  => array(382, 383, 381), // Paladin
-            3  => array(361, 363, 362), // Hunter
-            4  => array(182, 181, 183), // Rogue
-            5  => array(201, 202, 203), // Priest
-            6  => array(398, 399, 400), // Death Knight
-            7  => array(261, 263, 262), // Shaman
-            8  => array( 81,  41,  61), // Mage
-            9  => array(302, 303, 301), // Warlock
-            11 => array(283, 281, 282), // Druid
+            CLASS_WARRIOR  => array(161, 164, 163), // Warior
+            CLASS_PALADIN  => array(382, 383, 381), // Paladin
+            CLASS_HUNTER  => array(361, 363, 362), // Hunter
+            CLASS_ROGUE  => array(182, 181, 183), // Rogue
+            CLASS_PRIEST  => array(201, 202, 203), // Priest
+            CLASS_DK  => array(398, 399, 400), // Death Knight
+            CLASS_SHAMAN  => array(261, 263, 262), // Shaman
+            CLASS_MAGE  => array( 81,  41,  61), // Mage
+            CLASS_WARLOCK  => array(302, 303, 301), // Warlock
+            CLASS_DRUID => array(283, 281, 282), // Druid
         );
-        if(!isset($talentTabId[$this->class])) {
+
+        if(!$this->class || empty($talentTabId[$this->class]))
+        {
             return false;
         }
+
         $tab_class = $talentTabId[$this->class];
+
         if($tab_count >= 0) {
             $values = array_values($tab_class);
             return $values[$tab_count];
         }
+
         return $tab_class;
     }
 
@@ -1620,55 +1647,81 @@ class Arsenal_Character_model extends CI_Model {
 
     /**
      * Calculates and returns array with character talent specs. !Required $this->guid and $this->class!
+     *
      * @category Character class
      * @access   public
-     * @return   array
+     * @return   array|bool
      **/
-    public function CalculateCharacterTalents() {
-
-        if(!$this->class || !$this->guid) {
+    public function calcCharacterTalents()
+    {
+        if(!$this->class || !$this->guid)
+        {
             return false;
         }
 
         $talentTree = array();
-        $tab_class = self::GetTalentTab();
 
-        if(!is_array($tab_class)) {
-            self::debug("no talent tabs found");
-            return false;
-        }
-        $character_talents = $CHDB->select("SELECT * FROM `character_talent` WHERE `guid`= ?d", $this->guid);
-        if(!$character_talents) {
-            self::debug("Character has no talents");
+        $classTalentTabs = $this->getTalentTab();
+
+        if(!is_array($classTalentTabs)) {
+            debug("no talent tabs found");
             return false;
         }
 
-        $class_talents = $aDB->select("SELECT * FROM `armory_talents` WHERE `TalentTab` IN (?a) ORDER BY `TalentTab`, `Row`, `Col`", $tab_class);
-        if(!$class_talents) {
-            self::debug("Unable to find talents for this class");
+        $this->charDb->select('*')
+            ->where('guid', $this->guid)
+            ->from('character_talent');
+
+        $queryTalents = $this->charDb->get();
+
+        if(!$queryTalents->num_rows())
+        {
+            debug("Character has no talents");
             return false;
         }
+
+        $this->portalDb->select('*')
+            ->where_in('TalentTab', $classTalentTabs)
+            ->order_by('`TalentTab`, `Row`, `Col`')
+            ->from('arsenal_talents');
+
+        $queryClassTalents = $this->charDb->get();
+
+        if(!$queryClassTalents)
+        {
+            debug("Unable to find talents for this class");
+            return false;
+        }
+
         $talent_build = array();
         $talent_build[0] = null;
         $talent_build[1] = null;
         $talent_points = array();
-        foreach($tab_class as $tab_val) {
+
+        foreach($classTalentTabs as $tab_val) {
             $talent_points[0][$tab_val] = 0;
             $talent_points[1][$tab_val] = 0;
         }
+
         $num_tabs = array();
         $i = 0;
-        foreach($tab_class as $tab_key => $tab_value) {
+
+        foreach($classTalentTabs as $tab_key => $tab_value)
+        {
             $num_tabs[$tab_key] = $i;
             $i++;
         }
 
-        foreach($class_talents as $class_talent) {
+        foreach($classTalentTabs as $class_talent)
+        {
             $current_found = false;
             $last_spec = 0;
-            foreach($character_talents as $char_talent) {
-                for($k = 1; $k < 6; $k++) {
-                    if($char_talent['spell'] == $class_talent['Rank_' . $k]) {
+            foreach($queryTalents as $char_talent)
+            {
+                for($k = 1; $k < 6; $k++)
+                {
+                    if($char_talent['spell'] == $class_talent['Rank_' . $k])
+                    {
                         $talent_build[$char_talent['spec']] .= $k;
                         $current_found = true;
                         $talent_points[$char_talent['spec']][$class_talent['TalentTab']] += $k;
@@ -1676,12 +1729,16 @@ class Arsenal_Character_model extends CI_Model {
                 }
                 $last_spec = $char_talent['spec'];
             }
-            if(!$current_found) {
+
+            if(!$current_found)
+            {
                 $talent_build[$last_spec] .= 0;
             }
         }
-        $talent_data = array('points' => $talent_points);
-        return $talent_data;
+
+        $this->talentData = array('points' => $talent_points);
+
+        return $this->talentData;
     }
 
     /**
@@ -1697,7 +1754,7 @@ class Arsenal_Character_model extends CI_Model {
             return false;
         }
         $build_tree = array(1 => null, 2 => null);
-        $tab_class = self::GetTalentTab();
+        $tab_class = self::getTalentTab();
         $specs_talents = array();
         $character_talents = $CHDB->select("SELECT * FROM `character_talent` WHERE `guid`= ?d;", $this->guid);
         $talent_data = array(0 => null, 1 => null); // Talent build
@@ -3959,7 +4016,7 @@ class Arsenal_Character_model extends CI_Model {
      **/
     public function IsHaveAnyPet() {
         global $CHDB;
-        if(!$this->IsCanHavePet()) {
+        if(!$this->canHavePets()) {
             return false;
         }
         return $CHDB->selectCell("SELECT 1 FROM `character_pet` WHERE `owner` = ?d AND `PetType` = 1", $this->GetGUID());
@@ -3983,11 +4040,34 @@ class Arsenal_Character_model extends CI_Model {
      * @access   private
      * @return   bool
      **/
-    private function IsCanHavePet() {
-        if(in_array($this->class, array(CLASS_DK, CLASS_HUNTER, CLASS_WARLOCK))) {
+    private function canHavePets()
+    {
+        if(in_array($this->class, array(CLASS_DK, CLASS_HUNTER, CLASS_WARLOCK)))
+        {
             return true;
         }
         return false;
+    }
+
+    private function refreshRankings()
+    {
+        $this->loadRanking(ARSENAL_RANKING_ITEMLEVEL);
+        $this->loadRanking(ARSENAL_RANKING_ACHIEVEMENT);
+
+        // Itemlevel
+        if($this->itemRanking->getValue() < $this->itemLevelEquipped)
+        {
+            $this->itemRanking->setValue($this->itemLevelEquipped);
+            $this->itemRanking->refresh();
+        }
+
+        // Achievements
+        if($this->achRanking->getValue() < $this->achievementPoints)
+        {
+            $this->achRanking->setValue($this->achievementPoints);
+            $this->achRanking->refresh();
+        }
+
     }
 
 }

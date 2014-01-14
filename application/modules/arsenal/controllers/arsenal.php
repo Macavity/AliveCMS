@@ -103,18 +103,13 @@ class Arsenal extends MY_Controller
         }
         else
         {
-            /**
-             */
             $this->load->model('Arsenal_Character_model', 'character_model');
-
-                $this->character->initialize($this->id, $this->arsenal_model->realm);
-
 
             $this->character_model->initialize($this->charGuid, $this->arsenal_model->getRealm());
 
             $this->character_model->loadBaseData($detail);
 
-            $talent_data = $this->character->GetTalentData();
+            $talent_data = $this->character_model->getTalentData();
             $activeSpec = $this->character->GetActiveSpec();
             $char->BuildCharacter();
 
