@@ -119,6 +119,37 @@
     </div>
   </fieldset>
 
+  {if $showFixBugShit}
+  <fieldset class="span11 jsServerOnly jsConfirmed">
+    <legend>F.I.X.B.U.G.S.H.I.T.</legend>
+    <br/>
+    <div class="alert alert-info">Wenn du Quests auf Autocomplete stellst, wird der Bugstatus auf &quot;Bestätigt&quot; gestellt.</div>
+
+    <div class="control-group">
+      <label class="control-label">Quests</label>
+      <div class="controls">
+        <table class="table">
+          {foreach $fbsQuests as $quest}
+            <tr>
+              <td>{$quest.id}</td>
+              <td>
+                <label class="checkbox">
+                  <input type="checkbox" value="active" name="fbs_quest_{$quest.id}" {if $quest.isAutocomplete}checked="checked"{/if}> Autocomplete aktiv
+                </label>
+              </td>
+              <td>{$quest.title}</td>
+            </tr>
+          {foreachelse}
+            <tr>
+              <td>Es konnte keine Quest Id gefunden werden, bitte trage zuerst einen "openwow"-Link ein und speicher das Ticket.</td>
+            </tr>
+          {/foreach}
+        </table>
+      </div>
+    </div>
+  </fieldset>
+  {/if}
+
   <div id="form-link-wrapper" class="control-group jsProjectFirst">
     <label class="control-label">Links</label>
     <div class="controls">

@@ -233,7 +233,7 @@ class Realm
 	 */
 	public function getName()
 	{
-		return addslashes($this->name);
+		return ($this->name);
 	}
 
 	/**
@@ -254,27 +254,52 @@ class Realm
 		return $this->playerCap;
 	}
 
-    public function getUptime(){
+    public function getUptime()
+    {
 
         $cacheId = 'realm_uptime_'.$this->getId();
 
         $uptime = $this->CI->cache->get($cacheId);
 
         if($uptime === false || $this->isOnline() == false){
-            $uptime = $this->CI->cms_model->getRealmUptime($this->getId());
+
+            /** @var CI_DB_active_record $connection */
+            $connection = $this->CI->load->database("account", true);
+
+            $connection
+                ->select('starttime')
+                ->where('realmid', $this->getId())
+                ->order_by('starttime', 'desc')
+                ->limit(1)
+                ->from('uptime');
+
+            $query = $connection->get();
+
+            if($query->num_rows() > 0)
+            {
+                $uptime = time() - $query->row()->starttime;
+                return $uptime;
+            }
+
             if($uptime){
                 return $uptime;
             }
         }
         return 0;
     }
-	
-	public function getWorld()
+
+    /**
+     * @return World_model
+     */
+    public function getWorld()
 	{
 		return $this->world;
 	}
-	
-	public function getCharacters()
+
+    /**
+     * @return Characters_model
+     */
+    public function getCharacters()
 	{
 		return $this->characters;
 	}
@@ -286,6 +311,23 @@ class Realm
 
     public function getEmulatorType(){
         return $this->config['emulator'];
+    }
+
+    public function getExpansion()
+    {
+        $emulator = $this->getEmulatorType();
+
+        $expansion = 0;
+
+        if(substr_count($emulator, 'trinity') > 0){
+            $expansion = 2;
+        }
+        if(substr_count($emulator, 'cata') > 0)
+        {
+            $expansion = 3;
+        }
+
+        return $expansion;
     }
 
 	/**
@@ -342,4 +384,9 @@ class Realm
 			return false;
 		}
 	}
+
+    public function getArmoryLink($charName)
+    {
+        return '/characters/'.$this->id.'/'.$charName;
+    }
 }

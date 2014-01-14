@@ -3,6 +3,12 @@
 if ( ! function_exists('debug'))
 {
     function debug($label, $data = ""){
+
+        $CI = &get_instance();
+        if($CI->input->is_ajax_request()){
+            return;
+        }
+
         $string = "";
         
         if(is_array($label) || is_object($label))

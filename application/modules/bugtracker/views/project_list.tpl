@@ -26,7 +26,7 @@
             <ul>
                 {foreach from=$recentComments key=i item=comment}
                     <li class="{cycle values="row1,row2"}">
-                        <span class="{$bug.css}"></span>
+                        <span class="{$comment.css}"></span>
                         {$comment.date}
                         <a href="/bugtracker/bug/{$comment.bug_entry}">#{$comment.bug_entry} {$comment.title}</a>
                         {if $comment.by.gm}<span class="employee"></span>{/if}{$comment.by.name}
@@ -63,6 +63,9 @@
           {else}
               0%
           {/if}
+          {*if $project.counts.workaround > 0}
+            <div data-tooltip="{$project.counts.workaround} Workarounds" class="bar bar-info" style="width: {max($project.counts.percentage.workaround,1)}%;"></div>
+          {/if*}
           {if $project.counts.active > 0}
             <div data-tooltip="{$project.counts.active} in Arbeit" class="bar bar-warning" style="width: {max($project.counts.percentage.active,1)}%;"></div>
           {/if}

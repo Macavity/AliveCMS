@@ -68,7 +68,7 @@ class Characters_model
 		}
 		else
 		{
-			return false;
+			return array();
 		}
 	}
 

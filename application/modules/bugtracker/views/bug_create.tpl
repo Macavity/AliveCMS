@@ -47,6 +47,8 @@
     {/if}
     {/foreach}
     };
+
+  var fixBugShitCategories = [{foreach name=fbscats from=$fbsCategories item=item}{$item}{if $smarty.foreach.fbscats.last == false}, {/if}{/foreach}];
 </script>
 
 <div class="form form-horizontal">
@@ -73,7 +75,9 @@
     <fieldset id="ac-search-wrapper" class="span11 jsServerOnly jsProjectFirst">
         <legend>Bitte füge wenigstens einen OpenWoW-Link hinzu.</legend><br>
 
-        <div class="alert alert-info">Openwow hat getrennte Unterseiten für WotLK und Cataclysm mit den korrekten Daten zu diesen Zeiten. Dagegen sind die meisten anderen Fan-Sites (wowhead, buffed,..) auf dem aktuellen Stand von World of Warcraft.</div>
+        <div class="alert alert-info">Openwow hat getrennte Unterseiten für WotLK und Cataclysm mit den korrekten Daten zu diesen Zeiten. Dagegen sind die meisten anderen Fan-Sites (wowhead, buffed,..) auf dem aktuellen Stand von World of Warcraft.</div><br>
+
+        <div class="alert alert-info jsFixBugShitOnly">Bei diesen Quests ist unser F.I.X.B.U.G.S.H.I.T.-System aktiv. Wenn du einen OpenWow-Quest-Link einträgst kann dieses Quest von einem GameMaster auf Autocomplete gestellt werden.</div>
 
         <div class="control-group">
             <label class="control-label" for="ac-search-type">Art des Links</label>

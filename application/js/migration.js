@@ -3,7 +3,7 @@
  * News Init file
  */
 
-require(['status'], function(){
+require(['static'], function(){
     require([
             'controller/MigrationController',
             'tooltip'

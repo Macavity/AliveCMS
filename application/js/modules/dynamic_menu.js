@@ -85,7 +85,7 @@ define(function(){
         bindSlides: function(menu) {
             menu.find('li.has-submenu a:first-child').unbind().bind('click', { menu: this }, function(e) {
                 e.preventDefault();
-                debug.debug("submenu clicked")
+                debug.debug("submenu clicked");
                 e.data.menu.goForward(this);
             });
 

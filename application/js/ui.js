@@ -281,22 +281,22 @@ function FusionTooltip()
 	 */
 	this.addEvents = function()
 	{
-		Tooltip.addEvents.handleMouseMove = function(e)
+        FusionTooltip.addEvents.handleMouseMove = function(e)
 		{
-			Tooltip.move(e.pageX, e.pageY);
+            FusionTooltip.move(e.pageX, e.pageY);
 		}
 		
 		// Add mouse-over event listeners
 		$("[data-tip]").hover(
 			function()
 			{
-				$(document).bind('mousemove', Tooltip.addEvents.handleMouseMove);
-				Tooltip.show($(this).attr("data-tip"));
+				$(document).bind('mousemove', FusionTooltip.addEvents.handleMouseMove);
+                FusionTooltip.show($(this).attr("data-tip"));
 			},
 			function()
 			{
 				$("#tooltip").hide();
-				$(document).unbind('mousemove', Tooltip.addEvents.handleMouseMove);
+				$(document).unbind('mousemove', FusionTooltip.addEvents.handleMouseMove);
 			}
 		);
 
@@ -305,7 +305,7 @@ function FusionTooltip()
 			$("[rel]").hover(
 				function()
 				{
-					$(document).bind('mousemove', Tooltip.addEvents.handleMouseMove);
+					$(document).bind('mousemove', FusionTooltip.addEvents.handleMouseMove);
 					if(/^item=[0-9]*$/.test($(this).attr("rel")))
 					{
                         FusionTooltip.Item.get(this, function(data)
@@ -316,7 +316,7 @@ function FusionTooltip()
 				},
 				function()
 				{
-					$(document).unbind('mousemove', Tooltip.addEvents.handleMouseMove);
+					$(document).unbind('mousemove', FusionTooltip.addEvents.handleMouseMove);
 					$("#tooltip").hide();
 				}
 			);
@@ -331,10 +331,13 @@ function FusionTooltip()
 	this.move = function(x, y)
 	{
 		// Get half of the width
-		var width = ($("#tooltip").css("width").replace("px", "") / 2);
+        if($("#tooltip").length)
+        {
+            var width = ($("#tooltip").css("width").replace("px", "") / 2);
 
-		// Position it at the mouse, and center
-		$("#tooltip").css("left", x - width).css("top", y + 25);
+            // Position it at the mouse, and center
+            $("#tooltip").css("left", x - width).css("top", y + 25);
+        }
 	}
 
 	/**

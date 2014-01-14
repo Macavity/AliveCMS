@@ -36,8 +36,11 @@ class World_model
 			$this->db = $this->CI->load->database($this->config['world'], true);
 		}
 	}
-	
-	public function getConnection()
+
+    /**
+     * @return CI_DB_active_record
+     */
+    public function getConnection()
 	{
 		$this->connect();
 

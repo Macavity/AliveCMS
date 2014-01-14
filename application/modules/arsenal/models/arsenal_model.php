@@ -14,17 +14,21 @@ class Arsenal_model extends CI_Model{
     /**
      * @var Realm
      */
-    public $realm = NULL;
+    private $realm = NULL;
 
     /**
      * @var Realms
      */
-    public $realms;
+    private $realms;
 
     /**
      * @var CI_DB_driver
      */
     private $connection;
+
+
+    private $errorType = "";
+    private $errorMessage = "";
 
     /**
      * @var int
@@ -45,28 +49,42 @@ class Arsenal_model extends CI_Model{
         $this->realms = new Realms();
     }
 
+    /**
+     * @param $realm
+     * @param $character
+     */
     public function initialize($realm, $character)
     {
         /*
          * Find the Realm
          */
 
-        if(is_numeric($realm)){
-            if($this->realms->realmExists($realm)){
-                $this->realm = $this->realms->getRealm($realm);
+        if(is_numeric($realm))
+        {
+            if($this->realms->realmExists($realm))
+            {
+                $realm = $this->realms->getRealm($realm);
             }
-            else{
-                show_error(lang('error_realm','arsenal'));
-                return FALSE;
+            else
+            {
+                $realm = false;
             }
         }
         else{
-            $this->realm = $this->realms->getRealmByName($realm);
+            $realm = $this->realms->getRealmByName($realm);
         }
 
+        if(!$realm)
+        {
+            $this->setErrorType('error_realm');
+            return;
+        }
+
+        $this->realm = $realm;
+
         if(!$this->realm){
-            show_error(lang('error_realm','arsenal'));
-            return FALSE;
+            $this->setErrorType('error_realm');
+            return;
         }
 
         $this->realmId = $this->realm->getId();
@@ -80,29 +98,30 @@ class Arsenal_model extends CI_Model{
         /*
          * Find the Character
          */
-        if(!is_numeric($character)){
-            $this->characterGuid = $this->realm->getCharacters()->getGuidByName($character);
-            if($this->characterGuid == false){
-                show_error(lang('error_character_not_found', 'arsenal'));
-                return FALSE;
-            }
+        if(!is_numeric($character))
+        {
+            $charGuid = $this->realm->getCharacters()->getGuidByName($character);
         }
         else{
-            /**
-             * @var Characters_model $charDbModel
-             */
-            $charDbModel = $this->charDbModel;
-
-            if($charDbModel->characterExists($character)){
-                $this->characterGuid = $character;
-            }
-            else{
-                show_error(lang('error_character_not_found', 'arsenal'));
-                return FALSE;
-            }
+            $charGuid = $character;
         }
 
-        return TRUE;
+        /**
+         * @var Characters_model $charDbModel
+         */
+        $charDbModel = $this->charDbModel;
+
+        if($charDbModel->characterExists($charGuid))
+        {
+            $this->characterGuid = $charGuid;
+        }
+        else
+        {
+            $this->setErrorType('error_character_not_found');
+            return;
+        }
+
+        return;
     }
 
     /**
@@ -310,5 +329,34 @@ class Arsenal_model extends CI_Model{
                 return false;
             }
         }
+    }
+
+    /**
+     * @return \Realm
+     */
+    public function getRealm()
+    {
+        return $this->realm;
+    }
+
+    /**
+     * @param string $errorType
+     */
+    public function setErrorType($errorType)
+    {
+        $this->errorType = $errorType;
+        $this->errorMessage = lang($errorType, 'arsenal');
+    }
+
+    /**
+     * @return string
+     */
+    public function getErrorMessage()
+    {
+        if(empty($this->errorType))
+        {
+            return false;
+        }
+        return $this->errorMessage;
     }
 }

@@ -1,0 +1,376 @@
+<if condition="!$skipbreadcrumbs">
+    <!-- breadcrumb -->
+    <div class="content-trail">
+        <ol class="ui-breadcrumb">
+            <if condition="is_array($navbits)">
+                <li>
+                    <a href="$vboptions[forumhome].php$session[sessionurl_q]" accesskey="1" rel="np">$vboptions[bbtitle]</a>
+                </li>
+                $navbits[breadcrumb]
+                <li class="last"><a href="#">$navbits[lastelement]</a></li>
+                <else />
+                <li>
+                    <a href="$vboptions[forumhome].php$session[sessionurl_q]" accesskey="1" rel="np">$vboptions[bbtitle]</a>
+                </li>
+                $navbits[breadcrumb]
+            </if>
+        </ol>
+    </div> <!-- /content-trail -->
+</if>
+
+
+<div id="service">
+    <ul class="service-bar">
+        <li class="service-cell service-home"><a href="http://cms.wow-alive.de/" tabindex="50" accesskey="1" title="ALive.de">&nbsp;</a></li>
+
+        <if condition="$show['registerbutton']">
+            <li class="service-cell service-welcome">
+                <a href="register.php$session[sessionurl_q]">$vbphrase[register]</a>
+            </li>
+        </if>
+
+        <if condition="$show['member']">
+            <li class="service-cell service-welcome">Willkommen, $bbuserinfo[username] |
+                <a href="login.php?$session[sessionurl]do=logout&amp;logouthash=$bbuserinfo[logouthash]" onclick="return log_out('$vbphrase[sure_you_want_to_log_out]')">$vbphrase[log_out]</a>
+            </li>
+            <li class="service-cell service-account">
+                <a href="private.php" class="service-link" tabindex="50" accesskey="3">Nachrichten<if condition="$show['notifications']"> (!)</if></a>
+            </li>
+        </if>
+        <li class="service-cell service-support">
+            <a href="http://cms.wow-alive.de/bugtracker/" class="service-link" tabindex="50" accesskey="4">Bugtracker</a></li>
+        <li class="service-cell service-explore">
+            <a href="#explore" tabindex="50" accesskey="5" class="dropdown" id="explore-link" onclick="$('#explore-menu').toggle(); return false;" style="cursor: progress" rel="javascript">Erkunden</a>
+            <div class="explore-menu" id="explore-menu" style="display:none;">
+                <div class="explore-primary">
+                    <ul class="explore-nav">
+                        <if condition="$show['admincplink'] || $show['modcplink']">
+                            <li>
+                                <a href="http://cms.wow-alive.de/admin/" tabindex="55">
+                                    <strong class="explore-caption">Administration</strong>
+                                    Zum GameMaster Panel vom Portal
+                                </a>
+                            </li>
+                        </if>
+                        <li>
+                            <a href="http://cms.wow-alive.de" tabindex="55">
+                                <strong class="explore-caption">ALive</strong>
+                                Verbinden. Spielen. Leben.
+                            </a>
+                        </li>
+                        <if condition="$show['member']">
+                            <li>
+                                <a href="private.php">
+                                    <strong class="explore-caption">Nachrichten</strong>
+                                    <if condition="$show['pmwarning']"><phrase 1="$vbphrase[pmpercent_nav_compiled]">$vbphrase[your_pm_box_is_x_full]</phrase></if>
+                                </a>
+                            </li>
+                        </if>
+                        <li>
+                            <if condition="$show['member']">
+                                <a href="usercp.php" tabindex="55">
+                                    <strong class="explore-caption">Account</strong>
+                                    Account verwalten
+                                </a>
+                                <else />
+                                <a href="register.php$session[sessionurl_q]" tabindex="55">
+                                    <strong class="explore-caption">Account</strong>
+                                    Account registrieren
+                                </a>
+                            </if>
+                        </li>
+                        <li>
+                            <a href="http://cms.wow-alive.de/bugtracker" tabindex="55">
+                                <strong class="explore-caption">Bugtracker</strong>
+                                Melde Bugs die du gefunden hast damit wir sie l&ouml;sen k&ouml;nnen.
+                            </a>
+                        </li>
+                        <li>
+                            <a href="misc.php?$session[sessionurl_q]do=cfrules">
+                                <strong class="explore-caption">$vbphrase[cybfrules_rules]</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a rel="help" href="faq.php$session[sessionurl_q]" accesskey="5">
+                                <strong class="explore-caption">$vbphrase[faq]</strong>
+                                Fragen zum Forum
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <div class="explore-links">
+                        <h2 class="explore-caption">Community</h2>
+                        <ul>
+                            <li><a href="showgroups.php$session[sessionurl_q]">GameMaster</a></li>
+                            <if condition="$show['communitylink']">
+                                <!-- community link menu -->
+                                <if condition="$show['quick_links_groups']">
+                                    <li><a href="group.php?$session[sessionurl_q]">$vbphrase[social_groups]</a></li>
+                                </if>
+                                <if condition="$show['quick_links_albums']">
+                                    <li><a href="album.php$session[sessionurl_q]">$vbphrase[pictures_and_albums]</a></li>
+                                </if>
+                                <if condition="$bbuserinfo['userid']">
+                                    <li><a href="profile.php?$session[sessionurl]do=buddylist"><if condition="$show['friends_and_contacts']">$vbphrase[contacts_and_friends]<else />$vbphrase[contacts]</if></a></li>
+                                </if>
+                                <if condition="$show['memberslist']">
+                                    <li><a href="memberlist.php$session[sessionurl_q]">$vbphrase[members_list]</a></li>
+                                </if>
+                                <!-- / community link menu -->
+                            </if>
+                        </ul>
+                        <br />
+
+                        <h2 class="explore-caption">N&uuml;tzliche Links</h2>
+                        <!-- user cp tools menu -->
+                        <ul>
+                            <if condition="$show['member']">
+                                <li><a href="search.php?$session[sessionurl]do=getnew">$vbphrase[new_posts_nav]</a></li>
+                            </if>
+                            <if condition="$vboptions['enablesearches']">
+                                <li><a href="search.php?$session[sessionurl]do=getdaily">$vbphrase[todays_posts]</a></li>
+                            </if>
+                            <li><a href="subscription.php$session[sessionurl_q]" rel="nofollow">$vbphrase[subscribed_threads]</a></li>
+                            <if condition="$show['wollink']">
+                                <li><a href="online.php$session[sessionurl_q]">$vbphrase[whos_online]</a></li>
+                            </if>
+                            <if condition="$show['member']">
+                                <li><a href="forumdisplay.php?$session[sessionurl]do=markread">$vbphrase[mark_forums_read]</a></li>
+                                <li><a href="#" onclick="window.open('misc.php?$session[sessionurl]do=buddylist&amp;focus=1','buddylist','statusbar=no,menubar=no,toolbar=no,scrollbars=yes,resizable=yes,width=250,height=300'); return false;">$vbphrase[open_contacts]</a></li>
+                                $template_hook[navbar_quick_links_menu_pos1]
+                                $template_hook[navbar_quick_links_menu_pos2]
+                            </if>
+                        </ul>
+
+
+                        <if condition="$show['member']">
+                            <br />
+                            <h2 class="explore-caption">$vbphrase[user_control_panel]</h2>
+                            <ul>
+                                <if condition="$show['siglink']">
+                                    <li><a href="profile.php?$session[sessionurl]do=editsignature">$vbphrase[edit_signature]</a></li>
+                                </if>
+                                <if condition="$show['avatarlink']">
+                                    <li><a href="profile.php?$session[sessionurl]do=editavatar">$vbphrase[edit_avatar]</a></li>
+                                </if>
+                                <li><a href="profile.php?$session[sessionurl]do=editprofile">$vbphrase[edit_your_details]</a></li>
+                                <li><a href="profile.php?$session[sessionurl]do=editoptions">$vbphrase[edit_options]</a></li>
+                                $template_hook[navbar_quick_links_menu_pos3]
+                            </ul>
+
+                        </if>
+                        <!-- / user cp tools menu -->
+                    </div>
+                    <span class="clear"><!-- --></span>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div> <!-- /service -->
+
+<div class="content-bot">
+
+<!-- login, pm info -->
+<div style="padding:0px 20px;">
+    <if condition="$show['member'] && !$skipbreadcrumbs && !$skiplastvisit">
+        <label><phrase 1="$pmbox[lastvisitdate]" 2="$pmbox[lastvisittime]">$vbphrase[last_visited_x_at_y]</phrase></label>
+        <else />
+        <if condition="!$show['member']">
+            <!-- login form -->
+            <form action="login.php?do=login" method="post" onsubmit="md5hash(vb_login_password, vb_login_md5password, vb_login_md5password_utf, $show[nopasswordempty])">
+                <script type="text/javascript" src="clientscript/vbulletin_md5.js?v=$vboptions[simpleversion]"></script>
+                <table cellpadding="0" cellspacing="$stylevar[formspacer]" border="0">
+                    <tr>
+                        <td class="smallfont" style="white-space: nowrap;"><label for="navbar_username">$vbphrase[username]</label></td>
+                        <td><input type="text" class="bginput" style="font-size: 11px" name="vb_login_username" id="navbar_username" size="10" accesskey="u" tabindex="101" value="$vbphrase[username]" onfocus="if (this.value == '$vbphrase[username]') this.value = '';" /></td>
+                        <td class="smallfont" nowrap="nowrap"><label for="cb_cookieuser_navbar"><input type="checkbox" name="cookieuser" value="1" tabindex="103" id="cb_cookieuser_navbar" accesskey="c" />$vbphrase[remember_me]</label></td>
+                    </tr>
+                    <tr>
+                        <td class="smallfont"><label for="navbar_password">$vbphrase[password]</label></td>
+                        <td><input type="password" class="bginput" style="font-size: 11px" name="vb_login_password" id="navbar_password" size="10" tabindex="102" /></td>
+                        <td><input type="submit" class="button" value="$vbphrase[log_in]" tabindex="104" title="$vbphrase[enter_username_to_login_or_register]" accesskey="s" /></td>
+                    </tr>
+                </table>
+                <input type="hidden" name="s" value="$session[sessionhash]" />
+                <input type="hidden" name="securitytoken" value="$bbuserinfo[securitytoken]" />
+                <input type="hidden" name="do" value="login" />
+                <input type="hidden" name="vb_login_md5password" />
+                <input type="hidden" name="vb_login_md5password_utf" />
+            </form>
+            <!-- / login form -->
+        </if>
+    </if>
+    <if condition="$show['forumbuttons']">
+        <!-- nav buttons bar -->
+        <div style="float:right;">
+            <if condition="$show['member']">
+                <a class="ui-button button2" href="search.php?$session[sessionurl]do=getnew" accesskey="2">
+                    <span><span>$vbphrase[new_posts_nav]</span></span></a>
+                <else />
+                <a class="ui-button button2" href="search.php?$session[sessionurl]do=getdaily" accesskey="2">
+                    <span><span>$vbphrase[todays_posts]</span></span></a>
+            </if>
+            <if condition="$show['member']">
+                <a class="ui-button button2" href="#" onclick="window.open('misc.php?$session[sessionurl]do=buddylist&amp;focus=1','buddylist','statusbar=no,menubar=no,toolbar=no,scrollbars=yes,resizable=yes,width=250,height=300'); return false;">
+                    <span><span>$vbphrase[open_contacts]</span></span></a>
+            </if>
+            $template_hook[navbar_buttons_right]
+        </div>
+    </if>
+    <if condition="$show['notifications']">
+        <div><span id="notifications"><a href="usercp.php$session[sessionurl_q]" class="context-link">$vbphrase[your_notifications]:</a> <strong>$notifications_total</strong></span></div>
+        <if condition="$show['popups']">
+            <script type="text/javascript">
+                //register_popup("notifications");
+                $(document).ready(function(){
+                    $("#notifications a").click(function(){
+                        var p = $("#notifications").position();
+                        if(p){
+                            $("#notifications_menu").css("position","absolute").css("top",p.top+15).css("left", p.left).toggle("show");
+                        }
+                    });
+                });
+            </script>
+            <else />
+            <script type="text/javascript" src="clientscript/vbulletin_notifications_nopopups.js?v=$vboptions[simpleversion]"></script>
+            <script type="text/javascript"> vBulletin.register_control("vB_Notifications_NoPopups", "notifications");  </script>
+        </if><if condition="$notifications_total">
+        <!-- notifications menu -->
+        <div class="vbmenu_popup" id="notifications_menu" style="display:none">
+            <table cellpadding="4" cellspacing="2" border="0">
+                <tr><td class="thead" colspan="2">$vbphrase[your_notifications]</td></tr>
+                $notifications_menubits
+            </table>
+        </div>
+        <!-- / notifications menu -->
+    </if></if>
+    <span class="clear"><!-- --></span>
+</div> <!-- /pvp -->
+
+<if condition="$show['notices']">
+    <form action="profile.php?do=dismissnotice" method="post" id="notices">
+        <input type="hidden" name="do" value="dismissnotice" />
+        <input type="hidden" name="securitytoken" value="$bbuserinfo[securitytoken]" />
+        <input type="hidden" id="dismiss_notice_hidden" name="dismiss_noticeid" value="" />
+        <input type="hidden" name="url" value="$return_link" />
+        <table class="tborder" cellpadding="$stylevar[cellpadding]" cellspacing="$stylevar[cellspacing]" border="0" width="100%" align="center">
+            <tr>
+                <td class="thead">$vbphrase[notices]</td>
+            </tr>
+            <tr>
+                <td class="alt1">
+                    $notices
+                </td>
+            </tr>
+        </table>
+        <br />
+    </form>
+</if>
+
+<if condition="$show['forumdesc']">
+    <table class="tborder" cellpadding="$stylevar[cellpadding]" cellspacing="$stylevar[cellspacing]" border="0" width="100%" align="center">
+        <tr>
+            <td class="alt1" width="100%"><strong>$foruminfo[title]</strong> <span class="smallfont">$foruminfo[description]</span></td>
+        </tr>
+    </table>
+    <br />
+</if>
+
+<if condition="$show['popups']">
+    <!-- NAVBAR POPUP MENUS -->
+
+
+    <if condition="$show['searchbuttons']">
+        <!-- header quick search form -->
+        <div class="vbmenu_popup" id="navbar_search_menu" style="display:none;margin-top:3px" align="$stylevar[left]">
+            <table cellpadding="4" cellspacing="1" border="0">
+                <tr>
+                    <td class="thead">$vbphrase[search_forums]</td>
+                </tr>
+                <tr>
+                    <td class="vbmenu_option" title="nohilite">
+                        <form action="search_cata.php?do=process" method="post">
+
+                            <input type="hidden" name="do" value="process" />
+                            <input type="hidden" name="quicksearch" value="1" />
+                            <input type="hidden" name="childforums" value="1" />
+                            <input type="hidden" name="exactname" value="1" />
+                            <input type="hidden" name="s" value="$session[sessionhash]" />
+                            <input type="hidden" name="securitytoken" value="$bbuserinfo[securitytoken]" />
+                            <div><input type="text" class="bginput" name="query" size="25" tabindex="1001" /><input type="submit" class="button" value="$vbphrase[go]" tabindex="1004" /></div>
+                            <div style="margin-top:$stylevar[cellpadding]px">
+                                <label for="rb_nb_sp0"><input type="radio" name="showposts" value="0" id="rb_nb_sp0" tabindex="1002" checked="checked" />$vbphrase[show_threads]</label>
+                                &nbsp;
+                                <label for="rb_nb_sp1"><input type="radio" name="showposts" value="1" id="rb_nb_sp1" tabindex="1003" />$vbphrase[show_posts]</label>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+                <if condition="$vboptions[threadtagging]">
+                    <tr>
+                        <td class="vbmenu_option"><a href="tags.php$session[sessionurl_q]" rel="nofollow">$vbphrase[tag_search]</a></td>
+                    </tr>
+                </if>
+                <tr>
+                    <td class="vbmenu_option"><a href="search.php$session[sessionurl_q]" accesskey="4" rel="nofollow">$vbphrase[advanced_search]</a></td>
+                </tr>
+                $template_hook[navbar_search_menu]
+            </table>
+        </div>
+        <!-- / header quick search form -->
+    </if>
+
+    <if condition="$show['member']">
+        <!-- user cp tools menu -->
+        <div class="vbmenu_popup" id="usercptools_menu" style="display:none;margin-top:3px" align="$stylevar[left]">
+            <table cellpadding="4" cellspacing="1" border="0">
+
+                <tr><td class="thead">$vbphrase[quick_links]</td></tr>
+                <if condition="$vboptions['enablesearches']"><tr><td class="vbmenu_option"><a href="search.php?$session[sessionurl]do=getdaily">$vbphrase[todays_posts]</a></td></tr></if>
+                <tr><td class="vbmenu_option"><a href="forumdisplay.php?$session[sessionurl]do=markread">$vbphrase[mark_forums_read]</a></td></tr>
+                <tr><td class="vbmenu_option"><a href="#" onclick="window.open('misc.php?$session[sessionurl]do=buddylist&amp;focus=1','buddylist','statusbar=no,menubar=no,toolbar=no,scrollbars=yes,resizable=yes,width=250,height=300'); return false;">$vbphrase[open_contacts]</a></td></tr>
+                $template_hook[navbar_quick_links_menu_pos1]
+                $template_hook[navbar_quick_links_menu_pos2]
+
+                <tr><td class="thead"><a href="usercp.php$session[sessionurl_q]">$vbphrase[user_control_panel]</a></td></tr>
+                <if condition="$show['siglink']"><tr><td class="vbmenu_option"><a href="profile.php?$session[sessionurl]do=editsignature">$vbphrase[edit_signature]</a></td></tr></if>
+                <!--<if condition="$show['avatarlink']"><tr><td class="vbmenu_option"><a href="profile.php?$session[sessionurl]do=editavatar">$vbphrase[edit_avatar]</a></td></tr></if>-->
+                <tr><td class="vbmenu_option"><a href="profile.php?$session[sessionurl]do=editprofile">$vbphrase[edit_your_details]</a></td></tr>
+                <tr><td class="vbmenu_option"><a href="profile.php?$session[sessionurl]do=editoptions">$vbphrase[edit_options]</a></td></tr>
+                $template_hook[navbar_quick_links_menu_pos3]
+
+                <tr><td class="thead">$vbphrase[miscellaneous]</td></tr>
+                <if condition="$show['pmmainlink']"><tr><td class="vbmenu_option"><a href="private.php$session[sessionurl_q]" rel="nofollow">$vbphrase[private_messages]</a></td></tr></if>
+                <tr><td class="vbmenu_option"><a href="subscription.php$session[sessionurl_q]" rel="nofollow">$vbphrase[subscribed_threads]</a></td></tr>
+                <tr><td class="vbmenu_option"><a href="member.php?$session[sessionurl]u=$bbuserinfo[userid]">$vbphrase[your_profile]</a></td></tr>
+                <if condition="$show['wollink']"><tr><td class="vbmenu_option"><a href="online.php$session[sessionurl_q]">$vbphrase[whos_online]</a></td></tr></if>
+                $template_hook[navbar_quick_links_menu_pos4]
+
+            </table>
+        </div>
+        <!-- / user cp tools menu -->
+
+    </if>
+    <!-- / NAVBAR POPUP MENUS -->
+
+    <!-- PAGENAV POPUP -->
+    <div class="vbmenu_popup" id="pagenav_menu" style="display:none">
+        <table cellpadding="4" cellspacing="1" border="0">
+            <tr>
+                <td class="thead" nowrap="nowrap">$vbphrase[go_to_page]</td>
+            </tr>
+            <tr>
+                <td class="vbmenu_option" title="nohilite">
+                    <form action="$vboptions[forumhome].php" method="get" onsubmit="return this.gotopage()" id="pagenav_form">
+                        <input type="text" class="bginput" id="pagenav_itxt" style="font-size:11px" size="4" />
+                        <input type="button" class="button" id="pagenav_ibtn" value="$vbphrase[go]" />
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- / PAGENAV POPUP -->
+</if>
+
+$ad_location[ad_navbar_below]
