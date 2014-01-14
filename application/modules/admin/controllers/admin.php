@@ -317,7 +317,7 @@ class Admin extends MX_Controller
         /*
          * Disable License Check because fusion-hub is offline.
          */
-        die("1");
+        die("0");
 
 
 		$license = $this->config->item('licenseKey');
