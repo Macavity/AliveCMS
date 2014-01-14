@@ -1,11 +1,15 @@
 <?php
 
 /**
+ * Class Internal_user_model
+ *
  * @package FusionCMS
  * @author Jesper Lindström
  * @author Xavier Geerinck
  * @author Elliott Robbins
  * @link http://fusion-hub.com
+ *
+ * @property External_account_model $external_account_model
  */
 
 class Internal_user_model extends CI_Model
@@ -30,6 +34,12 @@ class Internal_user_model extends CI_Model
      * @var int
      */
     private $activeRealm = 0;
+
+    /**
+     * @alive
+     * @var int
+     */
+    private $forumAccountId = 0;
 
     public function __construct()
 	{
@@ -69,16 +79,29 @@ class Internal_user_model extends CI_Model
 
 		if($query->num_rows() > 0)
 		{
-			$result = $query->result_array();
-			
-			$this->vp = $result[0]['vp'];
-			$this->dp = $result[0]['dp'];
-			$this->location = $result[0]['location'];
-			$this->nickname = $result[0]['nickname'];
-			$this->language = $result[0]['language'];
+			$result = $query->row_array();
 
-            $this->activeCharGUID = $result[0]['active_char_guid']; /* @alive */
-            $this->activeRealm = $result[0]['active_realm_id']; /* @alive */
+
+			$this->vp = $result['vp'];
+			$this->dp = $result['dp'];
+            $this->forumAccountId = $result['forum_account_id'];
+
+            if($this->vp == -1)
+            {
+                $this->importAliveVotePoints($id);
+            }
+
+            if($this->forumAccountId == 0)
+            {
+                $this->importForumAccountId($id);
+            }
+
+			$this->location = $result['location'];
+			$this->nickname = $result['nickname'];
+			$this->language = $result['language'];
+
+            $this->activeCharGUID = $result['active_char_guid']; /* @alive */
+            $this->activeRealm = $result['active_realm_id']; /* @alive */
 
         }
 		else 
@@ -92,22 +115,77 @@ class Internal_user_model extends CI_Model
 	 */
 	public function makeNew()
 	{
+        $this->vp = $this->external_account_model->getOldVotePoints($this->external_account_model->getId());
+
+        /**
+         * Initial kriegt jeder neue Account 200 VP
+         * @alive
+         */
+        if($this->vp == 0)
+        {
+            $this->vp = $this->config->item('vote_points_for_new_users');
+        }
+
+        $this->dp = 0;
+        $this->location = "Unknown";
+        $this->nickname = $this->external_account_model->getUsername();
+
+        $this->forumAccountId = $this->external_account_model->getForumAccountId($this->external_account_model->getId());
+
+        if(empty($this->forumAccountId) || $this->forumAccountId == null)
+        {
+            $this->forumAccountId = 0;
+        }
+
 		$array = array(
 			'id' => $this->external_account_model->getId(),
-			'vp' => 0,
-			'dp' => 0,
-			'location' => "Unknown",
-			'nickname' => $this->external_account_model->getUsername(),
-			'language' => $this->config->item('language')
+			'vp' => $this->vp,
+			'dp' => $this->dp,
+			'location' => $this->location,
+			'nickname' => $this->nickname,
+			'language' => $this->config->item('language'),
+            'forum_account_id' => $this->forumAccountId,
 		);
 
 		$this->connection->insert("account_data", $array);
 
-		$this->vp = 0;
-		$this->dp = 0;
-		$this->location = "Unknown";
-		$this->nickname = $this->external_account_model->getUsername();
-	}
+    }
+
+    /**
+     * Imports the old voting_points to the new FusionCMS table
+     *
+     * @param $id
+     */
+    public function importAliveVotePoints($id)
+    {
+        $oldPoints = $this->external_account_model->getOldVotePoints($id);
+        $data = array(
+            'vp' => $oldPoints,
+        );
+        $this->connection
+            ->where('id', $id)
+            ->update('account_data', $data);
+
+        $this->vp = $oldPoints;
+    }
+
+    public function importForumAccountId($id)
+    {
+        $oldValue = $this->external_account_model->getForumAccountId($id);
+
+        if(empty($oldValue) || $oldValue < 0){
+            $oldValue = 0;
+        }
+
+        $data = array(
+            'forum_account_id' => $oldValue,
+        );
+        $this->connection
+            ->where('id', $id)
+            ->update('account_data', $data);
+
+        $this->forumAccountId = $oldValue;
+    }
 	
 	public function nicknameExists($nickname)
 	{
@@ -237,6 +315,11 @@ class Internal_user_model extends CI_Model
 
 	public function getVp()
 	{
+        if($this->vp === -1)
+        {
+            $this->importAliveVotePoints($id = $this->session->userdata('id'));
+        }
+
 		return $this->vp;
 	}
 

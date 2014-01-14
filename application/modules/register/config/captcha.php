@@ -1,3 +1,3 @@
 <?php
 
-$config['use_captcha'] = true;
+$config['use_captcha'] = false;

@@ -26,16 +26,19 @@ class Trinity_rbac_ra extends Trinity_rbac_soap implements Emulator
 	public function send($command)
 	{
 		//Open the telnet Connection
-		$this->telnetOpen($this->config['hostname'], $this->config['console_port']);
-		$this->telnetBuffer = $this->telnetReadOutput();
-		
-		//Login on telnet
-		$this->telnetLogin($this->config['console_username'], $this->config['console_password']);
-		$this->telnetBuffer = $this->telnetReadOutput();
-		
-		//Send command in telnet
-		$this->telnetWrite($command);
-		$this->telnetBuffer = $this->telnetReadOutput();
+		if($this->telnetOpen($this->config['console_host'], $this->config['console_port']))
+        {
+            $this->telnetBuffer = $this->telnetReadOutput();
+
+            //Login on telnet
+            $this->telnetLogin($this->config['console_username'], $this->config['console_password']);
+            $this->telnetBuffer = $this->telnetReadOutput();
+
+            //Send command in telnet
+            $this->telnetWrite($command);
+            $this->telnetBuffer = $this->telnetReadOutput();
+
+        }
 
 	}
 
@@ -46,7 +49,8 @@ class Trinity_rbac_ra extends Trinity_rbac_soap implements Emulator
 
 	public function telnetOpen($ip, $port)
 	{
-		$connection = $this->telnetSocket = @fsockopen($ip, $port, $errno, $errstr, 5);
+		$connection = @fsockopen($ip, $port, $errno, $errstr, 20);
+        $this->telnetSocket = $connection;
 		
 		if($connection)
 		{
@@ -70,7 +74,7 @@ class Trinity_rbac_ra extends Trinity_rbac_soap implements Emulator
 	{
 		try
 		{
-			fwrite($this->telnetSocket, $string."\n");
+            fputs($this->telnetSocket, $string."\n");
 		}
 		catch(Exception $e)
 		{

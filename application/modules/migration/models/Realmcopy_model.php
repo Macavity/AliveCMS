@@ -7,9 +7,17 @@ class Realmcopy_model extends MY_Model {
 
     private $tableName = 'migration_realmcopy_entries';
 
+    private $validSourceRealms = array();
+    private $validTargetRealms = array();
+
     public function __construct()
     {
         parent::__construct();
+
+        $this->load->config('migration_config');
+
+        $this->validSourceRealms = $this->config->item('migration_copy_source_realm_ids');
+        $this->validTargetRealms = $this->config->item('migration_copy_target_realm_ids');
     }
 
     public function getRealmCharacters($userId)
@@ -20,7 +28,6 @@ class Realmcopy_model extends MY_Model {
         $realms = $this->realms->getRealms();
 
 
-        $validSourceRealms = explode(',', $this->config->item('migration_copy_source_realm_ids'));
 
         $realmChars = array();
 
@@ -34,7 +41,7 @@ class Realmcopy_model extends MY_Model {
             $realmId = $realm->getId();
 
             /** @var Realm $realm */
-            if(in_array($realmId, $validSourceRealms)){
+            if(in_array($realmId, $this->validSourceRealms)){
 
                 $realmChars[$realmId] = array();
                 $charDb = $realm->getCharacters();
@@ -56,6 +63,7 @@ class Realmcopy_model extends MY_Model {
                     $row['classLabel'] = $this->realms->getClass($row['class'], $row['gender']);
 
                     $row['realmName'] = $realm->getName();
+                    $row['realmId'] = $realm->getId();
 
                     $realmChars[$realmId][$row['guid']] = $row;
                 }
@@ -127,6 +135,22 @@ class Realmcopy_model extends MY_Model {
         }
 
         return array();
+    }
+
+    /**
+     * @return array|string
+     */
+    public function getValidSourceRealms()
+    {
+        return $this->validSourceRealms;
+    }
+
+    /**
+     * @return array|string
+     */
+    public function getValidTargetRealms()
+    {
+        return $this->validTargetRealms;
     }
 
 } 

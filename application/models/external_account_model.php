@@ -10,7 +10,10 @@
 
 class External_account_model extends CI_Model
 {
-	private $connection;
+    /**
+     * @var CI_DB_active_record
+     */
+    private $connection;
 	private $id;
 	private $username;
 	private $sha_pass_hash;
@@ -30,7 +33,7 @@ class External_account_model extends CI_Model
 		if($this->user->getOnline())
 		{
 			$this->initialize();
-		}
+        }
 		else
 		{
 			$this->id = 0;
@@ -58,8 +61,13 @@ class External_account_model extends CI_Model
 			$this->connection = $this->load->database("account", true);
 		}
 	}
-	
-	public function initialize($where = false)
+
+    /**
+     * @param bool|string $where
+     *
+     * @return bool
+     */
+    public function initialize($where = false)
 	{
 		$this->connect();
 
@@ -136,7 +144,7 @@ class External_account_model extends CI_Model
 		if(preg_match("/rbac/i", get_class($this->realms->getEmulator())))
 		{
 			$userId = $this->user->getId($username);
-			$this->connection->query("INSERT INTO rbac_account_groups(`accountId`, `groupId`, `realmId`) values (?, 1, -1)", array($userId));
+			$this->connection->query("INSERT INTO rbac_account_permissions(`accountId`, `permissionId`, `granted`, `realmId`) values (?, 106, 1, -1)", array($userId));
 		}
 
 		$this->updateDailySignUps();
@@ -524,6 +532,54 @@ class External_account_model extends CI_Model
 	{
 		return $this->expansion;
 	}
+
+    /**
+     * @alive
+     *
+     * @param $accountId
+     *
+     * @return int
+     */
+    public function getOldVotePoints($accountId)
+    {
+        $this->connect();
+
+        $this->connection->select('*')->from('voting_points')->where('id', $accountId);
+
+        $query = $this->connection->get();
+
+        if($query->num_rows() > 0)
+        {
+            $result = $query->result_array();
+            return $result[0]['points'];
+        }
+
+        return 0;
+    }
+
+    /**
+     * @alive
+     *
+     * @param $accountId
+     *
+     * @return int
+     */
+    public function getForumAccountId($accountId)
+    {
+        $this->connect();
+
+        $this->connection->select('*')->from('account_extend')->where('account_id', $accountId);
+
+        $query = $this->connection->get();
+
+        if($query->num_rows() > 0)
+        {
+            $result = $query->result_array();
+            return $result[0]['forum_account_id'];
+        }
+
+        return 0;
+    }
 
 
 

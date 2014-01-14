@@ -1,6 +1,6 @@
 <?php
 
-class Status_refresh extends MX_Controller
+class Status_refresh extends MY_Controller
 {
 	/**
 	 * Called via AJAX
@@ -13,13 +13,14 @@ class Status_refresh extends MX_Controller
 
 	public function view()
 	{
+
 		// Load realm objects
 		$realms = $this->realms->getRealms();
 
         $realmData = array();
 
         foreach($realms as $realm){
-
+            /** @var Realm $realm */
             $values = array(
                 "gm" => $realm->getOnline("gm"),
                 "horde" => $realm->getOnline("horde"),
@@ -41,7 +42,7 @@ class Status_refresh extends MX_Controller
                     $cssClass = '';
             }
 
-            $realmData[] = array(
+            $realmData[$realm->getId()] = array(
                 "css" => $cssClass,
                 "online" => (bool) $realm->isOnline(),
                 "name" => $realm->getName(),

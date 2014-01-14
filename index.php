@@ -24,8 +24,8 @@ if(is_dir(__DIR__."/install") && !file_exists(__DIR__."/install/.lock"))
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
+define('ENVIRONMENT', 'development');
 
-	define('ENVIRONMENT', 'development');
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING

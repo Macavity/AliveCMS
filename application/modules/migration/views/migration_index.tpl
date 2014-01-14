@@ -32,7 +32,7 @@
 </p>
 
 <p class="alert alert-danger">
-    Wir transferieren nur <u>maximal 5 Charaktere</u>.
+    Wir transferieren nur <u>maximal 5 Charaktere</u> und es werden pro Spieler nur auf einem Account Transfers zugelassen.
 </p>
 
     Die Raten der Server von denen ihr kommt bestimmen die Leistungen die euch zustehen, hier die Übersichten:<br>

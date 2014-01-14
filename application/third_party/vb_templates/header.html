@@ -1,0 +1,92 @@
+<!-- Teamspeak -->
+<div class="sb_overlay sb_slide" id="ts_overlay">
+    <img class="ts_waitload_overlay" src="/images/widget/ajax-loader.gif">
+</div>
+
+<div id="ts_control" class="sb_passive_container">
+    <div id="ts_button">
+        <div id="ts_label"></div>
+        <!--<span id="sb_passive_count" class="sb_passive_1n" style="">4</span> -->
+        <div id="sb_passive_large"></div>
+    </div>
+    <img class="sb_waitload" src="/images/widget/ajax-loader.gif">
+</div>
+<!-- /Teamspeak -->
+
+
+<div id="wrapper">
+    <div id="header">
+        <a name="top"></a>
+        <div id="search-bar">
+            <form action="search.php?do=process" method="post" id="search-form">
+                <input type="hidden" name="do" value="process" />
+                <input type="hidden" name="quicksearch" value="1" />
+                <input type="hidden" name="childforums" value="1" />
+                <input type="hidden" name="exactname" value="1" />
+                <input type="hidden" name="s" value="$session[sessionhash]" />
+                <input type="hidden" name="securitytoken" value="$bbuserinfo[securitytoken]" />
+                <div>
+                    <input type="submit" id="search-button" value="" tabindex="41"/>
+                    <input type="text" name="query" id="search-field" maxlength="200" tabindex="40" alt="Durchsucht das Forum..." value="Durchsucht das Forum..." />
+                </div>
+            </form>
+        </div>
+        <h1 id="logo"><a href="$vboptions[forumhome].php$session[sessionurl_q]">World of Warcraft Alive</a></h1>
+        <div class="header-plate">
+            <ul id="menu">
+                <li class="menu-home">
+                    <a href="http://cms.wow-alive.de/"><span>Hauptseite</span></a>
+                </li>
+                <li class="menu-game">
+                    <a href="http://cms.wow-alive.de/game/"><span>Spiel</span></a>
+                </li>
+                <li class="menu-community">
+                    <a href="http://cms.wow-alive.de/server/"><span>Server</span></a>
+                </li>
+                <li class="menu-media">
+                    <a href="http://cms.wow-alive.de/ucp/"><span>Account</span></a>
+                </li>
+                <li class="menu-forums">
+                    <a href="http://forum.wow-alive.de/forum.php"><span>Foren</span></a>
+                </li>
+                <li class="menu-services">
+                    <a href="http://cms.wow-alive.de/vote"><span>Voten</span></a>
+                </li>
+            </ul>
+            <if condition="$show['member']">
+                <!-- $chosen_char[bb] -->
+                <if condition="$chosen_char['css_class'] == 'nochars'">
+                    <div class="user-plate plate-nochars ajax-update">
+                        <div class="card-overlay"></div>
+                        <a href="member.php?$session[sessionurl]u=$bbuserinfo[userid]" rel="np" class="profile-link">
+                            <span class="hover"></span>
+                        </a>
+                        <div class="user-meta">
+                            <div class="player-name"><a href="member.php?$session[sessionurl]u=$bbuserinfo[userid]">$bbuserinfo[username]</a></div>
+                            <if condition="!$game_acc_connected">
+                                <div class="character"><a href="http://forum.wow-alive.de/page/Account.html">Verbinde deine Accounts</a></div>
+                            </if>
+                            <div class="guild"></div>
+                        </div>
+                    </div>
+                <else />
+                    <div class="user-plate ajax-update"></div>
+                </if>
+                <else />
+                <div class="user-plate ajax-update">
+                    <div class="user-meta meta-login">
+                        <a href="/login.php">
+                            <strong>Loggt euch</strong></a> mit eurem Account ein, um Kommentare abzugeben
+                        und die Seiteninhalte für euch anzupassen.
+                    </div>
+                </div>
+            </if>
+        </div>
+    </div> <!-- header -->
+
+    <!-- content table -->
+    <div id="content">
+        <div class="content-top">
+            $_phpinclude_output
+
+            $ad_location[ad_header_end]

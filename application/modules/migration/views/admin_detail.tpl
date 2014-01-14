@@ -202,7 +202,7 @@
             <label class="control-label">Level, Lerngeld und Taschen:</label>
             <div class="controls">
 <pre>
-.levelup {$migration.level}
+.levelup {$migration.level - 1}
 
 .modify money 2000000000
 .char customize
@@ -453,17 +453,22 @@
 
 </section>
 <script type="text/javascript">
+  require(['/application/js/static.js'], function(){
     require([
-        'static',
-        'controller/AdminController'
+      'controller/AdminController',
+      'tooltip'
     ],
-            function (static, AdminController) {
-                $(function () {
+            function (AdminController, Tooltip) {
+              $(function () {
+                debug.debug("js/migration_admin/detail");
 
-                    var controller = new AdminController();
+                var controller = new AdminController();
 
-                });
+
+              });
             });
+  });
+
 </script>
 
 

@@ -3,6 +3,8 @@
   Deny from all
 </Files>
 
+DirectoryIndex  index.php
+
 <ifModule mod_rewrite.c>
 	RewriteEngine On
         
@@ -48,9 +50,9 @@
 # enable-cors.org
 # code.google.com/p/html5security/wiki/CrossOriginRequestSecurity
 
-#  <IfModule mod_headers.c>
-#    Header set Access-Control-Allow-Origin "*"
-#  </IfModule>
+<IfModule mod_headers.c>
+  Header set Access-Control-Allow-Origin "http://forum.wow-alive.de"
+</IfModule>
 
 
 # ----------------------------------------------------------------------

@@ -705,7 +705,7 @@ body {
       padding-left: 10px;
       height: 27px;
       display: block;
-      background: url("../form/dropdown-left.gif") 0 0 no-repeat;
+      background: url("../images/form/dropdown-left.gif") 0 0 no-repeat;
     }
     &:hover span {
       color: #fff;
@@ -716,7 +716,7 @@ body {
     background: url("../images/form/dropdown-right.gif") 100% -60px no-repeat;
     span {
       color: #fffac1;
-      background: url("../form/dropdown-left.gif") 0 -60px no-repeat;
+      background: url("../images/form/dropdown-left.gif") 0 -60px no-repeat;
     }
   }
   .dropdown-wrapper {
@@ -1174,7 +1174,7 @@ tr {
     display: block;
     float: right;
     margin: 15px 0 15px 10px;
-    background: url("../images/icons.gif") 0 -114px no-repeat;
+    background: url("../images/context/icons.gif") 0 -114px no-repeat;
   }
 }
 
@@ -1313,7 +1313,7 @@ tr {
 
     .blog-paging {
       padding: 0 15px 15px;
-      background: url("../homepage/news-bg.jpg") 50% 100%;
+      background: url("../images/homepage/news-bg.jpg") 50% 100%;
     }
 
     h3,
@@ -2292,15 +2292,15 @@ a.ui-button.imgbutton span {
     }
   }
   .down, .sidebar-title h3 .down {
-    color: #c83424;
+    @extend .realm-offline;
   }
   .up, .sidebar-title h3 .up {
-    color: #a3c425;
+    @extend .realm-online;
   }
   .down-realms {
     margin: 10px 0 0 20px;
     list-style: square;
-    color: #c83424;
+    color: $realmOffline;
     li {
       margin: 5px;
     }
@@ -2877,7 +2877,7 @@ div {
 }
 
 .talkback-icon {
-  background: url(../layout/cms/alert_img.png) no-repeat;
+  background: url(../images/layout/cms/alert_img.png) no-repeat;
   padding-left: 70px;
 }
 

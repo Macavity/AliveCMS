@@ -106,12 +106,16 @@ class Admin_items extends MX_Controller
 	private function getQueryData()
 	{
 		$data["name"] = $this->input->post("name");
+              $data["itemid"] = '(NULL)';
 		$data["description"] = $this->input->post("description");
 		$data["quality"] = $this->input->post("quality");
 		$data["query_database"] = $this->input->post("query_database");
 		$data["query_need_character"] = ($this->input->post("query_need_character") == "true") ? 1 : 0;
-        $data["require_character_offline"] = ($this->input->post("require_character_offline") == "true") ? 1 : 0;
-        $data["query"] = $this->input->post("query");
+              $data["require_character_offline"] = ($this->input->post("require_character_offline") == "true") ? 1 : 0;
+              $data["query"] = $this->input->post("query");
+              $data["command_need_character"] = '0';
+              $data["require_character_offline"] = '0';
+              $data["command"] = '(NULL)';
 		$data["realm"] = $this->input->post("realm");
 		$data["group"] = $this->input->post("group");
 		$data["vp_price"] = $this->input->post("vpCost");
@@ -132,11 +136,15 @@ class Admin_items extends MX_Controller
 	private function getCommandData()
 	{
 		$data["name"] = $this->input->post("name");
+              $data["itemid"] = '(NULL)';
 		$data["description"] = $this->input->post("description");
 		$data["quality"] = $this->input->post("quality");
+              $data["query_database"] = '';
+              $data["query_need_character"] = '(NULL)';
+              $data["query"] = '(NULL)';
 		$data["command_need_character"] = ($this->input->post("command_need_character") == "true") ? 1 : 0;
-        $data["require_character_offline"] = ($this->input->post("require_character_offline") == "true") ? 1 : 0;
-        $data["command"] = $this->input->post("command");
+              $data["require_character_offline"] = ($this->input->post("require_character_offline") == "true") ? 1 : 0;
+              $data["command"] = $this->input->post("command");
 		$data["realm"] = $this->input->post("realm");
 		$data["group"] = $this->input->post("group");
 		$data["vp_price"] = $this->input->post("vpCost");
@@ -156,6 +164,13 @@ class Admin_items extends MX_Controller
 	 */
 	private function getItemData()
 	{
+              $data["query_database"] = '';
+              $data["query_need_character"] = '';
+              $data["require_character_offline"] = '0';
+              $data["query"] = '';
+              $data["command_need_character"] = '';
+              $data["require_character_offline"] = '';
+              $data["command"] = '';
 		$data["itemid"] = $this->input->post("itemid");
 		$data["description"] = $this->input->post("description");
 		$data["realm"] = $this->input->post("realm");

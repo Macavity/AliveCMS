@@ -72,6 +72,35 @@
     </div>
 </div><br>
 
+{if $showFixBugShit}
+  <div class="alert alert-info offset1 span8">F.I.X.B.U.G.S.H.I.T. Einsatzfähig</div>
+
+  <div class="row">
+    <div class="span2 offset1"><strong>Quests</strong></div>
+    <div class="span8">
+      <table class="table">
+        {foreach $fbsQuests as $quest}
+          <tr>
+            <td>{$quest.id}</td>
+            <td>
+              {if $quest.isAutocomplete}
+                <span class="workaround">Autocomplete aktiv</span>
+              {else}
+                Autocomplete Inaktiv
+              {/if}
+            </td>
+            <td>{$quest.title}</td>
+          </tr>
+          {foreachelse}
+          <tr>
+            <td>Damit F.I.X.B.U.G.S.H.I.T. eingesetzt werden kann muss ein "openwow"-Quest-Link eingetragen sein. Es konnte kein Link oder kein passendes Quest gefunden werden.</td>
+          </tr>
+        {/foreach}
+      </table>
+    </div>
+  </div><br>
+{/if}
+
 {if count($similarBugs) > 0}
 <div class="row">
     <div class="span2 offset1"><strong>Ähnliche Bug Reports</strong></div>

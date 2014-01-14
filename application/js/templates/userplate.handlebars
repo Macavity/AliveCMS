@@ -1,12 +1,12 @@
 <div class="user-plate ajax-update">
-    <a id="user-plate" class="card-character plate-{{factionString}}" rel="np" href="{{activeChar.url}}">
+    <a id="user-plate" class="card-character plate-{{activeChar.factionString}}" rel="np" href="{{activeChar.url}}">
         <span class="card-portrait" style="background-image:url({{activeChar.avatarUrl}})"></span>
     </a>
-    <div class="meta-wrapper meta-{{factionString}}">
+    <div class="meta-wrapper meta-{{activeChar.factionString}}">
         <div class="meta">
-            <div class="player-name">{$nickname}</div>
+            <div class="player-name">{{username}}</div>
             <div class="character">
-                <a class="character-name context-link" rel="np" href="{{activeChar.url}}" data-tooltip="Charakter wechseln" data-tooltip-options="{&quot;location&quot;: &quot;topCenter&quot;}">
+                <a class="character-name context-link" rel="np" href="{{activeChar.url}}" data-tooltip-options="{&quot;location&quot;: &quot;topCenter&quot;}">
                     {{activeChar.name}}
                     <span class="arrow"></span>
                 </a>

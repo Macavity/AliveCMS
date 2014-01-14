@@ -10,6 +10,7 @@ define('BUGSTATE_OPEN', 1);
 define('BUGSTATE_ACTIVE', 2);
 define('BUGSTATE_REJECTED', 3);
 define('BUGSTATE_WORKAROUND', 4);
+define('BUGSTATE_CONFIRMED', 5);
 define('BUGSTATE_DONE', 9);
 define('BUGSTATE_ALL', 10);
 
@@ -41,8 +42,12 @@ define('BUGTYPE_RAID',          600);
 define('BUGTYPE_ACHIEVEMENT',   700);
 define('BUGTYPE_PVP',           800);
 
-
-class Bug_model extends CI_Model
+/**
+ * Class Bug_model
+ *
+ * @property FixBugShit_model $fbs_model
+ */
+class Bug_model extends MY_Model
 {
     var $tableName = 'bugtracker_entries';
     var $tableNameComments = 'bugtracker_comments';
@@ -59,7 +64,8 @@ class Bug_model extends CI_Model
     private $availablePriorities = array();
     private $priorityLabels = array();
 
-    public function __construct(){
+    public function __construct()
+    {
 
         $this->tableName = 'bugtracker_entries';
         $this->defaultProject = 1;
@@ -67,6 +73,7 @@ class Bug_model extends CI_Model
 
         $this->availableBugStates = array(
             BUGSTATE_OPEN => 'Offen',
+            BUGSTATE_CONFIRMED => 'Bestätigt',
             BUGSTATE_ACTIVE => 'Bearbeitung',
             BUGSTATE_WORKAROUND => 'Workaround',
             BUGSTATE_DONE => 'Erledigt',
@@ -89,17 +96,21 @@ class Bug_model extends CI_Model
         );
     }
 
-    public function getBugStates(){
+    public function getBugStates()
+    {
         return $this->availableBugStates;
     }
 
-    public function getBugPriorities(){
+    public function getBugPriorities()
+    {
         return $this->availablePriorities;
     }
 
-    public function getPrioritiesWithLabel(){
+    public function getPrioritiesWithLabel()
+    {
         $priorities = array();
-        foreach($this->availablePriorities as $piority){
+        foreach($this->availablePriorities as $piority)
+        {
             $priorities[$piority] = $this->getPriorityLabel($piority);
         }
         return $priorities;
@@ -137,7 +148,8 @@ class Bug_model extends CI_Model
         }
     }
 
-    public function getClosedBugs($projectId = 0, $yearRestriction = 0){
+    public function getClosedBugs($projectId = 0, $yearRestriction = 0)
+    {
 
         $whereMatPath = ($projectId == 0) ? '' : str_pad($projectId, 4, '0', STR_PAD_LEFT);
 
@@ -167,14 +179,16 @@ class Bug_model extends CI_Model
      *
      * @return bool
      */
-    public function getRecentChanges($projectId = 0, $limit = 10){
+    public function getRecentChanges($projectId = 0, $limit = 10)
+    {
 
         /**
          * Recently created Bugs
          */
         $recentCreations = $this->getLastBugEntries($projectId, $limit);
 
-        foreach($recentCreations as $i => $row){
+        foreach($recentCreations as $i => $row)
+        {
             if(strlen($row['title']) > 40){
                 $row['title'] = substr($row['title'], 0, 40).'..';
             }
@@ -184,10 +198,11 @@ class Bug_model extends CI_Model
 
             $row['date'] = strftime("%d.%m", $row['createdTimestamp']);
 
-            $row['priorityClass'] = $this->bug_model->getPriorityCssClass($row['priority']);
-            $row['priorityLabel'] = $this->bug_model->getPriorityLabel($row['priority']);
+            $row['priorityClass'] = $this->getPriorityCssClass($row['priority']);
+            $row['priorityLabel'] = $this->getPriorityLabel($row['priority']);
 
-            switch($row['bug_state']){
+            switch($row['bug_state'])
+            {
                 case BUGSTATE_DONE:
                     $row['css'] = 'done';
                     break;
@@ -220,8 +235,10 @@ class Bug_model extends CI_Model
          */
         $recentComments = $this->getLastBugComments($projectId, $limit);
 
-        foreach($recentComments as $i => $row){
-            if(strlen($row['title']) > 40){
+        foreach($recentComments as $i => $row)
+        {
+            if(strlen($row['title']) > 40)
+            {
                 $row['title'] = substr($row['title'], 0, 40).'..';
             }
             $row['title'] = htmlentities($row['title'], ENT_QUOTES, 'UTF-8');
@@ -230,7 +247,8 @@ class Bug_model extends CI_Model
 
             $row['date'] = strftime("%d.%m", $row['createdTimestamp']);
 
-            switch($row['bug_state']){
+            switch($row['bug_state'])
+            {
                 case BUGSTATE_DONE:
                     $row['css'] = 'done';
                     break;
@@ -270,15 +288,18 @@ class Bug_model extends CI_Model
      * @param string $restriction Values 'normal': Get all Done/Active/Open Bugs; 'none': Get all bugs
      * @return bool|array
      */
-    public function getBugsByProject($projectId, $restriction = 'normal'){
+    public function getBugsByProject($projectId, $restriction = 'normal')
+    {
 
         $results = $this->getBugEntries($projectId);
 
-        if(count($results)){
+        if(count($results))
+        {
 
             $bugs = array();
 
-            foreach($results as $row){
+            foreach($results as $row)
+            {
                 $comment = array();
 
                 $lastChange = $row['changedDate'];
@@ -292,10 +313,12 @@ class Bug_model extends CI_Model
                 );
 
                 // Has a comment
-                if(!empty($row['cmChangedDate']) && $row['cmChangedDate'] > 0){
+                if(!empty($row['cmChangedDate']) && $row['cmChangedDate'] > 0)
+                {
                     $cmPosterData = json_decode($row['cmPosterData'], true);
 
-                    if($row['cmChangedTimestamp'] > $row['changedTimestamp']){
+                    if($row['cmChangedTimestamp'] > $row['changedTimestamp'])
+                    {
                         $lastChange = $row['cmChangedTimestamp'];
                         $by = array(
                             'type' => 'commented',
@@ -317,7 +340,8 @@ class Bug_model extends CI_Model
 
 
                 // Not in list yet?
-                if(empty($bugs[$row['id']])){
+                if(empty($bugs[$row['id']]))
+                {
                     $bugs[$row['id']] = $row;
                     $bugs[$row['id']]['lastChange'] = $lastChange;
                     $bugs[$row['id']]['by'] = $by;
@@ -327,11 +351,13 @@ class Bug_model extends CI_Model
                     // debug("first appearance",$bugs[$row['id']]);
                 }
                 // Is in list but we got another comment to check
-                elseif(count($comment) > 0){
+                elseif(count($comment) > 0)
+                {
                     $bugs[$row['id']]['commentCount']++;
 
                     // Has no comment listed yet?
-                    if(count($bugs[$row['id']]['lastComment']) == 0){
+                    if(count($bugs[$row['id']]['lastComment']) == 0)
+                    {
                         $bugs[$row['id']]['lastChange'] = $lastChange;
                         $bugs[$row['id']]['by'] = $by;
                         $bugs[$row['id']]['lastComment'] = $comment;
@@ -339,7 +365,8 @@ class Bug_model extends CI_Model
                         // debug("first appearance with comment",$bugs[$row['id']]);
                     }
                     // but this comment was more recent?
-                    elseif($bugs[$row['id']]['lastComment']['changedTimestamp'] < $comment['changedTimestamp']){
+                    elseif($bugs[$row['id']]['lastComment']['changedTimestamp'] < $comment['changedTimestamp'])
+                    {
                         $bugs[$row['id']]['lastChange'] = $lastChange;
                         $bugs[$row['id']]['by'] = $by;
                         $bugs[$row['id']]['lastComment'] = $comment;
@@ -347,20 +374,24 @@ class Bug_model extends CI_Model
                     }
                 }
 
-                if($bugs[$row['id']]['lastChange'] > 0 && ($bugs[$row['id']]['lastChange']*1 == intval($bugs[$row['id']]['lastChange']))){
+                if($bugs[$row['id']]['lastChange'] > 0 && ($bugs[$row['id']]['lastChange']*1 == intval($bugs[$row['id']]['lastChange'])))
+                {
                     $bugs[$row['id']]['changedDate'] = strftime("%d.%m.%Y %H:%M:%S", (int) $bugs[$row['id']]['lastChange']);
                     $bugs[$row['id']]['changedTimestamp'] = (int) $bugs[$row['id']]['lastChange'];
                 }
 
-                if(empty($bugs[$row['id']]['lastChange'])){
+                if(empty($bugs[$row['id']]['lastChange']))
+                {
                     $bugs[$row['id']]['lastChange'] = $row['createdDate'];
                 }
 
-                if(empty($bugs[$row['id']]['changedDate'])){
+                if(empty($bugs[$row['id']]['changedDate']))
+                {
                     $bugs[$row['id']]['changedDate'] = $row['createdDate'];
                 }
 
-                if(empty($bugs[$row['id']]['changedTimestamp'])){
+                if(empty($bugs[$row['id']]['changedTimestamp']))
+                {
                     $bugs[$row['id']]['changedTimestamp'] = $row['createdTimestamp'];
                 }
             }
@@ -377,7 +408,8 @@ class Bug_model extends CI_Model
      * @param int $projectId
      * @return array
      */
-    private function getBugEntries($projectId = 0){
+    private function getBugEntries($projectId = 0)
+    {
 
         $whereMatPath = ($projectId == 0) ? '%' : '%'.str_pad($projectId, 4, '0', STR_PAD_LEFT).'%';
 
@@ -417,17 +449,21 @@ ORDER BY
      *
      * @return array
      */
-    private function getLastBugEntries($projectId = 0, $limit = 10){
+    private function getLastBugEntries($projectId = 0, $limit = 10)
+    {
 
         $whereMatPath = ($projectId == 0) ? '' : str_pad($projectId, 4, '0', STR_PAD_LEFT);
 
-        $query = $this->db->select('*')
+        $this->db->select('*')
             ->like('matpath', $whereMatPath)
             ->order_by('createdTimestamp', 'desc')
             ->limit($limit)
-            ->from($this->tableName)->get();
+            ->from($this->tableName);
 
-        if($query->num_rows() > 0){
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
             return $query->result_array();
         }
         else
@@ -467,7 +503,8 @@ ORDER BY
         // Execute the query
         $query = $this->db->query($sql);
 
-        if($query->num_rows() > 0){
+        if($query->num_rows() > 0)
+        {
             return $query->result_array();
         }
         else
@@ -477,12 +514,17 @@ ORDER BY
 
     }
 
-    public function importOldBugs(){
-        $query = $this->db->select('*')
-            ->from('bug')->get();
+    public function importOldBugs()
+    {
+        $this->db->select('*')
+            ->from('bug');
 
-        if($query->num_rows() > 0){
-            foreach ($query->result_array() as $row){
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
+            foreach ($query->result_array() as $row)
+            {
                 $bugId = $row['id'];
 
                 if($this->bugExists($bugId)){
@@ -610,7 +652,8 @@ ORDER BY
                  */
                 $state = BUGSTATE_OPEN;
 
-                switch($row['state']){
+                switch($row['state'])
+                {
                     case 'Offen':
                         $state = BUGSTATE_OPEN; break;
                     case 'Bearbeitung':
@@ -629,11 +672,14 @@ ORDER BY
                 $link = $row['link'];
                 $wowId = 0;
 
-                if(empty($row['link']) || $link == '-' || $link == 'Hier den Link von de.wowhead.com eintragen.'){
+                if(empty($row['link']) || $link == '-' || $link == 'Hier den Link von de.wowhead.com eintragen.')
+                {
                     $link = '';
                 }
-                else{
-                    if(preg_match("/[^\d]*(\d+)/", $link, $matches)){
+                else
+                {
+                    if(preg_match("/[^\d]*(\d+)/", $link, $matches))
+                    {
                         $wowId = $matches[1];
                     }
                 }
@@ -685,9 +731,12 @@ ORDER BY
         }
     }
 
-    public function importOldComments(){
-        $query = $this->db->select('*')
-            ->from('kommentar')->get();
+    public function importOldComments()
+    {
+        $this->db->select('*')
+            ->from('kommentar');
+
+        $query = $this->db->get();
 
         if($query->num_rows() > 0){
             foreach ($query->result_array() as $row){
@@ -771,8 +820,11 @@ ORDER BY
 
     /**
      * Count how many Bugs a project has
-     * @param $projectId
-     * @param int $type
+     *
+     * @param int      $projectId
+     * @param bool|int $type
+     *
+     * @return array|int
      */
     public function getBugCountByProject($projectId = 0, $type = FALSE){
 
@@ -803,12 +855,14 @@ ORDER BY
             $data[BUGSTATE_ACTIVE] = empty($data[BUGSTATE_ACTIVE]) ? 0 : $data[BUGSTATE_ACTIVE] * 1;
             $data[BUGSTATE_OPEN] = empty($data[BUGSTATE_OPEN]) ? 0 : $data[BUGSTATE_OPEN] * 1;
             $data[BUGSTATE_REJECTED] = empty($data[BUGSTATE_REJECTED]) ? 0 : $data[BUGSTATE_REJECTED] * 1;
+            $data[BUGSTATE_CONFIRMED] = empty($data[BUGSTATE_CONFIRMED]) ? 0 : $data[BUGSTATE_CONFIRMED] * 1;
             $data[BUGSTATE_WORKAROUND] = empty($data[BUGSTATE_WORKAROUND]) ? 0 : $data[BUGSTATE_WORKAROUND] * 1;
             $data[BUGSTATE_ALL] =
                 $data[BUGSTATE_DONE] +
                 $data[BUGSTATE_ACTIVE] +
                 $data[BUGSTATE_OPEN] +
                 $data[BUGSTATE_REJECTED] +
+                $data[BUGSTATE_CONFIRMED] +
                 $data[BUGSTATE_WORKAROUND];
 
             return $data;
@@ -900,12 +954,11 @@ ORDER BY
 
     }
 
-    public function update($bugId, $project, $priority, $bugState, $title, $desc, $links)
+    public function update($bugId, $project, $priority, $bugState, $title, $desc, $links, $autoCompleteQuests)
     {
         requirePermission("canEditBugs");
 
         $activeChar = $this->user->getActiveCharacterData();
-
 
         if($activeChar == false){
             return false;
@@ -966,6 +1019,24 @@ ORDER BY
                 'new' => $desc,
             );
             $data['desc'] = $desc;
+        }
+
+        /*
+         * Autocomplete Quest Changes
+         */
+        if(count($autoCompleteQuests))
+        {
+            $this->load->model('fixbugshit_model', 'fbs_model');
+
+            foreach($autoCompleteQuests as $questId => $newValue)
+            {
+                $action['autocomplete'][$questId] = array(
+                    'new' => $newValue,
+                    'old' => ($newValue == 0) ? 2 : 0,
+                );
+
+                $this->fbs_model->updateQuestMethod($questId, $newValue);
+            }
         }
 
         $links = json_encode($links);
@@ -1051,7 +1122,7 @@ ORDER BY
 
     /**
      * @param $bugId
-     * @return bool
+     * @return array
      */
     public function getBugComments($bugId){
 
@@ -1096,6 +1167,12 @@ ORDER BY
     }
 
     public function getStateLabel($type){
+
+        if(empty($type))
+        {
+            return '';
+        }
+
         return (empty($this->availableBugStates[$type])) ? '' : $this->availableBugStates[$type];
     }
 
@@ -1126,6 +1203,12 @@ ORDER BY
         }
     }
 
+    /**
+     * @param        $commentId
+     * @param string $select
+     *
+     * @return bool|object
+     */
     public function getComment($commentId, $select = '*'){
         $query = $this->db->select($select)
             ->from('bugtracker_comments')

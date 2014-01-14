@@ -651,21 +651,21 @@ function program3(depth0,data) {
   return buffer;
   }
 
-  buffer += "<div class=\"user-plate ajax-update\">\n    <a id=\"user-plate\" class=\"card-character plate-";
-  if (stack1 = helpers.factionString) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.factionString; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
+  buffer += "<div class=\"user-plate ajax-update\">\n    <a id=\"user-plate\" class=\"card-character plate-"
+    + escapeExpression(((stack1 = ((stack1 = depth0.activeChar),stack1 == null || stack1 === false ? stack1 : stack1.factionString)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\" rel=\"np\" href=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.activeChar),stack1 == null || stack1 === false ? stack1 : stack1.url)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\">\n        <span class=\"card-portrait\" style=\"background-image:url("
     + escapeExpression(((stack1 = ((stack1 = depth0.activeChar),stack1 == null || stack1 === false ? stack1 : stack1.avatarUrl)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + ")\"></span>\n    </a>\n    <div class=\"meta-wrapper meta-";
-  if (stack2 = helpers.factionString) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
-  else { stack2 = depth0.factionString; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+    + ")\"></span>\n    </a>\n    <div class=\"meta-wrapper meta-"
+    + escapeExpression(((stack1 = ((stack1 = depth0.activeChar),stack1 == null || stack1 === false ? stack1 : stack1.factionString)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\">\n        <div class=\"meta\">\n            <div class=\"player-name\">";
+  if (stack2 = helpers.username) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.username; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "\">\n        <div class=\"meta\">\n            <div class=\"player-name\">{$nickname}</div>\n            <div class=\"character\">\n                <a class=\"character-name context-link\" rel=\"np\" href=\""
+    + "</div>\n            <div class=\"character\">\n                <a class=\"character-name context-link\" rel=\"np\" href=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.activeChar),stack1 == null || stack1 === false ? stack1 : stack1.url)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\" data-tooltip=\"Charakter wechseln\" data-tooltip-options=\"{&quot;location&quot;: &quot;topCenter&quot;}\">\n                    "
+    + "\" data-tooltip-options=\"{&quot;location&quot;: &quot;topCenter&quot;}\">\n                    "
     + escapeExpression(((stack1 = ((stack1 = depth0.activeChar),stack1 == null || stack1 === false ? stack1 : stack1.name)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\n                    <span class=\"arrow\"></span>\n                </a>\n                <div id=\"context-1\" class=\"ui-context character-select\">\n                    <div class=\"context\">\n                        <a href=\"javascript:;\" class=\"close\" onclick=\"return CharSelect.close(this);\"></a>\n                        <div class=\"context-user\">\n                            <strong>"
     + escapeExpression(((stack1 = ((stack1 = depth0.activeChar),stack1 == null || stack1 === false ? stack1 : stack1.name)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))

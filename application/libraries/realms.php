@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * Class Realms
+ *
  * @package FusionCMS
  * @author Jesper Lindström
  * @author Xavier Geerinck
@@ -8,7 +10,6 @@
  * @author Marvin Wichmann
  * @link http://fusion-hub.com
  */
-
 class Realms
 {
 	// Objects
@@ -54,6 +55,7 @@ class Realms
 				$config = array(
 
 					// Console settings
+                    "console_host" => $realm['console_host'],
 					"console_username" => $realm['console_username'],
 					"console_password" => $realm['console_password'],
 					"console_port" => $realm['console_port'],
@@ -91,21 +93,25 @@ class Realms
 	
 	/**
 	 * Get the realm objects
-	 * @return Array
+	 * @return Realm[]
 	 */
 	public function getRealms()
 	{
 		return $this->realms;
 	}
-	
-	/**
-	 * Get one specific realm object
-	 * @return Object
-	 */
+
+    /**
+     * Get one specific realm object
+     *
+     * @param $id
+     *
+     * @return Realm
+     */
 	public function getRealm($id)
 	{
 		foreach($this->realms as $key => $realm)
 		{
+            /** @var Realm $realm */
 			if($realm->getId() == $id)
 			{
 				return $this->realms[$key];

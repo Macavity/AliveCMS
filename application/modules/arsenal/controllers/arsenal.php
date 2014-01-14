@@ -2,16 +2,18 @@
 
 /**
  * @property Internal_User_model internal_user_model
- * @property CI_Cache $cache
- * @property CI_Config $config
- * @property Template $template
+ *
+ * @property Arsenal_model $arsenal_model
+ * @property Arsenal_Character_model $character_model
+ *
+ * @property Arsenal_Character_model $character
  */
-class Arsenal extends MX_Controller
+class Arsenal extends MY_Controller
 {
     /**
      * @var bool
      */
-    private $canCache;
+    private $cacheEnabled;
 
 
     private $js;
@@ -24,7 +26,7 @@ class Arsenal extends MX_Controller
     private $accountId;
     private $accountName;
 
-    private $id;
+    private $charGuid;
 
     private $name;
 
@@ -58,20 +60,15 @@ class Arsenal extends MX_Controller
 
         requirePermission("view");
 
-
-        if(false){
-            $this->arsenal_model = new Arsenal_model();
-            $this->load = new CI_Loader();
-        }
-
         $this->load->model('arsenal_model');
 
-        $this->canCache = false;
+        $this->cacheEnabled = false;
         $this->items = array();
     }
 
     /**
-     * Initialize
+     * Character Index Page
+     *
      * @param bool|String $realm
      * @param bool|String $characterName
      * @param string $detail
@@ -80,16 +77,23 @@ class Arsenal extends MX_Controller
     {
         $this->arsenal_model->initialize($realm, $characterName);
 
-        $this->id = $this->arsenal_model->getCharacterGUID();
+        if($this->arsenal_model->getErrorMessage())
+        {
+            $this->showErrorPage($this->arsenal_model->getErrorMessage());
+            return;
+        }
 
-        $this->realmId = $this->arsenal_model->realm->getId();
-        $this->realmName = $this->arsenal_model->realm->getName();
+        $this->charGuid = $this->arsenal_model->getCharacterGUID();
 
-        $cacheId = "arsenal_character_".$this->arsenal_model->realm->getId()."_".$this->arsenal_model->getCharacterGUID()."_".getLang();
+        $this->realmId = $this->arsenal_model->getRealm()->getId();
+        $this->realmName = $this->arsenal_model->getRealm()->getName();
 
-        $cache = $this->cache->get($cacheId);
+        $cache = $this->cache->get($this->getCacheId());
 
-        if($this->canCache && $cache !== false)
+        /*
+         * Load cached data if cache is enabled and cache data is not overdue
+         */
+        if($this->cacheEnabled && $cache !== false)
         {
             $this->template->setTitle($cache['name']);
             $this->template->setDescription($cache['description']);
@@ -99,90 +103,89 @@ class Arsenal extends MX_Controller
         }
         else
         {
-            if($this->arsenal_model->characterExists())
-            {
-                $this->character = new Arsenal_Character_model($this->id, $this->arsenal_model->realm);
+            $this->load->model('Arsenal_Character_model', 'character_model');
 
-                $this->character->loadBaseData($detail);
+            $this->character_model->initialize($this->charGuid, $this->arsenal_model->getRealm());
 
-                $talent_data = $this->character->GetTalentData();
-                $activeSpec = $this->character->GetActiveSpec();
-                $char->BuildCharacter();
+            $this->character_model->loadBaseData($detail);
 
-
-                $this->template->setTitle($this->name);
-
-                $avatarArray = array(
-                    'class' => $this->class,
-                    'race' => $this->race,
-                    'level' => $this->level,
-                    'gender' => $this->gender
-                );
-
-                $charData = array(
-                    "url" => $this->template->page_url,
-                    "charUrl" => $this->getCharacterUrl(),
-
-                    "name" => $this->name,
-                    "realmId" => $this->realmId,
-                    "realmName" => $this->realmName,
-
-                    "gender" => $this->gender,
-                    "race" => $this->race,
-                    "faction" => $this->arsenal_model->realms->getFactionString($this->race),
-                    "raceName" => $this->raceName,
-                    "class" => $this->class,
-                    "className" => $this->className,
-                    "level" => $this->level,
-
-                    "items" => $this->items,
-                    "itemLevel" => $this->arsenal_model->getItemLevel(),
-                    "itemLevelEquipped" => $this->arsenal_model->getItemLevelEquipped(),
-                    "pvp" => $this->pvpStats,
-
-                    "guild" => $this->guildId,
-                    "guildName" => $this->guildName,
+            $talent_data = $this->character_model->getTalentData();
+            $activeSpec = $this->character->GetActiveSpec();
+            $char->BuildCharacter();
 
 
-                    "avatar" => $this->arsenal_model->realms->formatAvatarPath($avatarArray),
-                    "stats" => $this->stats,
+            $this->template->setTitle($this->name);
 
-                    "secondBar" => $this->secondBar,
-                    "secondBarValue" => $this->secondBarValue,
+            $avatarArray = array(
+                'class' => $this->class,
+                'race' => $this->race,
+                'level' => $this->level,
+                'gender' => $this->gender
+            );
 
-                    "bg" => $this->getBackground(),
-                    "fcms_tooltip" => $this->config->item("use_fcms_tooltip"),
-                    "has_stats" => $this->arsenal_model->realms->getRealm($this->realmId)->getEmulator()->hasStats()
-                );
+            $charData = array(
+                "url" => $this->template->page_url,
+                "charUrl" => $this->getCharacterUrl(),
 
-                $character = $this->template->loadPage("character_profile.tpl", $charData);
+                "name" => $this->name,
+                "realmId" => $this->realmId,
+                "realmName" => $this->realmName,
 
-                $data = array(
-                    "module" => "default",
-                    "headline" => "<span style='cursor:pointer;' data-tip='".lang("view_profile", "character")."' onClick='window.location=\"".$this->template->page_url."profile/".$this->account."\"'>".$this->accountName."</span> &rarr; ".$this->name,
-                    "content" => $character
-                );
+                "gender" => $this->gender,
+                "race" => $this->race,
+                "faction" => $this->arsenal_model->realms->getFactionString($this->race),
+                "raceName" => $this->raceName,
+                "class" => $this->class,
+                "className" => $this->className,
+                "level" => $this->level,
 
-                $keywords = "armory,".$charData['name'].",lv".$charData['level'].",".$charData['raceName'].",".$charData['className'].",".$charData['realmName'];
-                $description = $charData['name']." - level ".$charData['level']." " .$charData['raceName']." ".$charData['className']." on ".$charData['realmName'];
+                "items" => $this->items,
+                "itemLevel" => $this->arsenal_model->getItemLevel(),
+                "itemLevelEquipped" => $this->arsenal_model->getItemLevelEquipped(),
+                "pvp" => $this->pvpStats,
 
-                $this->template->setDescription($description);
-                $this->template->setKeywords($keywords);
+                "guild" => $this->guildId,
+                "guildName" => $this->guildName,
 
-                $page = $this->template->loadPage("page.tpl", $data);
-            }
-            else
-            {
-                $keywords = "";
-                $description = "";
 
-                $page = $this->getError(true);
-            }
+                "avatar" => $this->arsenal_model->realms->formatAvatarPath($avatarArray),
+                "stats" => $this->stats,
 
-            if($this->canCache)
+                "secondBar" => $this->secondBar,
+                "secondBarValue" => $this->secondBarValue,
+
+                "bg" => $this->getBackground(),
+                "fcms_tooltip" => $this->config->item("use_fcms_tooltip"),
+                "has_stats" => $this->arsenal_model->realms->getRealm($this->realmId)->getEmulator()->hasStats()
+            );
+
+            $character = $this->template->loadPage("character_profile.tpl", $charData);
+
+            $data = array(
+                "module" => "default",
+                "headline" => "<span style='cursor:pointer;' data-tip='".lang("view_profile", "character")."' onClick='window.location=\"".$this->template->page_url."profile/".$this->account."\"'>".$this->accountName."</span> &rarr; ".$this->name,
+                "content" => $character
+            );
+
+            $keywords = "armory,".$charData['name'].",lv".$charData['level'].",".$charData['raceName'].",".$charData['className'].",".$charData['realmName'];
+            $description = $charData['name']." - level ".$charData['level']." " .$charData['raceName']." ".$charData['className']." on ".$charData['realmName'];
+
+            $this->template->setDescription($description);
+            $this->template->setKeywords($keywords);
+
+            $page = $this->template->loadPage("page.tpl", $data);
+
+            if($this->cacheEnabled)
             {
                 // Cache for 30 min
-                $this->cache->save($cacheId, array('page' => $page, 'name' => $this->name, 'keywords' => $keywords, 'description' => $description), 60*30);
+                $this->cache->save($this->getCacheId(), array(
+                        'page' => $page,
+                        'name' => $this->name,
+                        'keywords' => $keywords,
+                        'description' => $description
+                    ),
+                    60*30
+                );
             }
         }
 
@@ -211,10 +214,15 @@ class Arsenal extends MX_Controller
             }
             else
             {
-                $this->canCache = false;
+                $this->cacheEnabled = false;
                 return $this->template->loadPage("icon_ajax.tpl", array('id' => $id, 'realm' => $this->realmId, 'url' => $this->template->page_url));
             }
         }
+    }
+
+    private function getCacheId()
+    {
+        return "arsenal_character_".$this->realmId."_".$this->charGuid."_".getLang();
     }
 
     private function getBackground()
@@ -236,28 +244,23 @@ class Arsenal extends MX_Controller
     }
 
     /**
-     * Show "character doesn't exist" error
+     * Show error page
      */
-    private function getError($get = false)
+    private function showErrorPage($errorMessage)
     {
-        $this->template->setTitle(lang("doesnt_exist", "character"));
+        $errorTitle = lang("error_title", "arsenal");
+
+        $this->template->setTitle($errorTitle);
 
         $data = array(
             "module" => "default",
-            "headline" => lang("doesnt_exist", "character"),
-            "content" => "<center style='margin:10px;font-weight:bold;'>".lang("doesnt_exist_long", "character")."</center>"
+            "headline" => $errorTitle,
+            "content" => $errorMessage,
         );
 
         $page = $this->template->loadPage("page.tpl", $data);
 
-        if($get)
-        {
-            return $page;
-        }
-        else
-        {
-            $this->template->view($page);
-        }
+        $this->template->view($page);
     }
 
     public function getCharacterUrl()
