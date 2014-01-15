@@ -33,7 +33,7 @@ $config['security_code'] = "cocktail";
 | Must be located in application/views/NAME and must contain a valid theme manifest
 |
 */
-$config['theme'] = "shattered";
+$config['theme'] = "relive";
 
 /*
 |--------------------------------------------------------------------------

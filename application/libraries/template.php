@@ -414,6 +414,7 @@ class Template
 			"description" => ($this->custom_description) ? $this->custom_description : $this->CI->config->item("description"),
 			"menu_top" => $this->getMenu("top"),
 			"menu_side" => $this->getMenu("side"),
+            "menu_explore" => $this->getMenu("explore"),
 			"path" => base_url().APPPATH,
 			"favicon" => $this->theme_data['favicon'],
 			"cdn" => $this->CI->config->item('cdn'),

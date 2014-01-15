@@ -1,6 +1,7 @@
 {foreach from=$articles item=article}
+
 	<article>
-		<a href="{$url}news/view/{$article.id}" class="top">{langColumn($article.headline)}</a>
+		<a {$article.link} class="top">{$article.headline}</a>
 		<section class="body">
 			{if $article.avatar}
 				<div class="avatar">
@@ -8,7 +9,7 @@
 				</div>
 			{/if}
 			
-			{langColumn($article.content)}
+			{$article.content}
 			
 			<div class="clear"></div>
 			
@@ -16,17 +17,11 @@
 
 				{if $article.comments != -1}
 					<a {$article.link} class="comments_button" {$article.comments_button_id}>
-						{lang("comments", "news")} ({$article.comments})
+						Comments ({$article.comments})
 					</a>
 				{/if}
-
-				{lang("posted_by", "news")} <a href="{$url}profile/{$article.author_id}" data-tip="{lang("view_profile", "news")}">{$article.author}</a> {lang("on", "news")} {$article.date}
-
-				{if $article.tags}
-					{foreach from=$article.tags item=tag}
-						<a href="{$url}/news/{$tag.name}">{$tag.name}</a>
-					{/foreach}
-				{/if}
+				
+				Posted by <a href="{$url}profile/{$article.author_id}" data-tip="View profile">{$article.author}</a> on {$article.date}
 			</div>
 
 			<div class="comments" {$article.comments_id}></div>

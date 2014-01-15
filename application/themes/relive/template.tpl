@@ -1,60 +1,102 @@
 {$head}
-	<body>
-		<!--[if lte IE 8]>
-			<style type="text/css">
-				body {
-					background-image:url(images/bg.jpg);
-					background-position:top center;
-				}
-			</style>
-		<![endif]-->
-		<section id="wrapper">
-			{$modals}
-			<header id="hand"></header>
-			<ul id="top_menu">
-				{foreach from=$menu_top item=menu_1}
-					<li><a {$menu_1.link}>{$menu_1.name}</a></li>
-				{/foreach}
-			</ul>
-			<div id="main">
-				<aside id="left">
-					<article>
-						<h1 class="top">Main menu</h1>
-						<ul id="left_menu">
-							{foreach from=$menu_side item=menu_2}
-								<li><a {$menu_2.link}><img src="{$image_path}bullet.png">{$menu_2.name}</a></li>
-							{/foreach}
-						</ul>
-					</article>
+<body id="{$controller}-{$method}" class="module-{$controller}">
+<section id="wrapper">
+    {$modals}
+    <header>
+        <a name="top"></a>
+        <div id="search-bar">
+            <form action="/search/" method="get" id="search-form">
+                <div>
+                    <div class="input-group">
+                        <input type="text" name="q" id="search-field" maxlength="200"
+                               tabindex="40" alt="Durchsucht das Arsenal und mehr..."
+                               value="Durchsucht das Arsenal und mehr..." />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></spanSuchen</button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <h1 id="logo">
+            <a href="/news">World of Warcraft Alive</a>
+        </h1>
+        <nav class="main-menu">
+            <ul id="top_menu">
+                {foreach from=$menu_top item=menu_1}
+                    <li><a {$menu_1.link}>{$menu_1.name}</a></li>
+                {/foreach}
+            </ul>
+        </nav>
+    </header>
+    <div id="main">
+        <aside id="left">
 
-					{foreach from=$sideboxes item=sidebox}
-						<article>
-							<h1 class="top">{$sidebox.name}</h1>
-							<section class="body">
-								{$sidebox.data}
-							</section>
-						</article>
-					{/foreach}
-				</aside>
+            <!-- REGISTER Banner -->
+            <a href="register" class="register"><p></p><span></span></a>
+            <!-- REGISTER Banner . End -->
 
-				<aside id="right">
-					<section id="slider_bg" {if !$show_slider}style="display:none;"{/if}>
-						<div id="slider">
-							{foreach from=$slider item=image}
-								<a href="{$image.link}"><img src="{$image.image}" title="{$image.text}"/></a>
-							{/foreach}
-						</div>
-					</section>
+            {foreach from=$sideboxes item=sidebox}
+                <article>
+                    <h1 class="top">{$sidebox.name}</h1>
+                    <section class="body">
+                        {$sidebox.data}
+                    </section>
+                </article>
+            {/foreach}
 
-					{$page}
-				</aside>
+            <!-- VOTE Banner -->
+            <a href="vote" class="vote-b"><p></p><span></span></a>
+            <!-- VOTE Banner . End -->
 
-				<div class="clear"></div>
-			</div>
-			<footer>
-				<a href="http://www.fusion-hub.com" id="logo" target="_blank"></a>
-				<p>&copy; Copyright {date("Y")} {$serverName}</p>
-			</footer>
-		</section>
-	</body>
+            <ul id="left_menu">
+                {foreach from=$menu_side item=menu_2}
+                    <li><a {$menu_2.link}><img src="{$image_path}bullet.png">{$menu_2.name}</a></li>
+                {/foreach}
+            </ul>
+
+        </aside>
+
+        <aside id="right">
+            <section id="slider_bg" {if !$show_slider}style="display:none;"{/if}>
+                <div id="slider">
+                    {foreach from=$slider item=image}
+                        <a href="{$image.link}"><img src="{$image.image}" title="{$image.text}"/></a>
+                    {/foreach}
+                </div>
+            </section>
+
+            {$page}
+        </aside>
+
+        <div class="clear"></div>
+    </div>
+    <footer>
+        <center>
+            <div id="logos">
+                <a href="http://www.wow-alive.de/" id="alivelogo" target="_blank"></a>
+                <a href="http://fusion-hub.com" id="cmslogo" target="_blank"></a>
+            </div>
+            <div id="siteinfo">
+                &copy; <span color="#695946">WoW Alive</span> <br/>
+            </div>
+        </center>
+    </footer>
+
+    <!-- Service Bar -->
+    <section id="service">
+        <ul class="service-bar">
+            <li class="service-cell service-home"><a href="/" tabindex="50" accesskey="1" title="ALive"><span class="glyphicon glyphicon-home"></span></a></li>
+            {if $isOnline}
+                <li class="service-cell service-welcome">
+                    Willkommen, {if $is_staff}<span class="employee"></span>{/if}{$user_name}
+                </li>
+            {/if}
+            {foreach from=$menu_explore item=menu_item}
+                <li class="service-cell {$menu_item.css_class}"><a {$menu_item.link} class="service-link">{$menu_item.name}</a></li>
+            {/foreach}
+        </ul>
+    </section>
+</section>
+</body>
 </html>
