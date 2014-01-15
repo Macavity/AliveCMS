@@ -18,8 +18,8 @@
                 </div>
             </form>
         </div>
-        <h1 id="logo">
-            <a href="/news">World of Warcraft Alive</a>
+        <h1 class="logo">
+            <a href="/news">Alive</a>
         </h1>
         <nav class="main-menu">
             <ul id="top_menu">
@@ -33,7 +33,10 @@
         <aside id="left">
 
             <!-- REGISTER Banner -->
-            <a href="register" class="register"><p></p><span></span></a>
+            <a href="register" class="sidebar-banner">
+                <h2>Account erstellen</h2>
+                <p>Werde Teil unserer Community</p>
+            </a>
             <!-- REGISTER Banner . End -->
 
             {foreach from=$sideboxes item=sidebox}
@@ -74,7 +77,7 @@
     <footer>
         <center>
             <div id="logos">
-                <a href="http://www.wow-alive.de/" id="alivelogo" target="_blank"></a>
+                <!--<a href="http://www.wow-alive.de/" id="alivelogo" target="_blank"></a>-->
                 <a href="http://fusion-hub.com" id="cmslogo" target="_blank"></a>
             </div>
             <div id="siteinfo">

@@ -69,12 +69,7 @@ module.exports = function(grunt) {
 
     // Used during development
     grunt.registerTask('default', [
-        "jshint",
-        'sass:admin',
-        'sass:dev',
-        'shell:handlebars',
-        'concat:libs',
-        'concat:templates'
+        'sass:dev'
     ]);
 
     grunt.event.on('watch', function(action, filepath) {
