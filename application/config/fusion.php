@@ -50,14 +50,14 @@ $config['deployment_stage'] = "development";
 | Website title
 |--------------------------------------------------------------------------
 */
-$config['title'] = "WoW Alive";
+$config['title'] = "Alive";
 
 /*
 |--------------------------------------------------------------------------
 | Server name
 |--------------------------------------------------------------------------
 */
-$config['server_name'] = "WoW Alive";
+$config['server_name'] = "Alive";
 
 /*
 |--------------------------------------------------------------------------
@@ -159,7 +159,7 @@ $config['slider_style'] = false;
 */
 $config['vote_reminder'] = 0;
 $config['vote_reminder_image'] = "/images/misc/banner.jpg";
-$config['reminder_interval'] = 60 * 60 * 12;
+$config['reminder_interval'] = 108000;
 
 /*
 |--------------------------------------------------------------------------
@@ -183,7 +183,7 @@ $config['description'] = "WoW Alive der World of Warcraft Privatserver mit WotLK
 | the website won't load since it relies on those libraries.
 |
 */
-$config['cdn'] = false;
+$config['cdn'] = 0;
 
 /*
 |--------------------------------------------------------------------------
