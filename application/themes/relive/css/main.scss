@@ -23,6 +23,23 @@
 
 @import "layout";
 
+/**
+ * Module: Game
+ */
+@import "../../../modules/game/css/game";
+@import "game";
+
+/**
+ * Module: Server
+ */
+@import "../../../modules/server/css/server";
+@import "server";
+
+/**
+ * Module: Bugtracker
+ */
+@import "../../../modules/bugtracker/css/bugtracker";
+
 /*
  * Top Navigation Menu
  */

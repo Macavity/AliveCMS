@@ -1560,6 +1560,498 @@ a.vote-b:hover p {
   width: 100% !important;
 }
 
+/* Icons */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003245}}
+.icon-heroic-skull {
+  background: url("/application/images/icons/18/skull-crossbones-icon.png") no-repeat scroll 50% 50% rgba(0, 0, 0, 0);
+  background-size: 70%;
+  display: inline-block;
+  height: 12px;
+  margin-left: 5px;
+  width: 10px;
+}
+
+/* Zone Thumbnails */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003255}}
+.zone-thumbnail {
+  float: left;
+  display: block;
+  overflow: hidden;
+  width: 38px;
+  height: 38px;
+  margin: 1px 11px 1px 1px;
+  background-color: #3b1c11;
+  background-image: url("/application/images/sprites/zones-sprite.png");
+  background-repeat: no-repeat;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  box-shadow: #0d0703 0 0 5px;
+  -moz-box-shadow: #0d0703 0 0 5px;
+  -webkit-box-shadow: #0d0703 0 0 5px;
+  -o-box-shadow: #0d0703 0 0 5px;
+  -ms-box-shadow: #0d0703 0 0 5px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003269}}
+a:hover .zone-thumbnail {
+  border: 1px solid #cd9000;
+  margin: 0 10px 0 0;
+}
+
+/* thumbnails */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003275}}
+.thumb-ahnkahet-the-old-kingdom {
+  background-position: -960px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003276}}
+.thumb-ahnqiraj-temple {
+  background-position: -2040px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003277}}
+.thumb-auchenai-crypts {
+  background-position: -760px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003278}}
+.thumb-azjolnerub {
+  background-position: -1000px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003279}}
+.thumb-baradin-hold {
+  background-position: -2800px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003280}}
+.thumb-blackfathom-deeps {
+  background-position: 0 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003281}}
+.thumb-blackrock-caverns {
+  background-position: -1600px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003282}}
+.thumb-blackrock-depths {
+  background-position: -40px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003283}}
+.thumb-blackrock-spire {
+  background-position: -80px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003284}}
+.thumb-black-temple {
+  background-position: -2360px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003285}}
+.thumb-blackwing-descent {
+  background-position: -2880px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003286}}
+.thumb-blackwing-lair {
+  background-position: -1960px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003287}}
+.thumb-deadmines {
+  background-position: -120px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003288}}
+.thumb-dire-maul {
+  background-position: -160px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003289}}
+.thumb-draktharon-keep {
+  background-position: -1080px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003290}}
+.thumb-firelands {
+  background-position: -2960px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003291}}
+.thumb-gnomeregan {
+  background-position: -200px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003292}}
+.thumb-grim-batol {
+  background-position: -1640px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003293}}
+.thumb-gruuls-lair {
+  background-position: -2120px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003294}}
+.thumb-gundrak {
+  background-position: -1160px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003295}}
+.thumb-halls-of-lightning {
+  background-position: -1200px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003296}}
+.thumb-halls-of-origination {
+  background-position: -1680px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003297}}
+.thumb-halls-of-reflection {
+  background-position: -1240px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003298}}
+.thumb-halls-of-stone {
+  background-position: -1280px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003299}}
+.thumb-hellfire-ramparts {
+  background-position: -840px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003300}}
+.thumb-icecrown-citadel {
+  background-position: -2720px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003301}}
+.thumb-karazhan {
+  background-position: -2080px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003302}}
+.thumb-lost-city-of-the-tolvir {
+  background-position: -1720px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003303}}
+.thumb-magisters-terrace {
+  background-position: -880px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003304}}
+.thumb-magtheridons-lair {
+  background-position: -2160px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003305}}
+.thumb-manatombs {
+  background-position: -760px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003306}}
+.thumb-maraudon {
+  background-position: -240px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003307}}
+.thumb-molten-core {
+  background-position: -1920px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003308}}
+.thumb-naxxramas {
+  background-position: -2440px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003309}}
+.thumb-onyxias-lair {
+  background-position: -2680px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003310}}
+.thumb-opening-of-the-dark-portal {
+  background-position: -800px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003311}}
+.thumb-pit-of-saron {
+  background-position: -1400px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003312}}
+.thumb-ragefire-chasm {
+  background-position: -280px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003313}}
+.thumb-razorfen-downs {
+  background-position: -320px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003314}}
+.thumb-razorfen-kraul {
+  background-position: -360px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003315}}
+.thumb-ruins-of-ahnqiraj {
+  background-position: -2000px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003316}}
+.thumb-scarlet-monastery {
+  background-position: -400px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003317}}
+.thumb-scholomance {
+  background-position: -440px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003318}}
+.thumb-serpentshrine-cavern {
+  background-position: -2240px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003319}}
+.thumb-sethekk-halls {
+  background-position: -760px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003320}}
+.thumb-shadowfang-keep {
+  background-position: -480px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003321}}
+.thumb-shadow-labyrinth {
+  background-position: -760px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003322}}
+.thumb-stormwind-stockade {
+  background-position: -520px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003323}}
+.thumb-stratholme {
+  background-position: -560px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003324}}
+.thumb-sunken-temple {
+  background-position: -600px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003325}}
+.thumb-tempest-keep {
+  background-position: -2280px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003326}}
+.thumb-the-arcatraz {
+  background-position: -2280px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003327}}
+.thumb-the-bastion-of-twilight {
+  background-position: -2840px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003328}}
+.thumb-the-battle-for-mount-hyjal {
+  background-position: -2320px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003329}}
+.thumb-the-blood-furnace {
+  background-position: -840px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003330}}
+.thumb-the-botanica {
+  background-position: -2280px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003331}}
+.thumb-the-culling-of-stratholme {
+  background-position: -1040px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003332}}
+.thumb-the-escape-from-durnholde {
+  background-position: -800px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003333}}
+.thumb-the-eye-of-eternity {
+  background-position: -2560px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003334}}
+.thumb-the-forge-of-souls {
+  background-position: -1120px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003335}}
+.thumb-the-mechanar {
+  background-position: -2280px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003336}}
+.thumb-the-nexus {
+  background-position: -1320px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003337}}
+.thumb-the-obsidian-sanctum {
+  background-position: -2480px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003338}}
+.thumb-the-oculus {
+  background-position: -1360px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003339}}
+.thumb-the-ruby-sanctum {
+  background-position: -2760px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003340}}
+.thumb-the-shattered-halls {
+  background-position: -840px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003341}}
+.thumb-the-slave-pens {
+  background-position: -2240px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003342}}
+.thumb-the-steamvault {
+  background-position: -2240px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003343}}
+.thumb-the-stonecore {
+  background-position: -1760px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003344}}
+.thumb-the-sunwell {
+  background-position: -2400px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003345}}
+.thumb-the-underbog {
+  background-position: -2240px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003346}}
+.thumb-the-vortex-pinnacle {
+  background-position: -1840px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003347}}
+.thumb-throne-of-the-four-winds {
+  background-position: -2920px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003348}}
+.thumb-throne-of-the-tides {
+  background-position: -1800px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003349}}
+.thumb-trial-of-the-champion {
+  background-position: -1440px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003350}}
+.thumb-trial-of-the-crusader {
+  background-position: -2640px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003351}}
+.thumb-uldaman {
+  background-position: -620px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003352}}
+.thumb-ulduar {
+  background-position: -2600px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003353}}
+.thumb-utgarde-keep {
+  background-position: -1480px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003354}}
+.thumb-utgarde-pinnacle {
+  background-position: -1520px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003355}}
+.thumb-vault-of-archavon {
+  background-position: -2520px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003356}}
+.thumb-violet-hold {
+  background-position: -1560px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003357}}
+.thumb-wailing-caverns {
+  background-position: -680px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003358}}
+.thumb-zulaman {
+  background-position: -920px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003359}}
+.thumb-zulfarrak {
+  background-position: -720px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003360}}
+.thumb-zulgurub {
+  background-position: -1880px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003361}}
+.thumb-well-of-eternity {
+  background-position: -3040px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003362}}
+.thumb-end-time {
+  background-position: -3120px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003363}}
+.thumb-dragon-soul {
+  background-position: -3000px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003364}}
+.thumb-hour-of-twilight {
+  background-position: -3080px 0;
+}
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\000035}}
 body {
   font-family: MuseoSans, Arial, Helvetica, Sans-seif;
@@ -1573,13 +2065,15 @@ body {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\0000316}}
 a {
   color: #d9bc6b;
+  text-decoration: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\0000318}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\0000320}}
 a:hover {
   color: #ffc934;
+  text-decoration: none;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\0000323}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\0000326}}
 #wrapper {
   width: 1020px;
   margin: 0px auto;
@@ -1587,24 +2081,24 @@ a:hover {
   position: relative;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\0000330}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\0000333}}
 #main {
   min-height: 800px;
   background: url(../images/bodybg.gif);
 }
 
 /* =========== Header =========== */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\0000339}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\0000342}}
 header {
   padding-top: 30px;
   clear: both;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\0000343}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\0000346}}
 header #logo {
   height: 115px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\0000351}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\0000354}}
 #search-bar {
   position: absolute;
   right: 5px;
@@ -1612,19 +2106,19 @@ header #logo {
   z-index: 5;
   /* Correct position of search button */
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\0000357}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\0000360}}
 #search-bar form {
   float: right;
   width: 354px;
   height: 30px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\0000362}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\0000365}}
 #search-bar .search-field {
   color: #707070;
   border-radius: 5px;
   box-shadow: 0 0 10px #4C7D82;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\0000367}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\0000370}}
 #search-bar input[type="text"] {
   width: 304px;
   padding: 8px 40px 8px 8px;
@@ -1634,14 +2128,14 @@ header #logo {
   left: 0;
   border: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\0000381}}
 #search-bar .btn-default {
   left: 3px;
   top: 5px;
   border: 0px solid transparent;
   background: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\0000385}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\0000388}}
 #search-bar .search-button {
   border: none;
   outline: none;
@@ -1655,18 +2149,19 @@ header #logo {
 }
 
 /* =========== Top menu =========== */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\0000399}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003102}}
 #wrapper {
+  /* =========== Breadcrumbs ============ */
   /* =========== Top Bar ============ */
   /* =========== Left =========== */
   /* =========== Right =========== */
   /* =========== Footer =========== */
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003101}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003104}}
 #wrapper nav.main-menu {
   margin-top: 40px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003105}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003108}}
 #wrapper nav.main-menu ul {
   height: 76px;
   background-image: url(../images/topmenu.jpg);
@@ -1674,7 +2169,7 @@ header #logo {
   box-shadow: 0 0 9px rgba(0, 0, 0, 0.6);
   border-radius: 4px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003112}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003115}}
 #wrapper nav.main-menu ul li {
   display: inline-block;
   margin: 1px 0 0 -8px;
@@ -1683,12 +2178,12 @@ header #logo {
   position: relative;
   /* We don't want half borders on the first and last ones */
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003119}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003122}}
 #wrapper nav.main-menu ul li:first-child {
   background: url(../images/menu-seperator.png) no-repeat right, url(../images/menu-seperator.png) no-repeat left;
   padding: 0 5px 0 5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003124}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003127}}
 #wrapper nav.main-menu ul li a {
   display: block;
   font-family: Georgia, "Times New Roman", Times, serif;
@@ -1699,31 +2194,81 @@ header #logo {
   text-shadow: 0 1px 1px rgba(89, 33, 4, 0.7);
   text-transform: uppercase;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003134}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003137}}
 #wrapper nav.main-menu ul li a:hover {
   color: #ffe44d;
   background-color: rgba(0, 0, 0, 0.1);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003140}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003143}}
 #wrapper nav.main-menu ul li:first-child a {
   border-left: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003143}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003146}}
 #wrapper nav.main-menu ul li:last-child a {
   border-right: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003154}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003158}}
+#wrapper .content-trail {
+  height: 30px;
+  padding: 10px 0 0 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003162}}
+#wrapper .content-trail .ui-breadcrumb {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  float: left;
+  font-size: 12px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003168}}
+#wrapper .content-trail .ui-breadcrumb li {
+  padding-right: 0px;
+  float: left;
+  margin-right: 5px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003173}}
+#wrapper .content-trail .ui-breadcrumb li a {
+  margin-left: 10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003176}}
+#wrapper .content-trail .ui-breadcrumb li a:before {
+  font-family: 'Glyphicons Halflings';
+  content: "\e080";
+  font-size: 8px;
+  font-style: normal;
+  font-weight: normal;
+  position: relative;
+  margin-right: 10px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003192}}
+#wrapper .content-trail .ui-breadcrumb li.active {
+  background: none;
+  color: white;
+  font-weight: bold;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003197}}
+#wrapper .content-trail .ui-breadcrumb li.active a {
+  color: white;
+  font-weight: bold;
+  border-bottom: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003208}}
 #wrapper .top-body-bar {
   width: 100%;
   height: 34px;
   background: url(../images/top-bar.png) no-repeat;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003160}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003214}}
 #wrapper #left {
   width: 285px;
   float: left;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003163}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003218}}
 #wrapper #left article {
   width: 277px;
   background: url(../images/sidebar-box-bg-top.png) no-repeat top, url(../images/body_light_2.gif);
@@ -1731,12 +2276,12 @@ header #logo {
   border-radius: 3px;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.01), 0 0 3px rgba(0, 0, 0, 0.2);
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003170}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003225}}
 #wrapper #left article:last-child {
   border-bottom: 1px solid #080d11;
   border-bottom-right-radius: 3px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003174}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003229}}
 #wrapper #left article .top {
   text-align: left;
   color: #c8951b;
@@ -1747,11 +2292,11 @@ header #logo {
   padding: 10px 0 16px 18px;
   text-transform: uppercase;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003184}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003239}}
 #wrapper #left article .body {
   padding: 10px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003190}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003245}}
 #wrapper #left #left_menu li a {
   display: block;
   padding: 10px;
@@ -1759,16 +2304,16 @@ header #logo {
   color: #605240;
   padding-left: 20px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003198}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003253}}
 #wrapper #left #left_menu a img {
   margin-right: 15px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003201}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003256}}
 #wrapper #left #left_menu li a:hover {
   color: #ee9f2f;
   padding-left: 40px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003206}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003261}}
 #wrapper #left .side_divider {
   margin-left: auto;
   margin-right: auto;
@@ -1777,7 +2322,7 @@ header #logo {
   width: 258px;
   margin-top: 15px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003219}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003274}}
 #wrapper #right {
   width: 734px;
   float: right;
@@ -1785,17 +2330,17 @@ header #logo {
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
   padding: 4px 0 0 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003226}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003281}}
 #wrapper #right article {
   background: url(../images/news-bg.png) no-repeat top;
   padding: 0;
   margin: 0 0 2px 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003231}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003286}}
 #wrapper #right article:last-child {
   box-shadow: none;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003234}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003289}}
 #wrapper #right article .top {
   text-align: left;
   color: #c8951b;
@@ -1805,67 +2350,67 @@ header #logo {
   background: url(../images/news-head-line.png) no-repeat bottom;
   padding: 13px 0 19px 18px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003243}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003298}}
 #wrapper #right article .body {
   padding: 15px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003246}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003301}}
 #wrapper #right article .divider {
   background-image: url(../images/divider.png);
   background-position: center;
   height: 32px;
   margin-top: 15px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003252}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003307}}
 #wrapper #right article .news_bottom {
   margin: 10px 0 0 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003254}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003309}}
 #wrapper #right article .news_bottom a {
   color: #a07332;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003256}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003311}}
 #wrapper #right article .news_bottom a:hover {
   color: #fff;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003261}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003316}}
 #wrapper #right article .comments_button {
   float: right;
   display: block;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003268}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003323}}
 #wrapper .avatar {
   float: left;
   margin-right: 15px;
   margin-top: 3px;
   margin-bottom: 5px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003276}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003331}}
 #wrapper footer {
   background-image: url(../images/lower_bg.jpg);
   height: 141px;
   color: #44392a;
   font-size: 13px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003281}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003336}}
 #wrapper footer #logos {
   position: relative;
   display: inline-block;
   margin: 50px 0 0 0;
   left: 100px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003287}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003342}}
 #wrapper footer #logos a {
   display: inline-block;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003290}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003345}}
 #wrapper footer #logos a#cmslogo {
   position: relative;
   width: 120px;
   height: 31px;
   background: url(../images/fusioncms.png) no-repeat top;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003295}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003350}}
 #wrapper footer #logos a#alivelogo {
   position: relative;
   width: 218px;
@@ -1873,7 +2418,7 @@ header #logo {
   background: url(../images/alive-logo.png) no-repeat top;
   top: 1px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003305}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\00003360}}
 #wrapper footer #siteinfo {
   position: relative;
   display: inline-block;
@@ -1881,6 +2426,1630 @@ header #logo {
   line-height: 90%;
   margin: 50px 0 0 50px;
   left: 92px;
+}
+
+/**
+ * Module: Game
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/game\/css\/_game\.scss}line{font-family:\000036}}
+.module-game .title {
+  padding: 35px 25px 50px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/game\/css\/_game\.scss}line{font-family:\000039}}
+.module-game .title h2 {
+  color: #efe3d2;
+  font: 52px / 100% "Palatino Linotype", Georgia, Times, sans-serif;
+  letter-spacing: -1.5px;
+  text-shadow: #241209 0 0 5px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/game\/css\/_game\.scss}line{font-family:\0000316}}
+.module-game .title .desc {
+  width: 50%;
+  color: #a4704e;
+  margin-top: 25px;
+  line-height: 2em;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/game\/css\/_game\.scss}line{font-family:\0000325}}
+.module-game .navigation {
+  width: 230px;
+  float: left;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/game\/css\/_game\.scss}line{font-family:\0000330}}
+.module-game .navigation li {
+  height: 45px;
+  border-bottom: 1px solid #140200;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/game\/css\/_game\.scss}line{font-family:\0000334}}
+.module-game .navigation li a {
+  display: block;
+  height: 45px;
+  line-height: 45px;
+  padding-left: 10px;
+  background: #24130b;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #24130b 0%, #20120a 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #24130b), color-stop(100%, #20120a));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #24130b 0%, #20120a 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #24130b 0%, #20120a 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #24130b 0%, #20120a 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #24130b 0%, #20120a 100%);
+  /* W3C */
+  border-top: 1px solid #321a0e;
+  border-bottom: 1px solid #0f0200;
+  border-right: 1px solid #2b180d;
+  border-left: 3px solid white;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/game\/css\/_game\.scss}line{font-family:\0000347}}
+.module-game .navigation li a:hover {
+  background: none;
+  background-color: #0f0b07;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/game\/css\/_game\.scss}line{font-family:\0000351}}
+.module-game .navigation li a.nav-active {
+  background-position: 0 -90px;
+  font-weight: bold;
+  color: white;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/game\/css\/_game\.scss}line{font-family:\0000356}}
+.module-game .navigation li a.expansion-0 {
+  border-left-color: #766328;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/game\/css\/_game\.scss}line{font-family:\0000359}}
+.module-game .navigation li a.expansion-1 {
+  border-left-color: #4ea12d;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/game\/css\/_game\.scss}line{font-family:\0000362}}
+.module-game .navigation li a.expansion-2 {
+  border-left-color: #20aeff;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/game\/css\/_game\.scss}line{font-family:\0000365}}
+.module-game .navigation li a.expansion-3 {
+  border-left-color: #ee5900;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/game\/css\/_game\.scss}line{font-family:\0000373}}
+.module-game .groups {
+  float: right;
+  width: 680px;
+  padding: 0;
+  margin: 0 0 2px 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/game\/css\/_game\.scss}line{font-family:\0000381}}
+.module-game .groups .group {
+  opacity: .95;
+  padding: 1px;
+  background: #211309;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -o-border-radius: 4px;
+  -ms-border-radius: 4px;
+  box-shadow: #0d0703 0 0 10px;
+  -moz-box-shadow: #0d0703 0 0 10px;
+  -webkit-box-shadow: #0d0703 0 0 10px;
+  -o-box-shadow: #0d0703 0 0 10px;
+  -ms-box-shadow: #0d0703 0 0 10px;
+  margin-bottom: 100px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/game\/css\/_game\.scss}line{font-family:\0000391}}
+.module-game .groups .group .group-column {
+  float: left;
+  width: 50%;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/game\/css\/_game\.scss}line{font-family:\0000395}}
+.module-game .groups .group .group-column h3 {
+  padding: 15px 25px;
+  color: #f9e3d5;
+  text-transform: uppercase;
+  font-weight: normal;
+  font-size: 14px;
+  border-bottom: 1px solid #0a0603;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/game\/css\/_game\.scss}line{font-family:\00003103}}
+.module-game .groups .group .group-column ul {
+  padding: 10px 25px;
+  border-top: 1px solid #432615;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/game\/css\/_game\.scss}line{font-family:\00003107}}
+.module-game .groups .group .group-column ul li {
+  margin: 10px 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/game\/css\/_game\.scss}line{font-family:\00003110}}
+.module-game .groups .group .group-column ul a {
+  display: block;
+  line-height: 20px;
+  height: 40px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/game\/css\/_game\.scss}line{font-family:\00003117}}
+.module-game .groups .group .group-column .separator {
+  color: #98542D;
+  font-size: 16px;
+  padding-top: 8px;
+  display: block;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/game\/css\/_game\.scss}line{font-family:\00003124}}
+.module-game .groups .group .group-column li:first-child > .separator {
+  padding-top: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/game\/css\/_game\.scss}line{font-family:\00003130}}
+.module-game .groups .group .name {
+  display: block;
+  line-height: 24px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/game\/css\/_game\.scss}line{font-family:\00003135}}
+.module-game .groups .group .level-range {
+  color: #71401F;
+  float: right;
+  font-size: 10px;
+  font-style: normal;
+  margin-top: 2px;
+  white-space: nowrap;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/game\/css\/_game\.scss}line{font-family:\00003144}}
+.module-game .groups .group .zone-thumbnail {
+  background-color: #3B1C11;
+  background-repeat: no-repeat;
+  display: block;
+  float: left;
+  margin: 1px 11px 1px 1px;
+  overflow: hidden;
+  box-shadow: 0 0 5px #0d0703;
+  -moz-box-shadow: 0 0 5px #0d0703;
+  -webkit-box-shadow: 0 0 5px #0d0703;
+  -o-box-shadow: 0 0 5px #0d0703;
+  -ms-box-shadow: 0 0 5px #0d0703;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_game\.scss}line{font-family:\000033}}
+.module-game aside {
+  background-color: #1a0f08;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_game\.scss}line{font-family:\000035}}
+.module-game aside:after, .module-game aside:before {
+  clear: both;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_game\.scss}line{font-family:\0000310}}
+.module-game .wrapper {
+  display: inline-block;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_game\.scss}line{font-family:\0000313}}
+.module-game .wrapper:after {
+  clear: both;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_game\.scss}line{font-family:\0000320}}
+.module-game .groups {
+  width: 730px;
+  background: url(../images/news-bg.png) no-repeat top;
+  padding: 0;
+  margin: 0 20px 2px 30px;
+  box-shadow: 0 0 30px black;
+  -moz-box-shadow: 0 0 30px black;
+  -webkit-box-shadow: 0 0 30px black;
+  -o-box-shadow: 0 0 30px black;
+  -ms-box-shadow: 0 0 30px black;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_game\.scss}line{font-family:\0000330}}
+.module-game .groups .group {
+  background: #211309 url(../images/news-bg.png) 0 0 no-repeat;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_game\.scss}line{font-family:\0000334}}
+.module-game .groups .group .group-column h3 {
+  margin-bottom: 0px;
+}
+
+/**
+ * Module: Server
+ */
+/*
+ * Backgrounds
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\000037}}
+.module-server {
+  /*.sidebar-module .content-block .content-1:hover {background-position:3px -312px;}*/
+  /* average item level */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\000038}}
+.module-server .sidebar-module .content-block {
+  width: 100%;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\0000310}}
+.module-server .sidebar-module .content-block a, .module-server .sidebar-module .content-block .block {
+  border-bottom: 1px solid #2e2218;
+  padding: 11px 0 11px 90px;
+  display: block;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\0000315}}
+.module-server .sidebar-module .content-block a {
+  display: block;
+  background: url("http://forum.wow-alive.de/static-wow/images/game/landing/sub-contents-sprite.gif") 0 0 no-repeat;
+  padding-left: 90px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\0000316}}
+.module-server .sidebar-module .content-block a:hover {
+  background-color: #2b1507;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\0000323}}
+.module-server .sidebar-module .content-block .block {
+  display: block;
+  background: url("http://forum.wow-alive.de/static-wow/images/game/landing/sub-contents-sprite.gif") 0 0 no-repeat;
+  padding-left: 90px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\0000327}}
+.module-server .sidebar-module .content-block .block a {
+  padding: 0;
+  display: inline;
+  background: none;
+  border: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\0000334}}
+.module-server .sidebar-module .content-block .content-title {
+  font-size: 13px;
+  line-height: 22px;
+  margin-left: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\0000339}}
+.module-server .sidebar-module .content-block .content-desc {
+  font-size: 11px;
+  line-height: 14px;
+  color: #a4704e;
+  display: block;
+  padding-bottom: 5px;
+  margin-left: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\0000346}}
+.module-server .sidebar-module .content-block .content-desc em {
+  font-size: 11px;
+  color: #80461f;
+  display: block;
+  margin-bottom: 2px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\0000353}}
+.module-server .sidebar-module .content-block a:hover .content-desc {
+  color: #fff;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\0000356}}
+.module-server .sidebar-module .content-block ul li a.sub-list {
+  background: url("http://forum.wow-alive.de/static-wow/images/icons/bullet2.gif") 0 4px no-repeat;
+  padding-left: 15px;
+  line-height: 15px;
+  font-size: 11px;
+  margin-top: 1px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\0000363}}
+.module-server .sidebar-module .content-block .content-1 {
+  background-position: 3px -3px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\0000366}}
+.module-server .sidebar-module .content-block .content-2 {
+  background-position: 4px -623px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\0000369}}
+.module-server .sidebar-module .content-block .content-3 {
+  background-position: 3px -840px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\0000376}}
+.module-server .achievements a {
+  font-size: 16px;
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-weight: bold;
+  color: white;
+  padding-left: 11px;
+  background: url("../images/icons/achievements.gif") left 7px no-repeat;
+  line-height: 23px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\0000388}}
+.module-server .best {
+  font-size: 16px;
+  font-family: 'Arial Black', Verdana, Arial, sans-serif;
+  font-weight: bold;
+  line-height: 32px;
+  margin-right: 5px;
+  letter-spacing: -0.025em;
+  border-bottom: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003103}}
+.module-server_changelog #content .bg-body,
+.module-server_changelog #content .body-wrapper,
+.module-server_changelog #content .contents-wrapper {
+  background: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003108}}
+.module-server_changelog #content .services-content .sub-title {
+  margin: 10px 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003110}}
+.module-server_changelog #content .services-content .sub-title span {
+  color: #f0e29a;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  font-size: 14px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003117}}
+.module-server_changelog #content .services-content p {
+  padding: 0px 20px 0px 20px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003123}}
+.module-server_changelog #content .related .tab-content {
+  padding: 5px 20px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003134}}
+#server-index #content .content-top {
+  background: url("../images/server/bg-top.jpg") 0 0 no-repeat;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003137}}
+#server-index #content .content-bot {
+  background: url("../images/server/bg-bottom.jpg") 0 100% no-repeat;
+  min-height: 900px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003142}}
+#server-index #content .left-col {
+  width: 647px;
+  margin-left: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003146}}
+#server-index #content .left-col #blog {
+  background: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003151}}
+#server-index #content .right-col {
+  /*width: 345px;*/
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003156}}
+#server-index .section-title {
+  height: 253px;
+  padding-left: 28px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003159}}
+#server-index .section-title span {
+  color: #EFE3D2;
+  font-size: 26px;
+  line-height: 32px;
+  display: block;
+  padding-top: 40px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003166}}
+#server-index .section-title p {
+  color: #D3AC6B;
+  font-size: 12px;
+  line-height: 18px;
+  margin: 10px 0 0 0;
+  width: 330px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003175}}
+#server-index .main-game-contents {
+  width: 647px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003179}}
+#server-index .main-content-banner {
+  width: 277px;
+  height: 170px;
+  display: block;
+  border: 1px solid #372511;
+  margin-bottom: 28px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  box-shadow: 0 0 6px black;
+  -moz-box-shadow: 0 0 6px black;
+  -webkit-box-shadow: 0 0 6px black;
+  -o-box-shadow: 0 0 6px black;
+  -ms-box-shadow: 0 0 6px black;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003189}}
+#server-index .main-content-banner.left-bnr {
+  float: left;
+  /*margin-left: 27px;*/
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003193}}
+#server-index .main-content-banner.right-bnr {
+  float: left;
+  margin-left: 20px;
+  /*margin-right: 27px;*/
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003199}}
+#server-index .main-content-banner .banner-title {
+  display: block;
+  font-size: 18px;
+  margin: 85px 0 0 14px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003204}}
+#server-index .main-content-banner .banner-desc {
+  display: block;
+  color: #b79855;
+  font-size: 11px;
+  line-height: 12px;
+  width: 177px;
+  margin: 3px 0 0 14px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003212}}
+#server-index .main-content-banner:hover {
+  border: 1px solid #cd9000;
+  background-position: 0 -170px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003218}}
+#server-index .main-content-banner:hover .banner-title,
+#server-index .main-content-banner:hover .banner-desc,
+#server-index .main-content-banner:hover .view-all {
+  color: #fff;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003223}}
+#server-index .main-content-banner .panel {
+  width: 277px;
+  height: 64px;
+  background: url("http://forum.wow-alive.de/static-wow/images/layout/bg-panel-layout.png") repeat scroll 0% 0% transparent;
+  position: absolute;
+  bottom: 0px;
+  -moz-border-radius: 0pt 0pt 3px 3px;
+  padding: 8px 0pt 14px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003232}}
+#server-index .main-content-banner .panel .banner-title {
+  margin-top: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003236}}
+#server-index .main-content-banner .panel .wrapper {
+  margin: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003240}}
+#server-index .main-content-banner .panel .view-all {
+  margin-left: 14px;
+  display: block;
+  float: left;
+  background: url("http://forum.wow-alive.de/static-wow/images/community/community-index-sprite.png") 100% -866px no-repeat;
+  padding-right: 13px;
+  max-width: 180px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003251}}
+#server-index a.main-content-banner {
+  position: relative;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003255}}
+#server-index .sub-game-contents {
+  width: 307px;
+  margin: 0 0 44px 21px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003260}}
+#server-index .game-services {
+  margin-top: 40px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003268}}
+.sidebar-module {
+  width: 307px;
+  margin: 0 0 32px 21px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003272}}
+.sidebar-module .sidebar-title {
+  border-bottom: 2px solid #552B12;
+  padding-bottom: 6px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003275}}
+.sidebar-module .sidebar-title span {
+  color: #f0e29a;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  font-size: 14px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003282}}
+.sidebar-module ul {
+  margin-top: 10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003284}}
+.sidebar-module ul li {
+  padding: 1px 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003287}}
+.sidebar-module ul a {
+  line-height: 24px;
+  display: block;
+  width: 100%;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003291}}
+.sidebar-module ul a:hover {
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  background-color: #3f1806;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003297}}
+.sidebar-module ul a span {
+  margin-left: 46px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003328}}
+.sidebar-module .account-security,
+.sidebar-module .account-recovery,
+.sidebar-module .account-authenticator,
+.sidebar-module .account-authenticator-faq,
+.sidebar-module .account-free-matrix-card,
+.sidebar-module .account-mobile-security-token,
+.sidebar-module .account-customer-service-window,
+.sidebar-module .get-wow-buy,
+.sidebar-module .get-wow-gift,
+.sidebar-module .get-wow-free-trial,
+.sidebar-module .get-wow-online-digital,
+.sidebar-module .get-wow-language-pack,
+.sidebar-module .character-transfer,
+.sidebar-module .character-name-change,
+.sidebar-module .character-race-change,
+.sidebar-module .character-faction-change,
+.sidebar-module .character-customization,
+.sidebar-module .character-free-move,
+.sidebar-module .character-ptr,
+.sidebar-module .etc-raf,
+.sidebar-module .etc-wow-magazine,
+.sidebar-module .etc-sor,
+.sidebar-module .etc-wow-remote,
+.sidebar-module .etc-mobile-armory,
+.sidebar-module .etc-rewards-visa,
+.sidebar-module .etc-anti-gold {
+  background: url("../images/icons/services-sprite.gif") no-repeat;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003333}}
+.sidebar-module .account-security {
+  background-position: 7px 2px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003336}}
+.sidebar-module .account-recovery {
+  background-position: 7px -49px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003339}}
+.sidebar-module .account-authenticator {
+  background-position: 7px -931px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003342}}
+.sidebar-module .account-authenticator-faq {
+  background-position: 7px -983px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003345}}
+.sidebar-module .account-free-matrix-card {
+  background-position: 7px -196px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003348}}
+.sidebar-module .account-mobile-security-token {
+  background-position: 7px -1222px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003351}}
+.sidebar-module .account-customer-service-window {
+  background-position: 7px -582px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003354}}
+.sidebar-module .get-wow-buy {
+  background-position: 7px -1039px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003357}}
+.sidebar-module .get-wow-gift {
+  background-position: 7px -1099px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003360}}
+.sidebar-module .get-wow-free-trial {
+  background-position: 7px -243px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003363}}
+.sidebar-module .get-wow-online-digital {
+  background-position: 7px -293px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003366}}
+.sidebar-module .get-wow-language-pack {
+  background-position: 7px -341px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003369}}
+.sidebar-module .character-transfer {
+  background-position: 7px -385px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003372}}
+.sidebar-module .character-name-change {
+  background-position: 7px -430px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003375}}
+.sidebar-module .character-race-change {
+  background-position: 7px -480px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003378}}
+.sidebar-module .character-faction-change {
+  background-position: 7px -532px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003381}}
+.sidebar-module .character-customization {
+  background-position: 7px -583px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003384}}
+.sidebar-module .character-free-move {
+  background-position: 7px -632px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003387}}
+.sidebar-module .character-ptr {
+  background-position: 7px -682px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003390}}
+.sidebar-module .etc-raf {
+  background-position: 7px -733px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003393}}
+.sidebar-module .etc-wow-magazine {
+  background-position: 7px -783px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003396}}
+.sidebar-module .etc-sor {
+  background-position: 7px -835px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003399}}
+.sidebar-module .etc-wow-remote {
+  background-position: 7px -1163px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003402}}
+.sidebar-module .etc-mobile-armory {
+  background-position: 7px -1221px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003405}}
+.sidebar-module .etc-rewards-visa {
+  background-position: 7px -885px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/server\/css\/_server\.scss}line{font-family:\00003408}}
+.sidebar-module .etc-anti-gold {
+  background-position: 7px -1280px;
+}
+
+/**
+ * Overwrites for server pages
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\000035}}
+.module-server {
+  /*.sidebar-module .content-block .content-1:hover {background-position:3px -312px;}*/
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\000037}}
+.module-server .sidebar-module .content-block a {
+  background: url("http://forum.wow-alive.de/static-wow/images/game/landing/sub-contents-sprite.gif") 0 0 no-repeat;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\0000310}}
+.module-server .sidebar-module .content-block .block {
+  background: url("http://forum.wow-alive.de/static-wow/images/game/landing/sub-contents-sprite.gif") 0 0 no-repeat;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\0000313}}
+.module-server .sidebar-module .content-block ul li a.sub-list {
+  background: url("http://forum.wow-alive.de/static-wow/images/icons/bullet2.gif") 0 4px no-repeat;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\0000316}}
+.module-server .sidebar-module .content-block .content-1 {
+  background-position: 3px -3px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\0000319}}
+.module-server .sidebar-module .content-block .content-2 {
+  background-position: 4px -623px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\0000322}}
+.module-server .sidebar-module .content-block .content-3 {
+  background-position: 3px -840px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\0000329}}
+.module-server .achievements a {
+  background: url("../images/icons/achievements.gif") left 7px no-repeat;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\0000338}}
+#server-index #content .content-top {
+  background: url("../images/server/bg-top.jpg") 0 0 no-repeat;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\0000341}}
+#server-index #content .content-bot {
+  background: url("../images/server/bg-bottom.jpg") 0 100% no-repeat;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\0000349}}
+#server-index .main-content-banner .panel {
+  background: url("http://forum.wow-alive.de/static-wow/images/layout/bg-panel-layout.png") repeat scroll 0% 0% transparent;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\0000352}}
+#server-index .main-content-banner .panel .view-all {
+  background: url("http://forum.wow-alive.de/static-wow/images/community/community-index-sprite.png") 100% -866px no-repeat;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\0000356}}
+#server-index .main-content-banner.left-bnr {
+  float: left;
+  margin-left: 27px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\0000360}}
+#server-index .main-content-banner.right-bnr {
+  float: left;
+  margin-left: 20px;
+  /*margin-right: 27px;*/
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\0000397}}
+.sidebar-module .account-security,
+.sidebar-module .account-recovery,
+.sidebar-module .account-authenticator,
+.sidebar-module .account-authenticator-faq,
+.sidebar-module .account-free-matrix-card,
+.sidebar-module .account-mobile-security-token,
+.sidebar-module .account-customer-service-window,
+.sidebar-module .get-wow-buy,
+.sidebar-module .get-wow-gift,
+.sidebar-module .get-wow-free-trial,
+.sidebar-module .get-wow-online-digital,
+.sidebar-module .get-wow-language-pack,
+.sidebar-module .character-transfer,
+.sidebar-module .character-name-change,
+.sidebar-module .character-race-change,
+.sidebar-module .character-faction-change,
+.sidebar-module .character-customization,
+.sidebar-module .character-free-move,
+.sidebar-module .character-ptr,
+.sidebar-module .etc-raf,
+.sidebar-module .etc-wow-magazine,
+.sidebar-module .etc-sor,
+.sidebar-module .etc-wow-remote,
+.sidebar-module .etc-mobile-armory,
+.sidebar-module .etc-rewards-visa,
+.sidebar-module .etc-anti-gold {
+  background: url("../images/icons/services-sprite.gif") no-repeat;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003102}}
+.sidebar-module .account-security {
+  background-position: 7px 2px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003105}}
+.sidebar-module .account-recovery {
+  background-position: 7px -49px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003108}}
+.sidebar-module .account-authenticator {
+  background-position: 7px -931px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003111}}
+.sidebar-module .account-authenticator-faq {
+  background-position: 7px -983px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003114}}
+.sidebar-module .account-free-matrix-card {
+  background-position: 7px -196px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003117}}
+.sidebar-module .account-mobile-security-token {
+  background-position: 7px -1222px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003120}}
+.sidebar-module .account-customer-service-window {
+  background-position: 7px -582px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003123}}
+.sidebar-module .get-wow-buy {
+  background-position: 7px -1039px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003126}}
+.sidebar-module .get-wow-gift {
+  background-position: 7px -1099px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003129}}
+.sidebar-module .get-wow-free-trial {
+  background-position: 7px -243px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003132}}
+.sidebar-module .get-wow-online-digital {
+  background-position: 7px -293px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003135}}
+.sidebar-module .get-wow-language-pack {
+  background-position: 7px -341px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003138}}
+.sidebar-module .character-transfer {
+  background-position: 7px -385px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003141}}
+.sidebar-module .character-name-change {
+  background-position: 7px -430px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003144}}
+.sidebar-module .character-race-change {
+  background-position: 7px -480px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003147}}
+.sidebar-module .character-faction-change {
+  background-position: 7px -532px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003150}}
+.sidebar-module .character-customization {
+  background-position: 7px -583px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003153}}
+.sidebar-module .character-free-move {
+  background-position: 7px -632px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003156}}
+.sidebar-module .character-ptr {
+  background-position: 7px -682px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003159}}
+.sidebar-module .etc-raf {
+  background-position: 7px -733px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003162}}
+.sidebar-module .etc-wow-magazine {
+  background-position: 7px -783px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003165}}
+.sidebar-module .etc-sor {
+  background-position: 7px -835px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003168}}
+.sidebar-module .etc-wow-remote {
+  background-position: 7px -1163px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003171}}
+.sidebar-module .etc-mobile-armory {
+  background-position: 7px -1221px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003174}}
+.sidebar-module .etc-rewards-visa {
+  background-position: 7px -885px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_server\.scss}line{font-family:\00003177}}
+.sidebar-module .etc-anti-gold {
+  background-position: 7px -1280px;
+}
+
+/**
+ * Module: Bugtracker
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\000037}}
+.module-bugtracker {
+  /* Comments */
+  /* Rating specific styles */
+  /* paging for comments */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\000039}}
+.module-bugtracker #content .section-title {
+  width: auto;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\0000313}}
+.module-bugtracker .bugtracker-project {
+  max-resolution: 40px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\0000317}}
+.module-bugtracker .bugtracker-project a {
+  color: #fff;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\0000321}}
+.module-bugtracker .bugtracker-project .row {
+  margin-left: 20px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\0000325}}
+.module-bugtracker .bugtracker-project header {
+  height: 40px;
+  margin-bottom: 20px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\0000329}}
+.module-bugtracker .bugtracker-project header h2 {
+  font-size: 30px;
+  float: left;
+  line-height: 30px;
+  width: 90%;
+  cursor: pointer;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\0000336}}
+.module-bugtracker .bugtracker-project header h2:hover {
+  color: white;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\0000340}}
+.module-bugtracker .bugtracker-project header h2.collapsed .icon-white {
+  background-position: -408px -96px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\0000344}}
+.module-bugtracker .bugtracker-project header h2 .icon-white {
+  margin: 8px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\0000350}}
+.module-bugtracker .bugtracker-project header .span1 {
+  margin-left: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\0000354}}
+.module-bugtracker .bugtracker-project header span {
+  float: left;
+  width: 90%;
+  display: block;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\0000360}}
+.module-bugtracker .bugtracker-project header img.icon {
+  box-shadow: 0 0 10px white;
+  -moz-box-shadow: 0 0 10px white;
+  -webkit-box-shadow: 0 0 10px white;
+  -o-box-shadow: 0 0 10px white;
+  -ms-box-shadow: 0 0 10px white;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -o-border-radius: 2px;
+  -ms-border-radius: 2px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\0000367}}
+.module-bugtracker .bugtracker-project .project-list .project-level-1 {
+  margin-left: 50px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\0000370}}
+.module-bugtracker .bugtracker-project .project-list .project-level-1 h3 {
+  font-size: 18px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\0000374}}
+.module-bugtracker .bugtracker-project .project-list .project-level-1 .row {
+  margin-left: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\0000378}}
+.module-bugtracker .bugtracker-project .project-list .sub-project-list {
+  border-left: 3px solid #404450;
+  margin-bottom: 20px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\0000382}}
+.module-bugtracker .bugtracker-project .project-list .sub-project-list label {
+  font-size: 14px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\0000389}}
+.module-bugtracker .bugtracker-project .progress {
+  text-align: center;
+  color: white;
+  background-color: #000;
+  background: #202328;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #202328 0%, black 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #202328), color-stop(100%, black));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #202328 0%, black 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #202328 0%, black 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #202328 0%, black 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #202328 0%, black 100%);
+  /* W3C */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\0000395}}
+.module-bugtracker .bugtracker-project .progress .bar {
+  color: #ffffff;
+  background-color: #0e90d2;
+  background: #149bdf;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #149bdf 0%, #0480be 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #149bdf), color-stop(100%, #0480be));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #149bdf 0%, #0480be 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #149bdf 0%, #0480be 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #149bdf 0%, #0480be 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #149bdf 0%, #0480be 100%);
+  /* W3C */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003104}}
+.module-bugtracker .bugtracker-project .progress-danger .bar,
+.module-bugtracker .bugtracker-project .progress .bar-danger {
+  background-color: #dd514c;
+  background: #ee5f5b;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #ee5f5b 0%, #c43c35 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ee5f5b), color-stop(100%, #c43c35));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #ee5f5b 0%, #c43c35 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #ee5f5b 0%, #c43c35 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #ee5f5b 0%, #c43c35 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #ee5f5b 0%, #c43c35 100%);
+  /* W3C */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003110}}
+.module-bugtracker .bugtracker-project .progress-success .bar,
+.module-bugtracker .bugtracker-project .progress .bar-success {
+  background-color: #5eb95e;
+  background: #62c462;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #62c462 0%, #57a957 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #62c462), color-stop(100%, #57a957));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #62c462 0%, #57a957 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #62c462 0%, #57a957 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #62c462 0%, #57a957 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #62c462 0%, #57a957 100%);
+  /* W3C */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003116}}
+.module-bugtracker .bugtracker-project .progress-info .bar,
+.module-bugtracker .bugtracker-project .progress .bar-info {
+  background-color: #4bb1cf;
+  background: #5bc0de;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #5bc0de 0%, #339bb9 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #5bc0de), color-stop(100%, #339bb9));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #5bc0de 0%, #339bb9 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #5bc0de 0%, #339bb9 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #5bc0de 0%, #339bb9 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #5bc0de 0%, #339bb9 100%);
+  /* W3C */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003122}}
+.module-bugtracker .bugtracker-project .progress-warning .bar,
+.module-bugtracker .bugtracker-project .progress .bar-warning {
+  background-color: #faa732;
+  background: #fbb450;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #fbb450 0%, #f89406 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fbb450), color-stop(100%, #f89406));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #fbb450 0%, #f89406 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #fbb450 0%, #f89406 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #fbb450 0%, #f89406 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #fbb450 0%, #f89406 100%);
+  /* W3C */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003131}}
+.module-bugtracker #content .content-top {
+  background: url("../../../themes/shattered/images/wiki/zone/index-bg.jpg") 0 0 no-repeat;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003137}}
+.module-bugtracker #content .contents-wrapper,
+.module-bugtracker #content .body-wrapper,
+.module-bugtracker #content .bg-body {
+  background: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003143}}
+.module-bugtracker .bugtracker-actions {
+  margin-left: 10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003147}}
+.module-bugtracker #comments-page .title {
+  font-size: 21px;
+  padding: 8px 15px;
+  font-weight: normal;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003153}}
+.module-bugtracker #content .section-title {
+  padding-bottom: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003157}}
+.module-bugtracker .page-comment-interior {
+  background-repeat: no-repeat;
+  background-position: 50% 100%;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003162}}
+.module-bugtracker .page-nav-container {
+  padding-top: 90px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003166}}
+.module-bugtracker .page-nav-int {
+  position: relative;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003170}}
+.module-bugtracker span.time {
+  color: #824F30;
+  font-size: 11px;
+  margin-left: 13px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003176}}
+.module-bugtracker #page-comments {
+  clear: both;
+  margin-top: 20px;
+  padding: 20px 0 65px;
+  font-family: Verdana, Geneva, sans-serif;
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003184}}
+.module-bugtracker #page-comments .action-log {
+  font-size: 11px;
+  color: white;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003189}}
+.module-bugtracker #page-comments h3 {
+  color: white;
+  text-transform: none;
+  padding-bottom: 15px;
+  font-size: 18px;
+  font-weight: normal;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003197}}
+.module-bugtracker #page-comments .comment-cm {
+  float: right;
+  text-align: right;
+  width: 45%;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003201}}
+.module-bugtracker #page-comments .comment-cm form {
+  display: inline;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003206}}
+.module-bugtracker #page-comments .loggedOut .comment {
+  padding-left: 25px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003210}}
+.module-bugtracker #page-comments .comment {
+  font-size: 11px;
+  line-height: 24px;
+  margin-bottom: 12px;
+  position: relative;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003217}}
+.module-bugtracker #page-comments .comment .user {
+  font: 12px Arial, Helvetica;
+  line-height: 15px;
+  font-weight: bold;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003222}}
+.module-bugtracker #page-comments .comment .user .time {
+  color: #824F30;
+  font-size: 11px;
+  margin-left: 13px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003223}}
+.module-bugtracker #page-comments .comment .user .time a {
+  color: #824F30;
+  font-size: 11px;
+  margin-left: 13px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003227}}
+.module-bugtracker #page-comments .comment .user .time a:hover {
+  text-decoration: underline;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003236}}
+.module-bugtracker #page-comments .comment .rating-value {
+  font-size: 11px;
+  opacity: 0.7;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003240}}
+.module-bugtracker #page-comments .comment .content {
+  padding-top: 8px;
+  word-wrap: break-word;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003245}}
+.module-bugtracker #page-comments .user img {
+  vertical-align: middle;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003249}}
+.module-bugtracker #page-comments .comment-interior {
+  padding: 15px 15px 15px 95px;
+  min-height: 64px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003255}}
+.module-bugtracker #page-comments .portrait-b img,
+.module-bugtracker #page-comments .portrait-c img {
+  -moz-box-shadow: 0 0 10px #000;
+  -webkit-box-shadow: 0 0 10px #000;
+  box-shadow: 0 0 10px #000;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003260}}
+.module-bugtracker #page-comments .blizzard {
+  background: #0d1a24;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003262}}
+.module-bugtracker #page-comments .blizzard .content {
+  color: #008cc6;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003267}}
+.module-bugtracker #page-comments .blizzard .user .time a {
+  color: #3d5365;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003272}}
+.module-bugtracker #page-comments .blizzard .context-link {
+  color: #FFF;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003276}}
+.module-bugtracker #page-comments .comment-ta {
+  padding: 4px;
+  background: white;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003282}}
+.module-bugtracker #page-comments textarea {
+  font: 12px / 20px Verdana, Helvetica, Arial;
+  width: 98%;
+  margin: 0;
+  border: none;
+  resize: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003289}}
+.module-bugtracker #page-comments .auto-expand {
+  font: 12px / 20px Verdana, Helvetica, Arial;
+  width: 98%;
+  margin: 0;
+  border: none;
+  resize: none;
+  overflow: hidden;
+  min-height: 66px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003298}}
+.module-bugtracker #page-comments div.auto-expand {
+  position: absolute;
+  display: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003304}}
+.module-bugtracker #page-comments .comment:hover .comment-actions, .module-bugtracker #page-comments .comment:hover .rate-btn {
+  visibility: visible;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003309}}
+.module-bugtracker #page-comments .comment .comment-actions {
+  padding-top: 5px;
+  text-align: right;
+  visibility: hidden;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003315}}
+.module-bugtracker #page-comments .comment .status-text {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  display: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003321}}
+.module-bugtracker #page-comments .comment .karma {
+  position: absolute;
+  top: 1px;
+  right: 5px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003327}}
+.module-bugtracker #page-comments .comment .hidden {
+  padding-bottom: 19px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003329}}
+.module-bugtracker #page-comments .comment .hidden .status-text {
+  display: block;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003332}}
+.module-bugtracker #page-comments .comment .hidden .avatar, .module-bugtracker #page-comments .comment .hidden .content, .module-bugtracker #page-comments .comment .hidden .rate-btn-holder, .module-bugtracker #page-comments .comment .hidden .comment-actions {
+  display: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003339}}
+.module-bugtracker #page-comments .iehover .comment-actions, .module-bugtracker #page-comments .iehover .rate-btn {
+  visibility: visible;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003344}}
+.module-bugtracker #page-comments .karma .rate-action {
+  top: 2px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003347}}
+.module-bugtracker #page-comments .low-rated {
+  opacity: 0.3;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003349}}
+.module-bugtracker #page-comments .low-rated:hover {
+  opacity: 0.6;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003356}}
+.module-bugtracker .character-info .user-name {
+  display: inline;
+  position: relative;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003364}}
+.module-bugtracker .comment-actions .reply-link {
+  margin-right: 5px;
+  text-transform: uppercase;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003369}}
+.module-bugtracker #content .cm-action {
+  float: left;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003373}}
+.module-bugtracker .comment-actions .break-down {
+  float: left;
+  line-height: 24px;
+  padding-left: 15px;
+  font-size: 12px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003381}}
+.module-bugtracker #page-comments .nested {
+  padding-left: 85px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003383}}
+.module-bugtracker #page-comments .nested .nested {
+  padding-left: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003387}}
+.module-bugtracker #page-comments .reply {
+  width: 85%;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003390}}
+.module-bugtracker #page-comments .new-post {
+  background: repeat-x;
+  padding: 4px;
+  margin-bottom: 12px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003396}}
+.module-bugtracker #page-comments .new-post .comment {
+  background: repeat-x;
+  margin-bottom: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003401}}
+.module-bugtracker #page-comments .new-post .avatar.half {
+  display: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003406}}
+.module-bugtracker #page-comments .nested .avatar.full {
+  display: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003409}}
+.module-bugtracker #page-comments .nested .new-post .avatar.half {
+  display: block;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003413}}
+.module-bugtracker #page-comments .portrait-b, .module-bugtracker #page-comments .portrait-c {
+  top: 15px;
+  left: 15px;
+  position: absolute;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003418}}
+.module-bugtracker #page-comments .avatar-interior {
+  background: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003423}}
+.module-bugtracker .disabled-comments-msg {
+  padding: 20px;
+  text-align: center;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003431}}
+.module-bugtracker #comment-form-reply {
+  display: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003436}}
+.module-bugtracker #page-comments .action {
+  clear: both;
+  text-align: right;
+  font-size: 14px;
+  padding: 10px 0 5px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003442}}
+.module-bugtracker #page-comments .spacer {
+  margin: 0 10px 0 10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003445}}
+.module-bugtracker #page-comments .cancel, .module-bugtracker #page-comments .submit {
+  float: right;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003448}}
+.module-bugtracker #page-comments .cancel {
+  padding-right: 10px;
+  display: none;
+  line-height: 38px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003453}}
+.module-bugtracker #page-comments .postCountdown {
+  line-height: 38px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003458}}
+.module-bugtracker #comment-form-reply .cancel {
+  display: block;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003463}}
+.module-bugtracker #page-comments #report-post {
+  margin-bottom: 12px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003466}}
+.module-bugtracker #page-comments .reporting {
+  margin-bottom: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003473}}
+.module-bugtracker .comments-container .ui-pagination {
+  float: right;
+  margin-bottom: 20px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003479}}
+.module-bugtracker .fresh td:first-child,
+.module-bugtracker .table tbody tr.fresh:hover td:first-child {
+  background-color: #ff6600;
+  padding: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003484}}
+.module-bugtracker .workaround {
+  color: #5bc0de;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003489}}
+.module-bugtracker .workaround td:first-child,
+.module-bugtracker .table tbody tr.workaround:hover td:first-child {
+  padding: 0px;
+  background-color: #5bc0de;
+  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffbb450', endColorstr='#fff89406', GradientType=0);
+  background-size: 40px 40px;
+  -moz-background-size: 40px 40px;
+  -webkit-background-size: 40px 40px;
+  -o-background-size: 40px 40px;
+  -ms-background-size: 40px 40px;
+  transition: width 0.6s ease;
+  -moz-transition: width 0.6s ease;
+  -webkit-transition: width 0.6s ease;
+  -o-transition: width 0.6s ease;
+  -ms-transition: width 0.6s ease;
+  animation: progress-bar-stripes 2s linear infinite;
+  -moz-animation: progress-bar-stripes 2s linear infinite;
+  -webkit-animation: progress-bar-stripes 2s linear infinite;
+  -o-animation: progress-bar-stripes 2s linear infinite;
+  -ms-animation: progress-bar-stripes 2s linear infinite;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003508}}
+.module-bugtracker .inprogress td:first-child,
+.module-bugtracker .table tbody tr.inprogress:hover td:first-child {
+  padding: 0px;
+  background-color: #fbb450;
+  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffbb450', endColorstr='#fff89406', GradientType=0);
+  background-size: 40px 40px;
+  -moz-background-size: 40px 40px;
+  -webkit-background-size: 40px 40px;
+  -o-background-size: 40px 40px;
+  -ms-background-size: 40px 40px;
+  transition: width 0.6s ease;
+  -moz-transition: width 0.6s ease;
+  -webkit-transition: width 0.6s ease;
+  -o-transition: width 0.6s ease;
+  -ms-transition: width 0.6s ease;
+  animation: progress-bar-stripes 2s linear infinite;
+  -moz-animation: progress-bar-stripes 2s linear infinite;
+  -webkit-animation: progress-bar-stripes 2s linear infinite;
+  -o-animation: progress-bar-stripes 2s linear infinite;
+  -ms-animation: progress-bar-stripes 2s linear infinite;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003526}}
+.module-bugtracker .done td:first-child,
+.module-bugtracker tbody tr.done:hover td:first-child {
+  background-color: #00cc00;
+  padding: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003532}}
+.module-bugtracker .disabled td:first-child,
+.module-bugtracker tbody .disabled td:first-child {
+  background-color: #cc0000;
+  padding: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003537}}
+.module-bugtracker .table thead th {
+  padding: 0;
+  background: #4d1a08 url("/templates/Shattered-World/images/table-header.gif") 0 100% repeat-x;
+  border-bottom: 1px solid #1A0F08;
+  border-left: 0px solid #7C2804;
+  border-right: 0px solid #391303;
+  border-top: 0px solid #7C2804;
+  white-space: nowrap;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003545}}
+.module-bugtracker .table thead th span {
+  padding-left: 10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003549}}
+.module-bugtracker .wiki .related {
+  background: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003551}}
+.module-bugtracker #recentChanges {
+  clear: both;
+  width: 980px;
+  height: 290px;
+  margin: 0px 20px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003557}}
+.module-bugtracker #recentChanges li > a {
+  display: inline-block;
+  width: 300px;
+  height: 17px;
+  line-height: 26px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003569}}
+.module-bugtracker #recentChanges li > span.fresh, .module-bugtracker #recentChanges li > span.inprogress, .module-bugtracker #recentChanges li > span.done, .module-bugtracker #recentChanges li > span.disabled {
+  display: inline-block;
+  width: 5px;
+  height: 10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003576}}
+.module-bugtracker #recentChanges li > span.fresh, .module-bugtracker #recentChanges li > span.inprogress {
+  background-color: #ff6600;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003580}}
+.module-bugtracker #recentChanges li > span.disabled {
+  background-color: #cc0000;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003584}}
+.module-bugtracker #recentChanges li > span.done {
+  background-color: #00cc00;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003589}}
+.module-bugtracker #recentChanges .row1, .module-bugtracker #recentChanges .row2 {
+  color: #F5EBD1;
+  padding: 0px 10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003594}}
+.module-bugtracker #recentChanges .row2 {
+  background-color: #231207;
+  border-top: 1px solid #30190B;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003599}}
+.module-bugtracker #recentChanges .row1 {
+  background: #2B1507;
+  border-top: 1px solid #31190A;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003608}}
+.module-bugtracker #recentComments,
+.module-bugtracker #recentCreations {
+  float: left;
+  width: 480px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003613}}
+.module-bugtracker #recentComments {
+  border: 0px solid red;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003617}}
+.module-bugtracker #recentCreations {
+  border: 0px solid blue;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003624}}
+.icon.icon-major {
+  background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE2LjAuNCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAzMiAzMiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMzIgMzIiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8cGF0aCBpZD0iTWFqb3IiIGRpc3BsYXk9Im5vbmUiIGZpbGw9IiNEMjQ1MzgiIGQ9Ik01Ljk5OCwxMi42NzNsOS42MDQtOS42ODFoMC43NzlsOS42MjQsOS42ODFsLTIuMjQxLDIuMjYybC01Ljc2MS01Ljc4MXYxMC44NDQKCWMtMC4xODMsMi0wLjg5OSwzLTIuMDAyLDNjLTEuMSwwLTEuNzc5LTAuNzM4LTItM1Y5LjE3M2wtNS44MjIsNS43MDNMNS45OTgsMTIuNjczeiIvPgo8cGF0aCBpZD0iTWFqb3JfMV8iIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBmaWxsPSIjRDI0NTM3IiBkPSJNNS45OTgsMTIuNjczbDkuNjA0LTkuNjgxaDAuNzc5bDkuNjI0LDkuNjgxCglsLTIuMjQyLDIuMjYybC01Ljc2LTUuNzgxdjEwLjg0NGMtMC4xODIsMi0wLjksMy0yLjAwMiwzYy0xLjEsMC0xLjc3OS0wLjczOC0yLTNWOS4xNzNsLTUuODIyLDUuNzAzTDUuOTk4LDEyLjY3M3oiLz4KPC9zdmc+Cg==");
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003628}}
+.icon.icon-blocker {
+  background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE2LjAuNCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPgo8c3ZnIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiICB2aWV3Qm94PSIwIDAgMzIgMzIiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMyIDMyIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHBhdGggaWQ9IkJsb2NrZXIiIGZpbGw9IiNEMDQ0MzciIGQ9Ik0xNS45OTksMy45OThjLTYuNjE4LDAtMTIuMDAyLDUuMzg1LTEyLjAwMiwxMi4wMDRjMCw2LjYxNyw1LjM4NCwxMiwxMi4wMDIsMTIKCWM2LjYxOSwwLDEyLjAwNC01LjM4MywxMi4wMDQtMTJDMjguMDAzLDkuMzgzLDIyLjYxOCwzLjk5OCwxNS45OTksMy45OTh6IE0yNC4wMDMsMTYuMDAyYzAsMS40ODEtMC40MTIsMi44NjUtMS4xMTcsNC4wNTYKCUwxMS45NDMsOS4xMTVjMS4xOTEtMC43MDUsMi41NzUtMS4xMTcsNC4wNTYtMS4xMTdDMjAuNDEyLDcuOTk4LDI0LjAwMywxMS41ODgsMjQuMDAzLDE2LjAwMnogTTcuOTk3LDE2LjAwMgoJYzAtMS40ODIsMC40MTItMi44NjcsMS4xMTgtNC4wNTlsMTAuOTQyLDEwLjk0MmMtMS4xOTEsMC43MDUtMi41NzUsMS4xMTctNC4wNTgsMS4xMTdDMTEuNTg3LDI0LjAwMiw3Ljk5NywyMC40MTMsNy45OTcsMTYuMDAyeiIvPgo8L3N2Zz4K");
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003631}}
+.icon.icon-critical {
+  background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE2LjAuNCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPgo8c3ZnIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiICB2aWV3Qm94PSIwIDAgMzIgMzIiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMyIDMyIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHBhdGggaWQ9IkNyaXRpY2FsIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZmlsbD0iI0QwNDQzNyIgZD0iTTUuOTk4LDEyLjY3NWw5LjYwMi05LjY4MWgwLjc4MWw5LjYyMiw5LjY4MQoJbC0yLjI0LDIuMjYyTDE4LDkuMTU2VjIwYy0wLjE4LDItMC45LDMtMiwzYy0xLjEsMC0xLjc4MS0wLjczOC0yLTNWOS4xNzVsLTUuODIyLDUuNzA0TDUuOTk4LDEyLjY3NXogTTE4LDMwaC00di00aDRWMzB6Ii8+Cjwvc3ZnPgo=");
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003634}}
+.icon.icon-minor {
+  background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE2LjAuNCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPgo8c3ZnIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiICB2aWV3Qm94PSIwIDAgMzIgMzIiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMyIDMyIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHBhdGggaWQ9Ik1pbm9yIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZmlsbD0iIzFBOEE0MyIgZD0iTTI2LjAwNCwxNi4zMTlMMTYuNCwyNi4wMDNoLTAuNzc5bC05LjYyMy05LjY4NAoJbDIuMjQtMi4yNThMMTQsMTkuODQzVjguOTk5YzAuMTgtMi4wMDEsMC45LTMuMDAxLDItMy4wMDFjMS4xMDIsMCwxLjc4MiwwLjc0LDIuMDAyLDMuMDAxdjEwLjgyMWw1LjgyLTUuN0wyNi4wMDQsMTYuMzE5eiIvPgo8L3N2Zz4K");
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003637}}
+.icon.icon-trivial {
+  background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE2LjAuNCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPgo8c3ZnIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiICB2aWV3Qm94PSIwIDAgMzIgMzIiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMyIDMyIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHBhdGggaWQ9IlRyaXZpYWwiIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBmaWxsPSIjMUE4QTQzIiBkPSJNMjYuMDAzLDE2LjMxOWwtOS42MDIsOS42ODRoLTAuNzc5bC05LjYyMy05LjY4NAoJbDIuMjQtMi4yNThMMTQsMTkuODQzVjE1YzAuMTgxLTIuMDAyLDAuOS0zLjAwMiwyLjAwMS0zLjAwMmMxLjA5OSwwLDEuNzgxLDAuNzQyLDIsMy4wMDJ2NC44MTlsNS44MjItNS43TDI2LjAwMywxNi4zMTl6Ii8+Cjwvc3ZnPgo=");
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003645}}
+.icon.icon-trivial, .icon.icon-minor, .icon.icon-major, .icon.icon-critical, .icon.icon-blocker {
+  background-position: center center;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/modules\/bugtracker\/css\/bugtracker\.scss}line{font-family:\00003652}}
+#bugtracker-buglist.module-bugtracker #recentChanges {
+  height: 100px;
 }
 
 /*
@@ -1919,15 +4088,19 @@ header #logo {
   -webkit-user-select: none;
   -o-user-select: none;
   -ms-user-select: none;
+  box-shadow: 0 0 8px black;
+  -moz-box-shadow: 0 0 8px black;
+  -webkit-box-shadow: 0 0 8px black;
+  -o-box-shadow: 0 0 8px black;
+  -ms-box-shadow: 0 0 8px black;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_service_bar\.scss}line{font-family:\0000322}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_service_bar\.scss}line{font-family:\0000323}}
 .service-cell {
   float: left;
   color: #8694a1;
   display: block;
   line-height: 32px;
-  padding: 0 0 7px 0;
   position: relative;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_service_bar\.scss}line{font-family:\0000330}}
@@ -1936,8 +4109,8 @@ header #logo {
   cursor: pointer;
   text-decoration: none;
   display: block;
-  height: 20px;
-  padding: 12px 8px 8px 8px;
+  line-height: 33px;
+  padding: 0 8px;
   text-shadow: 0px -1px 0 rgba(0, 0, 0, 0.8);
   -moz-text-shadow: 0px -1px 0 rgba(0, 0, 0, 0.8);
   -webkit-text-shadow: 0px -1px 0 rgba(0, 0, 0, 0.8);
@@ -1972,8 +4145,8 @@ header #logo {
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_service_bar\.scss}line{font-family:\0000358}}
 .service-home {
-  height: 40px;
-  width: 50px;
+  height: 33px;
+  width: 33px;
   padding: 0px;
   font-size: 16px;
   border-bottom-left-radius: 9px;
@@ -2000,20 +4173,18 @@ header #logo {
 .service-home span {
   color: grey;
   position: relative;
-  top: -2px;
-  left: -9px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_service_bar\.scss}line{font-family:\0000374}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_service_bar\.scss}line{font-family:\0000372}}
 .service-home:hover span {
   color: white;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_service_bar\.scss}line{font-family:\0000381}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_service_bar\.scss}line{font-family:\0000379}}
 .service-welcome {
-  padding: 0px 15px 7px 15px;
+  padding: 0px 15px 0px 12px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_service_bar\.scss}line{font-family:\0000386}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/wow-alive\.de\%20-\%20cms\/local\/application\/themes\/relive\/css\/_service_bar\.scss}line{font-family:\0000384}}
 .service-welcome .employee,
 span.employee {
   display: inline-block;

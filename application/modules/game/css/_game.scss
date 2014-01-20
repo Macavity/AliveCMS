@@ -1,0 +1,158 @@
+
+$appPath: '/application/';
+$modulePath: $appPath+'modules/game/';
+
+.module-game {
+  .title {
+    padding: 35px 25px 50px;
+
+    h2 {
+      color: #efe3d2;
+      font: 52px / 100% "Palatino Linotype", Georgia, Times, sans-serif;
+      letter-spacing: -1.5px;
+      text-shadow: #241209 0 0 5px;
+    }
+
+    .desc {
+      width: 50%;
+      color: #a4704e;
+      margin-top: 25px;
+      line-height: 2em;
+    }
+  }
+
+  .navigation
+  {
+    width: 230px;
+    float: left;
+
+    li
+    {
+      height: 45px;
+      border-bottom: 1px solid #140200;
+      a
+      {
+        display: block;
+        height: 45px;
+        line-height: 45px;
+        padding-left: 10px;
+
+        @include addGradient(rgb(36,19,11), rgb(32,18,10));
+
+        border-top: 1px solid rgb(50,26,14);
+        border-bottom: 1px solid rgb(15,2,0);
+        border-right: 1px solid rgb(43,24,13);
+        border-left: 3px solid white;
+
+        &:hover {
+          background: none;
+          background-color:rgb(15,11,7);
+        }
+        &.nav-active {
+          background-position: 0 -90px;
+          font-weight: bold;
+          color: white;
+        }
+        &.expansion-0 {
+          border-left-color: #766328;
+        }
+        &.expansion-1 {
+          border-left-color: #4ea12d;
+        }
+        &.expansion-2 {
+          border-left-color: #20aeff;
+        }
+        &.expansion-3 {
+          border-left-color: #ee5900;
+        }
+      }
+    }
+  }
+
+  .groups
+  {
+    float: right;
+    width: 680px;
+
+    padding: 0;
+    margin: 0 0 2px 0;
+
+    .group
+    {
+      opacity: .95;
+      padding: 1px;
+      background: #211309;
+
+      @include roundAllCorners(4px);
+      @include vendorPrefix(box-shadow, #0d0703 0 0 10px);
+      margin-bottom: 100px;
+
+      .group-column
+      {
+        float: left;
+        width: 50%;
+
+        h3 {
+          padding: 15px 25px;
+          color: #f9e3d5;
+          text-transform: uppercase;
+          font-weight: normal;
+          font-size: 14px;
+          border-bottom: 1px solid #0a0603;
+        }
+        ul {
+          padding: 10px 25px;
+          border-top: 1px solid #432615;
+
+          li {
+            margin: 10px 0;
+          }
+          a {
+            display: block;
+            line-height: 20px;
+            height: 40px;
+          }
+        }
+
+        .separator {
+          color: #98542D;
+          font-size: 16px;
+          padding-top: 8px;
+          display: block;
+        }
+
+        li:first-child > .separator {
+          padding-top: 0;
+        }
+
+      }
+
+      .name {
+        display: block;
+        line-height: 24px;
+      }
+
+      .level-range {
+        color: #71401F;
+        float: right;
+        font-size: 10px;
+        font-style: normal;
+        margin-top: 2px;
+        white-space: nowrap;
+      }
+
+      .zone-thumbnail {
+        background-color: #3B1C11;
+        background-repeat: no-repeat;
+        display: block;
+        float: left;
+        margin: 1px 11px 1px 1px;
+        overflow: hidden;
+        @include vendorPrefix(box-shadow, 0 0 5px #0D0703);
+        @include roundAllCorners(3px);
+      }
+    }
+  }
+}
+
+

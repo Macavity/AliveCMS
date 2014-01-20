@@ -27,10 +27,12 @@
                     <li><a {$menu_1.link}>{$menu_1.name}</a></li>
                 {/foreach}
             </ul>
+            {$userplate}
         </nav>
     </header>
     <div id="main">
-        <aside id="left">
+        {if $show_sidebar}
+            <aside id="left">
 
             <!-- REGISTER Banner -->
             <a href="register" class="sidebar-banner">
@@ -40,8 +42,8 @@
             <!-- REGISTER Banner . End -->
 
             {foreach from=$sideboxes item=sidebox}
-                <article>
-                    <h1 class="top">{$sidebox.name}</h1>
+                <article id="{$sidebox.css_id}">
+                    <h2 class="top">{$sidebox.name}</h2>
                     <section class="body">
                         {$sidebox.data}
                     </section>
@@ -58,9 +60,20 @@
                 {/foreach}
             </ul>
 
-        </aside>
+            {if $show_external_more}
+                <article class="sidebar-module" id="sidebar-forums">
+                    <h2 class="title-forums"><a href="forum.php">Letzte Forendiskussionen</a></h2>
 
-        <aside id="right">
+                    <div class="sidebar-content poptopic-list">
+                        {$external_forum_posts|unescape}
+                    </div>
+                </article>
+            {/if}
+
+        </aside>
+        {/if}
+
+        <aside id="{if $show_sidebar}right{else}full{/if}">
             <section id="slider_bg" {if !$show_slider}style="display:none;"{/if}>
                 <div id="slider">
                     {foreach from=$slider item=image}
@@ -68,6 +81,12 @@
                     {/foreach}
                 </div>
             </section>
+            {$breadcrumbs}
+
+            {if !empty($section_title)}
+                <h3 class="title">{$section_title}</h3>
+                <div class="byline"><!-- --></div>
+            {/if}
 
             {$page}
         </aside>
