@@ -1,10 +1,24 @@
 
 <div id="wiki" class="wiki directory wiki-zone">
-  <div class="title">
+  <div class="title row">
     <h2>Dungeons &amp; Schlachtzüge</h2>
     <div class="desc">Von seinen unentdeckten Rändern bis hin zu seinen berühmtesten Landstrichen, ist die Welt von World of Warcraft voll von Mysterien, Gefahr und vor allem Konflikten. Die Städte wimmeln von heimtückischen Schurken und gierigen Politikern, dunkle Höhlen bergen uralte schreckliche Geheimnisse und in den Kriegsgebieten prallen Armeen aufeinander, deren Konflikte seit Generationen anwähren. Nur Wenige wagen es, diese entfernten und gefahrenvollen Orte zu erforschen. Und noch geringer ist die Zahl derer, die annehmen würden, je davon zurückzukehren. Du bist einer dieser Wenigen.</div>
   </div>
-  <div class="wrapper">
+  <div class="row">
+      <ul class="navigation">
+          <li>
+              <a href="javascript:;" id="nav-3" onclick="activateTab(3);" class="expansion-3">Cataclysm</a>
+          </li>
+          <li>
+              <a href="javascript:;" id="nav-2" onclick="activateTab(2);" class="expansion-2"> Wrath of the Lich King </a>
+          </li>
+          <li>
+              <a href="javascript:;" id="nav-1" onclick="activateTab(1);" class="expansion-1"> The Burning Crusade </a>
+          </li>
+          <li>
+              <a href="javascript:;" id="nav-0" onclick="activateTab(0);" class="expansion-0"> Classic </a>
+          </li>
+      </ul>
     <div class="groups">
         <div class="group" id="expansion-3" style="display: none;">
             <div class="group-column dungeon">
@@ -461,21 +475,6 @@
         <span class="clear"><!-- --></span>
       </div>
     </div>
-    <ul class="navigation">
-        <li>
-            <a href="javascript:;" id="nav-3" onclick="activateTab(3);" class="expansion-3">Cataclysm</a>
-        </li>
-        <li>
-            <a href="javascript:;" id="nav-2" onclick="activateTab(2);" class="expansion-2"> Wrath of the Lich King </a>
-        </li>
-        <li>
-            <a href="javascript:;" id="nav-1" onclick="activateTab(1);" class="expansion-1"> The Burning Crusade </a>
-        </li>
-        <li>
-            <a href="javascript:;" id="nav-0" onclick="activateTab(0);" class="expansion-0"> Classic </a>
-        </li>
-    </ul>
-      <span class="clear"><!-- --></span>
   </div>
   <span class="clear"><!-- --></span>
   <script type="text/javascript">

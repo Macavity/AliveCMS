@@ -29,13 +29,9 @@ a {
 
 #main {
   min-height:800px;
-  @if $work == false {
-    background:url(../images/bodybg.gif);
-  }
-  padding: 0 15px 0 15px;
 
-  .container {
-    width: 990px !important;
+  #full.container {
+    width: 1020px !important;
   }
 }
 
@@ -162,10 +158,13 @@ header {
     height: 30px;
     padding: 10px 0 0 0px;
 
+    &.row {
+      margin-left: 0px;
+    }
+
     .ui-breadcrumb {
       list-style: none;
       margin: 0;
-      padding: 0;
       float: left;
       font-size: 12px;
 
@@ -224,6 +223,9 @@ header {
   #left {
     width:285px;
     float:left;
+    padding-left: 0px;
+    margin-left: -15px;
+    padding-right: 0px;
 
     article {
       width:277px;
@@ -282,7 +284,7 @@ header {
 
   /* =========== Right =========== */
   #right {
-    width:734px;
+    width:720px;
     float:right;
     background:url(../images/body_light_2.gif);
     box-shadow:0 0 6px rgba(0,0,0,.6);
@@ -335,6 +337,8 @@ header {
       /*padding-left: 28px;*/
     }
   }
+
+
 
   .avatar {
     float: left;
