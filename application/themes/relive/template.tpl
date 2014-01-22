@@ -74,20 +74,22 @@
         {/if}
 
         <aside id="{if $show_sidebar}right{else}full{/if}" class="container">
-            <section id="slider_bg" {if !$show_slider}style="display:none;"{/if}>
-                <div id="slider">
-                    {foreach from=$slider item=image}
-                        <a href="{$image.link}"><img src="{$image.image}" title="{$image.text}"/></a>
-                    {/foreach}
-                </div>
-            </section>
+            {if $show_slider}
+                <section id="slider_bg">
+                    <div id="slider">
+                        {foreach from=$slider item=image}
+                            <a href="{$image.link}"><img src="{$image.image}" title="{$image.text}"/></a>
+                        {/foreach}
+                    </div>
+                </section>
+            {/if}
+
             {$breadcrumbs}
 
             {if !empty($section_title)}
-            <header class="row">
-                <h3 class="section-title col-md">{$section_title}</h3>
-                <div class="byline"><!-- --></div>
-            </header>
+                <div class="row">
+                    <h3 class="section-title col-md-12">{$section_title}</h3>
+                </div>
             {/if}
 
             {$page}

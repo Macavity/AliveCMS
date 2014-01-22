@@ -100,6 +100,13 @@ header {
 /* =========== Top menu =========== */
 #wrapper {
 
+  aside{
+    background-color: rgb(26,15,8);
+    &:after,&:before {
+      clear: both;
+    }
+  }
+
   nav.main-menu {
     margin-top:40px;
 
@@ -159,7 +166,7 @@ header {
     padding: 10px 0 0 0px;
 
     &.row {
-      margin-left: 0px;
+      /*margin-left: 0px;*/
     }
 
     .ui-breadcrumb {
@@ -338,6 +345,12 @@ header {
     }
   }
 
+  h3.section-title {
+    color: #efe3d2;
+    font: 52px / 100% "Palatino Linotype", Georgia, Times, sans-serif;
+    letter-spacing: -1.5px;
+    text-shadow: #241209 0 0 5px;
+  }
 
 
   .avatar {
