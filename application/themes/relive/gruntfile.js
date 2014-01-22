@@ -54,6 +54,7 @@ module.exports = function(grunt) {
             css: {
                 files: [
                     'css/**/*.scss',
+                    '../../modules/bugtracker/css/bugtracker.scss',
                     '../../modules/game/css/_game.scss',
                     '../../modules/server/css/_server.scss'
                 ],

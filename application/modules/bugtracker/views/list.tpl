@@ -1,13 +1,20 @@
 
-<div class="bugtracker-actions">
-    <a href="{site_url('bugtracker/index')}" class="ui-button button2 button2-previous"><span><span>Kategorienliste</span></span></a>&nbsp;
-  {if hasPermission("canCreateBugs")}
-    <a href="{site_url('bugtracker/create')}" class="ui-button button2"><span><span>Neuen Bug eintragen</span></span></a>&nbsp;
-  {/if}
-</div><br>
+<div class="bugtracker-actions row">
+    <div class="col-md">
+        <a href="{site_url('bugtracker/index')}" class="btn btn-default btn-sm">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Kategorienliste
+        </a>
+        {if hasPermission("canCreateBugs")}
+            <a href="{site_url('bugtracker/create')}" class="btn btn-default btn-sm">
+                Neuen Bug eintragen
+            </a>&nbsp;
+        {/if}
+    </div>
+</div>
 
-<div id="recentChanges">
-    <div id="recentCreations">
+<div id="recentChanges" class="row">
+    <div id="recentCreations" class="col-md-6">
         {if $recentCreations}
             <h3>Neue Bugs</h3>
             <ul>
@@ -22,7 +29,7 @@
             </ul>
         {/if}
     </div>
-    <div id="recentComments">
+    <div id="recentComments" class="col-md-6">
         {if $recentComments}
             <h3>Neue Kommentare</h3>
             <ul>
@@ -37,31 +44,28 @@
             </ul>
         {/if}
     </div>
-</div><br>
+</div>
 
 <div id="buglist" class="wiki" data-rowcount="{$rowCount}">
     <div class="related">
-        <span class="clear"><!-- --></span> 
-
 		<div class="related-content" id="related-buglist">
-			<div class="filters inline">
-				<div class="keyword">
-                    <span class="view"></span> 
+			<div class="filters inline row">
+                <div class="filter-tabs col-md-8">
+                    <a href="javascript:;" data-filter="column" data-column="0" data-value="" data-name="type"> Alle </a>
+                    <a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="1" class="tab-active"> Offen </a>
+                    <a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="2"> In Bearbeitung </a>
+                    <a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="4"> Workaround </a>
+                    <a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="9"> Erledigt </a>
+                    <a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="3"> Abgewiesen </a>
+                </div>
+				<div class="keyword col-md-4">
+                    <span class="view"><i class="glyphicon glyphicon-search"></i></span>
                     <span class="reset" style="display: none"></span>
-					<input id="filter-name-buglist" type="text" class="input filter-name" data-filter="row" maxlength="25" title="Filter..." value="Filter..." />
+					<input id="filter-name-buglist" type="text" class="input filter-name" data-filter="row" title="Filter..." value="Filter..." />
 				</div>
-				<div class="filter-tabs"> 
-					<a href="javascript:;" data-filter="column" data-column="0" data-value="" data-name="type"> Alle </a>
-					<a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="1" class="tab-active"> Offen </a>
-					<a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="2"> In Bearbeitung </a>
-          <a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="4"> Workaround </a>
-					<a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="9"> Erledigt </a>
-					<a href="javascript:;" data-filter="column" data-column="0" data-name="type" data-value="3"> Abgewiesen </a> 
-				</div>
-				<span class="clear"><!-- --></span> 
 			</div>
-			<div class="data-options-top">
-				<div class="table-options data-options">
+			<div class="data-options-top row">
+				<div class="table-options data-options col-md">
 					<div class="option">
 						<ul class="ui-pagination"></ul>
 					</div>
@@ -69,8 +73,8 @@
 		            <span class="clear"><!-- --></span> 
 				</div>
 			</div>
-			<div class="table full-width">
-				<table>
+			<div class="full-width row">
+				<table class="table table-striped">
 					<thead>
 						<tr>
 							<th><a href="javascript:;" class="sort-link numeric"><span class="arrow">Status</span></a></th>

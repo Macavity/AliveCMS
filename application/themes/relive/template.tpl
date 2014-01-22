@@ -32,7 +32,7 @@
     </header>
     <div id="main">
         {if $show_sidebar}
-            <aside id="left">
+            <aside id="left" class="container">
 
             <!-- REGISTER Banner -->
             <a href="register" class="sidebar-banner">
@@ -73,7 +73,7 @@
         </aside>
         {/if}
 
-        <aside id="{if $show_sidebar}right{else}full{/if}">
+        <aside id="{if $show_sidebar}right{else}full{/if}" class="container">
             <section id="slider_bg" {if !$show_slider}style="display:none;"{/if}>
                 <div id="slider">
                     {foreach from=$slider item=image}
@@ -84,8 +84,10 @@
             {$breadcrumbs}
 
             {if !empty($section_title)}
-                <h3 class="title">{$section_title}</h3>
+            <header class="row">
+                <h3 class="section-title col-md">{$section_title}</h3>
                 <div class="byline"><!-- --></div>
+            </header>
             {/if}
 
             {$page}

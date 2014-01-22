@@ -32,6 +32,11 @@ a {
   @if $work == false {
     background:url(../images/bodybg.gif);
   }
+  padding: 0 15px 0 15px;
+
+  .container {
+    width: 990px !important;
+  }
 }
 
 /* =========== Header =========== */
@@ -80,6 +85,7 @@ header {
     top: 5px;
     border: 0px solid transparent;
     background: none;
+    box-shadow: none;
   }
 
   .search-button {
@@ -162,10 +168,17 @@ header {
       padding: 0;
       float: left;
       font-size: 12px;
+
       li {
         padding-right: 0px;
         float: left;
         margin-right: 5px;
+
+        &:first-child {
+          a {
+            margin-left: 0px;
+          }
+        }
 
         a {
           margin-left: 10px;
@@ -317,6 +330,12 @@ header {
     }
   }
 
+  #full {
+    .section-title {
+      /*padding-left: 28px;*/
+    }
+  }
+
   .avatar {
     float: left;
     margin-right: 15px;
@@ -364,3 +383,85 @@ header {
     }
   }
 }
+
+/* =========== Buttons =========== */
+.btn {
+  color: #ffae00;
+  background-color:rgb(82,19,8);
+  border: 1px solid rgb(154,47,17);
+  @include addGradient(rgb(110,33,10), rgb(65,12,8));
+  @include vendorPrefix(box-shadow, 0 0 5px #000);
+
+  &:hover {
+    color: #fff;
+    background-color:rgb(136,43,16);
+    border: 1px solid rgb(202,66,26);
+    @include addGradient(rgb(136,43,16), rgb(97,18,14));
+  }
+
+  &:active {
+    color: #fff;
+    background-color:rgb(76,23,6);
+    border: 1px solid rgb(107,32,9);
+    @include addGradient(rgb(76,23,6), rgb(46,9,6));
+  }
+
+
+}
+
+/* Table */
+.table{
+
+  &>thead {
+    &>tr{
+      &>th {
+        padding: 0;
+        background-color: #4D1A08;
+        border-bottom: 1px solid #1A0F08;
+        border-left: 0px solid #7C2804;
+        border-right: 0px solid #391303;
+        border-top: 0px solid #7C2804;
+        white-space: nowrap;
+
+        @include addGradient(rgb(79,24,19), rgb(103,31,6));
+
+        span {
+          padding-left: 10px;
+        }
+      }
+    }
+
+  }
+
+  &.table-striped{
+    &>tbody{
+      &>tr{
+        &:nth-child(odd){
+          &>td,
+          &>th {
+            background: #2B1507;
+            border-top: 1px solid #31190A;
+          }
+        }
+        &:nth-child(even){
+          &>td,
+          &>th {
+            background: #231207;
+            border-top: 1px solid #30190B;
+          }
+        }
+      }
+    }
+  }
+
+  .sort-link,
+  .sort-tab {
+    display: block;
+    padding: 8px 10px;
+    text-align: left;
+    border-left: 1px solid #7c2804;
+    border-top: 1px solid #7c2804;
+    border-right: 1px solid #391303;
+  }
+}
+

@@ -12,14 +12,14 @@ $bugtrackerColorWorkaround: #5bc0de;
 
   .bugtracker-project {
 
-    max-resolution: 40px;
+    /*max-resolution: 40px;*/
     
     a {
       color: #fff;
     }
 
     .row{
-      margin-left:20px;
+      /*margin-left:20px;*/
     }
 
     header {
@@ -37,14 +37,19 @@ $bugtrackerColorWorkaround: #5bc0de;
           color:white;
         }
 
-        &.collapsed .icon-white{
-          background-position: -408px -96px;
+        .glyphicon-plus:before {
+          /* glyphicon-minus */
+          content: "\2212";
         }
 
-        .icon-white {
-          margin: 8px;
+        &.collapsed .glyphicon-plus:before {
+          content: "\2b";
         }
+      }
 
+      .glyphicon {
+        margin: 8px;
+        font-size: 25px;
       }
 
       .span1 {
@@ -141,7 +146,7 @@ $bugtrackerColorWorkaround: #5bc0de;
   }
 
   .bugtracker-actions {
-    margin-left: 10px;
+    /*margin-left: 10px;*/
   }
 
   #comments-page .title {
@@ -475,6 +480,10 @@ $bugtrackerColorWorkaround: #5bc0de;
     margin-bottom: 20px;
   }
 
+  .table.table-striped > tbody > tr > td {
+
+  }
+
   .fresh td:first-child,
   .table tbody tr.fresh:hover td:first-child{
     background-color:$bugtrackerColorFresh;
@@ -534,25 +543,9 @@ $bugtrackerColorWorkaround: #5bc0de;
     padding:0px;
   }
 
-  .table thead th {
-    padding: 0;
-    background: #4D1A08 url("/templates/Shattered-World/images/table-header.gif") 0 100% repeat-x;
-    border-bottom: 1px solid #1A0F08;
-    border-left: 0px solid #7C2804;
-    border-right: 0px solid #391303;
-    border-top: 0px solid #7C2804;
-    white-space: nowrap;
-    span {
-      padding-left: 10px;
-    }
-  }
-  .wiki .related { background: none; }
-
   #recentChanges {
     clear: both;
-    width: 980px;
-    height: 290px;
-    margin: 0px 20px;
+    /*height: 290px;*/
 
     li > a {
       display: inline-block;
@@ -604,20 +597,6 @@ $bugtrackerColorWorkaround: #5bc0de;
 
   }
 
-  #recentComments,
-  #recentCreations {
-    float: left;
-    width: 480px;
-  }
-
-  #recentComments {
-    border: 0px solid red;
-  }
-
-  #recentCreations {
-    border: 0px solid blue;
-  }
-
 }
 
 .icon{
@@ -650,6 +629,6 @@ $bugtrackerColorWorkaround: #5bc0de;
 
 #bugtracker-buglist.module-bugtracker {
   #recentChanges {
-    height: 100px;
+    /*height: 100px;*/
   }
 }

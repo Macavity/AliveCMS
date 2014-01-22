@@ -1,7 +1,7 @@
 {if $show_breadcrumbs}
     <!-- content-trail -->
-    <div class="content-trail">
-        <ol class="ui-breadcrumb">
+    <div class="content-trail row">
+        <ol class="ui-breadcrumb col-md">
             {foreach from=$breadcrumbs item=entry name=breadcrumbs}
                 <li{if $smarty.foreach.breadcrumbs.last} class="active"{/if}>
                     {if empty($entry.link)}
