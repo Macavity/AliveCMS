@@ -15,44 +15,44 @@
 
 <input type="hidden" id="bug-id" name="bug-id" value="{$bugId}">
 {if $canEditBugs}
-<div class="row">
-    <div class="span2 offset1">
-        <a href="/bugtracker/edit/{$bugId}" class="ui-button button2"><span><span>Bug-Report bearbeiten</span></span></a>
+<div class="bugtracker-actions row">
+    <div class="col-md-12">
+        <a href="/bugtracker/edit/{$bugId}" class="btn btn-default btn-sm">Bug-Report bearbeiten</a>
     </div>
 </div><br>
 {/if}
 
 
 <div class="row">
-    <div class="span2 offset1"><strong>Erstellungsdatum</strong></div>
-    <div class="span8">
+    <div class="col-md-2 col-md-offset-1"><strong>Erstellungsdatum</strong></div>
+    <div class="col-md-9">
         {$createdDate}{if $createdDetail}, {$createdDetail}{/if}
     </div>
 </div>
 
 <div class="row">
-    <div class="span2 offset1"><strong>Letzte Änderung</strong></div>
-    <div class="span8">
+    <div class="col-md-2 col-md-offset-1"><strong>Letzte Änderung</strong></div>
+    <div class="col-md-9">
         {$changedDate}{if $changedDetail}, {$changedDetail}{/if}
     </div>
 </div><br>
 
 <div class="row">
-    <div class="span2 offset1"><strong>Status</strong></div>
-    <div class="span8 {$cssState}">{$stateLabel}</div>
+    <div class="col-md-2 col-md-offset-1"><strong>Status</strong></div>
+    <div class="col-md-9 {$cssState}">{$stateLabel}</div>
 </div><br>
 
 <div class="row">
-    <div class="span2 offset1"><strong>Priorität</strong></div>
-    <div class="span8">
+    <div class="col-md-2 col-md-offset-1"><strong>Priorität</strong></div>
+    <div class="col-md-9">
         <i class="icon {$priorityClass}"></i> {$priorityLabel}
     </div>
 </div><br>
 
 
 <div class="row">
-    <div class="span2 offset1"><strong>Beschreibung</strong></div>
-    <div class="span8">
+    <div class="col-md-2 col-md-offset-1"><strong>Beschreibung</strong></div>
+    <div class="col-md-9">
         {if $bugPoster.details}
             eingereicht von
             <strong><a href="{$url}{$bugPoster.url}" class="wow-class-{$bugPoster.class}" rel="np" target="_blank">{$bugPoster.name}</a></strong>:<br/>
@@ -62,8 +62,8 @@
 </div><br>
 
 <div class="row">
-    <div class="span2 offset1"><strong>Links</strong></div>
-    <div class="span8">
+    <div class="col-md-2 col-md-offset-1"><strong>Links</strong></div>
+    <div class="col-md-9">
         <ul>
             {foreach from=$links item=link}
                 <li><a href="{$link.url}" target="_blank">{$link.label}</a></li>
@@ -73,11 +73,11 @@
 </div><br>
 
 {if $showFixBugShit}
-  <div class="alert alert-info offset1 span8">F.I.X.B.U.G.S.H.I.T. Einsatzfähig</div>
+  <div class="alert alert-info col-md-offset-1 col-md-9">F.I.X.B.U.G.S.H.I.T. Einsatzfähig</div>
 
   <div class="row">
-    <div class="span2 offset1"><strong>Quests</strong></div>
-    <div class="span8">
+    <div class="col-md-2 col-md-offset-1"><strong>Quests</strong></div>
+    <div class="col-md-9">
       <table class="table">
         {foreach $fbsQuests as $quest}
           <tr>
@@ -103,8 +103,8 @@
 
 {if count($similarBugs) > 0}
 <div class="row">
-    <div class="span2 offset1"><strong>Ähnliche Bug Reports</strong></div>
-    <div class="span8">
+    <div class="col-md-2 col-md-offset-1"><strong>Ähnliche Bug Reports</strong></div>
+    <div class="col-md-9">
         <ul>
             {foreach from=$similarBugs item=row}
                 <li><a href="{$row.url}" target="_blank">{$row.label}</a></li>
@@ -114,106 +114,114 @@
 </div>
 {/if}
 
-
-<div class="table">
-  <div id="page-comments">
-    {foreach from=$bugLog key=timestamp item=comment}
-      {if $comment.posterDetails}
-        <div class="comment {if $comment.isStaff}blizzard{/if}">
-          <div class="avatar portrait-b">
-            <div class="avatar-interior">
-              {if isset($comment.avatar)}
-                <a href="{$url}{$comment.char_url}">
-                  <img height="64" src="{$url}{$comment.avatar}" alt=""/>
-                </a>
-              {/if}
-            </div>
-          </div>
-          <div class="comment-interior">
-            <div class="character-info user">
-              <div class="user-name">
-                {if $comment.isStaff}<span class="employee"></span>{/if}
-                <a href="{$url}{$comment.char_url}" class="wow-class-{$comment.char_class}" rel="np" target="_blank"> {$comment.name} </a>
-              </div>
-              <span class="time">{$comment.createdDetail}</span>
-            </div>
-            <div class="content">
-              {if $comment.text}
-                  <span id="comment-content-{$comment.id}">{$comment.text}</span><br/>
-              {/if}
-              {foreach from=$comment.action item=actionRow}
-                <span class="action-log">{$actionRow}</span><br/>
-              {/foreach}
-            </div>
-            <div class="comment-actions">
-                {if $comment.canEditThisComment}
-                    <button type="button" data-comment="{$comment.id}" class="reply-link ui-button button2 jsEditComment"><span><span>Bearbeiten</span></span></button>
-                {/if}
-            </div>
-          </div>
-        </div>
-      {else}
-        <div class="comment">
-            <div class="comment-interior">
-                <div class="character-info user">
-                    <div class="user-name">
-                        {$comment.name}
+<div class="row">
+    <div id="page-comments" class="col-md-10 col-md-offset-1">
+        {foreach from=$bugLog key=timestamp item=comment}
+            {if $comment.posterDetails}
+                <div class="bug-comment row {if $comment.isStaff}blizzard{/if}">
+                    <div class="portrait-b col-md-2">
+                        <div class="avatar-interior">
+                            {if isset($comment.avatar)}
+                                <a href="{$url}{$comment.char_url}">
+                                    <img height="64" src="{$url}{$comment.avatar}" alt=""/>
+                                </a>
+                            {/if}
+                        </div>
+                    </div>
+                    <div class="comment-interior col-md-10">
+                        <div class="character-info user row">
+                            <div class="user-name col-md-12">
+                                {if $comment.isStaff}<span class="employee"></span>{/if}
+                                <a href="{$url}{$comment.char_url}" class="wow-class-{$comment.char_class}" rel="np" target="_blank"> {$comment.name} </a>
+                            </div>
+                            <div class="time  col-md-12">{$comment.createdDetail}</div>
+                        </div>
+                        <div class="content row">
+                            {if $comment.text}
+                                <div id="comment-content-{$comment.id}" class="col-md-12">{$comment.text}</div><br/>
+                            {/if}
+                            {foreach from=$comment.action item=actionRow}
+                                <div class="action-log col-md-12">{$actionRow}</div><br/>
+                            {/foreach}
+                        </div>
+                        <div class="comment-actions">
+                            {if $comment.canEditThisComment}
+                                <button type="button" data-comment="{$comment.id}" class="btn btn-default btn-sm jsEditComment">
+                                    Bearbeiten
+                                </button>
+                            {/if}
+                        </div>
                     </div>
                 </div>
-                <div class="content">
-                    {if $comment.text}
-                        <span id="comment-content-{$comment.id}">{$comment.text}</span>
-                    {/if}
+            {else}
+                <div class="bug-comment row">
+                    <div class="comment-interior">
+                        <div class="character-info user col-md-12">
+                            <div class="user-name">
+                                {$comment.name}
+                            </div>
+                        </div>
+                        <div class="content col-md-12">
+                            {if $comment.text}
+                                <span id="comment-content-{$comment.id}">{$comment.text}</span>
+                            {/if}
+                        </div>
+                    </div>
+                </div>
+            {/if}
+        {/foreach}
+
+        {if $activeCharacter.active}
+            <div class="new-post">
+                <div class="bug-comment row">
+                    <div class="portrait-b col-md-2">
+                        <div class="avatar-interior">
+                            <a href="{$url}{$activeCharacter.url}">
+                                <img height="64" src="{$url}{$activeCharacter.avatar}" alt=""/>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="comment-interior col-md-10">
+                        <div class="character-info user row">
+                            <div class="user-name col-md-12">
+                                <a href="{$url}{$activeCharacter.url}" class="wow-class-{$activeCharacter.class}" rel="np" target="_blank"> {$activeCharacter.name} </a>
+                            </div>
+                        </div>
+                        <div class="content row">
+                            <div class="col-md-12">
+                            {form_open('bugtracker/add_comment', $bugtrackerFormAttributes)}
+                                <input type="hidden" name="bug" value="{$bugId}"/>
+                                {if hasPermission("canEditBugs")}
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        Status ändern:
+                                    </div>
+                                    <div class="col-md-12">
+                                        <select name="change-state" id="change-state" class="form-control">
+                                            {html_options options=$bugStates selected=$state}
+                                        </select>
+                                    </div>
+                                </div>
+                                {/if}
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <textarea id="comment-ta" cols="78" rows="3" name="detail" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div class="action">
+                                    <div class="submit">
+                                        <button class="btn btn-default btn-sm comment-submit" type="submit" onclick="Cms.Comments.ajaxComment(this, Wiki.postComment);">
+                                            Kommentieren
+                                        </button>
+                                    </div>
+                                    <span class="clear"><!-- --></span>
+                                </div>
+                            {form_close()}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-      {/if}
-    {/foreach}
-
-    {if $activeCharacter.active}
-      <div class="new-post">
-        <div class="comment">
-          <div class="portrait-b">
-            <div class="avatar-interior">
-              <a href="{$url}{$activeCharacter.url}">
-                <img height="64" src="{$url}{$activeCharacter.avatar}" alt=""/>
-              </a>
-            </div>
-          </div>
-          <div class="comment-interior">
-            <div class="character-info user">
-              <div class="user-name">
-                <a href="{$url}{$activeCharacter.url}" class="wow-class-{$activeCharacter.class}" rel="np" target="_blank"> {$activeCharacter.name} </a>
-              </div>
-            </div>
-            <div class="content">
-                {form_open('bugtracker/add_comment')}
-                    <input type="hidden" name="bug" value="{$bugId}"/>
-                    {if hasPermission("canEditBugs")}
-                      Status ändern:
-                      <select name="change-state" id="change-state">
-                        {html_options options=$bugStates selected=$state}
-                      </select>
-                    {/if}
-                    <div class="comment-ta">
-                      <textarea id="comment-ta" cols="78" rows="3" name="detail"></textarea>
-                    </div>
-                    <div class="action">
-                      <div class="submit">
-                        <button class="ui-button button1 comment-submit " type="submit" onclick="Cms.Comments.ajaxComment(this, Wiki.postComment);">
-                          <span><span>Kommentieren</span></span>
-                        </button>
-                      </div>
-                      <span class="clear"><!-- --></span>
-                    </div>
-                {form_close()}
-            </div>
-          </div>
-        </div>
-      </div>
-    {/if}
-
-  </div> <!-- /page-comments -->
-
-
+        {/if}
+    </div>
 </div>

@@ -181,10 +181,12 @@ $bugtrackerColorWorkaround: #5bc0de;
   #page-comments {
     clear: both;
     margin-top: 20px;
+    /*
     padding: 20px 0 65px;
-    font-family: Verdana, Geneva, sans-serif;
     background-repeat: no-repeat;
     background-position: 50% 0;
+    */
+    font-family: Verdana, Geneva, sans-serif;
 
     .action-log {
       font-size: 11px;
@@ -208,17 +210,20 @@ $bugtrackerColorWorkaround: #5bc0de;
       }
     }
 
-    .loggedOut .comment {
+    .loggedOut .bug-comment {
       padding-left: 25px;
     }
 
-    .comment {
-      font-size: 11px;
+    .bug-comment {
+      /*font-size: 11px;*/
       line-height: 24px;
       margin-bottom: 12px;
       position: relative;
-      -moz-border-radius: 5px;
-      border-radius: 5px;
+
+      padding-top: 10px;
+
+      @include roundAllCorners(5px);
+
       .user {
         font: 12px Arial, Helvetica;
         line-height: 15px;
@@ -228,14 +233,15 @@ $bugtrackerColorWorkaround: #5bc0de;
           a {
             color: #824F30;
             font-size: 11px;
-            margin-left: 13px;
+            /*margin-left: 13px;*/
+
             &:hover {
               text-decoration: underline;
             }
           }
           color: #824F30;
           font-size: 11px;
-          margin-left: 13px;
+          /*margin-left: 13px;*/
         }
       }
       .rating-value {
@@ -252,16 +258,16 @@ $bugtrackerColorWorkaround: #5bc0de;
     }
 
     .comment-interior {
-      padding: 15px 15px 15px 95px;
-      min-height: 64px;
+      /*padding: 15px 15px 15px 95px;*/
     }
 
-    .portrait-b img,
-    .portrait-c img {
-      -moz-box-shadow: 0 0 10px #000;
-      -webkit-box-shadow: 0 0 10px #000;
-      box-shadow: 0 0 10px #000;
+    .portrait-b {
+      width: 100px;
+      img {
+        @include vendorPrefix(box-shadow, 0 0 10px #000);
+      }
     }
+
     .blizzard {
       background: #0d1a24;
       .content {
@@ -304,7 +310,7 @@ $bugtrackerColorWorkaround: #5bc0de;
       position: absolute;
       display: none;
     }
-    .comment {
+    .bug-comment {
       &:hover {
         .comment-actions, .rate-btn {
           visibility: visible;
@@ -312,7 +318,7 @@ $bugtrackerColorWorkaround: #5bc0de;
       }
 
       .comment-actions {
-        padding-top: 5px;
+        padding: 5px 0 10px 0;
         text-align: right;
         visibility: hidden;
       }
@@ -334,7 +340,7 @@ $bugtrackerColorWorkaround: #5bc0de;
         .status-text {
           display: block;
         }
-        .avatar, .content, .rate-btn-holder, .comment-actions {
+        .bug-avatar, .content, .rate-btn-holder, .comment-actions {
           display: none;
         }
       }
@@ -398,31 +404,13 @@ $bugtrackerColorWorkaround: #5bc0de;
       margin-bottom: 12px;
       -moz-border-radius: 4px;
       border-radius: 4px;
-      .comment {
+      .bug-comment {
         background: repeat-x;
         margin-bottom: 0;
       }
 
-      .avatar.half {
-        display: none;
-      }
     }
-    .nested {
-      .avatar.full {
-        display: none;
-      }
-      .new-post .avatar.half {
-        display: block;
-      }
-    }
-    .portrait-b, .portrait-c {
-      top: 15px;
-      left: 15px;
-      position: absolute;
-    }
-    .avatar-interior {
-      background: none;
-    }
+
   }
 
   .disabled-comments-msg {

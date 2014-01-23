@@ -367,7 +367,7 @@ class Bugtracker extends MY_Controller{
         $this->template->setTitle('Bug #'.$bugId);
         $this->template->setSectionTitle('Bug #'.$bugId.' '.$title);
 
-        /**
+        /*
          * Project
          */
         //$project = $bug['project'];
@@ -734,6 +734,9 @@ class Bugtracker extends MY_Controller{
             'bugId' => $bugId,
             'bugStates' => $this->bug_model->getBugStates(),
             'typeString' => '',
+            'bugtrackerFormAttributes' => array(
+                'class' => 'form-horizontal'
+            ),
 
             'title' => $title,
 
