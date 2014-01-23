@@ -1,6 +1,6 @@
 
 <div class="bugtracker-actions row">
-    <div class="col-md">
+    <div class="col-md-12">
         <a href="{site_url('bugtracker/index')}" class="btn btn-default btn-sm">
             <i class="glyphicon glyphicon-chevron-left"></i>
             Kategorienliste
@@ -60,12 +60,12 @@
                 </div>
 				<div class="keyword col-md-4">
                     <span class="view"><i class="glyphicon glyphicon-search"></i></span>
-                    <span class="reset" style="display: none"></span>
+                    <span class="reset" style="display: none"><i class="glyphicon glyphicon-remove"></i></span>
 					<input id="filter-name-buglist" type="text" class="input filter-name" data-filter="row" title="Filter..." value="Filter..." />
 				</div>
 			</div>
 			<div class="data-options-top row">
-				<div class="table-options data-options col-md">
+				<div class="table-options data-options col-md-12">
 					<div class="option">
 						<ul class="ui-pagination"></ul>
 					</div>

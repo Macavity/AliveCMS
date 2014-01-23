@@ -41,17 +41,15 @@
           height: 16px;
           position: absolute;
           top: 7px;
-          right: 20px;
+          right: 26px;
         }
         .reset {
           display: block;
           width: 16px;
           height: 16px;
           position: absolute;
-          top: 5px;
-          right: 5px;
-          background: url("/application/themes/shattered/images/filter.gif") center center no-repeat;
-          background-image: url("/application/themes/shattered/images/icons/cross-small-brown.gif");
+          top: 7px;
+          right: 26px;
           cursor: pointer;
         }
       }
@@ -140,7 +138,9 @@
     float: right;
     padding-left: 15px;
     position: relative;
-    top: 0px;
+    top: 10px;
+    right: 12px;
+    
     .input {
       padding-right: 2px;
     }
