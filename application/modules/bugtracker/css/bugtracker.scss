@@ -624,3 +624,49 @@ $bugtrackerColorWorkaround: #5bc0de;
     /*height: 100px;*/
   }
 }
+
+#bugtracker-edit {
+  textarea{
+    width:500px;
+    overflow:auto;
+  }
+
+  pre{
+    border: 1px solid white;
+    padding: 10px 20px;
+    margin-left: 50px;
+  }
+
+  h2{ padding: 10px 0px; color:#F0E29A;}
+  #main {
+    fieldset{
+      position: relative;
+      width: 662px;
+      border: 1px solid #ddd;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+      padding: 39px 19px 14px;
+      margin: 15px 0 15px 180px;
+
+      legend{
+        position: absolute;
+        top: -1px;
+        left: -1px;
+        width: auto;
+        padding: 3px 7px;
+
+        color: black;
+        font-weight: bold;
+        font-size: 12px;
+
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+
+        -webkit-border-radius: 4px 0 4px 0;
+        -moz-border-radius: 4px 0 4px 0;
+        border-radius: 4px 0 4px 0;
+      }
+    }
+  }
+}

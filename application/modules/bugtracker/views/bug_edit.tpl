@@ -1,61 +1,19 @@
-<style type="text/css">
-  textarea{
-    width:500px;
-    overflow:auto;
-  }
-  pre{
-    border: 1px solid white;
-    padding: 10px 20px;
-    margin-left: 50px;
-  }
-  h2{ padding: 10px 0px; color:#F0E29A;}
-  #content fieldset{
-    position: relative;
-    width: 662px;
-    border: 1px solid #ddd;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    padding: 39px 19px 14px;
-    margin: 15px 0 15px 180px;
-  }
-  #content fieldset legend{
-    position: absolute;
-    top: -1px;
-    left: -1px;
-    width: auto;
-    padding: 3px 7px;
-
-    color: black;
-    font-weight: bold;
-    font-size: 12px;
-
-    background-color: #f5f5f5;
-    border: 1px solid #ddd;
-
-    -webkit-border-radius: 4px 0 4px 0;
-    -moz-border-radius: 4px 0 4px 0;
-    border-radius: 4px 0 4px 0;
-  }
-</style>
-
 <script type="text/javascript">
-
   var bugtrackerProjectPaths = {
-  {foreach name=paths from=$projectPaths key=projectId item=path}
-  {$projectId}: [{foreach name=pathrow from=$path item=item}{$item}{if $smarty.foreach.pathrow.last == false}, {/if}{/foreach}]{if $smarty.foreach.paths.last == false},
-  {/if}
-  {/foreach}
+    {foreach name=paths from=$projectPaths key=projectId item=path}
+        {$projectId}: [{foreach name=pathrow from=$path item=item}{$item}{if $smarty.foreach.pathrow.last == false}, {/if}{/foreach}]{if $smarty.foreach.paths.last == false},
+        {/if}
+    {/foreach}
   };
 </script>
 
 <div class="form form-horizontal">
   {form_open('bugtracker/edit/', $form_attributes)}
     <input type="hidden" name="bugId" value="{$bugId}">
-    <div class="control-group" >
-      <label class="control-label">Kategorie</label>
-      <div class="controls">
-        <select name="project" id="project">
+    <div class="form-group" >
+      <label class="col-md-2 control-label">Kategorie</label>
+      <div class="col-md-4">
+        <select name="project" id="project" class="form-control">
           <option value="0">- Bitte wählen -</option>
           {foreach from=$baseProjects key=baseKey item=baseRow}
             <optgroup label="{$baseRow.title}">
@@ -68,92 +26,103 @@
       </div>
     </div>
 
-  <div id="alert-project" class="alert alert-danger span11" {if $post.project}style="display:none"{/if}>Bitte wähle zuerst eine Kategorie aus.</div>
+    <div id="alert-project" class="alert alert-danger col-md-12" {if $post.project}style="display:none"{/if}>Bitte wähle zuerst eine Kategorie aus.</div>
 
-  <fieldset id="ac-search-wrapper" class="span11 jsServerOnly jsProjectFirst">
-    <legend>Bitte füge wenigstens einen OpenWoW-Link hinzu.</legend><br>
+    <div class="row">
+        <fieldset id="ac-search-wrapper" class="col-md-11 jsServerOnly jsProjectFirst">
+            <legend>Bitte füge wenigstens einen OpenWoW-Link hinzu.</legend><br>
 
-    <div class="alert alert-info">Openwow hat getrennte Unterseiten für WotLK und Cataclysm mit den korrekten Daten zu diesen Zeiten. Dagegen sind die meisten anderen Fan-Sites (wowhead, buffed,..) auf dem aktuellen Stand von World of Warcraft.</div>
+            <div class="alert alert-info">Openwow hat getrennte Unterseiten für WotLK und Cataclysm mit den korrekten Daten zu diesen Zeiten. Dagegen sind die meisten anderen Fan-Sites (wowhead, buffed,..) auf dem aktuellen Stand von World of Warcraft.</div>
 
-    <div class="control-group">
-      <label class="control-label" for="ac-search-type">Art des Links</label>
-      <div class="controls">
-        {form_dropdown('search-type', $idTypes, '', 'id="ac-search-type"')}
-      </div>
+            <div class="form-group">
+                <label class="control-label col-md-4" for="ac-search-type">Art des Links</label>
+                <div class="controls col-md-8">
+                    {form_dropdown('search-type', $idTypes, '', 'id="ac-search-type" class="form-control"')}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4" for="ac-search-field">Suchtext</label>
+                <div class="controls col-md-7">
+                    <div class="input-append">
+                        <input type="text" id="ac-search-field" name="quest-detail" size="50" value="" class="form-control"/>
+                        <span id="ac-loader" class="add-on"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4" for="form-other-link">Anderen Link hinzufügen</label>
+                <div class="controls col-md-8">
+                    <div class="input-group">
+                        <span class="input-group-addon">http://</span>
+                        <input type="text" id="form-other-link" name="other-link" size="50" value="" class="input-xlarge form-control"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default jsAddOtherLink" type="button" data-target="form-other-link">Hinzufügen</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
     </div>
 
-    <div class="control-group">
-      <label class="control-label" for="ac-search-field">Suchtext</label>
-      <div class="controls">
-        <div class="input-append">
-          <input type="text" id="ac-search-field" name="quest-detail" size="50" value=""/>
-          <span id="ac-loader" class="add-on"></span>
+
+    <div class="row">
+      <fieldset class="col-md-11 jsWebsiteOnly jsProjectFirst">
+        <legend>Du kannst einen Link zu einer der betroffenen Seiten hinzufügen.</legend>
+
+        <div class="form-group">
+          <label class="control-label col-md-4" for="form-other-link">Link hinzufügen</label>
+          <div class="controls col-md-8">
+            <div class="input-group">
+                <span class="input-group-addon">http://</span>
+                <input type="text" id="form-website-link" name="other-link" size="50" value="" class="input-xlarge form-control"/>
+                <span class="input-group-btn">
+                    <button class="btn btn-default jsAddOtherLink" type="button" data-target="form-website-link">Hinzufügen</button>
+                </span>
+            </div>
+          </div>
         </div>
-      </div>
+      </fieldset>
     </div>
-
-    <div class="control-group">
-      <label class="control-label" for="form-other-link">Anderen Link hinzufügen</label>
-      <div class="controls">
-        <div class="input-prepend input-append">
-          <span class="add-on">http://</span>
-          <input type="text" id="form-other-link" name="other-link" size="50" value="" class="input-xlarge"/>
-          <button class="btn jsAddOtherLink" type="button" data-target="form-other-link">Hinzufügen</button>
-        </div>
-      </div>
-    </div>
-  </fieldset>
-
-  <fieldset class="span11 jsWebsiteOnly jsProjectFirst">
-    <legend>Du kannst einen Link zu einer der betroffenen Seiten hinzufügen.</legend>
-
-    <div class="control-group">
-      <label class="control-label" for="form-other-link">Link hinzufügen</label>
-      <div class="controls">
-        <div class="input-prepend input-append">
-          <span class="add-on">http://</span>
-          <input type="text" id="form-website-link" name="other-link" size="50" value="" class="input-xlarge"/>
-          <button class="btn jsAddOtherLink" type="button" data-target="form-website-link">Hinzufügen</button>
-        </div>
-      </div>
-    </div>
-  </fieldset>
 
   {if $showFixBugShit}
-  <fieldset class="span11 jsServerOnly jsConfirmed">
-    <legend>F.I.X.B.U.G.S.H.I.T.</legend>
-    <br/>
-    <div class="alert alert-info">Wenn du Quests auf Autocomplete stellst, wird der Bugstatus auf &quot;Bestätigt&quot; gestellt.</div>
+      <div class="row">
+          <fieldset class="col-md-11 jsServerOnly jsConfirmed">
+            <legend>F.I.X.B.U.G.S.H.I.T.</legend>
+            <br/>
+            <div class="alert alert-info">Wenn du Quests auf Autocomplete stellst, wird der Bugstatus auf &quot;Bestätigt&quot; gestellt.</div>
 
-    <div class="control-group">
-      <label class="control-label">Quests</label>
-      <div class="controls">
-        <table class="table">
-          {foreach $fbsQuests as $quest}
-            <tr>
-              <td>{$quest.id}</td>
-              <td>
-                <label class="checkbox">
-                  <input type="checkbox" value="active" name="fbs_quest_{$quest.id}" {if $quest.isAutocomplete}checked="checked"{/if}> Autocomplete aktiv
-                </label>
-              </td>
-              <td>{$quest.title}</td>
-            </tr>
-          {foreachelse}
-            <tr>
-              <td>Es konnte keine Quest Id gefunden werden, bitte trage zuerst einen "openwow"-Link ein und speicher das Ticket.</td>
-            </tr>
-          {/foreach}
-        </table>
+            <div class="form-group">
+              <label class="control-label col-md-4">Quests</label>
+              <div class="controls col-md-8">
+                <table class="table">
+                  {foreach $fbsQuests as $quest}
+                    <tr>
+                      <td>{$quest.id}</td>
+                      <td>
+                        <label class="checkbox">
+                          <input type="checkbox" value="active" name="fbs_quest_{$quest.id}" {if $quest.isAutocomplete}checked="checked"{/if} class="form-control"> Autocomplete aktiv
+                        </label>
+                      </td>
+                      <td>{$quest.title}</td>
+                    </tr>
+                  {foreachelse}
+                    <tr>
+                      <td>Es konnte keine Quest Id gefunden werden, bitte trage zuerst einen "openwow"-Link ein und speicher das Ticket.</td>
+                    </tr>
+                  {/foreach}
+                </table>
+              </div>
+            </div>
+          </fieldset>
       </div>
-    </div>
-  </fieldset>
   {/if}
 
-  <div id="form-link-wrapper" class="control-group jsProjectFirst">
-    <label class="control-label">Links</label>
-    <div class="controls">
-      <table class="table span9">
+  <div id="form-link-wrapper" class="form-group jsProjectFirst">
+    <label class="control-label col-md-2">Links</label>
+    <div class="controls col-md-10">
+      <table class="table col-md-9">
         <thead>
         <tr>
           <th><a href="javascript:;" class="sort-link"><span class="arrow">Link</span></a></th>
@@ -162,13 +131,13 @@
         </thead>
         <tbody>
         {foreach from=$post.links key=i item=link}
-          <tr id="prefilled-{$i}" class="{cycle values="row1,row2"}">
+          <tr id="prefilled-{$i}">
             <td>
               <input type="hidden" name="links[]" value="{$link}">
               <a href="{$link}" target="_blank">{$link}</a>
             </td>
             <td>
-              <button class="btn btn-mini jsDeleteLink" data-target="prefilled-{$i}"><i class="icon icon-remove"></i> Entfernen</button>
+              <button class="btn btn-mini jsDeleteLink" data-target="prefilled-{$i}"><i class="glyphicon glyphicon-remove"></i> Entfernen</button>
             </td>
           </tr>
           <tr class="no-results" style="display:none">
@@ -184,44 +153,37 @@
     </div>
   </div>
 
-  <div id="form-similar-bugs-wrapper" class="control-group jsProjectFirst">
-    <label class="control-label"></label>
-    <div class="controls">
-
+  <div class="form-group jsProjectFirst">
+    <label class="control-label col-md-2">Status</label>
+    <div class="controls col-md-9">
+      {form_dropdown('state', $bugStates, $post.state, 'class="form-control"')}
     </div>
   </div>
 
-  <div class="control-group jsProjectFirst">
-    <label class="control-label">Status</label>
-    <div class="controls">
-      {form_dropdown('state', $bugStates, $post.state)}
+  <div class="form-group jsProjectFirst">
+    <label class="control-label col-md-2">Priorität</label>
+    <div class="controls col-md-9">
+      {form_dropdown('priority', $bugPriorities, $post.priority, 'class="form-control"')}
     </div>
   </div>
 
-  <div class="control-group jsProjectFirst">
-    <label class="control-label">Priorität</label>
-    <div class="controls">
-      {form_dropdown('priority', $bugPriorities, $post.priority)}
+  <div class="form-group jsProjectFirst">
+    <label class="control-label col-md-2">Titel</label>
+    <div class="controls col-md-9">
+      <input type="text" id="form-title" name="title" size="50" value="{$post.title}" class="col-md-9 form-control"/>
+    </div>
+  </div>
+  <div class="form-group jsProjectFirst">
+    <label class="control-label col-md-2">Beschreibung</label>
+    <div class="controls col-md-9">
+      <textarea rows="8" id="form-desc" name="desc" class="col-md-9 form-control">{$post.desc}</textarea>
     </div>
   </div>
 
-  <div class="control-group jsProjectFirst">
-    <label class="control-label">Titel</label>
-    <div class="controls">
-      <input type="text" id="form-title" name="title" size="50" value="{$post.title}" class="span9"/>
-    </div>
-  </div>
-  <div class="control-group jsProjectFirst">
-    <label class="control-label">Beschreibung</label>
-    <div class="controls">
-      <textarea rows="8" id="form-desc" name="desc" class="span9">{$post.desc}</textarea>
-    </div>
-  </div>
-
-  <div class="control-group jsProjectFirst">
-    <div class="controls">
-      <button class="ui-button button1 comment-submit" type="button" id="form-submit">
-        <span><span>Speichern</span></span>
+  <div class="form-group jsProjectFirst">
+    <div class="controls col-md-9">
+      <button class="btn btn-sm comment-submit" type="button" id="form-submit">
+        Speichern
       </button>
     </div>
   </div>
