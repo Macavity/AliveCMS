@@ -77,6 +77,478 @@ header {
 
   }
 
+  nav.main-menu {
+    position: relative;
+    margin-top:40px;
+
+    ul{
+      height:76px;
+      background-image: url(../images/topmenu.jpg);
+      text-align:left;
+      box-shadow:0 0 9px rgba(0,0,0,.6);
+      border-radius:4px;
+
+      li {
+        display:inline-block;
+        margin:1px 0 0 -8px;
+        background:url(../images/menu-seperator.png) no-repeat right;
+        padding:0 5px 0 0;
+        position:relative;
+
+        &:first-child{
+          background:url(../images/menu-seperator.png) no-repeat right, url(../images/menu-seperator.png) no-repeat left;
+          padding:0 5px 0 5px;
+        }
+
+        a {
+          display:block;
+          font-family:Georgia, "Times New Roman", Times, serif;
+          font-size:13px;
+          font-weight:bold;
+          color:#fee14e;
+          padding:29px 27px;
+          text-shadow: 0 1px 1px rgba(89,33,4,.7);
+          text-transform:uppercase;
+
+          &:hover {
+            color:#ffe44d;
+            background-color:rgba(0,0,0,.1);
+          }
+        }
+        /* We don't want half borders on the first and last ones */
+        &:first-child a {
+          border-left: none;
+        }
+        &:last-child a {
+          border-right: none;
+        }
+      }
+
+    }
+
+    .user-plate {
+      color: #fff;
+      width: 355px;
+      height: 84px;
+
+      position: absolute;
+      right: 0px;
+      bottom: -9px;
+
+      /* class icon */
+      .card-character {
+        display: block;
+
+        width: 326px;
+        height: 84px;
+        padding:0 0 0 30px;
+
+        color: #EEE;
+        font-size: 14px;
+        line-height: 1.4em;
+
+        position: absolute;
+        bottom:0px;
+        right: -4px;
+
+        text-overflow: ellipsis;
+
+        &:hover {
+          color: #fff;
+          strong {
+            color: white;
+          }
+        }
+
+        strong {
+          color: #ffb100;
+        }
+
+        .login-msg {
+          display:block;
+          float:left;
+          width:210px;
+          margin-top:12px;
+          text-shadow:1px 1px 1px #555
+        }
+
+        .wow-login-key {
+          display:block;
+          position:absolute; right:50px; top:31px;
+          width:50px; height:42px;
+          background:url(../images/layout/key.png) no-repeat
+        }
+
+        .card-portrait {
+          width:58px;
+          height:58px;
+          display:block;
+          float:right;
+          border:1px solid #c3ff00;
+          margin-top:7px;
+          margin-right:21px;
+        }
+
+
+        &.plate-alliance {
+          /*background: #0f5bb9;*/
+          width: 324px;
+          margin: 0px 1px 0px 0px;
+
+          .card-portrait { border-color:#00bbf6 }
+          .profile-link:hover .card-portrait { border-color:#00c5f7 }
+        }
+
+        &.plate-horde {
+          .card-portrait { border-color:#e23739 }
+          .profile-link:hover .card-portrait { border-color:#e63f41 }
+        }
+
+      }
+
+      .meta-wrapper {
+        position:relative;
+        width:240px;
+        left:30px;
+        top:10px;
+
+        &.meta-alliance {
+          .player-name {
+            color: #5fb8eb;
+          }
+          .character-name:hover {
+            color: white;
+            text-shadow: 1px 1px 1px black, 0 0 15px #409aff, 0 0 5px #409aff;
+          }
+        }
+
+        &.meta-horde {
+          .player-name {
+            color: #eb1212;
+          }
+          .character-name:hover {
+            color: white;
+            text-shadow: 1px 1px 1px black, 0 0 15px #c64040, 0 0 5px #c64040;
+          }
+        }
+      }
+
+      .user-meta {
+        padding-left: 20px;
+        position: absolute;
+        left: 0;
+        top: 68px; z-index: 3; float: left;
+        &.meta-empty { padding-left: 85px; padding-top: 6px; }
+        &.meta-login { padding-left: 85px; padding-top: 6px; top: 63px; padding-right: 10px; }
+      }
+      .character { position: relative; }
+
+      .player-name,
+      .guild-name { display: block; text-shadow: 1px 1px 1px black; font-weight: bold; }
+
+      .player-name { color: #b0d715; font-weight: bold; line-height: 100%; margin-bottom: 2px; }
+      .character-name { line-height: 100%; font-weight: bold; font-size: 24px; margin: 0; padding-right: 15px; background-position: 100% 10px; letter-spacing: -0.0em; text-shadow: 1px 1px 1px black; letter-spacing: -0.05em; }
+      .context-link { background:none; }
+      .character-name{
+        &.context-open,
+        &:hover {
+          color: white;
+        }
+        .arrow {
+          display: inline-block;
+          width: 11px;
+          height: 15px;
+          font-size: 16px;
+        }
+      }
+
+      .ui-context { top: 30px }
+      .ui-context a { color: #00B6FF; }
+      .ui-context a:hover { color: #fff; }
+      .card-overlay { width: 343px; height: 15px; background: url("../images/layout/card-overlay.png"); position: absolute; bottom: 0; right: 2px; }
+      a.profile-link,
+      a.profile-link .hover { display: block; width: 200px; height: 125px; }
+      a.profile-link { position: absolute; bottom: 0; right: 2px; }
+      a.profile-link .hover { background: url("../images/layout/card-model-hover.png") no-repeat; opacity: 0; -webkit-transition: opacity 0.1s linear; -o-transition: all 0.1s linear; -moz-transition: opacity 0.1s linear; transition: opacity 0.1s linear; }
+      #header .user-plate.plate-horde a.profile-link .hover { background-position: right top; }
+      a.profile-link:hover .hover { opacity: 1; }
+
+      &.plate-nochars { background: url("../images/layout/no-chars.gif") -3px 103% no-repeat }
+      &.plate-nochars .user-meta { padding: 15px 165px 0 20px; }
+
+      &.plate-alliance { background: url("../images/layout/card-alliance.gif") -3px 103% no-repeat }
+      &.plate-alliance .player-name { color: #5fb8eb; }
+      &.plate-alliance .character-name:hover { color: white; text-shadow: 1px 1px 1px black, 0 0 15px #409aff, 0 0 5px #409aff; }
+
+      &.plate-horde { background: url("../images/layout/card-horde.gif") -3px 103% no-repeat }
+      &.plate-horde .player-name { color: #eb1212; }
+      &.plate-horde .character-name:hover { color: white; text-shadow: 1px 1px 1px black, 0 0 15px #c64040, 0 0 5px #c64040; }
+
+
+    }
+
+
+    .ui-context {
+      display: none;
+      overflow: hidden;
+      position: absolute;
+      left: 0;
+      top: 15px;
+      z-index: 9000;
+      opacity: .98;
+      width: 225px;
+      background: #151616;
+      border: 1px solid #262626;
+      font: normal 12px "Arial", sans-serif;
+      -moz-border-radius: 5px;
+      -webkit-border-radius: 5px;
+      border-radius: 5px;
+      -moz-box-shadow: #000 0 0 10px;
+      -webkit-box-shadow: #000 0 0 10px;
+      box-shadow: #000 0 0 10px;
+      a {
+        color: #00B6FF;
+        text-decoration: none;
+        &:hover {
+          color: #fff;
+        }
+        &.pinned {
+          cursor: default;
+        }
+      }
+      .context {
+        padding: 10px;
+        strong {
+          color: #fff;
+          font-size: 14px;
+        }
+        span {
+          color: #5d636b;
+        }
+        .close {
+          padding: 0;
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          width: 11px;
+          height: 11px;
+          display: block;
+          background: url("../images/context/icons.gif") no-repeat;
+          &:hover {
+            background-position: 0 -26px;
+          }
+        }
+        .context-user {
+          padding-bottom: 10px;
+        }
+        .context-links {
+          height: 30px;
+          a {
+            display: block;
+            line-height: 30px;
+            float: left;
+            padding-left: 30px;
+            height: 30px;
+            background: #292a2a;
+            margin-right: 1px;
+            background-image: url("../images/icons/context.gif");
+            background-repeat: no-repeat;
+            font-weight: bold;
+            &:hover {
+              background-color: #525252;
+            }
+          }
+          .link-first {
+            -moz-border-radius-topleft: 3px;
+            -moz-border-radius-bottomleft: 3px;
+            -webkit-border-top-left-radius: 3px;
+            -webkit-border-bottom-left-radius: 3px;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+            padding-right: 10px;
+          }
+          .link-last {
+            -moz-border-radius-topright: 3px;
+            -moz-border-radius-bottomright: 3px;
+            -webkit-border-top-right-radius: 3px;
+            -webkit-border-bottom-right-radius: 3px;
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+          }
+        }
+      }
+      .character-list {
+        padding-top: 1px;
+        color: #5b616a;
+        overflow: hidden;
+        background: url("../images/layout/divider.gif") 50% 0 no-repeat;
+        &.loading-chars {
+          padding: 50px;
+          background: url("../images/icons/uber-loading.gif") 50% 50% no-repeat;
+        }
+        .primary {
+          padding-bottom: 2px;
+          .char {
+            display: block;
+            padding: 10px;
+            opacity: .50;
+            background: url("../images/layout/divider.gif") 50% 100% no-repeat;
+            span {
+              display: block;
+            }
+            .race, .class, .realm {
+              text-transform: uppercase;
+              color: #5b616a;
+              font-size: 11px;
+            }
+            .name {
+              font-size: 14px;
+              color: #fff;
+              font-weight: bold;
+            }
+            .pin {
+              margin-top: 17px;
+              float: right;
+              width: 16px;
+              height: 16px;
+              display: block;
+              background: url("../images/icons/icons.gif") 0 -52px no-repeat;
+            }
+            &.pinned {
+              .pin {
+                background-position: 0 -83px;
+              }
+              color: #fff;
+              background-color: #080809;
+              opacity: 1;
+            }
+            &:hover {
+              color: #fff;
+              background-color: #080809;
+              opacity: 1;
+            }
+            &:last-child {
+              margin: 0;
+              background-image: none;
+            }
+          }
+        }
+        .secondary {
+          .viewport {
+            width: 185px;
+            float: left;
+            height: 265px;
+            overflow: hidden;
+            position: relative;
+            a {
+              display: block;
+              padding: 5px;
+              .icon-frame {
+                vertical-align: middle;
+              }
+              &:hover {
+                background: #080809;
+                -moz-border-radius: 5px;
+                -webkit-border-radius: 5px;
+                border-radius: 5px;
+              }
+              &.filtered {
+                display: none;
+              }
+            }
+          }
+          .overview {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 185px;
+          }
+          .scrollbar {
+            position: relative;
+            float: right;
+            width: 15px;
+          }
+          .track {
+            background: #080808;
+            height: 100%;
+            width: 13px;
+            position: relative;
+            padding: 1px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+          }
+          .thumb {
+            height: 20px;
+            width: 13px;
+            cursor: pointer;
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            background: #24292e;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            .end {
+              display: none;
+            }
+          }
+          .disable {
+            display: none;
+          }
+          .char-wrapper {
+            padding: 10px;
+            height: 265px;
+            width: 205px;
+          }
+        }
+      }
+      .no-results {
+        text-align: center;
+        padding: 15px;
+      }
+      .char-wrapper {
+        padding-bottom: 1px;
+        clear: both;
+        background: #0d0e10 url("../images/layout/divider.gif") 50% 100% no-repeat;
+        -moz-box-shadow: #000 0 0 5px inset;
+        -webkit-box-shadow: #000 0 0 5px inset;
+        box-shadow: #000 0 0 5px inset;
+      }
+      .filter {
+        text-align: center;
+        .input {
+          margin-bottom: 5px;
+        }
+        padding: 10px 10px 8px 10px;
+        display: block;
+        line-height: 125%;
+      }
+      .manage-chars {
+        padding: 10px 10px 8px 10px;
+        display: block;
+        line-height: 125%;
+        span {
+          color: #5b616a;
+        }
+      }
+      a.manage-chars:hover span {
+        color: #aaa;
+        &.plus {
+          background-position: 0 -265px;
+        }
+      }
+      .manage-chars .plus {
+        width: 15px;
+        height: 15px;
+        display: block;
+        float: right;
+        margin: 15px 0 15px 10px;
+        background: url("../images/context/icons.gif") 0 -114px no-repeat;
+      }
+    }
+  }
+
+
+
 
 }
 
@@ -136,58 +608,6 @@ header {
     &:after,&:before {
       clear: both;
     }
-  }
-
-  nav.main-menu {
-    margin-top:40px;
-
-    ul
-    {
-      height:76px;
-      background-image: url(../images/topmenu.jpg);
-      text-align:center;
-      box-shadow:0 0 9px rgba(0,0,0,.6);
-      border-radius:4px;
-
-      li {
-        display:inline-block;
-        margin:1px 0 0 -8px;
-        background:url(../images/menu-seperator.png) no-repeat right;
-        padding:0 5px 0 0;
-        position:relative;
-
-        &:first-child{
-          background:url(../images/menu-seperator.png) no-repeat right, url(../images/menu-seperator.png) no-repeat left;
-          padding:0 5px 0 5px;
-        }
-
-        a {
-          display:block;
-          font-family:Georgia, "Times New Roman", Times, serif;
-          font-size:13px;
-          font-weight:bold;
-          color:#fee14e;
-          padding:29px 27px;
-          text-shadow: 0 1px 1px rgba(89,33,4,.7);
-          text-transform:uppercase;
-
-          &:hover {
-            color:#ffe44d;
-            background-color:rgba(0,0,0,.1);
-          }
-        }
-        /* We don't want half borders on the first and last ones */
-        &:first-child a {
-          border-left: none;
-        }
-        &:last-child a {
-          border-right: none;
-        }
-      }
-
-    }
-
-
   }
 
 
