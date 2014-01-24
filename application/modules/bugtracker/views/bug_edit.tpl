@@ -181,7 +181,7 @@
   </div>
 
   <div class="form-group jsProjectFirst">
-    <div class="controls col-md-9">
+    <div class="controls col-md-9 col-md-offset-1">
       <button class="btn btn-sm comment-submit" type="button" id="form-submit">
         Speichern
       </button>

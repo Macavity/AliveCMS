@@ -589,6 +589,16 @@ $bugtrackerColorWorkaround: #5bc0de;
 
   }
 
+  textarea{
+    width:500px;
+    overflow:auto;
+  }
+  pre{
+    border: 1px solid white;
+    padding: 10px 20px;
+    margin-left: 50px;
+  }
+
 }
 
 .icon{
@@ -625,20 +635,17 @@ $bugtrackerColorWorkaround: #5bc0de;
   }
 }
 
-#bugtracker-edit {
-  textarea{
-    width:500px;
-    overflow:auto;
+#bugtracker-create,
+#bugtracker-edit
+{
+
+  h2{
+    padding: 10px 0px;
+    color:#F0E29A;
   }
 
-  pre{
-    border: 1px solid white;
-    padding: 10px 20px;
-    margin-left: 50px;
-  }
-
-  h2{ padding: 10px 0px; color:#F0E29A;}
-  #main {
+  #main
+  {
     fieldset{
       position: relative;
       width: 662px;
@@ -670,3 +677,4 @@ $bugtrackerColorWorkaround: #5bc0de;
     }
   }
 }
+
