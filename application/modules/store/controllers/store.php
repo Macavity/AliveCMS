@@ -48,10 +48,10 @@ class Store extends MX_Controller
 		);
 
 		// Load the content
-		$content = $this->template->loadPage("store.tpl", $data);
+		$page = $this->template->loadPage("store.tpl", $data);
 
 		// Put the content in a box
-		$page = $this->template->box("<span style='cursor:pointer;' onClick='window.location=\"".$this->template->page_url."ucp\"'>".lang("ucp")."</span> &rarr; ".lang("item_store", "store"), $content);
+		/*$page = $this->template->box("<span style='cursor:pointer;' onClick='window.location=\"".$this->template->page_url."ucp\"'>".lang("ucp")."</span> &rarr; ".lang("item_store", "store"), $page);*/
 
 		// Output the content
 		$this->template->view($page);
