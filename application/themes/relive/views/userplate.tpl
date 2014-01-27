@@ -29,12 +29,14 @@
                                 <span class="realm up">{$activeChar.realmName}</span>
                             </div>
                             <div class="context-links">
-                                <a href="{$activeChar.url}" title="Profil" rel="np" class="icn-profile link-first">
-                                    Profil
+                                <a href="{$activeChar.url}" title="Profil" rel="np" class="link-first">
+                                    <i class="glyphicon glyphicon-eye-open"></i> Arsenal
                                 </a>
-                                <a href="/" title="Meine Beiträge ansehen" rel="np" class="icon-posts"><!--  --></a>
-                                <a href="/server/auction/alliance/" title="Auktionen einsehen" rel="np" class="icon-auctions"><!--  --></a>
-                                <a href="/server/events/" title="Events einsehen" rel="np" class="icon-events link-last"><!--  --></a>
+                                {if $activeChar.hasGuild}
+                                <a href="{$activeChar.guildUrl}" title="Profil" rel="np" class="link-last">
+                                    <i class="glyphicon glyphicon-tower"></i> Gilde
+                                </a>
+                                {/if}
                             </div>
                         </div>
                         <div class="character-list">

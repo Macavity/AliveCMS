@@ -34,27 +34,30 @@
         {if $show_sidebar}
             <aside id="left" class="container">
 
-            <!-- REGISTER Banner -->
-            <a href="register" class="sidebar-banner">
-                <h2>Account erstellen</h2>
-                <p>Werde Teil unserer Community</p>
-            </a>
-            <!-- REGISTER Banner . End -->
+                {if !$isOnline}
+                    <a href="/register" class="sidebar-banner">
+                        <h2>Account erstellen</h2>
+                        <p>Werde Teil unserer Community</p>
+                    </a>
+                {/if}
 
-            {foreach from=$sideboxes item=sidebox}
-                <article id="{$sidebox.css_id}">
-                    <h2 class="top">{$sidebox.name}</h2>
-                    <section class="body">
-                        {$sidebox.data}
-                    </section>
-                </article>
-            {/foreach}
+                {foreach from=$sideboxes item=sidebox}
+                    <article id="{$sidebox.css_id}">
+                        <h2 class="top">{$sidebox.name}</h2>
+                        <section class="body">
+                            {$sidebox.data}
+                        </section>
+                    </article>
+                {/foreach}
 
-            <!-- VOTE Banner -->
-            <a href="vote" class="vote-b"><p></p><span></span></a>
-            <!-- VOTE Banner . End -->
+                {if $isOnline}
+                    <a href="/vote" class="sidebar-banner">
+                        <h2>Voten</h2>
+                        <p>Hilf uns größer zu werden</p>
+                    </a>
+                {/if}
 
-            <ul id="left_menu">
+                <ul id="left_menu">
                 {foreach from=$menu_side item=menu_2}
                     <li><a {$menu_2.link}><img src="{$image_path}bullet.png">{$menu_2.name}</a></li>
                 {/foreach}
@@ -75,13 +78,7 @@
 
         <aside id="{if $show_sidebar}right{else}full{/if}" class="container">
             {if $show_slider}
-                <section id="slider_bg">
-                    <div id="slider">
-                        {foreach from=$slider item=image}
-                            <a href="{$image.link}"><img src="{$image.image}" title="{$image.text}"/></a>
-                        {/foreach}
-                    </div>
-                </section>
+                {$slider}
             {/if}
 
             {$breadcrumbs}
