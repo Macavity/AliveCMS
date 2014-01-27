@@ -29,12 +29,16 @@
 
 /* =========== General =========== */
 
-*, ul, li, h1, h2, p, b {
+*, ul, h1, h2, p, b {
 	font-weight:normal;
 	margin:0px;
 	padding:0px;
 	list-style:none;
 	line-height:1.5;
+}
+
+legend {
+  color: #feba02;
 }
 
 *:focus {
@@ -55,6 +59,10 @@ a img {
 
 #left #left_menu li a, #top_menu li a {
   @include vendorPrefix(transition, 0.3s all);
+}
+
+.alert-info a {
+  color: #08c;
 }
 
 /*
@@ -249,6 +257,20 @@ a.vote-b:hover p { opacity:1;}
   height: 12px;
   margin-left: 5px;
   width: 10px;
+}
+
+.icon-faction-0,
+.icon-faction-1 {
+  display: inline-block;
+  margin-left: 6px;
+  width: 15px;
+  height: 15px;
+  background: url("/application/images/icons/alliance.png") left center no-repeat !important;
+  vertical-align: middle;
+}
+
+.icon-faction-1 {
+  background: url("/application/images/icons/horde.png") left center no-repeat !important;
 }
 
 /* Zone Thumbnails */
