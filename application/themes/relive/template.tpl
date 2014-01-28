@@ -79,7 +79,9 @@
                 {$slider}
             {/if}
 
-            {$breadcrumbs}
+            {if $show_sidebar == false}
+                {$breadcrumbs}
+            {/if}
 
             {if !empty($section_title)}
                 <div class="row">
