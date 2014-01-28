@@ -1,7 +1,7 @@
 {foreach from=$articles item=article}
 
 	<article>
-		<a {$article.link} class="top">{$article.headline}</a>
+        <a {$article.link} class="top"><h3 class="text-center">{$article.headline}</h3></a>
 		<section class="body">
 			{if $article.avatar}
 				<div class="avatar">
@@ -29,4 +29,16 @@
 	</article>
 
 {/foreach}
+
+{$external_news_string}
+
+{if $show_external_more}
+    <div class="blog-paging">
+        <a class="ui-button button1 button1-next float-right"
+           href="{$external_more_url}"><span><span>Mehr News</span></span></a>
+        <span class="clear"> </span>
+    </div>
+{/if}
+
+
 {$pagination}

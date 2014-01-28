@@ -554,7 +554,7 @@ class Template
 
             }
 
-            if($activeChar){
+            if($activeChar && isset($activeChar['race'])){
                 $activeRealm = $this->CI->realms->getRealm($this->CI->user->getActiveRealmId())->getCharacters();
 
                 $data["factionString"] = $this->CI->realms->getFactionString($activeChar["race"]);

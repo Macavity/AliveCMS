@@ -19,18 +19,18 @@
                       {lang("remember_me_short", "login")}
                     </label>
                 </span>
-      <button class="ui-button button1 " type="submit" data-text="In Bearbeitung…">
-        <span class="button-left"><span class="button-right">{lang("log_in", "login")}</span></span>
+      <button class="btn btn-primary" type="submit" data-text="In Bearbeitung…">
+        {lang("log_in", "login")}
       </button>
     </p>
     <ul id="help-links">
       {if $has_smtp}
       <li>
-        <i class="icon-refresh icon-white"></i>
+        <i class="glyphicon glyphicon-refresh"></i>
         <a href="{$url}password_recovery">{lang("lost_your_password", "login")}</a></li>
       {/if}
       <li>
-        <i class="icon-user icon-white"></i>
+        <i class="glyphicon glyphicon-user"></i>
         Haben Sie noch keinen Account? <a href="/register/">Jetzt anmelden</a>! </li>
     </ul>
   </form>
