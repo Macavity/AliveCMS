@@ -139,3 +139,51 @@ if( ! function_exists("icon_race") ){
         return $output;
     }
 }
+
+
+
+if( ! function_exists("get_wow_icon") ){
+
+    function get_wow_icon($size, $name, $greyscale = false)
+    {
+
+        $localPath = APPPATH.'/images/icons/'.$size.'/'.$name.'.jpg';
+        $localPathGrey = APPPATH.'/images/icons/'.$size.'/'.$name.'.grey.jpg';
+
+        $localImagePath = ($greyscale)
+            ? $localPath
+            : $localPathGrey;
+
+        if(file_exists($localImagePath))
+            return $localImagePath;
+
+        /*
+         * Image file not found, then download it first
+         */
+        if(!file_exists($localPath))
+        {
+            $url = "http://eu.media.blizzard.com/wow/icons/".$size."/".$id.".jpg";
+            $contents = file_get_contents($url);
+
+            // save the normal colored version
+            if(strlen($contents) > 0)
+                file_put_contents($localPath, $contents);
+        }
+
+        // if needed, convert the normal version to greyscale
+        if($greyscale)
+        {
+            $imageFile = imagecreatefromjpeg($localPath);
+
+            if($imageFile && imagefilter($imageFile, IMG_FILTER_GRAYSCALE))
+            {
+                imagepng($imageFile, $localPathGrey);
+            }
+            return $localPathGrey;
+        }
+
+        return $localPath;
+    }
+}
+
+

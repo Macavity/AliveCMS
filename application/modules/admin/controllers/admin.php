@@ -314,6 +314,12 @@ class Admin extends MX_Controller
 
 	public function remote()
 	{
+        /*
+         * Disable License Check because fusion-hub is offline.
+         */
+        die("0");
+
+
 		$license = $this->config->item('licenseKey');
 
 		$version = $this->administrator->getVersion();

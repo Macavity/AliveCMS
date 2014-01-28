@@ -22,7 +22,7 @@ define(['./BaseController', 'modules/wiki', 'modules/wiki_related', 'modules/toa
             this.initTables();
             this.initCreateForm();
 
-            this.lang = mapStatic.lang.bugtracker;
+            this.lang = mapStatic.lang;
 
             debug.debug("BugtrackerController.initialize -- DONE");
 
@@ -75,6 +75,7 @@ define(['./BaseController', 'modules/wiki', 'modules/wiki_related', 'modules/toa
                         noResults: '',
                         results: function() {}
                     },
+                    appendTo: '#ac-search-wrapper',
                     source: function(request,response){
                         debug.debug("ac-search-field source");
                         Controller.autocompleteSource(request.term, response);
@@ -408,9 +409,9 @@ define(['./BaseController', 'modules/wiki', 'modules/wiki_related', 'modules/toa
             var css = "row1";
 
             _jq("#form-link-wrapper table tbody tr.no-results").hide();
-            if(rows.length > 0){
+            /*if(rows.length > 0){
                 css = (lastRow.hasClass("row1")) ? "row2" : "row1";
-            }
+            }*/
 
             var template = Controller.getTemplate("bugtracker_linklist");
             var listHtml = template({

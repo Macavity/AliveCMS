@@ -1,12 +1,299 @@
 
 <div id="wiki" class="wiki directory wiki-zone">
-  <div class="title">
+  <div class="title row">
     <h2>Dungeons &amp; Schlachtzüge</h2>
     <div class="desc">Von seinen unentdeckten Rändern bis hin zu seinen berühmtesten Landstrichen, ist die Welt von World of Warcraft voll von Mysterien, Gefahr und vor allem Konflikten. Die Städte wimmeln von heimtückischen Schurken und gierigen Politikern, dunkle Höhlen bergen uralte schreckliche Geheimnisse und in den Kriegsgebieten prallen Armeen aufeinander, deren Konflikte seit Generationen anwähren. Nur Wenige wagen es, diese entfernten und gefahrenvollen Orte zu erforschen. Und noch geringer ist die Zahl derer, die annehmen würden, je davon zurückzukehren. Du bist einer dieser Wenigen.</div>
   </div>
-  <div class="wrapper">
+  <div class="row">
+      <ul class="navigation">
+          <li>
+              <a href="javascript:;" id="nav-3" onclick="activateTab(3);" class="expansion-3">Cataclysm</a>
+          </li>
+          <li>
+              <a href="javascript:;" id="nav-2" onclick="activateTab(2);" class="expansion-2"> Wrath of the Lich King </a>
+          </li>
+          <li>
+              <a href="javascript:;" id="nav-1" onclick="activateTab(1);" class="expansion-1"> The Burning Crusade </a>
+          </li>
+          <li>
+              <a href="javascript:;" id="nav-0" onclick="activateTab(0);" class="expansion-0"> Classic </a>
+          </li>
+      </ul>
     <div class="groups">
-      <div class="group" id="expansion-2" style="display: none">
+        <div class="group" id="expansion-3" style="display: none;">
+            <div class="group-column dungeon">
+            <h3>Dungeons</h3>
+            <ul>
+                <li>
+                    <a href="/wow/de/zone/well-of-eternity/" data-zone="5788">
+                        <span class="zone-thumbnail thumb-well-of-eternity"></span>
+              <span class="level-range">
+              85 </span>
+              <span class="name">
+              Brunnen der Ewigkeit <span class="icon-heroic-skull"></span>
+              </span>
+              <span class="clear">
+                <!-- -->
+              </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/wow/de/zone/shadowfang-keep/" data-zone="209">
+                        <span class="zone-thumbnail thumb-shadowfang-keep"></span>
+              <span class="level-range">
+              85 </span>
+              <span class="name">
+              Burg Schattenfang <span class="icon-heroic-skull"></span>
+              </span>
+              <span class="clear">
+                <!-- -->
+              </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/wow/de/zone/the-stonecore/" data-zone="5088">
+                        <span class="zone-thumbnail thumb-the-stonecore"></span>
+              <span class="level-range">
+              81–85 </span>
+              <span class="name">
+              Der Steinerne Kern <span class="icon-heroic-skull"></span>
+              </span>
+              <span class="clear">
+                <!-- -->
+              </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/wow/de/zone/the-vortex-pinnacle/" data-zone="5035">
+                        <span class="zone-thumbnail thumb-the-vortex-pinnacle"></span>
+              <span class="level-range">
+              81–85 </span>
+              <span class="name">
+              Der Vortexgipfel <span class="icon-heroic-skull"></span>
+              </span>
+              <span class="clear">
+                <!-- -->
+              </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/wow/de/zone/lost-city-of-the-tolvir/" data-zone="5396">
+                        <span class="zone-thumbnail thumb-lost-city-of-the-tolvir"></span>
+              <span class="level-range">
+              84–85 </span>
+              <span class="name">
+              Die Verlorene Stadt der Tol'vir <span class="icon-heroic-skull"></span>
+              </span>
+              <span class="clear">
+                <!-- -->
+              </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/wow/de/zone/end-time/" data-zone="5789">
+                        <span class="zone-thumbnail thumb-end-time"></span>
+              <span class="level-range">
+              85 </span>
+              <span class="name">
+              Endzeit <span class="icon-heroic-skull"></span>
+              </span>
+              <span class="clear">
+                <!-- -->
+              </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/wow/de/zone/grim-batol/" data-zone="4950">
+                        <span class="zone-thumbnail thumb-grim-batol"></span>
+              <span class="level-range">
+              84–85 </span>
+              <span class="name">
+              Grim Batol <span class="icon-heroic-skull"></span>
+              </span>
+              <span class="clear">
+                <!-- -->
+              </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/wow/de/zone/halls-of-origination/" data-zone="4945">
+                        <span class="zone-thumbnail thumb-halls-of-origination"></span>
+              <span class="level-range">
+              84–85 </span>
+              <span class="name">
+              Hallen des Ursprungs <span class="icon-heroic-skull"></span>
+              </span>
+              <span class="clear">
+                <!-- -->
+              </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/wow/de/zone/blackrock-caverns/" data-zone="4926">
+                        <span class="zone-thumbnail thumb-blackrock-caverns"></span>
+              <span class="level-range">
+              80–85 </span>
+              <span class="name">
+              Schwarzfelshöhlen <span class="icon-heroic-skull"></span>
+              </span>
+              <span class="clear">
+                <!-- -->
+              </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/wow/de/zone/hour-of-twilight/" data-zone="5844">
+                        <span class="zone-thumbnail thumb-hour-of-twilight"></span>
+              <span class="level-range">
+              85 </span>
+              <span class="name">
+              Stunde des Zwielichts <span class="icon-heroic-skull"></span>
+              </span>
+              <span class="clear">
+                <!-- -->
+              </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/wow/de/zone/throne-of-the-tides/" data-zone="5004">
+                        <span class="zone-thumbnail thumb-throne-of-the-tides"></span>
+              <span class="level-range">
+              80–85 </span>
+              <span class="name">
+              Thron der Gezeiten <span class="icon-heroic-skull"></span>
+              </span>
+              <span class="clear">
+                <!-- -->
+              </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/wow/de/zone/deadmines/" data-zone="1581">
+                        <span class="zone-thumbnail thumb-deadmines"></span>
+              <span class="level-range">
+              85 </span>
+              <span class="name">
+              Todesminen <span class="icon-heroic-skull"></span>
+              </span>
+              <span class="clear">
+                <!-- -->
+              </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/wow/de/zone/zulaman/" data-zone="3805">
+                        <span class="zone-thumbnail thumb-zulaman"></span>
+              <span class="level-range">
+              85 </span>
+              <span class="name">
+              Zul'Aman <span class="icon-heroic-skull"></span>
+              </span>
+              <span class="clear">
+                <!-- -->
+              </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/wow/de/zone/zulgurub/" data-zone="1977">
+                        <span class="zone-thumbnail thumb-zulgurub"></span>
+              <span class="level-range">
+              85 </span>
+              <span class="name">
+              Zul'Gurub <span class="icon-heroic-skull"></span>
+              </span>
+              <span class="clear">
+                <!-- -->
+              </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+            <div class="group-column raid">
+            <h3>Schlachtzüge</h3>
+            <ul>
+                <li>
+                    <a href="/wow/de/zone/baradin-hold/" data-zone="5600">
+                        <span class="zone-thumbnail thumb-baradin-hold"></span>
+              <span class="level-range">
+              85 </span>
+              <span class="name">
+              Baradinfestung </span>
+              <span class="clear">
+                <!-- -->
+              </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/wow/de/zone/the-bastion-of-twilight/" data-zone="5334">
+                        <span class="zone-thumbnail thumb-the-bastion-of-twilight"></span>
+              <span class="level-range">
+              85 </span>
+              <span class="name">
+              Die Bastion des Zwielichts <span class="icon-heroic-skull"></span>
+              </span>
+              <span class="clear">
+                <!-- -->
+              </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/wow/de/zone/dragon-soul/" data-zone="5892">
+                        <span class="zone-thumbnail thumb-dragon-soul"></span>
+              <span class="level-range">
+              85 </span>
+              <span class="name">
+              Drachenseele <span class="icon-heroic-skull"></span>
+              </span>
+              <span class="clear">
+                <!-- -->
+              </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/wow/de/zone/firelands/" data-zone="5723">
+                        <span class="zone-thumbnail thumb-firelands"></span>
+              <span class="level-range">
+              85 </span>
+              <span class="name">
+              Feuerlande <span class="icon-heroic-skull"></span>
+              </span>
+              <span class="clear">
+                <!-- -->
+              </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/wow/de/zone/blackwing-descent/" data-zone="5094">
+                        <span class="zone-thumbnail thumb-blackwing-descent"></span>
+              <span class="level-range">
+              85 </span>
+              <span class="name">
+              Pechschwingenabstieg <span class="icon-heroic-skull"></span>
+              </span>
+              <span class="clear">
+                <!-- -->
+              </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/wow/de/zone/throne-of-the-four-winds/" data-zone="5638">
+                        <span class="zone-thumbnail thumb-throne-of-the-four-winds"></span>
+              <span class="level-range">
+              85 </span>
+              <span class="name">
+              Thron der Vier Winde <span class="icon-heroic-skull"></span>
+              </span>
+              <span class="clear">
+                <!-- -->
+              </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+            <span class="clear"><!-- --></span>
+        </div>
+
+        <div class="group" id="expansion-2" style="display: none">
         <div class="group-column">
           <h3>Dungeons</h3>
           <ul>
@@ -108,7 +395,7 @@
           </ul>
         </div>
         <span class="clear"><!-- --></span> </div>
-      <div class="group" id="expansion-1" style="display: none">
+        <div class="group" id="expansion-1" style="display: none">
         <div class="group-column">
           <h3>Dungeons</h3>
           <ul>
@@ -150,7 +437,7 @@
           </ul>
         </div>
         <span class="clear"><!-- --></span> </div>
-      <div class="group" id="expansion-0" style="display: none">
+        <div class="group" id="expansion-0" style="display: none">
         <div class="group-column">
           <h3>Dungeons</h3>
           <ul>
@@ -185,14 +472,11 @@
             <li> <a href="/game/zone/ahnqiraj-temple/" data-zone="3428"> <span class="zone-thumbnail thumb-ahnqiraj-temple"></span> <span class="level-range"> 60 </span> <span class="name"> Tempel von Ahn'Qiraj </span> <span class="clear"><!-- --></span> </a> </li>
           </ul>
         </div>
-        <span class="clear"><!-- --></span> </div>
+        <span class="clear"><!-- --></span>
+      </div>
     </div>
-    <ul class="navigation">
-      <li> <a href="javascript:;" id="nav-2" onclick="activateTab(2);" class="expansion-2 "> Wrath of the Lich King </a> </li>
-      <li> <a href="javascript:;" id="nav-1" onclick="activateTab(1);" class="expansion-1 "> The Burning Crusade </a> </li>
-      <li> <a href="javascript:;" id="nav-0" onclick="activateTab(0);" class="expansion-0 "> Classic </a> </li>
-    </ul>
   </div>
+  <span class="clear"><!-- --></span>
   <script type="text/javascript">
     //<![CDATA[
 

@@ -295,8 +295,11 @@ class Realm
 	{
 		return $this->world;
 	}
-	
-	public function getCharacters()
+
+    /**
+     * @return Characters_model
+     */
+    public function getCharacters()
 	{
 		return $this->characters;
 	}

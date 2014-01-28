@@ -158,7 +158,7 @@ class Cms_model extends MY_Model
 	 */
 	public function getLinks($side = "top")
 	{
-		if(in_array($side, array("top", "side")))
+		if(in_array($side, array("top", "side", "explore")))
 		{
 			$query = $this->db->query("SELECT * FROM menu WHERE side = ? ORDER BY `order` ASC", array($side));
 		}

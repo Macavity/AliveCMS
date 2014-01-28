@@ -82,21 +82,20 @@ class Bugtracker extends MY_Controller{
             // Icons
             if(!empty($l0project['icon']))
             {
-                $iconPath = $l0project['icon'];
-                if(substr_count($iconPath, 'patch') > 0){
-                    $iconPath = 'images/icons/patch/'.$iconPath.'.jpg';
+                if(substr_count($l0project['icon'], 'patch') > 0)
+                {
+                    $localPath = APPPATH.'/images/icons/patch/'.$l0project['icon'].'.jpg';
                 }
-                else{
-                    $iconPath = 'images/icons/36/'.$iconPath.'.jpg';
+                else
+                {
+                    $localPath = get_wow_icon(36, $l0project['icon']);
                 }
 
-                $localPath = APPPATH.'themes/'.$this->template->theme.'/'.$iconPath;
                 $webPath = base_url().$localPath;
-                //debug('local', $localPath);
 
                 $l0project['icon'] = file_exists($localPath)
                     ? $webPath
-                    : base_url().'themes/'.$this->template->theme.'/'.'images/icons/36/ability_creature_cursed_02.grey.jpg?'.$iconPath;
+                    : base_url().APPPATH.get_wow_icon(36,'ability_creature_cursed_02', true);
             }
 
             if($l0project['parent'] != 0)
@@ -368,7 +367,7 @@ class Bugtracker extends MY_Controller{
         $this->template->setTitle('Bug #'.$bugId);
         $this->template->setSectionTitle('Bug #'.$bugId.' '.$title);
 
-        /**
+        /*
          * Project
          */
         //$project = $bug['project'];
@@ -735,6 +734,9 @@ class Bugtracker extends MY_Controller{
             'bugId' => $bugId,
             'bugStates' => $this->bug_model->getBugStates(),
             'typeString' => '',
+            'bugtrackerFormAttributes' => array(
+                'class' => 'form-horizontal'
+            ),
 
             'title' => $title,
 

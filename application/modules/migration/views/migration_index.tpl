@@ -165,4 +165,8 @@
 
 <span class="clear"></span>
 
-<a href="{$url}migration/form/" class="ui-button button1 button1-next float-right"><span><span>Weiter zum Formular</span></span></a>
+<br>
+<a href="{$url}migration/form/" class="btn btn-small pull-right">
+    Weiter zum Formular
+    <i class="glyphicon glyphicon-chevron-right"></i>
+</a>

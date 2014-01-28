@@ -86,6 +86,15 @@ class Template
 		// Get the theme name
 		$this->theme = $this->CI->config->item('theme');
 
+        /*
+         * Overwrite the theme with a GET-Parameter
+         */
+        $themeOverwrite = $this->CI->input->get('theme');
+        if(!empty($themeOverwrite) && is_dir(APPPATH.'themes/'.$themeOverwrite.'/'))
+        {
+            $this->theme = $themeOverwrite;
+        }
+
 		// Construct the paths
 		$this->module_name = $this->CI->router->fetch_module();
 		$this->theme_path = "themes/".$this->theme."/";
@@ -244,7 +253,20 @@ class Template
                 "show_breadcrumbs" => $this->showBreadcrumbs,
                 "breadcrumbs" => $this->breadcrumbs,
             );
-            $breadCrumbs = $this->CI->smarty->view(APPPATH.$this->theme_path."views/breadcrumbs.tpl", $data, true);
+
+            $breadcrumbsTplPath = APPPATH.$this->theme_path.'views/breadcrumbs.tpl';
+            $breadcrumbsDefaultPath = APPPATH.'views/breadcrumbs.tpl';
+
+            if(file_exists($breadcrumbsTplPath)){
+                $breadCrumbs = $this->CI->smarty->view($breadcrumbsTplPath, $data, true);
+            }
+            elseif(file_exists($breadcrumbsDefaultPath)){
+                $breadCrumbs = $this->CI->smarty->view($breadcrumbsDefaultPath, $data, true);
+            }
+            else{
+                $breadCrumbs = "";
+            }
+
         }
 
         //debug("show bc", $this->showBreadcrumbs);
@@ -414,6 +436,7 @@ class Template
 			"description" => ($this->custom_description) ? $this->custom_description : $this->CI->config->item("description"),
 			"menu_top" => $this->getMenu("top"),
 			"menu_side" => $this->getMenu("side"),
+            "menu_explore" => $this->getMenu("explore"),
 			"path" => base_url().APPPATH,
 			"favicon" => $this->theme_data['favicon'],
 			"cdn" => $this->CI->config->item('cdn'),

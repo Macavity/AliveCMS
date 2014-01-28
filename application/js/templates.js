@@ -83,8 +83,8 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if (stack1 = helpers.uid) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.uid; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\"><i class=\"icon icon-remove\"></i> "
-    + escapeExpression(((stack1 = ((stack1 = depth0.lang),stack1 == null || stack1 === false ? stack1 : stack1['delete'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\"><i class=\"glyphicon glyphicon-remove\"></i> "
+    + escapeExpression(((stack1 = ((stack1 = depth0.lang),stack1 == null || stack1 === false ? stack1 : stack1.deleteLink)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</button></td>\n</tr>";
   return buffer;
   });

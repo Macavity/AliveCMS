@@ -1,0 +1,87 @@
+#service {
+  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 200;
+}
+
+.service-bar {
+  display: inline-block;
+  float: right;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Arial, sans-serif;
+  position: relative;
+  text-align: right;
+  z-index: 75;
+  background-color: #343c46;
+
+  @include roundCorners(2px, (bottom-left, bottom-right));
+  @include vendorPrefix(user-select, none);
+  @include vendorPrefix(box-shadow,0 0 8px black);
+}
+
+.service-cell {
+  float: left;
+  color: #8694a1;
+  display: block;
+  line-height: 32px;
+  position: relative;
+
+  a {
+    color: #ffffff;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    line-height: 33px;
+    padding: 0 8px;
+
+    @include vendorPrefix(text-shadow, 0px -1px 0 rgba(0,0,0,0.8));
+
+    @include vendorPrefix(transition-property, background-color);
+    @include vendorPrefix(transition-duration, .2s);
+    @include vendorPrefix(transition-timing-function, linear);
+
+    &:hover,
+    &:focus {
+      background-color: rgba(0,0,0,0.4);
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    &:active {
+      outline: 0;
+    }
+  }
+
+}
+
+.service-home {
+  height: 33px;
+  width: 33px;
+  padding: 0px;
+  font-size: 16px;
+
+  @include roundCorners(2px, (bottom-left));
+  @include addGradient(#22262a, #171919);
+
+  span {
+    color:grey;
+    position: relative;
+  }
+  &:hover {
+    span{
+      color:white;
+    }
+  }
+
+}
+
+.service-welcome {
+  padding: 0px 15px 0px 12px;
+}
+
+.service-welcome .employee,
+span.employee {
+  display: inline-block; vertical-align: middle; width: 27px; height: 10px;
+  background: url("../images/employee.png") no-repeat center center; /* TODO */
+}

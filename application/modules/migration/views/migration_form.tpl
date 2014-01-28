@@ -1,12 +1,4 @@
-<style>
-    .form-horizontal .control-label {
-        width: 170px;
-    }
-    .form-horizontal .controls{
-        max-resolution: 190px;
-    }
-</style>
-<a href="#formEnd" class="formEndLink">Zum Ende des Formulars</a>
+<a href="#formEnd" class="formEndLink btn btn-xs">Zum Ende des Formulars</a><br><br>
 
 {form_open_multipart('migration/form', $formAttributes)}
 
@@ -20,35 +12,35 @@
   <fieldset>
     <legend>Dein alter Server</legend>
 
-    <div class="control-group">
-      <label class="control-label">Alter Charaktername</label>
-      <div class="controls">
-        <input type="text" name="name" size="25" value="{$post.name}" class="input-xlarge">
+    <div class="form-group">
+      <label class="control-label col-md-3">Alter Charaktername</label>
+      <div class="controls col-md-8">
+        <input type="text" name="name" size="25" value="{$post.name}" class="form-control">
       </div>
     </div>
 
-    <div class="control-group">
-      <label class="control-label">Alter Servername</label>
-      <div class="controls">
-        <input type="text" name="Server" value="{$post.Server}" class="input-xlarge">
+    <div class="form-group">
+      <label class="control-label col-md-3">Alter Servername</label>
+      <div class="controls col-md-8">
+        <input type="text" name="Server" value="{$post.Server}" class="form-control">
       </div>
     </div>
-    <div class="control-group">
-      <label class="control-label">Webseite des Servers</label>
-      <div class="controls">
-        <div class="input-prepend">
-          <span class="add-on">http://</span>
-          <input type="text" name="Link" value="{$post.Link}" class="input-large">
+    <div class="form-group">
+      <label class="control-label col-md-3">Webseite des Servers</label>
+      <div class="controls col-md-8">
+        <div class="input-group">
+          <span class="input-group-addon">http://</span>
+          <input type="text" name="Link" value="{$post.Link}" class="form-control">
         </div>
       </div>
     </div>
 
-    <div class="control-group">
-      <label class="control-label">Link zum Arsenal</label>
-      <div class="controls">
-       <div class="input-prepend">
-          <span class="add-on">http://</span>
-          <input type="text" name="Armory" value="{$post.Armory}" class="input-large">
+    <div class="form-group">
+      <label class="control-label col-md-3">Link zum Arsenal</label>
+      <div class="controls col-md-8">
+          <div class="input-group">
+              <span class="input-group-addon">http://</span>
+          <input type="text" name="Armory" value="{$post.Armory}" class="form-control">
         </div>
       </div>
     </div>
@@ -56,17 +48,17 @@
     <p>
       Screenshots (Played Time, Login, Abzeichen, Berufe, Ruf, Abzeichen, Taschen)! Bitte in eine gezippte Datei (ZIP oder RAR) packen und zum Beispiel bei einem Dienst wie <a href="http://www.file-upload.net/" target="_blank">http://www.file-upload.net</a> hochladen.
     </p>
-    <div class="control-group">
-      <label class="control-label">Screenshotdatei</label>
-      <div class="controls">
-        <input type="text" name="Download" value="{$post.Download}" class="input-large">
+    <div class="form-group">
+      <label class="control-label col-md-3">Screenshotdatei</label>
+      <div class="controls col-md-8">
+        <input type="text" name="Download" value="{$post.Download}" class="form-control">
       </div>
     </div>
 
-    <div class="control-group">
-      <label class="control-label">Bemerkung</label>
-      <div class="controls">
-        <textarea name="Bemerkung">{$post.Bemerkung}</textarea>
+    <div class="form-group">
+      <label class="control-label col-md-3">Bemerkung</label>
+      <div class="controls col-md-8">
+        <textarea name="Bemerkung" class="form-control">{$post.Bemerkung}</textarea>
       </div>
     </div>
 
@@ -77,17 +69,17 @@
     <legend>Über dich</legend>
     <p>Bitte gib uns eine zusätzliche Kontaktmöglichkeit an.<br><br></p>
 
-    <div class="control-group">
-      <label class="control-label">ICQ (optional)</label>
-      <div class="controls">
-        <input type="text" name="icq" value="{$post.icq}" size="25">
+    <div class="form-group">
+      <label class="control-label col-md-3">ICQ (optional)</label>
+      <div class="controls col-md-8">
+        <input type="text" name="icq" value="{$post.icq}" size="25" class="form-control">
       </div>
     </div>
 
-    <div class="control-group">
-      <label class="control-label">Skype (optional)</label>
-      <div class="controls">
-        <input type="text" name="skype" value="{$post.skype}" size="25">
+    <div class="form-group">
+      <label class="control-label col-md-3">Skype (optional)</label>
+      <div class="controls col-md-8">
+        <input type="text" name="skype" value="{$post.skype}" size="25" class="form-control">
       </div>
     </div>
   </fieldset>
@@ -95,10 +87,10 @@
   <fieldset>
     <legend>Dein neuer Charakter</legend>
 
-    <div class="control-group">
-      <label class="control-label">Gewünschte Rasse</label>
-      <div class="controls">
-        <select name="race" id="race">
+    <div class="form-group">
+      <label class="control-label col-md-3">Gewünschte Rasse</label>
+      <div class="controls col-md-8">
+        <select name="race" id="race" class="form-control">
           {html_options options=$races selected=$post.race}
         </select>
         <br><br>
@@ -106,10 +98,10 @@
       </div>
     </div>
 
-    <div class="control-group">
-        <label class="control-label">Gewünschte Klasse</label>
-        <div class="controls">
-            <select name="class" id="class">
+    <div class="form-group">
+        <label class="control-label col-md-3">Gewünschte Klasse</label>
+        <div class="controls col-md-8">
+            <select name="class" id="class" class="form-control">
                 {html_options options=$classes selected=$post.class}
             </select>
             <br><br>
@@ -117,17 +109,17 @@
         </div>
     </div>
 
-    <div class="control-group">
-      <label class="control-label">Level</label>
-      <div class="controls">
-        <input type="text" name="Level" value="{$post.Level}" size="3">
+    <div class="form-group">
+      <label class="control-label col-md-3">Level</label>
+      <div class="controls col-md-2">
+        <input type="text" name="Level" value="{$post.Level}" size="3" class="form-control">
       </div>
     </div>
 
-    <div class="control-group">
-      <label class="control-label">Gold (maximal 10000)</label>
-      <div class="controls">
-        <input type="text" name="Gold" value="{$post.Gold}">
+    <div class="form-group">
+      <label class="control-label col-md-3">Gold (maximal 10000)</label>
+      <div class="controls col-md-2">
+        <input type="text" name="Gold" value="{$post.Gold}" class="form-control">
       </div>
     </div>
   </fieldset>
@@ -135,30 +127,31 @@
   <fieldset>
     <legend>Reiten</legend>
 
-    <div class="control-group">
-      <label class="control-label">Reitenf&auml;higkeit</label>
-      <div class="controls">
-        <input type="hidden" class="hidden" name="Riding" value="{$post.Riding}">
-        <div class="btn-group" data-toggle="buttons-radio">
+    <div class="form-group">
+      <label class="control-label col-md-3">Reitenf&auml;higkeit</label>
+      <div class="controls col-md-8">
+        <div class="btn-group" data-toggle="buttons">
           {foreach from=$ridingLevels key=level item=label}
-            <button type="button" class="btn {if $level == $post.Riding}active{/if}" data-target="Riding" value="{$level}">{$label}</button>
+              <label class="btn btn-default {if $level == $post.Riding}active{/if}">
+                  <input type="radio" name="Riding" id="Riding{$level}"> {$label}
+              </label>
           {/foreach}
         </div>
       </div>
     </div>
 
-    <div class="control-group">
-      <label class="control-label">Bodenmount (ID)</label>
-      <div class="controls">
-        <input type="text" name="Mount_boden" value="{$post.Mount_boden}" class="jsItemId">
+    <div class="form-group">
+      <label class="control-label col-md-3">Bodenmount (ID)</label>
+      <div class="controls col-md-2">
+        <input type="text" name="Mount_boden" value="{$post.Mount_boden}" class="jsItemId form-control">
         <span class="help-inline"></span>
       </div>
     </div>
 
-    <div class="control-group">
-      <label class="control-label">Flugmount (ID)</label>
-      <div class="controls">
-        <input type="text" name="Mount_flug" value="{$post.Mount_flug}" class="jsItemId">
+    <div class="form-group">
+      <label class="control-label col-md-3">Flugmount (ID)</label>
+      <div class="controls col-md-2">
+        <input type="text" name="Mount_flug" value="{$post.Mount_flug}" class="jsItemId form-control">
         <span class="help-inline"></span>
       </div>
     </div>
@@ -169,38 +162,40 @@
 
     <h2>Hauptberufe</h2>
 
-    <div class="control-group">
-      <label class="control-label">Hauptberuf 1</label>
-      <div class="controls">
-        <select name="Beruf1">
+    <div class="form-group">
+      <label class="control-label col-md-3">Hauptberuf 1</label>
+      <div class="controls col-md-8">
+        <select name="Beruf1" class="form-control">
           {html_options options=$profs selected=$post.Beruf1}
         </select>
         <span class="help-inline"></span>
       </div>
-      <div class="controls">
+      <div class="controls col-md-8 col-md-offset-3">
         <br>
-        <input type="hidden" class="hidden" name="Beruf1_skill" value="{$post.Beruf1_skill}">
-        <div class="btn-group" data-toggle="buttons-radio">
+        <div class="btn-group" data-toggle="buttons">
           {foreach from=array(0,75,150,225,300,350,400,450) item=item}
-            <button type="button" class="btn {if $item == $post.Beruf1_skill}active{/if}" data-target="Beruf1_skill" value="{$item}">{$item}</button>
+              <label class="btn btn-default {if $item == $post.Beruf1_skill}active{/if}">
+                  <input type="radio" name="Beruf1_skill" id="Beruf1_skill{$item}" value="{$item}"> {$item}
+              </label>
           {/foreach}
         </div>
       </div>
     </div>
-    <div class="control-group">
-      <label class="control-label">Hauptberuf 2</label>
-      <div class="controls">
-        <select name="Beruf2">
+    <div class="form-group">
+      <label class="control-label col-md-3">Hauptberuf 2</label>
+      <div class="controls col-md-8">
+        <select name="Beruf2" class="form-control">
           {html_options options=$profs selected=$post.Beruf2}
         </select>
         <span class="help-inline"></span>
       </div>
-      <div class="controls">
+      <div class="controls col-md-8 col-md-offset-3">
         <br>
-        <input type="hidden" class="hidden" name="Beruf2_skill" value="{$post.Beruf2_skill}">
-        <div class="btn-group" data-toggle="buttons-radio">
+        <div class="btn-group" data-toggle="buttons">
           {foreach from=array(0,75,150,225,300,350,400,450) item=item}
-            <button type="button" class="btn {if $item == $post.Beruf2_skill}active{/if}" data-target="Beruf2_skill" value="{$item}">{$item}</button>
+              <label class="btn btn-default {if $item == $post.Beruf2_skill}active{/if}">
+                  <input type="radio" name="Beruf2_skill" id="Beruf2_skill{$item}" value="{$item}"> {$item}
+              </label>
           {/foreach}
         </div>
       </div>
@@ -208,37 +203,40 @@
 
     <h2>Nebenberufe</h2>
 
-    <div class="control-group">
-      <label class="control-label">Kochen</label>
-      <div class="controls">
-        <input type="hidden" class="hidden" name="Cooking" value="{$post.Cooking}">
-        <div class="btn-group" data-toggle="buttons-radio">
+    <div class="form-group">
+      <label class="control-label col-md-3">Kochen</label>
+      <div class="controls col-md-8">
+        <div class="btn-group" data-toggle="buttons">
           {foreach from=array(0,75,150,225,300,350,400,450) item=item}
-            <button type="button" class="btn {if $item == $post.Cooking}active{/if}" data-target="Cooking" value="{$item}">{$item}</button>
+              <label class="btn btn-default {if $item == $post.Cooking}active{/if}">
+                  <input type="radio" name="Cooking" id="Cooking{$item}" value="{$item}"> {$item}
+              </label>
           {/foreach}
         </div>
       </div>
     </div>
 
-    <div class="control-group">
-      <label class="control-label">Angeln</label>
-      <div class="controls">
-        <input type="hidden" class="hidden" name="Angling" value="{$post.Angling}">
-        <div class="btn-group" data-toggle="buttons-radio">
+    <div class="form-group">
+      <label class="control-label col-md-3">Angeln</label>
+      <div class="controls col-md-8">
+        <div class="btn-group" data-toggle="buttons">
           {foreach from=array(0,75,150,225,300,350,400,450) item=item}
-            <button type="button" class="btn {if $item == $post.Angling}active{/if}" data-target="Angling" value="{$item}">{$item}</button>
+              <label class="btn btn-default {if $item == $post.Angling}active{/if}">
+                  <input type="radio" name="Angling" id="Angling{$item}" value="{$item}"> {$item}
+              </label>
           {/foreach}
         </div>
       </div>
     </div>
 
-    <div class="control-group">
-      <label class="control-label">Erste Hilfe</label>
-      <div class="controls">
-        <input type="hidden" class="hidden" name="Firstaid" value="{$post.Firstaid}">
-        <div class="btn-group" data-toggle="buttons-radio">
+    <div class="form-group">
+      <label class="control-label col-md-3">Erste Hilfe</label>
+      <div class="controls col-md-8">
+        <div class="btn-group" data-toggle="buttons">
           {foreach from=array(0,75,150,225,300,350,400,450) item=item}
-            <button type="button" class="btn {if $item == $post.Firstaid}active{/if}" data-target="Firstaid" value="{$item}">{$item}</button>
+              <label class="btn btn-default {if $item == $post.Firstaid}active{/if}">
+                  <input type="radio" name="Firstaid" id="Firstaid{$item}" value="{$item}"> {$item}
+              </label>
           {/foreach}
         </div>
       </div>
@@ -250,10 +248,10 @@
     <legend>Ausrüstung</legend>
 
     {foreach from=$slots key=eqkey item=slot}
-      <div class="control-group">
-        <label class="control-label">{$slot}</label>
-        <div class="controls">
-          <input type="text" name="equip-{$eqkey}" value="{$post.equipment[$slot]}" class="input-mini jsItemId">
+      <div class="form-group">
+        <label class="control-label col-md-3">{$slot}</label>
+        <div class="controls col-md-2">
+          <input type="text" name="equip-{$eqkey}" value="{$post.equipment[$slot]}" class="input-mini jsItemId form-control">
           <span class="help-inline"></span>
         </div>
       </div>
@@ -267,10 +265,10 @@
     <p>Du kannst bis zu 10 gemischte Gegenstände mitnehmen von deinem alten Server, das können spezielle Handwerksgegenstände, Equipteile für deine zweite Spec oder auch Reittiere/Haustiere sein, was immer du möchtest und dir wichtig ist. Beachte dass das maximale Itemlevel auch hier nicht überschritten werden darf.<br><br></p>
 
     {section name=random_item start=1 loop=11}
-      <div class="control-group">
-        <label class="control-label">#{$smarty.section.random_item.index}</label>
-        <div class="controls">
-          <input type="text" name="random-{$smarty.section.random_item.index}" value="{$post.random_item[$smarty.section.random_item.index]}" class="input-mini jsItemId">
+      <div class="form-group">
+        <label class="control-label col-md-3">#{$smarty.section.random_item.index}</label>
+        <div class="controls col-md-2">
+          <input type="text" name="random-{$smarty.section.random_item.index}" value="{$post.random_item[$smarty.section.random_item.index]}" class="form-control jsItemId">
           <span class="help-inline"></span>
         </div>
       </div>
@@ -285,39 +283,42 @@
         <a data-toggle="collapse" data-target="#{$rep_id}"><i class="icon"></i>{$rep.label}</a>
         <div class="tab-pane collapse in" id="{$rep_id}">
             {foreach from=$rep.factions key=rep_id item=rep_name}
-                <div class="control-group">
-                    <label class="control-label">{$rep_name}</label>
-                    <div class="controls">
-                        <input type="hidden" name="faction_{$rep_id}" value="{$post.faction[$rep_id]}">
-                        <div class="btn-group" data-toggle="buttons-radio">
+                <div class="form-group">
+                    <label class="control-label col-md-3">{$rep_name}</label>
+                    <div class="controls col-md-8">
+                        <div class="btn-group" data-toggle="buttons">
                             {foreach from=$reputationStates key=state_key item=state}
-                                <button type="button" class="btn {if $post.faction[$rep_id] == $state_key}active{/if}" data-target="faction_{$rep_id}" value="{$state_key}">{$state}</button>
+                                <label class="btn btn-default {if $post.faction[$rep_id] == $state_key}active{/if}">
+                                    <input type="radio" name="faction_{$rep_id}" value="{$state_key}"> {$state}
+                                </label>
                             {/foreach}
                         </div>
                     </div>
                 </div>
             {/foreach}
             {foreach from=$rep.alliance key=rep_id item=rep_name}
-                <div class="control-group allianceOnly">
-                    <label class="control-label">{$rep_name}<i class="icon-faction-0"></i></label>
-                    <div class="controls">
-                        <input type="hidden" name="faction_{$rep_id}" value="{$post.faction[$rep_id]}">
-                        <div class="btn-group" data-toggle="buttons-radio">
+                <div class="form-group allianceOnly">
+                    <label class="control-label col-md-3">{$rep_name}<i class="icon-faction-0"></i></label>
+                    <div class="controls col-md-8">
+                        <div class="btn-group" data-toggle="buttons">
                             {foreach from=$reputationStates key=state_key item=state}
-                                <button type="button" class="btn {if $post.faction[$rep_id] == $state_key}active{/if}" data-target="faction_{$rep_id}" value="{$state_key}">{$state}</button>
+                                <label class="btn btn-default {if $post.faction[$rep_id] == $state_key}active{/if}">
+                                    <input type="radio" name="faction_{$rep_id}" value="{$state_key}"> {$state}
+                                </label>
                             {/foreach}
                         </div>
                     </div>
                 </div>
             {/foreach}
             {foreach from=$rep.horde key=rep_id item=rep_name}
-                <div class="control-group hordeOnly">
-                    <label class="control-label">{$rep_name}<i class="icon-faction-1"></i></label>
-                    <div class="controls">
-                        <input type="hidden" name="faction_{$rep_id}" value="{$post.faction[$rep_id]}">
-                        <div class="btn-group" data-toggle="buttons-radio">
+                <div class="form-group hordeOnly">
+                    <label class="control-label col-md-3">{$rep_name}<i class="icon-faction-1"></i></label>
+                    <div class="controls col-md-8">
+                        <div class="btn-group" data-toggle="buttons">
                             {foreach from=$reputationStates key=state_key item=state}
-                                <button type="button" class="btn {if $post.faction[$rep_id] == $state_key}active{/if}" data-target="faction_{$rep_id}" value="{$state_key}">{$state}</button>
+                                <label class="btn btn-default {if $post.faction[$rep_id] == $state_key}active{/if}">
+                                    <input type="radio" name="faction_{$rep_id}" value="{$state_key}"> {$state}
+                                </label>
                             {/foreach}
                         </div>
                     </div>
@@ -341,6 +342,7 @@
 </div>
 
 <a name="formEnd"></a>
-<button type="button" class="ui-button button1 button1-next float-right jsMigrationSubmit">
-  <span><span>Abschicken</span></span>
+<button type="button" class="btn btn-default pull-right jsMigrationSubmit">
+  Abschicken
+  <i class="glyphicon glyphicon-chevron-right"></i>
 </button>

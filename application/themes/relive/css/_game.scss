@@ -1,0 +1,40 @@
+.module-game {
+
+  aside{
+    background-color: rgb(26,15,8);
+    &:after,&:before {
+      clear: both;
+    }
+  }
+
+  .wrapper {
+    display: inline-block;
+
+    &:after {
+      clear: both;
+    }
+  }
+
+
+  .groups
+  {
+    width: 730px;
+
+    background: url(../images/news-bg.png) no-repeat top;
+    padding: 0;
+    margin: 0 20px 2px 30px;
+
+    @include vendorPrefix(box-shadow, 0 0 30px black);
+
+    .group
+    {
+      background: #211309 url(../images/news-bg.png) 0 0 no-repeat;
+
+      .group-column {
+        h3 {
+          margin-bottom: 0px;
+        }
+      }
+    }
+  }
+}

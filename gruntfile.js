@@ -168,7 +168,7 @@ module.exports = function(grunt) {
                     "application/js/libs/jquery/jquery.transit.min.js",
 
                     // Bootstrap
-                    "application/js/libs/bootstrap/bootstrap.min.js",
+                    "application/js/libs/bootstrap/bootstrap-3.0.3.min.js",
 
 
                     // Modernizr

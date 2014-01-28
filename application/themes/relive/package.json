@@ -1,0 +1,18 @@
+{
+    "name": "Relive-Theme",
+    "version": "0.1.0",
+    "private": true,
+    "repository": false,
+    "author": "Macavity",
+    "devDependencies": {
+        "grunt": "*",
+        "grunt-contrib-jshint": "*",
+        "grunt-contrib-nodeunit": "*",
+        "grunt-contrib-imagemin": "*",
+        "grunt-contrib-uglify": "*",
+        "grunt-contrib-jade": "*",
+        "grunt-contrib-watch": "*",
+        "grunt-contrib-sass": "*",
+        "grunt-shell": "*"
+    }
+}
