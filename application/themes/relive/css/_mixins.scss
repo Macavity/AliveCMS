@@ -11,6 +11,15 @@
   -ms-#{$cssAttribute}:$value;
 }
 
+/* placeholder reset */
+@mixin input-placeholder {
+  .placeholder { @content; }
+  :-moz-placeholder { @content; }
+  ::-moz-placeholder { @content; }
+  :-ms-input-placeholder { @content; }
+  ::-webkit-input-placeholder { @content; }
+}
+
 /**
  * Gradients - only 2 Colors
  */

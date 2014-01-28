@@ -2,7 +2,7 @@
 body {
   font-family: Verdana, Tahoma, "DejaVu Sans", sans-serif;
   font-size:12px;
-  color:#786956;
+  color:#efc9a0;
   background-color: #060000;
   @if $work == false {
     background:#060000 url(../images/bg.jpg) no-repeat top center;
@@ -157,6 +157,15 @@ header {
           color: #fff;
           strong {
             color: white;
+          }
+        }
+
+        &.plate-logged-out{
+          position: relative;
+          top: -7px;
+
+          .card-portrait {
+            display: none;
           }
         }
 
@@ -579,8 +588,8 @@ header {
 
   /* Correct position of search button */
   .btn-default {
-    left: 3px;
-    top: 5px;
+    left: 311px;
+    top: 4px;
     border: 0px solid transparent;
     background: none;
     box-shadow: none;
@@ -598,6 +607,119 @@ header {
     z-index: 7;
   }
 }
+
+/* =========== Login =========== */
+#login-embedded {
+  width: 400px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  padding: 0;
+  margin: -200px;
+  z-index: 9005;
+  height: 300px;
+  background: #000;
+  border: 5px solid #525e67;
+  border-radius: 3px;
+  box-shadow: #000 0 0 20px;
+}
+
+/* Hide header if it is the login dialog */
+.ui-dialog-content {
+  article{
+    h1.top {
+      display:none;
+    }
+  }
+  #password_error {
+    display: none;
+  }
+}
+
+#embedded-login {
+  padding: 20px;
+  position: relative;
+  color: #68727B;
+  background-color: #020202;
+
+  h1 {
+    margin: 0 0 20px 0;
+    padding: 0;
+    height: 65px;
+    color: #FFFFFF;
+    font-size: 52px;
+  }
+
+  a {
+    color: #0072a3;
+    text-decoration: none;
+    &:hover {
+      color:white;
+    }
+  }
+
+  .label {
+    color: #68727b;
+    display: block;
+    padding-bottom: 2px;
+    font-size: 11px;
+    text-transform: uppercase;
+    background: none;
+    text-shadow: none;
+    border-width: 0px;
+    margin: 10px 0px 5px 0px;
+    text-align: left;
+  }
+
+  .input {
+    width: 343px;
+    background-color: white;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", "Arial", sans-serif;
+    color: #afafaf;
+    color: #000;
+    padding: 7px;
+    font-size: 14px;
+    border: 1px solid #c0c0c0;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+  }
+
+  #remember-me {
+    float: right;
+    display: block;
+    vertical-align: middle;
+    margin-top: 10px;
+  }
+
+  #help-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+      padding: 2px 0 0 20px;
+      margin-bottom: 7px;
+    }
+  }
+
+  .btn-primary {
+    color: #fff;
+    background: none;
+    background-color: #428bca;
+    border: 1px solid #357ebd;
+
+    margin: 10px 0px;
+
+    &:hover {
+      color: #fff;
+      background: none;
+      background-color: #3276b1;
+      border: 1px solid #285e8e;
+    }
+  }
+}
+
+
 
 /* =========== Top menu =========== */
 #wrapper {
@@ -689,7 +811,6 @@ header {
 
     article {
       width:277px;
-      background:url(../images/sidebar-box-bg-top.png) no-repeat top, url(../images/body_light_2.gif);
       margin:4px 0 0 4px;
       border-radius:3px;
       box-shadow:inset 0 0 0 1px rgba(255,255,255,.01), 0 0 3px rgba(0,0,0,.2);
@@ -703,6 +824,7 @@ header {
         border-bottom: 1px solid #080d11;
         border-bottom-right-radius: 3px;
       }
+
       .top {
         text-align:left;
         color:#c8951b;
@@ -713,10 +835,57 @@ header {
         padding:10px 0 16px 18px;
         text-transform: uppercase;
       }
+
       .body {
         padding: 10px;
       }
+
+      &.sidebar-module {
+        .title-forums {
+          color: #FEF092;
+          text-transform: uppercase;
+          font-size: 14px;
+          font-weight: normal;
+        }
+
+        .poptopic-list {
+
+          a {
+            padding-left: 8px;
+            display: block;
+            border-bottom: 1px solid #271b15;
+
+            &:first-child {
+              padding-left: 8px;
+              display: block;
+              border-bottom: 1px solid #271b15;
+            }
+
+            .int {
+              padding: 6px 0;
+              padding-right: 20px;
+              display: block;
+              font-size: 11px;
+            }
+
+            .title {
+              font-weight: bold;
+              display: block;
+            }
+
+            .desc {
+              color: #71401f;
+              font-weight: normal;
+            }
+          }
+        }
+
+        .desc {
+          padding: 5px 0;
+        }
+      }
     }
+
     #left_menu {
       li {
         a {

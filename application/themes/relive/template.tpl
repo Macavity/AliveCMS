@@ -7,14 +7,12 @@
         <div id="search-bar">
             <form action="/search/" method="get" id="search-form">
                 <div>
-                    <div class="input-group">
-                        <input type="text" name="q" id="search-field" maxlength="200"
-                               tabindex="40" alt="Durchsucht das Arsenal und mehr..."
-                               value="Durchsucht das Arsenal und mehr..." />
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></spanSuchen</button>
-                        </span>
-                    </div>
+                    <input type="text" name="q" id="search-field" maxlength="200"
+                           tabindex="40" alt="Durchsucht das Arsenal und mehr..."
+                           value="Durchsucht das Arsenal und mehr..." class="form-control" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></spanSuchen</button>
+                    </span>
                 </div>
             </form>
         </div>

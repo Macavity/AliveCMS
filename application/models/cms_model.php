@@ -172,7 +172,7 @@ class Cms_model extends MY_Model
 			return $query->result_array();
 		}
 
-		return null;
+		return array();
 	}
 	
 	/**

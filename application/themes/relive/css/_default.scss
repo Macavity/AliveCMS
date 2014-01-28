@@ -29,7 +29,7 @@
 
 /* =========== General =========== */
 
-*, ul, h1, h2, p, b {
+*, ul, p {
 	font-weight:normal;
 	margin:0px;
 	padding:0px;
@@ -125,6 +125,7 @@ footer{
   h2 {
     color: #cfa326;
     font-size:18px;
+    margin-top: 5px;
   }
 
   p {
@@ -245,9 +246,45 @@ a.vote-b:hover p { opacity:1;}
   background-position:0 -32px !important;
 }
 
+#blackout {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: .7;
+  display: none;
+  position: fixed;
+  z-index: 1001;
+}
 
 /* store */
 #store { width:100% !important;}
+
+/* Slider */
+#carousel-slider {
+  .carousel-caption {
+    position: absolute;
+    left: 30px;
+    bottom: 30px;
+    width: 580px;
+    z-index: 35;
+    text-shadow: 0 0 15px black, 0 0 15px black, 0 0 5px black, 0 0 19px black, 0 0 19px black;
+    background: none;
+    h3 {
+      font-size: 22px;
+      color: #fff8d6;
+      font-weight: bold;
+      text-shadow: 0 0 15px black, 0 0 15px black, 0 0 5px black, 0 0 19px black, 0 0 19px black;
+      a {
+        color: #fff8d6;
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
+  }
+}
 
 /* Icons */
 .icon-heroic-skull {
