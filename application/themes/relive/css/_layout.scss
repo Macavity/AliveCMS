@@ -54,6 +54,17 @@ a {
     }
   }
 
+  .nav-tabs {
+    > li.active > a,
+    > li > a:hover {
+      background-color: transparent;
+      border: 0px solid white;
+      font-weight: bold;
+      color: white;
+    }
+
+  }
+
 
 }
 
