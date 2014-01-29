@@ -826,14 +826,21 @@ header {
       }
 
       .top {
+        display:block;
+
+        padding:10px 0 16px 18px;
+        margin-bottom:6px;
+
+        color:#FEF092;
         text-align:left;
-        color:#c8951b;
         font-size:16px;
         font-family:candarab;
-        display:block;
-        background: url(../images/sidebar-box-line-head.png) no-repeat center bottom;
-        padding:10px 0 16px 18px;
         text-transform: uppercase;
+
+        border-bottom: 2px solid #552B12;
+      }
+
+      .sidebar-title {
       }
 
       .body {
@@ -882,6 +889,37 @@ header {
 
         .desc {
           padding: 5px 0;
+        }
+      }
+
+      section.body {
+        ul {
+          li {
+
+
+            a {
+              display: block;
+
+              padding: 10px 0px 10px 5px;
+              color:#605240;
+
+              @include vendorPrefix(transition-property, all);
+              @include vendorPrefix(transition-duration, 0.6s);
+
+              &:hover {
+                color: #ee9f2f;
+                padding-left: 40px;
+              }
+
+              &:before {
+                font-family: 'Glyphicons Halflings';
+                content: "\e080";
+                font-size: 9px;
+                position: relative;
+                left: -4px;
+              }
+            }
+          }
         }
       }
     }

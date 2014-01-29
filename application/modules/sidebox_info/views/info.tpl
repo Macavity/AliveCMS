@@ -27,7 +27,7 @@
 		</tr>
 	</table>
 	<center>
-		<a href="{$url}ucp" class="nice_button">{lang("user_panel", "sidebox_info")}</a>
+		<a href="{$url}ucp" class="nice_button">{lang("user_panel", "sidebox_info")}</a><br><br>
 		<a href="{$url}logout" class="nice_button">{lang("log_out", "sidebox_info")}</a>
 	</center>
 </section>
