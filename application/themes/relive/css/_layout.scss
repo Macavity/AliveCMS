@@ -54,6 +54,17 @@ a {
     }
   }
 
+  .nav-tabs {
+    > li.active > a,
+    > li > a:hover {
+      background-color: transparent;
+      border: 0px solid white;
+      font-weight: bold;
+      color: white;
+    }
+
+  }
+
 
 }
 
@@ -826,14 +837,21 @@ header {
       }
 
       .top {
+        display:block;
+
+        padding:10px 0 16px 18px;
+        margin-bottom:6px;
+
+        color:#FEF092;
         text-align:left;
-        color:#c8951b;
         font-size:16px;
         font-family:candarab;
-        display:block;
-        background: url(../images/sidebar-box-line-head.png) no-repeat center bottom;
-        padding:10px 0 16px 18px;
         text-transform: uppercase;
+
+        border-bottom: 2px solid #552B12;
+      }
+
+      .sidebar-title {
       }
 
       .body {
@@ -884,6 +902,37 @@ header {
           padding: 5px 0;
         }
       }
+
+      section.body {
+        ul {
+          li {
+
+
+            a {
+              display: block;
+
+              padding: 10px 0px 10px 5px;
+              color:#605240;
+
+              @include vendorPrefix(transition-property, all);
+              @include vendorPrefix(transition-duration, 0.6s);
+
+              &:hover {
+                color: #ee9f2f;
+                padding-left: 40px;
+              }
+
+              &:before {
+                font-family: 'Glyphicons Halflings';
+                content: "\e080";
+                font-size: 9px;
+                position: relative;
+                left: -4px;
+              }
+            }
+          }
+        }
+      }
     }
 
     #left_menu {
@@ -921,7 +970,16 @@ header {
     width:720px;
     float:right;
     box-shadow:0 0 6px rgba(0,0,0,.6);
-    padding:4px 0 0 0;
+    padding: 0;
+
+    #content_ajax {
+      padding-top: 0px;
+
+      h1 {
+        margin-top: 0px;
+      }
+
+    }
 
     article {
       background:url(../images/news-bg.png) no-repeat top;
@@ -934,7 +992,7 @@ header {
       .top {
         text-align:left;
         color:#c8951b;
-        font-size:16px;
+//        font-size:16px;
         font-family:candarab;
         display:block;
         background:url(../images/news-head-line.png) no-repeat bottom;

@@ -447,12 +447,14 @@ class Realms
 		return $return;
 	}
 
-	/**
-	 * Format an avatar path as in Class-Race-Gender-Level
+    /**
+     * Format an avatar path as in Class-Race-Gender-Level
      * Modified version for Alive
+     *
      * @alive
-	 * @return String
-	 */
+     * @param $character
+     * @return String
+     */
 	public function formatAvatarPath($character)
 	{
 		$class = $character['class'];
@@ -463,10 +465,13 @@ class Realms
         $level = $character['level'];
         $folder = "wow";
 
-        if($level >= 60 && $level < 70){
+        if($level < 60){
             $folder = "wow-default";
         }
-        elseif($level <= 70){
+        elseif($level < 70){
+            $folder = "wow";
+        }
+        elseif($level < 80){
             $folder = "wow-70";
         }
         elseif($level >= 80){
