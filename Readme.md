@@ -31,11 +31,20 @@ npm install grunt -g
 npm install handlebars@1.0.12 -g
 ```
 
+## Install Ruby (wenn nötig)
+http://www.rubyinstaller.org/
+
+## Install Sass
+```
+sudo gem install sass
+```
+
 # Windows 7
 
 ## Install Node.js
 ```
 http://nodejs.org/download/
+```
 
 ## Install Grunt
 ```open shell with administrative rights
@@ -46,6 +55,10 @@ npm install -g grunt-cli
 ```shell
 npm install handlebars@1.0.12 -g
 ```
+
+## Install Ruby (wenn nötig)
+http://www.rubyinstaller.org/
+
 
 # Conclusion (Both)
 

@@ -6,3 +6,4 @@ database.php
 .sass-cache
 application/themes/shattered/images/items
 shattered
+application/themes/relive/node_modules
