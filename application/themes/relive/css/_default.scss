@@ -71,19 +71,18 @@ a img {
 
 .logo {
   display: block;
-  background-image: url(../images/alive-logo.png);
-  width: 218px;
-  height: 75px;
-  &:hover {
-    background-position: 0px 75px;
-  }
+  background-image: url(../images/senzaii-logo.png);
+  position: absolute;
+  width: 350px;
+  height: 205px;
+  top: -20px;
+  z-index: 21;
 }
 
 header {
   .logo {
     text-indent: -1000px;
     overflow: hidden;
-    background-position: 0px 75px;
   }
 }
 
