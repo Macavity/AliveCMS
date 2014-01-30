@@ -1,8 +1,8 @@
 <?php
 
-$config['use_own_smtp_settings'] = false;
-$config['smtp_host'] = "ssl://smtp.gmail.com";
-$config['smtp_user'] = "USERNAME@gmail.com";
-$config['smtp_pass'] = "GMAIL-PASSWORD";
+$config['use_own_smtp_settings'] = 1;
+$config['smtp_host'] = "ssl://mail.senzaii.net";
+$config['smtp_user'] = "support@senzaii.net";
+$config['smtp_pass'] = "GameMaster1";
 $config['smtp_port'] = 465;
 $config['mail_debug'] = false;
