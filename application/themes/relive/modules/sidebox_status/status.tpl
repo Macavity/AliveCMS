@@ -27,7 +27,7 @@
             </table>
         </div>
     </div>
-    <div id="realmlist">set realmlist {$realmlist}</div>
+    <div id="realmlist">set realmlist {$realmlist}:3704</div>
 
     <div class="side_divider"></div>
 {/foreach}
