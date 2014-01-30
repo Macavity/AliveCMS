@@ -90,7 +90,8 @@ header {
 
   nav.main-menu {
     position: relative;
-    margin-top:40px;
+    margin-top: 140px;
+    z-index: 20;
 
     ul{
       height:76px;
