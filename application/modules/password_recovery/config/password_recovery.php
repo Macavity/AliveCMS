@@ -1,3 +1,3 @@
 <?php
 
-$config['password_recovery_sender_email'] = 'info@wow-alive.de';
+$config['password_recovery_sender_email'] = 'support@senzaii.net';
