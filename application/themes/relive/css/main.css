@@ -2185,7 +2185,7 @@ header #logo {
 header nav.main-menu {
   position: relative;
   margin-top: 140px;
-  z-index: 20;
+  z-index: 40;
 }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\0000396}}
 header nav.main-menu ul {
