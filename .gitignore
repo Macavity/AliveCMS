@@ -1,0 +1,5 @@
+.idea
+application/themes/relive/node_modules
+application/themes/relive/.sass-cache
+database.php
+node_modules
