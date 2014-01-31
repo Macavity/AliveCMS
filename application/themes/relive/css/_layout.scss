@@ -354,9 +354,12 @@ header {
           width: 11px;
           height: 11px;
           display: block;
-          background: url("../images/context/icons.gif") no-repeat;
+          font-size: 14px;
+          text-shadow: none;
+          color: white;
+
           &:hover {
-            background-position: 0 -26px;
+            opacity: 1;
           }
         }
         .context-user {
@@ -372,8 +375,6 @@ header {
             height: 30px;
             background: #292a2a;
             margin-right: 1px;
-            background-image: url("../images/icons/context.gif");
-            background-repeat: no-repeat;
             font-weight: bold;
             &:hover {
               background-color: #525252;
@@ -404,35 +405,56 @@ header {
         background: url("../images/layout/divider.gif") 50% 0 no-repeat;
         &.loading-chars {
           padding: 50px;
-          background: url("../images/icons/uber-loading.gif") 50% 50% no-repeat;
+          background: url("../images/uber-loading.gif") 50% 50% no-repeat;
         }
+
+        .race, .class, .realm {
+          text-transform: uppercase;
+          color: #5b616a;
+          font-size: 11px;
+        }
+
+        .realm {
+          &.up {
+            color: $realmOnline;
+          }
+          &.down {
+            color: $realmOffline;
+          }
+        }
+
         .primary {
           padding-bottom: 2px;
+
+          .realm {
+            font-size: 14px;
+            font-weight: bold;
+            i {
+              padding: 5px 12px 5px 5px;
+            }
+          }
+
           .char {
             display: block;
-            padding: 10px;
+            padding: 4px 10px;
             opacity: .50;
-            background: url("../images/layout/divider.gif") 50% 100% no-repeat;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+
             span {
               display: block;
             }
-            .race, .class, .realm {
-              text-transform: uppercase;
-              color: #5b616a;
-              font-size: 11px;
-            }
+
             .name {
-              font-size: 14px;
+              font-size: 12px;
               color: #fff;
               font-weight: bold;
             }
             .pin {
-              margin-top: 17px;
+              margin-top: 2px;
               float: right;
               width: 16px;
               height: 16px;
               display: block;
-              background: url("../images/icons/icons.gif") 0 -52px no-repeat;
             }
             &.pinned {
               .pin {

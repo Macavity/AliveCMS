@@ -22,7 +22,7 @@
                     </a>
                     <div id="context-1" class="ui-context character-select">
                         <div class="context">
-                            <a href="javascript:;" class="close"></a>
+                            <a href="javascript:;" class="close"><i class="glyphicon glyphicon-remove"></i></a>
                             <div class="context-user">
                                 <strong>{$activeChar.name}</strong>
                                 <br />
@@ -42,20 +42,38 @@
                         <div class="character-list">
                             <div class="primary chars-pane">
                                 <div class="char-wrapper">
-                                    <a href="{$activeChar.url}" class="char pinned" rel="np">
-                                        <span class="pin"></span>
-                                        <span class="name">{$activeChar.name}</span>
-                                        <span class="class wow-class-{$activeChar.class}">{$activeChar.level} {$activeChar.raceString} {$activeChar.classString}</span>
-                                        <span class="realm up">{$activeChar.realmName}</span>
-                                    </a>
-                                    {foreach from=$charList item=charRow name=charList}
+                                  {*<a href="{$activeChar.url}" class="char pinned" rel="np">
+                                    <span class="pin"></span>
+                                    <span class="name">{$activeChar.name}</span>
+                                    <span class="class wow-class-{$activeChar.class}">{$activeChar.level} {$activeChar.raceString} {$activeChar.classString}</span>
+                                    <span class="realm">{$activeChar.realmName}</span>
+                                  </a>*}
+                                  {foreach $realmChars as $realmRow}
+                                    {if count($realmRow.characters)}
+                                      <span class="realm {if $realmRow.online}up{else}down{/if}">
+                                        <i class="glyphicon {if $realmRow.online}glyphicon-ok-sign{else}glyphicon-remove-sign{/if}"></i>
+                                        {$realmRow.realmName}
+                                      </span>
+                                      {foreach $realmRow.characters as $charRow}
                                         <a href="{$charRow.url}" class="char" rel="np" data-guid="{$charRow.guid}" data-realm="{$charRow.realmId}">
-                                            <span class="pin"></span>
-                                            <span class="name">{$charRow.name}</span>
-                                            <span class="class wow-class-{$charRow.class}">{$charRow.level} {$charRow.raceString} {$charRow.classString}</span>
-                                            <span class="realm up">{$charRow.realmName}</span>
+                                          <span class="pin"><i class="glyphicon glyphicon-pushpin"></i></span>
+                                          <span class="name wow-class-{$charRow.class}">
+                                            {$charRow.level}
+                                            {$charRow.raceIcon}{$charRow.classIcon}
+                                            {$charRow.name}</span>
+                                          <span class="class"></span>
                                         </a>
-                                    {/foreach}
+                                      {/foreach}
+                                    {/if}
+                                  {/foreach}
+                                  {* foreach from=$charList item=charRow name=charList}
+                                      <a href="{$charRow.url}" class="char" rel="np" data-guid="{$charRow.guid}" data-realm="{$charRow.realmId}">
+                                          <span class="pin glyphicon glyphicon-pushpin"></span>
+                                          <span class="name wow-class-{$charRow.class}">{$charRow.name}</span>
+                                          <span class="class">{$charRow.level} {$charRow.raceString} {$charRow.classString}</span>
+                                          <span class="realm up">{$charRow.realmName}</span>
+                                      </a>
+                                  {/foreach *}
                                 </div>
                             </div>
                         </div>
