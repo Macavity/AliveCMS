@@ -488,11 +488,17 @@ class Template
             return "<!-- Partial template userplate.tpl not found: ".APPPATH.$this->theme_path."views/userplate.tpl -->";
         }
 
+        $charList = array();
+
+        /**
+         * List of Realms with the characters on this realm of the user
+         */
+        $charRealms = array();
+
         $data = array(
             "isOnline" => $this->CI->user->isOnline(),
             "charList" => array(),
             "nickname" => $this->CI->user->getNickname(),
-
         );
 
         if($this->CI->user->isOnline()){
@@ -504,8 +510,6 @@ class Template
 
             $realmChars = $this->CI->user->getCharacters($this->CI->user->getId());
 
-            $charList = array();
-
             $activeCharFound = FALSE;
 
             //debug("realmChars", $realmChars);
@@ -516,47 +520,54 @@ class Template
             $activeChar = $this->CI->user->getActiveCharacter();
             //debug("activeGuid", $activeChar);
 
-            $n = 0;
-
             //$knownGuilds = array();
 
-            foreach($realmChars as $realmRow){
-
+            foreach($realmChars as $realmCounter => $realmRow)
+            {
                 $realmId = $realmRow["realmId"];
                 $realmName = $realmRow["realmName"];
+                $realmRow['online'] = $this->CI->realms->getRealm($realmId)->isOnline();
 
-                foreach($realmRow["characters"] as $charRow){
-
-
+                foreach($realmRow["characters"] as $charCounter => $charRow)
+                {
                     $charRow["realmId"] = $realmId;
                     $charRow["realmName"] = $realmName;
+
                     $charRow["url"] = "/character/".$realmId."/".$charRow["name"]."/";
                     $charRow["hasGuild"] = FALSE;
 
+                    // Class
                     $charRow["classString"] = $this->CI->realms->getClass($charRow["class"], $charRow["gender"]);
-                    $charRow["raceString"] = $this->CI->realms->getRace($charRow["race"], $charRow["gender"]);
+                    $charRow["classIcon"] = $this->CI->realms->getClassIcon($charRow['class'], $charRow['gender']);
 
-                    if($charRow["guid"] == $activeChar && $realmId == $this->CI->user->getActiveRealmId()){
+                    // Race
+                    $charRow["raceString"] = $this->CI->realms->getRace($charRow["race"], $charRow["gender"]);
+                    $charRow["raceIcon"] = $this->CI->realms->getRaceIcon($charRow['race'], $charRow['gender']);
+
+                    if($charRow["guid"] == $activeChar && $realmId == $this->CI->user->getActiveRealmId())
+                    {
                         $activeCharFound = TRUE;
                         $activeChar = $charRow;
+                        unset($realmRow['characters'][$charCounter]);
                     }
-                    else{
-                        $charList[$n] = $charRow;
-                        $n++;
+                    else
+                    {
+                        $charList[$charCounter] = $charRow;
+                        $realmRow['characters'][$charCounter] = $charRow;
                     }
-                    //debug("char", $charRow);
+
                 }
+
+                $realmChars[$realmCounter] = $realmRow;
 
             }
 
-            if(!$activeCharFound && count($charList) > 0){
-
-                //debug("0er", $charList[0]);
+            if(!$activeCharFound && count($charList) > 0)
+            {
                 $this->CI->user->setActiveCharacter($charList[0]["guid"], $charList[0]["realmId"]);
                 $activeCharFound = true;
                 $activeChar = $charList[0];
                 unset($charList[0]);
-
             }
 
             if($activeCharFound)
@@ -569,22 +580,25 @@ class Template
 
                 $activeChar["avatarUrl"] = $this->CI->realms->formatAvatarPath($activeChar);
 
-                if($guildId){
+                if($guildId)
+                {
                     $activeChar["hasGuild"] = TRUE;
                     $activeChar["guildName"] = $activeRealm->getGuildName($guildId);
                     $activeChar["guildUrl"] = "/guild/".strtolower($activeChar["realmName"])."/".$activeChar["guildName"]."/";
                 }
 
             }
-            else{
+            else
+            {
                 $data["factionString"] = "neutral";
             }
 
-            $data["activeChar"] = $activeChar;
-            $data["charList"] = $charList;
+            $data['activeChar'] = $activeChar;
+            $data['charList'] = $charList;
+            $data['realmChars'] = $realmChars;
 
         }
-        //debug("isOnline", $data["isOnline"]);
+
         return $this->CI->smarty->view($this->theme_path."views/userplate.tpl", $data, true);
 
     }

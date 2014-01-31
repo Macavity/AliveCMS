@@ -285,6 +285,25 @@ class Realms
 		return "Unknown";
 	}
 
+    public function getRaceIcon($raceId, $gender = 0)
+    {
+        $label = $this->getRace($raceId, $gender);
+
+        $imgPath = 'application/images/icons/18/race_'.$raceId.'_'.$gender.'.jpg';
+
+        if(file_exists($_SERVER['DOCUMENT_ROOT'].'/'.$imgPath))
+        {
+            return img(array(
+                'src' => $imgPath,
+                'title' => $label,
+                'width' => 18,
+                'height' => 18
+            ));
+        }
+
+        return "<!-- missing $imgPath -->";
+    }
+
 	/**
 	 * Get the name of a class
      * @alive
@@ -311,6 +330,25 @@ class Realms
         }
 		return "Unknown";
 	}
+
+    public function getClassIcon($classId, $gender)
+    {
+        $label = $this->getClass($classId, $gender);
+
+        $imgPath = 'application/images/icons/18/class_'.$classId.'.jpg';
+
+        if(file_exists($_SERVER['DOCUMENT_ROOT'].'/'.$imgPath))
+        {
+            return img(array(
+                'src' => $imgPath,
+                'title' => $label,
+                'width' => 18,
+                'height' => 18
+            ));
+        }
+
+        return "\n<!-- missing $imgPath -->";
+    }
 
     /**
      * Goes through a bitmask of AllowableRaces
