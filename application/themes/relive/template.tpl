@@ -17,7 +17,7 @@
             </form>
         </div>
         <h1 class="logo">
-            <a href="/news">Alive</a>
+            <a href="/news">Senzaii</a>
         </h1>
         <nav class="main-menu">
             <ul id="top_menu">
@@ -97,11 +97,11 @@
     <footer>
         <center>
             <div id="logos">
-                <!--<a href="http://www.wow-alive.de/" id="alivelogo" target="_blank"></a>-->
+                <!--<a href="http://www.senzaii.net/" id="alivelogo" target="_blank"></a>-->
                 <a href="http://fusion-hub.com" id="cmslogo" target="_blank"></a>
             </div>
             <div id="siteinfo">
-                &copy; <span color="#695946">WoW Alive</span> <br/>
+                &copy; <span color="#695946">Senzaii</span> <br/>
             </div>
         </center>
     </footer>
@@ -109,7 +109,7 @@
     <!-- Service Bar -->
     <section id="service">
         <ul class="service-bar">
-            <li class="service-cell service-home"><a href="/" tabindex="50" accesskey="1" title="ALive"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li class="service-cell service-home"><a href="/" tabindex="50" accesskey="1" title="Senzaii"><span class="glyphicon glyphicon-home"></span></a></li>
             {if $isOnline}
                 <li class="service-cell service-welcome">
                     Willkommen, {if $is_staff}<span class="employee"></span>{/if}{$user_name}
