@@ -7,8 +7,9 @@
  * @property    CI_Loader   $load
  * @property    CI_URI      $uri
  * @property    CI_Input    $input
+ * @property    CI_Smarty      $smarty
  *
- * @property    Cache    $cache
+ * @property    Cache       $cache
  * @property    Template    $template
  * @property    Realms      $realms
  * @property    User        $user

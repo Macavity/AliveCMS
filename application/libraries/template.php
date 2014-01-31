@@ -8,8 +8,9 @@
  * @author Elliott Robbins
  * @author Macavity
  * @link http://raxezdev.com/fusioncms
+ *
+ * @property MY_Controller CI
  */
-
 class Template
 {
 	private $CI;
@@ -500,20 +501,24 @@ class Template
              * List of all realms with all characters on each realm
              * @type Array
              */
+
             $realmChars = $this->CI->user->getCharacters($this->CI->user->getId());
 
             $charList = array();
-            $activeChar = array();
 
             $activeCharFound = FALSE;
 
             //debug("realmChars", $realmChars);
+
+            /**
+             * @var array
+             */
             $activeChar = $this->CI->user->getActiveCharacter();
             //debug("activeGuid", $activeChar);
 
             $n = 0;
 
-            $knownGuilds = array();
+            //$knownGuilds = array();
 
             foreach($realmChars as $realmRow){
 
@@ -554,7 +559,8 @@ class Template
 
             }
 
-            if($activeChar && isset($activeChar['race'])){
+            if($activeCharFound)
+            {
                 $activeRealm = $this->CI->realms->getRealm($this->CI->user->getActiveRealmId())->getCharacters();
 
                 $data["factionString"] = $this->CI->realms->getFactionString($activeChar["race"]);
