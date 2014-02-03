@@ -75,7 +75,11 @@ $route['admin/edit/(:any)'] = "admin/edit/index/$1";
 $route['server/howtoplay'] = "page/index/howtoplay";
 $route['server/rules'] = "page/index/rules";
 $route['server/changelog'] = "server/server_changelog";
+
+// Server - Auction house
 $route['server/auctions'] = "auctionhouse";
+$route['server/auctions/(:any)'] = "auctionhouse/index/$1";
+
 $route['server/(:any)'] = "server/$1";
 
 // PVP Ranking

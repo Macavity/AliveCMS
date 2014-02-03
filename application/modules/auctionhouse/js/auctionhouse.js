@@ -76,7 +76,7 @@ var Auctionhouse = {
 										"<a href='" + Config.URL + "item/" + realm + "/" + id + "' rel='item=" + id + "' data-realm='" + realm + "'></a>" +
 										"<img src='https://wow.zamimg.com/images/wow/icons/large/" + data + ".jpg' />" +
 									"</div>");
-					Tooltip.refresh();
+					FusionTooltip.refresh();
 				});
 			});
 		}
@@ -86,16 +86,9 @@ var Auctionhouse = {
 	{
 		var path = document.location.pathname;
 		
-		// Check if we need to add the index crap
-		if (path.indexOf('/index') == -1)
-		{
-			path += '/index';
-		}
-		else
-		{
-			path = path.substr(0, path.indexOf('index/') + 5)
-		}
-		
+		// Check if we need to add the trailing slash
+        path = path.substr(0, path.indexOf('auctions/') + 8);
+
 		// Add the variables
 		path += '/' + String(Auctionhouse.RealmID);
 		path += '/' + String(Auctionhouse.CurrentFaction);

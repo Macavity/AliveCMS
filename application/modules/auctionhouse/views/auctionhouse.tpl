@@ -51,17 +51,16 @@
     </div>
     
     <div id="ah-auctions">
-        <table class="nice_table" cellspacing="0" cellpadding="0">
-            <tr id="ah-sortable">
-                <td width="40%">{lang("Item", 'auctionhouse')}</td>
-                <td width="10%" align="center" class="ah-column-timeleft"><a href="#" data-sort-id="0">{lang("Time Left", 'auctionhouse')}</a></td>
-                <td width="15%" align="center"><a href="#" data-sort-id="2">{lang("Seller", 'auctionhouse')}</a></td>
-                <td width="20%" align="center"><a href="#" data-sort-id="4">{lang("Current Bid", 'auctionhouse')}</a></td>
-                <td width="15%" align="center">{lang("AH", 'auctionhouse')}</td>
-            </tr>
-      	</table>
-        
         <table class="nice_table nice_table_mod" cellspacing="0" cellpadding="0">
+          <thead>
+            <tr id="ah-sortable">
+              <td width="40%">{lang("Item", 'auctionhouse')}</td>
+              <td width="10%" align="center" class="ah-column-timeleft"><a href="#" data-sort-id="0">{lang("Time Left", 'auctionhouse')}</a></td>
+              <td width="15%" align="center"><a href="#" data-sort-id="2">{lang("Seller", 'auctionhouse')}</a></td>
+              <td width="20%" align="center"><a href="#" data-sort-id="4">{lang("Current Bid", 'auctionhouse')}</a></td>
+              <td width="15%" align="center">{lang("AH", 'auctionhouse')}</td>
+            </tr>
+          </thead>
             <tr><td colspan="5" style="height:0px; padding:0; margin: 0;"></td></tr>
             
             {if count($auctions) > 0}
