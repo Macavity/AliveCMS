@@ -187,7 +187,7 @@ module.exports = function(grunt) {
                     // Fusion Libraries
                     'application/js/fusioneditor.js',
                     'application/js/language.js',
-                    //'application/js/ui.js',
+                    'application/js/ui.js',
                     //'application/js/router.js',
 
                     // Some miscalenous functions

@@ -285,8 +285,9 @@ define(['modules/page', 'modules/core'], function(Page, Core){
 
             var coords = Tooltip['_' + location](width, height, node);
 
-            if (coords)
+            if (coords){
                 Tooltip.move(coords.x, coords.y, width, height);
+            }
         },
 
         /**

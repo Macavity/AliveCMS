@@ -32,7 +32,7 @@ function UI()
 		UI.dropdown.initialize();
 
 		// Enable FusionTooltip
-		//FusionTooltip.initialize();
+		FusionTooltip.initialize();
 	}
 
 	/**
@@ -453,9 +453,9 @@ function FusionTooltip()
 
 	 		/**
 	 		 * Save data to localStorage
-	 		 * @param String name
-	 		 * @param String data
-	 		 * @param Int expiration
+	 		 * @param {string} name
+	 		 * @param {string} data
+	 		 * @param {number} expiration
 	 		 */
 	 		this.save = function(name, data)
 	 		{

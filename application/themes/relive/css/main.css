@@ -1594,7 +1594,7 @@ a.vote-b:hover p {
 }
 
 /* Icons */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003289}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003291}}
 .icon-heroic-skull {
   background: url("/application/images/icons/18/skull-crossbones-icon.png") no-repeat scroll 50% 50% rgba(0, 0, 0, 0);
   background-size: 110%;
@@ -1604,7 +1604,7 @@ a.vote-b:hover p {
   width: 10px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003299}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003301}}
 .icon-faction-0,
 .icon-faction-1 {
   display: inline-block;
@@ -1615,13 +1615,13 @@ a.vote-b:hover p {
   vertical-align: middle;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003308}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003310}}
 .icon-faction-1 {
   background: url("/application/images/icons/horde.png") left center no-repeat !important;
 }
 
 /* Zone Thumbnails */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003313}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003315}}
 .zone-thumbnail {
   float: left;
   display: block;
@@ -1644,461 +1644,557 @@ a.vote-b:hover p {
   -ms-box-shadow: #0d0703 0 0 5px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003327}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003329}}
 a:hover .zone-thumbnail {
   border: 1px solid #cd9000;
   margin: 0 10px 0 0;
 }
 
 /* thumbnails */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003333}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003335}}
 .thumb-ahnkahet-the-old-kingdom {
   background-position: -960px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003334}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003336}}
 .thumb-ahnqiraj-temple {
   background-position: -2040px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003335}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003337}}
 .thumb-auchenai-crypts {
   background-position: -760px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003336}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003338}}
 .thumb-azjolnerub {
   background-position: -1000px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003337}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003339}}
 .thumb-baradin-hold {
   background-position: -2800px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003338}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003340}}
 .thumb-blackfathom-deeps {
   background-position: 0 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003339}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003341}}
 .thumb-blackrock-caverns {
   background-position: -1600px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003340}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003342}}
 .thumb-blackrock-depths {
   background-position: -40px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003341}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003343}}
 .thumb-blackrock-spire {
   background-position: -80px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003342}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003344}}
 .thumb-black-temple {
   background-position: -2360px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003343}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003345}}
 .thumb-blackwing-descent {
   background-position: -2880px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003344}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003346}}
 .thumb-blackwing-lair {
   background-position: -1960px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003345}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003347}}
 .thumb-deadmines {
   background-position: -120px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003346}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003348}}
 .thumb-dire-maul {
   background-position: -160px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003347}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003349}}
 .thumb-draktharon-keep {
   background-position: -1080px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003348}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003350}}
 .thumb-firelands {
   background-position: -2960px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003349}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003351}}
 .thumb-gnomeregan {
   background-position: -200px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003350}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003352}}
 .thumb-grim-batol {
   background-position: -1640px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003351}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003353}}
 .thumb-gruuls-lair {
   background-position: -2120px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003352}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003354}}
 .thumb-gundrak {
   background-position: -1160px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003353}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003355}}
 .thumb-halls-of-lightning {
   background-position: -1200px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003354}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003356}}
 .thumb-halls-of-origination {
   background-position: -1680px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003355}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003357}}
 .thumb-halls-of-reflection {
   background-position: -1240px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003356}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003358}}
 .thumb-halls-of-stone {
   background-position: -1280px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003357}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003359}}
 .thumb-hellfire-ramparts {
   background-position: -840px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003358}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003360}}
 .thumb-icecrown-citadel {
   background-position: -2720px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003359}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003361}}
 .thumb-karazhan {
   background-position: -2080px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003360}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003362}}
 .thumb-lost-city-of-the-tolvir {
   background-position: -1720px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003361}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003363}}
 .thumb-magisters-terrace {
   background-position: -880px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003362}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003364}}
 .thumb-magtheridons-lair {
   background-position: -2160px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003363}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003365}}
 .thumb-manatombs {
   background-position: -760px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003364}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003366}}
 .thumb-maraudon {
   background-position: -240px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003365}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003367}}
 .thumb-molten-core {
   background-position: -1920px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003366}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003368}}
 .thumb-naxxramas {
   background-position: -2440px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003367}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003369}}
 .thumb-onyxias-lair {
   background-position: -2680px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003368}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003370}}
 .thumb-opening-of-the-dark-portal {
   background-position: -800px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003369}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003371}}
 .thumb-pit-of-saron {
   background-position: -1400px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003370}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003372}}
 .thumb-ragefire-chasm {
   background-position: -280px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003371}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003373}}
 .thumb-razorfen-downs {
   background-position: -320px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003372}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003374}}
 .thumb-razorfen-kraul {
   background-position: -360px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003373}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003375}}
 .thumb-ruins-of-ahnqiraj {
   background-position: -2000px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003374}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003376}}
 .thumb-scarlet-monastery {
   background-position: -400px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003375}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003377}}
 .thumb-scholomance {
   background-position: -440px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003376}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003378}}
 .thumb-serpentshrine-cavern {
   background-position: -2240px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003377}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003379}}
 .thumb-sethekk-halls {
   background-position: -760px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003380}}
 .thumb-shadowfang-keep {
   background-position: -480px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003379}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003381}}
 .thumb-shadow-labyrinth {
   background-position: -760px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003380}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003382}}
 .thumb-stormwind-stockade {
   background-position: -520px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003381}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003383}}
 .thumb-stratholme {
   background-position: -560px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003382}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003384}}
 .thumb-sunken-temple {
   background-position: -600px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003383}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003385}}
 .thumb-tempest-keep {
   background-position: -2280px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003384}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003386}}
 .thumb-the-arcatraz {
   background-position: -2280px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003385}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003387}}
 .thumb-the-bastion-of-twilight {
   background-position: -2840px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003386}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003388}}
 .thumb-the-battle-for-mount-hyjal {
   background-position: -2320px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003387}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003389}}
 .thumb-the-blood-furnace {
   background-position: -840px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003388}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003390}}
 .thumb-the-botanica {
   background-position: -2280px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003389}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003391}}
 .thumb-the-culling-of-stratholme {
   background-position: -1040px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003390}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003392}}
 .thumb-the-escape-from-durnholde {
   background-position: -800px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003391}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003393}}
 .thumb-the-eye-of-eternity {
   background-position: -2560px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003392}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003394}}
 .thumb-the-forge-of-souls {
   background-position: -1120px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003393}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003395}}
 .thumb-the-mechanar {
   background-position: -2280px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003394}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003396}}
 .thumb-the-nexus {
   background-position: -1320px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003395}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003397}}
 .thumb-the-obsidian-sanctum {
   background-position: -2480px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003396}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003398}}
 .thumb-the-oculus {
   background-position: -1360px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003397}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003399}}
 .thumb-the-ruby-sanctum {
   background-position: -2760px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003398}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003400}}
 .thumb-the-shattered-halls {
   background-position: -840px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003399}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003401}}
 .thumb-the-slave-pens {
   background-position: -2240px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003400}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003402}}
 .thumb-the-steamvault {
   background-position: -2240px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003401}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003403}}
 .thumb-the-stonecore {
   background-position: -1760px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003402}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003404}}
 .thumb-the-sunwell {
   background-position: -2400px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003403}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003405}}
 .thumb-the-underbog {
   background-position: -2240px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003404}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003406}}
 .thumb-the-vortex-pinnacle {
   background-position: -1840px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003405}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003407}}
 .thumb-throne-of-the-four-winds {
   background-position: -2920px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003406}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003408}}
 .thumb-throne-of-the-tides {
   background-position: -1800px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003407}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003409}}
 .thumb-trial-of-the-champion {
   background-position: -1440px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003408}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003410}}
 .thumb-trial-of-the-crusader {
   background-position: -2640px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003409}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003411}}
 .thumb-uldaman {
   background-position: -620px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003410}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003412}}
 .thumb-ulduar {
   background-position: -2600px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003411}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003413}}
 .thumb-utgarde-keep {
   background-position: -1480px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003412}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003414}}
 .thumb-utgarde-pinnacle {
   background-position: -1520px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003413}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003415}}
 .thumb-vault-of-archavon {
   background-position: -2520px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003414}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003416}}
 .thumb-violet-hold {
   background-position: -1560px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003415}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003417}}
 .thumb-wailing-caverns {
   background-position: -680px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003416}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003418}}
 .thumb-zulaman {
   background-position: -920px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003417}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003419}}
 .thumb-zulfarrak {
   background-position: -720px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003418}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003420}}
 .thumb-zulgurub {
   background-position: -1880px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003419}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003421}}
 .thumb-well-of-eternity {
   background-position: -3040px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003420}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003422}}
 .thumb-end-time {
   background-position: -3120px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003421}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003423}}
 .thumb-dragon-soul {
   background-position: -3000px 0;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003422}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_default\.scss}line{font-family:\00003424}}
 .thumb-hour-of-twilight {
   background-position: -3080px 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_tooltip\.scss}line{font-family:\000031}}
+.ui-tooltip {
+  border: 1px solid #353837;
+  color: #fff;
+  background-color: rgba(15, 15, 15, 0.9);
+  padding: 10px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: #000 0 0 15px;
+  -webkit-box-shadow: #000 0 0 15px;
+  box-shadow: #000 0 0 15px;
+  font-size: 12px;
+  position: absolute;
+  z-index: 1000;
+  width: auto;
+  height: auto;
+  max-width: 300px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_tooltip\.scss}line{font-family:\0000318}}
+.ui-tooltip h3 {
+  font-size: 16px;
+  font-weight: normal;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_tooltip\.scss}line{font-family:\0000322}}
+.ui-tooltip li {
+  clear: both;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_tooltip\.scss}line{font-family:\0000325}}
+.ui-tooltip .float-right {
+  padding-left: 30px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_tooltip\.scss}line{font-family:\0000328}}
+.ui-tooltip .frame-36 {
+  position: absolute;
+  left: -56px;
+  top: -10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_tooltip\.scss}line{font-family:\0000333}}
+.ui-tooltip .frame-56 {
+  position: absolute;
+  left: -75px;
+  top: -10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_tooltip\.scss}line{font-family:\0000338}}
+.ui-tooltip .tooltip-content {
+  position: relative;
+  width: auto;
+  height: auto;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_tooltip\.scss}line{font-family:\0000343}}
+.ui-tooltip .tooltip-list {
+  /*margin-top: 10px;*/
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_tooltip\.scss}line{font-family:\0000346}}
+.ui-tooltip ul {
+  /*margin-top: 10px;*/
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_tooltip\.scss}line{font-family:\0000348}}
+.ui-tooltip ul li {
+  margin: 1px 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_tooltip\.scss}line{font-family:\0000353}}
+.ui-tooltip .tooltip-list li {
+  margin: 1px 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_tooltip\.scss}line{font-family:\0000356}}
+.ui-tooltip .tooltip-list .icon-frame {
+  float: left;
+  margin-right: 5px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_tooltip\.scss}line{font-family:\0000361}}
+.ui-tooltip table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_tooltip\.scss}line{font-family:\0000365}}
+.ui-tooltip td {
+  margin: 0;
+  padding: 0;
+}
+
+/* title of the tooltip */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_tooltip\.scss}line{font-family:\0000373}}
+.tooltip-frame {
+  background: transparent;
+  border: none;
+  display: none;
+  height: 0;
+  position: absolute;
+  z-index: 999;
+  width: auto;
+  height: auto;
+  max-width: 300px;
 }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/alex\/Sites\/senzaii\.net\/live\/application\/themes\/relive\/css\/_layout\.scss}line{font-family:\000032}}
