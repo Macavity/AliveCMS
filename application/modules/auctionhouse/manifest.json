@@ -3,7 +3,7 @@
 	"description": "Displays the current auctions in-game",
 	"author": {
 		"name": "ChoMPi",
-		"website": ""
+		"website": "http://fusion.duloclan.com"
 	},
 	
 	"admin": [
@@ -22,8 +22,8 @@
 	],
 
 	"permissions": {
-		"view": {"default" : true, "description": "View the auction house page." },
-		"viewAdmin": {"default" : false, "description": "View the auction house admin page." }
+		"view": {       "default" : true,   "description": "View the auction house page." },
+		"viewAdmin": {  "default" : false,  "description": "View the auction house admin page." }
 	},
 
 	"roles": {

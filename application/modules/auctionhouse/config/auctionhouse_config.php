@@ -1,8 +1,6 @@
 <?php
 
-/* 
-*  Auctions per page limit
-*/
+//  Auctions per page limit
 $config['auctions_per_page'] = 15;
 
 /*
@@ -90,12 +88,7 @@ $config['auctioneer_entries'] = array(
 	46640 	=> 2
 );
 
-
-
-
-
-
-/*******************************************************************/
-/******************* DO NOT CHANGE BELOW ***************************/
-/*******************************************************************/
+/*
+ * Force Code Editor
+ */
 $config['force_code_editor'] = true;

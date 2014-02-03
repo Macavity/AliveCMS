@@ -38,7 +38,7 @@ class Auctionhouse extends MX_Controller
 	function __construct()
 	{
 		parent::__construct();
-		
+
 		// Set JS and CSS paths
 		$this->js = "modules/auctionhouse/js/auctionhouse.js";
 		$this->css = "modules/auctionhouse/css/auctionhouse.css";
@@ -332,7 +332,7 @@ class Auctionhouse extends MX_Controller
 
 		if ($cache !== false)
 		{
-			$this->template->setTitle('Auction House - Page ' . (((int)$this->page + (int)$this->auctionPerPage) / (int)$this->auctionPerPage));
+			$this->template->setTitle(lang('Auction House','auctionhouse').' - '.lang('Page','auctionhouse').' ' . (((int)$this->page + (int)$this->auctionPerPage) / (int)$this->auctionPerPage));
 			$this->template->setDescription($cache['description']);
 			$this->template->setKeywords($cache['keywords']);
 			
@@ -343,7 +343,7 @@ class Auctionhouse extends MX_Controller
 			// Load all items and info
 			$this->getInfo();
 			
-			$this->template->setTitle('Auction House - Page ' . (((int)$this->page + (int)$this->auctionPerPage) / (int)$this->auctionPerPage));
+			$this->template->setTitle(lang('Auction House','auctionhouse').' - '.lang('Page','auctionhouse'). (((int)$this->page + (int)$this->auctionPerPage) / (int)$this->auctionPerPage));
 			
 			// Prepare the compitable realms
 			$CompitableRealms = array();
@@ -377,7 +377,7 @@ class Auctionhouse extends MX_Controller
 
 			$data = array(
 				"module" => "default", 
-				"headline" => $this->realmName . " &rarr; Auction House",
+				"headline" => $this->realmName . ' &rarr; '.lang('Auction House','auctionhouse'),
 				"content" => $pageTpl
 			);
 

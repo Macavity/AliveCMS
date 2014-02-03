@@ -22,7 +22,7 @@
     	<div id="ah-filters">
         
         	<div id="realms">
-                Realm: 
+            {lang("Realm", 'auctionhouse')}:
                 <select style="width: 200px;" id="realm-changer" onchange="return Auctionhouse.ChangeRealm();">
                     {foreach from=$realms item=realm}
                         <option value="{$realm.id}" {if $realmId == $realm.id}selected="selected"{/if}>{$realm.name}</option>
@@ -31,12 +31,12 @@
          	</div>
             
             <div id="factions">
-            	Auction House: 
+            	{lang("Auction House", 'auctionhouse')}:
                 <select style="width: 200px;" id="faction-changer" onchange="return Auctionhouse.ChangeFaction();">
-                	<option value="0" {if $CurrentFaction == 0}selected="selected"{/if}>All</option>
-                 	<option value="1" {if $CurrentFaction == 1}selected="selected"{/if}>Alliance</option>
-                   	<option value="2" {if $CurrentFaction == 2}selected="selected"{/if}>Horde</option>
-                    <option value="3" {if $CurrentFaction == 3}selected="selected"{/if}>Neutral</option>
+                	<option value="0" {if $CurrentFaction == 0}selected="selected"{/if}>{lang("All", 'auctionhouse')}</option>
+                 	<option value="1" {if $CurrentFaction == 1}selected="selected"{/if}>{lang("Alliance", 'auctionhouse')}</option>
+                   	<option value="2" {if $CurrentFaction == 2}selected="selected"{/if}>{lang("Horde", 'auctionhouse')}</option>
+                    <option value="3" {if $CurrentFaction == 3}selected="selected"{/if}>{lang("Neutral", 'auctionhouse')}</option>
                 </select>
             </div>
             
@@ -45,7 +45,7 @@
         <div id="ah-search">
         	<form onSubmit="Auctionhouse.Search(); return false;">
                 <input type="text" placeholder="Search for specific items" {if $CurrentSearch}value="{$CurrentSearch}"{/if} id="search_field" />
-                <input type="submit" value="Search" />
+                <input type="submit" value="{lang("Search", 'auctionhouse')}" />
             </form>
         </div>
     </div>
@@ -53,11 +53,11 @@
     <div id="ah-auctions">
         <table class="nice_table" cellspacing="0" cellpadding="0">
             <tr id="ah-sortable">
-                <td width="40%">Item</td>
-                <td width="10%" align="center" class="ah-column-timeleft"><a href="#" data-sort-id="0">Time&nbsp;Left</a></td>
-                <td width="15%" align="center"><a href="#" data-sort-id="2">Seller</a></td>
-                <td width="20%" align="center"><a href="#" data-sort-id="4">Current&nbsp;Bid</a></td>
-                <td width="15%" align="center">AH</td>
+                <td width="40%">{lang("Item", 'auctionhouse')}</td>
+                <td width="10%" align="center" class="ah-column-timeleft"><a href="#" data-sort-id="0">{lang("Time Left", 'auctionhouse')}</a></td>
+                <td width="15%" align="center"><a href="#" data-sort-id="2">{lang("Seller", 'auctionhouse')}</a></td>
+                <td width="20%" align="center"><a href="#" data-sort-id="4">{lang("Current Bid", 'auctionhouse')}</a></td>
+                <td width="15%" align="center">{lang("AH", 'auctionhouse')}</td>
             </tr>
       	</table>
         
@@ -77,16 +77,16 @@
                         <td width="10%" align="center" class="ah-column-timeleft">{$auction.timeLeft}</td>
                         <td width="15%" align="center" class="ah-column-owner"><a href="{$url}character/{$realmId}/{$auction.owner}">{$auction.owner}</a></td>
                         <td width="20%" align="center" class="ah-column-prices">
-                        	<div class="ah-bid-price" data-tip="Bid Price">{$auction.bidPrice}</div>
+                        	<div class="ah-bid-price" data-tip="{lang("Bid Price", 'auctionhouse')}">{$auction.bidPrice}</div>
                             {if $auction.buyPrice}
-                            <div class="ah-buy-price" data-tip="Buyout Price">{$auction.buyPrice}</div>
+                            <div class="ah-buy-price" data-tip="{lang("Buyout Price", 'auctionhouse')}">{$auction.buyPrice}</div>
                             {/if}
                         </td>
                         <td width="15%" align="center">{$auction.auctioneer}</td>
                     </tr>
                 {/foreach}
          	{else}
-            	<tr><td colspan="5" align="center">There are no auctions.</td></tr>
+            	<tr><td colspan="5" align="center">{lang("There are no auctions.", 'auctionhouse')}</td></tr>
         	{/if}
         </table>
     </div>
