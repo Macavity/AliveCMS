@@ -1,0 +1,49 @@
+{
+	"name": "Auction House Viewer",
+	"description": "Displays the current auctions in-game",
+	"author": {
+		"name": "ChoMPi",
+		"website": ""
+	},
+	
+	"admin": [
+		{
+			"text": "Store",
+			"icon": "share",
+			"links": [
+				{
+					"text": "Auction House",
+					"icon": "list",
+					"controller": "admin",
+					"requirePermission": "viewAdmin"
+				}
+			]
+		}
+	],
+
+	"permissions": {
+		"view": {"default" : true, "description": "View the auction house page." },
+		"viewAdmin": {"default" : false, "description": "View the auction house admin page." }
+	},
+
+	"roles": {
+		"view": {
+			"description": "View the auction house module.",
+
+			"permissions": {
+				"view": true
+			}
+		},
+
+		"administrate": {
+			"description": "View the auction house admin page.",
+			"dangerLevel": 2,
+
+			"permissions": {
+				"viewAdmin": true
+			}
+		}
+	},
+	
+	"enabled": true
+}
