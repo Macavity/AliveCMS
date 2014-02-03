@@ -12,8 +12,11 @@
 |--------------------------------------------------------------------------
 | License key
 |--------------------------------------------------------------------------
+| Domain is registered to:
+| Domain: senzaii.net
+| Account: archon.x@gmx.net
 */
-$config['licenseKey'] = false;
+$config['licenseKey'] = "rlWxV-wbvp2-IhrzS-cnF5h-MKDvY-PWcVw-bvZmD-3Vvjv-nlV6V-zExLG-t4LJH-mZmOy-AGAuZ-vW9";
 
 /*
 |--------------------------------------------------------------------------
@@ -50,21 +53,21 @@ $config['deployment_stage'] = "development";
 | Website title
 |--------------------------------------------------------------------------
 */
-$config['title'] = "Alive";
+$config['title'] = "Senzaii";
 
 /*
 |--------------------------------------------------------------------------
 | Server name
 |--------------------------------------------------------------------------
 */
-$config['server_name'] = "Alive";
+$config['server_name'] = "Senzaii";
 
 /*
 |--------------------------------------------------------------------------
 | Realmlist
 |--------------------------------------------------------------------------
 */
-$config['realmlist'] = "178.63.89.20:3704";
+$config['realmlist'] = "realm.senzaii.net:3704";
 
 /*
 |--------------------------------------------------------------------------
@@ -170,8 +173,8 @@ $config['reminder_interval'] = 108000;
 | ['description'] Brief description of your site
 |
 */
-$config['keywords'] = "alive, 4life, world of warcraft, wow, private server, privatserver, wotlk, cata";
-$config['description'] = "WoW Alive der World of Warcraft Privatserver mit WotLK und Cata Realm";
+$config['keywords'] = "senzaii, alive, 4life, world of warcraft, wow, private server, privatserver, wotlk, cata";
+$config['description'] = "Senzaii WoW der World of Warcraft Privatserver mit WotLK und Cata Realm";
 
 /*
 |--------------------------------------------------------------------------
