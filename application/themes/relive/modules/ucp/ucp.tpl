@@ -42,11 +42,6 @@
 					<td width="40%">{lang("voting_points", "ucp")}</td>
 					<td width="50%">{$vp}</td>
 				</tr>
-				<tr data-tip="Earn donation points by donating money to the server">
-					<td width="10%"><img src="{$url}application/images/icons/coins.png" /></td>
-					<td width="40%">{lang("donation_points", "ucp")}</td>
-					<td width="50%">{$dp}</td>
-				</tr>
 				<tr>
 					<td width="10%"><img src="{$url}application/images/icons/shield.png" /></td>
 					<td width="40%">{lang("account_status", "ucp")}</td>
@@ -71,9 +66,9 @@
 		<a href="{$url}{$config.vote}" style="background-image:url({$url}application/modules/ucp/images/vote_panel.jpg)"></a>
 	{/if}
 
-	{if hasPermission('view', "donate") && $config['donate']}
+	{*if hasPermission('view', "donate") && $config['donate']}
 	<a href="{$url}{$config.donate}" style="background-image:url({$url}application/modules/ucp/images/donate_panel.jpg)"></a>
-	{/if}
+	{/if*}
 
 	{if hasPermission('view', "store") && $config['store']}
 		<a href="{$url}{$config.store}" style="background-image:url({$url}application/modules/ucp/images/item_store.jpg)"></a>
@@ -87,9 +82,9 @@
         <a href="{$url}{$config.expansion}" style="background-image:url({$url}application/modules/ucp/images/change_expansion.jpg)"></a>
 	{/if}
 
-	{if hasPermission('view', "teleport") && $config['teleport']}
+	{*if hasPermission('view', "teleport") && $config['teleport']}
 		<a href="{$url}{$config.teleport}" style="background-image:url({$url}application/modules/ucp/images/teleport_hub.jpg)"></a>
-	{/if}
+	{/if*}
 
 	{if hasPermission('view', "gm") && $config['gm']}
 		<a href="{$url}{$config.gm}" style="background-image:url({$url}application/modules/ucp/images/gm_panel.jpg)"></a>

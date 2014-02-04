@@ -21,9 +21,5 @@
 			<td><img src="{$url}application/images/icons/lightning.png" align="absmiddle" /> {lang("vp", "sidebox_info")}</td>
 			<td id="info_vp">{$vp}</td>
 		</tr>
-		<tr>
-			<td><img src="{$url}application/images/icons/coins.png" align="absmiddle" /> {lang("dp", "sidebox_info")}</td>
-			<td id="info_dp">{$dp}</td>
-		</tr>
 	</table>
 </section>
