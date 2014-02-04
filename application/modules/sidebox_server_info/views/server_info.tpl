@@ -1,6 +1,6 @@
 <span class="up">Uptime :</span> <span class="light">{$uptime}</span> <br>						
 Spielerrekord dieses Monats: {$maxplayers}<br />
-Realmlist : <span class="light">set realmlist {$realmlist}:3704</span><br />
+Realmlist : <span class="light">set realmlist {$realmlist}</span><br />
 Patch Version : <span class="color-ex2">3.3.5</span> &amp; <span class="color-ex3">4.3.4</span><br />
 Server Typ:&nbsp;<b>PvE/P</b><br/>
 
