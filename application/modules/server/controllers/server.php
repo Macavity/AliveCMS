@@ -123,13 +123,23 @@ class Server extends MY_Controller
 
                             $className = $this->realms->getClass($char["class"], $char["gender"]);
 
+                            if(!is_string($char['name'])){
+                                $char['name'] = (string) $char['name'];
+                            }
+                            if(!is_string($char['zone'])){
+                                $char['zone'] = (string) $char['zone'];
+                            }
+
                             $onlineCharData[] = array(
                                 "name" => $char["name"],
+                                "name_raw" => strtolower($char['name']),
+                                'link' => $realm->getArmoryLink($char['name']),
                                 "class" => $char["class"],
                                 "race" => $char["race"],
                                 "gender" => $char["gender"],
                                 "level" => $char["level"],
                                 "zone" => $zone,
+                                'zone_raw' => strtolower($char['zone']),
                                 "css" => $classes,
                                 "class_name" => $className,
                             );
