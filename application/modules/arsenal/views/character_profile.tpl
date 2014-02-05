@@ -100,7 +100,7 @@
             <div data-id="<?=$item["slot"]?>" data-type="<?=$item["inventoryType"]?>" class="slot <?=$item["css"]?>" style=" <?=$item["slot_style"]?>">
             <div class="slot-inner">
                 <div class="slot-contents">
-                    <a href="http://portal.wow-alive.de/item/<?=$item["id"]?>/"
+                    <a href="http://www.senzaii.net/item/<?=$item["id"]?>/"
                     class="item" data-item="<?=$item["params"]?>"> <img
                             src="<?=$item["icon"]?>" alt="" /> <span class="frame"></span>
                     </a>
@@ -109,13 +109,13 @@
                     <span class="name-shadow"><?php echo $item["name"]?></span>
                     <span class="name color-q<?=$item["rarity"]?>">
                     <? if($item["auditLeft"]){?><a href="javascript:;" class="audit-warning"></a><? } ?>
-                    <a href="http://portal.wow-alive.de/item/<?=$item["id"]?>/" data-item="<?=$item["params"]?>">
+                    <a href="http://www.senzaii.net/item/<?=$item["id"]?>/" data-item="<?=$item["params"]?>">
                     <?php echo $item["name"]?></a>
                     <? if($item["auditRight"]){?><a href="javascript:;" class="audit-warning"></a><? } ?>
                     </span>
                     <span class="enchant-shadow"><?php echo $item["enchant"]?></span>
                     <div class="enchant color-q2">
-                    <a href="http://portal.wow-alive.de/item/<?=$item["permanentEnchantItemId"]?>"><?=$item["permanentEnchantSpellName"]?></a>
+                    <a href="http://www.senzaii.net/item/<?=$item["permanentEnchantItemId"]?>"><?=$item["permanentEnchantSpellName"]?></a>
                     </div>
                     <span class="level"><?=$item["level"]?></span>
                     <span class="sockets">
@@ -125,7 +125,7 @@
                     (isset($item["gem".$i."Color"]) && $item["gem".$i."Color"] > 0)) {?>
                     <span class="icon-socket socket-<?=(isset($item["socket".$i."Color"]) ? $item["socket".$i."Color"]: $item["gem".$i."SocketColor"])?>">
                     <?php if(isset($item["gem".$i."Id"]) && $item["gem".$i."Id"] > 0) {?>
-                    <a href="http://portal.wow-alive.de/item/<?=$item["gem".$i."Id"]?>" class="gem">
+                    <a href="http://www.senzaii.net/item/<?=$item["gem".$i."Id"]?>" class="gem">
                     <img src="/images/icons/18/<?=$item["gem".$i."Icon"]?>.jpg" alt="" />
                     <span class="frame"></span>
                     </a>
@@ -201,7 +201,7 @@
 								echo '</span></li>';
                         }
                         if(count($missingBeltBucket) > 0){
-                        echo '<li data-slots="5">Es fehlt <a href="http://portal.wow-alive.de/item/41611" class="color-q3">Ewige G&uuml;rtelschnalle</a></li>';
+                        echo '<li data-slots="5">Es fehlt <a href="http://www.senzaii.net/item/41611" class="color-q3">Ewige G&uuml;rtelschnalle</a></li>';
                         }
                         if((count($missingBeltBucket) + count($missingGemSlot) + count($missingEnchSlot)) == 0){
                         echo 'Dieser Charakter hat die &Uuml;berpr&uuml;fung bestanden.';
@@ -248,11 +248,11 @@
 								<li>
 									<span class="value"><?=$count?></span> <span class="times">x</span>
 									<span class="icon"> <span class="icon-socket socket-<?=$gemData[$gem_id]["color"]?>">
-										<a href="http://portal.wow-alive.de/item/<?=$gem_id?>" class="gem">
+										<a href="http://www.senzaii.net/item/<?=$gem_id?>" class="gem">
 											<img src="/images/icons/18/<?=$gemData[$gem_id]["icon"]?>.jpg" alt="" />
 											<span class="frame"></span>
 										</a> </span> </span>
-									<a href="http://portal.wow-alive.de/item/<?=$gem_id?>" class="name color-q<?=$gemData[$gem_id]["quality"]?>"><?=$gemData[$gem_id]["name"]?></a>
+									<a href="http://www.senzaii.net/item/<?=$gem_id?>" class="name color-q<?=$gemData[$gem_id]["quality"]?>"><?=$gemData[$gem_id]["name"]?></a>
 									<span class="clear"> <!-- --> </span>
 								</li>
 							<?php } ?>

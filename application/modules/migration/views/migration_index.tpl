@@ -117,7 +117,7 @@
     <br>
     Hier die wichtigsten Transfer-Fragen.<br>
     <br>
-    <a href="#" onclick="javascript:$('#todesritter').toggle(); return false;"><u>Was muss ich beachten wenn ich einen Todesritter auf Alive transferieren möchte?</u></a><br>
+    <a href="#" onclick="javascript:$('#todesritter').toggle(); return false;"><u>Was muss ich beachten wenn ich einen Todesritter auf Senzaii transferieren möchte?</u></a><br>
     <blockquote id="todesritter" style="display: none;"><br>
         Wenn du gerne deinen Todesritter zu uns transferieren möchtest musst du zu aller erst einen <u>Todesritter bei uns neu erstellen und mit ihm durch sein Startgebiet questen.</u>
         Aufgrund seiner Story hängt er, bis er zu der Hauptstadt seiner Fraktion kommt und somit ein Teil dieser wird, in einer völlig anderen Phase und wir können ihm leider kein Equip oder ähnliches geben.

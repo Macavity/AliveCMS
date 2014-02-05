@@ -46,7 +46,7 @@ var Bugtracker = {
 
         $("#auto-npc").autocomplete({
             minLength: 3,
-            source: "http://portal.wow-alive.de/ajax/search/npc/",
+            source: "http://www.senzaii.net/ajax/search/npc/",
             select: function(event, ui) {
                 $("#npc-id").val(ui.item.value);
                 if($("#class").val() == 3){
@@ -70,7 +70,7 @@ var Bugtracker = {
         
         $("#detail-search").autocomplete({ 
             minLength: 3,
-            source: "http://portal.wow-alive.de/ajax/search-quest/",
+            source: "http://www.senzaii.net/ajax/search-quest/",
             select: function(event, ui) {
                 $("#form-link").val("http://de.wowhead.com/quest="+ui.item.value);
                 $("#form-title").val(ui.item.label);

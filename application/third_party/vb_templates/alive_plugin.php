@@ -32,8 +32,8 @@ if ($vbulletin->session->vars['game_account_id'] <= 0 || $vbulletin->session->va
     ));
 
     $request_data = array();
-    $conn = mysql_connect("178.63.89.20:19872", "takeshi", "DRqLnz45HeXGNcWD");
-    if($conn && mysql_select_db("data_portal", $conn))
+    $conn = mysql_connect("localhost:19872", "fusion", "ANb87ay1kb[t-BUS");
+    if($conn && mysql_select_db("fusion", $conn))
     {
         $result = mysql_query('SELECT *
             FROM account_data
@@ -103,7 +103,7 @@ if($vbulletin->session->vars['game_character_id'] > 0)
     $race = $vbulletin->session->vars['game_charrace'];
     $css = ( in_array($race, array(1,3,4,7,11)) ) ? 'plate-alliance' : 'plate-horde';
     $chosen_char["css_class"] = $css;
-    $chosen_char["url"] = "http://cms.wow-alive.de/character/1/".$vbulletin->session->vars['game_charname'];
+    $chosen_char["url"] = "http://www.senzaii.net/character/1/".$vbulletin->session->vars['game_charname'];
     $chosen_char["name"] = $vbulletin->session->vars['game_charname'];
     $chosen_char["race"] = $vbulletin->session->vars['game_charrace'];
     $chosen_char["class"] = $vbulletin->session->vars['game_charclass'];

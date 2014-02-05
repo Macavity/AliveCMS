@@ -88,7 +88,7 @@ class Ajax_character extends MY_Controller
                         'level' => $char['level'],
                         'avatarUrl' => base_url().$this->realms->formatAvatarPath($char),
                         'factionString' => $this->realms->getFactionString($char['race']),
-                        'url' => 'http://cms.wow-alive.de/character/'.$realmId.'/'.urlencode($char['name']),
+                        'url' => 'http://www.senzaii.net/character/'.$realmId.'/'.urlencode($char['name']),
                         'realmName' => $realm->getName(),
                         'raceString' => $this->realms->getRace($char['race'], $char['gender']),
                         'classString' => $this->realms->getClass($char['class'], $char['gender']),
