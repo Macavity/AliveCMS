@@ -11,7 +11,7 @@
 		{/if}
 	</section>
 
-	<img class="avatar" src="{$url}application/images/avatars/{$avatar}.gif"/>
+	<img class="avatar" src="{$url}{$avatar}"/>
 	
 	<section id="armory_name">
 		<h1>{$name} <a href="{$url}guild/{$realmId}/{$guild}">{$guildName}</a></h1>
