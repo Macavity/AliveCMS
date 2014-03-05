@@ -25,22 +25,31 @@ var Bugtracker = {
             }
         });
 
-        $("#zone-name").autocomplete({
+        var formTitle = $("#form-title");
+        var zoneName = $("#zone-name");
+
+        zoneName.autocomplete({
             minLength: 2,
             source: instanceData,
             select: function(event, ui) {
                 $("#zone-id").val(ui.item.value);
-                if($("#form-title").val().length == 0)
+                var formLink = $("#form-link");
+
+                if(formTitle.val().length == 0)
                     $("#form-title").val(ui.item.label);
-                $("#form-link").val("http://de.wowhead.com/zone="+ui.item.value);
+
+                formLink.val("http://de.wowhead.com/zone="+ui.item.value);
+
                 $("#link-tt").html('<a href="http://de.wowhead.com/zone='+ui.item.value+'" target="_blank">WoWhead Tooltip</a>');
-                getBugs($("#form-link").val());
+
+                Bugtracker.getBugs(formLink.val());
             },
             change: function(event, ui) {
                 $("#zone-name").val("");
             } 
         });
-        $("#zone-name").blur(function(event, ui) {
+
+        zoneName.blur(function(event, ui) {
             $("#zone-name").val("");
         });
 
@@ -48,20 +57,22 @@ var Bugtracker = {
             minLength: 3,
             source: "http://www.senzaii.net/ajax/search/npc/",
             select: function(event, ui) {
+                var formLink = $("#form-link");
+
                 $("#npc-id").val(ui.item.value);
                 if($("#class").val() == 3){
                     $("#form-link").val("http://de.wowhead.com/npc="+ui.item.value);
                     $("#link-tt").html('<a href="http://de.wowhead.com/npc='+ui.item.value+'" target="_blank">WoWhead Tooltip</a>');
-                    if($("#form-title").val().length == 0)
+                    if(formTitle.val().length == 0)
                         $("#form-title").val(ui.item.label);
                 }
                 else{
                     $("#link2-wrapper").show();
                     $("#form-link2").val("http://de.wowhead.com/npc="+ui.item.value);
                     $("#link-tt2").html('<a href="http://de.wowhead.com/npc='+ui.item.value+'" target="_blank">WoWhead Tooltip</a>');
-                    $("#form-title").val($("#form-title").val()+": "+ui.item.label);
+                    formTitle.val(formTitle.val()+": "+ui.item.label);
                 }
-                getBugs($("#form-link").val());
+                Bugtracker.getBugs(formLink.val());
             },
             change: function(event, ui) {
                 $("#auto-npc").val("");
@@ -72,10 +83,11 @@ var Bugtracker = {
             minLength: 3,
             source: "http://www.senzaii.net/ajax/search-quest/",
             select: function(event, ui) {
-                $("#form-link").val("http://de.wowhead.com/quest="+ui.item.value);
+                var formLink = $("#form-link");
+                formLink.val("http://de.wowhead.com/quest="+ui.item.value);
                 $("#form-title").val(ui.item.label);
                 $("#link-tt").html('<a href="http://de.wowhead.com/quest='+ui.item.value+'" target="_blank">WoWhead Tooltip</a>');
-                getBugs($("#form-link").val());
+                Bugtracker.getBugs(formLink.val());
             },
             change: function(event, ui) {
                 $("#detail-search").val("");
@@ -91,10 +103,10 @@ var Bugtracker = {
                 Toast.show("Bitte trage vor dem Abschicken einen Titel ein.");
                 return false;
             }
-            
+            return true;
         });
 
-        $("#form-link").change(function(){ getBugs($("#form-link").val()); });
+        $("#form-link").change(function(){ Bugtracker.getBugs($("#form-link").val()); });
     },
     
     /**

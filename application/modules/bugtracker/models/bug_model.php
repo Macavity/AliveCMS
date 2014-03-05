@@ -1222,10 +1222,16 @@ ORDER BY
         }
     }
 
+    /**
+     * @param     $search
+     * @param int $bugId
+     *
+     * @return array
+     */
     public function findSimilarBugs($search, $bugId = 0){
         $this->db->select('id, title')
             ->like('link', $search)
-            ->where_in('bug_state', array(BUGSTATE_OPEN, BUGSTATE_ACTIVE))
+            ->where_in('bug_state', array(BUGSTATE_OPEN, BUGSTATE_ACTIVE, BUGSTATE_CONFIRMED))
             ->where('id <>', $bugId)
             ->from($this->tableName);
 
