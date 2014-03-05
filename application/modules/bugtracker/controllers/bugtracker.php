@@ -439,13 +439,13 @@ class Bugtracker extends MY_Controller{
                     // Alive
                     if( $linkType == 'zone' ){
                         $bugLinks[] = array(
-                            'url' => 'http://portal.wow-alive.de/game/zone/'.$linkId,
+                            'url' => 'http://www.senzaii.net/game/zone/'.$linkId,
                             'label' => 'Alive - '.$searchLabel,
                         );
                     }
                     if( $linkType == 'item' ){
                         $bugLinks[] = array(
-                            'url' => 'http://portal.wow-alive.de/item/'.$linkId,
+                            'url' => 'http://www.senzaii.net/item/'.$linkId,
                             'label' => 'Alive - '.$searchLabel,
                         );
                     }

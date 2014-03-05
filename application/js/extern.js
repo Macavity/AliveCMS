@@ -6,7 +6,7 @@
 require(['./static'], function(){
 
     requirejs.config({
-        baseUrl: 'http://cms.wow-alive.de/application/js',
+        baseUrl: 'http://www.senzaii.net/application/js',
 
         // Disable internal caching of the files (development only)
         //urlArgs: "bust=" + (new Date()).getTime(),

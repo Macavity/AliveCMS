@@ -387,6 +387,6 @@ class Realm
 
     public function getArmoryLink($charName)
     {
-        return '/characters/'.$this->id.'/'.$charName;
+        return '/character/'.$this->id.'/'.$charName;
     }
 }

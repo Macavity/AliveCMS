@@ -34,8 +34,8 @@ if ( ! function_exists('makeWowheadLinks')){
             if(!empty($temp))
                 $string = $temp;
         }
-        if(preg_match("@https?://(www|portal)\.wow-alive.de/server/bugtracker/bug/(\d+)/?@i", $string, $matches)){
-            $temp = preg_replace("@https?://(www|portal)\.wow-alive.de/server/bugtracker/bug/(\d+)/?@i", "<a href=\"$0\" target=\"_blank\">$0</a>", $string);
+        if(preg_match("@https?://(www|www)\.senzaii.net/server/bugtracker/bug/(\d+)/?@i", $string, $matches)){
+            $temp = preg_replace("@https?://(www|www)\.senzaii.net/server/bugtracker/bug/(\d+)/?@i", "<a href=\"$0\" target=\"_blank\">$0</a>", $string);
             if(!empty($temp))
                 $string = $temp;
         }

@@ -1,7 +1,7 @@
 {
-  "name": "WoW-Alive-CMS",
+  "name": "Senzaii-CMS",
   "version": "6.2.0-170",
-  "description": "FusionCMS (6.2.0) modified for WoW Alive",
+  "description": "FusionCMS (6.2.0) modified for Senzaii",
   "main": "application/js/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
