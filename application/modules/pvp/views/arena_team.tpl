@@ -1,6 +1,6 @@
 <style type="text/css">
     /* overrides */
-    #content .content-top { background: url("http://portal.wow-alive.de/templates/Shattered-World/images/pvp/arena-bg.jpg") no-repeat; }
+    #content .content-top { background: url("http://www.senzaii.net/templates/Shattered-World/images/pvp/arena-bg.jpg") no-repeat; }
     .profile-sidebar-inner { background: none; }
     .profile-section { padding: 0; }
 

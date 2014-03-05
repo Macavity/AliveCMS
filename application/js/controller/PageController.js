@@ -14,7 +14,7 @@ define(['./BaseController'], function (BaseController) {
             var Controller = this;
 
             $.ajax({
-                url: "http://cms.wow-alive.de/ajax/ajax_character/userplate",
+                url: "http://www.senzaii.net/ajax/ajax_character/userplate",
                 type: 'POST',
                 data: {
                     user: user_id,

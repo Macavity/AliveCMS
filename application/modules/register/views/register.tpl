@@ -1,6 +1,6 @@
 
 <div class="section-title">
-  <h1>ALive Registrierung</h1>
+  <h1>Senzaii Registrierung</h1>
 </div>
 
 <div>

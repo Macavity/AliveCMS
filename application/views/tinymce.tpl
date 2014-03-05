@@ -26,7 +26,7 @@
 
 			relative_urls : false,
 			remove_script_host : true,
-			document_base_url : "http://cms.wow-alive.de/",
+			document_base_url : "http://www.senzaii.net/",
             convert_urls: false,
 	        
 			// Drop lists for link/image/media/template dialogs

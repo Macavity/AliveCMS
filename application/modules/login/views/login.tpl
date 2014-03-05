@@ -1,7 +1,7 @@
 <div id="embedded-login">
 {form_open('login', $class)}
   <a id="embedded-close" href="javascript:;"><!--  --></a>
-  <h1>ALive Login</h1>
+  <h1>Senzaii Login</h1>
   <div>
     <p>
       <label for="accountName" class="label">{lang("username", "login")}</label>

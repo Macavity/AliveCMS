@@ -21,7 +21,7 @@
 
 <div id="service">
     <ul class="service-bar">
-        <li class="service-cell service-home"><a href="http://www.senzaii.net/" tabindex="50" accesskey="1" title="ALive.de">&nbsp;</a></li>
+        <li class="service-cell service-home"><a href="http://www.senzaii.net/" tabindex="50" accesskey="1" title="Senzaii.net">&nbsp;</a></li>
 
         <if condition="$show['registerbutton']">
             <li class="service-cell service-welcome">
@@ -40,7 +40,7 @@
         <li class="service-cell service-support">
             <a href="http://www.senzaii.net/bugtracker/" class="service-link" tabindex="50" accesskey="4">Bugtracker</a></li>
         <li class="service-cell service-explore">
-            <a href="#explore" tabindex="50" accesskey="5" class="dropdown" id="explore-link" onclick="$('#explore-menu').toggle()" style="cursor: progress" rel="javascript">Erkunden</a>
+            <a href="#explore" tabindex="50" accesskey="5" class="dropdown" id="explore-link" onclick="$('#explore-menu').toggle(); return false;" style="cursor: progress" rel="javascript">Erkunden</a>
             <div class="explore-menu" id="explore-menu" style="display:none;">
                 <div class="explore-primary">
                     <ul class="explore-nav">
@@ -54,7 +54,7 @@
                         </if>
                         <li>
                             <a href="http://www.senzaii.net" tabindex="55">
-                                <strong class="explore-caption">ALive</strong>
+                                <strong class="explore-caption">Senzaii</strong>
                                 Verbinden. Spielen. Leben.
                             </a>
                         </li>

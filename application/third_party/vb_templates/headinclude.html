@@ -24,7 +24,7 @@ $style[css]
 </if>
 <link href="http://forum.wow-alive.de/static-wow/local-common/images/favicons/wow.ico" type="image/x-icon" rel="icon" />
 <link href="http://forum.wow-alive.de/static-wow/local-common/images/favicons/wow.ico" type="image/x-icon" rel="shortcut icon" />
-<link rel="stylesheet" type="text/css" href="http://www.senzaii.net/application/themes/shattered/css/forum.css" />
+<link rel="stylesheet" type="text/css" href="http://cms.wow-alive.de/application/themes/shattered/css/forum.css" />
 <link rel="stylesheet" type="text/css" href="http://forum.wow-alive.de/static-wow/local-common/css/common.css" />
 <!--[if IE]><link rel="stylesheet" type="text/css" href="http://forum.wow-alive.de/static-wow/local-common/css/common-ie.css" /><![endif]>
 <!--[if IE 6]><link rel="stylesheet" type="text/css" href="http://forum.wow-alive.de/static-wow/local-common/css/common-ie6.css" /><![endif]-->
@@ -53,17 +53,17 @@ $style[css]
     var vb_disable_ajax = parseInt("$vboptions[disable_ajax]", 10);
     var vb_user_id = 0;
     <if condition="$show['member']">
-            vb_user_id = $bbuserinfo[userid];
+        vb_user_id = $bbuserinfo[userid];
     </if>
     // -->
 </script>
-<script type="text/javascript" src="/clientscript/vbulletin_global.js?v=$vboptions[simpleversion]"></script>
-<if condition="$show['popups']"><script type="text/javascript" src="/clientscript/vbulletin_menu.js?v=$vboptions[simpleversion]"></script></if>
+<script type="text/javascript" src="clientscript/vbulletin_global.js?v=$vboptions[simpleversion]"></script>
+<if condition="$show['popups']"><script type="text/javascript" src="clientscript/vbulletin_menu.js?v=$vboptions[simpleversion]"></script></if>
 
 <if condition="$vboptions['externalrss']">
-    <link rel="alternate" type="application/rss+xml" title="$vboptions[bbtitle] RSS Feed" href="/external.php?type=RSS2" />
+    <link rel="alternate" type="application/rss+xml" title="$vboptions[bbtitle] RSS Feed" href="external.php?type=RSS2" />
     <if condition="$show['foruminfo'] OR $show['threadinfo']">
-        <link rel="alternate" type="application/rss+xml" title="$vboptions[bbtitle] - $foruminfo[title_clean] - RSS Feed" href="/external.php?type=RSS2&amp;forumids=$foruminfo[forumid]" />
+        <link rel="alternate" type="application/rss+xml" title="$vboptions[bbtitle] - $foruminfo[title_clean] - RSS Feed" href="external.php?type=RSS2&amp;forumids=$foruminfo[forumid]" />
     </if>
 </if>
 
@@ -101,4 +101,4 @@ $style[css]
 <!-- Portal Integration -->
 <script type="text/javascript" src="http://www.senzaii.net/application/js/hb.js"></script>
 <script type="text/javascript" src="http://www.senzaii.net/application/js/libs.js"></script>
-<script type="text/javascript" src="http://www.senzaii.net/application/js/libs/require/require.js" data-main="http://www.senzaii.net/application/js/extern"></script>
+<script type="text/javascript" src="http://www.senzaii.net/application/js/libs/require/require.js" data-main="http://cms.wow-alive.de/application/js/extern"></script>
