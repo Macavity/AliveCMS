@@ -29,20 +29,18 @@ define(['./BaseController', 'modules/wiki', 'modules/wiki_related', 'modules/toa
         },
 
         initTables: function(){
-            if($("#buglist")){
+            var buglist = $("#buglist");
 
-                var buglist = $("#buglist");
+            if(buglist){
 
-                var bugTable = Wiki;
-
-                bugTable.pageUrl = '/bugtracker/buglist/';
-                bugTable.related.buglist = new WikiRelated('buglist', {
+                Wiki.pageUrl = '/bugtracker/buglist/';
+                Wiki.related.buglist = new WikiRelated('buglist', {
                     paging: true,
                     totalResults: buglist.data("rowcount"),
                     column: 5,
                     method: 'numeric',
                     type: 'desc'
-                }, bugTable);
+                }, Wiki);
 
                 var activeTab = $(".filter-tabs .tab-active");
                 if(activeTab.length){
@@ -81,8 +79,15 @@ define(['./BaseController', 'modules/wiki', 'modules/wiki_related', 'modules/toa
                         Controller.autocompleteSource(request.term, response);
                     },
                     select: function(event, ui) { Controller.autocompleteSelectRow(ui.item); },
-                    change: function(event, ui) { _jq("#ac-search-field").val(""); }
+                    change: function(/*event, ui*/) { _jq("#ac-search-field").val(""); }
                 }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+
+                    /**
+                     * @var item
+                     * @property    required_races
+                     * @property    label
+                     * @type {object}
+                     */
 
                     var icon = '';
                     if(item.required_races == 690){
@@ -124,7 +129,7 @@ define(['./BaseController', 'modules/wiki', 'modules/wiki_related', 'modules/toa
                 });
         },
 
-        eventClickEditComment: function(target){
+        eventClickEditComment: function (target){
 
             var _jq = $;
             var Controller = this;
@@ -506,7 +511,7 @@ define(['./BaseController', 'modules/wiki', 'modules/wiki_related', 'modules/toa
                             template = Controller.getTemplate("bugtracker_similar_bugs");
                             html = template({
                                 results: data.results,
-                                lang: Controller.lang
+                                lang: Controller.lang.bugtracker
                             });
                             _jq('#form-similar-bugs-wrapper .controls').html(html);
                         }
@@ -514,8 +519,8 @@ define(['./BaseController', 'modules/wiki', 'modules/wiki_related', 'modules/toa
                             template = Controller.getTemplate("alert");
                             html = template({
                                 type: "success",
-                                header: Controller.lang.alright,
-                                message: " - "+Controller.lang.noSimilarBugs
+                                header: Controller.lang.bugtracker.alright,
+                                message: " - "+Controller.lang.bugtracker.noSimilarBugs
                             });
                             _jq('#form-similar-bugs-wrapper .controls').html(html);
                         }

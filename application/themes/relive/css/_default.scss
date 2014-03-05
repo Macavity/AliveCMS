@@ -61,9 +61,17 @@ a img {
   @include vendorPrefix(transition, 0.3s all);
 }
 
-.alert-info a {
-  color: #08c;
+.alert-info,
+.alert-danger,
+.alert{
+  a {
+    color: #08c;
+    &:hover {
+      color: #005580;
+    }
+  }
 }
+
 
 /*
  * Logo
