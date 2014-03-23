@@ -46,7 +46,7 @@ class Character extends MX_Controller
 	{
 		if(!is_numeric($id))
 		{
-			$id = ucfirst($id);
+			$id = utf8_decode(ucfirst(urldecode($id)));
 			$id = $this->realms->getRealm($realm)->getCharacters()->getGuidByName($id);
 		}
 

@@ -38,7 +38,7 @@ class Ajax_character extends MY_Controller
          {
              $char = utf8_decode(urldecode($characterName));
 
-             $this->setChar($realm, $characterName);
+             $this->setChar($realm, $char);
 
              $this->armory_model->setRealm($this->realmId);
              $this->armory_model->setId($this->characterGuid);
