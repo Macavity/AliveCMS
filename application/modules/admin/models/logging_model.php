@@ -39,7 +39,12 @@ class Logging_model extends CI_Model
 		}
 		else
 		{
-			$query = $this->db->query("SELECT * FROM `logs` ".(($module) ? "WHERE `module` = '".$module."'" : ""));
+            $query = $this->db->select('*')
+                ->where('module', $module)
+                ->order_by('id', 'desc')
+                ->from('logs')
+                ->get();
+            //$query = $this->db->query("SELECT * FROM `logs` ".(($module) ? "WHERE `module` = '".$module."'" : "")." ORDER BY id DESC");
 		}
 
 

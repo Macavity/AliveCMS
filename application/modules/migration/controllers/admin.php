@@ -3,6 +3,7 @@
 /**
  *
  * @property Administrator $administrator
+ * @property Internal_User_model internal_user_model
  */
 class Admin extends MY_Controller {
 
@@ -100,6 +101,156 @@ class Admin extends MY_Controller {
         $content = $this->administrator->box($this->mainTitle, $output);
 
         $this->administrator->view($content, false, "", "");
+    }
+
+    /**
+     * Move Character from one account to another
+     */
+    public function move(){
+
+        requirePermission("canMoveCharacter");
+
+        $this->load->helper(array('url','form'));
+
+        $this->mainTitle = "Charakter verschieben";
+
+        // Change the title
+        $this->administrator->setTitle($this->mainTitle);
+
+        $message = false;
+
+
+        $realms = $this->realms->getRealms();
+
+        $moveSourceRealm = $this->input->post('move_realm');
+        $moveTargetCharacter = $this->input->post('move_char');
+        $moveTargetAccount = $this->input->post('move_destination');
+
+        if(empty($moveTargetAccount) || empty($moveTargetCharacter) || empty($moveSourceRealm)){
+            $message = array(
+                "type" => "warning",
+                "message" => "Bitte alle Felder ausfüllen und einen Zielrealm wählen"
+            );
+        }
+        else{
+            $sourceRealm = $this->realms->getRealm($moveSourceRealm);
+
+            if(!$sourceRealm->getId()){
+                $message = array(
+                    "type" => "error",
+                    "message" => "Der gewählte Realm wurde nicht gefunden. Wtf?"
+                );
+            }
+            else{
+
+                $realmCharModel = $sourceRealm->getCharacters();
+
+                // Target Account
+                if(is_numeric($moveTargetAccount)){
+                    $accountId = $moveTargetAccount;
+                }
+                else{
+                    $accountId = $this->internal_user_model->getIdByNickname($moveTargetAccount);
+                }
+
+                if(!$accountId){
+                    $message = array(
+                        "type" => "error",
+                        "message" => "Der Zielaccount konnte nicht gefunden werden."
+                    );
+                }
+                else{
+                    $accountName = $this->internal_user_model->getNickname($accountId);
+
+                    // Target Character
+                    if(is_numeric($moveTargetCharacter)){
+                        $charGuid = $moveTargetCharacter;
+                    }
+                    else {
+                        $charGuid = $realmCharModel->getGuidByName($moveTargetCharacter);
+                    }
+
+                    if(!$realmCharModel->characterExists($charGuid)){
+                        $message = array(
+                            "type" => "error",
+                            "message" => "Der Charakter konnte nicht gefunden werden."
+                        );
+                    }
+                    elseif($realmCharModel->characterBelongsToAccount($charGuid, $accountId)) {
+                        $message = array(
+                            "type" => "error",
+                            "message" => "Der Charakter befindet sich bereits auf dem Zielaccount."
+                        );
+                    }
+                    else{
+                        $charName = $realmCharModel->getNameByGuid($charGuid);
+
+                        // Execute move
+                        if($realmCharModel->moveCharacterToAccount($charGuid, $accountId, $sourceRealm->getId())){
+
+                            $this->logger->createLog('Move Character', 'Character: '.$charName.' ('.$charGuid.'), Destination Account: '.$accountName.'('.$accountId.')');
+
+                            $message = array(
+                                "type" => "success",
+                                "message" => 'Der Charakter '.$charName.' ('.$charGuid.') wurde auf den Account '.$accountName.' ('.$accountId.') verschoben.'
+                            );
+                        }
+                        else{
+                            $message = array(
+                                "type" => "error",
+                                "message" => "Es gab einen Fehler beim Versuch den Charakter zu verschieben."
+                            );
+                        }
+                    }
+                }
+
+
+
+            }
+
+
+
+        }
+
+        // Prepare my data
+        $templateData = array(
+            'realms' => $realms,
+            'message' => $message,
+        );
+
+        // Load my view
+        $output = $this->template->loadPage("admin_move_form.tpl", $templateData);
+
+        // Put my view in the main box with a headline
+        $content = $this->administrator->box($this->mainTitle, $output);
+
+        $this->administrator->view($content, false, "", "");
+    }
+
+    public function move_confirm(){
+
+        requirePermission("canMoveCharacter");
+
+        $this->mainTitle .= "Charakter verschieben - Schritt 2/3";
+
+        // Change the title
+        $this->administrator->setTitle($this->mainTitle);
+
+        $realms = $this->realms->getRealms();
+
+        // Prepare my data
+        $templateData = array(
+            'realms' => $realms,
+        );
+
+        // Load my view
+        $output = $this->template->loadPage("admin_move_confirm.tpl", $templateData);
+
+        // Put my view in the main box with a headline
+        $content = $this->administrator->box($this->mainTitle, $output);
+
+        $this->administrator->view($content, false, "", "");
+
     }
 
     public function detail($migrationId){

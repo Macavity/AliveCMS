@@ -10,11 +10,17 @@
     "permissions": {
         "view": {"default": true, "description": "Darf die Transferanleitung ansehen"},
 
+        "canMoveCharacter": {
+            "default": false,
+            "description": "Kann Charaktere zwischen Accounts verschieben"
+        },
+
         "canMigrateCharacter": {"default": false, "description": "Darf den Transfervorgang nutzen"},
         "canCopyCharacter": {"default": false, "description": "Darf den Kopiervorgang nutzen"},
         "canEditMigration": {"default": false, "description": "Transfer-GameMaster"},
         "canAdministrate": {"default": false, "description": "Kann Transfer Konfiguration bearbeiten"},
         "canImportArchive": {"default": false, "description": "Kann alte Transferdaten importieren"}
+
     },
     "admin": [
         {
@@ -32,6 +38,12 @@
                     "icon": "tag",
                     "controller": "admin/index/2",
                     "requirePermission": "canEditMigration"
+                },
+                {
+                    "text": "Character verschieben",
+                    "icon": "tag",
+                    "controller": "admin/move/",
+                    "requirePermission": "canMoveCharacter"
                 },
                 {
                     "text": "Cache erneuern",
@@ -59,21 +71,32 @@
             }
         },
 
-        "moderate": {
-            "description": "Transfer-GameMaster <em>Admin-Tool<em>",
+        "move": {
+            "description": "Kann Charaktere zwischen Accounts verschieben <em>Admin-Tool<em>",
             "dangerLevel": 2,
 
             "permissions": {
-                "canEditMigration": true
+                "canMoveCharacter": true
+            }
+        },
+
+        "moderate": {
+            "description": "Transfer-GameMaster <em>Admin-Tool</em>: Kann Transferformulare bearbeiten und Charaktere verschieben",
+            "dangerLevel": 2,
+
+            "permissions": {
+                "canEditMigration": true,
+                "canMoveCharacter": true
             }
         },
 
         "administrate": {
-            "description": "Kann die Transferkonfiguration bearbeiten und alte Transfere importieren <em>Admin-Tool<em>",
+            "description": "Volle Kontrolle <em>Admin-Tool<em>",
             "dangerLevel": 3,
 
             "permissions": {
                 "canEditMigration": true,
+                "canMoveCharacter": true,
                 "canAdministrate": true,
                 "canImportArchive": true,
                 "canCopyCharacter": true
