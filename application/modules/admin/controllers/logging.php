@@ -1,6 +1,6 @@
 <?php
 
-class Logging extends MX_Controller
+class Logging extends MY_Controller
 {
 	private $logsToLoad = 10; // 10 at the time
 
@@ -19,7 +19,7 @@ class Logging extends MX_Controller
 	 */
 	public function index()
 	{
-		//Set the title to menu
+        //Set the title to menu
 		$this->administrator->setTitle("Logs");
 
 		$logs = $this->logger->getLogs("", 0, 10);
@@ -38,7 +38,7 @@ class Logging extends MX_Controller
 		$content = $this->administrator->box('Website logs', $output);
 
 		// Output my content. The method accepts the same arguments as template->view
-		$this->administrator->view($content, false, "modules/admin/js/logging.js");
+		$this->administrator->view($content, false, "modules/admin/js/logging.js?v1");
 	}
 
 	public function loadMoreLogs()

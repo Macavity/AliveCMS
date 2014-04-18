@@ -17,7 +17,7 @@ var Logging = {
 			{
 				$(this).html(data).fadeIn(500, function()
 				{
-					Tooltip.refresh();
+                    FusionTooltip.refresh();
 				});
 			});
 		});
@@ -44,7 +44,7 @@ var Logging = {
 
 			$("#new_logs_" + Logging.id).fadeIn(300, function()
 			{
-				Tooltip.refresh();
+				FusionTooltip.refresh();
 			});
 		});
 	}
