@@ -185,9 +185,14 @@ class Accounts extends MX_Controller
 		$internal_account_data["dp"] = $this->input->post("dp");
 		$internal_account_data["nickname"] = $this->input->post("nickname");
 		
-		if(!$external_account_data[column("account", "email")] || !$internal_account_data["nickname"])
+		if(!$external_account_data[column("account", "email")])
 		{
 			die("UI.alert('The following fields can\'t be empty: [email]')");
+		}
+        
+        if(!$internal_account_data["nickname"])
+		{
+			die("UI.alert('The following fields can\'t be empty: [Nickname]')");
 		}
 
 		$this->accounts_model->save($id, $external_account_data, $external_account_access_data, $internal_account_data);
