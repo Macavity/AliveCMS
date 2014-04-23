@@ -13,7 +13,7 @@ Drop-Raten bei Endgame-Raids: <span class="light">1x Blizzlike</span><br />
 <!--<a href="/server/info">Mehr Informationen</a><br/>-->
 <br />
 <b>Raten <span class="color-ex3">4.3.4</span>:</b><br />
-Ruf-, Quest- und Kill-Erfahrung <span class="light">1x Blizzlike</span><br />
-Drop-Raten außerhalb Endgame-Raids: <span class="light">1x Blizzlike</span><br />
+Ruf-, Quest- und Kill-Erfahrung <span class="light">2x Blizzlike</span><br />
+Drop-Raten außerhalb Endgame-Raids: <span class="light">2x Blizzlike</span><br />
 Drop-Raten bei Endgame-Raids: <span class="light">1x Blizzlike</span><br />
 <!--<a href="/server/info">Mehr Informationen</a><br/>-->

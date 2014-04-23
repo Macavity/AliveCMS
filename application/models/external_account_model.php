@@ -8,7 +8,7 @@
  * @link http://fusion-hub.com
  */
 
-class External_account_model extends CI_Model
+class External_account_model extends MY_Model
 {
     /**
      * @var CI_DB_active_record
@@ -165,6 +165,35 @@ class External_account_model extends CI_Model
 			$this->db->query("INSERT INTO daily_signups(`date`, amount) VALUES(?, ?)", array(date("Y-m-d"), 1));
 		}
 	}
+
+    /**
+     * Get Account ID by its username
+     * @alive
+     *
+     * @param $name
+     *
+     * @return bool
+     */
+    public function getAccountIdByName($name){
+
+        $this->connect();
+
+        $this->db->select('id')
+            ->where('username', $name)
+            ->from('account');
+
+        $query = $this->db->get();
+
+        if($query && $query->num_rows() > 0)
+        {
+            $result = $query->result_array();
+
+            return $result[0];
+        }
+
+        return false;
+
+    }
 
 	/**
 	 * Get the banned status
