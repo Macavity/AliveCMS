@@ -16,22 +16,24 @@
             <div class="row">
 
                 <!-- Left Side -->
-                <section id="store_realms" class="related col-md-9">
+                <section id="store_realms" class="col-md-9">
 
                     <div class="tabs">
-                        <ul id="related-tabs">
-                            {foreach from=$data item=realm key=realmId}
-                                <li>
-                                    <a href="/store/" data-key="{$realmId}">
-                                        <span><span>{$realm.name}</span></span>
-                                    </a>
+                        <ul class="nav nav-tabs">
+                            {foreach $data as $realmId => $realm}
+                                <li id="tab{$realmId}" data-toggle="tab" class="{if $realm@first}active{/if}">
+                                    <a href="#store{$realmId}" data-key="{$realmId}">{$realm.name}</a>
                                 </li>
                             {/foreach}
                         </ul>
                         <span class="clear"><!-- --></span>
                     </div>
-                    <div id="related-content" class="loading">
-                        <!-- -->
+                    <div class="tab-content">
+                      {foreach $data as $realmId => $realm}
+                        <div class="tab-pane {if $realm@first}active{/if}" id="store{$realmId}">
+                          <!-- -->
+                        </div>
+                      {/foreach}
                     </div>
 
                 </section>
@@ -74,17 +76,17 @@
 
     </section>
 
-    <div id="modalCheckout" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
-
-    </div>
 
 </section>
+
+<div id="modalCheckout" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"><!-- --></div>
+
 <script type="text/javascript">
     require([
         'static',
         'controller/StoreController'
     ],
-    function (static, StoreController) {
+    function (config, StoreController) {
 
         $(function () {
             var controller = new StoreController({$vp});

@@ -1,6 +1,13 @@
 <?php
 
-class Store extends MX_Controller
+/**
+ * Class Store
+ *
+ * @property Items_Model    $items_model
+ * @property Store_Model    $store_model
+ *
+ */
+class Store extends MY_Controller
 {
 	public function __construct()
 	{

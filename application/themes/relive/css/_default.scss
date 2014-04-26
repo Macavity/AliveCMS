@@ -296,6 +296,49 @@ a.vote-b:hover p { opacity:1;}
 
 
 /* Icons */
+/* framed icons */
+.icon-frame {
+  display: inline-block;
+  overflow: hidden;
+  padding: 1px;
+  background-color: #000;
+  background-position: 1px 1px;
+  background-repeat: no-repeat;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #434445;
+  border-bottom-color: #2f3032;
+  border-top-color: #b1b2b4;
+
+  img {
+    display: block;
+    vertical-align: bottom;
+  }
+
+  &.frame-36,
+  &.frame-50,
+  &.frame-56 {
+    height: 56px;
+    width: 56px;
+    -moz-box-shadow: #000 0 0 10px;
+    -webkit-box-shadow: #000 0 0 10px;
+    box-shadow: #000 0 0 10px;
+  }
+
+  &.frame-12 { height: 12px; width: 12px; }
+  &.frame-14 { height: 14px; width: 14px; }
+  &.frame-18 { height: 18px; width: 18px; }
+  &.frame-27 { height: 27px; width: 27px; }
+  &.frame-36 { height: 36px; width: 36px; }
+  &.frame-50 { height: 50px; width: 50px; }
+}
+
+.table .icon-frame {
+  vertical-align: middle;
+}
+
+
 .icon-heroic-skull {
   background: url("/application/images/icons/18/skull-crossbones-icon.png") no-repeat scroll 50% 50% rgba(0, 0, 0, 0);
   background-size: 110%;
@@ -317,6 +360,23 @@ a.vote-b:hover p { opacity:1;}
 
 .icon-faction-1 {
   background: url("/application/images/icons/horde.png") left center no-repeat !important;
+}
+
+.modal,
+.popover-title,
+.popover-content {
+  color: #333 !important;
+}
+
+.table tbody tr:hover td,
+.table tbody tr.row-active td,
+.table td,
+.table {
+  .popover-title,
+  .popover-content {
+    color: #333;
+  }
+
 }
 
 /* Zone Thumbnails */

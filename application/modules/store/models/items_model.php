@@ -116,7 +116,7 @@ class Items_model extends CI_Model
 
     public function getSizedIcon($icon,$size = 56){
         $url = 'http://media.blizzard.com/wow/icons/'.$size.'/'.$icon.'.jpg';
-        $localUrl = $_SERVER['DOCUMENT_ROOT'].'/application/themes/shattered/images/icons/'.$size.'/'.$icon.".jpg";
+        $localUrl = $_SERVER['DOCUMENT_ROOT'].'/application/images/icons/'.$size.'/'.$icon.".jpg";
 
         if(file_exists($localUrl)){
             return;

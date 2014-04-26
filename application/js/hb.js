@@ -524,7 +524,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
     + escapeExpression(((stack1 = ((stack1 = depth0.realm),stack1 == null || stack1 === false ? stack1 : stack1.id)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "/"
     + escapeExpression(((stack1 = ((stack1 = depth0.item),stack1 == null || stack1 === false ? stack1 : stack1.itemid)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\" class=\"item-link\">\n            <span class=\"icon-frame frame-36\" style=\"background-image: url(/application/themes/shattered/images/icons/36/"
+    + "\" class=\"item-link\">\n            <span class=\"icon-frame frame-36\" style=\"background-image: url(/application/images/icons/36/"
     + escapeExpression(((stack1 = ((stack1 = depth0.item),stack1 == null || stack1 === false ? stack1 : stack1.icon)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + ".jpg);\"></span>\n        </a>\n    </div>\n    <div class=\"item-price\">\n        <img src=\"";
   if (stack2 = helpers.url) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
@@ -557,16 +557,16 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n        <div class=\"alert alert-danger\">\n            "
+  buffer += "\n                <div class=\"alert alert-danger\">\n                    "
     + escapeExpression(((stack1 = ((stack1 = depth0.lang),stack1 == null || stack1 === false ? stack1 : stack1.cant_afford)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "<br />\n        </div>\n    ";
+    + "<br />\n                </div>\n            ";
   return buffer;
   }
 
 function program3(depth0,data) {
   
   var buffer = "", stack1, stack2;
-  buffer += "\n        <p>"
+  buffer += "\n                <p>"
     + escapeExpression(((stack1 = ((stack1 = depth0.lang),stack1 == null || stack1 === false ? stack1 : stack1.want_to_buy)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + " <img src=\"";
   if (stack2 = helpers.url) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
@@ -576,20 +576,20 @@ function program3(depth0,data) {
   if (stack2 = helpers.vp_sum) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.vp_sum; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + " VP</p>\n    ";
+    + " VP</p>\n            ";
   return buffer;
   }
 
-  buffer += "<div class=\"modal-header\">\n    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">×</button>\n    <h3>"
+  buffer += "<div class=\"modal-dialog\">\n    <div class=\"modal-content\">\n        <div class=\"modal-header\">\n            <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>\n            <h3 class=\"modal-title\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.lang),stack1 == null || stack1 === false ? stack1 : stack1.checkout)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</h3>\n</div>\n<div class=\"modal-body\">\n    ";
+    + "</h3>\n        </div>\n        <div class=\"modal-body\">\n            ";
   stack2 = helpers['if'].call(depth0, depth0.error, {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n</div>\n<div class=\"modal-footer\">\n    <button class=\"btn\" data-dismiss=\"modal\" aria-hidden=\"true\">"
+  buffer += "\n        </div>\n        <div class=\"modal-footer\">\n            <button class=\"btn\" data-dismiss=\"modal\" aria-hidden=\"true\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.lang),stack1 == null || stack1 === false ? stack1 : stack1.cancel)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</button>\n    <button class=\"btn btn-primary jsStorePay\">"
+    + "</button>\n            <button class=\"btn btn-primary jsStorePay\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.lang),stack1 == null || stack1 === false ? stack1 : stack1.buy)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</button>\n</div>";
+    + "</button>\n        </div>\n    </div>\n\n\n\n</div>";
   return buffer;
   });
 templates['userplate'] = template(function (Handlebars,depth0,helpers,partials,data) {
