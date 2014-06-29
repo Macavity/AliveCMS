@@ -18,7 +18,7 @@
         <span class="banner-title">Wie spiele ich auf Senzaii?</span>
         <span class="banner-desc">Lies nach wie du WoW auf Version 3.3.5a installierst und alles einrichtest.</span>
 	</a>
-    <a href="http://forum.wow-alive.de/showgroups.php" class="main-content-banner right-bnr bnr01" style="background-image:url('{$theme_path}images/boxes/thumb-fanart.jpg');">
+    <a href="/forum/showteam.php" class="main-content-banner right-bnr bnr01" style="background-image:url('{$theme_path}images/boxes/thumb-fanart.jpg');">
         <span class="panel">
             <span class="banner-title">Das Team</span>
 	       <span class="view-all">Schau dir unser Team an.</span>
