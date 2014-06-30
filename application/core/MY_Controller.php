@@ -9,12 +9,14 @@
  * @property    CI_Input                $input
  * @property    CI_Smarty               $smarty
  * @property    CI_DB_active_record     $db
+ * @property    CI_Output               $output
  *
- * @property    Cache       $cache
- * @property    Template    $template
- * @property    Realms      $realms
- * @property    User        $user
- * @property    Logger      $logger
+ * @property    Administrator           $administrator
+ * @property    Cache                   $cache
+ * @property    Realms                  $realms
+ * @property    Template                $template
+ * @property    User                    $user
+ * @property    Logger                  $logger
  */
 class MY_Controller extends MX_Controller
 {

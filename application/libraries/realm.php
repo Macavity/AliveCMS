@@ -21,7 +21,11 @@ class Realm
 	private $CI;
 	private $characters;
 	private $world;
-	private $emulator;
+
+    /**
+     * @interface Emulator
+     */
+    private $emulator;
 
 	// Runtime values
 	private $online;
@@ -304,7 +308,10 @@ class Realm
 		return $this->characters;
 	}
 
-	public function getEmulator()
+    /**
+     * @return Emulator
+     */
+    public function getEmulator()
 	{
 		return $this->emulator;
 	}

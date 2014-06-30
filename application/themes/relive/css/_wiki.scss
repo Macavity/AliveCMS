@@ -167,3 +167,43 @@
     }
   }
 }
+
+.wiki {
+  .sidebar {
+    float: right;
+    width: 308px;
+    padding: 25px;
+    min-height: 460px;
+
+    .snippet {
+      margin: 30px 0;
+      &:first-child {
+        margin-top: 0;
+      }
+      h3 {
+        color: #854a26;
+        border-bottom: 1px solid #4b2a17;
+        font-size: 16px;
+        font-weight: normal;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+      }
+    }
+    .thumbnail {
+      display: block;
+      vertical-align: top;
+      position: relative;
+      .view {
+        display: block;
+        height: 40px;
+        width: 60px;
+        position: absolute;
+        right: -10px;
+        top: -16px;
+      }
+      &:hover .view {
+        background-position: -80px -209px;
+      }
+    }
+  }
+}

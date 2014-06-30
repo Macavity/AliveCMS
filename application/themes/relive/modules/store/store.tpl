@@ -9,6 +9,10 @@
 
             <section id="checkout" class="col-md-12"></section>
 
+            <div class="alert alert-danger col-md-12">
+                Derzeit funktioniert der Vote Shop nur eingeschränkt, bitte nur zu Testzwecken einkaufen und wenn es dich nicht stört Votepunkte zu verlieren ;)
+            </div>
+
             <div class="alert alert-info col-md-12">
                 Der Shop orientiert sich an deinem ausgewählten Charakter. Du kannst den Charakter wechseln und so auf einen Schlag mehrere Gegenstände für verschiedene Charaktere einkaufen.
             </div>
@@ -45,7 +49,7 @@
                         Dein Guthaben: <img src="{$url}application/images/icons/lightning.png" align="absmiddle" /> {$vp} VP
                     </div>
 
-                    <div class="online_realm_button snippet">
+                    <div class="btnStoreCart snippet">
                         {lang("cart", "store")} (<span id="cart_item_count">0</span> {lang("items", "store")})
                     </div>
                     <div id="empty_cart" class="snippet">

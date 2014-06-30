@@ -2,8 +2,8 @@
 	"name": "Item store",
 	"description": "Lets your users purchase ingame items from a web store",
 	"author": {
-		"name": "FusionCMS",
-		"website": "http:\/\/fusion-hub.com"
+		"name": "FusionCMS & Mac",
+        "website": "http://www.senzaii.net"
 	},
 
 	"permissions": {
@@ -29,7 +29,7 @@
 		},
 
 		"moderate": {
-			"description": "Manage the store orders. <font style='color:red;'>Admin-tool</font>",
+			"description": "Manage the store orders. <em>Admin-tool</em>",
 			"dangerLevel": 1,
 
 			"permissions": {
@@ -39,7 +39,7 @@
 		},
 
 		"manage": {
-			"description": "Manage the store items. <font style='color:red;'>Admin-tool</font>",
+			"description": "Manage the store items. <em>Admin-tool</em>",
 			"dangerLevel": 2,
 
 			"permissions": {

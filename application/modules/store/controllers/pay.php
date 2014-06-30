@@ -1,6 +1,11 @@
 <?php
 
-class Pay extends MX_Controller
+/**
+ * Class Pay
+ *
+ * @property Store_Model store_model
+ */
+class Pay extends MY_Controller
 {
 	private $vp;
 	private $dp;
@@ -101,7 +106,7 @@ class Pay extends MX_Controller
 
             $charDb = $this->realms->getRealm($storeItem['realm'])->getCharacters();
 
-			// Is it a query or command?
+			// Is it no query or command?
 			if(empty($storeItem['query']) && empty($storeItem['command']))
 			{
 				// Make sure they enter a character
@@ -119,6 +124,9 @@ class Pay extends MX_Controller
                     $this->show_error(lang("error_character_not_mine", "store"));
 				}
 
+                // Charakter exists? Great, so get its name.
+                $recipientCharName = $charDb->getNameByGuid($recipientCharGuid);
+
 				// Make sure the character array exists in the realm array
 				if(!isset($realmItems[$storeItem['realm']][$recipientCharGuid])){
 					$realmItems[$storeItem['realm']][$recipientCharGuid] = array();
@@ -134,14 +142,14 @@ class Pay extends MX_Controller
 						// Add them individually to the array
                         $itemCount = $item['count'];
                         while($itemCount-- > 0){
-                            array_push($realmItems[$storeItem['realm']][$recipientCharGuid], array('id' => $id));
+                            array_push($realmItems[$storeItem['realm']][$recipientCharGuid], array('id' => $id, 'name' => $recipientCharName));
                         }
 					}
 				}
 				else{
                     $itemCount = $item['count'];
                     while($itemCount-- > 0){
-    					array_push($realmItems[$storeItem['realm']][$recipientCharGuid], array('id' => $storeItem['itemid']));
+    					array_push($realmItems[$storeItem['realm']][$recipientCharGuid], array('id' => $storeItem['itemid'], 'name' => $recipientCharName));
                     }
 				}
 			}
@@ -153,7 +161,7 @@ class Pay extends MX_Controller
 			}
 
 			// Make sure the character is offline, if this item requires it
-			if($storeItem['require_character_offline'] && $this->realms->getRealm($storeItem['realm'])->getCharacters()->isOnline($item['character'])){
+			if($storeItem['require_character_offline'] && $this->realms->getRealm($storeItem['realm'])->getCharacters()->isOnline($recipientCharGuid)){
                 $this->show_error(lang("error_character_not_offline", "store"));
 			}
 		}
@@ -181,7 +189,9 @@ class Pay extends MX_Controller
 				foreach($commands as $command)
 				{
 					$command = preg_replace("/\{ACCOUNT\}/", $this->external_account_model->getUsername(), $command);
-					$command = preg_replace("/\{CHARACTER\}/", (isset($item['charGuid']) ? $this->realms->getRealm($items[$item['id']]['realm'])-> getCharacters()->getNameByGuid($item['charGuid']) : false), $command);
+					$command = preg_replace("/\{CHARACTER\}/", (isset($item['charGuid'])
+                        ? $this->realms->getRealm($items[$item['id']]['realm'])-> getCharacters()->getNameByGuid($item['charGuid'])
+                        : false), $command);
 
                     $itemCount = $item['count'];
                     while($itemCount-- > 0){
@@ -238,13 +248,15 @@ class Pay extends MX_Controller
 		$this->user->setDp($this->user->getDp() - $this->dp);
 	}
 
-	/**
-	 * Handle custom queries
-	 * @param String $query
-	 * @param String $database
-	 * @param Int $character
-	 * @param Int $realm
-	 */
+    /**
+     * Handle custom queries
+     * @param $query_raw
+     * @param String $database
+     * @param Int $character
+     * @param Int $realm
+     * @internal param String $query
+     * @return bool
+     */
 	private function handleQuery($query_raw, $database, $character, $realm)
 	{
 		$queries = explode(";", $query_raw);

@@ -1,8 +1,11 @@
 <?php
 
-// todo: NO PERMISSIONS!
-
-class Admin_items extends MX_Controller
+/**
+ * Class Admin_items
+ *
+ * @property Items_model $items_model
+ */
+class Admin_items extends MY_Controller
 {
 	public function __construct()
 	{
@@ -17,6 +20,8 @@ class Admin_items extends MX_Controller
 
 	public function index()
 	{
+        requirePermission("canViewItems");
+
 		// Change the title
 		$this->administrator->setTitle("Items");
 
@@ -51,7 +56,7 @@ class Admin_items extends MX_Controller
 
 		if(!$data['title'])
 		{
-			die("UI.alert('The following fields can\'t be empty: [Title]')");
+			die('UI.alert("The following fields can\'t be empty: [Title]")');
 		}
 
 		$this->items_model->addGroup($data);

@@ -4,9 +4,9 @@
 	<form>
 		<label for="item_type">Item type</label>
 		<select id="item_type" name="item_type" onChange="Items.changeType(this)">
-			<option value="item" {if !$item.query && !$item.command}selected{/if}>Item</option>
-			<option value="command" {if !$item.query && $item.command}selected{/if}>Console command</option>
-			<option value="query" {if !$item.command && $item.query}selected{/if}>Query</option>
+			<option value="item" {if empty($item.query) && empty($item.command)}selected{/if}>Item</option>
+			<option value="command" {if NOT empty($item.query) && empty($item.command)}selected{/if}>Console command</option>
+			<option value="query" {if empty($item.command) && NOT empty($item.query)}selected{/if}>Query</option>
 		</select>
 	</form>
 
