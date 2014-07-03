@@ -4,7 +4,7 @@
  * Class Admin_Bugs
  * @package Alive/Bugtracker
  */
-class Admin_Bugs extends MX_Controller
+class Admin_Bugs extends MY_Controller
 {
 
     var $jsPath = "modules/bugtracker/js/bugtracker_admin.js";

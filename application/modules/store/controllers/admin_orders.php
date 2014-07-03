@@ -34,7 +34,7 @@ class Admin_orders extends MX_Controller
 
                     if($item && isset($value['character']))
                     {
-						$character = $this->realms->getRealm($item['realm'])->getCharacters()->getNameByGuid($value['character']);
+						$character = $this->realms->getRealm($item['realm'])->getCharacters()->getNameByGuid($value['charGuid']);
 					}
 
                     $completed[$k]['json'][$key]['itemName'] = $item ? $item['name'] : 'Unknown';

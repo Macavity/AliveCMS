@@ -43,27 +43,29 @@ class Pay extends MY_Controller
             $this->show_error(lang("empty_cart", "store"));
 		}
 
-		$items = array();
+		$storeItems = array();
 
 		// Load all items
-		foreach($cart as $item){
+		foreach($cart as $cartItem){
 
-            if(empty($item['id'])){
+            $cartItemId = $cartItem['id'];
+
+            if(empty($cartItemId)){
                 continue;
             }
 
 			// Load the item
-			$items[$item['id']] = $this->store_model->getItem($item['id']);
+			$storeItems[$cartItemId] = $this->store_model->getItem($cartItemId);
 
 			// Make sure the item exists
-			if($items[$item['id']] != false && in_array($item['type'], array('vp', 'dp'))){
+			if($storeItems[$cartItemId] != false && in_array($cartItem['type'], array('vp', 'dp'))){
 
 				// Keep track of how much it costs
-				if($item['type'] == "vp" && !empty($items[$item['id']]['vp_price'])){
-					$this->vp += $items[$item['id']]['vp_price'];
+				if($cartItem['type'] == "vp" && !empty($storeItems[$cartItemId]['vp_price'])){
+					$this->vp += $storeItems[$cartItemId]['vp_price'];
 				}
-				elseif($item['type'] == "dp" && !empty($items[$item['id']]['dp_price'])){
-					$this->dp += $items[$item['id']]['dp_price'];
+				elseif($cartItem['type'] == "dp" && !empty($storeItems[$cartItemId]['dp_price'])){
+					$this->dp += $storeItems[$cartItemId]['dp_price'];
 				}
 				else{
                     $this->show_error(lang("free_items", "store"));
@@ -83,9 +85,11 @@ class Pay extends MY_Controller
 		$realmItems = array();
 
         // Make sure all realms are online
-		foreach($cart as $item){
+		foreach($cart as $cartItem) {
 
-			$realm = $this->realms->getRealm($items[$item['id']]['realm']);
+            $cartItemId = $cartItem['id'];
+
+			$realm = $this->realms->getRealm($storeItems[$cartItemId]['realm']);
 
 			// Create a realm item array if it doesn't exist
 			if(!isset($realmItems[$realm->getId()])){
@@ -98,11 +102,11 @@ class Pay extends MY_Controller
 		}
 
 		// Send all items
-		foreach($cart as $item)
-		{
+		foreach($cart as $cartItem) {
+            $cartItemId = $cartItem['id'];
 
-            $storeItem = $items[$item['id']];
-            $recipientCharGuid = $item['charGuid'];
+            $storeItem = $storeItems[$cartItemId];
+            $recipientCharGuid = $cartItem['charGuid'];
 
             $charDb = $this->realms->getRealm($storeItem['realm'])->getCharacters();
 
@@ -110,13 +114,13 @@ class Pay extends MY_Controller
 			if(empty($storeItem['query']) && empty($storeItem['command']))
 			{
 				// Make sure they enter a character
-				if(!isset($item['character'])){
-                    $this->show_error(lang("error_character", "store"));
+				if(!isset($cartItem['character'])){
+                    $this->show_error(lang("error_character", "store")." (".$recipientCharGuid.")");
 				}
 
 				// Make sure the character exists
 				if(!$charDb->characterExists($recipientCharGuid)){
-                    $this->show_error(str_replace('{0}', $item['character'], lang("error_character_exists", 'store')));
+                    $this->show_error(str_replace('{0}', $recipientCharGuid, lang("error_character_exists", 'store')));
 				}
 
 				// Make sure the character belongs to this account
@@ -140,20 +144,27 @@ class Pay extends MY_Controller
 					// Loop through the item IDs
 					foreach($temp as $id){
 						// Add them individually to the array
-                        $itemCount = $item['count'];
+                        $itemCount = $cartItem['count'];
                         while($itemCount-- > 0){
-                            array_push($realmItems[$storeItem['realm']][$recipientCharGuid], array('id' => $id, 'name' => $recipientCharName));
+                            array_push($realmItems[$storeItem['realm']][$recipientCharGuid], array(
+                                'id' => $id,
+                                'charName' => $recipientCharName
+                            ));
                         }
 					}
 				}
 				else{
-                    $itemCount = $item['count'];
+                    $itemCount = $cartItem['count'];
                     while($itemCount-- > 0){
-    					array_push($realmItems[$storeItem['realm']][$recipientCharGuid], array('id' => $storeItem['itemid'], 'name' => $recipientCharName));
+    					array_push($realmItems[$storeItem['realm']][$recipientCharGuid], array(
+                            'id' => $storeItem['itemid'],
+                            'charName' => $recipientCharName
+                        ));
                     }
 				}
 			}
-			else if(!empty($storeItem['command'])){
+
+            if(!empty($storeItem['command'])){
 				// Make sure the realm actually supports console commands
 				if(!$this->realms->getRealm($storeItem['realm'])->getEmulator()->hasConsole()){
                     $this->show_error(lang("error_no_console", "store"));
@@ -171,31 +182,41 @@ class Pay extends MY_Controller
 
 		$this->store_model->logOrder($this->vp, $this->dp, $cart);
 
-        foreach($cart as $item){
-            // Is it a query?
-			if(!empty($items[$item['id']]['query']))
-			{
-                $itemCount = $item['count'];
+        // Execute all queries and commands of cart items
+        foreach($cart as $recipientCharGuid => $cartItem){
+
+            $cartItemId = $cartItem['id'];
+
+            $storeItem = $storeItems[$cartItemId];
+
+            $recipientCharName = $cartItem['charName'];
+
+            $storeItemQuery = $storeItem['query'];
+
+            // Has the Item a query?
+			if(!empty($storeItemQuery) && $storeItemQuery != "(NULL)"){
+                $itemCount = $cartItem['count'];
                 while($itemCount-- > 0){
                     //debug("handle query", $item);
-                    $this->handleQuery($items[$item['id']]['query'], $items[$item['id']]['query_database'], (isset($item['charGuid']) ? $item['character'] : false), $items[$item['id']]['realm']);
+                    $this->handleQuery($storeItemQuery, $storeItem['query_database'], $recipientCharGuid, $storeItem['realm']);
                 }
             }
+
 			// Or a command?
-			else if(!empty($items[$item['id']]['command']))
+			if(!empty($storeItem['command']))
 			{
-				$commands = preg_split('/\r\n|\r|\n/', $items[$item['id']]['command']);
+				$commands = preg_split('/\r\n|\r|\n/', $storeItem['command']);
 
 				foreach($commands as $command)
 				{
-					$command = preg_replace("/\{ACCOUNT\}/", $this->external_account_model->getUsername(), $command);
-					$command = preg_replace("/\{CHARACTER\}/", (isset($item['charGuid'])
-                        ? $this->realms->getRealm($items[$item['id']]['realm'])-> getCharacters()->getNameByGuid($item['charGuid'])
-                        : false), $command);
+					$command = str_replace("{ACCOUNT}", $this->external_account_model->getUsername(), $command);
+					$command = str_replace("{CHARACTER}", $recipientCharName, $command);
 
-                    $itemCount = $item['count'];
+                    $itemCount = $cartItem['count'];
+
                     while($itemCount-- > 0){
-                        $this->realms->getRealm($items[$item['id']]['realm'])->getEmulator()->sendCommand($command);
+                        $this->realms->getRealm($storeItem['realm'])->getEmulator()->sendCommand($command);
+                        $this->logger->createLog('store_command', $command);
 			     	}
                 }
 			}
@@ -206,13 +227,13 @@ class Pay extends MY_Controller
 		{
 
             // Loop through all characters
-			foreach($characters as $character => $items)
+			foreach($characters as $character => $storeItems)
 			{
                 //debug("realmItems", $items);
 				$characterName = $this->realms->getRealm($realm)->getCharacters()->getConnection()->query(query("get_charactername_by_guid"), array($character));
 				$characterName = $characterName->result_array();
 				
-				$this->realms->getRealm($realm)->getEmulator()->sendItems($characterName[0]['name'], $this->config->item("store_subject"), $this->config->item("store_body"), $items);
+				$this->realms->getRealm($realm)->getEmulator()->sendItems($characterName[0]['name'], $this->config->item("store_subject"), $this->config->item("store_body"), $storeItems);
 			}
 		}
         //debug("items done");

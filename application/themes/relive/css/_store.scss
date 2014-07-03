@@ -1,254 +1,253 @@
 #store {
-  min-width: 700px;
+    min-width: 700px;
 
-  li.activeTab {
-    > a {
-      background-color: transparent;
-      border: 0px solid white;
-      font-weight: bold;
-      color: white;
+    li.activeTab {
+        > a {
+            background-color: transparent;
+            border: 0px solid white;
+            font-weight: bold;
+            color: white;
+        }
     }
-  }
 
-  .filters .keyword {
-    margin: 0px 0px 10px 0;
-  }
+    .filters .keyword {
+        margin: 0px 0px 10px 0;
+    }
 
-  form {
-    label {
-      margin-right: 10px;
+    form {
+        label {
+            margin-right: 10px;
+        }
+        input[type="text"], select {
+            margin: 0px;
+            width: 125px;
+        }
+        input[type="text"] {
+            width: 120px;
+        }
+        .filter_field {
+            &:first-child {
+                border-left: none;
+            }
+            a {
+                margin-right: 10px;
+                margin-top: 0px;
+                display: block;
+                float: left;
+            }
+            float: left;
+            padding: 15px 15px;
+            padding-top: 5px;
+            height: 30px;
+        }
     }
-    input[type="text"], select {
-      margin: 0px;
-      width: 125px;
-    }
-    input[type="text"] {
-      width: 120px;
-    }
-    .filter_field {
-      &:first-child {
-        border-left: none;
-      }
-      a {
-        margin-right: 10px;
-        margin-top: 0px;
-        display: block;
+    #store_realms {
+        width: 740px;
         float: left;
-      }
-      float: left;
-      padding: 15px 15px;
-      padding-top: 5px;
-      height: 30px;
+
+        .tab-content {
+            table {
+                width: 100%;
+            }
+        }
+
+        .table .icon-frame {
+            margin: 6px; /* used in vote store */
+        }
+
     }
-  }
-  #store_realms {
-    width: 740px;
-    float: left;
+    #cart {
+        float: right;
+        width: 260px;
+    }
+    #store_content {
+        margin-top: -15px;
+        margin-left: 10px;
+        margin-right: 10px;
 
-    .tab-content {
-      table {
-        width: 100%;
-      }
     }
 
-    .table .icon-frame {
-      margin: 6px;  /* used in vote store */
+    .table {
+        th {
+            padding: 0px;
+        }
+        &.full-width td {
+            &:first-child {
+                padding-left: 10px;
+            }
+        }
     }
 
-  }
-  #cart {
-    float: right;
-    width: 260px;
-  }
-  #store_content {
-    margin-top: -15px;
-    margin-left: 10px;
-    margin-right: 10px;
-
-  }
-
-  .table {
-    th {
-      padding: 0px;
+    .wiki {
+        .title {
+            clear: both;
+            padding: 20px 0px 30px 25px;
+        }
     }
-    &.full-width td {
-      &:first-child {
-        padding-left: 10px;
-      }
-    }
-  }
 
-  .wiki {
-    .title {
-      clear: both;
-      padding: 20px 0px 30px 25px;
+    .popover {
+        width: 200px;
     }
-  }
-
-  .popover {
-    width: 200px;
-  }
 
 }
 
 .cart-item {
-  height: 60px;
-  position: relative;
+    height: 60px;
+    position: relative;
 
-  .divider {
-    clear: both;
-    height: 0;
-    border-top: 1px solid #020201;
-    border-bottom: 1px solid #452408;
-    overflow: hidden;
-    margin: 0 0 5px;
-  }
-
-  .item-name {
-    font-size: 13px;
-    white-space: nowrap;
-
-    a{
-      float: left;
-      max-width: 130px;
-      -o-text-overflow: ellipsis;
-      text-overflow: ellipsis;
-      overflow: hidden;
+    .divider {
+        clear: both;
+        height: 0;
+        border-top: 1px solid #020201;
+        border-bottom: 1px solid #452408;
+        overflow: hidden;
+        margin: 0 0 5px;
     }
 
-    .qty {
-      color: #c8b5b1;
-      padding-left: 2px;
-      span {
-        color: #8baed8;
-      }
+    .item-name {
+        font-size: 13px;
+        white-space: nowrap;
+
+        a {
+            float: left;
+            max-width: 85px;
+            -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .qty {
+            color: #c8b5b1;
+            padding-left: 2px;
+            span {
+                color: #8baed8;
+            }
+        }
     }
-  }
-  .item-nick {
-    color: #ac672b;
-    font-size: 11px;
-  }
-  .item-price{
-    float: right;
-    text-align: right;
-    width: 50px;
-  }
-  .item-icon {
-    float: left;
-    display: block;
-    margin-right: 12px;
-  }
-  .jsDeleteFromCart {
-    display: none;
-    color: #d44747;
-    background: url(../images/icons/cross-small.gif) 100% 50% no-repeat;
-    padding:0 16px 1px 0;
-    position: absolute;
-    bottom: -1px;
-    right: -16px;
-  }
-  &:hover{
+    .item-nick {
+        color: #ac672b;
+        font-size: 11px;
+    }
+    .item-price {
+        float: right;
+        text-align: right;
+        width: 50px;
+    }
+    .item-icon {
+        float: left;
+        display: block;
+        margin-right: 12px;
+    }
     .jsDeleteFromCart {
-      display:block;
+        display: none;
+        color: #d44747;
+        padding: 0 16px 1px 0;
+        position: absolute;
+        bottom: -1px;
+        right: -16px;
     }
-  }
+    &:hover {
+        .jsDeleteFromCart {
+            display: block;
+        }
+    }
 }
 
 .storeIntoCartButton {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 #cart {
-  .delete_item {
-    float: left;
-    display: block;
-    margin-right: 10px;
-    margin-top: 6px;
-    width: 0px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    -webkit-transition: 0.5s all;
-    -moz-transition: 0.5s all;
-    -o-transition: 0.5s all;
-    -ms-transition: 0.5s all;
-    transition: 0.5s all;
-  }
-  .store_item:hover {
-    .item_name, .item_realm {
-      margin-left: 25px;
-    }
     .delete_item {
-      width: 17px;
-      opacity: 1;
+        float: left;
+        display: block;
+        margin-right: 10px;
+        margin-top: 6px;
+        width: 0px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        -webkit-transition: 0.5s all;
+        -moz-transition: 0.5s all;
+        -o-transition: 0.5s all;
+        -ms-transition: 0.5s all;
+        transition: 0.5s all;
     }
-  }
-  .item_price {
-    img {
-      margin-right: 2px;
+    .store_item:hover {
+        .item_name, .item_realm {
+            margin-left: 25px;
+        }
+        .delete_item {
+            width: 17px;
+            opacity: 1;
+        }
     }
-    float: right;
-    font-size: 10px;
-    font-weight: bold;
-  }
-  .store_item {
-    .item_name, .item_realm {
-      font-size: 12px;
-      -webkit-transition: 0.5s all;
-      -moz-transition: 0.5s all;
-      -o-transition: 0.5s all;
-      -ms-transition: 0.5s all;
-      transition: 0.5s all;
+    .item_price {
+        img {
+            margin-right: 2px;
+        }
+        float: right;
+        font-size: 10px;
+        font-weight: bold;
     }
-    display: none;
-  }
+    .store_item {
+        .item_name, .item_realm {
+            font-size: 12px;
+            -webkit-transition: 0.5s all;
+            -moz-transition: 0.5s all;
+            -o-transition: 0.5s all;
+            -ms-transition: 0.5s all;
+            transition: 0.5s all;
+        }
+        display: none;
+    }
 }
 
 #dp_price_full, #vp_price_full {
-  float: left;
-  margin-right: 10px;
-  margin-top: 10px;
-  margin-left: 10px;
+    float: left;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
 }
 
 #cart_price {
-  display: none;
-  a {
-    float: right;
-    margin-top: 0px;
-  }
+    display: none;
+    a {
+        float: right;
+        margin-top: 0px;
+    }
 }
 
 #empty_cart {
-  text-align: center;
-  padding: 10px;
-  opacity: 0.5;
+    text-align: center;
+    padding: 10px;
+    opacity: 0.5;
 }
 
 #checkout {
-  display: none;
-  padding: 10px;
+    display: none;
+    padding: 10px;
 }
 
 #checkout_info {
-  text-align: center;
-  font-size: 14px;
-  margin-bottom: 20px;
-  margin-top: 15px;
-  a {
-    margin-top: -10px;
-  }
-  .button_right {
-    float: right;
-  }
-  .button_left {
-    float: left;
-  }
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 20px;
+    margin-top: 15px;
+    a {
+        margin-top: -10px;
+    }
+    .button_right {
+        float: right;
+    }
+    .button_left {
+        float: left;
+    }
 }
 
 .checkout_characters {
-  float: right;
-  select {
-    width: 180px;
-  }
+    float: right;
+    select {
+        width: 180px;
+    }
 }
