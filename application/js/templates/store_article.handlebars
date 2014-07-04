@@ -2,7 +2,7 @@
     <div class="divider"></div>
     <div class="item-icon">
         <a href="/item/{{realm.id}}/{{item.itemid}}" class="item-link">
-            <span class="icon-frame frame-36" style="background-image: url(/application/themes/shattered/images/icons/36/{{item.icon}}.jpg);"></span>
+            <span class="icon-frame frame-36" style="background-image: url(/application/images/icons/36/{{item.icon}}.jpg);"></span>
         </a>
     </div>
     <div class="item-price">
@@ -14,5 +14,5 @@
         <span class="qty" id="cart-quantity-{{item.uniqueKey}}">[<span>x{{item.count}}</span>]</span>
     </div>
     <span class="item-nick">{{recipient}} @ {{realm.name}}</span>
-    <a href="#" class="jsDeleteFromCart" data-itemkey="{{item.uniqueKey}}">Entfernen</a>
+    <a href="#" class="jsDeleteFromCart" data-itemkey="{{item.uniqueKey}}"><i class="glyphicon glyphicon-remove"></i> Entfernen</a>
 </article>

@@ -1,7 +1,8 @@
 
-define(['./BaseController','modules/wiki','modules/wiki_related'], function (BaseController, Wiki, WikiRelated) {
+define(['./BaseController','modules/wiki','modules/wiki_related', 'modules/core'], function (BaseController, Wiki, WikiRelated, Core) {
 
-    var StoreController = BaseController.extend({
+    var StoreController;
+    StoreController = BaseController.extend({
 
         /**
          * Vote Points
@@ -15,11 +16,9 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
         /**
          * @constructor
          */
-        init: function(vp){
+        init: function (vp) {
             this._super();
             debug.debug("PageController.initialize");
-            Wiki.pageUrl = "/store/realm/";
-            Wiki.initialize();
 
             this.vp = vp;
 
@@ -27,16 +26,105 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
 
             this.initBindings();
 
+            this.loadActiveStoreContent();
+
         },
 
-        initBindings: function(){
+        loadActiveStoreContent: function(){
+
+            var StoreController = this;
+
+            var storeRealms = $("#store_realms");
+            var findActiveStore = storeRealms.find(".active a");
+            var realmId;
+
+            if(!findActiveStore){
+                var first = storeRealms.find("a").first();
+                if(first){
+                    realmId = first.data("key");
+                    first.parent().addClass("active");
+                    $("#store"+realmId).addClass("active");
+
+                    findActiveStore = first;
+                }
+            }
+
+            if(findActiveStore){
+                realmId = findActiveStore.data("key");
+                StoreController.loadStoreContents(realmId);
+            }
+
+        },
+
+        loadStoreContents: function (realmId) {
+
+            var wrapper = $("#store" + realmId);
+
+            $.ajax({
+                type: 'GET',
+                url: '/store/realm/' + realmId,
+                dataType: 'html',
+                global: false,
+                beforeSend: function () {
+                    wrapper.addClass('loading');
+                },
+                success: function (data) {
+                    if (data) {
+                        $("#tab"+realmId).data("jsrealmstoreinit", 1);
+
+                        wrapper.removeClass('loading').html(data);
+                        var total = $("#store" + realmId + " .table tbody tr").length - 1;
+
+                        Wiki.tab = realmId;
+                        Wiki.query = {};
+                        Wiki.related[realmId] = new WikiRelated(realmId, {
+                            paging: true,
+                            totalResults: total,
+                            column: 2,
+                            method: 'numeric',
+                            type: 'asc'
+                        }, Wiki);
+
+                        Core.fixTableHeaders('#store' + realmId);
+                    }
+
+                }
+            });
+        },
+
+        initBindings: function () {
 
             var Controller = this;
+
+            var storeRealms = $("#store_realms");
+
+            /**
+             * Load Realm Store Contents on click
+             */
+            storeRealms.find(".nav-tabs").on("click", "a", function (event) {
+                var link = $(event.target);
+                var realmId = link.data("key");
+                var realmTab = $("#tab"+realmId);
+
+                var initialized = realmTab.data("jsrealmstoreinit");
+
+                var storeRealms = $("#store_realms");
+
+                if(typeof initialized === "undefined"){
+                    Controller.loadStoreContents(realmId);
+                }
+
+                storeRealms.find(".active").removeClass("active");
+                storeRealms.find(".activeTab").removeClass("activeTab");
+
+                $("#store"+realmId).addClass("active");
+                realmTab.addClass("active activeTab");
+            });
 
             /**
              * Cart - Put Item in the Cart
              */
-            $("#related-content").on("click", ".jsPutToCart", function(event){
+            storeRealms.on("click", ".jsPutToCart", function (event) {
                 debug.debug("jsPutToCart Event");
 
                 Controller.updateActiveChar();
@@ -46,7 +134,7 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
                 /**
                  * Error if no character has been selected
                  */
-                if(Controller.activeChar == null){
+                if (Controller.activeChar == null) {
                     button
                         .popover('destroy')
                         .popover({
@@ -55,14 +143,16 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
                             trigger: 'manual'
                         })
                         .popover('show');
-                    setTimeout(function(){ button.popover('destroy'); }, 4000);
+                    setTimeout(function () {
+                        button.popover('destroy');
+                    }, 4000);
                     return;
                 }
 
                 /**
                  * Error if the selected shop item is for another realm
                  */
-                if(button.data("realm") != Controller.activeChar.realm.id){
+                if (button.data("realm") != Controller.activeChar.realm.id) {
                     button
                         .popover('destroy')
                         .popover({
@@ -71,7 +161,9 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
                             trigger: 'manual'
                         })
                         .popover('show');
-                    setTimeout(function(){ button.popover('destroy'); }, 4000);
+                    setTimeout(function () {
+                        button.popover('destroy');
+                    }, 4000);
                     return;
                 }
 
@@ -84,15 +176,15 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
                     count: 1,
                     character: Controller.activeChar.name,
                     charGuid: Controller.activeChar.guid,
-                    uniqueKey: button.data("id")+"-"+Controller.activeChar.guid,
+                    uniqueKey: button.data("id") + "-" + Controller.activeChar.guid,
                     realm: Controller.activeChar.realm.id,
                     type: "vp"
                 };
 
-                if(Controller.isInCart(itemObject)){
+                if (Controller.isInCart(itemObject)) {
                     Controller.increaseCount(itemObject);
                 }
-                else{
+                else {
                     Controller.addToCart(itemObject);
                 }
 
@@ -103,7 +195,9 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
             /**
              * Cart - Remove item from cart
              */
-            $("#cart_items").on("click", ".jsDeleteFromCart", function(event){
+            $("#cart_items").on("click", ".jsDeleteFromCart", function (event) {
+
+                event.preventDefault();
 
                 var button = $(event.target);
 
@@ -113,10 +207,10 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
 
                 var cart = Controller.shoppingCart;
                 var cartItem;
-                for(var n in cart){
+                for (var n in cart) {
                     if (cart.hasOwnProperty(n)) {
                         cartItem = cart[n];
-                        if(cartItem.uniqueKey != removeKey){
+                        if (cartItem.uniqueKey != removeKey) {
                             newCart.push(cart[n]);
                         }
                     }
@@ -124,7 +218,7 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
 
                 Controller.shoppingCart = newCart;
 
-                $("#cart-item-"+removeKey).remove();
+                $("#cart-item-" + removeKey).remove();
 
                 Controller.updateCartPrice();
             });
@@ -132,7 +226,7 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
             /**
              * Cart - Show modal dialog if the user really wants to buy
              */
-            $("#cart_price").on("click", ".jsStoreCheckout", function(event){
+            $("#cart_price").on("click", ".jsStoreCheckout", function (event) {
 
                 event.preventDefault();
 
@@ -140,11 +234,11 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
 
                 var modalTemplate = Controller.getTemplate("store_checkout");
 
-                var sumPrice = $("#vp_price").html()*1;
+                var sumPrice = $("#vp_price").html() * 1;
 
                 var hasError = false;
 
-                if(sumPrice > Controller.vp){
+                if (sumPrice > Controller.vp) {
                     hasError = true;
                 }
 
@@ -156,7 +250,7 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
                 });
 
                 $("#modalCheckout").html(modalHtml)
-                    .modal('show');
+                    .modal('show').removeClass("hide");
 
             });
 
@@ -165,7 +259,7 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
              *
              * found in store_checkout.handlebars
              */
-            $("#store_wrapper").on("click", ".jsStorePay", function(event){
+            $("#modalCheckout").on("click", ".jsStorePay", function (event) {
 
                 event.preventDefault();
 
@@ -173,13 +267,13 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
                 var modalBody = modal.find(".modal-body");
                 var modalFooter = modal.find(".modal-footer");
 
-                if(modal.hasClass("disabled")){
+                if (modal.hasClass("disabled")) {
                     return;
                 }
 
                 modal.addClass("disabled");
                 modalFooter.hide();
-                modalBody.html("<h3>"+mapStatic.lang.loading+"</h3>"+'<br><img src="/application/themes/shattered/images/uber-loading.gif">');
+                modalBody.html("<h3>" + mapStatic.lang.loading + "</h3>" + '<br><img src="/application/themes/shattered/images/uber-loading.gif">');
 
                 var cartList = JSON.stringify(Controller.shoppingCart);
 
@@ -187,7 +281,7 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
                         data: cartList,
                         csrf_token_name: Config.CSRF
                     },
-                    function(data){
+                    function (data) {
 
                         modal.modal("hide");
                         modal.removeClass("disabled");
@@ -195,7 +289,7 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
                         var template = null;
                         var alertHtml = '';
 
-                        if(data.type == "error"){
+                        if (data.type == "error") {
                             template = Controller.getTemplate("alert");
                             alertHtml = template({
                                 type: "danger",
@@ -204,7 +298,7 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
                             $("#checkout").html(alertHtml).fadeIn(150);
 
                         }
-                        else if(data.type == "success"){
+                        else if (data.type == "success") {
                             modal.modal("hide");
                             template = Controller.getTemplate("alert");
                             alertHtml = template({
@@ -214,11 +308,11 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
                             $("#checkout").html(alertHtml).fadeIn(150);
                             $("#store_realms, #cart").fadeOut(300);
                         }
-                        else{
+                        else {
                             modal.html(data);
                         }
                     }, "json")
-                    .fail(function(data) {
+                    .fail(function (data) {
                         modal.modal("hide");
                         modal.removeClass("disabled");
                         $("#checkout").html(data.responseText).fadeIn(150);
@@ -228,16 +322,16 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
         },
 
 
-        clickRemoveItem: function(button){
+        clickRemoveItem: function (button) {
 
         },
 
-        initWikiRelated: function(wrapperId, options){
+        initWikiRelated: function (wrapperId, options) {
             debug.debug("PageController.initWiki");
             Wiki.related[wrapperId] = new WikiRelated(wrapperId, options);
         },
 
-        addToCart: function(itemObject){
+        addToCart: function (itemObject) {
             this.updateActiveChar();
             this.shoppingCart.push(itemObject);
 
@@ -254,10 +348,10 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
 
         },
 
-        updateActiveChar: function(){
+        updateActiveChar: function () {
             var activeChar = $("#selected-character");
 
-            if(activeChar.length !== 0){
+            if (activeChar.length !== 0) {
                 this.activeChar = {
                     name: activeChar.data("name"),
                     guid: activeChar.data("charid"),
@@ -269,11 +363,11 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
             }
         },
 
-        updateCartPrice: function(){
+        updateCartPrice: function () {
             var sum = 0;
             var countAll = 0;
             var cart = this.shoppingCart;
-            for(var id in cart){
+            for (var id in cart) {
                 if (cart.hasOwnProperty(id)) {
                     var item = cart[id];
                     countAll += item.count;
@@ -283,11 +377,11 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
             $("#vp_price").html(sum);
             $("#cart_item_count").html(countAll);
 
-            if(countAll > 0){
+            if (countAll > 0) {
                 $("#empty_cart").fadeOut(300);
                 $("#cart_price").fadeIn(300);
             }
-            else{
+            else {
                 $("#cart_price").fadeOut(300);
                 $("#empty_cart").fadeIn(300);
             }
@@ -298,16 +392,16 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
          * @param itemObject
          * @returns {boolean}
          */
-        isInCart: function(itemObject){
+        isInCart: function (itemObject) {
 
             var cartItem;
             var cart = this.shoppingCart;
 
-            for(var n in cart){
+            for (var n in cart) {
                 if (cart.hasOwnProperty(n)) {
                     cartItem = cart[n];
                     // Realm needs no check because the storeEntryId is unique for each realm
-                    if(cartItem.uniqueKey == itemObject.uniqueKey){
+                    if (cartItem.uniqueKey == itemObject.uniqueKey) {
                         return true;
                     }
                 }
@@ -321,19 +415,19 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
          * @param itemObject
          * @returns {boolean}
          */
-        increaseCount: function(itemObject){
+        increaseCount: function (itemObject) {
 
             var cartItem;
             var cart = this.shoppingCart;
 
-            for(var n in cart){
+            for (var n in cart) {
                 if (cart.hasOwnProperty(n)) {
                     cartItem = cart[n];
                     // Realm needs no check because the storeEntryId is unique for each realm
-                    if(cartItem.uniqueKey == itemObject.uniqueKey){
+                    if (cartItem.uniqueKey == itemObject.uniqueKey) {
 
                         cartItem.count++;
-                        $("#cart-quantity-"+cartItem.uniqueKey+" span").html("x"+cartItem.count);
+                        $("#cart-quantity-" + cartItem.uniqueKey + " span").html("x" + cartItem.count);
                         return true;
                     }
                 }
@@ -342,9 +436,9 @@ define(['./BaseController','modules/wiki','modules/wiki_related'], function (Bas
             return false;
         },
 
-        getTemplate: function(templateName){
-            if(typeof Handlebars.templates[templateName] == "undefined"){
-                debug.error("Template "+templateName+" not found.");
+        getTemplate: function (templateName) {
+            if (typeof Handlebars.templates[templateName] == "undefined") {
+                debug.error("Template " + templateName + " not found.");
                 return {};
             }
             return Handlebars.templates[templateName];

@@ -9,6 +9,10 @@
 
             <section id="checkout" class="col-md-12"></section>
 
+            <div class="alert alert-danger col-md-12">
+                Derzeit funktioniert der Vote Shop nur eingeschränkt, bitte nur zu Testzwecken einkaufen und wenn es dich nicht stört Votepunkte zu verlieren ;)
+            </div>
+
             <div class="alert alert-info col-md-12">
                 Der Shop orientiert sich an deinem ausgewählten Charakter. Du kannst den Charakter wechseln und so auf einen Schlag mehrere Gegenstände für verschiedene Charaktere einkaufen.
             </div>
@@ -16,22 +20,24 @@
             <div class="row">
 
                 <!-- Left Side -->
-                <section id="store_realms" class="related col-md-9">
+                <section id="store_realms" class="col-md-9">
 
                     <div class="tabs">
-                        <ul id="related-tabs">
-                            {foreach from=$data item=realm key=realmId}
-                                <li>
-                                    <a href="/store/" data-key="{$realmId}">
-                                        <span><span>{$realm.name}</span></span>
-                                    </a>
+                        <ul class="nav nav-tabs">
+                            {foreach $data as $realmId => $realm}
+                                <li id="tab{$realmId}" data-toggle="tab" class="{if $realm@first}active{/if}">
+                                    <a href="#store{$realmId}" data-key="{$realmId}">{$realm.name}</a>
                                 </li>
                             {/foreach}
                         </ul>
                         <span class="clear"><!-- --></span>
                     </div>
-                    <div id="related-content" class="loading">
-                        <!-- -->
+                    <div class="tab-content">
+                      {foreach $data as $realmId => $realm}
+                        <div class="tab-pane {if $realm@first}active{/if}" id="store{$realmId}">
+                          <!-- -->
+                        </div>
+                      {/foreach}
                     </div>
 
                 </section>
@@ -43,7 +49,7 @@
                         Dein Guthaben: <img src="{$url}application/images/icons/lightning.png" align="absmiddle" /> {$vp} VP
                     </div>
 
-                    <div class="online_realm_button snippet">
+                    <div class="btnStoreCart snippet">
                         {lang("cart", "store")} (<span id="cart_item_count">0</span> {lang("items", "store")})
                     </div>
                     <div id="empty_cart" class="snippet">
@@ -74,17 +80,17 @@
 
     </section>
 
-    <div id="modalCheckout" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
-
-    </div>
 
 </section>
+
+<div id="modalCheckout" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"><!-- --></div>
+
 <script type="text/javascript">
     require([
         'static',
         'controller/StoreController'
     ],
-    function (static, StoreController) {
+    function (config, StoreController) {
 
         $(function () {
             var controller = new StoreController({$vp});

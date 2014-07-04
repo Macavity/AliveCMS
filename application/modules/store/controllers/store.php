@@ -1,11 +1,18 @@
 <?php
 
-class Store extends MX_Controller
+/**
+ * Class Store
+ *
+ * @property Items_Model    $items_model
+ * @property Store_Model    $store_model
+ *
+ */
+class Store extends MY_Controller
 {
 	public function __construct()
 	{
 		parent::__construct();
-		
+
 		$this->output->set_header("Cache-Control: no-store, no-cache, must-revalidate");
 		$this->output->set_header("Cache-Control: post-check=0, pre-check=0");
 		$this->output->set_header("Pragma: no-cache");
@@ -121,7 +128,7 @@ class Store extends MX_Controller
 	{
 		$cache = $this->cache->get("store_items");
 
-		if($cache !== false)
+		if($cache !== false && false)
 		{
 			return $cache;
 		}
@@ -133,6 +140,10 @@ class Store extends MX_Controller
 			{
 				// Load all items that belongs to this realm
 				$items = $this->store_model->getItems($realm->getId());
+
+                if(count($items) == 0){
+                    continue;
+                }
 
 				// Assign the realm name
 				$data[$realm->getId()]['name'] = $realm->getName();
@@ -189,5 +200,7 @@ class Store extends MX_Controller
 
 			return $data;
 		}
+
+        return array();
 	}
 }

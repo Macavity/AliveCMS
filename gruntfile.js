@@ -1,6 +1,30 @@
 
 
 module.exports = function(grunt) {
+
+    var bannerTemplate = function(options){
+
+        options = options || {};
+
+        var name = options.name || "MDE";
+        var version = " v"+options.version || "";
+        var css = options.css || false;
+
+        var banner = "";
+
+        if(css){
+            banner += '@charset "UTF-8";\n';
+        }
+
+        banner += '/*!\n' +
+            ' * '+name+version+' - <%=grunt.template.today("yyyy-mm-dd HH:MM")%>\n' +
+            ' * http://www.senzaii.net/\n' +
+            ' * Copyright (c) <%=grunt.template.today("yyyy")%> Senzaii\n'+
+            ' */\n';
+
+        return banner;
+    };
+
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
@@ -111,12 +135,29 @@ module.exports = function(grunt) {
              */
             dev: {
                 options: {
+                    banner: bannerTemplate({name:"Senzaii CSS", version:"<%=pkg.version%>"}),
                     style: "expanded",
                     debugInfo: true
                 },
                 files: {
                     'application/themes/shattered/css/main.css': 'application/themes/shattered/css/main.scss',
                     'application/themes/shattered/css/forum.css': 'application/themes/shattered/css/forum.scss'
+                    /*
+                     * Every page specific scss file has to be entered here
+                     */
+                }
+            },
+
+            /*
+             * Standard task during frontend development
+             */
+            reliveDist: {
+                options: {
+                    banner: bannerTemplate({name:"Senzaii - Relive Theme CSS", version:"<%=pkg.version%>"}),
+                    style: "compressed"
+                },
+                files: {
+                    'application/themes/relive/css/main.css': 'application/themes/relive/css/main.scss'
                     /*
                      * Every page specific scss file has to be entered here
                      */
@@ -149,8 +190,11 @@ module.exports = function(grunt) {
         concat: {
             // templates-task
             templates: {
+                options: {
+                    banner: bannerTemplate({name: "Senzaii JS Templates", version:"<%=pkg.version%>"})
+                },
                 src: [
-                    'node_modules/handlebars/dist/handlebars.runtime.js',
+                    'node_modules/handlebars/dist/handlebars.runtime.min.js',
                     'application/js/libs/handlebars/handlebars.helper.js',
                     'application/js/templates.js'
                 ],
@@ -159,6 +203,9 @@ module.exports = function(grunt) {
 
             // Already minimized libraries
             libs: {
+                options: {
+                    banner: bannerTemplate({name: "Senzaii JS Lib", version:"<%=pkg.version%>"})
+                },
                 src: [
                     // JQuery
                     'application/js/libs/jquery/jquery.min.js',
@@ -194,15 +241,13 @@ module.exports = function(grunt) {
                     'application/js/misc.js',
 
                     // Some prototype overwrites
-                    'application/js/prototypes.js',
+                    'application/js/prototypes.js'
 
                     // Used by TS Viewer
                     //'application/js/wz_tooltip.js'
                 ],
                 dest: 'application/js/libs.js'
             },
-
-
 
             alive: {
                 src: [
@@ -220,14 +265,22 @@ module.exports = function(grunt) {
             }
         },
 
-        /*
-         * Shell Task
-         *
-         * Documentation: https://github.com/sindresorhus/grunt-shell
-         */
-        shell: {
-            handlebars: {
-                command: 'handlebars application/js/templates/ > application/js/templates.js'
+        handlebars: {
+            dist: {
+                options: {
+                    wrapped: true,
+                    namespace: 'Handlebars.templates',
+                    /*
+                     * Remove the filePath and the extension from the function name
+                     */
+                    processName: function(filePath){
+                        var pieces = filePath.split('/');
+                        return pieces[pieces.length - 1].split('.')[0];
+                    }
+                },
+                files: {
+                    "application/js/templates.js": "application/js/templates/*"
+                }
             }
         },
 
@@ -239,7 +292,7 @@ module.exports = function(grunt) {
                 files: [
                     'application/themes/shattered/css/**/*.scss'
                 ],
-                tasks: ['sass:dev']
+                tasks: ['sass:dist']
             },
             cssAdmin: {
                 files: [
@@ -272,7 +325,7 @@ module.exports = function(grunt) {
                 files: [
                     'application/js/templates/*.handlebars'
                 ],
-                tasks: ['shell:handlebars', 'concat:templates']
+                tasks: ['handlebars:dist', 'concat:templates']
             },
 
             images: {
@@ -286,6 +339,7 @@ module.exports = function(grunt) {
 
     // Each of these should be installed via npm
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-handlebars');
     grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-sass');
@@ -294,14 +348,22 @@ module.exports = function(grunt) {
     // Jade Template Compilation
     grunt.loadNpmTasks('grunt-contrib-jade');
 
-    grunt.loadNpmTasks('grunt-shell');
-
     // Used during development
     grunt.registerTask('default', [
         "jshint",
         'sass:admin',
         'sass:dev',
-        'shell:handlebars',
+        'handlebars:dist',
+        'concat:libs',
+        'concat:templates'
+    ]);
+
+    grunt.registerTask('css', [
+        'sass:reliveDist'
+    ]);
+
+    grunt.registerTask('scripts', [
+        'handlebars:dist',
         'concat:libs',
         'concat:templates'
     ]);

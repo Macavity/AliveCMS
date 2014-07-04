@@ -55,7 +55,6 @@
   font-weight: normal;
   font-style: normal;
 }
-
 @font-face {
   font-family: 'MuseoSlab';
   src: url("../../../fonts/Museo_Slab_500-webfont.eot");
@@ -63,7 +62,6 @@
   font-weight: normal;
   font-style: normal;
 }
-
 /* General */
 body {
   font-family: 'MuseoSans', Arial, Helvetica, Sans-serif;
@@ -1271,7 +1269,7 @@ footer .divider2 {
   border-radius: 2px;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
-  border: 1px solid rgba(0, 0, 0, 0);
+  border: 1px solid transparent;
   -webkit-transition: all 300ms;
   -moz-transition: all 300ms;
   -o-transition: all 300ms;
@@ -1368,7 +1366,7 @@ footer .divider2 {
 }
 
 .fusioneditor .fusioneditor_color:hover {
-  border: 1px solid rgba(0, 0, 0, 0) !important;
+  border: 1px solid transparent !important;
   box-shadow: none !important;
   -webkit-box-shadow: none !important;
   -moz-box-shadow: none !important;
@@ -1376,7 +1374,7 @@ footer .divider2 {
 }
 
 .fusioneditor .fusioneditor_color:active {
-  border: 1px solid rgba(0, 0, 0, 0) !important;
+  border: 1px solid transparent !important;
 }
 
 .progress_bar {

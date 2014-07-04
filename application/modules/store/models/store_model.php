@@ -1,8 +1,12 @@
 <?php
 
-class Store_model extends CI_Model
+class Store_model extends MY_Model
 {
-	public function getItems($realm)
+    /**
+     * @param $realm
+     * @return array
+     */
+    public function getItems($realm)
 	{
         //$this->db->select('*')->from('store_items')->where(array('realm' => $realm))->order_by('group,id', 'ASC');
         $query = $this->db->query("SELECT DISTINCT store_items.*
@@ -20,7 +24,7 @@ class Store_model extends CI_Model
 		}
 		else 
 		{
-			return false;	
+			return array();
 		}
 	}
 

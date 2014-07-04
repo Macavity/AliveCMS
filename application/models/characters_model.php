@@ -35,8 +35,11 @@ class Characters_model
 			$this->db = &get_instance()->load->database($this->config['characters'], true);
 		}
 	}
-	
-	public function getConnection()
+
+    /**
+     * @return CI_DB_active_record
+     */
+    public function getConnection()
 	{
 		$this->connect();
 

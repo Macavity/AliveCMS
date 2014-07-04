@@ -1,61 +1,62 @@
-.wiki{
-  .related {
-    .filters {
-      padding-top: 10px;
 
-      .filter-tabs {
-        a {
-          display: inline-block;
-          padding: 5px 10px;
-          margin-right: 5px;
-          background: #4c1f1a;
-          -moz-border-radius: 5px;
-          -webkit-border-radius: 5px;
-          border-radius: 5px;
-          &:hover {
-            background: #5f322b;
-          }
-          &.tab-active {
-            font-weight: bold;
-            color: #fff;
-            background: #5f322b;
-          }
-        }
+.related {
+  margin-top: 30px;
+  background: url("/application/themes/shattered/images/wiki/tab-bg.jpg") 0 44px repeat-x;
+}
+
+.filters {
+  padding-top: 10px;
+
+  .filter-tabs {
+    a {
+      display: inline-block;
+      padding: 5px 10px;
+      margin-right: 5px;
+      background: #4c1f1a;
+      -moz-border-radius: 5px;
+      -webkit-border-radius: 5px;
+      border-radius: 5px;
+      &:hover {
+        background: #5f322b;
       }
-      .keyword {
-        position: relative;
-
-        .input {
-          background: #fff;
-          color: #707070;
-          width: 280px;
-
-          &.focus {
-            color: black;
-          }
-        }
-
-        .view {
-          display: block;
-          width: 16px;
-          height: 16px;
-          position: absolute;
-          top: 7px;
-          right: 26px;
-        }
-        .reset {
-          display: block;
-          width: 16px;
-          height: 16px;
-          position: absolute;
-          top: 7px;
-          right: 26px;
-          cursor: pointer;
-        }
+      &.tab-active {
+        font-weight: bold;
+        color: #fff;
+        background: #5f322b;
       }
     }
   }
+  .keyword {
+    position: relative;
 
+    .input {
+      background: #fff;
+      color: #707070;
+      width: 280px;
+
+      &.focus {
+        color: black;
+      }
+    }
+
+    .view {
+      display: block;
+      width: 16px;
+      height: 16px;
+      position: absolute;
+      top: 7px;
+      right: 26px;
+    }
+    .reset {
+      display: block;
+      width: 16px;
+      height: 16px;
+      position: absolute;
+      top: 7px;
+      right: 26px;
+      cursor: pointer;
+    }
+  }
 }
 
 .ui-pagination {
@@ -163,6 +164,46 @@
       font-weight: bold;
       color: #fff;
       background: rgba(255, 255, 255, 0.2);
+    }
+  }
+}
+
+.wiki {
+  .sidebar {
+    float: right;
+    width: 308px;
+    padding: 25px;
+    min-height: 460px;
+
+    .snippet {
+      margin: 30px 0;
+      &:first-child {
+        margin-top: 0;
+      }
+      h3 {
+        color: #854a26;
+        border-bottom: 1px solid #4b2a17;
+        font-size: 16px;
+        font-weight: normal;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+      }
+    }
+    .thumbnail {
+      display: block;
+      vertical-align: top;
+      position: relative;
+      .view {
+        display: block;
+        height: 40px;
+        width: 60px;
+        position: absolute;
+        right: -10px;
+        top: -16px;
+      }
+      &:hover .view {
+        background-position: -80px -209px;
+      }
     }
   }
 }

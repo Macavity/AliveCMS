@@ -15,7 +15,8 @@ $work: false;
 /*
  * Twitter Bootstrap
  */
-@import "../../../css/bootstrap-3.0.3.min.css";
+@import "bootstrap";
+@import "bootstrap/theme";
 
 /*
  * Standardstyle
@@ -42,6 +43,11 @@ $work: false;
  */
 @import "../../../modules/server/css/server";
 @import "server";
+
+/**
+ * Module: Store
+ */
+@import "store";
 
 /**
  * Module: Bugtracker

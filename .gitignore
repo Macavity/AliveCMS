@@ -5,3 +5,4 @@ database.php
 node_modules
 .sass-cache
 database.local.php
+live.iml
