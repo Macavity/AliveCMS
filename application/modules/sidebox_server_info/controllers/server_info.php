@@ -63,7 +63,7 @@ class Server_Info extends MX_Controller implements Sidebox{
         $maxPlayers = $this->cache->get("maxplayers_".$realms[0]->getId());
         
         if($maxPlayers === false){
-            $result = $connection->query("SELECT maxplayers FROM `uptime` WHERE realmid=? ORDER BY maxplayers DESC LIMIT 1;", array(
+            $result = $connection->query("SELECT maxplayers FROM `uptime` WHERE realmid=? ORDER BY starttime DESC LIMIT 1;", array(
                 $realms[0]->getId()
             ));
             
