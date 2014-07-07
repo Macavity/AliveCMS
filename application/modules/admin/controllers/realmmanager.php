@@ -1,6 +1,11 @@
 <?php
 
-class Realmmanager extends MX_Controller
+/**
+ * Class Realmmanager
+ *
+ * @property Realm_model $realm_model
+ */
+class Realmmanager extends MY_Controller
 {
 	public function __construct()
 	{
@@ -11,10 +16,12 @@ class Realmmanager extends MX_Controller
 		parent::__construct();
 
 		requirePermission("editSystemSettings");
+
 	}
 
 	public function edit($id = false)
 	{
+
 		if(!$id || !is_numeric($id))
 		{
 			die();
@@ -32,6 +39,7 @@ class Realmmanager extends MX_Controller
 			'hostname_char' => ($realm->getConfig('override_hostname_char')) ? $realm->getConfig('override_hostname_char') : $realm->getConfig('hostname'),
 			'username_char' => ($realm->getConfig('override_username_char')) ? $realm->getConfig('override_username_char') : $realm->getConfig('username'),
 			'password_char' => ($realm->getConfig('override_password_char')) ? $realm->getConfig('override_password_char') : $realm->getConfig('password'),
+            'required_access' => $realm->getConfig('required_access'),
 			'port_char' => ($realm->getConfig('override_port_char')) ? $realm->getConfig('override_port_char') : 3306,
 			'hostname_world' => ($realm->getConfig('override_hostname_world')) ? $realm->getConfig('override_hostname_world') : $realm->getConfig('hostname'),
 			'username_world' => ($realm->getConfig('override_username_world')) ? $realm->getConfig('override_username_world') : $realm->getConfig('username'),
@@ -72,6 +80,7 @@ class Realmmanager extends MX_Controller
 		$data['hostname'] = $this->input->post('hostname');
 		$data['username'] = $this->input->post('username');
 		$data['password'] = $this->input->post('password');
+        $data['required_access'] = $this->input->post('required_access');
 		$data['char_database'] = $this->input->post('characters'); 
 		$data['world_database'] = $this->input->post('world');
 		$data['cap'] = $this->input->post('cap');
@@ -126,6 +135,8 @@ class Realmmanager extends MX_Controller
 		{
 			$data['password'] = $this->input->post('password');
 		}
+
+        $data['required_access'] = $this->input->post('required_access');
 
 		$data['char_database'] = $this->input->post('characters'); 
 		$data['world_database'] = $this->input->post('world');

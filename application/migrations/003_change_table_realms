@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * Class Migration_ChangeTableRealms
+ * Docs: http://zacharyflower.com/getting-started-with-codeigniter-migrations/
+ *
+ * @property CI_DB_forge    $dbforge
+ */
+class Migration_ChangeTableRealms extends CI_Migration {
+
+    public function up(){
+
+        $this->dbforge->add_column('realms', array(
+            'required_access' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => TRUE,
+                'null' => FALSE,
+                'default' => 0,
+            ),
+        ), 'password');
+
+    }
+
+    public function down(){
+        $this->dbforge->drop_column('realms', 'required_access');
+    }
+}

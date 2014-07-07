@@ -58,12 +58,13 @@ class Realms
                     "console_host" => $realm['console_host'],
 					"console_username" => $realm['console_username'],
 					"console_password" => $realm['console_password'],
-					"console_port" => $realm['console_port'],
+                    "console_port" => $realm['console_port'],
 
 					"hostname" => $realm['hostname'],
 					"realm_port" => $realm['realm_port'],
+                    "required_access" => $realm['required_access'],
 
-					// Database settings
+                    // Database settings
 					"world" => array(
 						"hostname" => (array_key_exists("override_hostname_world", $realm) && !empty($realm['override_hostname_world'])) ? $realm['override_hostname_world'] : $realm['hostname'],
 						"username" => (array_key_exists("override_username_world", $realm) && !empty($realm['override_username_world'])) ? $realm['override_username_world'] : $realm['username'],

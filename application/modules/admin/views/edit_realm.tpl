@@ -17,7 +17,10 @@
 		<label for="override_password_char">Characters: database password</label>
 		<input type="password" id="override_password_char" value="{$password_char}" />
 
-		<label for="override_port_char">Characters: database port</label>
+        <label for="required_access">Realm: Required GM Level to view</label>
+        <input type="text" id="required_access" value="{$required_access}" />
+
+        <label for="override_port_char">Characters: database port</label>
 		<input type="text" id="override_port_char" value="{$port_char}"  />
 
 		<label for="override_hostname_world">World: database hostname</label>
