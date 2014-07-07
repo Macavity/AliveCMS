@@ -56,7 +56,7 @@ if (defined('ENVIRONMENT'))
 
 if(!ini_get('date.timezone'))
 {
-	date_default_timezone_set("Europe/London");
+	date_default_timezone_set("Europe/Berlin");
 }
 
 /*

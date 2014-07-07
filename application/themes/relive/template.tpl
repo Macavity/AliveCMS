@@ -11,7 +11,7 @@
                            tabindex="40" alt="Durchsucht das Arsenal und mehr..."
                            value="Durchsucht das Arsenal und mehr..." class="form-control" />
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></spanSuchen</button>
+                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span>Suchen</button>
                     </span>
                 </div>
             </form>
