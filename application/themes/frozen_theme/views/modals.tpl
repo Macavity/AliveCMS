@@ -1,7 +1,7 @@
 <div id="popup_bg"></div>
 
 <!-- confirm box -->
-<div id="confirm" class="popup">
+<div id="confirm" class="popup" style="display: none">
 	<h1 class="popup_question" id="confirm_question"></h1>
 
 	<div class="popup_links">
@@ -14,7 +14,7 @@
 </div>
 
 <!-- alert box -->
-<div id="alert" class="popup">
+<div id="alert" class="popup" style="display: none">
 	<h1 class="popup_message" id="alert_message"></h1>
 
 	<div class="popup_links">

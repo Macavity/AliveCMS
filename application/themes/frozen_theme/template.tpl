@@ -41,7 +41,7 @@
 						</ul>
 					</article>
                     {foreach from=$sideboxes item=sidebox}
-						<article>
+						<article id="{$sidebox.css_id}" class="sidebar-module">
 							<h1 class="top"><p>{$sidebox.name}</p></h1>
 							<section class="body">
 								{$sidebox.data}

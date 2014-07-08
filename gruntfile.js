@@ -172,6 +172,32 @@ module.exports = function(grunt) {
                 files: {
                     'application/themes/relive/css/main.css': 'application/themes/relive/css/main.scss'
                 }
+            },
+
+            /*
+             * Frozen Theme CSS for production
+             */
+            frozenDist: {
+                options: {
+                    banner: bannerTemplate({name:"Senzaii - Frozen Theme CSS", version:"<%=pkg.version%>"}),
+                    style: "compressed"
+                },
+                files: {
+                    'application/themes/frozen_theme/css/main.css': 'application/themes/frozen_theme/sass/main.scss'
+                }
+            },
+
+            /*
+             * Frozen Theme CSS for development
+             */
+            frozenDev: {
+                options: {
+                    banner: bannerTemplate({name:"Senzaii - Frozen Theme CSS", version:"<%=pkg.version%>"}),
+                    style: "expanded"
+                },
+                files: {
+                    'application/themes/frozen_theme/css/main.css': 'application/themes/frozen_theme/sass/main.scss'
+                }
             }
         },
 
@@ -370,6 +396,10 @@ module.exports = function(grunt) {
 
     grunt.registerTask('css', [
         'sass:reliveDist'
+    ]);
+
+    grunt.registerTask('frozen', [
+        'sass:frozenDev'
     ]);
 
     grunt.registerTask('scripts', [

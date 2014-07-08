@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="pull-left">Patch Version:</div>
-            <div class="pull-right"><span class="color-ex2">3.3.5</span></div>
+            <div class="pull-right"><span class="wow-exp-2">3.3.5</span></div>
         </div>
     </div>
     <div class="row">
@@ -50,7 +50,7 @@
 
     <br/>
     <div class="row">
-        <div class="col-md-12"><b>Raten für <span class="color-ex2">Norgannon (3.3.5)</span></b></div>
+        <div class="col-md-12"><strong>Raten für <span class="wow-exp-2">Norgannon (3.3.5)</span></strong></div>
     </div>
     <div class="row">
         <div class="col-lg-12">
