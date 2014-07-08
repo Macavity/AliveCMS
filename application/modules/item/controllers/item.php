@@ -1,6 +1,6 @@
 <?php
 
-class Item extends MX_Controller
+class Item extends MY_Controller
 {
 	private $realm;
 
@@ -14,11 +14,7 @@ class Item extends MX_Controller
 			die(lang("no_item", "item"));
 		}
 
-        $this->template->setTitle($itemName);
-        $this->template->addBreadcrumb("Spiel", site_url("game/index"));
-        $this->template->addBreadcrumb("Gegenstände", site_url("game/index"));
-
-		$this->realm = $realm;
+        $this->realm = $realm;
 
 		$cache = $this->cache->get("items/tooltip_".$realm."_".$id."_".getLang());
 		$item = $this->realms->getRealm($realm)->getWorld()->getItem($id);
@@ -30,8 +26,10 @@ class Item extends MX_Controller
 			$itemName = lang("view_item", "item");
 		}
 
+        $this->template->setTitle($itemName);
+        $this->template->addBreadcrumb("Spiel", site_url("game/index"));
+        $this->template->addBreadcrumb("Gegenstände", site_url("game/index"));
         $this->template->addBreadcrumb($itemName, site_url("game/index"));
-
 
 		$icon = $this->getIcon($id);
 
@@ -40,7 +38,7 @@ class Item extends MX_Controller
 
         // Icon
         $item['icon'] = "";
-        $iconQuery = $this->db->select('icon')->from('armory_icons')->where('displayid',$item['displayid'])->get();
+        $iconQuery = $this->db->select('icon')->from('arsenal_icons')->where('displayid',$item['displayid'])->get();
 
         if($iconQuery->num_rows() > 0){
             $iconRow = $iconQuery->row_array();
@@ -63,7 +61,7 @@ class Item extends MX_Controller
                 $item['has_counterpart'] = true;
                 $item['counterpart_name'] = $counterItem['name'];
 
-                $counterIcon = $this->db->select('icon')->from('armory_icons')->where('displayid',$counterItem['displayid'])->get();
+                $counterIcon = $this->db->select('icon')->from('arsenal_icons')->where('displayid',$counterItem['displayid'])->get();
 
                 if($counterIcon->num_rows() > 0){
                     $counterIconRow = $counterIcon->row_array();
@@ -236,7 +234,7 @@ class Item extends MX_Controller
 
     private function getSizedIcon($icon,$size = 56){
         $url = 'http://media.blizzard.com/wow/icons/'.$size.'/'.$icon.'.jpg';
-        $localUrl = $_SERVER['DOCUMENT_ROOT'].'/application/themes/shattered/images/icons/'.$size.'/'.$icon.".jpg";
+        $localUrl = $_SERVER['DOCUMENT_ROOT'].'/application/images/icons/'.$size.'/'.$icon.".jpg";
 
         if(file_exists($localUrl)){
             return;
@@ -250,15 +248,24 @@ class Item extends MX_Controller
 
     private function getRotateImage($entry){
         $url = "http://eu.media.blizzard.com/wow/renders/items/item".$entry.".jpg";
-        $localUrl = $_SERVER['DOCUMENT_ROOT']."/application/themes/shattered/images/items/item".$entry.".jpg";
+        $localUrl = $_SERVER['DOCUMENT_ROOT']."/application/images/armory/renders/item".$entry.".jpg";
 
         if(file_exists($localUrl)){
             return;
         }
 
-        $contents = file_get_contents($url);
-        if(strlen($contents) > 0){
-            file_put_contents($localUrl, $contents);
+        try {
+            /*
+             * I don't like "@" but we don't know if $url is valid
+             */
+            $contents = @file_get_contents($url);
+            if(strlen($contents) > 0){
+                @file_put_contents($localUrl, $contents);
+            }
         }
+        catch(Exception $exception){
+
+        }
+
     }
 }
