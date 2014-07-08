@@ -59,6 +59,15 @@ $work: false;
  */
 @import "../../../modules/migration/css/migration";
 
+/**
+ * Sidebar: Server Info
+ */
+@import "../../../modules/sidebox_server_info/css/sidebox_server_info";
+
+/**
+ * Sidebar: EQDKP
+ */
+@import "../../../modules/sidebox_eqdkp/css/sidebox_eqdkp";
 
 /*
  * Top Navigation Menu

@@ -255,7 +255,7 @@ class Zone_model extends CI_Model {
         }
 
 
-        debug($this);
+        //debug($this);
 
     }
 

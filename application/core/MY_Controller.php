@@ -13,6 +13,7 @@
  *
  * @property    Administrator           $administrator
  * @property    Cache                   $cache
+ * @property    External_account_model  $external_account_model
  * @property    Realms                  $realms
  * @property    Template                $template
  * @property    User                    $user

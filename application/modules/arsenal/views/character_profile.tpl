@@ -94,7 +94,7 @@
             <?
 					}
 					else{
-						debug($item);
+						//debug($item);
 						?>
 
             <div data-id="<?=$item["slot"]?>" data-type="<?=$item["inventoryType"]?>" class="slot <?=$item["css"]?>" style=" <?=$item["slot_style"]?>">

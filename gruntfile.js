@@ -149,7 +149,7 @@ module.exports = function(grunt) {
             },
 
             /*
-             * Standard task during frontend development
+             * Relive Theme CSS for production
              */
             reliveDist: {
                 options: {
@@ -158,9 +158,19 @@ module.exports = function(grunt) {
                 },
                 files: {
                     'application/themes/relive/css/main.css': 'application/themes/relive/css/main.scss'
-                    /*
-                     * Every page specific scss file has to be entered here
-                     */
+                }
+            },
+
+            /*
+             * Relive Theme CSS for development
+             */
+            reliveDev: {
+                options: {
+                    banner: bannerTemplate({name:"Senzaii - Relive Theme CSS", version:"<%=pkg.version%>"}),
+                    style: "expanded"
+                },
+                files: {
+                    'application/themes/relive/css/main.css': 'application/themes/relive/css/main.scss'
                 }
             }
         },

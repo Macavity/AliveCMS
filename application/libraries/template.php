@@ -1129,7 +1129,7 @@ class Template
     }
 
     public function setMethod($method){
-        debug("set method", $method);
+        //debug("set method", $method);
         $this->shownMethod = $method;
     }
 

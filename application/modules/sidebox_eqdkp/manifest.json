@@ -1,0 +1,9 @@
+{
+    "name": "Sidebox: EQDKP Events",
+    "description": "Zeigt die nächsten Events im Raidplaner",
+    "author": {
+        "name": "Macavity",
+        "website": "http://www.senzaii.net"
+    },
+    "enabled": "false"
+}

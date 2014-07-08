@@ -278,7 +278,7 @@
 			{
 				if ( ! file_exists(APPPATH.'controllers/'.$class.'.php'))
 				{
-                    debug(__LINE__);
+                    //debug(__LINE__);
                     show_404("{$class}/{$method}");
                 }
 
@@ -287,7 +287,7 @@
 		}
 		else
 		{
-		    debug(__LINE__);
+            //debug(__LINE__);
             show_404("{$class}/{$method}");
         }
     }
@@ -439,7 +439,7 @@ color:white;
 				{
 					if ( ! file_exists(APPPATH.'controllers/'.$class.'.php'))
 					{
-                        debug(__LINE__);
+                        //debug(__LINE__);
                         show_404("{$class}/{$method}");
                     }
     
@@ -450,7 +450,7 @@ color:white;
 			}
 			else
 			{
-                debug(__LINE__);
+                //debug(__LINE__);
                 show_404("{$class}/{$method}");
             }
         }

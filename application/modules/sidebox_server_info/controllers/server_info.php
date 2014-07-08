@@ -1,6 +1,6 @@
 <?php
 
-class Server_Info extends MX_Controller implements Sidebox{
+class Server_Info extends MY_Controller implements Sidebox{
 
     public $overwriteDisplayName = "";
 
@@ -27,8 +27,6 @@ class Server_Info extends MX_Controller implements Sidebox{
             $this->overwriteDisplayName = 'Server Information: <span class="down">Offline</span>';
         }
 
-        $connection = $this->load->database("account", true);
-        
         /*
          * Total Accounts
          */
@@ -38,22 +36,24 @@ class Server_Info extends MX_Controller implements Sidebox{
             $totalAccounts = $this->external_account_model->getAccountCount();
             $this->cache->save("total_accounts", $totalAccounts, 60*60*24);
         }
-        
+
+        $realmDb = $this->load->database("account", true);
+
         /*
          * Uptime
          */
         $maxPlayers = 0;
         $uptime = $this->cache->get("realm_uptime_".$realms[0]->getId());
 
-        if($uptime === false || $realms[0]->isOnline() == false){
-            $result = $connection->query("SELECT starttime FROM `uptime` WHERE realmid=? ORDER BY starttime DESC LIMIT 1;", array(
-                $realms[0]->getId()
-            ));
+        $mainRealm = $realms[0];
+
+        if($uptime === false || $mainRealm->isOnline() == false){
+            $result = $realmDb->query("SELECT starttime FROM `uptime` WHERE realmid=".$mainRealm->getId()." ORDER BY starttime DESC LIMIT 1;");
         
             if($result){
                 $uptime = $result->result();
                 $uptime = $uptime[0]->starttime;
-                $this->cache->save("realm_uptime_".$realms[0]->getId(), $uptime, 60*60*24);
+                $this->cache->save("realm_uptime_".$realms[0]->getId(), $uptime, 60*30);    // 30 Minutes
             }
         }
         
@@ -63,10 +63,8 @@ class Server_Info extends MX_Controller implements Sidebox{
         $maxPlayers = $this->cache->get("maxplayers_".$realms[0]->getId());
         
         if($maxPlayers === false){
-            $result = $connection->query("SELECT maxplayers FROM `uptime` WHERE realmid=? ORDER BY starttime DESC LIMIT 1;", array(
-                $realms[0]->getId()
-            ));
-            
+            $result = $realmDb->query("SELECT maxplayers FROM `uptime` WHERE realmid=".$realms[0]->getId()." ORDER BY starttime DESC LIMIT 1;");
+
             if($result){
                 $maxPlayers = $result->result();
                 $maxPlayers = $maxPlayers[0]->maxplayers;
@@ -89,7 +87,7 @@ class Server_Info extends MX_Controller implements Sidebox{
     }
     
     /**
-     * Returns a formatted time string out of a given duration from the given starting time untill now
+     * Returns a formatted time string out of a given duration from the given starting time until now
      * @param Integer $startTime
      * @return String
      */

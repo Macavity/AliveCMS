@@ -53,7 +53,7 @@ class News extends MY_Controller
          * @alive
          */
         if($this->config->item('news_external')){
-            debug("external config");
+            //debug("external config");
             if($this->config->item("news_external_source") == TRUE){
                 $this->getExternalNews();
             }

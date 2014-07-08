@@ -1,19 +1,73 @@
-<span class="up">Uptime :</span> <span class="light">{$uptime}</span> <br>						
-Spielerrekord dieses Monats: {$maxplayers}<br />
-Realmlist : <span class="light">set realmlist {$realmlist}</span><br />
-Patch Version : <span class="color-ex2">3.3.5</span><!-- &amp; <span class="color-ex3">4.3.4</span>--><br />
-Server Typ:&nbsp;<b>PvE/P</b><br/>
+<div class="wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="pull-left up">Uptime:</div>
+            <div class="pull-right light">{$uptime}</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="pull-left">Realmlist:</div>
+            <div class="pull-right light">{$realmlist}</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="pull-left">Patch Version:</div>
+            <div class="pull-right"><span class="color-ex2">3.3.5</span></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="pull-left">Server Typ:</div>
+            <div class="pull-right light">PvE/P</div>
+        </div>
+    </div>
+    {if false}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="pull-left">Spielerrekord diesen Monat:</div>
+                <div class="pull-right light">{$maxplayers}</div>
+            </div>
+        </div>
+    {/if}
+    {if true}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="pull-left">Anzahl Accounts:</div>
+                <div class="pull-right light">{$accounts}</div>
+            </div>
+        </div>
+    {/if}
+    {if false}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="pull-left">Neue Accounts:</div>
+                <div class="pull-right light">{$newAccounts}</div>
+            </div>
+        </div>
+    {/if}
 
-<!--Anzahl Accounts: <span class="dark">{$accounts}</span><br />-->
-<br />
-<b>Raten <span class="color-ex2">3.3.5</span>:</b><br />
-Ruf-, Quest- und Kill-Erfahrung <span class="light">3x Blizzlike</span><br />
-Drop-Raten außerhalb Endgame-Raids: <span class="light">3x Blizzlike</span><br />
-Drop-Raten bei Endgame-Raids: <span class="light">1x Blizzlike</span><br />
-<!--<a href="/server/info">Mehr Informationen</a><br/>-->
-<br />
-<!--<b>Raten <span class="color-ex3">4.3.4</span>:</b><br />
-Ruf-, Quest- und Kill-Erfahrung <span class="light">2x Blizzlike</span><br />
-Drop-Raten außerhalb Endgame-Raids: <span class="light">2x Blizzlike</span><br />
-Drop-Raten bei Endgame-Raids: <span class="light">1x Blizzlike</span><br />-->
-<!--<a href="/server/info">Mehr Informationen</a><br/>-->
+    <br/>
+    <div class="row">
+        <div class="col-md-12"><b>Raten für <span class="color-ex2">Norgannon (3.3.5)</span></b></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="pull-left">Ruf-, Quest- und Kill-Erfahrung:</div>
+            <div class="pull-right light">3x Blizzlike</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="pull-left">Loot außerhalb Endgame-Raids:</div>
+            <div class="pull-right light">3x Blizzlike</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="pull-left">Loot in Endgame-Raids:</div>
+            <div class="pull-right light">1x Blizzlike</div>
+        </div>
+    </div>
+</div>

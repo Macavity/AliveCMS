@@ -40,7 +40,7 @@
                 {/if}
 
                 {foreach from=$sideboxes item=sidebox}
-                    <article id="{$sidebox.css_id}">
+                    <article id="{$sidebox.css_id}" class="sidebar-module">
                         <h2 class="top">{$sidebox.name}</h2>
                         <section class="body">
                             {$sidebox.data}

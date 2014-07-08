@@ -227,7 +227,6 @@ a.vote-b:hover p { opacity:1;}
   -o-box-shadow:1px 1px 0px #020508, 0px 2px 5px #000 inset;
 }
 
-
 /* Login Box */
 #sidebox_login { text-align:left !important;}
 #sidebox_login input[type="submit"] { left:5px; position:relative !important;}
@@ -237,6 +236,11 @@ a.vote-b:hover p { opacity:1;}
   background:rgba(255,255,255,.02) !important;
   box-shadow:inset 0 0 0 1px rgba(102,255,0,.02), 0 0 4px rgba(0,0,0,.4) !important;
   border:none !important;
+}
+
+/* Bootstrap Badges */
+.badge.red {
+    @extend .bgcolor-g2;
 }
 
 /* bar */

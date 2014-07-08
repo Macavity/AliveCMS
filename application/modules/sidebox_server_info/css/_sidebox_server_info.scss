@@ -1,0 +1,40 @@
+
+/* Realm Status */
+$realmOffline:    #c83424;
+$realmOnline:     #a3c425;
+
+#sidebar-realm-status {
+    .realm-status {
+        margin: 15px 0 0 50px;
+        height: 30px;
+
+        .down, .up {
+            width: 75px;
+            height: 27px;
+            line-height: 27px;
+            float: left;
+            padding: 0 0 0 35px;
+            font-size: 14px;
+        }
+    }
+    .down, .sidebar-title h3 .down {
+        @extend .realm-offline;
+    }
+    .up, .sidebar-title h3 .up {
+        @extend .realm-online;
+    }
+    .down-realms {
+        margin: 10px 0 0 20px;
+        list-style: square;
+        color: $realmOffline;
+        li {
+            margin: 5px;
+        }
+    }
+    .pvp {
+        color: #C33;
+    }
+    .rp {
+        color: #3C3;
+    }
+}
