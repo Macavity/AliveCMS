@@ -27,15 +27,6 @@ class Status extends MY_Controller
 
             foreach($realms as $realm){
                 /** @var Realm $realm */
-                $values = array(
-                    "gm" => $realm->getOnline("gm"),
-                    "horde" => $realm->getOnline("horde"),
-                    "alliance" => $realm->getOnline("alliance"),
-                );
-
-                foreach($values as $key => $value){
-                    $values[$key] = intval($value);
-                }
 
                 switch($realm->getId()){
                     case 1:
@@ -48,13 +39,37 @@ class Status extends MY_Controller
                         $cssClass = '';
                 }
 
+                /*
+                 * Check if access to this realm is allowed for the current user
+                 */
+                $accessAllowed = true;
+                $requiredAccess = $realm->getRequiredAccess();
+
+                if($requiredAccess > 0){
+                    // Not logged in? Then false.
+                    if($this->user->getOnline() == false){
+                        $accessAllowed = false;
+                    }
+                    // Logged in but GM? Then true
+                    else if(hasPermission("view", "gm")){
+                        $accessAllowed = true;
+                    }
+                    else {
+                        $accessAllowed = false;
+                    }
+                }
+
+
                 $realmData[$realm->getId()] = array(
                     "css" => $cssClass,
                     "online" => (bool) $realm->isOnline(),
                     "name" => $realm->getName(),
-                    "gm" => $values['gm'],
-                    "horde" => $values['horde'],
-                    "alliance" => $values['alliance'],
+                    "accessAllowed" => $accessAllowed,
+                    "onlinePlayers" => $realm->getOnline(),
+                    "onlinePercentage" => $realm->getPercentage(),
+                    "gm" => $realm->getOnline("gm"),
+                    "horde" => $realm->getOnline("horde"),
+                    "alliance" => $realm->getOnline("alliance"),
                 );
             }
 

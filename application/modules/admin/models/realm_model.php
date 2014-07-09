@@ -1,6 +1,6 @@
 <?php
 
-class Realm_model extends CI_Model
+class Realm_model extends MY_Model
 {
 	public function delete($id)
 	{
