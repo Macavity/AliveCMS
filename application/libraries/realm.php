@@ -410,4 +410,32 @@ class Realm
     {
         return $this->required_access;
     }
+
+    /**
+     * Check if access to this realm is allowed for the current user
+     *
+     * @param $user
+     * @return bool
+     */
+    public function isAccessAllowed($user){
+
+        $accessAllowed = true;
+        $requiredAccess = $this->getRequiredAccess();
+
+        if($requiredAccess > 0){
+            // Not logged in? Then false.
+            if($user->getOnline() == false){
+                $accessAllowed = false;
+            }
+            // Logged in but GM? Then true
+            else if(hasPermission("view", "gm")){
+                $accessAllowed = true;
+            }
+            else {
+                $accessAllowed = false;
+            }
+        }
+
+        return $accessAllowed;
+    }
 }
