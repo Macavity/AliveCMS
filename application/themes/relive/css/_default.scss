@@ -368,6 +368,12 @@ a.vote-b:hover p { opacity:1;}
   color: #333 !important;
 }
 
+/* badges with colors */
+.badge{
+  &.red {    background-color: red; }
+  &.orange {    background-color: orange; }
+}
+
 .table tbody tr:hover td,
 .table tbody tr.row-active td,
 .table td,

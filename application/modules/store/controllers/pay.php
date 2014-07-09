@@ -89,14 +89,14 @@ class Pay extends MY_Controller
 
             $cartItemId = $cartItem['id'];
 
-			$realm = $this->realms->getRealm($storeItems[$cartItemId]['realm']);
+			$storeRealm = $this->realms->getRealm($storeItems[$cartItemId]['realm']);
 
 			// Create a realm item array if it doesn't exist
-			if(!isset($realmItems[$realm->getId()])){
-				$realmItems[$realm->getId()] = array();
+			if(!isset($realmItems[$storeRealm->getId()])){
+				$realmItems[$storeRealm->getId()] = array();
 			}
 
-			if(!$realm->isOnline(true)){
+			if(!$storeRealm->isOnline(true)){
 				$this->show_error(lang("error_offline", "store"));
 			}
 		}
@@ -110,27 +110,27 @@ class Pay extends MY_Controller
 
             $charDb = $this->realms->getRealm($storeItem['realm'])->getCharacters();
 
-			// Is it no query or command?
+            // Make sure they enter a character
+            if(!isset($cartItem['character'])){
+                $this->show_error(lang("error_character", "store")." (".$recipientCharGuid.")");
+            }
+
+            // Make sure the character exists
+            if(!$charDb->characterExists($recipientCharGuid)){
+                $this->show_error(str_replace('{0}', $recipientCharGuid, lang("error_character_exists", 'store')));
+            }
+
+            // Make sure the character belongs to this account
+            if(!$charDb->characterBelongsToAccount($recipientCharGuid, $this->user->getId())){
+                $this->show_error(lang("error_character_not_mine", "store"));
+            }
+
+            // Character exists? Great, so get its name.
+            $recipientCharName = $charDb->getNameByGuid($recipientCharGuid);
+
+            // Is it no query or command?
 			if(empty($storeItem['query']) && empty($storeItem['command']))
 			{
-				// Make sure they enter a character
-				if(!isset($cartItem['character'])){
-                    $this->show_error(lang("error_character", "store")." (".$recipientCharGuid.")");
-				}
-
-				// Make sure the character exists
-				if(!$charDb->characterExists($recipientCharGuid)){
-                    $this->show_error(str_replace('{0}', $recipientCharGuid, lang("error_character_exists", 'store')));
-				}
-
-				// Make sure the character belongs to this account
-				if(!$charDb->characterBelongsToAccount($recipientCharGuid, $this->user->getId())){
-                    $this->show_error(lang("error_character_not_mine", "store"));
-				}
-
-                // Charakter exists? Great, so get its name.
-                $recipientCharName = $charDb->getNameByGuid($recipientCharGuid);
-
 				// Make sure the character array exists in the realm array
 				if(!isset($realmItems[$storeItem['realm']][$recipientCharGuid])){
 					$realmItems[$storeItem['realm']][$recipientCharGuid] = array();
@@ -148,7 +148,6 @@ class Pay extends MY_Controller
                         while($itemCount-- > 0){
                             array_push($realmItems[$storeItem['realm']][$recipientCharGuid], array(
                                 'id' => $id,
-                                'charName' => $recipientCharName
                             ));
                         }
 					}
@@ -158,7 +157,6 @@ class Pay extends MY_Controller
                     while($itemCount-- > 0){
     					array_push($realmItems[$storeItem['realm']][$recipientCharGuid], array(
                             'id' => $storeItem['itemid'],
-                            'charName' => $recipientCharName
                         ));
                     }
 				}
@@ -189,7 +187,9 @@ class Pay extends MY_Controller
 
             $storeItem = $storeItems[$cartItemId];
 
-            $recipientCharName = $cartItem['charName'];
+            $recipientCharGuid = $cartItem['charGuid'];
+
+            $charDb = $this->realms->getRealm($storeItem['realm'])->getCharacters();
 
             $storeItemQuery = $storeItem['query'];
 
@@ -205,7 +205,10 @@ class Pay extends MY_Controller
 			// Or a command?
 			if(!empty($storeItem['command']))
 			{
-				$commands = preg_split('/\r\n|\r|\n/', $storeItem['command']);
+                // Get the name of this character, used if there is a command
+                $recipientCharName = $charDb->getNameByGuid($recipientCharGuid);
+
+                $commands = preg_split('/\r\n|\r|\n/', $storeItem['command']);
 
 				foreach($commands as $command)
 				{
@@ -223,17 +226,17 @@ class Pay extends MY_Controller
 		}
 
         // Loop through all realms
-		foreach($realmItems as $realm => $characters)
+		foreach($realmItems as $storeRealmId => $characters)
 		{
+            $storeRealm = $this->realms->getRealm($storeRealmId);
 
             // Loop through all characters
-			foreach($characters as $character => $storeItems)
+			foreach($characters as $characterGuid => $storeItems)
 			{
                 //debug("realmItems", $items);
-				$characterName = $this->realms->getRealm($realm)->getCharacters()->getConnection()->query(query("get_charactername_by_guid"), array($character));
-				$characterName = $characterName->result_array();
-				
-				$this->realms->getRealm($realm)->getEmulator()->sendItems($characterName[0]['name'], $this->config->item("store_subject"), $this->config->item("store_body"), $storeItems);
+				$characterName = $storeRealm->getCharacters()->getNameByGuid($characterGuid);
+
+				$storeRealm->getEmulator()->sendItems($characterName, $this->config->item("store_subject"), $this->config->item("store_body"), $storeItems);
 			}
 		}
         //debug("items done");

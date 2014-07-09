@@ -9,9 +9,9 @@
 
             <section id="checkout" class="col-md-12"></section>
 
-            <div class="alert alert-danger col-md-12">
+            {*<div class="alert alert-danger col-md-12">
                 Derzeit funktioniert der Vote Shop nur eingeschränkt, bitte nur zu Testzwecken einkaufen und wenn es dich nicht stört Votepunkte zu verlieren ;)
-            </div>
+            </div>*}
 
             <div class="alert alert-info col-md-12">
                 Der Shop orientiert sich an deinem ausgewählten Charakter. Du kannst den Charakter wechseln und so auf einen Schlag mehrere Gegenstände für verschiedene Charaktere einkaufen.
