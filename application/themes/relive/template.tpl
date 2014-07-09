@@ -121,5 +121,6 @@
         </ul>
     </section>
 </section>
+{piwik_tag()}
 </body>
 </html>
