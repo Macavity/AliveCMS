@@ -1,3 +1,9 @@
+/**
+ * Settings
+ *
+ * @version 1.0.1
+ * @type {{remove: remove, showAddRealm: showAddRealm, addRealm: addRealm, saveRealm: saveRealm, toggleVoteReminder: toggleVoteReminder, saveWebsiteSettings: saveWebsiteSettings, saveSmtpSettings: saveSmtpSettings, savePerformanceSettings: savePerformanceSettings, submitConfig: submitConfig, submitConfigSource: submitConfigSource, toggleSource: toggleSource, submitMessage: submitMessage, liveUpdate: liveUpdate, changeStructure: changeStructure}}
+ */
 var Settings = {
 	
 	/**
@@ -141,7 +147,8 @@ var Settings = {
 			username: $("#username").val(),
 			password: $("#password").val(),
 			characters: $("#characters").val(),
-			world: $("#world").val(),
+            required_access: $("#required_access").val(),
+            world: $("#world").val(),
 			cap: $("#cap").val(),
 			port: $("#port").val(),
 			emulator: $("#emulator").val(),

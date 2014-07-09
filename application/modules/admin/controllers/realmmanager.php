@@ -3,6 +3,7 @@
 /**
  * Class Realmmanager
  *
+ * @version 1.0.1
  * @property Realm_model $realm_model
  */
 class Realmmanager extends MY_Controller

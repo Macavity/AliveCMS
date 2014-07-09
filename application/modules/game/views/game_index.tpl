@@ -6,9 +6,9 @@
   </div>
   <div class="row">
       <ul class="navigation">
-          <li>
+          {*<li>
               <a href="javascript:;" id="nav-3" onclick="activateTab(3);" class="expansion-3">Cataclysm</a>
-          </li>
+          </li>*}
           <li>
               <a href="javascript:;" id="nav-2" onclick="activateTab(2);" class="expansion-2"> Wrath of the Lich King </a>
           </li>
@@ -20,7 +20,7 @@
           </li>
       </ul>
     <div class="groups">
-        <div class="group" id="expansion-3" style="display: none;">
+        {*<div class="group" id="expansion-3" style="display: none;">
             <div class="group-column dungeon">
             <h3>Dungeons</h3>
             <ul>
@@ -291,7 +291,7 @@
             </ul>
         </div>
             <span class="clear"><!-- --></span>
-        </div>
+        </div>*}
 
         <div class="group" id="expansion-2" style="display: none">
         <div class="group-column">

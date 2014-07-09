@@ -16,6 +16,7 @@ class Realm
 	private $playerCap;
 	private $config;
     private $uptime;
+    private $required_access;
 
 	// Objects
 	private $CI;
@@ -52,8 +53,13 @@ class Realm
 		$this->config['emulator'] = $emulator;
 		$this->isOnline = null;
 		$this->onlineFaction = array();
+        $this->required_access = $this->config['required_access'];
 
-		$overrideParts = array(
+
+        /*
+         * Override some of the values
+         */
+        $overrideParts = array(
 			'username',
 			'password',
 			'hostname',
@@ -106,7 +112,7 @@ class Realm
 		{
 			if(!empty($this->online))
 			{
-				return $this->online;
+				return intval($this->online);
 			}
 			else
 			{
@@ -127,14 +133,14 @@ class Realm
 					$this->CI->cache->save("online_".$this->id, $this->online, 60*5);
 				}
 
-				return $this->online;
+				return intval($this->online);
 			}
 		}
 		else
 		{
 			if(!empty($this->onlineFaction[$faction]))
 			{
-				return $this->onlineFaction[$faction];
+				return intval($this->onlineFaction[$faction]);
 			}
 			else
 			{
@@ -155,7 +161,7 @@ class Realm
 				}
 			}
 
-			return $this->onlineFaction[$faction];
+			return intval($this->onlineFaction[$faction]);
 		}
 	}
 
@@ -395,5 +401,41 @@ class Realm
     public function getArmoryLink($charName)
     {
         return '/character/'.$this->id.'/'.$charName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRequiredAccess()
+    {
+        return $this->required_access;
+    }
+
+    /**
+     * Check if access to this realm is allowed for the current user
+     *
+     * @param $user
+     * @return bool
+     */
+    public function isAccessAllowed($user){
+
+        $accessAllowed = true;
+        $requiredAccess = $this->getRequiredAccess();
+
+        if($requiredAccess > 0){
+            // Not logged in? Then false.
+            if($user->getOnline() == false){
+                $accessAllowed = false;
+            }
+            // Logged in but GM? Then true
+            else if(hasPermission("view", "gm")){
+                $accessAllowed = true;
+            }
+            else {
+                $accessAllowed = false;
+            }
+        }
+
+        return $accessAllowed;
     }
 }

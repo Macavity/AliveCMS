@@ -44,10 +44,10 @@ class Realms
 		
 		// Get the realms
 		$this->CI->load->model('cms_model');
-		
-		$realms = $this->CI->cms_model->getRealms();
 
-		if($realms != false)
+        $realms = $this->CI->cms_model->getRealms();
+
+        if($realms != false)
 		{
 			foreach($realms as $realm)
 			{

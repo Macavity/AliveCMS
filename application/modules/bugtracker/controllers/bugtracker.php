@@ -15,6 +15,11 @@ class Bugtracker extends MY_Controller{
     private $css = array();
     private $moduleTitle = 'Bugtracker';
 
+    private $categoryRealms = array(
+        1 => 1,
+        2 => 2,
+    );
+
     public function __construct()
     {
         //Call the constructor of MX_Controller
@@ -61,6 +66,20 @@ class Bugtracker extends MY_Controller{
         {
 
             $l0key = $l0project['id'];
+
+            /*
+             * Check if access to this realm is allowed for the current user
+             */
+            if(isset($this->categoryRealms[$l0key])){
+                $realm = $this->realms->getRealm($this->categoryRealms[$l0key]);
+
+                $accessAllowed = $realm->isAccessAllowed($this->user);
+
+                // Skip this category if the current user isn't allowed to view it.
+                if(!$accessAllowed){
+                    continue;
+                }
+            }
 
             $projectData = $this->project_model->getAllProjectData($l0key, $l0project);
 
@@ -207,7 +226,27 @@ class Bugtracker extends MY_Controller{
             show_error("Das Bugtracker Projekt wurde nicht gefunden.");
             return;
         }
-        //$searchProjects = array($projectId);
+
+        /*
+         * Breadcrumbs via MatPath
+         */
+        $projectPath = explode('.',$project['matpath']);
+
+        $l0key = intval($projectPath[0]);
+
+        /*
+         * Check if access to this realm is allowed for the current user
+         */
+        if(isset($this->categoryRealms[$l0key])){
+            $realm = $this->realms->getRealm($this->categoryRealms[$l0key]);
+
+            $accessAllowed = $realm->isAccessAllowed($this->user);
+            // Skip this category if the current user isn't allowed to view it.
+            if(!$accessAllowed){
+                show_error("Du hast keinen Zugriff auf dieses Bugtracker Projekt.");
+                return;
+            }
+        }
 
         $this->template->setTitle($project['title']." - ".$this->moduleTitle);
         $this->template->setSectionTitle($this->moduleTitle.": ".$project['title']);
@@ -229,11 +268,6 @@ class Bugtracker extends MY_Controller{
 
             //$searchProjects = array_merge($searchProjects, $subProjectIds);
         }
-
-        /*
-         * Breadcrumbs via MatPath
-         */
-        $projectPath = explode('.',$project['matpath']);
 
         while(count($projectPath)){
             $currentBreadcrumb = array_pop($projectPath)*1;
