@@ -1,13 +1,5 @@
 {$head}
 	<body>
-		<!--[if lte IE 8]>
-			<style type="text/css">
-				body {
-					background-image:url(images/bg.jpg);
-					background-position:top center;
-				}
-			</style>
-		<![endif]-->
 		<section id="wrapper">
 			{$modals}
             

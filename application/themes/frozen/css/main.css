@@ -1,5 +1,5 @@
 /*!
- * Senzaii - Frozen Theme CSS v6.2.0-171 - 2014-07-09 09:39
+ * Senzaii - Frozen Theme CSS v6.2.0-171 - 2014-07-09 23:13
  * http://www.senzaii.net/
  * Copyright (c) 2014 Senzaii
  */
@@ -8029,6 +8029,29 @@ textarea:focus, select:focus {
   width: 50% !important;
 }
 
+/**
+ * Vendor Prefixes
+ */
+/* placeholder reset */
+/**
+ * Gradients - only 2 Colors
+ */
+/**
+ * Text Shadow
+ */
+/**
+ * roundAllCorners
+ *
+ * Rounds every corner of an element
+ */
+/**
+ * roundCorners
+ *
+ * Rounds a specific corner of an element
+ */
+/**
+ * Box Shadow
+ */
 /* =========== Fonts =========== */
 @font-face {
   font-family: 'MuseoSans';
@@ -8101,12 +8124,13 @@ a img {
   border: none;
 }
 
-#left #left_menu li a, #top_menu li a, footer #logo {
+#left #left_menu li a,
+#top_menu li a, footer #logo {
   transition: 0.3s all;
-  -webkit-transition: 0.3s all;
   -moz-transition: 0.3s all;
-  -ms-transition: 0.3s all;
+  -webkit-transition: 0.3s all;
   -o-transition: 0.3s all;
+  -ms-transition: 0.3s all;
 }
 
 /* =========== Main =========== */
@@ -8155,9 +8179,8 @@ a#server-logo {
   height: 98px;
   background-image: url(../images/menu.png);
   margin: 0px 0 0 -7px;
-  text-align: center;
+  text-align: left;
   overflow: hidden;
-  position: relative;
   z-index: 8;
 }
 #wrapper #top_menu {
@@ -8189,10 +8212,10 @@ a#server-logo {
   border-radius: 2px;
   opacity: 0;
   transition: all 400ms;
-  -webkit-transition: all 400ms;
   -moz-transition: all 400ms;
-  -ms-transition: all 400ms;
+  -webkit-transition: all 400ms;
   -o-transition: all 400ms;
+  -ms-transition: all 400ms;
 }
 #top_menu li a {
   display: block;
@@ -8204,10 +8227,10 @@ a#server-logo {
   position: relative;
   z-index: 2;
   transition: all 400ms;
-  -webkit-transition: all 400ms;
   -moz-transition: all 400ms;
-  -ms-transition: all 400ms;
+  -webkit-transition: all 400ms;
   -o-transition: all 400ms;
+  -ms-transition: all 400ms;
 }
 #top_menu li a p {
   display: block;
@@ -8267,10 +8290,9 @@ a#server-logo {
 #left #left_menu li a {
   display: block;
   font-family: calibrib;
-  padding: 13px 13px 14px 13px;
+  padding: 13px 13px 14px 12px;
   font-size: 14px;
   color: #838b8f;
-  padding-left: 12px;
   background: url(../images/sidebar-menu.png) no-repeat;
 }
 #left #left_menu a img {
@@ -8325,8 +8347,7 @@ div.ornament-bar {
   color: #6a6f72;
 }
 #right article .divider {
-  background-image: url(../images/divider.png);
-  background-position: center;
+  background: url(../images/divider.png) center;
   height: 26px;
   margin-top: 15px;
 }
@@ -8417,9 +8438,7 @@ div.ornament-bar {
   right: 80px;
 }
 .accp_register #register_button {
-  background-image: url(../images/register.jpg);
-  background-repeat: no-repeat;
-  background-position: 0 0;
+  background: url(../images/register.jpg) no-repeat 0 0;
   display: block;
   width: 209px;
   height: 43px;
@@ -8431,9 +8450,7 @@ div.ornament-bar {
   background-position: 0 -43px;
 }
 .accp_register #accp_button {
-  background-image: url(../images/userpanel.jpg);
-  background-repeat: no-repeat;
-  background-position: 0 0;
+  background: url(../images/userpanel.jpg) no-repeat 0 0;
   display: block;
   width: 209px;
   height: 43px;
@@ -8469,7 +8486,6 @@ footer a#evil-logo {
   width: 17px;
   height: 28px;
   margin: 79px 130px 0 0;
-  padding: 0;
   padding: 10px;
 }
 footer a#evil-logo p, footer a#evil-logo span {
@@ -8483,10 +8499,10 @@ footer a#evil-logo p, footer a#evil-logo span {
   z-index: 1;
   opacity: 1;
   transition: all 400ms;
-  -webkit-transition: all 400ms;
   -moz-transition: all 400ms;
-  -ms-transition: all 400ms;
+  -webkit-transition: all 400ms;
   -o-transition: all 400ms;
+  -ms-transition: all 400ms;
 }
 footer a#evil-logo p {
   z-index: 2;
@@ -8519,10 +8535,10 @@ footer a#fcms-logo p, footer a#fcms-logo span {
   z-index: 1;
   opacity: 1;
   transition: all 400ms;
-  -webkit-transition: all 400ms;
   -moz-transition: all 400ms;
-  -ms-transition: all 400ms;
+  -webkit-transition: all 400ms;
   -o-transition: all 400ms;
+  -ms-transition: all 400ms;
 }
 footer a#fcms-logo p {
   z-index: 2;
@@ -8554,10 +8570,10 @@ footer a#fcms-logo:hover p {
 #slider a#slider_next, #slider a#slider_previous {
   opacity: 0;
   transition: all 600ms;
-  -webkit-transition: all 600ms;
   -moz-transition: all 600ms;
-  -ms-transition: all 600ms;
+  -webkit-transition: all 600ms;
   -o-transition: all 600ms;
+  -ms-transition: all 600ms;
   color: #c3b8a6;
   font-weight: bold;
 }
@@ -8571,7 +8587,6 @@ footer a#fcms-logo:hover p {
 
 /* =========== CMS: general =========== */
 .nice_button, input[type="submit"] {
-  background: url(../images/submit.gif) repeat-x;
   height: 18px;
   border-radius: 3px;
   text-align: center;
@@ -8582,15 +8597,19 @@ footer a#fcms-logo:hover p {
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8), 1px 1px 0 black;
   font-family: corbelb;
   margin-top: 10px;
-  background-position: middle;
+  background: url(../images/submit.gif) repeat-x middle;
   border: none;
   cursor: pointer;
   transition: all 400ms;
-  -webkit-transition: all 400ms;
   -moz-transition: all 400ms;
-  -ms-transition: all 400ms;
+  -webkit-transition: all 400ms;
   -o-transition: all 400ms;
-  box-shadow: inset 0 1px 0 #19272f, inset 0 -1px 0 #0d1b22, 0 0 6px rgba(0, 0, 0, 0.5), 0 1px 1px rgba(0, 0, 0, 0.4);
+  -ms-transition: all 400ms;
+  box-shadow: "inset 0 1px 0 #19272f, inset 0 -1px 0 #0d1b22, 0 0 6px rgba(0, 0, 0, 0.5), 0 1px 1px rgba(0, 0, 0, 0.4)";
+  -moz-box-shadow: "inset 0 1px 0 #19272f, inset 0 -1px 0 #0d1b22, 0 0 6px rgba(0, 0, 0, 0.5), 0 1px 1px rgba(0, 0, 0, 0.4)";
+  -webkit-box-shadow: "inset 0 1px 0 #19272f, inset 0 -1px 0 #0d1b22, 0 0 6px rgba(0, 0, 0, 0.5), 0 1px 1px rgba(0, 0, 0, 0.4)";
+  -o-box-shadow: "inset 0 1px 0 #19272f, inset 0 -1px 0 #0d1b22, 0 0 6px rgba(0, 0, 0, 0.5), 0 1px 1px rgba(0, 0, 0, 0.4)";
+  -ms-box-shadow: "inset 0 1px 0 #19272f, inset 0 -1px 0 #0d1b22, 0 0 6px rgba(0, 0, 0, 0.5), 0 1px 1px rgba(0, 0, 0, 0.4)";
 }
 
 .nice_button:hover, .nice_active, input[type="submit"]:hover {
@@ -8598,11 +8617,11 @@ footer a#fcms-logo:hover p {
 }
 
 .nice_button:active, input[type="submit"]:active {
-  box-shadow: 1px 1px 0px #020508, 0px 2px 5px #000 inset;
-  -webkit-box-shadow: 1px 1px 0px #020508, 0px 2px 5px #000 inset;
-  -moz-box-shadow: 1px 1px 0px #020508, 0px 2px 5px #000 inset;
-  -ms-box-shadow: 1px 1px 0px #020508, 0px 2px 5px #000 inset;
-  -o-box-shadow: 1px 1px 0px #020508, 0px 2px 5px #000 inset;
+  box-shadow: "1px 1px 0px #020508, 0px 2px 5px #000 inset";
+  -moz-box-shadow: "1px 1px 0px #020508, 0px 2px 5px #000 inset";
+  -webkit-box-shadow: "1px 1px 0px #020508, 0px 2px 5px #000 inset";
+  -o-box-shadow: "1px 1px 0px #020508, 0px 2px 5px #000 inset";
+  -ms-box-shadow: "1px 1px 0px #020508, 0px 2px 5px #000 inset";
 }
 
 /* OVERWRITE
@@ -8618,7 +8637,6 @@ div.realm {
   background: url(../images/status_light.png) no-repeat;
   font-family: corbelb;
   font-size: 14px;
-  color: #deb93b;
 }
 div.realm_online {
   color: #50575c !important;
@@ -8634,7 +8652,6 @@ div.realm_online {
   background: url(../images/pull-background.gif) repeat-x !important;
   padding: 1px;
   overflow: hidden;
-  margin: 0;
   position: relative;
   top: 6px;
 }
@@ -8675,10 +8692,10 @@ div#realmlist {
 .location {
   background: rgba(0, 0, 0, 0.8);
   transition: all 700ms;
-  -webkit-transition: all 700ms;
   -moz-transition: all 700ms;
-  -ms-transition: all 700ms;
+  -webkit-transition: all 700ms;
   -o-transition: all 700ms;
+  -ms-transition: all 700ms;
 }
 .location:hover {
   background: rgba(0, 0, 0, 0.7);

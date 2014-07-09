@@ -8,6 +8,9 @@
     <!-- CSS -->
     <link rel="stylesheet" href="{$style_path}main.css" type="text/css" />
     {if $extra_css}<link rel="stylesheet" href="{$path}{$extra_css}" type="text/css" />{/if}
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="{$style_path}ie.css" type="text/css" />
+    <![endif]-->
     <!-- / CSS Stylesheet -->
 
     <!-- Search engine related -->
