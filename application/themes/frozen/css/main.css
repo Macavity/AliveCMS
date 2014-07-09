@@ -1,5 +1,5 @@
 /*!
- * Senzaii - Frozen Theme CSS v6.2.0-171 - 2014-07-08 14:47
+ * Senzaii - Frozen Theme CSS v6.2.0-171 - 2014-07-09 09:39
  * http://www.senzaii.net/
  * Copyright (c) 2014 Senzaii
  */
@@ -745,9 +745,10 @@ th {
 }
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url("bootstrap/glyphicons-halflings-regular.eot");
-  src: url("bootstrap/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("bootstrap/glyphicons-halflings-regular.woff") format("woff"), url("bootstrap/glyphicons-halflings-regular.ttf") format("truetype"), url("bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg");
+  src: url("/application/fonts/glyphicons-halflings-regular.eot");
+  src: url("/application/fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("/application/fonts/glyphicons-halflings-regular.woff") format("woff"), url("/application/fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("/application/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg");
 }
+
 .glyphicon {
   position: relative;
   top: 1px;
@@ -1575,7 +1576,7 @@ th {
 
 html {
   font-size: 62.5%;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 body {
@@ -5495,6 +5496,7 @@ a.thumbnail.active {
     background-position: 0 0;
   }
 }
+
 .progress {
   overflow: hidden;
   height: 20px;
@@ -6665,7 +6667,7 @@ button.close {
   border-radius: 10px;
   cursor: pointer;
   background-color: #000 \9;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
 }
 .carousel-indicators .active {
   margin: 0;
@@ -6773,6 +6775,7 @@ button.close {
 @-ms-viewport {
   width: device-width;
 }
+
 .visible-xs, .visible-sm, .visible-md, .visible-lg {
   display: none !important;
 }
@@ -7939,10 +7942,10 @@ textarea:focus, select:focus {
   color: #fff;
 }
 .fusioneditor .fusioneditor_color:hover {
-  border: 1px solid transparent !important;
+  border: 1px solid rgba(0, 0, 0, 0) !important;
 }
 .fusioneditor .fusioneditor_color:active {
-  border: 1px solid transparent !important;
+  border: 1px solid rgba(0, 0, 0, 0) !important;
 }
 
 /* The pop up "autocomplete" box on private messages -> compose */
@@ -8034,6 +8037,7 @@ textarea:focus, select:focus {
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: 'MuseoSlab';
   src: url("../../../fonts/Museo_Slab_500-webfont.eot");
@@ -8041,16 +8045,19 @@ textarea:focus, select:focus {
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: corbelb;
   font-weight: normal;
   src: url(../fonts/CORBELB.TTF);
 }
+
 @font-face {
   font-family: calibrib;
   font-weight: normal;
   src: url(../fonts/CALIBRIB.TTF);
 }
+
 /* =========== General =========== */
 body {
   font-family: Verdana, Geneva, sans-serif;
