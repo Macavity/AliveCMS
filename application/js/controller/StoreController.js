@@ -272,9 +272,13 @@ define(['./BaseController','modules/wiki','modules/wiki_related', 'modules/core'
                 }
 
                 // Track the current cart items
-                this.shoppingCart.each(function(index, cartItem){
+                var i, cartItem;
+                var count = Controller.shoppingCart.length;
+
+                for(i = 0; i < count; i++){
+                    cartItem = Controller.shoppingCart[i];
                     _paq.push(['trackEvent', 'VoteShop', 'Buy Item', cartItem.name+"("+cartItem.id+")", cartItem.count]);
-                });
+                }
 
                 modal.addClass("disabled");
                 modalFooter.hide();
