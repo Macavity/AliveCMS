@@ -31,5 +31,10 @@
         <div id="realmlist">set realmlist {$realmlist}</div>
 
         <div class="side_divider"></div><br/>
+        <script>
+            $(document).ready(function(){
+                _paq.push(['trackEvent', 'Realm', '{$realm.name}', 'PlayersOnline', {$realm.onlinePlayers}]);
+            });
+        </script>
     {/if}
 {/foreach}

@@ -13,3 +13,9 @@
 		{lang("the_account", "register")} <b>{$account}</b> {lang("has_been_created_redirecting", "register")} {anchor("ucp", lang("user_panel", "register"))}...
 	</span>
 {/if}
+<script>
+    $(document).ready(function(){
+        var _paq = _paq || [];
+        _paq.push(['trackGoal', 1]);
+    });
+</script>
