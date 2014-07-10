@@ -11,6 +11,7 @@
     "license": "BSD",
     "devDependencies": {
         "grunt": "~0.4.1",
+        "grunt-cli": "*",
         "grunt-contrib-jade": "~0.8.0",
         "grunt-contrib-handlebars": "*",
         "grunt-contrib-requirejs": "~0.4.1",

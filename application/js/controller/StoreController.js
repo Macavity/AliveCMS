@@ -271,6 +271,15 @@ define(['./BaseController','modules/wiki','modules/wiki_related', 'modules/core'
                     return;
                 }
 
+                // Track the current cart items
+                var i, cartItem;
+                var count = Controller.shoppingCart.length;
+
+                for(i = 0; i < count; i++){
+                    cartItem = Controller.shoppingCart[i];
+                    _paq.push(['trackEvent', 'VoteShop', 'Buy Item', cartItem.name+"("+cartItem.id+")", cartItem.count]);
+                }
+
                 modal.addClass("disabled");
                 modalFooter.hide();
                 modalBody.html("<h3>" + mapStatic.lang.loading + "</h3>" + '<br><img src="/application/themes/shattered/images/uber-loading.gif">');

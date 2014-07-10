@@ -419,13 +419,14 @@ class Trinity_rbac_soap implements Emulator
 	  		)
 		);
 
-  		try 
+
+        try
   		{
    			$result = $client->executeCommand(new SoapParam($command, "command"));
   		}
   		catch (Exception $e)
   		{
-			die("Something went wrong! An administrator has been noticed and will send your order as soon as possible.<br /><br /><b>Error:</b> <br />"
+			die("Die SOAP Schnittstelle liefert derzeit einen Fehler zurück, Einkaufen im Shop ist momentan leider nicht möglich.<br /><br /><b>Error:</b> <br />"
                 .$e->getMessage()."<br>");
 		}
 	}

@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // Base URL to the Piwik Install
-$config['piwik_url'] = 'http://alivestats.paneon.de';
+$config['piwik_url'] = 'http://stats.paneon.de';
 
 // HTTPS Base URL to the Piwik Install (not required)
 $config['piwik_url_ssl'] = '';
@@ -16,4 +16,5 @@ $config['token'] = 'c60a216bca9fe73dc43cf1a6988a32c9';
 $config['geoip_on'] = TRUE;
 
 // Controls whether piwik_tag helper function outputs tracking tag (for production, set to TRUE)
-$config['tag_on'] = TRUE;
+// Achtung: Wird bei uns manuell eingebunden im template
+$config['tag_on'] = false;
