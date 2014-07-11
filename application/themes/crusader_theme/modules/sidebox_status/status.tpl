@@ -1,16 +1,16 @@
 {foreach from=$realms item=realm}
 	<div class="realm">
 		<div class="realm_online">
-			{if $realm->isOnline()}
-				{$realm->getOnline()} / {$realm->getCap()}
+			{if $realm.online}
+				{$realm.onlinePlayers} / {$realm.cap}
 			{else}
 				Offline
 			{/if}
 		</div>
-		{$realm->getName()}
+		{$realm.name}
 		
 		<div class="realm_bar">
-			{if $realm->isOnline()}
+			{if $realm.online}
 				<div class="realm_bar_fill" style="width:{$realm->getPercentage()}%"></div>
 			{/if}
 		</div>

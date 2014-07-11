@@ -11,7 +11,7 @@
                 {/if}
             </div>
             
-            <a id="server-logo" href="./" title=""><!--{$serverName}--></a>
+            <a id="server-logo" href="./" title=""><!-- {$serverName} --></a>
             <div class="top_menu">
                 <ul id="top_menu">
                     {foreach from=$menu_top item=menu_1}
@@ -70,19 +70,47 @@
 				<h3>{$serverName} &copy; Copyright 2014 </h3>
 			</footer>
 
-            <!-- Service Bar -->
+            {* Service Bar *}
             <section id="service">
-                <ul class="service-bar">
-                    <li class="service-cell service-home"><a href="/" tabindex="50" accesskey="1" title="Senzaii"><span class="glyphicon glyphicon-home"></span></a></li>
-                    {if $isOnline}
-                        <li class="service-cell service-welcome">
-                            Willkommen, {if $is_staff}<span class="employee"></span>{/if}{$user_name}
-                        </li>
-                    {/if}
-                    {foreach from=$menu_explore item=menu_item}
-                        <li class="service-cell {$menu_item.css_class}"><a {$menu_item.link} class="service-link">{$menu_item.name}</a></li>
-                    {/foreach}
-                </ul>
+                {if $isOnline}
+                    <div class="account_info">
+
+                        {* Avatar *}
+                        <div class="avatar_top">
+                            <img src="{$avatar}" width="50" height="50"/>
+                        </div>
+                        {* END Avatar *}
+
+                        {* Welcome & VP/DP *}
+                        <div class="left">
+                            <p>Willkommen zurück, <span>{$CI->user->getUsername()}</span>!</p>
+
+                            <div class="vpdp">
+                                <div class="vp">
+                                    <img src="{$url}application/images/icons/lightning.png" align="absmiddle" width="12" height="12" /> VP
+                                    <span>{$CI->user->getVp()}</span>
+                                </div>
+                            </div>
+                        </div>
+                        {* END Welcome & VP/DP *}
+
+                        {* Explore Menu Links *}
+                        <ul class="service-bar right">
+                            {foreach from=$menu_explore item=menu_item}
+                                <li class="service-cell {$menu_item.css_class}"><a {$menu_item.link} class="service-link">{$menu_item.name}</a></li>
+                            {/foreach}
+                        </ul>
+                        {* END Explore Menu Links *}
+                    </div>
+                {else}
+                    <div class="login_form_top">
+                        {form_open('login')}
+                        <input type="text" name="login_username" id="login_username" value="" placeholder="Username">
+                        <input type="password" name="login_password" id="login_password" value="" placeholder="Password">
+                        <input type="submit" name="login_submit" value="Login">
+                        </form>
+                    </div>
+                {/if}
             </section>
 
         </section>
