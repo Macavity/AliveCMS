@@ -116,4 +116,18 @@ class World_model
 			}
 		}
 	}
+
+    public function getSizedIcon($icon,$size = 56){
+        $url = 'http://media.blizzard.com/wow/icons/'.$size.'/'.$icon.'.jpg';
+        $localUrl = $_SERVER['DOCUMENT_ROOT'].'/application/images/icons/'.$size.'/'.$icon.".jpg";
+
+        if(file_exists($localUrl)){
+            return;
+        }
+
+        $contents = file_get_contents($url);
+        if(strlen($contents) > 0){
+            file_put_contents($localUrl, $contents);
+        }
+    }
 }

@@ -15,3 +15,5 @@ $config['migration_copy_source_realm_ids'] = array(1);
 $config['migration_copy_target_realm_ids'] = array(2);
 
 $config['migraction_max_realmcopies'] = 1;
+
+$config['starter_package_max_per_account'] = 1;
