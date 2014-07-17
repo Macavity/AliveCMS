@@ -12,7 +12,7 @@
  * @property External_account_model $external_account_model
  */
 
-class Internal_user_model extends CI_Model
+class Internal_user_model extends MY_Model
 {
 	private $connection;
 	private $vp;
@@ -47,7 +47,7 @@ class Internal_user_model extends CI_Model
 
 		$this->connection = $this->load->database("cms", true);
 		$this->permissionCache = array();
-		
+
 		if($this->user->getOnline())
 		{
 			$this->initialize();
@@ -123,7 +123,7 @@ class Internal_user_model extends CI_Model
          */
         if($this->vp == 0)
         {
-            $this->vp = $this->config->item('vote_points_for_new_users');
+            $this->vp = 200;
         }
 
         $this->dp = 0;

@@ -63,6 +63,8 @@ class Migration extends MY_Controller
      */
     public function index()
     {
+        requirePermission("view");
+
         //debug("Server ($page)");
         $this->template->addBreadcrumb("Transferanleitung", site_url(array("migration", "index")));
 
@@ -72,6 +74,121 @@ class Migration extends MY_Controller
 
         $out = $this->template->loadPage("migration_index.tpl");
             
+        $this->template->view($out);
+    }
+
+    public function starter(){
+
+        // Has to be logged in.
+        $this->user->userArea();
+
+        requirePermission("view");
+        /**
+         * @TODO Remove later
+         */
+        requirePermission("canAdministrate");
+
+        $this->template->addBreadcrumb("Starter Paket", site_url(array("migration", "starter")));
+
+        $this->template->setTitle("Starter Paket");
+        $this->template->setSectionTitle("Starter Paket");
+
+        $hasError = false;
+        $errorMessages = array();
+
+        $activeCharGuid = $this->user->getActiveCharacter();
+
+        $accountMigrationCount = count($this->migration_model->getAccountStarterPackage($this->user->getId()));
+
+        if($accountMigrationCount > $this->config->item("starter_package_max_per_account")){
+            $hasError = true;
+            $errorMessages[] = "Du hast bereits das Limit an möglichen Starter Paketen (".$this->config->item("starter_package_max_per_account").") erschöpft.";
+        }
+
+        $classId = 0;
+        $classLabel = "";
+        $talentTrees = array();
+        $itemData = array();
+
+        $starterBag = 21841;    // 4x
+        $starterMoney = 20000000;
+        //.char customize, .cheat taxi on,
+        $starterSpells = array(33388,33391,34090);
+
+        $talentTreeLabels = array(
+            'melee' => 'Nahkampf',
+            'tank' => 'Tank',
+            'range' => 'Fernkampf',
+            'heal' => 'Heilung'
+        );
+
+        if($activeCharGuid > 0){
+            $activeChar = $this->user->getActiveCharacterData();
+
+            if($this->user->getActiveRealmId() != 1){
+                $hasError = true;
+                $errorMessages[] = "Du kannst auf diesem Realm kein Starterpaket erwerben.";
+            }
+
+            $charLevel = $activeChar['level'];
+            $classId = $activeChar['class'];
+            $classLabel = $this->realms->getClass($classId, $activeChar['gender']);
+
+            switch($classId){
+                case CLASS_DK:
+                    $talentTrees['melee'] = array(28225,27771,27403,27497,27870,28288,28393,28375,28371,28318,34789,27551,27460,27904,27416);
+                    $talentTrees['tank'] = array(28350,27803,28205,27475,27977,27813,28256,34706,27672,27770,27551,27459,28367,27904,34473);
+                    break;
+                case CLASS_DRUID:
+                    $talentTrees['range'] = array(28348,27737,28202,27468,27873,28254,29330,29322,29288,30787,28269,28398,34707,27683,27483,28190);
+                    $talentTrees['melee'] = array(28224,27797,28264,27531,27837,30707,28288,28343,29329,31464,32665,27712,27453,27925,31547);
+                    $talentTrees['heal'] = array(28348,27737,28202,27468,27873,28254,29330,29322,29288,30787,28269,28398,34707,27683,27483,28190);
+                    break;
+                case CLASS_WARLOCK:
+                    $talentTrees['range'] = array(28415,27778,28232,27537,27948,28254,29288,29320,28190,31465,31461,28386,27683,27451,30787,28412);
+                    break;
+                case CLASS_HUNTER:
+                    $talentTrees['range'] = array(28275,27801,28228,27474,27874,27865,28384,28263,28263,28288,28343,31462,32665,27453,27925,31547,27987);
+                    break;
+                case CLASS_WARRIOR:
+                    $talentTrees['melee'] = array(28225,27771,27403,27497,27870,28288,28393,28393,28375,28371,28318,34789,27551,27460,27904,27416);
+                    $talentTrees['tank'] = array(28350,27803,28205,27475,27977,27813,28256,34706,27672,27770,27551,27459,27490,31491,27904,34473);
+                    break;
+                case CLASS_MAGE:
+                    $talentTrees['range'] = array(28413,27775,28230,27536,27875,28254,29288,29320,28190,31465,31461,28386,27683,27451,30787,28412);
+                    break;
+                case CLASS_PALADIN:
+                    $talentTrees['heal'] = array(28285,27739,28203,27535,27839,37747,29333,29284,31465,28394,32778,27548,27683,28190,27899,27489);
+                    $talentTrees['tank'] = array(28350,27803,28205,27475,27977,27813,28256,34706,27672,27770,27551,27459,27490,31491,27904,34473);
+                    $talentTrees['melee'] = array(28225,27771,27403,27497,27870,28288,28393,28375,28371,28318,34789,27551,27460,27904,27416);
+                    break;
+                case CLASS_PRIEST:
+                    $talentTrees['heal'] = array(28413,27775,28230,27536,27875,28254,29288,29320,28190,31465,31461,28386,27683,27451,30787,28412);
+                    $talentTrees['range'] = array(28413,27775,28230,27536,27875,28254,29288,29320,28190,31465,31461,28386,27683,27451,30787,28412);
+                    break;
+                case CLASS_SHAMAN:
+                    $talentTrees['range'] = array(28349,27802,28231,27510,27909,29284,29320,28254,31465,30787,27683,27743,28190,27845,28194,27772);
+                    $talentTrees['melee'] = array(28192,27713,28401,27528,27936,27865,28384,28263,28263,28288,28343,31462,32665,27453,27925,31547);
+                    $talentTrees['heal'] = array(28349,27802,28231,27510,27909,29284,29320,28254,31465,30787,27683,27743,28190,27845,28194,27772);
+                    break;
+                case CLASS_ROGUE:
+                    $talentTrees['melee'] = array(28414,27776,28204,27509,27908,30707,28226,28226,28286,28288,28343,31464,32532,27453,27925,27416,27878);
+                    break;
+                default:
+                    //
+            }
+
+        }
+
+        $out = $this->template->loadPage("migration_starter.tpl", compact(
+            'activeCharGuid',
+            'hasError', 'errorMessages',
+            'classId', 'classLabel',
+            'talentTreeLabels', 'talentTrees',
+            'starterBag', 'starterMoney', 'starterSpells',
+            'itemData'
+        ));
+
         $this->template->view($out);
     }
 
@@ -277,6 +394,12 @@ class Migration extends MY_Controller
     }
 
     public function form(){
+        requirePermission("view");
+
+        // Has to be logged in.
+        $this->user->userArea();
+
+
         $this->template->addBreadcrumb("Transferanleitung", site_url(array("migration", "index")));
         $this->template->addBreadcrumb("Charaktertransfer", site_url(array("migration", "form")));
 

@@ -5,6 +5,7 @@ define("MIGRATION_STATUS_IN_PROGRESS", 2);
 define("MIGRATION_STATUS_DONE", 3);
 define("MIGRATION_STATUS_DECLINED", 4);
 define("MIGRATION_STATUS_LEGACY", 5);
+define("MIGRATION_STARTER_DONE", 10);
 
 /**
  * Class Migration_Model
@@ -225,6 +226,9 @@ class Migration_model extends MY_Model {
             ),
             MIGRATION_STATUS_DONE => array(
                 "label" => "Erledigt"
+            ),
+            MIGRATION_STARTER_DONE => array(
+                "label" => "Starter Paket"
             ),
         );
 
@@ -619,6 +623,29 @@ class Migration_model extends MY_Model {
         }
 
         return array();
+    }
+
+    /**
+     * Get all accquired starter pakets of this account
+     *
+     * @param $accountId
+     * @return array
+     */
+    public function getAccountStarterPackage($accountId){
+
+        $this->db->select('id,server_name,character_name,status,actions')
+            ->where("account_id", $accountId)
+            ->where("status", MIGRATION_STARTER_DONE)
+            ->from($this->tableName);
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0){
+            $result = $query->result_array();
+            return $result;
+        }
+
+        return array();
+
     }
 
     /**
