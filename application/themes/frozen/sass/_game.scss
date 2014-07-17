@@ -1,40 +1,94 @@
+
+@import "colors";
+
 .module-game {
 
-  aside{
-    background-color: rgb(26,15,8);
-    &:after,&:before {
-      clear: both;
-    }
-  }
-
-  .wrapper {
-    display: inline-block;
-
-    &:after {
-      clear: both;
-    }
-  }
-
-
-  .groups
-  {
-    width: 730px;
-
-    background: url(../images/news-bg.png) no-repeat top;
-    padding: 0;
-    margin: 0 20px 2px 30px;
-
-    @include vendorPrefix(box-shadow, 0 0 30px black);
-
-    .group
-    {
-      background: #211309 url(../images/news-bg.png) 0 0 no-repeat;
-
-      .group-column {
-        h3 {
-          margin-bottom: 0px;
+    aside{
+        background-color: $bgDarkBlue;
+        &:after,&:before {
+            clear: both;
         }
-      }
     }
-  }
+
+    .wrapper {
+        display: inline-block;
+
+        &:after {
+            clear: both;
+        }
+    }
+
+    .title {
+        h2 {
+            color: $lighterHighlight;
+            text-shadow: #000 0 0 5px;
+        }
+        .desc {
+            color: $lighterHighlight;
+        }
+    }
+
+    .wiki .row {
+        margin-left: 0px;
+        margin-right: 0px;
+        .navigation {
+            li {
+                a {
+                    color: $linkSidebar;
+
+                    @include addGradient(rgb(18, 29, 36), rgb(17, 24, 32));
+                    border-top: 1px solid #0E3231;
+                    border-bottom: 1px solid #000F0E;
+                    border-right: 1px solid #0D2B2A;
+
+                    &.nav-active,
+                    &.nav-active:hover{
+                        color: $linkSidebarActive;
+                    }
+
+                    &:hover {
+                        color: $linkSidebarHover;
+                    }
+
+                }
+            }
+        }
+    }
+
+
+
+    .groups
+    {
+        width: 730px;
+
+        background: url(../images/news-bg.png) no-repeat top;
+        padding: 0;
+        margin: 0 20px 2px 30px;
+
+        @include vendorPrefix(box-shadow, 0 0 30px black);
+
+        .group
+        {
+            background: #161921 url(../images/news-bg.png) 0 0 no-repeat;
+
+            .group-column {
+                h3 {
+                    color: $lighterHighlight;
+                    margin-bottom: 0px;
+                }
+                ul {
+                    border-top: 1px solid $lightHighlight;
+                }
+                .separator {
+                    color: $lightHighlight;
+                }
+            }
+            .level-range {
+                color: $lightHighlight;
+            }
+        }
+    }
 }
+
+
+

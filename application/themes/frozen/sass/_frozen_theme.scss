@@ -227,7 +227,7 @@ a#server-logo {
             }
         }
         .body {
-            padding: 10px;
+            padding: 10px 0px 10px 10px;
             background: rgba(204, 244, 255, 0.02) url(../images/sidebar-box-shadow.png) repeat-y left;
             box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.01), 0 3px 1px rgba(0, 0, 0, 0.4);
         }
@@ -283,11 +283,16 @@ div.ornament-bar {
     width: 735px;
     float: left;
     margin-right: 1px;
+
+    &.full-width {
+        width: 100%;
+    }
+
     article {
         background: url(../images/news-background.png) no-repeat top;
 
         .top {
-            height: 45px;
+            height: 65px;
             width: 714px;
             text-align: left;
             color: #cf9139;

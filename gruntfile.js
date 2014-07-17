@@ -194,7 +194,8 @@ module.exports = function(grunt) {
             frozenDev: {
                 options: {
                     banner: bannerTemplate({name:"Senzaii - Frozen Theme CSS", version:"<%=pkg.version%>"}),
-                    style: "expanded"
+                    style: "expanded",
+                    debugInfo: true
                 },
                 files: {
                     'application/themes/frozen/css/main.css': 'application/themes/frozen/sass/main.scss',
@@ -331,6 +332,12 @@ module.exports = function(grunt) {
                     'application/themes/shattered/css/**/*.scss'
                 ],
                 tasks: ['sass:dist']
+            },
+            cssFrozen: {
+                files: [
+                    'application/themes/frozen/**/*.scss'
+                ],
+                tasks: ['sass:frozenDev']
             },
             cssAdmin: {
                 files: [

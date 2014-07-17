@@ -35,12 +35,12 @@ $icon-font-path: "/application/fonts/";
  * Module: Game
  */
 @import "../../../modules/game/css/game";
+@import "../../../modules/game/css/zones";
 @import "game";
 
 /**
  * Module: Server
  */
-@import "../../../modules/server/css/server";
 @import "server";
 
 /**

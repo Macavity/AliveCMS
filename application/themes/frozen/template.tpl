@@ -1,5 +1,5 @@
 {$head}
-	<body>
+	<body id="{$controller}-{$method}" class="module-{$controller}">
 		<section id="wrapper">
 			{$modals}
             
@@ -44,7 +44,7 @@
                     </aside>
                 {/if}
 
-				<aside id="right">
+				<aside id="right"{if $show_sidebar == false} class="full-width"{/if}>
                     {if $show_slider}
                         {$slider}
                     {/if}
