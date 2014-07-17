@@ -1,5 +1,5 @@
 /*!
- * Senzaii - Frozen Theme CSS v6.2.0-171 - 2014-07-17 12:25
+ * Senzaii - Frozen Theme CSS v6.2.0-171 - 2014-07-17 12:59
  * http://www.senzaii.net/
  * Copyright (c) 2014 Senzaii
  */
@@ -8841,6 +8841,44 @@ div#realmlist {
 .sidebar-module .light {
   color: #FFFFFF;
   font-size: 11px;
+}
+.sidebar-module ul {
+  position: relative;
+  background: url("../images/sidebar_shadow.png") no-repeat bottom;
+}
+.sidebar-module ul li {
+  padding: 0 0;
+  height: 48px;
+  position: relative;
+}
+.sidebar-module ul li a {
+  position: relative;
+  display: block;
+  font-family: calibrib;
+  padding: 13px 13px 14px 30px;
+  font-size: 14px;
+  color: #838b8f;
+  background: url("../images/sidebar-menu.png") no-repeat;
+  transition: 0.3s all;
+  -moz-transition: 0.3s all;
+  -webkit-transition: 0.3s all;
+  -o-transition: 0.3s all;
+  -ms-transition: 0.3s all;
+}
+.sidebar-module ul li a:hover {
+  color: #ffca4a;
+  padding-left: 40px;
+  background: url("../images/sidebar-menu.png") no-repeat rgba(0, 0, 0, 0.25);
+}
+.sidebar-module ul li a:before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 10px;
+  top: 17px;
+  background: url("../images/bullet.png") no-repeat transparent;
+  width: 15px;
+  height: 15px;
 }
 
 /**

@@ -26,4 +26,44 @@
         color: #FFFFFF;
         font-size: 11px;
     }
+
+    ul {
+        position: relative;
+        background: url("../images/sidebar_shadow.png") no-repeat bottom;
+        li {
+            padding: 0 0;
+            height: 48px;
+            position: relative;
+
+            a {
+                position: relative;
+                display: block;
+                font-family: calibrib;
+                padding: 13px 13px 14px 30px;
+                font-size: 14px;
+                color: #838b8f;
+                background: url("../images/sidebar-menu.png") no-repeat;
+
+                @include vendorPrefix(transition, 0.3s all);
+
+                &:hover {
+                    color: #ffca4a;
+                    padding-left: 40px;
+                    background: url("../images/sidebar-menu.png") no-repeat rgba(0, 0, 0, 0.25);
+                }
+
+                &:before {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    left: 10px;
+                    top: 17px;
+
+                    background: url("../images/bullet.png") no-repeat transparent;
+                    width: 15px;
+                    height: 15px;
+                }
+            }
+        }
+    }
 }
