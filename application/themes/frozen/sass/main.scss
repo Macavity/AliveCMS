@@ -27,6 +27,11 @@ $icon-font-path: "/application/fonts/";
 @import "sidebar";
 
 /**
+ * Home
+ */
+@import "home_slider";
+
+/**
  * Module: Game
  */
 @import "../../../modules/game/css/game";

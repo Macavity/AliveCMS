@@ -25,14 +25,6 @@
                 <div class="ice_ornament_left_menu"></div>
                 {if $show_sidebar}
                     <aside id="left">
-                        <article>
-                            <ul id="left_menu">
-                                {foreach from=$menu_side item=menu_2}
-                                    <li><a {$menu_2.link}><img src="{$image_path}bullet.png">{$menu_2.name}</a></li>
-                                {/foreach}
-                                <li class="bot_shadow"></li>
-                            </ul>
-                        </article>
                         {foreach from=$sideboxes item=sidebox}
                             <article id="{$sidebox.css_id}" class="sidebar-module">
                                 <h1 class="top"><p>{$sidebox.name}</p></h1>
@@ -41,18 +33,20 @@
                                 </section>
                             </article>
                         {/foreach}
+                        <article>
+                            <ul id="left_menu">
+                                {foreach from=$menu_side item=menu_2}
+                                    <li><a {$menu_2.link}><img src="{$image_path}bullet.png">{$menu_2.name}</a></li>
+                                {/foreach}
+                                <li class="bot_shadow"></li>
+                            </ul>
+                        </article>
                     </aside>
                 {/if}
 
 				<aside id="right">
                     {if $show_slider}
-                        <section id="slider_bg">
-                            <div id="slider">
-                                {foreach from=$slider item=image}
-                                    <a href="{$image.link}"><img src="{$image.image}" title="{$image.text}"/></a>
-                                {/foreach}
-                            </div>
-                        </section>
+                        {$slider}
                     {/if}
 
                     {if $show_sidebar == false}
@@ -74,28 +68,26 @@
             <section id="service">
                 {if $isOnline}
                     <div class="account_info">
+                        <div class="user-info">
+                            <div class="pull-left user-avatar">
+                                <img src="/application/images/avatars/Paladin-bloodelf-f-70.gif" width="50" height="50"/>
+                            </div>
+                            <div class="pull-right service-cell">
+                                <div>Willkommen zurück, <strong>{$CI->user->getUsername()}</strong>!</div>
 
-                        {* Avatar *}
-                        <div class="avatar_top">
-                            <img src="{$avatar}" width="50" height="50"/>
-                        </div>
-                        {* END Avatar *}
-
-                        {* Welcome & VP/DP *}
-                        <div class="left">
-                            <p>Willkommen zurück, <span>{$CI->user->getUsername()}</span>!</p>
-
-                            <div class="vpdp">
-                                <div class="vp">
-                                    <img src="{$url}application/images/icons/lightning.png" align="absmiddle" width="12" height="12" /> VP
-                                    <span>{$CI->user->getVp()}</span>
+                                <div class="vpdp">
+                                    <div class="vp">
+                                        <img src="{$url}application/images/icons/lightning.png" align="absmiddle" width="12" height="12" />
+                                        <span>{$CI->user->getVp()}</span>
+                                        Votepunkte
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         {* END Welcome & VP/DP *}
 
                         {* Explore Menu Links *}
-                        <ul class="service-bar right">
+                        <ul class="service-bar pull-right">
                             {foreach from=$menu_explore item=menu_item}
                                 <li class="service-cell {$menu_item.css_class}"><a {$menu_item.link} class="service-link">{$menu_item.name}</a></li>
                             {/foreach}

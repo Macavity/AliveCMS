@@ -1,25 +1,52 @@
+@import "mixins";
+
 #service {
-  float: right;
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 200;
+    float: right;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 200;
+
+    background-color: #343c46;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Arial, sans-serif;
+
+    @include roundCorners(5px, (bottom-left, bottom-right));
+    @include vendorPrefix(user-select, none);
+    @include vendorPrefix(box-shadow, 0 0 20px rgba(0,0,0,.7));
+
 }
 
 .service-bar {
   display: inline-block;
   float: right;
-  font-family: "Lucida Sans Unicode", "Lucida Grande", Arial, sans-serif;
   position: relative;
   text-align: right;
   z-index: 75;
-  background-color: #343c46;
-
-  @include roundCorners(2px, (bottom-left, bottom-right));
-  @include vendorPrefix(user-select, none);
-  @include vendorPrefix(box-shadow,0 0 8px black);
 }
+.user-info {
+    display: inline-block;
+    float: left;
+    position: relative;
+    z-index: 75;
 
+    .user-avatar img {
+
+        max-width: 50px;
+        max-height: 50px;
+
+        @include roundCorners(5px, (bottom-left));
+
+    }
+
+    .service-cell {
+
+        padding: 8px 5px 0 10px;
+        strong {
+            color: #96a9b2;
+        }
+
+    }
+}
 .service-cell {
   float: left;
   color: #8694a1;
@@ -32,8 +59,8 @@
     cursor: pointer;
     text-decoration: none;
     display: block;
-    line-height: 33px;
-    padding: 0 8px;
+    line-height: 50px;
+    padding: 0 10px;
 
     @include vendorPrefix(text-shadow, 0px -1px 0 rgba(0,0,0,0.8));
 

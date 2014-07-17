@@ -69,9 +69,10 @@ input, select, textarea {
 
 a {
     text-decoration: none;
-    color: #bd8421;
+    color: rgba(196, 162, 105, 0.86);
+
     &:hover {
-        color: #ffc437;
+        color: #E0C98F;
     }
     img {
         border: none;
@@ -351,7 +352,7 @@ div.ornament-bar {
         padding: 0 !important;
         margin: 0 !important;
         font-family: corbelb !important;
-        font-size: 16px !important;
+        font-size: 18px !important;
         color: #cdd9e1 !important;
         height: auto !important;
         text-shadow: 0 0 6px #000, 1px 1px 0 #000;
@@ -430,7 +431,7 @@ footer {
     text-align: right;
     h3 {
         display: block;
-        color: #6f7a82;
+        color: rgba(111, 122, 130, 0.57);
         font-size: 13px;
         text-shadow: 0 0 4px rgba(0, 0, 0, 0.4), 1px 1px 0 rgba(0, 0, 0, 0.4);
         position: relative;
@@ -516,6 +517,7 @@ footer {
     position: relative;
     padding: 0 0 28px 0;
     z-index: 2;
+    overflow:hidden;
 }
 
 #slider {

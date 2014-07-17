@@ -1,5 +1,5 @@
 /*!
- * Senzaii - Frozen Theme CSS v6.2.0-171 - 2014-07-09 23:13
+ * Senzaii - Frozen Theme CSS v6.2.0-171 - 2014-07-17 12:25
  * http://www.senzaii.net/
  * Copyright (c) 2014 Senzaii
  */
@@ -8115,10 +8115,10 @@ input, select, textarea {
 
 a {
   text-decoration: none;
-  color: #bd8421;
+  color: rgba(196, 162, 105, 0.86);
 }
 a:hover {
-  color: #ffc437;
+  color: #E0C98F;
 }
 a img {
   border: none;
@@ -8396,7 +8396,7 @@ div.ornament-bar {
   padding: 0 !important;
   margin: 0 !important;
   font-family: corbelb !important;
-  font-size: 16px !important;
+  font-size: 18px !important;
   color: #cdd9e1 !important;
   height: auto !important;
   text-shadow: 0 0 6px #000, 1px 1px 0 #000;
@@ -8473,7 +8473,7 @@ footer {
 }
 footer h3 {
   display: block;
-  color: #6f7a82;
+  color: rgba(111, 122, 130, 0.57);
   font-size: 13px;
   text-shadow: 0 0 4px rgba(0, 0, 0, 0.4), 1px 1px 0 rgba(0, 0, 0, 0.4);
   position: relative;
@@ -8559,6 +8559,7 @@ footer a#fcms-logo:hover p {
   position: relative;
   padding: 0 0 28px 0;
   z-index: 2;
+  overflow: hidden;
 }
 
 #slider {
@@ -8840,6 +8841,72 @@ div#realmlist {
 .sidebar-module .light {
   color: #FFFFFF;
   font-size: 11px;
+}
+
+/**
+ * Home
+ */
+/**
+ * Vendor Prefixes
+ */
+/* placeholder reset */
+/**
+ * Gradients - only 2 Colors
+ */
+/**
+ * Text Shadow
+ */
+/**
+ * roundAllCorners
+ *
+ * Rounds every corner of an element
+ */
+/**
+ * roundCorners
+ *
+ * Rounds a specific corner of an element
+ */
+/**
+ * Box Shadow
+ */
+#carousel-slider .carousel-inner {
+  z-index: 5;
+}
+#carousel-slider .carousel-inset {
+  display: block;
+  position: absolute;
+  z-index: 6;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 0px 0px 40px 15px rgba(0, 0, 0, 0.9);
+  -moz-box-shadow: inset 0px 0px 40px 15px rgba(0, 0, 0, 0.9);
+  -webkit-box-shadow: inset 0px 0px 40px 15px rgba(0, 0, 0, 0.9);
+  -o-box-shadow: inset 0px 0px 40px 15px rgba(0, 0, 0, 0.9);
+  -ms-box-shadow: inset 0px 0px 40px 15px rgba(0, 0, 0, 0.9);
+}
+#carousel-slider .carousel-indicators {
+  bottom: 0px;
+}
+#carousel-slider .carousel-caption {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  z-index: 35;
+  text-shadow: 0 0 15px black, 0 0 15px black, 0 0 5px black, 0 0 19px black, 0 0 19px black;
+  background: none;
+  text-align: center;
+}
+#carousel-slider .carousel-caption h3 {
+  font-size: 22px;
+  font-weight: bold;
+  text-shadow: 0 0 15px black, 0 0 15px black, 0 0 5px black, 0 0 19px black, 0 0 19px black;
+}
+#carousel-slider .carousel-caption h3 a {
+  color: #fff8d6;
+}
+#carousel-slider .carousel-caption h3 a:hover {
+  color: #fff;
 }
 
 /**
@@ -10493,42 +10560,87 @@ div#realmlist {
 /*
  * Top Navigation Menu
  */
+/**
+ * Vendor Prefixes
+ */
+/* placeholder reset */
+/**
+ * Gradients - only 2 Colors
+ */
+/**
+ * Text Shadow
+ */
+/**
+ * roundAllCorners
+ *
+ * Rounds every corner of an element
+ */
+/**
+ * roundCorners
+ *
+ * Rounds a specific corner of an element
+ */
+/**
+ * Box Shadow
+ */
 #service {
   float: right;
   position: absolute;
   top: 0;
   right: 0;
   z-index: 200;
-}
-
-.service-bar {
-  display: inline-block;
-  float: right;
-  font-family: "Lucida Sans Unicode", "Lucida Grande", Arial, sans-serif;
-  position: relative;
-  text-align: right;
-  z-index: 75;
   background-color: #343c46;
-  border-bottom-left-radius: 9px;
-  -moz-border-bottom-left-radius: 9px;
-  -webkit-border-bottom-left-radius: 9px;
-  -o-border-bottom-left-radius: 9px;
-  -ms-border-bottom-left-radius: 9px;
-  border-bottom-right-radius: 9px;
-  -moz-border-bottom-right-radius: 9px;
-  -webkit-border-bottom-right-radius: 9px;
-  -o-border-bottom-right-radius: 9px;
-  -ms-border-bottom-right-radius: 9px;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Arial, sans-serif;
+  border-bottom-left-radius: 5px;
+  -moz-border-bottom-left-radius: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -o-border-bottom-left-radius: 5px;
+  -ms-border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  -moz-border-bottom-right-radius: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  -o-border-bottom-right-radius: 5px;
+  -ms-border-bottom-right-radius: 5px;
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
   -o-user-select: none;
   -ms-user-select: none;
-  box-shadow: 0 0 8px black;
-  -moz-box-shadow: 0 0 8px black;
-  -webkit-box-shadow: 0 0 8px black;
-  -o-box-shadow: 0 0 8px black;
-  -ms-box-shadow: 0 0 8px black;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+  -o-box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+  -ms-box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+}
+
+.service-bar {
+  display: inline-block;
+  float: right;
+  position: relative;
+  text-align: right;
+  z-index: 75;
+}
+
+.user-info {
+  display: inline-block;
+  float: left;
+  position: relative;
+  z-index: 75;
+}
+.user-info .user-avatar img {
+  max-width: 50px;
+  max-height: 50px;
+  border-bottom-left-radius: 5px;
+  -moz-border-bottom-left-radius: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -o-border-bottom-left-radius: 5px;
+  -ms-border-bottom-left-radius: 5px;
+}
+.user-info .service-cell {
+  padding: 8px 5px 0 10px;
+}
+.user-info .service-cell strong {
+  color: #96a9b2;
 }
 
 .service-cell {
@@ -10543,8 +10655,8 @@ div#realmlist {
   cursor: pointer;
   text-decoration: none;
   display: block;
-  line-height: 33px;
-  padding: 0 8px;
+  line-height: 50px;
+  padding: 0 10px;
   text-shadow: 0px -1px 0 rgba(0, 0, 0, 0.8);
   -moz-text-shadow: 0px -1px 0 rgba(0, 0, 0, 0.8);
   -webkit-text-shadow: 0px -1px 0 rgba(0, 0, 0, 0.8);
@@ -10580,11 +10692,11 @@ div#realmlist {
   width: 33px;
   padding: 0px;
   font-size: 16px;
-  border-bottom-left-radius: 9px;
-  -moz-border-bottom-left-radius: 9px;
-  -webkit-border-bottom-left-radius: 9px;
-  -o-border-bottom-left-radius: 9px;
-  -ms-border-bottom-left-radius: 9px;
+  border-bottom-left-radius: 2px;
+  -moz-border-bottom-left-radius: 2px;
+  -webkit-border-bottom-left-radius: 2px;
+  -o-border-bottom-left-radius: 2px;
+  -ms-border-bottom-left-radius: 2px;
   background: #22262a;
   /* Old browsers */
   background: -moz-linear-gradient(top, #22262a 0%, #171919 100%);

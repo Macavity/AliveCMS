@@ -1,0 +1,40 @@
+@import "mixins";
+
+#carousel-slider {
+    .carousel-inner {
+        z-index: 5;
+    }
+    .carousel-inset {
+        display: block;
+        position: absolute;
+        z-index: 6;
+        width: 100%;
+        height: 100%;
+        @include vendorPrefix(box-shadow, inset 0px 0px 40px 15px rgba(0, 0, 0, 0.9));
+    }
+    .carousel-indicators {
+        bottom: 0px;
+    }
+    .carousel-caption {
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+        width: 100%;
+        z-index: 35;
+        text-shadow: 0 0 15px black, 0 0 15px black, 0 0 5px black, 0 0 19px black, 0 0 19px black;
+        background: none;
+        text-align: center;
+
+        h3 {
+            font-size: 22px;
+            font-weight: bold;
+            text-shadow: 0 0 15px black, 0 0 15px black, 0 0 5px black, 0 0 19px black, 0 0 19px black;
+            a {
+                color: #fff8d6;
+                &:hover {
+                    color: #fff;
+                }
+            }
+        }
+    }
+}

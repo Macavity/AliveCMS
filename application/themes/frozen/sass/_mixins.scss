@@ -56,7 +56,7 @@
  */
 @mixin roundCorners($radius, $collection: (top-left, top-right, bottom-right, bottom-left)) {
   @each $corner in $collection{
-    @include vendorPrefix(border-#{$corner}-radius, 9px);
+    @include vendorPrefix(border-#{$corner}-radius, $radius);
   }
 }
 
