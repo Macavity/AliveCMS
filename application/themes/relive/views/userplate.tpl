@@ -10,7 +10,7 @@
 {else}
     <div class="user-plate ajax-update">
         <a id="user-plate" class="card-character plate-{$factionString}" rel="np" href="{$activeChar.url}">
-            <span class="card-portrait" style="background-image:url(/{$activeChar.avatarUrl})"></span>
+            <span class="card-portrait" style="background-image:url(/{$activeChar.avatarUrl||""})"></span>
         </a>
         <div class="meta-wrapper meta-{$factionString}">
             <div class="meta">
