@@ -167,7 +167,8 @@ module.exports = function(grunt) {
             reliveDev: {
                 options: {
                     banner: bannerTemplate({name:"Senzaii - Relive Theme CSS", version:"<%=pkg.version%>"}),
-                    style: "expanded"
+                    style: "expanded",
+                    debugInfo: true
                 },
                 files: {
                     'application/themes/relive/css/main.css': 'application/themes/relive/css/main.scss'
