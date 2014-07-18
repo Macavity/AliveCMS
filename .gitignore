@@ -6,3 +6,4 @@ node_modules
 .sass-cache
 database.local.php
 live.iml
+.gitmodules
