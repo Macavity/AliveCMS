@@ -1,5 +1,5 @@
 /*!
- * Senzaii JS Lib v6.2.0-171 - 2014-07-03 13:54
+ * Senzaii JS Lib v6.2.0-171 - 2014-07-18 15:04
  * http://www.senzaii.net/
  * Copyright (c) 2014 Senzaii
  */

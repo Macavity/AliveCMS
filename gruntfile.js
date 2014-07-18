@@ -183,8 +183,8 @@ module.exports = function(grunt) {
                     style: "compressed"
                 },
                 files: {
-                    'application/themes/frozen/css/main.css': 'application/themes/frozen/sass/main.scss',
-                    'application/themes/frozen/css/ie.css': 'application/themes/frozen/sass/ie.scss'
+                    'application/themes/frozen/css/main.css': 'application/themes/frozen/_sass/main.scss',
+                    'application/themes/frozen/css/ie.css': 'application/themes/frozen/_sass/ie.scss'
                 }
             },
 
@@ -198,8 +198,8 @@ module.exports = function(grunt) {
                     debugInfo: true
                 },
                 files: {
-                    'application/themes/frozen/css/main.css': 'application/themes/frozen/sass/main.scss',
-                    'application/themes/frozen/css/ie.css': 'application/themes/frozen/sass/ie.scss'
+                    'application/themes/frozen/css/main.css': 'application/themes/frozen/_sass/main.scss',
+                    'application/themes/frozen/css/ie.css': 'application/themes/frozen/_sass/ie.scss'
                 }
             }
         },
