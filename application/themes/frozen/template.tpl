@@ -18,6 +18,7 @@
                         <li><a {$menu_1.link}>{$menu_1.name}<p></p></a><span></span></li>
                     {/foreach}
                 </ul>
+                {$userplate}
             </div>
             	
 			<div id="main">

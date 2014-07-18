@@ -131,11 +131,11 @@ a#server-logo {
     .top_menu {
         position: relative;
         width: 1034px;
-        height: 98px;
-        background-image: url(../images/menu.png);
+        height: 92px;
+        background: url(../images/menu.png) 0px -6px;
         margin: 0px 0 0 -7px;
         text-align: left;
-        overflow: hidden;
+        /* overflow: hidden; */
         z-index: 8;
     }
     #top_menu {
@@ -143,14 +143,14 @@ a#server-logo {
         height: 75px;
         border-radius: 6px;
         position: relative;
-        margin: 13px 0 0 13px;
+        margin: 6px 0 0 13px;
     }
 }
 
 #top_menu li {
     display: inline-block;
     margin: 1px 0 0 0;
-    padding: 0 28px 0 20px;
+    padding: 5px 28px 0 20px;
     background: url(../images/menu-seperator.png) no-repeat top right;
     position: relative;
     span {
