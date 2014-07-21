@@ -7,7 +7,7 @@
                 </div>
                 <div class="col-sm-7">
                     {if $event.url}
-                        <a href="{$event.url}" data-tooltip="{$event.note}">{$event.title}</a>
+                        <a href="{$eqdkpUrl}{$event.url}" data-tooltip="{$event.note}">{$event.title}</a>
                     {else}
                         {$event.title}
                     {/if}
