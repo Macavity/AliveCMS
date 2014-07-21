@@ -57,15 +57,17 @@ class Pay extends MY_Controller
             // Load the item
             $storeItems[$cartItemId] = $this->store_model->getItem($cartItemId);
 
+            $itemCount = abs($cartItem['count']);
+
             // Make sure the item exists
             if($storeItems[$cartItemId] != false && in_array($cartItem['type'], array('vp', 'dp'))){
 
                 // Keep track of how much it costs
                 if($cartItem['type'] == "vp" && !empty($storeItems[$cartItemId]['vp_price'])){
-                    $this->vp += $storeItems[$cartItemId]['vp_price'];
+                    $this->vp += $storeItems[$cartItemId]['vp_price'] * $itemCount;
                 }
                 elseif($cartItem['type'] == "dp" && !empty($storeItems[$cartItemId]['dp_price'])){
-                    $this->dp += $storeItems[$cartItemId]['dp_price'];
+                    $this->dp += $storeItems[$cartItemId]['dp_price'] * $itemCount;
                 }
                 else{
                     $this->show_error(lang("free_items", "store"));
@@ -144,7 +146,7 @@ class Pay extends MY_Controller
                     // Loop through the item IDs
                     foreach($temp as $id){
                         // Add them individually to the array
-                        $itemCount = $cartItem['count'];
+                        $itemCount = abs($cartItem['count']);
                         while($itemCount-- > 0){
                             array_push($realmItems[$storeItem['realm']][$recipientCharGuid], array(
                                 'id' => $id,
