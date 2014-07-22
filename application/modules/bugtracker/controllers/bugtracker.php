@@ -71,9 +71,14 @@ class Bugtracker extends MY_Controller{
              * Check if access to this realm is allowed for the current user
              */
             if(isset($this->categoryRealms[$l0key])){
-                $realm = $this->realms->getRealm($this->categoryRealms[$l0key]);
 
-                $accessAllowed = $realm->isAccessAllowed($this->user);
+                if($this->realms->realmExists($this->categoryRealms[$l0key])){
+                    $realm = $this->realms->getRealm($this->categoryRealms[$l0key]);
+                    $accessAllowed = $realm->isAccessAllowed($this->user);
+                }
+                else {
+                    $accessAllowed = false;
+                }
 
                 // Skip this category if the current user isn't allowed to view it.
                 if(!$accessAllowed){
