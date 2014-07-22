@@ -482,6 +482,12 @@
 
     $(document).ready(function() {
       activateTab(2);
+
+        $("#wiki").on("click",".group-column a",function(event) {
+            event.preventDefault();
+        });
+
+
     });
     //]]>
   </script>
