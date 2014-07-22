@@ -574,7 +574,6 @@ class Migration extends MY_Controller
                     $allowableRaces = array_keys($this->realms->getAllowableRaces($item['AllowableRace']));
                     if(count($allowableRaces) > 0 && !in_array($post['race'], $allowableRaces)){
                         $formErrors[] = "Achtung: Dein &lt;".$slotName.'&gt; ist nicht für die gewählte Rasse geeignet.';
-
                     }
                 }
             }

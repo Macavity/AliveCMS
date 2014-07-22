@@ -360,7 +360,7 @@ class Realms
     public function getAllowableRaces($mask){
 
         //debug($mask);
-        $mask &= 0x7FF;
+        //$mask &= 0x7FF;
         //debug($mask);
 
         // Return zero if for all class (or for none)
