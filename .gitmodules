@@ -1,0 +1,3 @@
+[submodule "application/themes/frozen"]
+	path = application/themes/frozen
+	url = git@bitbucket.org:Macavity/senzaiidesign.git
