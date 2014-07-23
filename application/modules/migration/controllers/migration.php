@@ -368,6 +368,47 @@ class Migration extends MY_Controller
 
         $migrations = array();
 
+        if($this->user->isOnline()){
+            foreach($openMigrations as $mig){
+
+                $actions = json_decode($mig["actions"], true);
+                $messageText = "";
+                if(is_array($actions) && count($actions) > 0){
+                    $last_action = array_pop($actions);
+                    $messageText = $last_action["by"].( empty($last_action["reason"]) ? "" : ": ".$last_action["reason"] );
+                }
+
+                $mig["state_label"] = $this->migration_model->getStateLabel($mig["status"]);
+                $mig["message"] = $messageText;
+
+                $migrations[] = $mig;
+            }
+        }
+
+        $out = $this->template->loadPage("migration_denied.tpl", array(
+            "reason" => $reason,
+            "cash_needed" => $points,
+            'open_migrations' => $migrations,
+        ));
+
+        $this->template->view($out);
+    }
+
+    public function listing($reason = "")
+    {
+        $this->user->userArea();
+
+        $this->template->addBreadcrumb("Transferliste", site_url(array("migration", "list")));
+
+        // Set the page title
+        $this->template->setTitle("Transfere");
+        $this->template->setSectionTitle("Liste meiner Transfere");
+
+        // Get Open Migrations
+        $openMigrations = $this->migration_model->getAccountMigrations($this->user->getId());
+
+        $migrations = array();
+
         foreach($openMigrations as $mig){
 
             $actions = json_decode($mig["actions"], true);
@@ -382,11 +423,10 @@ class Migration extends MY_Controller
 
             $migrations[] = $mig;
         }
-        debug($migrations);
+        //debug($migrations);
 
-        $out = $this->template->loadPage("migration_denied.tpl", array(
+        $out = $this->template->loadPage("migration_listing.tpl", array(
             "reason" => $reason,
-            "cash_needed" => $points,
             'open_migrations' => $migrations,
         ));
 
@@ -425,7 +465,7 @@ class Migration extends MY_Controller
 
         $accountMigrationCount = count($this->migration_model->getAccountMigrations($this->user->getId()));
 
-        if($accountMigrationCount > $this->config->item("migration_max_per_account")){
+        if($accountMigrationCount > $this->config->item("migration_max_per_account") && $this->user->isDev() == false){
             $this->denied("limit");
             exit;
         }
@@ -570,19 +610,17 @@ class Migration extends MY_Controller
                 if(!$item || $item == "empty"){
                     $formErrors[] = "Achtung: ".$slotName." beinhaltet keine gültige Id.";
                 }
-                else{
+                elseif($item['AllowableRace'] > 0){
                     $allowableRaces = array_keys($this->realms->getAllowableRaces($item['AllowableRace']));
+
+
                     if(count($allowableRaces) > 0 && !in_array($post['race'], $allowableRaces)){
                         $formErrors[] = "Achtung: Dein &lt;".$slotName.'&gt; ist nicht für die gewählte Rasse geeignet.';
                     }
                 }
             }
 
-
         }
-
-
-
 
         if ($this->form_validation->run() == FALSE || count($formErrors) > 0){
 
@@ -638,7 +676,11 @@ class Migration extends MY_Controller
             $this->jsonError(lang("unknown_item", "item"));
         }
 
-        $allowableRaces = $this->realms->getAllowableRaces($item['AllowableRace']);
+        $allowableRaces = array();
+
+        if($item['AllowableRaces'] > 0){
+            $allowableRaces = $this->realms->getAllowableRaces($item['AllowableRace']);
+        }
 
 
         $data = array(

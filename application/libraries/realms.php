@@ -359,6 +359,8 @@ class Realms
      */
     public function getAllowableRaces($mask){
 
+        $raceMask = array();
+
         //debug($mask);
         $mask &= 0x7FF;
         //debug($mask);
@@ -373,7 +375,6 @@ class Realms
         }
 
         $i = 1;
-        $raceMask = array();
 
         while($mask) {
             if($mask & 1) {
