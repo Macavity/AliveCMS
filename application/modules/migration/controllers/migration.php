@@ -610,13 +610,14 @@ class Migration extends MY_Controller
                 if(!$item || $item == "empty"){
                     $formErrors[] = "Achtung: ".$slotName." beinhaltet keine gültige Id.";
                 }
-                elseif($item['AllowableRace'] > 0){
+                elseif($item['AllowableRace'] > 0 && $item['AllowableRace'] < 1792){
                     $allowableRaces = array_keys($this->realms->getAllowableRaces($item['AllowableRace']));
 
-
-                    if(count($allowableRaces) > 0 && !in_array($post['race'], $allowableRaces)){
+                    if(count($allowableRaces) > 0 && !in_array($post['race'], $allowableRaces) && $item['AllowableRace'] < 1792){
                         $formErrors[] = "Achtung: Dein &lt;".$slotName.'&gt; ist nicht für die gewählte Rasse geeignet.';
                     }
+                elseif($item['AllowableRace'] >  1791)
+                    continue;
                 }
             }
 
