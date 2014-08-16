@@ -231,11 +231,13 @@
             <div class="controls">
                 Hauptberufe: {foreach from=$migration.professions item=prof}{$prof.label} {/foreach}
 <pre>
+{if $migration.Riding > 0}
 {if $migration.Riding == 301}
 .learn {$migration.Riding_learn}
 .learn 54197
 {else}
 .learn {$migration.Riding_learn}
+{/if}
 {/if}
 
 {foreach from=$migration.professions item=prof}
@@ -243,14 +245,20 @@
 .setskill {$prof.skill} {min($prof.skill_level,450)} 450
 {/foreach}
 
+{if $migration.Cooking > 0}
 .learn 2550
-.setskill 185 {$migration.professions.Cooking} 450
+.setskill 185 {$migration.Cooking} 450
+{/if}
 
+{if $migration.Angling > 0}
 .learn 7620
-.setskill 356 {$migration.professions.Angling} 450
+.setskill 356 {$migration.Angling} 450
+{/if}
 
+{if $migration.Firstaid > 0}
 .learn 3279
-.setskill 129 {$migration.professions.Firstaid} 450
+.setskill 129 {$migration.Firstaid} 450
+{/if}
 </pre>
             </div>
         </div>

@@ -119,7 +119,7 @@ class Migration_model extends MY_Model {
         );
 
         $this->ridingLevels = array(
-            0 => 0,
+            0 => '0',
             75 => '75',
             150 => '150',
             225 => '225',

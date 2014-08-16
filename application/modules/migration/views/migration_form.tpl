@@ -133,7 +133,7 @@
         <div class="btn-group" data-toggle="buttons">
           {foreach from=$ridingLevels key=level item=label}
               <label class="btn btn-default {if $level == $post.Riding}active{/if}">
-                  <input type="radio" name="Riding" id="Riding{$level}"> {$label}
+                  <input type="radio" name="Riding" id="Riding{$level}" value="{$level}"> {$label}
               </label>
           {/foreach}
         </div>
