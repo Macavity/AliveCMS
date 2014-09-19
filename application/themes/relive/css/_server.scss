@@ -4,15 +4,6 @@
 
 .module-server {
   .sidebar-module .content-block {
-    a {
-      background: url("http://forum.wow-alive.de/static-wow/images/game/landing/sub-contents-sprite.gif") 0 0 no-repeat;
-    }
-    .block {
-      background: url("http://forum.wow-alive.de/static-wow/images/game/landing/sub-contents-sprite.gif") 0 0 no-repeat;
-    }
-    ul li a.sub-list {
-      background: url("http://forum.wow-alive.de/static-wow/images/icons/bullet2.gif") 0 4px no-repeat;
-    }
     .content-1 {
       background-position: 3px -3px;
     }
@@ -46,13 +37,6 @@
 
 
   .main-content-banner {
-    .panel {
-      background: url("http://forum.wow-alive.de/static-wow/images/layout/bg-panel-layout.png") repeat scroll 0% 0% transparent;
-
-      .view-all {
-        background: url("http://forum.wow-alive.de/static-wow/images/community/community-index-sprite.png") 100% -866px no-repeat;
-      }
-    }
     &.left-bnr {
       float: left;
       margin-left: 27px;

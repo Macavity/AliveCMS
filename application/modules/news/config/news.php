@@ -7,7 +7,7 @@
 |--------------------------------------------------------------------------
 */
 $config['news_internal'] = true;
-$config['news_external'] = true;
+$config['news_external'] = false;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,10 +33,10 @@ $config['rss_lang'] = "en-us";
 */
 
 //Enable getting the news from an external source. false - Disable, true - Enable
-$config['news_external_source'] = "http://forum.wow-alive.de/external_news.php";
+$config['news_external_source'] = "";
 
 // Set if the generated html contains images with relative paths. No trailing slash.
-$config['news_external_domain'] = "http://forum.wow-alive.de";
+$config['news_external_domain'] = "";
 
 // Set if the generated html contains images with relative paths.
-$config['news_external_more'] = "http://forum.wow-alive.de/forumdisplay.php?f=16";
+$config['news_external_more'] = "";
