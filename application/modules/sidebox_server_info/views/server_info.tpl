@@ -47,7 +47,12 @@
             </div>
         </div>
     {/if}
-
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="pull-left">Teamspeak:</div>
+                <div class="pull-right light"><a href="ts3server://senzaii.net?password=senzaii" target="_self">senzaii.net</a></div>
+            </div>
+        </div>
     <br/>
     <div class="row">
         <div class="col-md-12"><strong>Raten für <span class="wow-exp-2">Norgannon (3.3.5)</span></strong></div>
