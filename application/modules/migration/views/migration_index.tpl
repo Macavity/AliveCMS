@@ -18,6 +18,7 @@
         <li>Erfolge<br></li>
         <li>Embleme und Titel<br></li>
         <li>Items die man bei uns nicht erlangen kann.<br></li>
+        <li>Erspendetes und / oder gekauftes Equip.<br></li>
     </ol>
 </p>
 
